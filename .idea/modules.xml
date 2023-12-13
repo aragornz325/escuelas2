@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/escuelas_client/melos_escuelas_client.iml" filepath="$PROJECT_DIR$/escuelas_client/melos_escuelas_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/escuelas_flutter/melos_escuelas_flutter.iml" filepath="$PROJECT_DIR$/escuelas_flutter/melos_escuelas_flutter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/escuelas_server/melos_escuelas_server.iml" filepath="$PROJECT_DIR$/escuelas_server/melos_escuelas_server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/melos_escuelas.iml" filepath="$PROJECT_DIR$/melos_escuelas.iml" />
+    </modules>
+  </component>
+</project>

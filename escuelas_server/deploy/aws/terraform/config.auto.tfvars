@@ -81,8 +81,8 @@ staging_autoscaling_desired_capacity = 1
 
 # The deployment bucket name needs to be unique and can only contain lower case
 # letters and dashes (no underscored allowed).
-deployment_bucket_name              = "escuelas-deployment-4733289"
-public_storage_bucket_name          = "escuelas-public-storage-4733289"
-private_storage_bucket_name         = "escuelas-private-storage-4733289"
-public_storage_bucket_name_staging  = "escuelas-public-storage-staging-4733289"
-private_storage_bucket_name_staging = "escuelas-private-storage-staging-4733289"
+deployment_bucket_name              = "escuelas-deployment-647130"
+public_storage_bucket_name          = "escuelas-public-storage-647130"
+private_storage_bucket_name         = "escuelas-private-storage-647130"
+public_storage_bucket_name_staging  = "escuelas-public-storage-staging-647130"
+private_storage_bucket_name_staging = "escuelas-private-storage-staging-647130"
