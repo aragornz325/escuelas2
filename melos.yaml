@@ -1,0 +1,20 @@
+name: escuelas
+
+packages:
+  - escuelas_client/
+  - escuelas_flutter/
+  - escuelas_server/
+
+scripts:
+  pubget:
+    run: melos exec "flutter pub get"
+  servergen:
+    run: melos exec --scope="*server*" -- "serverpod generate"
+  runserver:
+    run: melos exec --scope="*server*" -- "dart bin/main.dart --mode staging"
+  buildwebdev:
+    run: melos exec --scope="*flutter*" -- "flutter clean && flutter build web -t lib/main_development.dart"
+  buildwebstag:
+    run: melos exec --scope="*flutter*" -- "flutter clean && flutter build web -t lib/main_staging.dart"
+  buildwebprod:
+    run: melos exec --scope="*flutter*" -- "flutter clean && flutter build web -t lib/main_production.dart"
