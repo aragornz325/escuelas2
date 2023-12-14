@@ -53,6 +53,11 @@ flutter:
     - stg.env
     - dev.env
     - prod.env
+  fonts:
+    - family: Nunito
+      fonts:
+        - asset: assets/fonts/Nunito-Regular.ttf
+        - asset: assets/fonts/Nunito-Bold.ttf
 
 full_responsive:
   resolutions:
