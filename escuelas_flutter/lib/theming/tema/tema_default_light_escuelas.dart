@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 /// Tema base del proyecto Escuelas, con colores asignados por diseño
 final temaPorDefectoEscuelas = ThemeData(
-  fontFamily: 'LouisGeorgeCafe',
+  fontFamily: 'Nunito',
   colorScheme: themeDefaultEscuelas,
   useMaterial3: true,
 );

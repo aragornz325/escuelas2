@@ -1,3 +1,4 @@
+import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:flutter/material.dart';
 
 /// {@template EscuelasScaffold}
