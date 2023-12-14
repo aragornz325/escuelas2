@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:escuelas_flutter/src/utils/cliente_serverpod.dart';
 import 'package:flutter/widgets.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -26,6 +27,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
   };
 
   Bloc.observer = const AppBlocObserver();
+
+  await inicializarClienteServerpod(hostUrl: 'http://localhost:8080/', entorno: 'development');
 
   // Add cross-flavor configuration here
 
