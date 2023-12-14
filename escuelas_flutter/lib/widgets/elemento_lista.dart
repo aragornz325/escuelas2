@@ -54,7 +54,7 @@ class ElementoLista extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
     return InkWell(
-      onTap: estaHabilitado ? onTap : () {},
+      onTap: estaHabilitado ? onTap : null,
       child: Container(
         height: max(altura.sh, altura.ph),
         width: ancho.pw,
