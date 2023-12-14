@@ -44,7 +44,8 @@ class ElementoLista extends StatelessWidget {
   /// Tamanio de la fuente, ya tiene .pf
   final double fontSize;
 
-  /// Componente que se agrega al final del elemento lista
+  /// Componente que se agrega al final del elemento lista, permitiendo
+  /// que sea mas customizable
   final Widget? widgetTrasero;
 
   final FontWeight fontWeight;
