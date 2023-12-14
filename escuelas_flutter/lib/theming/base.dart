@@ -20,4 +20,13 @@ extension EscuelasColorScheme on ColorScheme {
 
   /// Color utilizado de fondo en version Desktop.
   Color get marfilBackgroundDesktop => const Color(0xffe8e8e8);
+
+  /// Color utilizado en el promedio TEA
+  Color get verdeTEA => const Color(0xff62B446);
+
+  /// Color utilizado en el promedio TEP
+  Color get naranjaTEP => const Color(0xffFF7E21);
+
+  /// Color utilizado en el promedio TED
+  Color get rojoTED => const Color(0xffFF4444);
 }

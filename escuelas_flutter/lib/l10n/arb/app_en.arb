@@ -1,7 +1,21 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+
+
+    
+    
+    "commonMail": "Mail",
+    "@commonMail": {
+        "description": "Text to be displayed in common places"
+    },
+    
+    "commonCompleteTheField": "Complete the field",
+    "@commonCompleteTheField": {
+        "description": "Text to be displayed in common places to indicate that the field must be completed"
+    },
+
+    "commonEnterAValidEmail": "Enter a valid email",
+    "@commonEnterAValidEmail": {
+        "description": "Text to indicate that the email is invalid"
     }
 }
