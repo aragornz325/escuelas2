@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:escuelas_flutter/src/utils/cliente_serverpod.dart';
+import 'package:escuelas_flutter/utilidades/utilidades.dart';
 import 'package:flutter/widgets.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -21,16 +21,31 @@ class AppBlocObserver extends BlocObserver {
   }
 }
 
-Future<void> bootstrap(FutureOr<Widget> Function() builder) async {
+Future<void> bootstrap(
+  FutureOr<Widget> Function() builder, {
+  required String hostUrl,
+  required String entorno,
+}) async {
   FlutterError.onError = (details) {
     log(details.exceptionAsString(), stackTrace: details.stack);
   };
 
   Bloc.observer = const AppBlocObserver();
 
-  await inicializarClienteServerpod(hostUrl: 'http://localhost:8080/', entorno: 'development');
-
   // Add cross-flavor configuration here
+  // Add cross-flavor configuration here
+  await inicializarClienteServerpod(
+    hostUrl: hostUrl,
+    entorno: entorno,
+  );
 
   runApp(await builder());
+}
+
+/// Enum que especifica el entorno de desarrollo a utilizar para pasarselo
+/// por parametro a la funcion del initializeServerpodClient.
+enum EntornosDeDesarrollo {
+  staging,
+  development,
+  production,
 }
