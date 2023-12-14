@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 /// Esquema de color claro por defecto de Escuelas
 const themeDefaultEscuelas = ColorScheme.light(
-  ///Color utilizado en los apartados de autenticacion para hinttext de los
-  ///textfields, botones, textos, etc
+  /// Color utilizado en los apartados de autenticacion para hinttext de los
+  /// textfields, botones, textos, etc
   primary: Color(0xff170E68),
 
   /// Color utilizado en su mayoria para marcar un item seleccionado.
