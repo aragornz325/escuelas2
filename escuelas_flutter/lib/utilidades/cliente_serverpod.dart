@@ -1,9 +1,9 @@
-import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
+// import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 
 import 'package:escuelas_client/escuelas_client.dart';
 
-late SessionManager sessionManager;
+// late SessionManager sessionManager;
 late Client client;
 
 Future<void> inicializarClienteServerpod({
@@ -37,5 +37,5 @@ Future<void> inicializarClienteServerpod({
   //   caller: client.modules.auth,
   // );
 
-  await sessionManager.initialize();
+  // await sessionManager.initialize();
 }
