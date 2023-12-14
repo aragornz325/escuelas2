@@ -18,3 +18,5 @@ scripts:
     run: melos exec --scope="*flutter*" -- "flutter clean && flutter build web -t lib/main_staging.dart"
   buildwebprod:
     run: melos exec --scope="*flutter*" -- "flutter clean && flutter build web -t lib/main_production.dart"
+  l10n:     
+    run: melos exec --scope="flutter" -- "flutter gen-l10n"

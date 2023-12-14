@@ -1,0 +1,14 @@
+builders:
+  full_responsive_widgets_builder:
+    import: "package:full_responsive/builder.dart"
+    builder_factories: ["fullResponsiveWidgetsBuilder"]
+    build_extensions:
+      {
+        "lib/$lib$":
+          [
+            "lib/src/full_responsive/full_responsive_app.g.dart",
+            "lib/src/full_responsive/full_responsive_screen.g.dart",
+          ],
+      }
+    build_to: source
+    auto_apply: dependents
