@@ -13,8 +13,10 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return FullResponsiveApp(
       child: MultiBlocProvider(
-        providers: const [],
-        child: Container(),
+        providers: const [
+          /// TODO: Add providers
+        ],
+        child: const AppView(),
       ),
     );
   }
