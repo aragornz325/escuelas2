@@ -3,6 +3,7 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route_observer.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_app.g.dart';
+import 'package:escuelas_flutter/theming/tema/tema_por_default_light_escuelas.dart';
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {
@@ -46,6 +47,7 @@ class _AppViewState extends State<AppView> {
         behavior: NoGlowBehavior(),
         child: child!,
       ),
+      theme: temaPorDefectoEscuelas,
       routerDelegate: AutoRouterDelegate(
         appRouter,
         navigatorObservers: () => [RouterObserver()],
