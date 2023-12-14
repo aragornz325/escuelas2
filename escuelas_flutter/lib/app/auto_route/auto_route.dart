@@ -3,6 +3,7 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/app/auto_route/router_guards.dart';
 import 'package:escuelas_flutter/utilidades/utilidades.dart';
 
+@AutoRouterConfig()
 class AppRouter extends $AppRouter {
   AppRouter();
 
@@ -27,11 +28,11 @@ class AppRouter extends $AppRouter {
 
   @override
   List<AutoRoute> get routes => [
-       AutoRoute(
+        AutoRoute(
           initial: true,
-          page: RutaLogin.page,
-          path: '/login',
+          page: PaginaEjemplo.page,
+          path: '/ejemplo',
           guards: [initialGuard],
         ),
-  ];
+      ];
 }

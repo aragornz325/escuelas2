@@ -34,7 +34,7 @@ Future<void> bootstrap(
 
   // Add cross-flavor configuration here
   // Add cross-flavor configuration here
-  await initializeServerpodClient(
+  await inicializarClienteServerpod(
     hostUrl: hostUrl,
     entorno: entorno,
   );

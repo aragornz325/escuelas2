@@ -1,11 +1,12 @@
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
+
+import 'package:escuelas_client/escuelas_client.dart';
 
 late SessionManager sessionManager;
 late Client client;
 
-Future<void> initializeServerpodClient({
+Future<void> inicializarClienteServerpod({
   required String hostUrl,
   required String entorno,
 }) async {
@@ -23,18 +24,18 @@ Future<void> initializeServerpodClient({
   // production servers.
   client = Client(
     hostUrl,
-    authenticationKeyManager: FlutterAuthenticationKeyManager(
-      runMode: entorno,
-      storage: SharedPreferenceStorage(),
-    ),
+    // authenticationKeyManager: FlutterAuthenticationKeyManager(
+    //   runMode: entorno,
+    //   storage: SharedPreferenceStorage(),
+    // ),
   )..connectivityMonitor = FlutterConnectivityMonitor();
 
   // The session manager keeps track of the signed-in state of the user. You
   // can query it to see if the user is currently signed in and get information
   // about the user.
-  sessionManager = SessionManager(
-    caller: client.modules.auth,
-  );
+  // sessionManager = SessionManager(
+  //   caller: client.modules.auth,
+  // );
 
   await sessionManager.initialize();
 }

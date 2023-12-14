@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/app/auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route_observer.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/src/full_responsive/full_responsive_app.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -32,11 +32,11 @@ class AppView extends StatefulWidget {
 }
 
 class _AppViewState extends State<AppView> {
-  late AppRouter appRouter;
+  // late AppRouter appRouter;
 
   @override
   void initState() {
-    appRouter = AppRouter();
+    // appRouter = AppRouter();
 
     super.initState();
   }
@@ -49,11 +49,11 @@ class _AppViewState extends State<AppView> {
         behavior: NoGlowBehavior(),
         child: child!,
       ),
-      routerDelegate: AutoRouterDelegate(
-        appRouter,
-        navigatorObservers: () => [RouterObserver()],
-      ),
-      routeInformationParser: appRouter.defaultRouteParser(),
+      // routerDelegate: AutoRouterDelegate(
+      //   appRouter,
+      //   navigatorObservers: () => [RouterObserver()],
+      // ),
+      // routeInformationParser: appRouter.defaultRouteParser(),
       localizationsDelegates: const [
         ...AppLocalizations.localizationsDelegates,
       ],
