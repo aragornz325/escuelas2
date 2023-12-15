@@ -27,6 +27,8 @@ class EscuelasTextfield extends StatefulWidget {
     this.inputFormatters,
     this.cursorColor,
     this.obscureText,
+    this.maxLength,
+    this.maxLines,
   });
 
   /// TextFormField de email con su expresion regular.
@@ -124,6 +126,12 @@ class EscuelasTextfield extends StatefulWidget {
   /// Color del cursor al estar con el foco puesto
   final Color? cursorColor;
 
+  /// Caracteres maximos de longitud
+  final int? maxLength;
+
+  /// Lineas maximas a ingresar
+  final int? maxLines;
+
   @override
   State<EscuelasTextfield> createState() => _EscuelasTextfieldState();
 }
@@ -142,6 +150,8 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
         inputFormatters: widget.inputFormatters,
         obscureText: widget.obscureText ?? false,
         cursorColor: widget.cursorColor ?? colores.primary,
+        maxLength: widget.maxLength,
+        maxLines: widget.maxLines,
         style: TextStyle(color: colores.primary),
         decoration: widget.decoration ??
             InputDecoration(
