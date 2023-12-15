@@ -185,7 +185,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
 }
 
 /// {@templates EscuelasTextFieldPassword}
-/// Textfiel custom de Escuelas de uso exclusivo para contraseñas
+/// Textfield custom de Escuelas de uso exclusivo para contraseñas
 /// {endtemplate}
 class EscuelasTextFieldPassword extends StatefulWidget {
   /// {@macro EscuelasTextFieldPassword}
