@@ -17,5 +17,16 @@
     "commonEnterAValidEmail": "Enter a valid email",
     "@commonEnterAValidEmail": {
         "description": "Text to indicate that the email is invalid"
+    },
+
+    "commonPassword": "Password",
+    "@commonPassword": {
+        "description": "Text to be displayed in common places to indicate password text"
+    },
+
+    "commonOnlyNumbers": "Only numbers",
+    "@commonOnlyNumbers": {
+        "description": "Text to indicate that only numbers are allowed"
     }
+
 }

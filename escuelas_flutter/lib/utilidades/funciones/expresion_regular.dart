@@ -18,4 +18,7 @@ class ExpresionRegular {
 
   /// Expresion regular que solo admite formato datetime.
   static RegExp get dateTimeRegExp => RegExp(r'^[0-9/-\s]+$');
+
+  /// Expresion regular que solo admite numeros.
+  static RegExp get numerosRegExp => RegExp(r'^[0-9]+$');
 }

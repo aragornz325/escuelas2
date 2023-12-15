@@ -26,6 +26,7 @@ class EscuelasTextfield extends StatefulWidget {
     this.onChanged,
     this.inputFormatters,
     this.cursorColor,
+    this.obscureText,
   });
 
   /// TextFormField de email con su expresion regular.
@@ -41,12 +42,42 @@ class EscuelasTextfield extends StatefulWidget {
     return EscuelasTextfield(
       hintText: l10n.commonMail,
       controller: controller,
+      keyboardType: TextInputType.emailAddress,
       esPassword: false,
       validator: (email) {
         if (email?.isEmpty ?? false) {
           return l10n.commonCompleteTheField;
         } else if (!ExpresionRegular.emailRegExp.hasMatch(email ?? '')) {
           return l10n.commonEnterAValidEmail;
+        }
+        return null;
+      },
+    );
+  }
+
+  factory EscuelasTextfield.soloNumero({
+    /// Controller del TextFormField eMail
+    required TextEditingController controller,
+
+    /// Texto guía
+    required String hintText,
+
+    /// Contexto para traducciones
+    required BuildContext context,
+  }) {
+    final l10n = context.l10n;
+
+    return EscuelasTextfield(
+      hintText: hintText,
+      controller: controller,
+      esPassword: false,
+      keyboardType: TextInputType.number,
+      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      validator: (value) {
+        if (value?.isEmpty ?? false) {
+          return l10n.commonCompleteTheField;
+        } else if (!ExpresionRegular.numerosRegExp.hasMatch(value ?? '')) {
+          return l10n.commonOnlyNumbers;
         }
         return null;
       },
@@ -73,6 +104,9 @@ class EscuelasTextfield extends StatefulWidget {
 
   /// Identifica si se trata de un textformfield orientado a contraseñas
   final bool esPassword;
+
+  /// Identifica si el texto debe ser oculto
+  final bool? obscureText;
 
   /// Icono derecho
   final Widget? suffixIcon;
@@ -106,6 +140,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
         controller: widget.controller,
         keyboardType: widget.keyboardType ?? TextInputType.none,
         inputFormatters: widget.inputFormatters,
+        obscureText: widget.obscureText ?? false,
         cursorColor: widget.cursorColor ?? colores.primary,
         style: TextStyle(color: colores.primary),
         decoration: widget.decoration ??
@@ -135,6 +170,77 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
           });
         },
       ),
+    );
+  }
+}
+
+class EscuelasTextFieldPassword extends StatefulWidget {
+  const EscuelasTextFieldPassword({
+    required this.controller,
+    super.key,
+    this.validator,
+    this.hintText,
+  });
+
+  /// Controller del TextFormField eMail
+  final TextEditingController controller;
+
+  /// Validator para contraseñas
+  final String? Function(String? value)? validator;
+
+  /// Texto interno del TextFormField
+  final String? hintText;
+
+  @override
+  State<EscuelasTextFieldPassword> createState() =>
+      _EscuelasTextFieldPasswordState();
+}
+
+class _EscuelasTextFieldPasswordState extends State<EscuelasTextFieldPassword> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final colores = context.colores;
+
+    return EscuelasTextfield(
+      hintText: widget.hintText ?? l10n.commonPassword,
+      controller: widget.controller,
+      esPassword: true,
+      obscureText: _obscureText,
+      suffixIcon: Padding(
+        padding: EdgeInsets.only(right: 10.sw),
+        child: IconButton(
+          icon: _obscureText
+              ? Icon(
+                  Icons.visibility_off_outlined,
+                  color: colores.onSecondary,
+                  size: 18.sw,
+                )
+              : Icon(
+                  Icons.visibility_outlined,
+                  color: colores.onSecondary,
+                  size: 18.sw,
+                ),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        ),
+      ),
+      validator: (value) {
+        if (value?.isEmpty ?? false) {
+          return l10n.commonCompleteTheField;
+        }
+
+        if (widget.validator != null) {
+          return widget.validator?.call(value);
+        }
+
+        return null;
+      },
     );
   }
 }
