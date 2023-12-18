@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -12,14 +10,17 @@ class ElementoLista extends StatelessWidget {
   /// {@macro ElementoLista}
   const ElementoLista({
     required this.titulo,
+    this.colorTitulo,
+    this.padding,
     this.colorFondo,
     this.estaHabilitado = true,
     this.onTap,
     this.altura = 65,
-    this.ancho = 329,
+    this.ancho,
     this.fontSize = 16,
     this.fontWeight = FontWeight.w600,
     this.widgetTrasero,
+    this.radioDelBorde = 20,
     super.key,
   });
 
@@ -31,12 +32,14 @@ class ElementoLista extends StatelessWidget {
 
   /// Color del background
   final Color? colorFondo;
+  final Color? colorTitulo;
 
   /// Altura con .ph
   final double altura;
+  final double? padding;
 
   /// Ancho con .pw
-  final double ancho;
+  final double? ancho;
 
   /// Indica si esta habilitado para presionarse o no el boton
   final bool estaHabilitado;
@@ -50,37 +53,40 @@ class ElementoLista extends StatelessWidget {
 
   final FontWeight fontWeight;
 
+  final double radioDelBorde;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
     return InkWell(
       onTap: estaHabilitado ? onTap : null,
-      child: Container(
-        height: max(altura.sh, altura.ph),
-        width: ancho.pw,
-        decoration: BoxDecoration(
-          color: estaHabilitado
-              ? colorFondo ?? colores.tertiary
-              : colores.secondary,
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.all(20.sw),
+      child: Expanded(
+        child: Container(
+          height: altura,
+          width: ancho,
+          decoration: BoxDecoration(
+            color: estaHabilitado
+                ? colorFondo ?? colores.tertiary
+                : colores.secondary,
+            borderRadius: BorderRadius.circular(radioDelBorde),
+          ),
+          child: Align(
+            alignment: Alignment.centerLeft,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  titulo,
-                  style: TextStyle(
-                    fontWeight: fontWeight,
-                    fontSize: fontSize.pf,
+                Padding(
+                  padding: EdgeInsets.all(padding ?? 20.pw),
+                  child: Text(
+                    titulo,
+                    style: TextStyle(
+                      fontWeight: fontWeight,
+                      fontSize: fontSize,
+                      color: colorTitulo,
+                    ),
                   ),
                 ),
-                if (widgetTrasero != null) ...[
-                  widgetTrasero!,
-                ],
+                widgetTrasero ?? const SizedBox.shrink(),
               ],
             ),
           ),
