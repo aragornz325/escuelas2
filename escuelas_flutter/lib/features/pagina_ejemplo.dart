@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_app.g.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:flutter/material.dart';
@@ -36,48 +37,48 @@ class _EjemploState extends State<Ejemplo> {
               children: [
                 const ItemCurso(
                   titulo: 'PRIMERO',
-                  linksEnviados: false,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: false,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'SEGUNDO',
-                  linksEnviados: false,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: false,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'TERCERO',
-                  linksEnviados: false,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: false,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'CUARTO',
-                  linksEnviados: false,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: false,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'QUINTO',
-                  linksEnviados: false,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: false,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'SEXTO',
-                  linksEnviados: false,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: false,
+                  todasMateriasCargadas: false,
                 ),
               ],
             ),
@@ -88,48 +89,48 @@ class _EjemploState extends State<Ejemplo> {
               children: [
                 const ItemCurso(
                   titulo: 'PRIMERO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'SEGUNDO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'TERCERO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'CUARTO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'QUINTO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: false,
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'SEXTO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: false,
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: false,
                 ),
               ],
             ),
@@ -140,54 +141,54 @@ class _EjemploState extends State<Ejemplo> {
               children: [
                 const ItemCurso(
                   titulo: 'PRIMERO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: true,
-                  fechaCalificacionesEnviadas: '12/12/23',
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: true,
+                  fechaUltimaMateriaCargada: '12/12/23',
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'SEGUNTO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: true,
-                  fechaCalificacionesEnviadas: '12/12/23',
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: true,
+                  fechaUltimaMateriaCargada: '12/12/23',
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'TERCERO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: true,
-                  fechaCalificacionesEnviadas: '12/12/23',
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: true,
+                  fechaUltimaMateriaCargada: '12/12/23',
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'CUARTO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: true,
-                  fechaCalificacionesEnviadas: '12/12/23',
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: true,
+                  fechaUltimaMateriaCargada: '12/12/23',
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'QUINTO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: true,
-                  fechaCalificacionesEnviadas: '12/12/23',
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: true,
+                  fechaUltimaMateriaCargada: '12/12/23',
                 ),
                 SizedBox(
                   height: 5.ph,
                 ),
                 const ItemCurso(
                   titulo: 'SEXTO',
-                  linksEnviados: true,
-                  todasCalificacionesEnviadas: true,
-                  fechaCalificacionesEnviadas: '12/12/23',
+                  habilitacionCargaDeCalificaciones: true,
+                  todasMateriasCargadas: true,
+                  fechaUltimaMateriaCargada: '12/12/23',
                 ),
                 SizedBox(
                   height: 5.ph,
@@ -204,16 +205,24 @@ class _EjemploState extends State<Ejemplo> {
 class ItemCurso extends StatelessWidget {
   const ItemCurso({
     required this.titulo,
-    required this.linksEnviados,
-    required this.todasCalificacionesEnviadas,
-    this.fechaCalificacionesEnviadas,
+    required this.habilitacionCargaDeCalificaciones,
+    required this.todasMateriasCargadas,
+    this.fechaUltimaMateriaCargada,
     super.key,
   });
 
+  /// Titulo de curso
   final String titulo;
-  final bool linksEnviados;
-  final bool todasCalificacionesEnviadas;
-  final String? fechaCalificacionesEnviadas;
+
+  /// Indica si los links fueron enviados
+  final bool habilitacionCargaDeCalificaciones;
+
+  /// Indica si todas las calificaciones fueron cargadas
+  final bool todasMateriasCargadas;
+
+  /// Fecha de la ultima materia del curso a la que se le cargo las
+  /// calificaciones
+  final String? fechaUltimaMateriaCargada;
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -223,19 +232,17 @@ class ItemCurso extends StatelessWidget {
       colorTitulo: Colors.white,
       altura: 45.ph,
       padding: 12.pw,
-      colorFondo: todasCalificacionesEnviadas
-          ? const Color(0xff6788FF)
-          : colores.onSecondary,
+      colorFondo: todasMateriasCargadas ? colores.azul : colores.onSecondary,
       fontSize: 16.pf,
       fontWeight: FontWeight.w700,
-      widgetTrasero: linksEnviados
+      widgetTrasero: habilitacionCargaDeCalificaciones
           ? Container(
               width: 100.pw,
               height: 45.ph,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(30.sw)),
-                color: linksEnviados
-                    ? todasCalificacionesEnviadas
+                color: habilitacionCargaDeCalificaciones
+                    ? todasMateriasCargadas
                         ? Colores(context).segunVencimientoSegunFecha(
                             dia: 9,
                           )
@@ -246,9 +253,7 @@ class ItemCurso extends StatelessWidget {
               ),
               child: Center(
                 child: Text(
-                  todasCalificacionesEnviadas
-                      ? fechaCalificacionesEnviadas!
-                      : '4/12',
+                  todasMateriasCargadas ? fechaUltimaMateriaCargada! : '4/12',
                   style: TextStyle(
                     color: colores.background,
                     fontSize: 15.pf,
@@ -260,7 +265,7 @@ class ItemCurso extends StatelessWidget {
           : Padding(
               padding: EdgeInsets.only(right: 10.pw),
               child: Text(
-                'SIN ENVIAR . 0/12',
+                'SIN HABILITAR . 0/12',
                 style: TextStyle(
                   fontSize: 15.pf,
                   fontWeight: FontWeight.w600,
