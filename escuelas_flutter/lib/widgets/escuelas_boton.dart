@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -32,10 +33,18 @@ class EscuelasBoton extends StatelessWidget {
     /// Texto interno del boton.
     required String texto,
 
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
     /// Tamaño del texto
-    required int fontSize,
+    int? fontSize,
+
+    /// Ancho del boton, por defecto es 130
+    double? width,
   }) {
+    final colores = context.colores;
     return EscuelasBoton(
+      width: width?.pw,
       estaHabilitado: estaHabilitado,
       onTap: onTap,
       color: color,
@@ -43,7 +52,8 @@ class EscuelasBoton extends StatelessWidget {
       child: Text(
         texto.toUpperCase(),
         style: TextStyle(
-          fontSize: fontSize.pf,
+          fontSize: fontSize?.pf ?? 16.pf,
+          color: colores.background,
         ),
       ),
     );
@@ -63,16 +73,18 @@ class EscuelasBoton extends StatelessWidget {
     required BuildContext context,
   }) {
     final colores = context.colores;
+    final l10n = context.l10n;
 
     return EscuelasBoton(
+      width: 210,
+      height: max(30.sh, 30.ph),
       estaHabilitado: estaHabilitado,
       onTap: onTap,
       color: color,
       child: Row(
         children: [
           Text(
-            //! TODO(MANU): l10n
-            'Ingresar con Google',
+            l10n.loginPageLoginWithGoogle,
             style: TextStyle(
               fontSize: 12.pf,
               color: colores.background,
@@ -89,7 +101,7 @@ class EscuelasBoton extends StatelessWidget {
   /// Funcion al presionar el boton
   final VoidCallback onTap;
 
-  /// Ancho del boton, por defecto es 130
+  /// Ancho del boton, por defecto es 130. Parametro con .pw aplicado.
   final double? width;
 
   /// Altura del boton, por defecto es 40
@@ -108,7 +120,7 @@ class EscuelasBoton extends StatelessWidget {
     return GestureDetector(
       onTap: estaHabilitado ? onTap : null,
       child: Container(
-        width: width ?? 130.pw,
+        width: width?.pw ?? 130.pw,
         height: height ?? max(40.sh, 40.ph),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.sw),
