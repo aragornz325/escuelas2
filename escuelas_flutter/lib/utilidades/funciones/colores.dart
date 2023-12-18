@@ -3,13 +3,15 @@ import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 
 class Colores {
-  const Colores(this.context);
+  const Colores(
+    this.context,
+  );
+
   final BuildContext context;
 
-  Color segunVencimientoSegunFecha({
-    required int dia,
-  }) {
-    final colores = context.colores;
+  ColorScheme get colores => context.colores;
+
+  Color segunVencimientoSegunFecha({required int dia}) {
     if (dia > 0 && dia <= 4) {
       return colores.verdeConfirmar;
     } else if (dia > 4 && dia <= 6) {
@@ -25,16 +27,13 @@ class Colores {
 
   /// Devuelve un color segun la proporcion de materias cargadas (la proporcion
   /// debe ser un valor entre 0 y 1)
-  Color segunProporcionDeMateriasCargadas({
-    required double proporcion,
-  }) {
-    final colores = context.colores;
-    if (proporcion >= 0 && proporcion <= .4) {
-      return colores.error;
-    } else if (proporcion > 0.4 && proporcion <= .7) {
+  Color segunProporcionDeMateriasCargadas({required double proporcion}) {
+    if (proporcion == 1) {
+      return colores.verdeConfirmar;
+    } else if (proporcion > 0.7 && proporcion < 1) {
       return colores.naranjaMediaFalta;
     } else {
-      return colores.verdeConfirmar;
+      return colores.error;
     }
   }
 }
