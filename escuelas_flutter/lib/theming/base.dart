@@ -21,6 +21,13 @@ extension EscuelasColorScheme on ColorScheme {
   /// Color utilizado de fondo en version Desktop.
   Color get marfilBackgroundDesktop => const Color(0xffe8e8e8);
 
+  /// Se utiliza para el color del texto Sin Calificacion(SC) o la flecha de
+  /// containers expandibles
+  Color get grisSC => const Color(0xff6D6D6D);
+
+  /// Se utiliza para el fondo del campo de texto para ingresar una calificacion
+  Color get azul => const Color(0xff2E75FF);
+
   /// Color utilizado en el promedio TEA
   Color get verdeTEA => const Color(0xff62B446);
 
