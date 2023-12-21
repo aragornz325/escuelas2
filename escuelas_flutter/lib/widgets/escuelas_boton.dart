@@ -18,6 +18,7 @@ class EscuelasBoton extends StatelessWidget {
     this.width,
     this.height,
     super.key,
+    this.esOutlined = false,
   });
 
   factory EscuelasBoton.texto({
@@ -48,9 +49,8 @@ class EscuelasBoton extends StatelessWidget {
       estaHabilitado: estaHabilitado,
       onTap: onTap,
       color: color,
-      //! TODO(Manu): fijarse si va a ser todo mayusculas o que
       child: Text(
-        texto.toUpperCase(),
+        texto,
         style: TextStyle(
           fontSize: fontSize?.pf ?? 16.pf,
           color: colores.background,
@@ -60,14 +60,8 @@ class EscuelasBoton extends StatelessWidget {
   }
 
   factory EscuelasBoton.loginGoogle({
-    /// Da funcionalidad al boton dependiendo de condicionales a cumplir.
-    required bool estaHabilitado,
-
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
-
-    /// Color del boton.
-    required Color color,
 
     /// Contexto para utilizar l10n y colores del tema
     required BuildContext context,
@@ -78,11 +72,15 @@ class EscuelasBoton extends StatelessWidget {
     return EscuelasBoton(
       width: 210,
       height: max(30.sh, 30.ph),
-      estaHabilitado: estaHabilitado,
+      estaHabilitado: true,
       onTap: onTap,
-      color: color,
+      color: colores.primaryContainer,
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          //! TODO(Manu): ver como aplicar assets gen
+          Image.asset('assets/images/g_google.png', width: 20.sw),
+          SizedBox(width: 5.pw),
           Text(
             l10n.loginPageLoginWithGoogle,
             style: TextStyle(
@@ -95,8 +93,51 @@ class EscuelasBoton extends StatelessWidget {
     );
   }
 
+  factory EscuelasBoton.outlined({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Contexto para utilizar l10n y colores del tema
+    required BuildContext context,
+
+    /// Da funcionalidad al boton dependiendo de condicionales a cumplir.
+    required bool estaHabilitado,
+
+    /// Texto interno del boton
+    required String texto,
+
+    /// Ancho del boton
+    required double width,
+
+    /// Altura del boton
+    required double height,
+  }) {
+    final colores = context.colores;
+
+    return EscuelasBoton(
+      esOutlined: true,
+      estaHabilitado: estaHabilitado,
+      height: height,
+      width: width,
+      onTap: onTap,
+      color: colores.background,
+      child: Center(
+        child: Text(
+          texto,
+          style: TextStyle(
+            color: colores.onSecondary,
+            fontSize: 12.pf,
+          ),
+        ),
+      ),
+    );
+  }
+
   /// Da funcionalidad al boton dependiendo de condicionales a cumplir.
   final bool estaHabilitado;
+
+  /// Da diseño dependiendo si es outlined o fill.
+  final bool esOutlined;
 
   /// Funcion al presionar el boton
   final VoidCallback onTap;
@@ -124,7 +165,12 @@ class EscuelasBoton extends StatelessWidget {
         height: height ?? max(40.sh, 40.ph),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.sw),
-          color: estaHabilitado ? color : colores.secondary,
+          color: esOutlined
+              ? colores.background
+              : estaHabilitado
+                  ? color
+                  : colores.secondary,
+          border: esOutlined ? Border.all(color: colores.onSecondary) : null,
         ),
         child: Center(
           child: child,
