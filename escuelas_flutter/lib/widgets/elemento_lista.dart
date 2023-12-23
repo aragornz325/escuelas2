@@ -19,10 +19,12 @@ class ElementoLista extends StatelessWidget {
     this.ancho,
     this.fontSize = 16,
     this.fontWeight = FontWeight.w600,
-    this.widgetTrasero,
-    this.radioDelBorde = 20,
+    this.borderRadius = 20,
+    this.widgetLateralDerecho,
+    this.widgetLateralIzquierdo,
     super.key,
   });
+// TODO(SAM): Ver que hacer con el sombreado del boton al presionarse.
 
   /// Texto alineado a la izquierda
   final String titulo;
@@ -36,6 +38,7 @@ class ElementoLista extends StatelessWidget {
 
   /// Altura con .ph
   final double altura;
+
   final double? padding;
 
   /// Ancho con .pw
@@ -47,46 +50,60 @@ class ElementoLista extends StatelessWidget {
   /// Tamanio de la fuente, ya tiene .pf
   final double fontSize;
 
-  /// Componente que se agrega al final del elemento lista, permitiendo
-  /// que sea mas customizable
-  final Widget? widgetTrasero;
+  /// Radio del borde del [ElementoLista]
+  final double borderRadius;
 
+  /// Componente que se agrega al final del [ElementoLista] a la derecha
+  /// del titulo, permitiendo que sea mas customizable
+  final Widget? widgetLateralDerecho;
+
+  /// Componente que se agrega al principio del [ElementoLista] a la izquierda
+  /// del titulo, permitiendo que sea mas customizable
+  final Widget? widgetLateralIzquierdo;
+
+  /// Peso de la fuente, grosor
   final FontWeight fontWeight;
-
-  final double radioDelBorde;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
     return InkWell(
       onTap: estaHabilitado ? onTap : null,
-      child: Expanded(
-        child: Container(
-          height: altura,
-          width: ancho,
-          decoration: BoxDecoration(
-            color: estaHabilitado
-                ? colorFondo ?? colores.tertiary
-                : colores.secondary,
-            borderRadius: BorderRadius.circular(radioDelBorde),
-          ),
-          child: Align(
-            alignment: Alignment.centerLeft,
+      child: Container(
+        height: altura,
+        width: ancho,
+        decoration: BoxDecoration(
+          color: estaHabilitado
+              ? colorFondo ?? colores.tertiary
+              : colores.secondary,
+          borderRadius: BorderRadius.circular(borderRadius.sw),
+        ),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.pw,
+              vertical: 5.ph,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Padding(
-                  padding: EdgeInsets.all(padding ?? 20.pw),
-                  child: Text(
-                    titulo,
-                    style: TextStyle(
-                      fontWeight: fontWeight,
-                      fontSize: fontSize,
-                      color: colorTitulo,
+                Row(
+                  children: [
+                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        titulo,
+                        style: TextStyle(
+                          fontWeight: fontWeight,
+                          fontSize: fontSize,
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                widgetTrasero ?? const SizedBox.shrink(),
+                if (widgetLateralDerecho != null) widgetLateralDerecho!,
               ],
             ),
           ),

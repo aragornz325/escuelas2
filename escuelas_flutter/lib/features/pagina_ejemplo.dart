@@ -235,7 +235,7 @@ class ItemCurso extends StatelessWidget {
       colorFondo: todasMateriasCargadas ? colores.azul : colores.onSecondary,
       fontSize: 16.pf,
       fontWeight: FontWeight.w700,
-      widgetTrasero: habilitacionCargaDeCalificaciones
+      widgetLateralDerecho: habilitacionCargaDeCalificaciones
           ? Container(
               width: 100.pw,
               height: 45.ph,
