@@ -24,6 +24,7 @@ class ElementoLista extends StatelessWidget {
     this.widgetLateralIzquierdo,
     super.key,
   });
+// TODO(SAM): Ver que hacer con el sombreado del boton al presionarse.
 
   /// Texto alineado a la izquierda
   final String titulo;
