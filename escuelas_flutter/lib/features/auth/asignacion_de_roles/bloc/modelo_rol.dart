@@ -1,3 +1,4 @@
+// TODO(Gon): Eliminar cuando haya modelo del back
 class Rol {
   Rol({required this.nombre, required this.permisos});
   String nombre;

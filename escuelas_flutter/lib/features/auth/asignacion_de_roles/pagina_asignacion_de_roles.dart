@@ -1,12 +1,19 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/features/asignacion_de_roles/bloc/bloc_asignacion_de_roles.dart';
-import 'package:escuelas_flutter/features/asignacion_de_roles/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/auth/asignacion_de_roles/bloc/bloc_asignacion_de_roles.dart';
+import 'package:escuelas_flutter/features/auth/asignacion_de_roles/celular/vista_celular_asignacion_de_roles.dart';
+import 'package:escuelas_flutter/features/auth/asignacion_de_roles/escritorio/vista_escritorio_asignacion_de_roles.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
+
+/// {@template PaginaAsignacionDeRoles}
+/// Pagina de la pantalla Asignación de Roles donde el usuario elige que rol
+/// quiere solicitar.
+/// {@endtemplate}
 class PaginaAsignacionDeRoles extends StatelessWidget {
+  /// {@macro PaginaAsignacionDeRoles}
   const PaginaAsignacionDeRoles({super.key});
 
   @override

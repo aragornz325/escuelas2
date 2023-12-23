@@ -1,6 +1,5 @@
-import 'package:equatable/equatable.dart';
 import 'package:escuelas_flutter/extensiones/extension_bloc.dart';
-import 'package:escuelas_flutter/features/asignacion_de_roles/bloc/modelo_rol.dart';
+import 'package:escuelas_flutter/features/auth/asignacion_de_roles/bloc/modelo_rol.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_asignacion_de_roles_estado.dart';
@@ -16,13 +15,13 @@ class BlocAsignacionDeRoles
       : super(
           const BlocAsignacionDeRolesEstadoInicial(),
         ) {
-    on<BlocAsignacionDeRolesEventoInicializar>(_traerRoles);
-    add(BlocAsignacionDeRolesEventoInicializar());
+    on<BlocAsignacionDeRolesEventoTraerRoles>(_traerRoles);
+    add(BlocAsignacionDeRolesEventoTraerRoles());
   }
 
-  /// Evento inicial donde trae todos los articulos/Entregable del usuario.
+  /// Evento inicial donde trae todos los roles de la aplicacion.
   Future<void> _traerRoles(
-    BlocAsignacionDeRolesEventoInicializar event,
+    BlocAsignacionDeRolesEventoTraerRoles event,
     Emitter<BlocAsignacionDeRolesEstado> emit,
   ) async {
     emit(BlocAsignacionDeRolesEstadoCargando.desde(state));

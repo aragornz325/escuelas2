@@ -3,7 +3,7 @@ part of 'bloc_asignacion_de_roles.dart';
 /// {@template BlocAsignacionDeRolesEstado}
 /// Maneja los distintos estados y variables guardadas en los mismos
 /// {@endtemplate}
-class BlocAsignacionDeRolesEstado extends Equatable {
+class BlocAsignacionDeRolesEstado {
   /// {@macro BlocAsignacionDeRolesEstado}
   const BlocAsignacionDeRolesEstado._({
     this.listaRoles = const [],
@@ -16,13 +16,8 @@ class BlocAsignacionDeRolesEstado extends Equatable {
           listaRoles: listaRoles ?? otro.listaRoles,
         );
 
-  /// Lista de articulos a mostrar bajo el encabezado del AsignacionDeRoles
+  /// Lista de roles a mostrar en pantalla
   final List<Rol> listaRoles;
-
-  @override
-  List<Object> get props => [
-        listaRoles,
-      ];
 
   /// Indica si el state es cargando
   bool get estaEnEstadoCargando => this is BlocAsignacionDeRolesEstadoCargando;
