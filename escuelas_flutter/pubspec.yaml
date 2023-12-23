@@ -30,6 +30,7 @@ dependencies:
 
   #server pod
   serverpod_flutter: 1.2.0-rc.1
+  equatable: ^2.0.5
   # serverpod_auth_email_flutter: ^1.2.0-rc.1
   # serverpod_auth_client: ^1.2.0-rc.1
 

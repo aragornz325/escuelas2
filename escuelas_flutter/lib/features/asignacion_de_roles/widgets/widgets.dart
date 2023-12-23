@@ -1,0 +1,2 @@
+export 'package:escuelas_flutter/features/asignacion_de_roles/celular/vista_celular_asignacion_de_roles.dart';
+export 'package:escuelas_flutter/features/asignacion_de_roles/escritorio/vista_escritorio_asignacion_de_roles.dart';
