@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -35,16 +33,16 @@ class ElementoLista extends StatelessWidget {
   /// Color del background
   final Color? colorFondo;
 
-  /// Altura con .ph
+  /// Altura
   final double altura;
 
-  /// Ancho con .pw
+  /// Ancho
   final double ancho;
 
   /// Indica si esta habilitado para presionarse o no el boton
   final bool estaHabilitado;
 
-  /// Tamanio de la fuente, ya tiene .pf
+  /// Tamanio de la fuente
   final double fontSize;
 
   /// Radio del borde del [ElementoLista]
@@ -67,8 +65,8 @@ class ElementoLista extends StatelessWidget {
     return InkWell(
       onTap: estaHabilitado ? onTap : null,
       child: Container(
-        height: max(altura.sh, altura.ph),
-        width: ancho.pw,
+        height: altura,
+        width: ancho,
         decoration: BoxDecoration(
           color: estaHabilitado
               ? colorFondo ?? colores.tertiary
@@ -94,7 +92,7 @@ class ElementoLista extends StatelessWidget {
                         titulo,
                         style: TextStyle(
                           fontWeight: fontWeight,
-                          fontSize: fontSize.pf,
+                          fontSize: fontSize,
                         ),
                       ),
                     ),
