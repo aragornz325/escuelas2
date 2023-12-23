@@ -8,27 +8,49 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i2;
-import 'package:escuelas_flutter/features/pagina_ejemplo.dart' as _i1;
+import 'package:auto_route/auto_route.dart' as _i3;
+import 'package:escuelas_flutter/features/asignacion_de_roles/pagina_asignacion_de_roles.dart'
+    as _i1;
+import 'package:escuelas_flutter/features/pagina_ejemplo.dart' as _i2;
 
-abstract class $AppRouter extends _i2.RootStackRouter {
+abstract class $AppRouter extends _i3.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i2.PageFactory> pagesMap = {
-    PaginaEjemplo.name: (routeData) {
-      return _i2.AutoRoutePage<dynamic>(
+  final Map<String, _i3.PageFactory> pagesMap = {
+    PaginaAsignacionDeRoles.name: (routeData) {
+      return _i3.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.PaginaEjemplo(),
+        child: const _i1.PaginaAsignacionDeRoles(),
       );
-    }
+    },
+    PaginaEjemplo.name: (routeData) {
+      return _i3.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i2.PaginaEjemplo(),
+      );
+    },
   };
 }
 
 /// generated route for
-/// [_i1.PaginaEjemplo]
-class PaginaEjemplo extends _i2.PageRouteInfo<void> {
-  const PaginaEjemplo({List<_i2.PageRouteInfo>? children})
+/// [_i1.PaginaAsignacionDeRoles]
+class PaginaAsignacionDeRoles extends _i3.PageRouteInfo<void> {
+  const PaginaAsignacionDeRoles({List<_i3.PageRouteInfo>? children})
+      : super(
+          PaginaAsignacionDeRoles.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PaginaAsignacionDeRoles';
+
+  static const _i3.PageInfo<void> page = _i3.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i2.PaginaEjemplo]
+class PaginaEjemplo extends _i3.PageRouteInfo<void> {
+  const PaginaEjemplo({List<_i3.PageRouteInfo>? children})
       : super(
           PaginaEjemplo.name,
           initialChildren: children,
@@ -36,5 +58,5 @@ class PaginaEjemplo extends _i2.PageRouteInfo<void> {
 
   static const String name = 'PaginaEjemplo';
 
-  static const _i2.PageInfo<void> page = _i2.PageInfo<void>(name);
+  static const _i3.PageInfo<void> page = _i3.PageInfo<void>(name);
 }
