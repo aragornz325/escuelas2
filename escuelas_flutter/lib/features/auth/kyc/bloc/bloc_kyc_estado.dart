@@ -5,9 +5,22 @@ part of 'bloc_kyc.dart';
 /// {@endtemplate}
 class BlocKycEstado {
   /// {@macro BlocKycEstado}
-  const BlocKycEstado._();
+  const BlocKycEstado._({
+    this.listaCursos = const [],
+    this.listaMaterias = const [],
+  });
 
-  BlocKycEstado.desde(BlocKycEstado otro) : this._();
+  BlocKycEstado.desde(
+    BlocKycEstado otro, {
+    List<Curso>? listaCursos,
+    List<Materia>? listaMaterias,
+  }) : this._(
+          listaCursos: listaCursos ?? otro.listaCursos,
+          listaMaterias: listaMaterias ?? otro.listaMaterias,
+        );
+
+  final List<Curso> listaCursos;
+  final List<Materia> listaMaterias;
 }
 
 /// {@template BlocKycEstadoInicial}
@@ -31,7 +44,11 @@ class BlocKycEstadoCargando extends BlocKycEstado {
 /// {@endtemplate}
 class BlocKycEstadoExitoso extends BlocKycEstado {
   /// {@macro BlocKycEstadoExitoso}
-  BlocKycEstadoExitoso.desde(super.otro) : super.desde();
+  BlocKycEstadoExitoso.desde(
+    super.otro, {
+    super.listaCursos,
+    super.listaMaterias,
+  }) : super.desde();
 }
 
 /// {@template BlocKycEstadoFallido}
@@ -39,10 +56,5 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
 /// {@endtemplate}
 class BlocKycEstadoError extends BlocKycEstado {
   /// {@macro BlocKycEstadoError}
-  BlocKycEstadoError.desde(
-    super.otro, {
-    required this.mensajeDeError,
-  }) : super.desde();
-
-  final String mensajeDeError;
+  BlocKycEstadoError.desde(super.otro) : super.desde();
 }
