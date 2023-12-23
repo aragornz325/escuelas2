@@ -30,8 +30,8 @@ dependencies:
 
   #server pod
   serverpod_flutter: 1.2.0-rc.1
-  # serverpod_auth_email_flutter: ^1.2.0-rc.1
-  # serverpod_auth_client: ^1.2.0-rc.1
+  serverpod_auth_email_flutter: 1.2.0-rc.1
+  serverpod_auth_shared_flutter: 1.2.0-rc.1
 
 dev_dependencies:
   # Navegaciones
