@@ -11,7 +11,7 @@ class BlocLoginEstado {
 }
 
 /// {@template BlocLoginEstadoInicial}
-/// Estado inicial de los componentes de la pantalla 'Inicio'
+/// Estado inicial de los componentes de la pantalla 'Login'
 /// {@endtemplate}
 class BlocLoginEstadoInicial extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoInicial}
@@ -19,7 +19,7 @@ class BlocLoginEstadoInicial extends BlocLoginEstado {
 }
 
 /// {@template BlocLoginEstadoCargando}
-/// Estado de cargando de los componentes de la pantalla 'Inicio'
+/// Estado de cargando de los componentes de la pantalla 'Login'
 /// {@endtemplate}
 class BlocLoginEstadoCargando extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoCargando}
@@ -27,15 +27,15 @@ class BlocLoginEstadoCargando extends BlocLoginEstado {
 }
 
 /// {@template BlocLoginEstadoExitoso}
-/// Estado exitoso general de los componentes de la pantalla 'Inicio'
+/// Estado exitoso general de los componentes de la pantalla 'Login'
 /// {@endtemplate}
 class BlocLoginEstadoExitoso extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoExitoso}
   BlocLoginEstadoExitoso.desde(super.otro) : super.desde();
 }
 
-/// {@template BlocLoginEstadoFallido}
-/// Estado de error de los componentes de la pantalla 'Inicio'
+/// {@template BlocLoginEstadoError}
+/// Estado de error de los componentes de la pantalla 'Login'
 /// {@endtemplate}
 class BlocLoginEstadoError extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoError}
@@ -44,5 +44,6 @@ class BlocLoginEstadoError extends BlocLoginEstado {
     required this.mensajeDeError,
   }) : super.desde();
 
+  /// Mensaje de error que se muestra al usuario
   final String mensajeDeError;
 }

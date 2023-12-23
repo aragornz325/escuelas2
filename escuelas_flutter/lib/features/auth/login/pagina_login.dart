@@ -6,7 +6,7 @@ import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-/// {@template VistaEscritorioLogin}
+/// {@template PaginaLogin}
 /// Pagina de la pantalla Login donde el usuario puede iniciar sesion.
 /// {@endtemplate}
 @RoutePage()

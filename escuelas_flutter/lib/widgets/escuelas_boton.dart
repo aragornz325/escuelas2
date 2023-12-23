@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -38,21 +39,21 @@ class EscuelasBoton extends StatelessWidget {
     required BuildContext context,
 
     /// Tamaño del texto
-    int? fontSize,
+    double? fontSize,
 
     /// Ancho del boton, por defecto es 130
     double? width,
   }) {
     final colores = context.colores;
     return EscuelasBoton(
-      width: width?.pw,
+      width: width ?? 130.pw,
       estaHabilitado: estaHabilitado,
       onTap: onTap,
       color: color,
       child: Text(
         texto,
         style: TextStyle(
-          fontSize: fontSize?.pf ?? 16.pf,
+          fontSize: fontSize ?? 16.pf,
           color: colores.background,
         ),
       ),
@@ -70,7 +71,7 @@ class EscuelasBoton extends StatelessWidget {
     final l10n = context.l10n;
 
     return EscuelasBoton(
-      width: 210,
+      width: 210.pw,
       height: max(30.sh, 30.ph),
       estaHabilitado: true,
       onTap: onTap,
@@ -78,8 +79,10 @@ class EscuelasBoton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          //! TODO(Manu): ver como aplicar assets gen
-          Image.asset('assets/images/g_google.png', width: 20.sw),
+          Image.asset(
+            Assets.images.gGoogle.path,
+            width: 20.sw,
+          ),
           SizedBox(width: 5.pw),
           Text(
             l10n.loginPageLoginWithGoogle,
@@ -161,8 +164,8 @@ class EscuelasBoton extends StatelessWidget {
     return GestureDetector(
       onTap: estaHabilitado ? onTap : null,
       child: Container(
-        width: width?.pw ?? 130.pw,
-        height: height ?? max(40.sh, 40.ph),
+        width: width ?? 130.pw,
+        height: max(height?.sh ?? 40.sh, height?.ph ?? 40.ph),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(30.sw),
           color: esOutlined
