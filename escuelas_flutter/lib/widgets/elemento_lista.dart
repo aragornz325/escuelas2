@@ -19,9 +19,12 @@ class ElementoLista extends StatelessWidget {
     this.ancho = 329,
     this.fontSize = 16,
     this.fontWeight = FontWeight.w600,
-    this.widgetTrasero,
+    this.borderRadius = 20,
+    this.widgetLateralDerecho,
+    this.widgetLateralIzquierdo,
     super.key,
   });
+// TODO(SAM): Ver que hacer con el sombreado del boton al presionarse.
 
   /// Texto alineado a la izquierda
   final String titulo;
@@ -44,10 +47,18 @@ class ElementoLista extends StatelessWidget {
   /// Tamanio de la fuente, ya tiene .pf
   final double fontSize;
 
-  /// Componente que se agrega al final del elemento lista, permitiendo
-  /// que sea mas customizable
-  final Widget? widgetTrasero;
+  /// Radio del borde del [ElementoLista]
+  final double borderRadius;
 
+  /// Componente que se agrega al final del [ElementoLista] a la derecha
+  /// del titulo, permitiendo que sea mas customizable
+  final Widget? widgetLateralDerecho;
+
+  /// Componente que se agrega al principio del [ElementoLista] a la izquierda
+  /// del titulo, permitiendo que sea mas customizable
+  final Widget? widgetLateralIzquierdo;
+
+  /// Peso de la fuente, grosor
   final FontWeight fontWeight;
 
   @override
@@ -62,25 +73,34 @@ class ElementoLista extends StatelessWidget {
           color: estaHabilitado
               ? colorFondo ?? colores.tertiary
               : colores.secondary,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: EdgeInsets.all(20.sw),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.pw,
+              vertical: 5.ph,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  titulo,
-                  style: TextStyle(
-                    fontWeight: fontWeight,
-                    fontSize: fontSize.pf,
-                  ),
+                Row(
+                  children: [
+                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        titulo,
+                        style: TextStyle(
+                          fontWeight: fontWeight,
+                          fontSize: fontSize.pf,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                if (widgetTrasero != null) ...[
-                  widgetTrasero!,
-                ],
+                if (widgetLateralDerecho != null) widgetLateralDerecho!,
               ],
             ),
           ),
