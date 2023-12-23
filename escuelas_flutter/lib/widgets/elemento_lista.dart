@@ -72,7 +72,10 @@ class ElementoLista extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.pw, vertical: 5.ph),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.pw,
+              vertical: 5.ph,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
