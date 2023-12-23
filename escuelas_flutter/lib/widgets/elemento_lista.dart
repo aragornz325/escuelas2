@@ -71,7 +71,7 @@ class ElementoLista extends StatelessWidget {
           color: estaHabilitado
               ? colorFondo ?? colores.tertiary
               : colores.secondary,
-          borderRadius: BorderRadius.circular(borderRadius.sw),
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Align(
           alignment: Alignment.centerLeft,
