@@ -16,9 +16,14 @@ class PaginaEjemplo extends StatelessWidget {
   }
 }
 
-class Ejemplo extends StatelessWidget {
+class Ejemplo extends StatefulWidget {
   const Ejemplo({super.key});
 
+  @override
+  State<Ejemplo> createState() => _EjemploState();
+}
+
+class _EjemploState extends State<Ejemplo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,20 +34,21 @@ class Ejemplo extends StatelessWidget {
             height: 60.ph,
           ),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8),
             child: Center(
               child: ElementoLista(
                 titulo: 'Mati',
                 widgetIzquierda: CircleAvatar(
                   backgroundImage: NetworkImage(
-                      'https://imgflip.com/s/meme/Smiling-Cat.jpg'),
+                    'https://imgflip.com/s/meme/Smiling-Cat.jpg',
+                  ),
                   backgroundColor: Colors.grey,
                 ),
               ),
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8),
             child: ElementoLista(
               titulo: 'Topo',
               widgetPosterior: CircleAvatar(
