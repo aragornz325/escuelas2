@@ -12,6 +12,7 @@ class ElementoLista extends StatelessWidget {
   /// {@macro ElementoLista}
   const ElementoLista({
     required this.titulo,
+    this.widgetIzquierda,
     this.colorFondo,
     this.estaHabilitado = true,
     this.onTap,
@@ -19,7 +20,7 @@ class ElementoLista extends StatelessWidget {
     this.ancho = 329,
     this.fontSize = 16,
     this.fontWeight = FontWeight.w600,
-    this.widgetTrasero,
+    this.widgetPosterior,
     super.key,
   });
 
@@ -44,9 +45,13 @@ class ElementoLista extends StatelessWidget {
   /// Tamanio de la fuente, ya tiene .pf
   final double fontSize;
 
-  /// Componente que se agrega al final del elemento lista, permitiendo
-  /// que sea mas customizable
-  final Widget? widgetTrasero;
+  /// Componente que se agrega al final del elemento lista a la derecha
+  /// del titulo, permitiendo que sea mas customizable
+  final Widget? widgetPosterior;
+
+  /// Componente que se agrega al principio del elemento lista a la izquierda
+  /// del titulo, permitiendo que sea mas customizable
+  final Widget? widgetIzquierda;
 
   final FontWeight fontWeight;
 
@@ -67,19 +72,29 @@ class ElementoLista extends StatelessWidget {
         child: Align(
           alignment: Alignment.centerLeft,
           child: Padding(
-            padding: EdgeInsets.all(20.sw),
+            padding: EdgeInsets.symmetric(horizontal: 20.pw, vertical: 5.ph),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  titulo,
-                  style: TextStyle(
-                    fontWeight: fontWeight,
-                    fontSize: fontSize.pf,
-                  ),
+                Row(
+                  children: [
+                    if (widgetIzquierda != null) ...[
+                      widgetIzquierda!,
+                    ],
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: Text(
+                        titulo,
+                        style: TextStyle(
+                          fontWeight: fontWeight,
+                          fontSize: fontSize.pf,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                if (widgetTrasero != null) ...[
-                  widgetTrasero!,
+                if (widgetPosterior != null) ...[
+                  widgetPosterior!,
                 ],
               ],
             ),
