@@ -38,7 +38,7 @@ class _EjemploState extends State<Ejemplo> {
             child: Center(
               child: ElementoLista(
                 titulo: 'Mati',
-                widgetIzquierda: CircleAvatar(
+                widgetLateralIzquierdo: CircleAvatar(
                   backgroundImage: NetworkImage(
                     'https://imgflip.com/s/meme/Smiling-Cat.jpg',
                   ),
@@ -51,7 +51,7 @@ class _EjemploState extends State<Ejemplo> {
             padding: EdgeInsets.all(8),
             child: ElementoLista(
               titulo: 'Topo',
-              widgetPosterior: CircleAvatar(
+              widgetLateralDerecho: CircleAvatar(
                 backgroundColor: Colors.red,
                 radius: 10,
               ),

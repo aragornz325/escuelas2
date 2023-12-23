@@ -12,7 +12,6 @@ class ElementoLista extends StatelessWidget {
   /// {@macro ElementoLista}
   const ElementoLista({
     required this.titulo,
-    this.widgetIzquierda,
     this.colorFondo,
     this.estaHabilitado = true,
     this.onTap,
@@ -20,7 +19,9 @@ class ElementoLista extends StatelessWidget {
     this.ancho = 329,
     this.fontSize = 16,
     this.fontWeight = FontWeight.w600,
-    this.widgetPosterior,
+    this.borderRadius = 20,
+    this.widgetLateralDerecho,
+    this.widgetLateralIzquierdo,
     super.key,
   });
 
@@ -45,14 +46,18 @@ class ElementoLista extends StatelessWidget {
   /// Tamanio de la fuente, ya tiene .pf
   final double fontSize;
 
-  /// Componente que se agrega al final del elemento lista a la derecha
-  /// del titulo, permitiendo que sea mas customizable
-  final Widget? widgetPosterior;
+  /// Radio del borde del [ElementoLista]
+  final double borderRadius;
 
-  /// Componente que se agrega al principio del elemento lista a la izquierda
+  /// Componente que se agrega al final del [ElementoLista] a la derecha
   /// del titulo, permitiendo que sea mas customizable
-  final Widget? widgetIzquierda;
+  final Widget? widgetLateralDerecho;
 
+  /// Componente que se agrega al principio del [ElementoLista] a la izquierda
+  /// del titulo, permitiendo que sea mas customizable
+  final Widget? widgetLateralIzquierdo;
+
+  /// Peso de la fuente, grosor
   final FontWeight fontWeight;
 
   @override
@@ -67,7 +72,7 @@ class ElementoLista extends StatelessWidget {
           color: estaHabilitado
               ? colorFondo ?? colores.tertiary
               : colores.secondary,
-          borderRadius: BorderRadius.circular(20),
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Align(
           alignment: Alignment.centerLeft,
@@ -81,9 +86,7 @@ class ElementoLista extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    if (widgetIzquierda != null) ...[
-                      widgetIzquierda!,
-                    ],
+                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
                     Padding(
                       padding: const EdgeInsets.all(8),
                       child: Text(
@@ -96,9 +99,7 @@ class ElementoLista extends StatelessWidget {
                     ),
                   ],
                 ),
-                if (widgetPosterior != null) ...[
-                  widgetPosterior!,
-                ],
+                if (widgetLateralDerecho != null) widgetLateralDerecho!,
               ],
             ),
           ),
