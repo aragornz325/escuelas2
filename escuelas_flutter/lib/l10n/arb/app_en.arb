@@ -16,6 +16,11 @@
         "description": "Button label to add a subject in the KYC (Know Your Customer) process."
     },
 
+    "pageKycWhatGradeAreYouIn": "What grade are you in?",
+    "@pageKycWhatGradeAreYouIn": {
+        "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
+    },
+
     "pageKycWhichSubjectIsIt": "Which subject is it?",
     "@pageKycWhichSubjectIs": {
         "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."

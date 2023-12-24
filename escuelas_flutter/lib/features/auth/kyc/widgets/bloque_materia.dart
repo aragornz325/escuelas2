@@ -34,7 +34,10 @@ class BloqueMateria extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                l10n.pageKycWhatYearIsYourSubject,
+                //TODO (Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
+                state.rolElegido!.nombre == 'ALUMNO'
+                    ? l10n.pageKycWhatGradeAreYouIn
+                    : l10n.pageKycWhatYearIsYourSubject,
                 style: TextStyle(
                   color: colores.onBackground,
                   fontWeight: FontWeight.w600,
@@ -53,25 +56,32 @@ class BloqueMateria extends StatelessWidget {
                         ),
               ),
               SizedBox(height: 20.ph),
-              Text(
-                l10n.pageKycWhichSubjectIsIt,
-                style: TextStyle(
-                  color: colores.onBackground,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13.pf,
+              //TODO (Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
+              if (state.rolElegido!.nombre == 'DOCENTE')
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.pageKycWhichSubjectIsIt,
+                      style: TextStyle(
+                        color: colores.onBackground,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 13.pf,
+                      ),
+                    ),
+                    SizedBox(height: 5.ph),
+                    KycDropdown(
+                      lista: state.listaOpcionesMaterias,
+                      listaOpcionesSeleccionadas: (value) =>
+                          context.read<BlocKyc>().add(
+                                BlocKycEventoSeleccionarCursoYMateria(
+                                  idOpcion: id,
+                                  idMateria: value[0].id,
+                                ),
+                              ),
+                    ),
+                  ],
                 ),
-              ),
-              SizedBox(height: 5.ph),
-              KycDropdown(
-                lista: state.listaOpcionesMaterias,
-                listaOpcionesSeleccionadas: (value) =>
-                    context.read<BlocKyc>().add(
-                          BlocKycEventoSeleccionarCursoYMateria(
-                            idOpcion: id,
-                            idMateria: value[0].id,
-                          ),
-                        ),
-              ),
             ],
           ),
         );

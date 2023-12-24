@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/auth/kyc/widgets/widgets.dart';
@@ -23,6 +24,13 @@ class VistaCelularKyc extends StatelessWidget {
     // TODO(Gon): El Scaffold y el appbar deberan ser eliminados cuando se defina la navegacion
     return Scaffold(
       appBar: AppBar(
+        leading: GestureDetector(
+          onTap: () => context.router.pop(),
+          child: Icon(
+            Icons.arrow_back,
+            color: colores.onBackground,
+          ),
+        ),
         title: BlocBuilder<BlocKyc, BlocKycEstado>(
           builder: (context, state) {
             return Text(

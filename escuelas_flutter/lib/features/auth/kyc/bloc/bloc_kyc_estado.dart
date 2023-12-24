@@ -86,6 +86,7 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
     super.listaCursos,
     super.listaMaterias,
     super.opcionesKyc,
+    super.rolElegido,
   }) : super.desde();
 }
 
