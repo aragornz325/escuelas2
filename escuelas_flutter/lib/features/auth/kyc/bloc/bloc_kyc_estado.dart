@@ -8,23 +8,47 @@ class BlocKycEstado {
   const BlocKycEstado._({
     this.listaCursos = const [],
     this.listaMaterias = const [],
+    this.opcionesKyc = const [],
   });
 
   BlocKycEstado.desde(
     BlocKycEstado otro, {
     List<Curso>? listaCursos,
     List<Materia>? listaMaterias,
+    List<OpcionKyc>? opcionesKyc,
   }) : this._(
           listaCursos: listaCursos ?? otro.listaCursos,
           listaMaterias: listaMaterias ?? otro.listaMaterias,
+          opcionesKyc: opcionesKyc ?? otro.opcionesKyc,
         );
 
   final List<Curso> listaCursos;
+
   final List<Materia> listaMaterias;
+
+  final List<OpcionKyc> opcionesKyc;
+
+  List<PopupOption> get listaOpcionesCursos => listaCursos
+      .map(
+        (curso) => PopupOption(
+          id: curso.id,
+          name: curso.nombre,
+        ),
+      )
+      .toList();
+
+  List<PopupOption> get listaOpcionesMaterias => listaMaterias
+      .map(
+        (materia) => PopupOption(
+          id: materia.id,
+          name: materia.nombre,
+        ),
+      )
+      .toList();
 }
 
 /// {@template BlocKycEstadoInicial}
-/// Estado inicial de los componentes de la pantalla 'Inicio'
+/// Estado inicial de los componentes de la pantalla 'Kyc'
 /// {@endtemplate}
 class BlocKycEstadoInicial extends BlocKycEstado {
   /// {@macro BlocKycEstadoInicial}
@@ -32,7 +56,7 @@ class BlocKycEstadoInicial extends BlocKycEstado {
 }
 
 /// {@template BlocKycEstadoCargando}
-/// Estado de cargando de los componentes de la pantalla 'Inicio'
+/// Estado de cargando de los componentes de la pantalla 'Kyc'
 /// {@endtemplate}
 class BlocKycEstadoCargando extends BlocKycEstado {
   /// {@macro BlocKycEstadoCargando}
@@ -40,7 +64,7 @@ class BlocKycEstadoCargando extends BlocKycEstado {
 }
 
 /// {@template BlocKycEstadoExitoso}
-/// Estado exitoso general de los componentes de la pantalla 'Inicio'
+/// Estado exitoso general de los componentes de la pantalla 'Kyc'
 /// {@endtemplate}
 class BlocKycEstadoExitoso extends BlocKycEstado {
   /// {@macro BlocKycEstadoExitoso}
@@ -48,11 +72,12 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
     super.otro, {
     super.listaCursos,
     super.listaMaterias,
+    super.opcionesKyc,
   }) : super.desde();
 }
 
 /// {@template BlocKycEstadoFallido}
-/// Estado de error de los componentes de la pantalla 'Inicio'
+/// Estado de error de los componentes de la pantalla 'Kyc'
 /// {@endtemplate}
 class BlocKycEstadoError extends BlocKycEstado {
   /// {@macro BlocKycEstadoError}

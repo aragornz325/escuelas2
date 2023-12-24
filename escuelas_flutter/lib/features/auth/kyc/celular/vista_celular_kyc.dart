@@ -10,9 +10,16 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@template VistaCelularKyc}
 /// TODO(anyone): AGREGAR DOCUMENTACION.
 /// {@endtemplate}
-class VistaCelularKyc extends StatelessWidget {
+class VistaCelularKyc extends StatefulWidget {
   /// {@macro VistaCelularKyc}
   const VistaCelularKyc({super.key});
+
+  @override
+  State<VistaCelularKyc> createState() => _VistaCelularKycState();
+}
+
+class _VistaCelularKycState extends State<VistaCelularKyc> {
+  final bool estaHabilitado = true;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +30,7 @@ class VistaCelularKyc extends StatelessWidget {
           'Formulario de DOCENTE',
           style: TextStyle(
             color: colores.onBackground,
-            fontWeight: FontWeight.w900,
+            fontWeight: FontWeight.w800,
             fontSize: 16.pf,
           ),
         ),
@@ -32,30 +39,81 @@ class VistaCelularKyc extends StatelessWidget {
       ),
       body: BlocBuilder<BlocKyc, BlocKycEstado>(
         builder: (context, state) {
+          if (state is BlocKycEstadoCargando) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
           return Padding(
             padding: EdgeInsets.only(bottom: 40.ph),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  children: [
-                    SizedBox(height: 20.ph),
-                    const Text(
-                      'Contesta estas preguntas sobre vos. Necesitamos esta'
-                      ' información a modo de identificarte en tu solicitud.',
+                SizedBox(height: 20.ph),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.pw),
+                  child: Text(
+                    'Contesta estas preguntas sobre vos. Necesitamos esta'
+                    ' información a modo de identificarte en tu solicitud.',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14.pf,
                     ),
-                    SizedBox(height: 20.ph),
-                    const PreguntaYRespuesta(
-                      titulo: '¿De qué año es tu materia?',
-                    ),
-                  ],
+                  ),
                 ),
+                SizedBox(height: 20.ph),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        ...state.opcionesKyc.map(
+                          (e) => Column(
+                            children: [
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 30.ph),
+                                child: PreguntaYRespuesta(id: e.id),
+                              ),
+                              const Divider(),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                TextButton.icon(
+                  onPressed: () => context
+                      .read<BlocKyc>()
+                      .add(const BlocKycEventoAgregarOpcion()),
+                  icon: const Icon(
+                    Icons.add_circle_outline_outlined,
+                  ),
+                  label: Text(
+                    'AGREGAR MATERIA',
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 12.pf,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20.ph),
                 EscuelasBoton.texto(
                   context: context,
-                  estaHabilitado: true,
-                  onTap: () {},
+                  // TODO(Gon): Cambiar esta logica a una mejor, xq no esta bueno inicializar el nombre en vacio
+                  // TODO(Gon): Tambien ver xq si no esta esto rompe state.opcionesKyc.isNotEmpty
+                  estaHabilitado: state.opcionesKyc.isNotEmpty &&
+                      state.opcionesKyc[0].curso.nombre != '',
+                  onTap: () => showDialog<void>(
+                    context: context,
+                    builder: (context) {
+                      return const AlertDialog(content: Text('a'));
+                    },
+                  ),
                   color: colores.grisDeshabilitado,
-                  texto: 'CONTINUAR',
+                  texto: 'SOLICITAR',
                 ),
               ],
             ),
