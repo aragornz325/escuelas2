@@ -34,6 +34,7 @@ class BlocKycEstado {
   /// Lista de opciones de kyc (inicialmente hay una)
   final List<OpcionKyc> opcionesKyc;
 
+  /// Rol elegido por el usuario en la pantalla de seleccion de rol
   final Rol? rolElegido;
 
   /// Retorna la lista de cursos de la escuela a la que pertenece el usuario en
