@@ -1,6 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/seleccion_de_rol/bloc/bloc_seleccion_de_rol.dart';
 import 'package:escuelas_flutter/features/auth/seleccion_de_rol/widgets/tarjeta_rol.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
@@ -22,6 +23,8 @@ class VistaCelularSeleccionDeRol extends StatefulWidget {
 
 class _VistaCelularSeleccionDeRolState
     extends State<VistaCelularSeleccionDeRol> {
+  // TODO(Gon): Ver si es mejor usar un rol entero en vez de solo la id
+
   /// Indica que rol de la lista esta seleccionado
   int rolPresionado = -1;
 
@@ -29,11 +32,12 @@ class _VistaCelularSeleccionDeRolState
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          // TODO(Gon): l10n
-          'Asignación de Roles',
+          l10n.pageRoleSelectionTitle,
           style: TextStyle(
             color: colores.onBackground,
             fontWeight: FontWeight.w900,
@@ -51,9 +55,9 @@ class _VistaCelularSeleccionDeRolState
             Column(
               children: [
                 SizedBox(height: 20.ph),
-                const Text(
-                  // TODO(Gon): l10n
-                  '¡Hola, “Nombre Apellido”, decinos cual es tu rol!',
+                // TODO(Gon): Usar nombre del usuario logeado
+                Text(
+                  l10n.pageRoleSelectionWelcome('Gonzalo Rigoni'),
                 ),
                 SizedBox(height: 20.ph),
                 BlocBuilder<BlocSeleccionDeRol, BlocSeleccionDeRolEstado>(
@@ -95,8 +99,7 @@ class _VistaCelularSeleccionDeRolState
                   color: rolPresionado != -1
                       ? colores.azul
                       : colores.grisDeshabilitado,
-                  // TODO(Gon): l10n
-                  texto: 'CONTINUAR',
+                  texto: l10n.commonContinue.toUpperCase(),
                 ),
                 if (rolPresionado != -1)
                   Column(
@@ -104,17 +107,27 @@ class _VistaCelularSeleccionDeRolState
                       SizedBox(height: 40.ph),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.pw),
-                        child: Text(
-                          // TODO(Gon): l10n
-                          'Te registrarás con el rol "Directivo". Todo rol'
-                          ' tiene que ser aprobado por el administrador. '
-                          'Una vez aprobado podrás usar la app.',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: colores.onSecondary,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 13.pf,
-                          ),
+                        child: BlocBuilder<BlocSeleccionDeRol,
+                            BlocSeleccionDeRolEstado>(
+                          builder: (context, state) {
+                            final nombreRolSeleccionado = state.listaRoles
+                                .where(
+                                  (element) => element.id == rolPresionado,
+                                )
+                                .first
+                                .nombre;
+                            return Text(
+                              l10n.pageRoleConfirmationText(
+                                nombreRolSeleccionado,
+                              ),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: colores.onSecondary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13.pf,
+                              ),
+                            );
+                          },
                         ),
                       ),
                     ],

@@ -1,11 +1,35 @@
 {
     "@@locale": "en",
 
+    "pageRoleSelectionTitle": "Role Assignment",
+    "@pageRoleSelectionTitle": {
+        "description": "Text to indicate the log in with google system"
+    },
+
+    "pageRoleConfirmationText": "You will register with the {roleName} role. All roles must be approved by the administrator. Once approved you will be able to use the app.",
+    "@pageRoleConfirmationText": {
+        "description": "Text to indicate the log in with google system",
+        "placeholders" :{
+            "roleName" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageRoleSelectionWelcome": "Hello {firstnameAndLastName}, tell us what your role is!",
+    "@pageRoleSelectionWelcome": {
+        "description": "Text to indicate the log in with google system",
+        "placeholders" :{
+            "firstnameAndLastName" : {
+                "type": "String"
+            }
+        }
+    },
+
     "loginPageLoginWithGoogle": "Log in with Google",
     "@loginPageLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
     },
-    
     
     "commonMail": "Mail",
     "@commonMail": {
@@ -29,6 +53,11 @@
 
     "commonOnlyNumbers": "Only numbers",
     "@commonOnlyNumbers": {
+        "description": "Text to indicate that only numbers are allowed"
+    },
+
+    "commonContinue": "Continue",
+    "@commonContinue": {
         "description": "Text to indicate that only numbers are allowed"
     }
 

@@ -1,6 +1,31 @@
 {
     "@@locale": "es",
 
+    "pageRoleSelectionTitle": "Asignación de Roles",
+    "@pageRoleSelectionTitle": {
+        "description": "Text to indicate the log in with google system"
+    },
+
+    "pageRoleConfirmationText": "Te registrarás con el rol {roleName}. Todo rol tiene que ser aprobado por el administrador. Una vez aprobado podrás usar la app.",
+    "@pageRoleConfirmationText": {
+        "description": "Text to indicate the log in with google system",
+        "placeholders" :{
+            "roleName" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageRoleSelectionWelcome": "¡Hola, {firstnameAndLastName}, decinos cual es tu rol!",
+    "@pageRoleSelectionWelcome": {
+        "description": "Text to indicate the log in with google system",
+        "placeholders" :{
+            "firstnameAndLastName" : {
+                "type": "String"
+            }
+        }
+    },
+
     "loginPageLoginWithGoogle": "Ingresar con Google",
     "@loginPageLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
@@ -28,6 +53,11 @@
 
     "commonOnlyNumbers": "Solo números",
     "@commonOnlyNumbers": {
+        "description": "Text to indicate that only numbers are allowed"
+    },
+
+    "commonContinue": "Continuar",
+    "@commonContinue": {
         "description": "Text to indicate that only numbers are allowed"
     }
 }
