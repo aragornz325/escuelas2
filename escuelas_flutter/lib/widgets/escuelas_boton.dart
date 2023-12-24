@@ -114,6 +114,9 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Altura del boton
     required double height,
+
+    /// Color del boton
+    Color? color,
   }) {
     final colores = context.colores;
 
@@ -123,7 +126,7 @@ class EscuelasBoton extends StatelessWidget {
       height: height,
       width: width,
       onTap: onTap,
-      color: colores.background,
+      color: color ?? colores.background,
       child: Center(
         child: Text(
           texto,
