@@ -3,12 +3,12 @@
 
     "pageRoleSelectionTitle": "Role Assignment",
     "@pageRoleSelectionTitle": {
-        "description": "Text to indicate the log in with google system"
+        "description": "Title for the page where users select their roles."
     },
 
     "pageRoleConfirmationText": "You will register with the {roleName} role. All roles must be approved by the administrator. Once approved you will be able to use the app.",
     "@pageRoleConfirmationText": {
-        "description": "Text to indicate the log in with google system",
+        "description": "Text displayed to confirm the selected role during the registration process.",
         "placeholders" :{
             "roleName" : {
                 "type": "String"
@@ -18,7 +18,7 @@
 
     "pageRoleSelectionWelcome": "Hello {firstnameAndLastName}, tell us what your role is!",
     "@pageRoleSelectionWelcome": {
-        "description": "Text to indicate the log in with google system",
+        "description": "Welcome message prompting the user to specify their role.",
         "placeholders" :{
             "firstnameAndLastName" : {
                 "type": "String"
@@ -58,7 +58,7 @@
 
     "commonContinue": "Continue",
     "@commonContinue": {
-        "description": "Text to indicate that only numbers are allowed"
+        "description": "Label for a button or action indicating to proceed."
     }
 
 }
