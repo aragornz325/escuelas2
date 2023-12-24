@@ -182,6 +182,7 @@ class Materia {
   final int id;
 }
 
+// TODO(Gon): Eliminar modelo cuando se usen los del back
 class Rol {
   Rol({
     required this.nombre,
