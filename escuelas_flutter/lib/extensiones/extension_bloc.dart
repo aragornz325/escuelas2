@@ -24,7 +24,6 @@ void Function() onSinConexion = () {};
 /// Operación de los eventos de los `Bloc`(s) para
 /// de forma centralizada manejar los errores que puedan
 /// llegar a darse en el cliente.
-
 Future<void> operacionBloc({
   required FutureOr<void> Function(
           // Client client

@@ -41,6 +41,31 @@
         "description": "Description guiding the user to answer questions for identity verification in the KYC process."
     },
 
+    "pageRoleSelectionTitle": "Asignación de Roles",
+    "@pageRoleSelectionTitle": {
+        "description": "Title for the page where users select their roles."
+    },
+
+    "pageRoleConfirmationText": "Te registrarás con el rol {roleName}. Todo rol tiene que ser aprobado por el administrador. Una vez aprobado podrás usar la app.",
+    "@pageRoleConfirmationText": {
+        "description": "Text displayed to confirm the selected role during the registration process.",
+        "placeholders" :{
+            "roleName" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageRoleSelectionWelcome": "¡Hola, {firstnameAndLastName}, decinos cual es tu rol!",
+    "@pageRoleSelectionWelcome": {
+        "description": "Welcome message prompting the user to specify their role.",
+        "placeholders" :{
+            "firstnameAndLastName" : {
+                "type": "String"
+            }
+        }
+    },
+
     "loginPageLoginWithGoogle": "Ingresar con Google",
     "@loginPageLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
@@ -74,5 +99,10 @@
     "commonApply": "Solicitar",
     "@commonRequest": {
         "description": "Label for a button or action indicating to submit a request."
+    },
+    
+    "commonContinue": "Continuar",
+    "@commonContinue": {
+        "description": "Label for a button or action indicating to proceed."
     }
 }
