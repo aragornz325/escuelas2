@@ -1,7 +1,7 @@
 part of 'bloc_kyc.dart';
 
 /// {@template BlocKycEvento}
-/// AGREGAR DOCUMENTACION GENERADA
+/// Clase padre de los eventos de 'Kyc'
 /// {@endtemplate}
 abstract class BlocKycEvento {
   /// {@macro BlocKycEvento}
@@ -9,6 +9,7 @@ abstract class BlocKycEvento {
 }
 
 /// {@template BlocInicioEventoInicializar}
+/// Inicializa la pagina, es decir, trae todos los cursos/materias necesarios para que el usuario pueda elegir
 /// {@endtemplate}
 class BlocKycEventoInicializar extends BlocKycEvento {
   /// {@macro BlocInicioEventoInicializar}
@@ -16,6 +17,7 @@ class BlocKycEventoInicializar extends BlocKycEvento {
 }
 
 /// {@template BlocKycEventoSeleccionarCursoYMateria}
+/// Selecciona una materia o curso de una de las opciones
 /// {@endtemplate}
 class BlocKycEventoSeleccionarCursoYMateria extends BlocKycEvento {
   /// {@macro BlocKycEventoSeleccionarCursoYMateria}
@@ -36,6 +38,7 @@ class BlocKycEventoSeleccionarCursoYMateria extends BlocKycEvento {
 }
 
 /// {@template BlocKycEventoAgregarOpcion}
+/// Agrega una nueva opcion de kyc para elegir una materia
 /// {@endtemplate}
 class BlocKycEventoAgregarOpcion extends BlocKycEvento {
   /// {@macro BlocKycEventoAgregarOpcion}

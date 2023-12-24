@@ -34,6 +34,7 @@ class _VistaCelularSeleccionDeRolState
 
     final l10n = context.l10n;
 
+    // TODO(Gon): El Scaffold y el appbar deberan ser eliminados cuando se defina la navegacion
     return Scaffold(
       appBar: AppBar(
         title: Text(

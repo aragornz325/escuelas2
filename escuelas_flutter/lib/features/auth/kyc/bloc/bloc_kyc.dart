@@ -6,14 +6,15 @@ part 'bloc_kyc_estado.dart';
 part 'bloc_kyc_evento.dart';
 
 /// {@template BlocKyc}
-/// Bloc que maneja los estados y lógica de la pagina de 'Inicio'
+/// Bloc que maneja los estados y lógica de la pagina de 'Kyc'
 /// {@endtemplate}
 class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
-  /// {@macro BlocInicio}
+  /// {@macro BlocKyc}
   BlocKyc(this.rolElegido) : super(const BlocKycEstadoInicial()) {
     on<BlocKycEventoInicializar>(_inicializar);
     on<BlocKycEventoSeleccionarCursoYMateria>(_seleccionarCursoYMateria);
     on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
+
     add(const BlocKycEventoInicializar());
   }
 
