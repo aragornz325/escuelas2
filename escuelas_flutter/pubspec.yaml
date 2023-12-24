@@ -50,6 +50,7 @@ flutter:
   uses-material-design: true
   generate: true
   assets:
+    - assets/images/
     - stg.env
     - dev.env
     - prod.env

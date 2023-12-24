@@ -1,7 +1,10 @@
 {
     "@@locale": "en",
 
-
+    "loginPageLoginWithGoogle": "Log in with Google",
+    "@loginPageLoginWithGoogle": {
+        "description": "Text to indicate the log in with google system"
+    },
     
     
     "commonMail": "Mail",
