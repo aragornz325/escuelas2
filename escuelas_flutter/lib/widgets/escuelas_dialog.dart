@@ -44,46 +44,6 @@ class EscuelasDialog extends StatelessWidget {
     super.key,
   });
 
-  /// Altura del dialogo por defecto en `300` (sin .ph) de [EscuelasDialog].
-  final double altura;
-
-  /// Indica si quiere mostrar el Icono de cerrar en el dialogo
-  /// `(por defecto esta el .pop)`de [EscuelasDialog].
-  final bool conIconoCerrar;
-
-  /// Indica si quiere mostrar con botón outline en el dialogo
-  /// `(por defecto esta el .pop)` de [EscuelasDialog].
-  final bool conBotonOutline;
-
-  /// Indica si quiere mostrar con botón de cancelar en el Dialog
-  /// `(por defecto esta el .pop)`de [EscuelasDialog].
-  final bool conBotonCancelar;
-
-  /// Callback para el botón de confirmar,este se ejecuta al presionar
-  /// el botón de [EscuelasDialog].
-  final VoidCallback? onTapConfirmar;
-
-  /// Ancho del dialogo (sin .pw) de [EscuelasDialog].
-  final double? ancho;
-
-  /// Titulo del dialogo de [EscuelasDialog].
-  final String? titulo;
-
-  /// Cuerpo/contenido del dialogo de [EscuelasDialog].
-  final Widget? content;
-
-  /// Titulo del botón de `Confirmar` de [EscuelasDialog].
-  final String? tituloBotonPrincipal;
-
-  /// Icono al lado del titulo de [EscuelasDialog].
-  final IconData? iconoAlLadoDelTitulo;
-
-  /// Titulo del botón de `Cancelar` o `Rechazar` de [EscuelasDialog].
-  final String? tituloDelBotonSecundario;
-
-  /// Color de fondo del botón de `Cancelar` o `Rechazar` de [EscuelasDialog].
-  final Color? colorDeFondoDelBotonSecundario;
-
   /// `Dialog de éxito`:
   ///
   /// Se usa para el procedimiento de una operación y indicarle al usuario que
@@ -104,7 +64,7 @@ class EscuelasDialog extends StatelessWidget {
       ancho: ancho,
       altura: altura,
       onTapConfirmar: onTap,
-      tituloBotonPrincipal: 'aceptar', //TODO(anyone) ver si se hace l10n
+      tituloBotonPrincipal: 'CONFIRMAR', //TODO(anyone) ver si se hace l10n
       content: Text(
         titulo,
         style: TextStyle(
@@ -171,10 +131,11 @@ class EscuelasDialog extends StatelessWidget {
       altura: altura,
       conBotonCancelar: true,
       onTapConfirmar: onTapConfirmar,
-      tituloDelBotonSecundario: 'Rechazar', //TODO(anyone) ver si se hace l10n
+      tituloDelBotonSecundario: 'RECHAZAR', //TODO(anyone) ver si se hace l10n
       colorDeFondoDelBotonSecundario: colores.error,
       content: Text(
         titulo,
+        textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 15.pf,
           fontWeight: FontWeight.w600,
@@ -183,6 +144,46 @@ class EscuelasDialog extends StatelessWidget {
       ),
     );
   }
+
+  /// Altura del dialogo por defecto en `300` (sin .ph) de [EscuelasDialog].
+  final double altura;
+
+  /// Indica si quiere mostrar el Icono de cerrar en el dialogo
+  /// `(por defecto esta el .pop)`de [EscuelasDialog].
+  final bool conIconoCerrar;
+
+  /// Indica si quiere mostrar con botón outline en el dialogo
+  /// `(por defecto esta el .pop)` de [EscuelasDialog].
+  final bool conBotonOutline;
+
+  /// Indica si quiere mostrar con botón de cancelar en el Dialog
+  /// `(por defecto esta el .pop)`de [EscuelasDialog].
+  final bool conBotonCancelar;
+
+  /// Callback para el botón de confirmar,este se ejecuta al presionar
+  /// el botón de [EscuelasDialog].
+  final VoidCallback? onTapConfirmar;
+
+  /// Ancho del dialogo (sin .pw) de [EscuelasDialog].
+  final double? ancho;
+
+  /// Titulo del dialogo de [EscuelasDialog].
+  final String? titulo;
+
+  /// Cuerpo/contenido del dialogo de [EscuelasDialog].
+  final Widget? content;
+
+  /// Titulo del botón de `Confirmar` de [EscuelasDialog].
+  final String? tituloBotonPrincipal;
+
+  /// Icono al lado del titulo de [EscuelasDialog].
+  final IconData? iconoAlLadoDelTitulo;
+
+  /// Titulo del botón de `Cancelar` o `Rechazar` de [EscuelasDialog].
+  final String? tituloDelBotonSecundario;
+
+  /// Color de fondo del botón de `Cancelar` o `Rechazar` de [EscuelasDialog].
+  final Color? colorDeFondoDelBotonSecundario;
 
   @override
   Widget build(BuildContext context) {
@@ -255,7 +256,7 @@ class EscuelasDialog extends StatelessWidget {
             estaHabilitado: true,
             color: colores.grisSC,
             texto: tituloBotonPrincipal ??
-                'Volver', //TODO(anyone) ver si se hace l10n
+                'VOLVER', //TODO(anyone) ver si se hace l10n
           )
         else
           EscuelasBoton.texto(
@@ -264,7 +265,7 @@ class EscuelasDialog extends StatelessWidget {
             estaHabilitado: true,
             color: colores.verdeConfirmar,
             texto: tituloBotonPrincipal ??
-                'confirmar', //TODO(anyone) ver si se hace l10n
+                'CONFIRMAR', //TODO(anyone) ver si se hace l10n
           ),
       ],
     );

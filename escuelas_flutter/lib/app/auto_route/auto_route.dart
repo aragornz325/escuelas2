@@ -29,8 +29,12 @@ class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(
-          initial: true,
           page: PaginaSeleccionDeRol.page,
+          initial: true,
+          // guards: [initialGuard],
+        ),
+        AutoRoute(
+          page: PaginaKyc.page,
           // guards: [initialGuard],
         ),
       ];

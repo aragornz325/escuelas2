@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/seleccion_de_rol/bloc/bloc_seleccion_de_rol.dart';
 import 'package:escuelas_flutter/features/auth/seleccion_de_rol/widgets/tarjeta_rol.dart';
@@ -34,6 +36,7 @@ class _VistaCelularSeleccionDeRolState
 
     final l10n = context.l10n;
 
+    // TODO(Gon): El Scaffold y el appbar deberan ser eliminados cuando se defina la navegacion
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -49,30 +52,26 @@ class _VistaCelularSeleccionDeRolState
       ),
       body: Padding(
         padding: EdgeInsets.only(bottom: 40.ph),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
+        child: BlocBuilder<BlocSeleccionDeRol, BlocSeleccionDeRolEstado>(
+          builder: (context, state) {
+            return Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SizedBox(height: 20.ph),
-                // TODO(Gon): Usar nombre del usuario logeado
-                Text(
-                  l10n.pageRoleSelectionWelcome('Gonzalo Rigoni'),
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 14.pf,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                SizedBox(height: 20.ph),
-                BlocBuilder<BlocSeleccionDeRol, BlocSeleccionDeRolEstado>(
-                  builder: (context, state) {
-                    if (state.estaEnEstadoCargando) {
-                      const Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return Column(
+                Column(
+                  children: [
+                    SizedBox(height: 20.ph),
+                    // TODO(Gon): Usar nombre del usuario logeado
+                    Text(
+                      l10n.pageRoleSelectionWelcome('Gonzalo Rigoni'),
+                      style: TextStyle(
+                        color: colores.onBackground,
+                        fontSize: 14.pf,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 20.ph),
+
+                    Column(
                       children: [
                         ...state.listaRoles.map(
                           (rol) => Center(
@@ -89,57 +88,65 @@ class _VistaCelularSeleccionDeRolState
                           ),
                         ),
                       ],
-                    );
-                  },
+                    ),
+                  ],
                 ),
-              ],
-            ),
-            Column(
-              children: [
-                EscuelasBoton.texto(
-                  context: context,
-                  estaHabilitado: rolPresionado != -1,
-                  // TODO(Gon): Dar funcion(llevar a la pag de KYC)
-                  onTap: () {},
-                  color: rolPresionado != -1
-                      ? colores.azul
-                      : colores.grisDeshabilitado,
-                  texto: l10n.commonContinue.toUpperCase(),
-                ),
-                if (rolPresionado != -1)
-                  Column(
-                    children: [
-                      SizedBox(height: 40.ph),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.pw),
-                        child: BlocBuilder<BlocSeleccionDeRol,
-                            BlocSeleccionDeRolEstado>(
-                          builder: (context, state) {
-                            final nombreRolSeleccionado = state.listaRoles
-                                .where(
-                                  (element) => element.id == rolPresionado,
-                                )
-                                .first
-                                .nombre;
-                            return Text(
-                              l10n.pageRoleConfirmationText(
-                                nombreRolSeleccionado,
-                              ),
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: colores.onSecondary,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 13.pf,
-                              ),
-                            );
-                          },
+                Column(
+                  children: [
+                    EscuelasBoton.texto(
+                      context: context,
+                      estaHabilitado: rolPresionado != -1,
+                      // TODO(Gon): Esto se va a cambiar cuando cambie la navegacion
+                      onTap: () => context.router.push(
+                        PaginaKyc(
+                          rolElegido: state.listaRoles
+                              .where(
+                                (element) => element.id == rolPresionado,
+                              )
+                              .first,
                         ),
                       ),
-                    ],
-                  ),
+                      color: rolPresionado != -1
+                          ? colores.azul
+                          : colores.grisDeshabilitado,
+                      texto: l10n.commonContinue.toUpperCase(),
+                    ),
+                    if (rolPresionado != -1)
+                      Column(
+                        children: [
+                          SizedBox(height: 40.ph),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.pw),
+                            child: BlocBuilder<BlocSeleccionDeRol,
+                                BlocSeleccionDeRolEstado>(
+                              builder: (context, state) {
+                                final nombreRolSeleccionado = state.listaRoles
+                                    .where(
+                                      (element) => element.id == rolPresionado,
+                                    )
+                                    .first
+                                    .nombre;
+                                return Text(
+                                  l10n.pageRoleConfirmationText(
+                                    nombreRolSeleccionado,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: colores.onSecondary,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 13.pf,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                  ],
+                ),
               ],
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

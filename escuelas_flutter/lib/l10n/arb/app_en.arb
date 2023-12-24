@@ -1,6 +1,51 @@
 {
     "@@locale": "en",
 
+    "pageKycConfirmationDialogText": "Are you sure you want to apply for the {roleName} role?",
+    "@pageKycConfirmationDialogText": {
+        "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycAddSubject": "Add subject",
+    "@pageKycAddSubject": {
+        "description": "Button label to add a subject in the KYC (Know Your Customer) process."
+    },
+
+    "pageKycWhatGradeAreYouIn": "What grade are you in?",
+    "@pageKycWhatGradeAreYouIn": {
+        "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
+    },
+
+    "pageKycWhichSubjectIsIt": "Which subject is it?",
+    "@pageKycWhichSubjectIs": {
+        "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
+    },
+
+    "pageKycWhatYearIsYourSubject": "What year is your subject?",
+    "@pageKycWhatYearIsYourSubject": {
+        "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+    },
+
+    "pageKycTitle": "{roleName} form",
+    "@pageKycTitle": {
+        "description": "Title for the KYC form page with a placeholder for the role name.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycDescription": "Answer these questions about yourself. We need this information in order to identify you in your request.",
+    "@pageKycDescription": {
+        "description": "Description guiding the user to answer questions for identity verification in the KYC process."
+    },
+
     "pageRoleSelectionTitle": "Role Assignment",
     "@pageRoleSelectionTitle": {
         "description": "Title for the page where users select their roles."
@@ -59,6 +104,10 @@
     "commonContinue": "Continue",
     "@commonContinue": {
         "description": "Label for a button or action indicating to proceed."
-    }
+    },
 
+    "commonApply": "Request",
+    "@commonRequest": {
+        "description": "Label for a button or action indicating to submit a request."
+    }
 }

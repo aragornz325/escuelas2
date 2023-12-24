@@ -3,6 +3,8 @@ import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
 
+//!!! TODO(anyone): ARREGLAR ESTO
+
 // void Function(ExcepcionCustom excepcion) onErrorCustom = (_) {};
 
 /// Callback que se ejecuta cuando el back devuelve

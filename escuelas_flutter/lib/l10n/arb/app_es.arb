@@ -1,6 +1,51 @@
 {
     "@@locale": "es",
 
+    "pageKycConfirmationDialogText": "¿Estás seguro que deseas solicitar el rol {roleName}?",
+    "@pageKycConfirmationDialogText": {
+        "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycAddSubject": "Agregar materia",
+    "@pageKycAddSubject": {
+        "description": "Button label to add a subject in the KYC (Know Your Customer) process."
+    },
+
+    "pageKycWhatGradeAreYouIn": "¿En qué curso estás?",
+    "@pageKycWhatGradeAreYouIn": {
+        "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
+    },
+
+    "pageKycWhichSubjectIsIt": "¿Qué materia es?",
+    "@pageKycWhichSubjectIs": {
+        "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
+    },
+
+    "pageKycWhatYearIsYourSubject": "¿De qué año es tu materia?",
+    "@pageKycWhatYearIsYourSubject": {
+        "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+    },
+
+    "pageKycTitle": "Formulario de {roleName}",
+    "@pageKycTitle": {
+        "description": "Title for the KYC form page with a placeholder for the role name.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycDescription": "Contesta estas preguntas sobre vos. Necesitamos esta información a modo de identificarte en tu solicitud.",
+    "@pageKycDescription": {
+        "description": "Description guiding the user to answer questions for identity verification in the KYC process."
+    },
+
     "pageRoleSelectionTitle": "Asignación de Roles",
     "@pageRoleSelectionTitle": {
         "description": "Title for the page where users select their roles."
@@ -56,6 +101,11 @@
         "description": "Text to indicate that only numbers are allowed"
     },
 
+    "commonApply": "Solicitar",
+    "@commonRequest": {
+        "description": "Label for a button or action indicating to submit a request."
+    },
+    
     "commonContinue": "Continuar",
     "@commonContinue": {
         "description": "Label for a button or action indicating to proceed."

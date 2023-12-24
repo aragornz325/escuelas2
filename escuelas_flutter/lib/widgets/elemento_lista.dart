@@ -65,6 +65,7 @@ class ElementoLista extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     return GestureDetector(
       onTap: estaHabilitado ? onTap : null,
       child: Container(
