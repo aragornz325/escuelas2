@@ -1,5 +1,8 @@
+import 'dart:math';
+
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -235,100 +238,35 @@ class EscuelasDialog extends StatelessWidget {
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       actions: [
         if (conBotonCancelar)
-          EscuelasBoton(
+          EscuelasBoton.texto(
             onTap: () => Navigator.of(context).pop(),
-            titulo: tituloDelBotonSecundario ??
+            estaHabilitado: true,
+            context: context,
+            texto: tituloDelBotonSecundario ??
                 'cancelar', //TODO(anyone) ver si se hace l10n
-            colorDeFondo: colorDeFondoDelBotonSecundario ?? colores.onSecondary,
+            color: colorDeFondoDelBotonSecundario ?? colores.onSecondary,
           ),
         if (conBotonOutline)
-          EscuelasBoton.outline(
+          EscuelasBoton.outlined(
             context: context,
+            width: 130.pw,
+            height: max(30.sh, 30.ph),
             onTap: () => onTapConfirmar,
-            colorTitulo: colores.grisSC,
-            titulo: tituloBotonPrincipal ??
+            estaHabilitado: true,
+            color: colores.grisSC,
+            texto: tituloBotonPrincipal ??
                 'Volver', //TODO(anyone) ver si se hace l10n
           )
         else
-          EscuelasBoton(
+          EscuelasBoton.texto(
+            context: context,
             onTap: () => onTapConfirmar,
-            colorDeFondo: colores.verdeConfirmar,
-            titulo: tituloBotonPrincipal ??
+            estaHabilitado: true,
+            color: colores.verdeConfirmar,
+            texto: tituloBotonPrincipal ??
                 'confirmar', //TODO(anyone) ver si se hace l10n
           ),
       ],
-    );
-  }
-}
-
-// TODO(anyone) es un boton hasta que este el boton de manu
-class EscuelasBoton extends StatelessWidget {
-  const EscuelasBoton({
-    required this.onTap,
-    required this.titulo,
-    this.radius = 20,
-    this.colorTitulo,
-    this.colorDeFondo,
-    this.estiloDelBoton,
-    super.key,
-  });
-
-  final VoidCallback onTap;
-  final String titulo;
-  final double radius;
-
-  final Color? colorDeFondo;
-  final ButtonStyle? estiloDelBoton;
-  final Color? colorTitulo;
-
-  factory EscuelasBoton.outline({
-    required BuildContext context,
-    required VoidCallback onTap,
-    required String titulo,
-    Color? colorTitulo,
-  }) {
-    final colores = context.colores;
-
-    return EscuelasBoton(
-      onTap: onTap,
-      titulo: titulo,
-      colorTitulo: colorTitulo,
-      estiloDelBoton: ButtonStyle(
-        side: MaterialStateProperty.all(
-          BorderSide(color: colores.onSecondary, width: 1.5.pw),
-        ),
-        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final colores = context.colores;
-
-    return ElevatedButton(
-      onPressed: onTap,
-      style: estiloDelBoton ??
-          ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(colorDeFondo),
-            shape: MaterialStatePropertyAll<RoundedRectangleBorder>(
-              RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(radius),
-              ),
-            ),
-          ),
-      child: Text(
-        titulo.toUpperCase(),
-        style: TextStyle(
-          fontSize: 12.pf,
-          fontWeight: FontWeight.w700,
-          color: colorTitulo ?? colores.onPrimary,
-        ),
-      ),
     );
   }
 }
