@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   bloc: ^8.1.2
-  
+
   flutter:
     sdk: flutter
 
@@ -30,6 +30,7 @@ dependencies:
 
   #server pod
   serverpod_flutter: 1.2.0-rc.1
+  flutter_inset_box_shadow: ^1.0.8
   # serverpod_auth_email_flutter: ^1.2.0-rc.1
   # serverpod_auth_client: ^1.2.0-rc.1
 
@@ -44,7 +45,6 @@ dev_dependencies:
     sdk: flutter
   mocktail: ^1.0.0
   very_good_analysis: ^5.1.0
-  
 
 flutter:
   uses-material-design: true

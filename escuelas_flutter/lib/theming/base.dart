@@ -36,4 +36,10 @@ extension EscuelasColorScheme on ColorScheme {
 
   /// Color utilizado en el promedio TED
   Color get rojoTED => const Color(0xffFF4444);
+
+  /// Color utilizado para los componentes deshabilitados
+  Color get grisDeshabilitado => const Color(0xffCCCCCC);
+
+  /// Color utilizado para los componentes deshabilitados
+  Color get grisBotonPresionado => const Color(0xffE2E2E2);
 }

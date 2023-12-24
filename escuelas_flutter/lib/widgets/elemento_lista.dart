@@ -1,5 +1,6 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ElementoLista}
@@ -10,6 +11,7 @@ class ElementoLista extends StatelessWidget {
   /// {@macro ElementoLista}
   const ElementoLista({
     required this.titulo,
+    this.boxShadow,
     this.colorFondo,
     this.estaHabilitado = true,
     this.onTap,
@@ -58,11 +60,12 @@ class ElementoLista extends StatelessWidget {
 
   /// Peso de la fuente, grosor
   final FontWeight fontWeight;
+  final List<BoxShadow>? boxShadow;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
-    return InkWell(
+    return GestureDetector(
       onTap: estaHabilitado ? onTap : null,
       child: Container(
         height: altura,
@@ -72,6 +75,7 @@ class ElementoLista extends StatelessWidget {
               ? colorFondo ?? colores.tertiary
               : colores.secondary,
           borderRadius: BorderRadius.circular(borderRadius),
+          boxShadow: boxShadow ?? [],
         ),
         child: Align(
           alignment: Alignment.centerLeft,
