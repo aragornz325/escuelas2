@@ -58,6 +58,11 @@ class _VistaCelularSeleccionDeRolState
                 // TODO(Gon): Usar nombre del usuario logeado
                 Text(
                   l10n.pageRoleSelectionWelcome('Gonzalo Rigoni'),
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontSize: 14.pf,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
                 SizedBox(height: 20.ph),
                 BlocBuilder<BlocSeleccionDeRol, BlocSeleccionDeRolEstado>(
