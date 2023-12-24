@@ -24,6 +24,7 @@ class ListaDeBloqueMateria extends StatelessWidget {
                 ...state.opcionesKyc.map(
                   (e) => Column(
                     children: [
+                      // TODO(Gon): Revisar el diseño de cuando se scrollea(todavia no esta 24/12/23)
                       Padding(
                         padding: EdgeInsets.only(bottom: 30.ph),
                         child: BloqueMateria(id: e.id),

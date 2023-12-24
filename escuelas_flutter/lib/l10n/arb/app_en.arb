@@ -1,11 +1,50 @@
 {
     "@@locale": "en",
 
+    "pageKycConfirmationDialogText": "Are you sure you want to apply for the {roleName} role?",
+    "@pageKycConfirmationDialogText": {
+        "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycAddSubject": "Add subject",
+    "@pageKycAddSubject": {
+        "description": "Button label to add a subject in the KYC (Know Your Customer) process."
+    },
+
+    "pageKycWhichSubjectIsIt": "Which subject is it?",
+    "@pageKycWhichSubjectIs": {
+        "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
+    },
+
+    "pageKycWhatYearIsYourSubject": "What year is your subject?",
+    "@pageKycWhatYearIsYourSubject": {
+        "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+    },
+
+    "pageKycTitle": "{roleName} form",
+    "@pageKycTitle": {
+        "description": "Title for the KYC form page with a placeholder for the role name.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycDescription": "Answer these questions about yourself. We need this information in order to identify you in your request.",
+    "@pageKycDescription": {
+        "description": "Description guiding the user to answer questions for identity verification in the KYC process."
+    },
+
     "loginPageLoginWithGoogle": "Log in with Google",
     "@loginPageLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
     },
-    
     
     "commonMail": "Mail",
     "@commonMail": {
@@ -30,6 +69,10 @@
     "commonOnlyNumbers": "Only numbers",
     "@commonOnlyNumbers": {
         "description": "Text to indicate that only numbers are allowed"
-    }
+    },
 
+    "commonApply": "Request",
+    "@commonRequest": {
+        "description": "Label for a button or action indicating to submit a request."
+    }
 }

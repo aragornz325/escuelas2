@@ -1,6 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/auth/kyc/widgets/widgets.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -18,13 +19,14 @@ class VistaCelularKyc extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return Scaffold(
       appBar: AppBar(
         title: BlocBuilder<BlocKyc, BlocKycEstado>(
           builder: (context, state) {
             return Text(
-              // TODO(Gon): l10n
-              'Formulario de ${state.rolElegido?.nombre ?? ''}',
+              l10n.pageKycTitle(state.rolElegido?.nombre ?? ''),
               style: TextStyle(
                 color: colores.onBackground,
                 fontWeight: FontWeight.w800,
@@ -51,9 +53,7 @@ class VistaCelularKyc extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.pw),
                   child: Text(
-                    // TODO(Gon): l10n
-                    'Contesta estas preguntas sobre vos. Necesitamos esta'
-                    ' información a modo de identificarte en tu solicitud.',
+                    l10n.pageKycDescription,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: colores.onBackground,

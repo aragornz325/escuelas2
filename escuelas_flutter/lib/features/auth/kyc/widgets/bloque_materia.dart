@@ -1,6 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/auth/kyc/widgets/kyc_dropdown.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -23,6 +24,8 @@ class BloqueMateria extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return BlocBuilder<BlocKyc, BlocKycEstado>(
       builder: (context, state) {
         return Padding(
@@ -31,8 +34,7 @@ class BloqueMateria extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                // TODO(Gon): l10n
-                '¿De qué año es tu materia?',
+                l10n.pageKycWhatYearIsYourSubject,
                 style: TextStyle(
                   color: colores.onBackground,
                   fontWeight: FontWeight.w600,
@@ -52,8 +54,7 @@ class BloqueMateria extends StatelessWidget {
               ),
               SizedBox(height: 20.ph),
               Text(
-                // TODO(Gon): l10n
-                '¿Qué materia es?',
+                l10n.pageKycWhichSubjectIsIt,
                 style: TextStyle(
                   color: colores.onBackground,
                   fontWeight: FontWeight.w600,

@@ -20,7 +20,7 @@ class KycDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(Gon): Hacerlo parecido al diseño (todavia no hay)
+    // TODO(Gon): Hacerlo parecido al diseño (todavia no hay 23/12/23)
     return EscuelasDropdownPopup(
       list: lista,
       onChanged: listaOpcionesSeleccionadas,
