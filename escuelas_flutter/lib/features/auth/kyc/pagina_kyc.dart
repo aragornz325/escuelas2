@@ -7,18 +7,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template VistaEscritorioKyc}
-// TODO(anyone): AGREGAR DOCUMENTACION
-
+/// Pagina de la pantalla 'Kyc'
 /// {@endtemplate}
 @RoutePage()
 class PaginaKyc extends StatelessWidget {
   /// {@macro PaginaKyc}
-  const PaginaKyc({super.key});
+  const PaginaKyc({
+    required this.rolElegido,
+    super.key,
+  });
+
+  /// Rol elegido por el usuario en la pantalla de eleccion de rol
+  final Rol rolElegido;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocKyc>(
-      create: (context) => BlocKyc(),
+      create: (context) => BlocKyc(rolElegido),
       child: const FullResponsiveScreen(
         celular: VistaCelularKyc(),
         escritorio: VistaEscritorioKyc(),

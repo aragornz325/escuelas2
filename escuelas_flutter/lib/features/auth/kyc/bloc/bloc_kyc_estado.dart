@@ -9,6 +9,7 @@ class BlocKycEstado {
     this.listaCursos = const [],
     this.listaMaterias = const [],
     this.opcionesKyc = const [],
+    this.rolElegido,
   });
 
   BlocKycEstado.desde(
@@ -16,18 +17,27 @@ class BlocKycEstado {
     List<Curso>? listaCursos,
     List<Materia>? listaMaterias,
     List<OpcionKyc>? opcionesKyc,
+    Rol? rolElegido,
   }) : this._(
           listaCursos: listaCursos ?? otro.listaCursos,
           listaMaterias: listaMaterias ?? otro.listaMaterias,
           opcionesKyc: opcionesKyc ?? otro.opcionesKyc,
+          rolElegido: rolElegido ?? otro.rolElegido,
         );
 
+  /// Lista de cursos de la escuela a la que pertenece el usuario
   final List<Curso> listaCursos;
 
+  /// Lista de materias de la escuela a la que pertenece el usuario
   final List<Materia> listaMaterias;
 
+  /// Lista de opciones de kyc (inicialmente hay una)
   final List<OpcionKyc> opcionesKyc;
 
+  final Rol? rolElegido;
+
+  /// Retorna la lista de cursos de la escuela a la que pertenece el usuario en
+  /// forma de [PopupOption]
   List<PopupOption> get listaOpcionesCursos => listaCursos
       .map(
         (curso) => PopupOption(
@@ -37,6 +47,8 @@ class BlocKycEstado {
       )
       .toList();
 
+  /// Retorna la lista de materias de la escuela a la que pertenece el usuario
+  /// en forma de [PopupOption]
   List<PopupOption> get listaOpcionesMaterias => listaMaterias
       .map(
         (materia) => PopupOption(

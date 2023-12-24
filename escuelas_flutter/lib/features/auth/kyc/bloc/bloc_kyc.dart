@@ -10,14 +10,15 @@ part 'bloc_kyc_evento.dart';
 /// {@endtemplate}
 class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
   /// {@macro BlocInicio}
-  BlocKyc() : super(const BlocKycEstadoInicial()) {
+  BlocKyc(this.rolElegido) : super(const BlocKycEstadoInicial()) {
     on<BlocKycEventoInicializar>(_inicializar);
     on<BlocKycEventoSeleccionarCursoYMateria>(_seleccionarCursoYMateria);
     on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
     add(const BlocKycEventoInicializar());
   }
+  final Rol rolElegido;
 
-  /// Evento inicial donde trae todos los articulos/Entregable del usuario.
+  /// Evento inicial donde trae todos los cursos del usuario.
   Future<void> _inicializar(
     BlocKycEventoInicializar event,
     Emitter<BlocKycEstado> emit,
@@ -27,6 +28,8 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
       callback: (
           // client
           ) async {
+        // TODO(Gon): Eliminar hardcodeo y usar endpoint
+
         // final materias =await client.;
         // final cursos =await client.;
 
@@ -48,6 +51,7 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
             listaCursos: cursos,
             listaMaterias: materias,
             opcionesKyc: [
+              // TODO(Gon): Ver manera de cambiar esto
               OpcionKyc(
                 id: 0,
                 curso: Curso(nombre: '', id: 0),
@@ -67,7 +71,7 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
-  ///
+  /// Se selecciona el curso y la materia de la opcion de kyc
   Future<void> _seleccionarCursoYMateria(
     BlocKycEventoSeleccionarCursoYMateria event,
     Emitter<BlocKycEstado> emit,
@@ -109,6 +113,7 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
+  /// Agrega una nueva opcion a la lista de kyc
   Future<void> _agregarOpcion(
     BlocKycEventoAgregarOpcion event,
     Emitter<BlocKycEstado> emit,
@@ -149,6 +154,7 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
   }
 }
 
+// TODO(Gon): Eliminar modelo cuando se usen los del back
 class OpcionKyc {
   OpcionKyc({required this.curso, required this.materia, required this.id});
   Curso curso;
@@ -156,6 +162,7 @@ class OpcionKyc {
   final int id;
 }
 
+// TODO(Gon): Eliminar modelo cuando se usen los del back
 class Curso {
   Curso({
     required this.nombre,
@@ -165,6 +172,7 @@ class Curso {
   final int id;
 }
 
+// TODO(Gon): Eliminar modelo cuando se usen los del back
 class Materia {
   Materia({
     required this.nombre,
@@ -172,4 +180,11 @@ class Materia {
   });
   final String nombre;
   final int id;
+}
+
+class Rol {
+  Rol({
+    required this.nombre,
+  });
+  final String nombre;
 }

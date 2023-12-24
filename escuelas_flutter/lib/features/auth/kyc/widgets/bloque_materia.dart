@@ -5,12 +5,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-class PreguntaYRespuesta extends StatelessWidget {
-  const PreguntaYRespuesta({
+/// {@template BloqueMateria}
+/// Pregunta de que año es la materia y un dropdown para seleccionar el año
+/// Tambien pregunta la materia y un dropdown para seleccionarla
+/// {@endtemplate}
+class BloqueMateria extends StatelessWidget {
+  /// {@macro BloqueMateria}
+  const BloqueMateria({
     required this.id,
     super.key,
   });
+
+  /// Id del bloque
   final int id;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -23,6 +31,7 @@ class PreguntaYRespuesta extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
+                // TODO(Gon): l10n
                 '¿De qué año es tu materia?',
                 style: TextStyle(
                   color: colores.onBackground,
@@ -33,15 +42,17 @@ class PreguntaYRespuesta extends StatelessWidget {
               SizedBox(height: 5.ph),
               KycDropdown(
                 lista: state.listaOpcionesCursos,
-                value: (value) => context.read<BlocKyc>().add(
-                      BlocKycEventoSeleccionarCursoYMateria(
-                        idOpcion: id,
-                        idCurso: value[0].id,
-                      ),
-                    ),
+                listaOpcionesSeleccionadas: (value) =>
+                    context.read<BlocKyc>().add(
+                          BlocKycEventoSeleccionarCursoYMateria(
+                            idOpcion: id,
+                            idCurso: value[0].id,
+                          ),
+                        ),
               ),
               SizedBox(height: 20.ph),
               Text(
+                // TODO(Gon): l10n
                 '¿Qué materia es?',
                 style: TextStyle(
                   color: colores.onBackground,
@@ -52,12 +63,13 @@ class PreguntaYRespuesta extends StatelessWidget {
               SizedBox(height: 5.ph),
               KycDropdown(
                 lista: state.listaOpcionesMaterias,
-                value: (value) => context.read<BlocKyc>().add(
-                      BlocKycEventoSeleccionarCursoYMateria(
-                        idOpcion: id,
-                        idMateria: value[0].id,
-                      ),
-                    ),
+                listaOpcionesSeleccionadas: (value) =>
+                    context.read<BlocKyc>().add(
+                          BlocKycEventoSeleccionarCursoYMateria(
+                            idOpcion: id,
+                            idMateria: value[0].id,
+                          ),
+                        ),
               ),
             ],
           ),

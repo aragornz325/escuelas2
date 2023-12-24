@@ -24,8 +24,14 @@ class BlocKycEventoSeleccionarCursoYMateria extends BlocKycEvento {
     this.idCurso,
     this.idMateria,
   });
+
+  /// Id de la opcion a la cual se le va a asignar el curso/materia
   final int idOpcion;
+
+  /// Id del curso seleccionado
   final int? idCurso;
+
+  /// Id de la materia seleccionada
   final int? idMateria;
 }
 
