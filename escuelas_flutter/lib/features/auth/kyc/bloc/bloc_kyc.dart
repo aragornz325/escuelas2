@@ -79,113 +79,71 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
   }
 
   /// Selecciona un rol de la lista en seleccion de roles
-  Future<void> _seleccionarRol(
+  void _seleccionarRol(
     BlocKycEventoSeleccionarRol event,
     Emitter<BlocKycEstado> emit,
-  ) async {
-    emit(BlocKycEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (
-          // client
-          ) async {
-        emit(
-          BlocKycEstadoExitoso.desde(
-            state,
-            rolElegido: event.rolElegido,
-            eliminarRolSeleccionado: event.eliminarRolSeleccionado,
-          ),
-        );
-      },
-      onError: (e, st) {
-        emit(
-          BlocKycEstadoError.desde(
-            state,
-          ),
-        );
-      },
+  ) {
+    emit(
+      BlocKycEstadoExitoso.desde(
+        state,
+        rolElegido: event.rolElegido,
+        eliminarRolSeleccionado: event.eliminarRolSeleccionado,
+      ),
     );
   }
 
   /// Se selecciona el curso y la materia de la opcion de kyc
-  Future<void> _seleccionarCursoYMateria(
+  void _seleccionarCursoYMateria(
     BlocKycEventoSeleccionarCursoYMateria event,
     Emitter<BlocKycEstado> emit,
-  ) async {
-    emit(BlocKycEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (
-          // client
-          ) async {
-        final nuevaListaOpciones =
-            List<OpcionFormulario>.from(state.opcionesFormulario);
+  ) {
+    final nuevaListaOpciones =
+        List<OpcionFormulario>.from(state.opcionesFormulario);
 
-        final opcionAModificar = nuevaListaOpciones
-            .firstWhere((opcionKyc) => opcionKyc.id == event.idOpcion);
+    final opcionAModificar = nuevaListaOpciones
+        .firstWhere((opcionKyc) => opcionKyc.id == event.idOpcion);
 
-        if (event.idCurso != null) {
-          opcionAModificar.curso = state.listaCursos
-              .firstWhere((curso) => curso.id == event.idCurso);
-        }
+    if (event.idCurso != null) {
+      opcionAModificar.curso =
+          state.listaCursos.firstWhere((curso) => curso.id == event.idCurso);
+    }
 
-        if (event.idMateria != null) {
-          opcionAModificar.materia = state.listaMaterias
-              .firstWhere((materia) => materia.id == event.idMateria);
-        }
+    if (event.idMateria != null) {
+      opcionAModificar.materia = state.listaMaterias
+          .firstWhere((materia) => materia.id == event.idMateria);
+    }
 
-        emit(
-          BlocKycEstadoExitoso.desde(
-            state,
-            opcionesFormulario: nuevaListaOpciones,
-          ),
-        );
-      },
-      onError: (e, st) {
-        emit(
-          BlocKycEstadoError.desde(
-            state,
-          ),
-        );
-      },
+    emit(
+      BlocKycEstadoExitoso.desde(
+        state,
+        opcionesFormulario: nuevaListaOpciones,
+      ),
     );
   }
 
   /// Agrega una nueva opcion a la lista de kyc
-  Future<void> _agregarOpcion(
+  void _agregarOpcion(
     BlocKycEventoAgregarOpcion event,
     Emitter<BlocKycEstado> emit,
-  ) async {
-    emit(BlocKycEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (
-          // client
-          ) async {
-        state.opcionesFormulario.add(
-          OpcionFormulario(
-            id: state.opcionesFormulario.length + 1,
-            curso: Curso(
-              nombre: '',
-              id: 0,
-            ),
-            materia: Materia(
-              nombre: '',
-              id: 0,
-            ),
-          ),
-        );
-        emit(
-          BlocKycEstadoExitoso.desde(
-            state,
-            opcionesFormulario: state.opcionesFormulario,
-          ),
-        );
-      },
-      onError: (e, st) {
-        emit(
-          BlocKycEstadoError.desde(
-            state,
-          ),
-        );
-      },
+  ) {
+    state.opcionesFormulario.add(
+      OpcionFormulario(
+        id: state.opcionesFormulario.length + 1,
+        curso: Curso(
+          nombre: '',
+          id: 0,
+        ),
+        materia: Materia(
+          nombre: '',
+          id: 0,
+        ),
+      ),
+    );
+    emit(
+      BlocKycEstadoExitoso.desde(
+        state,
+        opcionesFormulario: state.opcionesFormulario,
+      ),
     );
   }
 }
