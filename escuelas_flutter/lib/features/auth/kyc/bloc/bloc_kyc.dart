@@ -94,8 +94,8 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            rolElegido:
-                event.rolElegido == state.rolElegido ? null : event.rolElegido,
+            rolElegido: event.rolElegido,
+            eliminarRolSeleccionado: event.eliminarRolSeleccionado,
           ),
         );
       },

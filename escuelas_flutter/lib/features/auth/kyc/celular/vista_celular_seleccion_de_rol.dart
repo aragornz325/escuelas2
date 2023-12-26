@@ -81,6 +81,9 @@ class _VistaCelularSeleccionDeRolState
                                   context.read<BlocKyc>().add(
                                         BlocKycEventoSeleccionarRol(
                                           rolElegido: rol,
+                                          eliminarRolSeleccionado:
+                                              state.rolElegido?.id == rol.id &&
+                                                  state.rolElegido != null,
                                         ),
                                       );
                                 },

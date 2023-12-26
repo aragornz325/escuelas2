@@ -20,11 +20,13 @@ class BlocKycEstado {
     List<OpcionKyc>? opcionesKyc,
     Rol? rolElegido,
     List<Rol>? listaRoles,
+    bool eliminarRolSeleccionado = false,
   }) : this._(
           listaCursos: listaCursos ?? otro.listaCursos,
           listaMaterias: listaMaterias ?? otro.listaMaterias,
           opcionesKyc: opcionesKyc ?? otro.opcionesKyc,
-          rolElegido: rolElegido ?? otro.rolElegido,
+          rolElegido:
+              eliminarRolSeleccionado ? null : rolElegido ?? otro.rolElegido,
           listaRoles: listaRoles ?? otro.listaRoles,
         );
 
@@ -97,6 +99,7 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
     super.opcionesKyc,
     super.rolElegido,
     super.listaRoles,
+    super.eliminarRolSeleccionado,
   }) : super.desde();
 }
 

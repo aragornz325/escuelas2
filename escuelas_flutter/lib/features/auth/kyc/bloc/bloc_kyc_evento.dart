@@ -21,9 +21,14 @@ class BlocKycEventoInicializar extends BlocKycEvento {
 /// {@endtemplate}
 class BlocKycEventoSeleccionarRol extends BlocKycEvento {
   /// {@macro BlocKycEventoSeleccionarRol}
-  const BlocKycEventoSeleccionarRol({required this.rolElegido});
+  const BlocKycEventoSeleccionarRol({
+    required this.eliminarRolSeleccionado,
+    required this.rolElegido,
+  });
 
   final Rol? rolElegido;
+
+  final bool eliminarRolSeleccionado;
 }
 
 /// {@template BlocKycEventoSeleccionarCursoYMateria}
