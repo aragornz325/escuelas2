@@ -1,8 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
-import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
-import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
+import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template TarjetaRol}
@@ -40,22 +39,7 @@ class TarjetaRol extends StatelessWidget {
       fontSize: 16.pf,
       fontWeight: FontWeight.w900,
       onTap: onTap,
-      boxShadow: estaPresionado
-          ? [
-              BoxShadow(
-                blurRadius: 50,
-                offset: const Offset(0, -4),
-                color: Colors.grey.shade200,
-                inset: true,
-              ),
-              BoxShadow(
-                blurRadius: 4,
-                offset: const Offset(0, 4),
-                inset: true,
-                color: colores.grisSC,
-              ),
-            ]
-          : [],
+      tieneBoxShadow: estaPresionado,
     );
   }
 }

@@ -25,6 +25,10 @@ extension EscuelasColorScheme on ColorScheme {
   /// containers expandibles
   Color get grisSC => const Color(0xff6D6D6D);
 
+  /// Se utiliza para el color del box shadow del ElementoLista cuando
+  /// esta presionado.
+  Color get grisClaroSombreado => const Color(0xFFEEEEEE);
+
   /// Se utiliza para el fondo del campo de texto para ingresar una calificacion
   Color get azul => const Color(0xff2E75FF);
 
