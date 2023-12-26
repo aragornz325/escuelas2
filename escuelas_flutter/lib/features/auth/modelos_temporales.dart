@@ -1,7 +1,10 @@
 // TODO(Gon): Eliminar modelo cuando se usen los del back
 class OpcionFormulario {
-  OpcionFormulario(
-      {required this.curso, required this.materia, required this.id});
+  OpcionFormulario({
+    required this.curso,
+    required this.materia,
+    required this.id,
+  });
   Curso curso;
   Materia materia;
   final int id;
@@ -33,4 +36,14 @@ class Rol {
   String nombre;
   List<String> permisos;
   int id;
+}
+
+// TODO(SAM): Eliminar luego cuando venga del back
+enum Permiso { directivo, alumno, profesor }
+
+// TODO(SAM): Eliminar luego cuando venga del back
+class InfoUsuario {
+  InfoUsuario({required this.nombre, required this.permiso});
+  String nombre;
+  List<Permiso> permiso;
 }
