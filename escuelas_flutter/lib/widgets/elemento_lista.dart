@@ -13,7 +13,7 @@ class ElementoLista extends StatelessWidget {
   const ElementoLista({
     required this.titulo,
     this.colorFondo,
-    this.tieneBoxShadow = true,
+    this.tieneBoxShadow = false,
     this.estaHabilitado = true,
     this.onTap,
     this.altura = 65,
