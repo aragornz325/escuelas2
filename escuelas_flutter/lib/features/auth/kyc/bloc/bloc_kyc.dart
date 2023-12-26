@@ -11,16 +11,17 @@ part 'bloc_kyc_evento.dart';
 /// {@endtemplate}
 class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
   /// {@macro BlocKyc}
-  BlocKyc(this.rolElegido) : super(const BlocKycEstadoInicial()) {
+  BlocKyc() : super(const BlocKycEstadoInicial()) {
     on<BlocKycEventoInicializar>(_inicializar);
     on<BlocKycEventoSeleccionarCursoYMateria>(_seleccionarCursoYMateria);
     on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
+    on<BlocKycEventoSeleccionarRol>(_seleccionarRol);
 
     add(const BlocKycEventoInicializar());
   }
 
   /// Rol elegido por el usuario en la pantalla de seleccion de rol
-  final Rol rolElegido;
+  // final Rol rolElegido;
 
   /// Evento inicial donde trae todos los cursos del usuario.
   Future<void> _inicializar(
@@ -36,7 +37,11 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
 
         // final materias =await client.;
         // final cursos =await client.;
-
+        // final roles = await client.;
+        final roles = [
+          Rol(nombre: 'ALUMNO', permisos: ['permiso1', 'permiso2'], id: 0),
+          Rol(nombre: 'DOCENTE', permisos: ['permiso1', 'permiso2'], id: 1),
+        ];
         final cursos = [
           Curso(nombre: 'PRIMERO', id: 0),
           Curso(nombre: 'SEGUNDO', id: 1),
@@ -52,9 +57,9 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            rolElegido: rolElegido,
             listaCursos: cursos,
             listaMaterias: materias,
+            listaRoles: roles,
             opcionesKyc: [
               // TODO(Gon): Ver manera de cambiar esto
               OpcionKyc(
@@ -63,6 +68,34 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
                 materia: Materia(nombre: '', id: 0),
               ),
             ],
+          ),
+        );
+      },
+      onError: (e, st) {
+        emit(
+          BlocKycEstadoError.desde(
+            state,
+          ),
+        );
+      },
+    );
+  }
+
+  /// Selecciona un rol de la lista en seleccion de roles
+  Future<void> _seleccionarRol(
+    BlocKycEventoSeleccionarRol event,
+    Emitter<BlocKycEstado> emit,
+  ) async {
+    emit(BlocKycEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (
+          // client
+          ) async {
+        emit(
+          BlocKycEstadoExitoso.desde(
+            state,
+            rolElegido:
+                event.rolElegido == state.rolElegido ? null : event.rolElegido,
           ),
         );
       },

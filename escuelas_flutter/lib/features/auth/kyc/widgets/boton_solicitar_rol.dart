@@ -26,11 +26,7 @@ class BotonSolicitarRol extends StatelessWidget {
       builder: (context, state) {
         return EscuelasBoton.texto(
           context: context,
-          // TODO(Gon): Cambiar esta logica a una mejor, xq no esta bueno inicializar el nombre en vacio
-          // TODO(Gon): Tambien ver xq si no esta esto rompe state.opcionesKyc.isNotEmpty
-          estaHabilitado: state.opcionesKyc.isNotEmpty &&
-              state.opcionesKyc[0].curso.nombre != '' &&
-              state.opcionesKyc[0].materia.nombre != '',
+          estaHabilitado: state.rolElegido != null,
           onTap: () => showDialog<void>(
             context: context,
             builder: (context) {
@@ -49,7 +45,6 @@ class BotonSolicitarRol extends StatelessWidget {
                   state.opcionesKyc[0].materia.nombre != ''
               ? colores.azul
               : colores.grisDeshabilitado,
-
           texto: l10n.commonApply,
         );
       },

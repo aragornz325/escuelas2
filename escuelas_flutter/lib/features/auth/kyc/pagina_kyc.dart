@@ -24,7 +24,7 @@ class PaginaKyc extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocKyc>(
-      create: (context) => BlocKyc(rolElegido),
+      create: (context) => BlocKyc(),
       child: const FullResponsiveScreen(
         celular: VistaCelularKyc(),
         escritorio: VistaEscritorioKyc(),

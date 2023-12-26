@@ -9,6 +9,7 @@ class BlocKycEstado {
     this.listaCursos = const [],
     this.listaMaterias = const [],
     this.opcionesKyc = const [],
+    this.listaRoles = const [],
     this.rolElegido,
   });
 
@@ -18,11 +19,13 @@ class BlocKycEstado {
     List<Materia>? listaMaterias,
     List<OpcionKyc>? opcionesKyc,
     Rol? rolElegido,
+    List<Rol>? listaRoles,
   }) : this._(
           listaCursos: listaCursos ?? otro.listaCursos,
           listaMaterias: listaMaterias ?? otro.listaMaterias,
           opcionesKyc: opcionesKyc ?? otro.opcionesKyc,
           rolElegido: rolElegido ?? otro.rolElegido,
+          listaRoles: listaRoles ?? otro.listaRoles,
         );
 
   /// Lista de cursos de la escuela a la que pertenece el usuario
@@ -36,6 +39,12 @@ class BlocKycEstado {
 
   /// Rol elegido por el usuario en la pantalla de seleccion de rol
   final Rol? rolElegido;
+
+  /// Lista de roles a mostrar en pantalla
+  final List<Rol> listaRoles;
+
+  /// Indica si el state es cargando
+  bool get estaEnEstadoCargando => this is BlocKycEstadoCargando;
 
   /// Retorna la lista de cursos de la escuela a la que pertenece el usuario en
   /// forma de [PopupOption]
@@ -87,6 +96,7 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
     super.listaMaterias,
     super.opcionesKyc,
     super.rolElegido,
+    super.listaRoles,
   }) : super.desde();
 }
 

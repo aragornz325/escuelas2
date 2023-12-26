@@ -16,6 +16,16 @@ class BlocKycEventoInicializar extends BlocKycEvento {
   const BlocKycEventoInicializar();
 }
 
+/// {@template BlocKycEventoSeleccionarRol}
+/// Selecciona uno de los roles en la pantalla de seleccion de roles
+/// {@endtemplate}
+class BlocKycEventoSeleccionarRol extends BlocKycEvento {
+  /// {@macro BlocKycEventoSeleccionarRol}
+  const BlocKycEventoSeleccionarRol({required this.rolElegido});
+
+  final Rol? rolElegido;
+}
+
 /// {@template BlocKycEventoSeleccionarCursoYMateria}
 /// Selecciona una materia o curso de una de las opciones
 /// {@endtemplate}

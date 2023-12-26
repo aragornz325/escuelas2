@@ -8,9 +8,9 @@ class VistaEscritorioSeleccionDeRol extends StatelessWidget {
   /// {@macro VistaEscritorioSeleccionDeRol}
   const VistaEscritorioSeleccionDeRol({super.key});
 
+  // TODO(anyone): Hacer la vista escritorio.
   @override
   Widget build(BuildContext context) {
-    // TODO(anyone): Hacer la vista escritorio.
     return const Placeholder();
   }
 }

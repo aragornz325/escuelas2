@@ -24,7 +24,33 @@ class ElementoLista extends StatelessWidget {
     this.widgetLateralIzquierdo,
     super.key,
   });
-// TODO(SAM): Ver que hacer con el sombreado del boton al presionarse.
+  factory ElementoLista.rol({
+    /// Indica si esta presionado o no
+    required bool estaPresionado,
+
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Texto interno del boton.
+    required String nombreRol,
+
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+  }) {
+    final colores = context.colores;
+    return ElementoLista(
+      titulo: nombreRol,
+      altura: 65.ph,
+      ancho: 330.pw,
+      borderRadius: 20.sw,
+      colorFondo:
+          estaPresionado ? colores.grisBotonPresionado : colores.tertiary,
+      fontSize: 16.pf,
+      fontWeight: FontWeight.w900,
+      onTap: onTap,
+      tieneBoxShadow: estaPresionado,
+    );
+  }
 
   /// Texto alineado a la izquierda
   final String titulo;

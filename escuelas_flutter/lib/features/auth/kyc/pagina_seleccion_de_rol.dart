@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/features/auth/seleccion_de_rol/bloc/bloc_seleccion_de_rol.dart';
-import 'package:escuelas_flutter/features/auth/seleccion_de_rol/celular/vista_celular_seleccion_de_rol.dart';
-import 'package:escuelas_flutter/features/auth/seleccion_de_rol/escritorio/vista_escritorio_seleccion_de_rol.dart';
+import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
+import 'package:escuelas_flutter/features/auth/kyc/celular/vista_celular_seleccion_de_rol.dart';
+import 'package:escuelas_flutter/features/auth/kyc/escritorio/vista_escritorio_seleccion_de_rol.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +19,7 @@ class PaginaSeleccionDeRol extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => BlocSeleccionDeRol(),
+      create: (context) => BlocKyc(),
       child: const FullResponsiveScreen(
         celular: VistaCelularSeleccionDeRol(),
         escritorio: VistaEscritorioSeleccionDeRol(),

@@ -12,7 +12,7 @@ import 'package:auto_route/auto_route.dart' as _i5;
 import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i2;
 import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i3;
 import 'package:escuelas_flutter/features/auth/modelos_temporales.dart' as _i6;
-import 'package:escuelas_flutter/features/auth/seleccion_de_rol/pagina_seleccion_de_rol.dart'
+import 'package:escuelas_flutter/features/auth/kyc/pagina_seleccion_de_rol.dart'
     as _i4;
 import 'package:escuelas_flutter/features/pagina_ejemplo.dart' as _i1;
 import 'package:flutter/material.dart' as _i7;

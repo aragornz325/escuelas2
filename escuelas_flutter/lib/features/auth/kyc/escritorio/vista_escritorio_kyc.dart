@@ -8,7 +8,6 @@ class VistaEscritorioKyc extends StatelessWidget {
   const VistaEscritorioKyc({super.key});
 
   // TODO(anyone): Hacer la vista escritorio de la pantalla 'Kyc'
-
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
