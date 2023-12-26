@@ -117,6 +117,7 @@ class _VistaCelularSeleccionDeRolState
                           SizedBox(height: 40.ph),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.pw),
+                            // TODO(Gon): Este builder esta mal, arreglar
                             child: BlocBuilder<BlocSeleccionDeRol,
                                 BlocSeleccionDeRolEstado>(
                               builder: (context, state) {
@@ -126,6 +127,7 @@ class _VistaCelularSeleccionDeRolState
                                     )
                                     .first
                                     .nombre;
+
                                 return Text(
                                   l10n.pageRoleConfirmationText(
                                     nombreRolSeleccionado,
