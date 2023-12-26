@@ -29,7 +29,7 @@ class ListaDeBloqueMateria extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: 30.ph),
                         child: BloqueMateria(id: e.id),
                       ),
-                      const Divider(),
+                      if (state.opcionesKyc.length > 1) const Divider(),
                     ],
                   ),
                 ),
