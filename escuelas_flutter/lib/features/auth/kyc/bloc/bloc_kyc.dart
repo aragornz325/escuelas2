@@ -20,9 +20,6 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
     add(const BlocKycEventoInicializar());
   }
 
-  /// Rol elegido por el usuario en la pantalla de seleccion de rol
-  // final Rol rolElegido;
-
   /// Evento inicial donde trae todos los cursos del usuario.
   Future<void> _inicializar(
     BlocKycEventoInicializar event,
