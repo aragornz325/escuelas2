@@ -30,7 +30,13 @@ class AppRouter extends $AppRouter {
   List<AutoRoute> get routes => [
         AutoRoute(
           page: PaginaSeleccionDeRol.page,
-          initial: true,
+          //   initial: true,
+          // guards: [initialGuard],
+        ),
+        AutoRoute(
+          initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
+          page: PaginaInicio.page,
+          path: '/home',
           // guards: [initialGuard],
         ),
         AutoRoute(
