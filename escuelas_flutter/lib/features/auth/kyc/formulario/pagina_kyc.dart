@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
-import 'package:escuelas_flutter/features/auth/kyc/celular/vista_celular_kyc.dart';
-import 'package:escuelas_flutter/features/auth/kyc/escritorio/vista_escritorio_kyc.dart';
+import 'package:escuelas_flutter/features/auth/kyc/formulario/celular/vista_celular_formulario.dart';
+import 'package:escuelas_flutter/features/auth/kyc/formulario/escritorio/vista_escritorio_formulario.dart';
 import 'package:escuelas_flutter/features/auth/modelos_temporales.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +26,8 @@ class PaginaKyc extends StatelessWidget {
     return BlocProvider<BlocKyc>(
       create: (context) => BlocKyc(),
       child: const FullResponsiveScreen(
-        celular: VistaCelularKyc(),
-        escritorio: VistaEscritorioKyc(),
+        celular: VistaCelularFormulario(),
+        escritorio: VistaEscritorioFormulario(),
       ),
     );
   }

@@ -1,12 +1,12 @@
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:flutter/material.dart';
 
-/// {@template KycDropdown}
+/// {@template FormularioDropdown}
 /// Dropdown para seleccionar el año/materia
 /// {@endtemplate}
-class KycDropdown extends StatelessWidget {
-  /// {@macro KycDropdown}
-  const KycDropdown({
+class FormularioDropdown extends StatelessWidget {
+  /// {@macro FormularioDropdown}
+  const FormularioDropdown({
     required this.lista,
     required this.listaOpcionesSeleccionadas,
     super.key,

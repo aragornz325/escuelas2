@@ -32,7 +32,7 @@ class ElementoLista extends StatelessWidget {
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
 
-    /// Texto interno del boton.
+    /// Nombre del rol.
     required String nombreRol,
 
     /// Contexto para utilizar colores del tema

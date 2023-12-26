@@ -1,18 +1,18 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
-import 'package:escuelas_flutter/features/auth/kyc/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template VistaCelularKyc}
-/// Vista celular de la pantalla 'Kyc'
+/// {@template VistaCelularFormulario}
+/// Vista celular de la pantalla 'Formulario'
 /// {@endtemplate}
-class VistaCelularKyc extends StatelessWidget {
-  /// {@macro VistaCelularKyc}
-  const VistaCelularKyc({
+class VistaCelularFormulario extends StatelessWidget {
+  /// {@macro VistaCelularFormulario}
+  const VistaCelularFormulario({
     super.key,
   });
 
@@ -34,7 +34,7 @@ class VistaCelularKyc extends StatelessWidget {
         title: BlocBuilder<BlocKyc, BlocKycEstado>(
           builder: (context, state) {
             return Text(
-              l10n.pageKycTitle(state.rolElegido?.nombre ?? ''),
+              l10n.pageKycFormTitle(state.rolElegido?.nombre ?? ''),
               style: TextStyle(
                 color: colores.onBackground,
                 fontWeight: FontWeight.w800,
@@ -61,7 +61,7 @@ class VistaCelularKyc extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 30.pw),
                   child: Text(
-                    l10n.pageKycDescription,
+                    l10n.pageKycFormDescription,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: colores.onBackground,

@@ -1,6 +1,6 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
-import 'package:escuelas_flutter/features/auth/kyc/widgets/kyc_dropdown.dart';
+import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/formulario_dropdown.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,8 +36,8 @@ class BloqueMateria extends StatelessWidget {
               Text(
                 //TODO (Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
                 state.rolElegido!.nombre == 'ALUMNO'
-                    ? l10n.pageKycWhatGradeAreYouIn
-                    : l10n.pageKycWhatYearIsYourSubject,
+                    ? l10n.pageKycFormWhatGradeAreYouIn
+                    : l10n.pageKycFormWhatYearIsYourSubject,
                 style: TextStyle(
                   color: colores.onBackground,
                   fontWeight: FontWeight.w600,
@@ -45,7 +45,7 @@ class BloqueMateria extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 5.ph),
-              KycDropdown(
+              FormularioDropdown(
                 lista: state.listaOpcionesCursos,
                 listaOpcionesSeleccionadas: (value) =>
                     context.read<BlocKyc>().add(
@@ -62,7 +62,7 @@ class BloqueMateria extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      l10n.pageKycWhichSubjectIsIt,
+                      l10n.pageKycFormWhichSubjectIsIt,
                       style: TextStyle(
                         color: colores.onBackground,
                         fontWeight: FontWeight.w600,
@@ -70,7 +70,7 @@ class BloqueMateria extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 5.ph),
-                    KycDropdown(
+                    FormularioDropdown(
                       lista: state.listaOpcionesMaterias,
                       listaOpcionesSeleccionadas: (value) =>
                           context.read<BlocKyc>().add(

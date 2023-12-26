@@ -1,6 +1,6 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
-import 'package:escuelas_flutter/features/auth/kyc/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +28,7 @@ class BotonAgregarBloqueMateria extends StatelessWidget {
         Icons.add_circle_outline_outlined,
       ),
       label: Text(
-        l10n.pageKycAddSubject,
+        l10n.pageKycFormAddSubject,
         style: TextStyle(
           color: colores.onBackground,
           decoration: TextDecoration.underline,

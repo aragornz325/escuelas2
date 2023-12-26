@@ -34,15 +34,15 @@ class BotonSolicitarRol extends StatelessWidget {
                 context: context,
                 // TODO(Gon): Enviar solicitud de rol al admin
                 onTapConfirmar: () {},
-                titulo: l10n.pageKycConfirmationDialogText(
+                titulo: l10n.pageKycFormConfirmationDialogText(
                   state.rolElegido?.nombre ?? '',
                 ),
               );
             },
           ),
-          color: state.opcionesKyc.isNotEmpty &&
-                  state.opcionesKyc[0].curso.nombre != '' &&
-                  state.opcionesKyc[0].materia.nombre != ''
+          color: state.opcionesFormulario.isNotEmpty &&
+                  state.opcionesFormulario[0].curso.nombre != '' &&
+                  state.opcionesFormulario[0].materia.nombre != ''
               ? colores.azul
               : colores.grisDeshabilitado,
           texto: l10n.commonApply,

@@ -60,9 +60,9 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
             listaCursos: cursos,
             listaMaterias: materias,
             listaRoles: roles,
-            opcionesKyc: [
+            opcionesFormulario: [
               // TODO(Gon): Ver manera de cambiar esto
-              OpcionKyc(
+              OpcionFormulario(
                 id: 0,
                 curso: Curso(nombre: '', id: 0),
                 materia: Materia(nombre: '', id: 0),
@@ -119,7 +119,8 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
       callback: (
           // client
           ) async {
-        final nuevaListaOpciones = List<OpcionKyc>.from(state.opcionesKyc);
+        final nuevaListaOpciones =
+            List<OpcionFormulario>.from(state.opcionesFormulario);
 
         final opcionAModificar = nuevaListaOpciones
             .firstWhere((opcionKyc) => opcionKyc.id == event.idOpcion);
@@ -137,7 +138,7 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            opcionesKyc: nuevaListaOpciones,
+            opcionesFormulario: nuevaListaOpciones,
           ),
         );
       },
@@ -161,9 +162,9 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
       callback: (
           // client
           ) async {
-        state.opcionesKyc.add(
-          OpcionKyc(
-            id: state.opcionesKyc.length + 1,
+        state.opcionesFormulario.add(
+          OpcionFormulario(
+            id: state.opcionesFormulario.length + 1,
             curso: Curso(
               nombre: '',
               id: 0,
@@ -177,7 +178,7 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            opcionesKyc: state.opcionesKyc,
+            opcionesFormulario: state.opcionesFormulario,
           ),
         );
       },

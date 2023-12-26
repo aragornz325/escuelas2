@@ -8,7 +8,7 @@ class BlocKycEstado {
   const BlocKycEstado._({
     this.listaCursos = const [],
     this.listaMaterias = const [],
-    this.opcionesKyc = const [],
+    this.opcionesFormulario = const [],
     this.listaRoles = const [],
     this.rolElegido,
   });
@@ -17,14 +17,14 @@ class BlocKycEstado {
     BlocKycEstado otro, {
     List<Curso>? listaCursos,
     List<Materia>? listaMaterias,
-    List<OpcionKyc>? opcionesKyc,
+    List<OpcionFormulario>? opcionesFormulario,
     Rol? rolElegido,
     List<Rol>? listaRoles,
     bool eliminarRolSeleccionado = false,
   }) : this._(
           listaCursos: listaCursos ?? otro.listaCursos,
           listaMaterias: listaMaterias ?? otro.listaMaterias,
-          opcionesKyc: opcionesKyc ?? otro.opcionesKyc,
+          opcionesFormulario: opcionesFormulario ?? otro.opcionesFormulario,
           rolElegido:
               eliminarRolSeleccionado ? null : rolElegido ?? otro.rolElegido,
           listaRoles: listaRoles ?? otro.listaRoles,
@@ -37,7 +37,7 @@ class BlocKycEstado {
   final List<Materia> listaMaterias;
 
   /// Lista de opciones de kyc (inicialmente hay una)
-  final List<OpcionKyc> opcionesKyc;
+  final List<OpcionFormulario> opcionesFormulario;
 
   /// Rol elegido por el usuario en la pantalla de seleccion de rol
   final Rol? rolElegido;
@@ -96,7 +96,7 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
     super.otro, {
     super.listaCursos,
     super.listaMaterias,
-    super.opcionesKyc,
+    super.opcionesFormulario,
     super.rolElegido,
     super.listaRoles,
     super.eliminarRolSeleccionado,

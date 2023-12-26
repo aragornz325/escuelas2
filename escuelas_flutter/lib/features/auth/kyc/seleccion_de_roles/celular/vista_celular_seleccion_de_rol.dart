@@ -35,7 +35,7 @@ class _VistaCelularSeleccionDeRolState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          l10n.pageRoleSelectionTitle,
+          l10n.pageKycRoleSelectionTitle,
           style: TextStyle(
             color: colores.onBackground,
             fontWeight: FontWeight.w900,
@@ -58,7 +58,7 @@ class _VistaCelularSeleccionDeRolState
                     SizedBox(height: 20.ph),
                     // TODO(Gon): Usar nombre del usuario logeado
                     Text(
-                      l10n.pageRoleSelectionWelcome('Gonzalo Rigoni'),
+                      l10n.pageKycRoleSelectionWelcome('Gonzalo Rigoni'),
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 14.pf,
@@ -77,16 +77,14 @@ class _VistaCelularSeleccionDeRolState
                                 context: context,
                                 nombreRol: rol.nombre,
                                 estaPresionado: rol.id == rolPresionado?.id,
-                                onTap: () {
-                                  context.read<BlocKyc>().add(
-                                        BlocKycEventoSeleccionarRol(
-                                          rolElegido: rol,
-                                          eliminarRolSeleccionado:
-                                              state.rolElegido?.id == rol.id &&
-                                                  state.rolElegido != null,
-                                        ),
-                                      );
-                                },
+                                onTap: () => context.read<BlocKyc>().add(
+                                      BlocKycEventoSeleccionarRol(
+                                        rolElegido: rol,
+                                        eliminarRolSeleccionado:
+                                            state.rolElegido?.id == rol.id &&
+                                                state.rolElegido != null,
+                                      ),
+                                    ),
                               ),
                             ),
                           ),
