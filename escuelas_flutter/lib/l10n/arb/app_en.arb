@@ -46,7 +46,7 @@
         "description": "Description guiding the user to answer questions for identity verification in the KYC process."
     },
 
-    "pageKycRoleSelectionTitle": "Role Assignment",
+    "pageKycRoleSelectionTitle": "Role selection",
     "@pageKycRoleSelectionTitle": {
         "description": "Title for the page where users select their roles."
     },
@@ -109,5 +109,10 @@
     "commonApply": "Request",
     "@commonRequest": {
         "description": "Label for a button or action indicating to submit a request."
+    }
+,
+    "commonDialogError": "An error ocurred",
+    "@commonDialogError": {
+        "description": "Description of the alert dialog error, informing the user of an error."
     }
 }
