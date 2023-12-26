@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -11,8 +12,8 @@ class ElementoLista extends StatelessWidget {
   /// {@macro ElementoLista}
   const ElementoLista({
     required this.titulo,
-    this.boxShadow,
     this.colorFondo,
+    this.tieneBoxShadow = true,
     this.estaHabilitado = true,
     this.onTap,
     this.altura = 65,
@@ -24,7 +25,6 @@ class ElementoLista extends StatelessWidget {
     this.widgetLateralIzquierdo,
     super.key,
   });
-// TODO(SAM): Ver que hacer con el sombreado del boton al presionarse.
 
   /// Texto alineado a la izquierda
   final String titulo;
@@ -60,7 +60,9 @@ class ElementoLista extends StatelessWidget {
 
   /// Peso de la fuente, grosor
   final FontWeight fontWeight;
-  final List<BoxShadow>? boxShadow;
+
+  /// En caso de ser true agrega box shadow al presionar el elemento.
+  final bool tieneBoxShadow;
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +78,22 @@ class ElementoLista extends StatelessWidget {
               ? colorFondo ?? colores.tertiary
               : colores.secondary,
           borderRadius: BorderRadius.circular(borderRadius),
-          boxShadow: boxShadow ?? [],
+          boxShadow: tieneBoxShadow
+              ? [
+                  BoxShadow(
+                    blurRadius: 50,
+                    offset: const Offset(0, -4),
+                    color: colores.grisClaroSombreado,
+                    inset: true,
+                  ),
+                  BoxShadow(
+                    blurRadius: 4,
+                    offset: const Offset(0, 4),
+                    inset: true,
+                    color: colores.grisSC,
+                  ),
+                ]
+              : [],
         ),
         child: Align(
           alignment: Alignment.centerLeft,
