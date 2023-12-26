@@ -72,7 +72,9 @@ class VistaCelularKyc extends StatelessWidget {
                 ),
                 SizedBox(height: 20.ph),
                 const ListaDeBloqueMateria(),
-                const BotonAgregarBloqueMateria(),
+                //TODO (Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
+                if (state.rolElegido?.nombre == 'DOCENTE')
+                  const BotonAgregarBloqueMateria(),
                 SizedBox(height: 20.ph),
                 const BotonSolicitarRol(),
               ],
