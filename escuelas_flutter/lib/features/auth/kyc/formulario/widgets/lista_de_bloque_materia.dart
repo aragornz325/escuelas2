@@ -1,5 +1,5 @@
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
-import 'package:escuelas_flutter/features/auth/kyc/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -21,7 +21,7 @@ class ListaDeBloqueMateria extends StatelessWidget {
           builder: (context, state) {
             return Column(
               children: [
-                ...state.opcionesKyc.map(
+                ...state.opcionesFormulario.map(
                   (e) => Column(
                     children: [
                       // TODO(Gon): Revisar el diseño de cuando se scrollea(todavia no esta 24/12/23)
@@ -29,7 +29,7 @@ class ListaDeBloqueMateria extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: 30.ph),
                         child: BloqueMateria(id: e.id),
                       ),
-                      if (state.opcionesKyc.length > 1) const Divider(),
+                      if (state.opcionesFormulario.length > 1) const Divider(),
                     ],
                   ),
                 ),

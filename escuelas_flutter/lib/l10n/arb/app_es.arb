@@ -1,7 +1,7 @@
 {
     "@@locale": "es",
 
-    "pageKycConfirmationDialogText": "¿Estás seguro que deseas solicitar el rol {roleName}?",
+    "pageKycFormConfirmationDialogText": "¿Estás seguro que deseas solicitar el rol {roleName}?",
     "@pageKycConfirmationDialogText": {
         "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",
         "placeholders": {
@@ -11,28 +11,28 @@
         }
     },
 
-    "pageKycAddSubject": "Agregar materia",
-    "@pageKycAddSubject": {
+    "pageKycFormAddSubject": "Agregar materia",
+    "@pageKycFormAddSubject": {
         "description": "Button label to add a subject in the KYC (Know Your Customer) process."
     },
 
-    "pageKycWhatGradeAreYouIn": "¿En qué curso estás?",
-    "@pageKycWhatGradeAreYouIn": {
+    "pageKycFormWhatGradeAreYouIn": "¿En qué curso estás?",
+    "@pageKycFormWhatGradeAreYouIn": {
         "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
     },
 
-    "pageKycWhichSubjectIsIt": "¿Qué materia es?",
-    "@pageKycWhichSubjectIs": {
+    "pageKycFormWhichSubjectIsIt": "¿Qué materia es?",
+    "@pageKycFormWhichSubjectIs": {
         "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
     },
 
-    "pageKycWhatYearIsYourSubject": "¿De qué año es tu materia?",
-    "@pageKycWhatYearIsYourSubject": {
+    "pageKycFormWhatYearIsYourSubject": "¿De qué año es tu materia?",
+    "@pageKycFormWhatYearIsYourSubject": {
         "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
     },
 
-    "pageKycTitle": "Formulario de {roleName}",
-    "@pageKycTitle": {
+    "pageKycFormTitle": "Formulario de {roleName}",
+    "@pageKycFormTitle": {
         "description": "Title for the KYC form page with a placeholder for the role name.",
         "placeholders": {
           "roleName": {
@@ -41,13 +41,13 @@
         }
     },
 
-    "pageKycDescription": "Contesta estas preguntas sobre vos. Necesitamos esta información a modo de identificarte en tu solicitud.",
-    "@pageKycDescription": {
+    "pageKycFormDescription": "Contesta estas preguntas sobre vos. Necesitamos esta información a modo de identificarte en tu solicitud.",
+    "@pageKycFormDescription": {
         "description": "Description guiding the user to answer questions for identity verification in the KYC process."
     },
 
-    "pageRoleSelectionTitle": "Asignación de Roles",
-    "@pageRoleSelectionTitle": {
+    "pageKycRoleSelectionTitle": "Asignación de Roles",
+    "@pageKycRoleSelectionTitle": {
         "description": "Title for the page where users select their roles."
     },
 
@@ -61,8 +61,8 @@
         }
     },
 
-    "pageRoleSelectionWelcome": "¡Hola, {firstnameAndLastName}, decinos cual es tu rol!",
-    "@pageRoleSelectionWelcome": {
+    "pageKycRoleSelectionWelcome": "¡Hola, {firstnameAndLastName}, decinos cual es tu rol!",
+    "@pageKycRoleSelectionWelcome": {
         "description": "Welcome message prompting the user to specify their role.",
         "placeholders" :{
             "firstnameAndLastName" : {

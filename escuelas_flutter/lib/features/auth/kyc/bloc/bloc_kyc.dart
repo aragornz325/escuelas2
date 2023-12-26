@@ -11,16 +11,14 @@ part 'bloc_kyc_evento.dart';
 /// {@endtemplate}
 class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
   /// {@macro BlocKyc}
-  BlocKyc(this.rolElegido) : super(const BlocKycEstadoInicial()) {
+  BlocKyc() : super(const BlocKycEstadoInicial()) {
     on<BlocKycEventoInicializar>(_inicializar);
     on<BlocKycEventoSeleccionarCursoYMateria>(_seleccionarCursoYMateria);
     on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
+    on<BlocKycEventoSeleccionarRol>(_seleccionarRol);
 
     add(const BlocKycEventoInicializar());
   }
-
-  /// Rol elegido por el usuario en la pantalla de seleccion de rol
-  final Rol rolElegido;
 
   /// Evento inicial donde trae todos los cursos del usuario.
   Future<void> _inicializar(
@@ -36,7 +34,11 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
 
         // final materias =await client.;
         // final cursos =await client.;
-
+        // final roles = await client.;
+        final roles = [
+          Rol(nombre: 'ALUMNO', permisos: ['permiso1', 'permiso2'], id: 0),
+          Rol(nombre: 'DOCENTE', permisos: ['permiso1', 'permiso2'], id: 1),
+        ];
         final cursos = [
           Curso(nombre: 'PRIMERO', id: 0),
           Curso(nombre: 'SEGUNDO', id: 1),
@@ -52,12 +54,12 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            rolElegido: rolElegido,
             listaCursos: cursos,
             listaMaterias: materias,
-            opcionesKyc: [
+            listaRoles: roles,
+            opcionesFormulario: [
               // TODO(Gon): Ver manera de cambiar esto
-              OpcionKyc(
+              OpcionFormulario(
                 id: 0,
                 curso: Curso(nombre: '', id: 0),
                 materia: Materia(nombre: '', id: 0),
@@ -76,85 +78,72 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
+  /// Selecciona un rol de la lista en seleccion de roles
+  void _seleccionarRol(
+    BlocKycEventoSeleccionarRol event,
+    Emitter<BlocKycEstado> emit,
+  ) {
+    emit(
+      BlocKycEstadoExitoso.desde(
+        state,
+        rolElegido: event.rolElegido,
+        eliminarRolSeleccionado: event.eliminarRolSeleccionado,
+      ),
+    );
+  }
+
   /// Se selecciona el curso y la materia de la opcion de kyc
-  Future<void> _seleccionarCursoYMateria(
+  void _seleccionarCursoYMateria(
     BlocKycEventoSeleccionarCursoYMateria event,
     Emitter<BlocKycEstado> emit,
-  ) async {
-    emit(BlocKycEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (
-          // client
-          ) async {
-        final nuevaListaOpciones = List<OpcionKyc>.from(state.opcionesKyc);
+  ) {
+    final nuevaListaOpciones =
+        List<OpcionFormulario>.from(state.opcionesFormulario);
 
-        final opcionAModificar = nuevaListaOpciones
-            .firstWhere((opcionKyc) => opcionKyc.id == event.idOpcion);
+    final opcionAModificar = nuevaListaOpciones
+        .firstWhere((opcionKyc) => opcionKyc.id == event.idOpcion);
 
-        if (event.idCurso != null) {
-          opcionAModificar.curso = state.listaCursos
-              .firstWhere((curso) => curso.id == event.idCurso);
-        }
+    if (event.idCurso != null) {
+      opcionAModificar.curso =
+          state.listaCursos.firstWhere((curso) => curso.id == event.idCurso);
+    }
 
-        if (event.idMateria != null) {
-          opcionAModificar.materia = state.listaMaterias
-              .firstWhere((materia) => materia.id == event.idMateria);
-        }
+    if (event.idMateria != null) {
+      opcionAModificar.materia = state.listaMaterias
+          .firstWhere((materia) => materia.id == event.idMateria);
+    }
 
-        emit(
-          BlocKycEstadoExitoso.desde(
-            state,
-            opcionesKyc: nuevaListaOpciones,
-          ),
-        );
-      },
-      onError: (e, st) {
-        emit(
-          BlocKycEstadoError.desde(
-            state,
-          ),
-        );
-      },
+    emit(
+      BlocKycEstadoExitoso.desde(
+        state,
+        opcionesFormulario: nuevaListaOpciones,
+      ),
     );
   }
 
   /// Agrega una nueva opcion a la lista de kyc
-  Future<void> _agregarOpcion(
+  void _agregarOpcion(
     BlocKycEventoAgregarOpcion event,
     Emitter<BlocKycEstado> emit,
-  ) async {
-    emit(BlocKycEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (
-          // client
-          ) async {
-        state.opcionesKyc.add(
-          OpcionKyc(
-            id: state.opcionesKyc.length + 1,
-            curso: Curso(
-              nombre: '',
-              id: 0,
-            ),
-            materia: Materia(
-              nombre: '',
-              id: 0,
-            ),
-          ),
-        );
-        emit(
-          BlocKycEstadoExitoso.desde(
-            state,
-            opcionesKyc: state.opcionesKyc,
-          ),
-        );
-      },
-      onError: (e, st) {
-        emit(
-          BlocKycEstadoError.desde(
-            state,
-          ),
-        );
-      },
+  ) {
+    state.opcionesFormulario.add(
+      OpcionFormulario(
+        id: state.opcionesFormulario.length + 1,
+        curso: Curso(
+          nombre: '',
+          id: 0,
+        ),
+        materia: Materia(
+          nombre: '',
+          id: 0,
+        ),
+      ),
+    );
+    emit(
+      BlocKycEstadoExitoso.desde(
+        state,
+        opcionesFormulario: state.opcionesFormulario,
+      ),
     );
   }
 }

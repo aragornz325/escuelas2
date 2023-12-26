@@ -8,7 +8,8 @@ class BlocKycEstado {
   const BlocKycEstado._({
     this.listaCursos = const [],
     this.listaMaterias = const [],
-    this.opcionesKyc = const [],
+    this.opcionesFormulario = const [],
+    this.listaRoles = const [],
     this.rolElegido,
   });
 
@@ -16,13 +17,17 @@ class BlocKycEstado {
     BlocKycEstado otro, {
     List<Curso>? listaCursos,
     List<Materia>? listaMaterias,
-    List<OpcionKyc>? opcionesKyc,
+    List<OpcionFormulario>? opcionesFormulario,
     Rol? rolElegido,
+    List<Rol>? listaRoles,
+    bool eliminarRolSeleccionado = false,
   }) : this._(
           listaCursos: listaCursos ?? otro.listaCursos,
           listaMaterias: listaMaterias ?? otro.listaMaterias,
-          opcionesKyc: opcionesKyc ?? otro.opcionesKyc,
-          rolElegido: rolElegido ?? otro.rolElegido,
+          opcionesFormulario: opcionesFormulario ?? otro.opcionesFormulario,
+          rolElegido:
+              eliminarRolSeleccionado ? null : rolElegido ?? otro.rolElegido,
+          listaRoles: listaRoles ?? otro.listaRoles,
         );
 
   /// Lista de cursos de la escuela a la que pertenece el usuario
@@ -32,10 +37,16 @@ class BlocKycEstado {
   final List<Materia> listaMaterias;
 
   /// Lista de opciones de kyc (inicialmente hay una)
-  final List<OpcionKyc> opcionesKyc;
+  final List<OpcionFormulario> opcionesFormulario;
 
   /// Rol elegido por el usuario en la pantalla de seleccion de rol
   final Rol? rolElegido;
+
+  /// Lista de roles a mostrar en pantalla
+  final List<Rol> listaRoles;
+
+  /// Indica si el state es cargando
+  bool get estaEnEstadoCargando => this is BlocKycEstadoCargando;
 
   /// Retorna la lista de cursos de la escuela a la que pertenece el usuario en
   /// forma de [PopupOption]
@@ -85,8 +96,10 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
     super.otro, {
     super.listaCursos,
     super.listaMaterias,
-    super.opcionesKyc,
+    super.opcionesFormulario,
     super.rolElegido,
+    super.listaRoles,
+    super.eliminarRolSeleccionado,
   }) : super.desde();
 }
 

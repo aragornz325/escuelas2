@@ -1,6 +1,7 @@
 // TODO(Gon): Eliminar modelo cuando se usen los del back
-class OpcionKyc {
-  OpcionKyc({required this.curso, required this.materia, required this.id});
+class OpcionFormulario {
+  OpcionFormulario(
+      {required this.curso, required this.materia, required this.id});
   Curso curso;
   Materia materia;
   final int id;

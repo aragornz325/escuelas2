@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/auth/seleccion_de_rol/bloc/bloc_seleccion_de_rol.dart';
-import 'package:escuelas_flutter/features/auth/seleccion_de_rol/widgets/tarjeta_rol.dart';
+import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
+import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -25,11 +25,6 @@ class VistaCelularSeleccionDeRol extends StatefulWidget {
 
 class _VistaCelularSeleccionDeRolState
     extends State<VistaCelularSeleccionDeRol> {
-  // TODO(Gon): Ver si es mejor usar un rol entero en vez de solo la id
-
-  /// Indica que rol de la lista esta seleccionado
-  int rolPresionado = -1;
-
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -40,7 +35,7 @@ class _VistaCelularSeleccionDeRolState
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          l10n.pageRoleSelectionTitle,
+          l10n.pageKycRoleSelectionTitle,
           style: TextStyle(
             color: colores.onBackground,
             fontWeight: FontWeight.w900,
@@ -52,8 +47,9 @@ class _VistaCelularSeleccionDeRolState
       ),
       body: Padding(
         padding: EdgeInsets.only(bottom: 40.ph),
-        child: BlocBuilder<BlocSeleccionDeRol, BlocSeleccionDeRolEstado>(
+        child: BlocBuilder<BlocKyc, BlocKycEstado>(
           builder: (context, state) {
+            final rolPresionado = state.rolElegido;
             return Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -62,7 +58,7 @@ class _VistaCelularSeleccionDeRolState
                     SizedBox(height: 20.ph),
                     // TODO(Gon): Usar nombre del usuario logeado
                     Text(
-                      l10n.pageRoleSelectionWelcome('Gonzalo Rigoni'),
+                      l10n.pageKycRoleSelectionWelcome('Gonzalo Rigoni'),
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 14.pf,
@@ -70,19 +66,25 @@ class _VistaCelularSeleccionDeRolState
                       ),
                     ),
                     SizedBox(height: 20.ph),
-
                     Column(
                       children: [
+                        // TODO (Gon): Mostrar roles correspondientes a los permisos del usuario
                         ...state.listaRoles.map(
                           (rol) => Center(
                             child: Padding(
                               padding: EdgeInsets.only(bottom: 10.ph),
-                              child: TarjetaRol(
+                              child: ElementoLista.rol(
+                                context: context,
                                 nombreRol: rol.nombre,
-                                estaPresionado: rolPresionado == rol.id,
-                                onTap: () => setState(() {
-                                  rolPresionado = rol.id;
-                                }),
+                                estaPresionado: rol.id == rolPresionado?.id,
+                                onTap: () => context.read<BlocKyc>().add(
+                                      BlocKycEventoSeleccionarRol(
+                                        rolElegido: rol,
+                                        eliminarRolSeleccionado:
+                                            state.rolElegido?.id == rol.id &&
+                                                state.rolElegido != null,
+                                      ),
+                                    ),
                               ),
                             ),
                           ),
@@ -95,51 +97,34 @@ class _VistaCelularSeleccionDeRolState
                   children: [
                     EscuelasBoton.texto(
                       context: context,
-                      estaHabilitado: rolPresionado != -1,
+                      estaHabilitado: rolPresionado != null,
                       // TODO(Gon): Esto se va a cambiar cuando cambie la navegacion
                       onTap: () => context.router.push(
                         PaginaKyc(
-                          rolElegido: state.listaRoles
-                              .where(
-                                (element) => element.id == rolPresionado,
-                              )
-                              .first,
+                          rolElegido: rolPresionado!,
                         ),
                       ),
-                      color: rolPresionado != -1
+                      color: rolPresionado != null
                           ? colores.azul
                           : colores.grisDeshabilitado,
                       texto: l10n.commonContinue.toUpperCase(),
                     ),
-                    if (rolPresionado != -1)
+                    if (rolPresionado != null)
                       Column(
                         children: [
                           SizedBox(height: 40.ph),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 20.pw),
-                            // TODO(Gon): Este builder esta mal, arreglar
-                            child: BlocBuilder<BlocSeleccionDeRol,
-                                BlocSeleccionDeRolEstado>(
-                              builder: (context, state) {
-                                final nombreRolSeleccionado = state.listaRoles
-                                    .where(
-                                      (element) => element.id == rolPresionado,
-                                    )
-                                    .first
-                                    .nombre;
-
-                                return Text(
-                                  l10n.pageRoleConfirmationText(
-                                    nombreRolSeleccionado,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: colores.onSecondary,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 13.pf,
-                                  ),
-                                );
-                              },
+                            child: Text(
+                              l10n.pageRoleConfirmationText(
+                                rolPresionado.nombre,
+                              ),
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: colores.onSecondary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 13.pf,
+                              ),
                             ),
                           ),
                         ],
