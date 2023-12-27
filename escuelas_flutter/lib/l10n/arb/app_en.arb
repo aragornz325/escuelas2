@@ -3,7 +3,7 @@
 
     "pageRoleAssigmentPendingUsers": "Pending Users",
     "@pageRoleAssigmentPendingUsers": {
-        "description": ""
+        "description": "This message is used for the title of a page or section that deals with pending user role assignments."
     },
 
     "pageKycFormConfirmationDialogText": "Are you sure you want to apply for the {roleName} role?",
