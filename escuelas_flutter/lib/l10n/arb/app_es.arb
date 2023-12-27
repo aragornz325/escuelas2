@@ -1,7 +1,22 @@
 {
     "@@locale": "es",
 
-    "pageRoleAssigmentPendingUsers": "Usuarios pendientes",
+    "pageRoleAssigmentPersonalInformation": "Datos personales",
+    "@pageRoleAssigmentPersonalInformation": {
+        "description": "Message used to represent the personal information section in role assignment."
+    },
+
+    "pageRoleAssigmentDialogFirstText": "¿Estás seguro que deseas\n confirmar a ",
+    "@pageRoleAssigmentDialogFirstText": {
+        "description": "Initial text of a dialog box to confirm role assignment"
+    },
+
+    "pageRoleAssigmentDialogSecondText": "\n como ",
+    "@pageRoleAssigmentDialogFirstText": {
+        "description": "Secondary text of a dialog box to confirm role assignment."
+    },
+
+    "pageRoleAssigmentPendingUsers": "Datos personales",
     "@pageRoleAssigmentPendingUsers": {
         "description": "This message is used for the title of a page or section that deals with pending user role assignments."
     },
@@ -119,5 +134,55 @@
     "commonDialogError": "Ha ocurrido un error",
     "@commonDialogError": {
         "description": "Description of the alert dialog error, informing the user of an error."
+    },    
+
+    "commonPhone": "Teléfono",
+    "@commonPhone": {
+        "description": "Label used to represent the phone field in personal data."
+    },
+
+    "commonBloodFactor": "Factor sanguÍneo",
+    "@commonBloodFactor": {
+        "description": "Label used to represent the blood factor field in personal data."
+    },
+
+    "commonAge": "Edad",
+    "@commonAge": {
+        "description": "Label used to represent the age field in personal data."
+    },
+
+    "commonEmergencyContact": "Contacto de emergencia",
+    "@commonEmergencyContact": {
+        "description": "Label used to represent the emergency contact field in personal data."
+    },
+
+    "commonBond": "Vínculo",
+    "@commonBond": {
+        "description": "Label used to represent the bond field in personal data."
+    },
+
+    "commonObservations": "Observaciones",
+    "@commonObservations": {
+        "description": "Label used to represent the observations field in personal data."
+    },
+
+    "commonNoData": "Sin datos",
+    "@commonNoData": {
+        "description": "Message used to represent the absence of data in a field."
+    },
+
+    "commonContact": "Contactar",
+    "@commonContact": {
+        "description": "Button or link used to initiate contact with the user."
+    },
+
+    "commonConfirm": "Confirmar",
+    "@commonConfirm": {
+        "description": "Button or link used to confirm an action or decision."
+    },
+
+    "commonDecline": "Rechazar",
+    "@commonDecline": {
+        "description": "Button or link used to decline or reject an action or decision."
     }
 }

@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/modelos_temporales.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -33,13 +35,13 @@ class ItemUsuarioPendiente extends StatelessWidget {
             ),
           ),
           context: context,
-          // TODO(Gon): Navegar a perfil de usuario
-          onTap: () {},
+          onTap: () =>
+              context.router.push(PaginaPerfilUsuario(idUsuario: usuario.id)),
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          // TODO(Gon): Navegar a perfil de usuario
-          onTap: () {},
+          onTap: () =>
+              context.router.push(PaginaPerfilUsuario(idUsuario: usuario.id)),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100),

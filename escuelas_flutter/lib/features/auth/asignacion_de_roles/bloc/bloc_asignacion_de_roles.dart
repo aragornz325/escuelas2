@@ -30,92 +30,7 @@ class BlocAsignacionDeRoles
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
 
         // final listaUsuariosPendientes =await client.;
-        final listaUsuariosPendientes = [
-          InfoUsuario(
-            nombre: 'Larrea Fernanda',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Gomez Silvia Beatriz',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Matias Sanchez',
-            rol: Roles.directivo,
-          ),
-          InfoUsuario(
-            nombre: 'Gonzalo Rigoni',
-            rol: Roles.directivo,
-          ),
-          InfoUsuario(
-            nombre: 'Sebastian Marquez',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Mendizabal Carlos',
-            rol: Roles.docente,
-          ),
-          InfoUsuario(
-            nombre: 'Lopez Fernando',
-            rol: Roles.docente,
-          ),
-          InfoUsuario(
-            nombre: 'Cunso Laura',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Manu Navarro',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Cunso Laura',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Manu Navarro',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Cunso Laura',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Manu Navarro',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Cunso Laura',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Manu Navarro',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Cunso Laura',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Manu Navarro',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Cunso Laura',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Manu Navarro',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Cunso Laura',
-            rol: Roles.alumno,
-          ),
-          InfoUsuario(
-            nombre: 'Manu Navarro',
-            rol: Roles.alumno,
-          ),
-        ];
+
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
         // final InfoUsuario usuarioATraerDatos;
 
@@ -129,10 +44,6 @@ class BlocAsignacionDeRoles
           BlocAsignacionDeRolesEstadoExitoso.desde(
             state,
             listaUsuariosPendientes: listaUsuariosPendientes,
-            usuario: InfoUsuario(
-              nombre: 'Gonzalo',
-              rol: Roles.alumno,
-            ),
           ),
         );
       },

@@ -8,11 +8,11 @@ abstract class BlocKycEvento {
   const BlocKycEvento();
 }
 
-/// {@template BlocInicioEventoInicializar}
+/// {@template BlocKycEventoInicializar}
 /// Inicializa la pagina, es decir, trae todos los cursos/materias necesarios para que el usuario pueda elegir
 /// {@endtemplate}
 class BlocKycEventoInicializar extends BlocKycEvento {
-  /// {@macro BlocInicioEventoInicializar}
+  /// {@macro BlocKycEventoInicializar}
   const BlocKycEventoInicializar();
 }
 

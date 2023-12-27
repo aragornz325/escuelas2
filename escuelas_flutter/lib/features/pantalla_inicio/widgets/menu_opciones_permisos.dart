@@ -20,7 +20,8 @@ class MenuOpcionesPermisos extends StatelessWidget {
     return showDialog<void>(
       context: context,
       builder: (context) => EscuelasDialog.fallido(
-        context: context,
+        // TODO(anyone): Revisar si este container esta bien
+        content: Container(),
         onTap: () => Navigator.of(context).pop(),
         titulo: l10n.commonDialogError,
       ),

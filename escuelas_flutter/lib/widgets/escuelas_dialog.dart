@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:flutter/material.dart';
@@ -54,25 +53,20 @@ class EscuelasDialog extends StatelessWidget {
   factory EscuelasDialog.exitoso({
     required BuildContext context,
     required VoidCallback onTap,
-    required String titulo,
+    required Widget content,
+    String? titulo,
     double altura = 100,
     double? ancho,
   }) {
-    final colores = context.colores;
+    final l10n = context.l10n;
 
     return EscuelasDialog(
       ancho: ancho,
       altura: altura,
       onTapConfirmar: onTap,
-      tituloBotonPrincipal: 'CONFIRMAR', //TODO(anyone) ver si se hace l10n
-      content: Text(
-        titulo,
-        style: TextStyle(
-          fontSize: 15.pf,
-          fontWeight: FontWeight.w600,
-          color: colores.grisSC,
-        ),
-      ),
+      tituloBotonPrincipal: l10n.commonConfirm,
+      titulo: titulo,
+      content: content,
     );
   }
 
@@ -84,29 +78,21 @@ class EscuelasDialog extends StatelessWidget {
   /// El Dialog requiere obligatoriamente la propiedad `[onTap]`,`[titulo]` y
   /// `[context]`.
   factory EscuelasDialog.fallido({
-    required BuildContext context,
     required VoidCallback onTap,
-    required String titulo,
+    required Widget content,
+    String? titulo,
     double altura = 100,
     double? ancho,
     String? tituloDelBoton,
   }) {
-    final colores = context.colores;
-
     return EscuelasDialog(
       ancho: ancho,
       altura: altura,
       tituloBotonPrincipal: tituloDelBoton,
       conBotonOutline: true,
       onTapConfirmar: onTap,
-      content: Text(
-        titulo,
-        style: TextStyle(
-          fontSize: 15.pf,
-          fontWeight: FontWeight.w600,
-          color: colores.grisSC,
-        ),
-      ),
+      titulo: titulo,
+      content: content,
     );
   }
 
@@ -120,33 +106,29 @@ class EscuelasDialog extends StatelessWidget {
   factory EscuelasDialog.confirmar({
     required BuildContext context,
     required VoidCallback onTapConfirmar,
-    required String titulo,
-    double altura = 100,
+    required Widget content,
+    String? titulo,
+    double? altura,
     double? ancho,
   }) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
 
     return EscuelasDialog(
       ancho: ancho,
       altura: altura,
       conBotonCancelar: true,
       onTapConfirmar: onTapConfirmar,
-      tituloDelBotonSecundario: 'RECHAZAR', //TODO(anyone) ver si se hace l10n
+      tituloDelBotonSecundario: l10n.commonDecline.toUpperCase(),
       colorDeFondoDelBotonSecundario: colores.error,
-      content: Text(
-        titulo,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          fontSize: 15.pf,
-          fontWeight: FontWeight.w600,
-          color: colores.grisSC,
-        ),
-      ),
+      content: content,
+      titulo: titulo,
     );
   }
 
   /// Altura del dialogo por defecto en `300` (sin .ph) de [EscuelasDialog].
-  final double altura;
+  final double? altura;
 
   /// Indica si quiere mostrar el Icono de cerrar en el dialogo
   /// `(por defecto esta el .pop)`de [EscuelasDialog].
@@ -191,13 +173,17 @@ class EscuelasDialog extends StatelessWidget {
 
     final titulo = this.titulo;
 
+    final l10n = context.l10n;
+
     return AlertDialog(
       content: SizedBox(
         height: altura,
         width: ancho,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 if (iconoAlLadoDelTitulo != null)
                   Icon(
@@ -222,51 +208,54 @@ class EscuelasDialog extends StatelessWidget {
                   ),
                 if (conIconoCerrar) const Spacer(),
                 if (conIconoCerrar)
-                  IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Icon(
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Icon(
                       Icons.close,
                       size: 18.pw,
-                      color: colores.onBackground,
+                      color: colores.secondary,
                     ),
                   ),
               ],
             ),
+            SizedBox(height: 10.ph),
             content ?? const SizedBox.shrink(),
           ],
         ),
       ),
       actionsAlignment: MainAxisAlignment.spaceEvenly,
       actions: [
-        if (conBotonCancelar)
-          EscuelasBoton.texto(
-            onTap: () => Navigator.of(context).pop(),
-            estaHabilitado: true,
-            context: context,
-            texto: tituloDelBotonSecundario ??
-                'cancelar', //TODO(anyone) ver si se hace l10n
-            color: colorDeFondoDelBotonSecundario ?? colores.onSecondary,
-          ),
-        if (conBotonOutline)
-          EscuelasBoton.outlined(
-            context: context,
-            width: 130.pw,
-            height: max(30.sh, 30.ph),
-            onTap: () => onTapConfirmar,
-            estaHabilitado: true,
-            color: colores.grisSC,
-            texto: tituloBotonPrincipal ??
-                'VOLVER', //TODO(anyone) ver si se hace l10n
-          )
-        else
-          EscuelasBoton.texto(
-            context: context,
-            onTap: () => onTapConfirmar,
-            estaHabilitado: true,
-            color: colores.verdeConfirmar,
-            texto: tituloBotonPrincipal ??
-                'CONFIRMAR', //TODO(anyone) ver si se hace l10n
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            if (conBotonCancelar)
+              EscuelasBoton.texto(
+                onTap: () => Navigator.of(context).pop(),
+                estaHabilitado: true,
+                context: context,
+                texto: tituloDelBotonSecundario ??
+                    'cancelar', //TODO(anyone) ver si se hace l10n
+                color: colorDeFondoDelBotonSecundario ?? colores.onSecondary,
+              ),
+            if (conBotonOutline)
+              EscuelasBoton.outlined(
+                context: context,
+                onTap: () => onTapConfirmar,
+                estaHabilitado: true,
+                color: colores.grisSC,
+                texto: tituloBotonPrincipal ??
+                    'VOLVER', //TODO(anyone) ver si se hace l10n
+              )
+            else
+              EscuelasBoton.texto(
+                context: context,
+                onTap: () => onTapConfirmar,
+                estaHabilitado: true,
+                color: colores.verdeConfirmar,
+                texto: tituloBotonPrincipal ?? l10n.commonConfirm.toUpperCase(),
+              ),
+          ],
+        ),
       ],
     );
   }
