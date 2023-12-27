@@ -6,25 +6,22 @@ part of 'bloc_asignacion_de_roles.dart';
 class BlocAsignacionDeRolesEstado {
   /// {@macro BlocAsignacionDeRolesEstado}
   const BlocAsignacionDeRolesEstado._({
-    this.listaDocentes = const [],
-    this.listaAlumnos = const [],
+    this.listaUsuariosPendientes = const [],
   });
 
   BlocAsignacionDeRolesEstado.desde(
     BlocAsignacionDeRolesEstado otro, {
-    List<InfoUsuario>? listaDocentes,
-    List<InfoUsuario>? listaAlumnos,
+    List<InfoUsuario>? listaUsuariosPendientes,
   }) : this._(
-          listaDocentes: listaDocentes ?? otro.listaDocentes,
-          listaAlumnos: listaAlumnos ?? otro.listaAlumnos,
+          listaUsuariosPendientes:
+              listaUsuariosPendientes ?? otro.listaUsuariosPendientes,
         );
 
-  final List<InfoUsuario> listaDocentes;
-  final List<InfoUsuario> listaAlumnos;
+  final List<InfoUsuario> listaUsuariosPendientes;
 }
 
 /// {@template BlocAsignacionDeRolesEstadoInicial}
-/// Estado inicial de los componentes de la pantalla 'Inicio'
+/// Estado inicial de los componentes de la pantalla 'Asignacion de Rol'
 /// {@endtemplate}
 class BlocAsignacionDeRolesEstadoInicial extends BlocAsignacionDeRolesEstado {
   /// {@macro BlocAsignacionDeRolesEstadoInicial}
@@ -32,7 +29,7 @@ class BlocAsignacionDeRolesEstadoInicial extends BlocAsignacionDeRolesEstado {
 }
 
 /// {@template BlocAsignacionDeRolesEstadoCargando}
-/// Estado de cargando de los componentes de la pantalla 'Inicio'
+/// Estado de cargando de los componentes de la pantalla 'Asignacion de Rol'
 /// {@endtemplate}
 class BlocAsignacionDeRolesEstadoCargando extends BlocAsignacionDeRolesEstado {
   /// {@macro BlocAsignacionDeRolesEstadoCargando}
@@ -40,19 +37,18 @@ class BlocAsignacionDeRolesEstadoCargando extends BlocAsignacionDeRolesEstado {
 }
 
 /// {@template BlocAsignacionDeRolesEstadoExitoso}
-/// Estado exitoso general de los componentes de la pantalla 'Inicio'
+/// Estado exitoso general de los componentes de la pantalla 'Asignacion de Rol'
 /// {@endtemplate}
 class BlocAsignacionDeRolesEstadoExitoso extends BlocAsignacionDeRolesEstado {
   /// {@macro BlocAsignacionDeRolesEstadoExitoso}
   BlocAsignacionDeRolesEstadoExitoso.desde(
     super.otro, {
-    super.listaDocentes,
-    super.listaAlumnos,
+    super.listaUsuariosPendientes,
   }) : super.desde();
 }
 
 /// {@template BlocAsignacionDeRolesEstadoFallido}
-/// Estado de error de los componentes de la pantalla 'Inicio'
+/// Estado de error de los componentes de la pantalla 'Asignacion de Rol'
 /// {@endtemplate}
 class BlocAsignacionDeRolesEstadoError extends BlocAsignacionDeRolesEstado {
   /// {@macro BlocAsignacionDeRolesEstadoError}

@@ -6,18 +6,18 @@ part 'bloc_asignacion_de_roles_estado.dart';
 part 'bloc_asignacion_de_roles_evento.dart';
 
 /// {@template BlocAsignacionDeRoles}
-/// Bloc que maneja los estados y lógica de la pagina de 'Inicio'
+/// Bloc que maneja los estados y lógica de la pagina de 'Asignacion de Rol'
 /// {@endtemplate}
 class BlocAsignacionDeRoles
     extends Bloc<BlocAsignacionDeRolesEvento, BlocAsignacionDeRolesEstado> {
-  /// {@macro BlocInicio}
+  /// {@macro BlocAsignacionDeRoles}
   BlocAsignacionDeRoles() : super(const BlocAsignacionDeRolesEstadoInicial()) {
     on<BlocAsignacionDeRolesEventoInicializar>(_inicializar);
 
     add(const BlocAsignacionDeRolesEventoInicializar());
   }
 
-  /// Evento inicial donde trae todos los cursos del usuario.
+  /// Evento inicial donde trae todos usuarios pendientes de asignar un rol
   Future<void> _inicializar(
     BlocAsignacionDeRolesEventoInicializar event,
     Emitter<BlocAsignacionDeRolesEstado> emit,
@@ -31,30 +31,96 @@ class BlocAsignacionDeRoles
 
         // final listaUsuariosPendientes =await client.;
         final listaUsuariosPendientes = [
-          InfoUsuario(nombre: 'alumnoo', permiso: [Permiso.alumno]),
-          InfoUsuario(nombre: 'alumnoo', permiso: [Permiso.alumno]),
-          InfoUsuario(nombre: 'alumnoo', permiso: [Permiso.alumno]),
-          InfoUsuario(nombre: 'docentee', permiso: [Permiso.profesor]),
-          InfoUsuario(nombre: 'docentee', permiso: [Permiso.profesor]),
+          InfoUsuario(
+            nombre: 'Larrea Fernanda',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Gomez Silvia Beatriz',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Matias Sanchez',
+            rol: Roles.directivo,
+          ),
+          InfoUsuario(
+            nombre: 'Gonzalo Rigoni',
+            rol: Roles.directivo,
+          ),
+          InfoUsuario(
+            nombre: 'Sebastian Marquez',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Mendizabal Carlos',
+            rol: Roles.docente,
+          ),
+          InfoUsuario(
+            nombre: 'Lopez Fernando',
+            rol: Roles.docente,
+          ),
+          InfoUsuario(
+            nombre: 'Cunso Laura',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Manu Navarro',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Cunso Laura',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Manu Navarro',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Cunso Laura',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Manu Navarro',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Cunso Laura',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Manu Navarro',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Cunso Laura',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Manu Navarro',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Cunso Laura',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Manu Navarro',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Cunso Laura',
+            rol: Roles.alumno,
+          ),
+          InfoUsuario(
+            nombre: 'Manu Navarro',
+            rol: Roles.alumno,
+          ),
         ];
-
-        final listaDocentes = listaUsuariosPendientes
-            .where(
-              (usuario) => usuario.permiso.contains(Permiso.profesor),
-            )
-            .toList();
-
-        final listaAlumnos = listaUsuariosPendientes
-            .where(
-              (usuario) => usuario.permiso.contains(Permiso.alumno),
-            )
-            .toList();
 
         emit(
           BlocAsignacionDeRolesEstadoExitoso.desde(
             state,
-            listaAlumnos: listaAlumnos,
-            listaDocentes: listaDocentes,
+            listaUsuariosPendientes: listaUsuariosPendientes,
           ),
         );
       },

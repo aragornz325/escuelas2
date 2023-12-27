@@ -11,15 +11,13 @@ import 'package:full_responsive/full_responsive.dart';
 class ElementoLista extends StatelessWidget {
   /// {@macro ElementoLista}
   const ElementoLista({
-    required this.titulo,
+    required this.texto,
     this.colorFondo,
     this.tieneBoxShadow = false,
     this.estaHabilitado = true,
     this.onTap,
     this.altura = 65,
     this.ancho = 329,
-    this.fontSize = 16,
-    this.fontWeight = FontWeight.w600,
     this.borderRadius = 20,
     this.widgetLateralDerecho,
     this.widgetLateralIzquierdo,
@@ -33,28 +31,48 @@ class ElementoLista extends StatelessWidget {
     required VoidCallback onTap,
 
     /// Nombre del rol.
-    required String nombreRol,
+    required Text nombreRol,
 
     /// Contexto para utilizar colores del tema
     required BuildContext context,
   }) {
     final colores = context.colores;
+
     return ElementoLista(
-      titulo: nombreRol,
+      texto: nombreRol,
       altura: 65.ph,
       ancho: 330.pw,
       borderRadius: 20.sw,
       colorFondo:
           estaPresionado ? colores.grisBotonPresionado : colores.tertiary,
-      fontSize: 16.pf,
-      fontWeight: FontWeight.w900,
       onTap: onTap,
       tieneBoxShadow: estaPresionado,
     );
   }
+  factory ElementoLista.usuario({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Nombre del rol.
+    required Text nombreUsuario,
+
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+  }) {
+    final colores = context.colores;
+
+    return ElementoLista(
+      texto: nombreUsuario,
+      altura: 50.ph,
+      ancho: 300.pw,
+      borderRadius: 40.sw,
+      colorFondo: colores.tertiary,
+      onTap: onTap,
+    );
+  }
 
   /// Texto alineado a la izquierda
-  final String titulo;
+  final Text texto;
 
   /// Funcion que se ejecuta al presionar
   final VoidCallback? onTap;
@@ -71,9 +89,6 @@ class ElementoLista extends StatelessWidget {
   /// Indica si esta habilitado para presionarse o no el boton
   final bool estaHabilitado;
 
-  /// Tamanio de la fuente
-  final double fontSize;
-
   /// Radio del borde del [ElementoLista]
   final double borderRadius;
 
@@ -84,9 +99,6 @@ class ElementoLista extends StatelessWidget {
   /// Componente que se agrega al principio del [ElementoLista] a la izquierda
   /// del titulo, permitiendo que sea mas customizable
   final Widget? widgetLateralIzquierdo;
-
-  /// Peso de la fuente, grosor
-  final FontWeight fontWeight;
 
   /// En caso de ser true agrega box shadow al presionar el elemento.
   final bool tieneBoxShadow;
@@ -137,13 +149,7 @@ class ElementoLista extends StatelessWidget {
                     if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: Text(
-                        titulo,
-                        style: TextStyle(
-                          fontWeight: fontWeight,
-                          fontSize: fontSize,
-                        ),
-                      ),
+                      child: texto,
                     ),
                   ],
                 ),

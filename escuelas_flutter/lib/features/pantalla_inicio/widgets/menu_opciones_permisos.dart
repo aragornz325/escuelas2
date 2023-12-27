@@ -52,10 +52,14 @@ class MenuOpcionesPermisos extends StatelessWidget {
                       (etiqueta) => Padding(
                         padding: const EdgeInsets.all(8),
                         child: ElementoLista(
-                          titulo: etiqueta.titulo,
+                          texto: Text(
+                            etiqueta.titulo,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
                           colorFondo: colores.tertiary,
                           onTap: () => etiqueta.redirigirAVista(context),
-                          fontWeight: FontWeight.w800,
                         ),
                       ),
                     )

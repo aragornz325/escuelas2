@@ -1,7 +1,7 @@
 part of 'bloc_asignacion_de_roles.dart';
 
 /// {@template BlocAsignacionDeRolesEvento}
-/// AGREGAR DOCUMENTACION GENERADA
+/// Clase padre de los eventos de [BlocAsignacionDeRoles].
 /// {@endtemplate}
 abstract class BlocAsignacionDeRolesEvento {
   /// {@macro BlocAsignacionDeRolesEvento}

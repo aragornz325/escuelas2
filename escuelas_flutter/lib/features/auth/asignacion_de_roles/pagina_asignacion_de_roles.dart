@@ -6,10 +6,12 @@ import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+@RoutePage()
+
 /// {@template VistaEscritorioAsignacionDeRoles}
 // TODO(anyone): AGREGAR DOCUMENTACION
+
 /// {@endtemplate}
-@RoutePage()
 class PaginaAsignacionDeRoles extends StatelessWidget {
   /// {@macro PaginaAsignacionDeRoles}
   const PaginaAsignacionDeRoles({super.key});

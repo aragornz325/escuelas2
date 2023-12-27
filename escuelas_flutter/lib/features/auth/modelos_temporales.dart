@@ -39,11 +39,41 @@ class Rol {
 }
 
 // TODO(SAM): Eliminar luego cuando venga del back
-enum Permiso { directivo, alumno, profesor }
+enum Roles {
+  directivo,
+  alumno,
+  docente;
+
+  Rol get rol {
+    switch (this) {
+      case Roles.directivo:
+        return Rol(
+          nombre: 'Directivo',
+          permisos: [],
+          id: 0,
+        );
+      case Roles.alumno:
+        return Rol(
+          nombre: 'Alumno',
+          permisos: [],
+          id: 1,
+        );
+      case Roles.docente:
+        return Rol(
+          nombre: 'Docente',
+          permisos: [],
+          id: 2,
+        );
+    }
+  }
+}
 
 // TODO(SAM): Eliminar luego cuando venga del back
 class InfoUsuario {
-  InfoUsuario({required this.nombre, required this.permiso});
+  InfoUsuario({
+    required this.nombre,
+    required this.rol,
+  });
   String nombre;
-  List<Permiso> permiso;
+  Roles rol;
 }
