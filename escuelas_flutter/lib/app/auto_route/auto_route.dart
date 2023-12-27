@@ -35,7 +35,7 @@ class AppRouter extends $AppRouter {
         ),
         AutoRoute(
           initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
-          page: PaginaInicio.page,
+          page: PaginaAsignacionDeRoles.page,
           path: '/home',
           // guards: [initialGuard],
         ),

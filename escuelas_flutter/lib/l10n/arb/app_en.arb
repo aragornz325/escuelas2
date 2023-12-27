@@ -1,6 +1,11 @@
 {
     "@@locale": "en",
 
+    "pageRoleAssigmentPendingUsers": "Pending Users",
+    "@pageRoleAssigmentPendingUsers": {
+        "description": "This message is used for the title of a page or section that deals with pending user role assignments."
+    },
+
     "pageKycFormConfirmationDialogText": "Are you sure you want to apply for the {roleName} role?",
     "@pageKycFormConfirmationDialogText": {
         "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",

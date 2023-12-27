@@ -8,37 +8,45 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i6;
+import 'package:auto_route/auto_route.dart' as _i7;
+import 'package:escuelas_flutter/features/auth/asignacion_de_roles/pagina_asignacion_de_roles.dart'
+    as _i1;
 import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_kyc.dart'
-    as _i3;
+    as _i4;
 import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
-    as _i5;
-import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i4;
-import 'package:escuelas_flutter/features/auth/modelos_temporales.dart' as _i9;
-import 'package:escuelas_flutter/features/pagina_ejemplo.dart' as _i1;
+    as _i6;
+import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i5;
+import 'package:escuelas_flutter/features/auth/modelos_temporales.dart' as _i10;
+import 'package:escuelas_flutter/features/pagina_ejemplo.dart' as _i2;
 import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart'
-    as _i8;
+    as _i9;
 import 'package:escuelas_flutter/features/pantalla_inicio/pagina_inicio.dart'
-    as _i2;
-import 'package:flutter/material.dart' as _i7;
+    as _i3;
+import 'package:flutter/material.dart' as _i8;
 
-abstract class $AppRouter extends _i6.RootStackRouter {
+abstract class $AppRouter extends _i7.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i6.PageFactory> pagesMap = {
-    PaginaEjemplo.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
+  final Map<String, _i7.PageFactory> pagesMap = {
+    PaginaAsignacionDeRoles.name: (routeData) {
+      return _i7.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i1.PaginaEjemplo(),
+        child: const _i1.PaginaAsignacionDeRoles(),
+      );
+    },
+    PaginaEjemplo.name: (routeData) {
+      return _i7.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i2.PaginaEjemplo(),
       );
     },
     PaginaInicio.name: (routeData) {
       final args = routeData.argsAs<PaginaInicioArgs>(
           orElse: () => const PaginaInicioArgs());
-      return _i6.AutoRoutePage<dynamic>(
+      return _i7.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.PaginaInicio(
+        child: _i3.PaginaInicio(
           key: args.key,
           userInfo: args.userInfo,
         ),
@@ -46,33 +54,47 @@ abstract class $AppRouter extends _i6.RootStackRouter {
     },
     PaginaKyc.name: (routeData) {
       final args = routeData.argsAs<PaginaKycArgs>();
-      return _i6.AutoRoutePage<dynamic>(
+      return _i7.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.PaginaKyc(
+        child: _i4.PaginaKyc(
           rolElegido: args.rolElegido,
           key: args.key,
         ),
       );
     },
     PaginaLogin.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
+      return _i7.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.PaginaLogin(),
+        child: const _i5.PaginaLogin(),
       );
     },
     PaginaSeleccionDeRol.name: (routeData) {
-      return _i6.AutoRoutePage<dynamic>(
+      return _i7.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.PaginaSeleccionDeRol(),
+        child: const _i6.PaginaSeleccionDeRol(),
       );
     },
   };
 }
 
 /// generated route for
-/// [_i1.PaginaEjemplo]
-class PaginaEjemplo extends _i6.PageRouteInfo<void> {
-  const PaginaEjemplo({List<_i6.PageRouteInfo>? children})
+/// [_i1.PaginaAsignacionDeRoles]
+class PaginaAsignacionDeRoles extends _i7.PageRouteInfo<void> {
+  const PaginaAsignacionDeRoles({List<_i7.PageRouteInfo>? children})
+      : super(
+          PaginaAsignacionDeRoles.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'PaginaAsignacionDeRoles';
+
+  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i2.PaginaEjemplo]
+class PaginaEjemplo extends _i7.PageRouteInfo<void> {
+  const PaginaEjemplo({List<_i7.PageRouteInfo>? children})
       : super(
           PaginaEjemplo.name,
           initialChildren: children,
@@ -80,16 +102,16 @@ class PaginaEjemplo extends _i6.PageRouteInfo<void> {
 
   static const String name = 'PaginaEjemplo';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i2.PaginaInicio]
-class PaginaInicio extends _i6.PageRouteInfo<PaginaInicioArgs> {
+/// [_i3.PaginaInicio]
+class PaginaInicio extends _i7.PageRouteInfo<PaginaInicioArgs> {
   PaginaInicio({
-    _i7.Key? key,
-    _i8.InfoUsuario? userInfo,
-    List<_i6.PageRouteInfo>? children,
+    _i8.Key? key,
+    _i9.InfoUsuario? userInfo,
+    List<_i7.PageRouteInfo>? children,
   }) : super(
           PaginaInicio.name,
           args: PaginaInicioArgs(
@@ -101,8 +123,8 @@ class PaginaInicio extends _i6.PageRouteInfo<PaginaInicioArgs> {
 
   static const String name = 'PaginaInicio';
 
-  static const _i6.PageInfo<PaginaInicioArgs> page =
-      _i6.PageInfo<PaginaInicioArgs>(name);
+  static const _i7.PageInfo<PaginaInicioArgs> page =
+      _i7.PageInfo<PaginaInicioArgs>(name);
 }
 
 class PaginaInicioArgs {
@@ -111,9 +133,9 @@ class PaginaInicioArgs {
     this.userInfo,
   });
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
-  final _i8.InfoUsuario? userInfo;
+  final _i9.InfoUsuario? userInfo;
 
   @override
   String toString() {
@@ -122,12 +144,12 @@ class PaginaInicioArgs {
 }
 
 /// generated route for
-/// [_i3.PaginaKyc]
-class PaginaKyc extends _i6.PageRouteInfo<PaginaKycArgs> {
+/// [_i4.PaginaKyc]
+class PaginaKyc extends _i7.PageRouteInfo<PaginaKycArgs> {
   PaginaKyc({
-    required _i9.Rol rolElegido,
-    _i7.Key? key,
-    List<_i6.PageRouteInfo>? children,
+    required _i10.Rol rolElegido,
+    _i8.Key? key,
+    List<_i7.PageRouteInfo>? children,
   }) : super(
           PaginaKyc.name,
           args: PaginaKycArgs(
@@ -139,8 +161,8 @@ class PaginaKyc extends _i6.PageRouteInfo<PaginaKycArgs> {
 
   static const String name = 'PaginaKyc';
 
-  static const _i6.PageInfo<PaginaKycArgs> page =
-      _i6.PageInfo<PaginaKycArgs>(name);
+  static const _i7.PageInfo<PaginaKycArgs> page =
+      _i7.PageInfo<PaginaKycArgs>(name);
 }
 
 class PaginaKycArgs {
@@ -149,9 +171,9 @@ class PaginaKycArgs {
     this.key,
   });
 
-  final _i9.Rol rolElegido;
+  final _i10.Rol rolElegido;
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   @override
   String toString() {
@@ -160,9 +182,9 @@ class PaginaKycArgs {
 }
 
 /// generated route for
-/// [_i4.PaginaLogin]
-class PaginaLogin extends _i6.PageRouteInfo<void> {
-  const PaginaLogin({List<_i6.PageRouteInfo>? children})
+/// [_i5.PaginaLogin]
+class PaginaLogin extends _i7.PageRouteInfo<void> {
+  const PaginaLogin({List<_i7.PageRouteInfo>? children})
       : super(
           PaginaLogin.name,
           initialChildren: children,
@@ -170,13 +192,13 @@ class PaginaLogin extends _i6.PageRouteInfo<void> {
 
   static const String name = 'PaginaLogin';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i5.PaginaSeleccionDeRol]
-class PaginaSeleccionDeRol extends _i6.PageRouteInfo<void> {
-  const PaginaSeleccionDeRol({List<_i6.PageRouteInfo>? children})
+/// [_i6.PaginaSeleccionDeRol]
+class PaginaSeleccionDeRol extends _i7.PageRouteInfo<void> {
+  const PaginaSeleccionDeRol({List<_i7.PageRouteInfo>? children})
       : super(
           PaginaSeleccionDeRol.name,
           initialChildren: children,
@@ -184,5 +206,5 @@ class PaginaSeleccionDeRol extends _i6.PageRouteInfo<void> {
 
   static const String name = 'PaginaSeleccionDeRol';
 
-  static const _i6.PageInfo<void> page = _i6.PageInfo<void>(name);
+  static const _i7.PageInfo<void> page = _i7.PageInfo<void>(name);
 }
