@@ -1,6 +1,11 @@
 {
     "@@locale": "es",
 
+    "pageRoleAssigmentPendingUsers": "Usuarios pendientes",
+    "@pageRoleAssigmentPendingUsers": {
+        "description": ""
+    },
+
     "pageKycFormConfirmationDialogText": "¿Estás seguro que deseas solicitar el rol {roleName}?",
     "@pageKycConfirmationDialogText": {
         "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",

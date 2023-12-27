@@ -8,9 +8,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
 
-/// {@template VistaEscritorioAsignacionDeRoles}
-// TODO(anyone): AGREGAR DOCUMENTACION
-
+/// {@template PaginaAsignacionDeRoles}
+/// Pagina de la pantalla Asignacion de Rol donde se asigna un rol a los
+/// usuarios pendientes
 /// {@endtemplate}
 class PaginaAsignacionDeRoles extends StatelessWidget {
   /// {@macro PaginaAsignacionDeRoles}

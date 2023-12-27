@@ -15,5 +15,10 @@ abstract class BlocAsignacionDeRolesEvento {
 class BlocAsignacionDeRolesEventoInicializar
     extends BlocAsignacionDeRolesEvento {
   /// {@macro BlocAsignacionDeRolesEventoInicializar}
-  const BlocAsignacionDeRolesEventoInicializar();
+  const BlocAsignacionDeRolesEventoInicializar({
+    this.idUsuario,
+  });
+
+  /// Id del usuario que se va a asignar un rol
+  final int? idUsuario;
 }

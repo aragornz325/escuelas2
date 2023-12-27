@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioAsignacionDeRoles}
-// TODO(anyone): AGREGAR DOCUMENTACION.
+/// Vista Escritorio de la pantalla Asignacion de Rol donde el admin revisa los
+/// roles solcitados
 /// {@endtemplate}
 class VistaEscritorioAsignacionDeRoles extends StatelessWidget {
   /// {@macro VistaEscritorioAsignacionDeRoles}
@@ -9,6 +10,7 @@ class VistaEscritorioAsignacionDeRoles extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO(Gon): Hacer la vista escritorio de la pantalla 'Asignacion de Roles'
     return const Placeholder();
   }
 }

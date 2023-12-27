@@ -1,10 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/bloc/bloc_asignacion_de_roles.dart';
+import 'package:escuelas_flutter/features/auth/asignacion_de_roles/widgets/widget.dart';
 import 'package:escuelas_flutter/features/auth/modelos_temporales.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
-import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -28,12 +27,24 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
         leading: GestureDetector(
           onTap: () => context.router.pop(),
           child: Icon(
-            Icons.arrow_back,
+            Icons.arrow_back_ios,
             color: colores.onBackground,
+            size: 20.sw,
           ),
         ),
+        actions: [
+          GestureDetector(
+            onTap: () => context.router.pop(),
+            child: Icon(
+              Icons.notifications_none,
+              color: colores.onBackground,
+              size: 25.sw,
+            ),
+          ),
+          SizedBox(width: 10.pw),
+        ],
         title: Text(
-          'Usuarios Pendientes',
+          l10n.pageRoleAssigmentPendingUsers,
           style: TextStyle(
             color: colores.onBackground,
             fontWeight: FontWeight.w800,
@@ -45,7 +56,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
       ),
       body: BlocBuilder<BlocAsignacionDeRoles, BlocAsignacionDeRolesEstado>(
         builder: (context, state) {
-          if (state is BlocAsignacionDeRolesEstadoCargando) {
+          if (state.estaCargando) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -58,11 +69,11 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                 child: Column(
                   children: Roles.values
                       .map(
-                        (e) => Column(
+                        (rol) => Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              e.name.toUpperCase(),
+                              rol.name.toUpperCase(),
                               style: TextStyle(
                                 color: colores.onSecondary,
                                 fontSize: 16.pf,
@@ -72,46 +83,14 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                             SizedBox(height: 10.ph),
                             ...state.listaUsuariosPendientes
                                 .where(
-                                  (usuario) => usuario.rol == e,
+                                  (usuario) => usuario.rol == rol,
                                 )
                                 .toList()
                                 .map(
-                                  (e) => Padding(
+                                  (usuario) => Padding(
                                     padding: EdgeInsets.only(bottom: 10.ph),
-                                    child: Row(
-                                      children: [
-                                        ElementoLista.usuario(
-                                          nombreUsuario: Text(
-                                            e.nombre,
-                                            style: TextStyle(
-                                              fontSize: 14.pf,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          context: context,
-                                          onTap: () {},
-                                        ),
-                                        SizedBox(width: 10.pw),
-                                        GestureDetector(
-                                          onTap: () {},
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(100),
-                                              color: colores.azul,
-                                            ),
-                                            width: 38.sw,
-                                            height: 38.sh,
-                                            child: Center(
-                                              child: Icon(
-                                                Icons.arrow_forward_ios_rounded,
-                                                color: colores.background,
-                                                size: 20.sw,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
+                                    child: ItemUsuarioPendiente(
+                                      usuario: usuario,
                                     ),
                                   ),
                                 ),

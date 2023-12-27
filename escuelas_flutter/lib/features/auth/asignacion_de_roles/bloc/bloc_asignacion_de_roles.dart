@@ -116,11 +116,23 @@ class BlocAsignacionDeRoles
             rol: Roles.alumno,
           ),
         ];
+        // TODO(Gon): Eliminar hardcodeo y usar endpoint
+        // final InfoUsuario usuarioATraerDatos;
+
+        if (event.idUsuario != null) {
+          // usuarioATraerDatos =  sessionManager.signedInUser?.id ;
+        } else {
+          // usuarioATraerDatos =  await client.traerusuario;
+        }
 
         emit(
           BlocAsignacionDeRolesEstadoExitoso.desde(
             state,
             listaUsuariosPendientes: listaUsuariosPendientes,
+            usuario: InfoUsuario(
+              nombre: 'Gonzalo',
+              rol: Roles.alumno,
+            ),
           ),
         );
       },
