@@ -62,11 +62,11 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
             );
           }
 
-          return Center(
-            child: SizedBox(
-              width: 340.pw,
-              child: SingleChildScrollView(
-                child: Column(
+          return SingleChildScrollView(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Column(
                   children: Roles.values
                       .map(
                         (rol) => Column(
@@ -99,7 +99,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                       )
                       .toList(),
                 ),
-              ),
+              ],
             ),
           );
         },

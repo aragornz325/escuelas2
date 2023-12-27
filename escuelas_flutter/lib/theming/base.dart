@@ -46,4 +46,7 @@ extension EscuelasColorScheme on ColorScheme {
 
   /// Color utilizado para los componentes deshabilitados
   Color get grisBotonPresionado => const Color(0xffE2E2E2);
+
+  /// Color utilizado en los datos personales de los usuarios
+  Color get grisDato => const Color(0xff878787);
 }
