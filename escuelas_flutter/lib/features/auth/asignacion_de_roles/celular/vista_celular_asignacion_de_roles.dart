@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/bloc/bloc_asignacion_de_roles.dart';
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/widgets/widget.dart';
-import 'package:escuelas_flutter/features/auth/modelos_temporales.dart';
+import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

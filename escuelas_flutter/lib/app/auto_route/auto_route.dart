@@ -44,7 +44,7 @@ class AppRouter extends $AppRouter {
             ),
             CustomRoute(
               page: PaginaFormulario.page,
-              path: 'form/:idRol',
+              path: 'form',
               // guards: [authGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),

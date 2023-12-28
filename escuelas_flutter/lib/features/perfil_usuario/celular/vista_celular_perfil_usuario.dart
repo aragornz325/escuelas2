@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/auth/modelos_temporales.dart';
+import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/widgets/seccion_datos_personales.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/widgets/tarjeta_perfil.dart';

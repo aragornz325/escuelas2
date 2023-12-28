@@ -5,9 +5,26 @@ class OpcionFormulario {
     required this.materia,
     required this.id,
   });
+
+  factory OpcionFormulario.fromJson(Map<String, dynamic> json) {
+    return OpcionFormulario(
+      curso: Curso.fromJson(json['curso'] as Map<String, dynamic>),
+      materia: Materia.fromJson(json['materia'] as Map<String, dynamic>),
+      id: json['id'] as int,
+    );
+  }
+
   Curso curso;
   Materia materia;
   final int id;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'curso': curso,
+      'materia': materia,
+      'id': id,
+    };
+  }
 }
 
 // TODO(Gon): Eliminar modelo cuando se usen los del back
@@ -16,6 +33,19 @@ class Curso {
     required this.nombre,
     required this.id,
   });
+  factory Curso.fromJson(Map<String, dynamic> json) {
+    return Curso(
+      nombre: json['nombre'] as String,
+      id: json['id'] as int,
+    );
+  }
+  Map<String, dynamic> toJson() {
+    return {
+      'nombre': nombre,
+      'id': id,
+    };
+  }
+
   final String nombre;
   final int id;
 }
@@ -26,16 +56,52 @@ class Materia {
     required this.nombre,
     required this.id,
   });
+
+  factory Materia.fromJson(Map<String, dynamic> json) {
+    return Materia(
+      nombre: json['nombre'] as String,
+      id: json['id'] as int,
+    );
+  }
+
   final String nombre;
   final int id;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'nombre': nombre,
+      'id': id,
+    };
+  }
 }
 
 // TODO(Gon): Eliminar modelo cuando se usen los del back
 class Rol {
-  Rol({required this.nombre, required this.permisos, required this.id});
+  Rol({
+    required this.nombre,
+    required this.permisos,
+    required this.id,
+  });
+
+  factory Rol.fromJson(Map<String, dynamic> json) {
+    return Rol(
+      nombre: json['nombre'] as String,
+      permisos: List<String>.from(json['permisos'] as List<String>),
+      id: json['id'] as int,
+    );
+  }
+
   String nombre;
   List<String> permisos;
   int id;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'nombre': nombre,
+      'permisos': permisos,
+      'id': id,
+    };
+  }
 }
 
 // TODO(SAM): Eliminar luego cuando venga del back

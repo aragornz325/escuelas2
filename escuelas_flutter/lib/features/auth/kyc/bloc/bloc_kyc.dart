@@ -1,15 +1,15 @@
 import 'package:escuelas_flutter/extensiones/extension_bloc.dart';
-import 'package:escuelas_flutter/features/auth/modelos_temporales.dart';
+import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 part 'bloc_kyc_estado.dart';
 part 'bloc_kyc_evento.dart';
 
 /// {@template BlocKyc}
-/// Bloc que maneja los estados y lógica de la pagina de 'Kyc'
+/// Bloc que maneja los estados y lógica de las paginas de 'Kyc'
 /// {@endtemplate}
-class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
+class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
   /// {@macro BlocKyc}
   BlocKyc() : super(const BlocKycEstadoInicial()) {
     on<BlocKycEventoInicializar>(_inicializar);
@@ -126,24 +126,42 @@ class BlocKyc extends Bloc<BlocKycEvento, BlocKycEstado> {
     BlocKycEventoAgregarOpcion event,
     Emitter<BlocKycEstado> emit,
   ) {
-    state.opcionesFormulario.add(
-      OpcionFormulario(
-        id: state.opcionesFormulario.length + 1,
-        curso: Curso(
-          nombre: '',
-          id: 0,
-        ),
-        materia: Materia(
-          nombre: '',
-          id: 0,
-        ),
-      ),
-    );
+    final nuevaListaOpciones =
+        List<OpcionFormulario>.from(state.opcionesFormulario)
+          ..add(
+            OpcionFormulario(
+              id: state.opcionesFormulario.length + 1,
+              curso: Curso(
+                nombre: '',
+                id: 0,
+              ),
+              materia: Materia(
+                nombre: '',
+                id: 0,
+              ),
+            ),
+          );
     emit(
       BlocKycEstadoExitoso.desde(
         state,
-        opcionesFormulario: state.opcionesFormulario,
+        opcionesFormulario: nuevaListaOpciones,
       ),
     );
+  }
+
+  /// Factory constructor fromJson para poder ser utilizado en [HydratedBloc]
+  /// transforma el objeto json guardado del local storage a la clase estado
+  /// del Bloc dentro contiene lo que fue previamente guardado.
+  @override
+  BlocKycEstado fromJson(Map<String, dynamic> json) {
+    return BlocKycEstado.fromJson(json);
+  }
+
+  /// Metodo toJson para poder ser utilizado en [HydratedBloc]
+  /// transforma el objeto del estado del Bloc a un objeto json para guardarlo
+  /// en el local storage y luego poder acceder a el o limpiar estos datos.
+  @override
+  Map<String, dynamic> toJson(BlocKycEstado state) {
+    return state.toJson();
   }
 }
