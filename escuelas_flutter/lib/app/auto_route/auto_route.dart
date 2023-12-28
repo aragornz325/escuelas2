@@ -51,8 +51,8 @@ class AppRouter extends $AppRouter {
           ],
         ),
         AutoRoute(
-          page: PaginaAsignacionDeRoles.page,
-          path: '/home',
+          page: PaginaSeleccionDeRol.page,
+          //   initial: true,
           // guards: [initialGuard],
         ),
         AutoRoute(

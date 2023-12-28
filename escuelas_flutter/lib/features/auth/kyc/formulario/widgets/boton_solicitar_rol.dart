@@ -6,6 +6,7 @@ import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:full_responsive/full_responsive.dart';
 
 /// {@template BotonSolicitarRol}
 /// Botón para solicitar rol
@@ -34,12 +35,21 @@ class BotonSolicitarRol extends StatelessWidget {
                 context: context,
                 // TODO(Gon): Enviar solicitud de rol al admin
                 onTapConfirmar: () {},
-                titulo: l10n.pageKycFormConfirmationDialogText(
-                  state.rolElegido?.nombre ?? '',
+                content: Text(
+                  l10n.pageKycFormConfirmationDialogText(
+                    state.rolElegido?.nombre ?? '',
+                  ),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 15.pf,
+                    fontWeight: FontWeight.w600,
+                    color: colores.grisSC,
+                  ),
                 ),
               );
             },
           ),
+          // TODO(Gon): Revisar esto cuando se arregle lo del bloc (como se crea la primer opcion)
           color: state.opcionesFormulario.isNotEmpty &&
                   state.opcionesFormulario[0].curso.nombre != '' &&
                   state.opcionesFormulario[0].materia.nombre != ''
