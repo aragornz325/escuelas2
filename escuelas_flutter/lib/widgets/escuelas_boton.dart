@@ -45,6 +45,7 @@ class EscuelasBoton extends StatelessWidget {
     double? width,
   }) {
     final colores = context.colores;
+
     return EscuelasBoton(
       width: width ?? 130.pw,
       estaHabilitado: estaHabilitado,

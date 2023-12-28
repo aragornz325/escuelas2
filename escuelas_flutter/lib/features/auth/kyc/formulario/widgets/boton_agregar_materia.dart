@@ -28,7 +28,7 @@ class BotonAgregarBloqueMateria extends StatelessWidget {
         Icons.add_circle_outline_outlined,
       ),
       label: Text(
-        l10n.pageKycFormAddSubject,
+        l10n.pageKycFormAddSubject.toUpperCase(),
         style: TextStyle(
           color: colores.onBackground,
           decoration: TextDecoration.underline,

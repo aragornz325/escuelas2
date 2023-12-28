@@ -28,13 +28,36 @@ class AppRouter extends $AppRouter {
 
   @override
   List<AutoRoute> get routes => [
+        CustomRoute(
+          page: PaginaKyc.page,
+          initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
+          path: '/kyc',
+          // guards: [initialGuard],
+          transitionsBuilder: TransitionsBuilders.noTransition,
+          children: [
+            CustomRoute(
+              page: PaginaSeleccionDeRol.page,
+              initial: true,
+              path: 'role-selection',
+              // guards: [authGuard],
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
+            CustomRoute(
+              page: PaginaFormulario.page,
+              path: 'form/:idRol',
+              // guards: [authGuard],
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
+          ],
+        ),
         AutoRoute(
-          page: PaginaSeleccionDeRol.page,
-          initial: true,
+          page: PaginaAsignacionDeRoles.page,
+          path: '/home',
           // guards: [initialGuard],
         ),
         AutoRoute(
-          page: PaginaKyc.page,
+          page: PaginaPerfilUsuario.page,
+          path: '/perfil-usuario/:idUsuario',
           // guards: [initialGuard],
         ),
       ];
