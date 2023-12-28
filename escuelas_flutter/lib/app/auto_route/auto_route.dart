@@ -48,5 +48,10 @@ class AppRouter extends $AppRouter {
           page: PaginaKyc.page,
           // guards: [initialGuard],
         ),
+        AutoRoute(
+          page: PaginaAsistencia.page,
+          path: '/Attendance',
+          // guards: [initialGuard],
+        ),
       ];
 }

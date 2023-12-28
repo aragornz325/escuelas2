@@ -9,6 +9,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i8;
+import 'package:escuelas_flutter/features/asistencias/pagina_asistencias.dart'
+    as _i2;
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/pagina_asignacion_de_roles.dart'
     as _i1;
 import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_kyc.dart'
@@ -17,7 +19,6 @@ import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_sel
     as _i7;
 import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i5;
 import 'package:escuelas_flutter/features/auth/modelos_temporales.dart' as _i11;
-import 'package:escuelas_flutter/features/pagina_ejemplo.dart' as _i2;
 import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart'
     as _i10;
 import 'package:escuelas_flutter/features/pantalla_inicio/pagina_inicio.dart'
@@ -37,10 +38,10 @@ abstract class $AppRouter extends _i8.RootStackRouter {
         child: const _i1.PaginaAsignacionDeRoles(),
       );
     },
-    PaginaEjemplo.name: (routeData) {
+    PaginaAsistencia.name: (routeData) {
       return _i8.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.PaginaEjemplo(),
+        child: const _i2.PaginaAsistencia(),
       );
     },
     PaginaInicio.name: (routeData) {
@@ -107,15 +108,15 @@ class PaginaAsignacionDeRoles extends _i8.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.PaginaEjemplo]
-class PaginaEjemplo extends _i8.PageRouteInfo<void> {
-  const PaginaEjemplo({List<_i8.PageRouteInfo>? children})
+/// [_i2.PaginaAsistencia]
+class PaginaAsistencia extends _i8.PageRouteInfo<void> {
+  const PaginaAsistencia({List<_i8.PageRouteInfo>? children})
       : super(
-          PaginaEjemplo.name,
+          PaginaAsistencia.name,
           initialChildren: children,
         );
 
-  static const String name = 'PaginaEjemplo';
+  static const String name = 'PaginaAsistencia';
 
   static const _i8.PageInfo<void> page = _i8.PageInfo<void>(name);
 }
