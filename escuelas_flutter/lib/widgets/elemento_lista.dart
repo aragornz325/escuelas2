@@ -71,6 +71,34 @@ class ElementoLista extends StatelessWidget {
       onTap: onTap,
     );
   }
+  factory ElementoLista.supervisionCurso({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Nombre del rol.
+    required String nombreCurso,
+    required Color colorFondo,
+    required BuildContext context,
+    Widget? widgetLateralDerecho,
+  }) {
+    final colores = context.colores;
+    return ElementoLista(
+      texto: Text(
+        nombreCurso.toUpperCase(),
+        style: TextStyle(
+          fontSize: 16.pf,
+          fontWeight: FontWeight.w700,
+          color: colores.background,
+        ),
+      ),
+      altura: 55.ph,
+      ancho: 340.pw,
+      borderRadius: 40.sw,
+      colorFondo: colorFondo,
+      onTap: onTap,
+      widgetLateralDerecho: widgetLateralDerecho,
+    );
+  }
 
   /// Texto alineado a la izquierda
   final Text texto;
@@ -139,26 +167,23 @@ class ElementoLista extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.pw,
-              vertical: 5.ph,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: texto,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.pw,
+                      vertical: 5.ph,
                     ),
-                  ],
-                ),
-                if (widgetLateralDerecho != null) widgetLateralDerecho!,
-              ],
-            ),
+                    child: texto,
+                  ),
+                ],
+              ),
+              if (widgetLateralDerecho != null) widgetLateralDerecho!,
+            ],
           ),
         ),
       ),
