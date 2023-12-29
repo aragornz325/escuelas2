@@ -1,3 +1,4 @@
+import 'package:escuelas_flutter/extensiones/date_time.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/selector_de_fecha/bloc/bloc_selector_de_fecha.dart';
@@ -43,10 +44,10 @@ class SelectorDeFecha extends StatelessWidget {
                           color: colores.grisSC,
                         ),
                         Text(
-                          // state.fechaEnElMesAnterior
-                          //     .nombreMes(context)
-                          //     .toUpperCase(),
-                          'asdasd',
+                          state.fechaEnElMesAnterior
+                              .nombreMes(context)
+                              .toUpperCase()
+                              .substring(0, 3),
                           style: TextStyle(
                             color: colores.grisSC,
                             fontSize: 14.pf,
@@ -61,8 +62,7 @@ class SelectorDeFecha extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      // state.fecha.nombreMes(context).toUpperCase(),
-                      'asdasd',
+                      state.fecha.nombreMes(context).toUpperCase(),
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 18.pf,
@@ -90,10 +90,10 @@ class SelectorDeFecha extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          'asdasd',
-                          // state.fechaEnElMesPosterior
-                          //     .nombreMes(context)
-                          //     .toUpperCase(),
+                          state.fechaEnElMesPosterior
+                              .nombreMes(context)
+                              .toUpperCase()
+                              .substring(0, 3),
                           style: TextStyle(
                             color: colores.grisSC,
                             fontSize: 14.pf,
