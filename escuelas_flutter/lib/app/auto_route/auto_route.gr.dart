@@ -9,6 +9,8 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i9;
+import 'package:escuelas_flutter/features/asistencias/pagina_asistencias.dart'
+    as _i2;
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/pagina_asignacion_de_roles.dart'
     as _i1;
 import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.dart'
@@ -17,7 +19,6 @@ import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i5;
 import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
     as _i8;
 import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i6;
-import 'package:escuelas_flutter/features/pagina_ejemplo.dart' as _i2;
 import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart'
     as _i11;
 import 'package:escuelas_flutter/features/pantalla_inicio/pagina_inicio.dart'
@@ -37,10 +38,10 @@ abstract class $AppRouter extends _i9.RootStackRouter {
         child: const _i1.PaginaAsignacionDeRoles(),
       );
     },
-    PaginaEjemplo.name: (routeData) {
+    PaginaAsistencia.name: (routeData) {
       return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.PaginaEjemplo(),
+        child: const _i2.PaginaAsistencia(),
       );
     },
     PaginaFormulario.name: (routeData) {
@@ -109,15 +110,15 @@ class PaginaAsignacionDeRoles extends _i9.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.PaginaEjemplo]
-class PaginaEjemplo extends _i9.PageRouteInfo<void> {
-  const PaginaEjemplo({List<_i9.PageRouteInfo>? children})
+/// [_i2.PaginaAsistencia]
+class PaginaAsistencia extends _i9.PageRouteInfo<void> {
+  const PaginaAsistencia({List<_i9.PageRouteInfo>? children})
       : super(
-          PaginaEjemplo.name,
+          PaginaAsistencia.name,
           initialChildren: children,
         );
 
-  static const String name = 'PaginaEjemplo';
+  static const String name = 'PaginaAsistencia';
 
   static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }

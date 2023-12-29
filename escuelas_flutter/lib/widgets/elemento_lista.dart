@@ -20,6 +20,7 @@ class ElementoLista extends StatelessWidget {
     this.ancho = 329,
     this.borderRadius = 20,
     this.widgetLateralDerecho,
+    this.colorTitulo,
     this.widgetLateralIzquierdo,
     super.key,
   });
@@ -102,6 +103,8 @@ class ElementoLista extends StatelessWidget {
 
   /// En caso de ser true agrega box shadow al presionar el elemento.
   final bool tieneBoxShadow;
+
+  final Color? colorTitulo;
 
   @override
   Widget build(BuildContext context) {

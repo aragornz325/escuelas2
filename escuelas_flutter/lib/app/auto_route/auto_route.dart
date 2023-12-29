@@ -60,5 +60,14 @@ class AppRouter extends $AppRouter {
           path: '/perfil-usuario/:idUsuario',
           // guards: [initialGuard],
         ),
+        AutoRoute(
+          page: PaginaKyc.page,
+          // guards: [initialGuard],
+        ),
+        AutoRoute(
+          page: PaginaAsistencia.page,
+          path: '/Attendance',
+          // guards: [initialGuard],
+        ),
       ];
 }

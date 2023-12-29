@@ -12,7 +12,7 @@
     },
 
     "pageRoleAssigmentDialogSecondText": "\n as a ",
-    "@pageRoleAssigmentDialogFirstText": {
+    "@pageRoleAssigmentDialogSecondText": {
         "description": "Secondary text of a dialog box to confirm role assignment."
     },
 
@@ -119,6 +119,89 @@
     "commonOnlyNumbers": "Only numbers",
     "@commonOnlyNumbers": {
         "description": "Text to indicate that only numbers are allowed"
+    },
+
+    "pageAttendanceWithoutCourses": "There are no courses",
+    "@pageAttendanceWithoutCourses": {
+        "description": "Text to be displayed if there are no courses"
+    },
+
+    "pageAttendanceTitleFinishButtonToEndAttendance": "Finish",
+    "@pageAttendanceTitleFinishButtonToEndAttendance": {
+        "description": "Text to be displayed in the button to end the Attendance"
+    },
+
+    "pageAttendanceTitleDefinedMissingAmountComplete": "Defined {missing}/{all}",
+    "@pageAttendanceTitleDefinedMissingAmountComplete": {
+        "description": "Text to be displayed in the button to end the Attendance",
+        "placeholders" :{
+            "missing" : {
+                "type": "int"
+            },
+            "all" : {
+                "type": "int"
+            }
+        }
+    },
+
+    "pageAttendanceNotAbsentStudents": "There are no absent students",
+    "@pageAttendanceNotAbsentStudents": {
+        "description": "Text to be displayed when there are no absent students"
+    },
+
+    "dialogAttendanceOfDay": "Assists of the day",
+    "@dialogAttendanceOfDay": {
+        "description": "Text to be displayed in the title of the dialog"
+    },
+
+    "dialogAttendanceStateOfStudents": "with",
+    "@dialogAttendanceStateOfStudents": {
+        "description": "text in the dialog in the status of absent students"
+    },
+
+    "dialogSeeMore": "See more",
+    "@dialogSeeMore": {
+        "description": "text on a button to see less"
+    },
+
+    "dialogSeeLess": "See Less",
+    "@dialogSeeLess": {
+        "description": "text on a button to see more"
+    },
+
+    "commonName": "Name",
+    "@commonName": {
+        "description": "Label for the 'Name' field or column in the interface"
+    },
+
+    "commonState": "State",
+    "@commonState": {
+        "description": "Label for the 'State' field or column in the interface"
+    },
+
+    "commonPresent": "Present",
+    "@commonPresent": {
+        "description": "Label indicating that the student is present"
+    },
+
+    "commonAbsent": "absent",
+    "@commonAbsent": {
+        "description": "Label indicating that the student is absent"
+    },
+
+    "commonHalfAbsence": "1/2 absence",
+    "@commonHalfAbsence": {
+        "description": "Label indicating that the student has half of the required attendance"
+    }, 
+    
+    "commonFourthMissing": "1/4 absence",
+    "@commonFourthMissing": {
+        "description": "Label indicating that the student has a quarter of the required attendance"
+    }, 
+    
+    "commonUndefined": "Undef.",
+    "@commonUndefined": {
+        "description": "Label indicating that the attendance status of the student is undefined or not specified"
     },
 
     "commonContinue": "Continue",
