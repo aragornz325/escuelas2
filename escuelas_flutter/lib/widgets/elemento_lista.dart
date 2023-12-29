@@ -105,8 +105,6 @@ class ElementoLista extends StatelessWidget {
   /// En caso de ser true agrega box shadow al presionar el elemento.
   final bool tieneBoxShadow;
 
-  final Color? colorTitulo;
-
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
