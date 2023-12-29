@@ -1,5 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extension_bloc.dart';
-import 'package:escuelas_flutter/features/auth/modelos_temporales.dart';
+import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_asignacion_de_roles_estado.dart';

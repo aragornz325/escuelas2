@@ -48,6 +48,7 @@ class EscuelasBoton extends StatelessWidget {
     double? height,
   }) {
     final colores = context.colores;
+
     return EscuelasBoton(
       width: width,
       height: height,
@@ -170,25 +171,30 @@ class EscuelasBoton extends StatelessWidget {
 
     return GestureDetector(
       onTap: estaHabilitado ? onTap : null,
-      child: Container(
-        width: width,
-        height: height,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.sw),
-          color: esOutlined
-              ? colores.background
-              : estaHabilitado
-                  ? color
-                  : colores.secondary,
-          border: esOutlined ? Border.all(color: colores.onSecondary) : null,
-        ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(
-            vertical: 5.ph,
-            horizontal: 20.ph,
-          ),
-          child: Center(
-            child: child,
+      child: IntrinsicHeight(
+        child: IntrinsicWidth(
+          child: Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.sw),
+              color: esOutlined
+                  ? colores.background
+                  : estaHabilitado
+                      ? color
+                      : colores.secondary,
+              border:
+                  esOutlined ? Border.all(color: colores.onSecondary) : null,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 5.ph,
+                horizontal: 20.ph,
+              ),
+              child: Center(
+                child: child,
+              ),
+            ),
           ),
         ),
       ),
