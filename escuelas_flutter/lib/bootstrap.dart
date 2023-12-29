@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 // import 'package:escuelas_flutter/utilidades/utilidades.dart';
 import 'package:flutter/widgets.dart';
 
@@ -34,10 +35,10 @@ Future<void> bootstrap(
 
   // Add cross-flavor configuration here
   // Add cross-flavor configuration here
-  // await inicializarClienteServerpod(
-  //   hostUrl: hostUrl,
-  //   entorno: entorno,
-  // );
+  await inicializarClienteServerpod(
+    hostUrl: hostUrl,
+    entorno: entorno,
+  );
 
   runApp(await builder());
 }
