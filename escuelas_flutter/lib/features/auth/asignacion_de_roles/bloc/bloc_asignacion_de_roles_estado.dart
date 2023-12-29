@@ -51,7 +51,7 @@ class BlocAsignacionDeRolesEstadoExitoso extends BlocAsignacionDeRolesEstado {
   }) : super.desde();
 }
 
-/// {@template BlocAsignacionDeRolesEstadoFallido}
+/// {@template BlocAsignacionDeRolesEstadoError}
 /// Estado de error de los componentes de la pantalla 'Asignacion de Rol'
 /// {@endtemplate}
 class BlocAsignacionDeRolesEstadoError extends BlocAsignacionDeRolesEstado {

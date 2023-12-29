@@ -12,7 +12,6 @@ class BlocSelectorDeFecha
   BlocSelectorDeFecha() : super(BlocSelectorDeFechaEstadoInicial()) {
     on<BlocSelectorDeFechaEventoRetroceder>(_onRetroceder);
     on<BlocSelectorDeFechaEventoAvanzar>(_onAvanzar);
-    add(BlocSelectorDeFechaEventoRetroceder());
   }
 
   /// Retrocede un mes en el selector de fecha

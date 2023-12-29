@@ -49,7 +49,7 @@ class BlocSelectorDeFechaEstadoExitoso extends BlocSelectorDeFechaEstado {
   }) : super.desde();
 }
 
-/// {@template BlocSelectorDeFechaEstadoFallido}
+/// {@template BlocSelectorDeFechaEstadoError}
 /// Estado de error de los componentes de la pantalla 'Selector de fecha'
 /// {@endtemplate}
 class BlocSelectorDeFechaEstadoError extends BlocSelectorDeFechaEstado {

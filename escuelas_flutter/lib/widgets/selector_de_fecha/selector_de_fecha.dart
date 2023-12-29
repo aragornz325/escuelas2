@@ -1,6 +1,6 @@
+import 'package:escuelas_flutter/extensiones/date_time.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/utilidades/funciones/nombre_del_mes.dart';
 import 'package:escuelas_flutter/widgets/selector_de_fecha/bloc/bloc_selector_de_fecha.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,9 +44,10 @@ class SelectorDeFecha extends StatelessWidget {
                           color: colores.grisSC,
                         ),
                         Text(
-                          nombreDelMesSegunFecha(
-                                  fecha: state.fechaEnElMesAnterior)
-                              .toUpperCase(),
+                          // state.fechaEnElMesAnterior
+                          //     .nombreMes(context)
+                          //     .toUpperCase(),
+                          'asdasd',
                           style: TextStyle(
                             color: colores.grisSC,
                             fontSize: 14.pf,
@@ -61,7 +62,8 @@ class SelectorDeFecha extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      nombreDelMesSegunFecha(fecha: state.fecha).toUpperCase(),
+                      // state.fecha.nombreMes(context).toUpperCase(),
+                      'asdasd',
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 18.pf,
@@ -89,9 +91,10 @@ class SelectorDeFecha extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          nombreDelMesSegunFecha(
-                                  fecha: state.fechaEnElMesPosterior)
-                              .toUpperCase(),
+                          'asdasd',
+                          // state.fechaEnElMesPosterior
+                          //     .nombreMes(context)
+                          //     .toUpperCase(),
                           style: TextStyle(
                             color: colores.grisSC,
                             fontSize: 14.pf,
