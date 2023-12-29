@@ -19,7 +19,7 @@ class PaginaLogin extends StatelessWidget {
     return BlocProvider<BlocLogin>(
       create: (context) => BlocLogin(),
       child: const FullResponsiveScreen(
-        celular: VistaCelularLogin(),
+        celular: SignInPage(),
         escritorio: SignInPage(),
       ),
     );
