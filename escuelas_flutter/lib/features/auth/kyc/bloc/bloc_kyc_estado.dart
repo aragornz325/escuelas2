@@ -30,6 +30,41 @@ class BlocKycEstado {
           listaRoles: listaRoles ?? otro.listaRoles,
         );
 
+  /// Factory constructor fromJson del [BlocKycEstado]
+  factory BlocKycEstado.fromJson(
+    Map<String, dynamic> json,
+  ) {
+    return BlocKycEstado._(
+      listaCursos: (json['listaCursos'] as List<dynamic>?)
+              ?.map((e) => Curso.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      listaMaterias: (json['listaMaterias'] as List<dynamic>?)
+              ?.map((e) => Materia.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+      rolElegido: json['rolElegido'] == null
+          ? null
+          : Rol.fromJson(
+              json['rolElegido'] as Map<String, dynamic>,
+            ),
+      listaRoles: (json['listaRoles'] as List<dynamic>?)
+              ?.map((e) => Rol.fromJson(e as Map<String, dynamic>))
+              .toList() ??
+          [],
+    );
+  }
+
+  /// Metodo toJson del [BlocKycEstado]
+  Map<String, dynamic> toJson() {
+    return {
+      'listaCursos': listaCursos.map((e) => e.toJson()).toList(),
+      'listaMaterias': listaMaterias.map((e) => e.toJson()).toList(),
+      'rolElegido': rolElegido?.toJson(),
+      'listaRoles': listaRoles.map((e) => e.toJson()).toList(),
+    };
+  }
+
   /// Lista de cursos de la escuela a la que pertenece el usuario
   final List<Curso> listaCursos;
 
@@ -69,6 +104,14 @@ class BlocKycEstado {
         ),
       )
       .toList();
+
+  List<Object?> get props => [
+        listaCursos,
+        listaMaterias,
+        opcionesFormulario,
+        rolElegido,
+        listaRoles,
+      ];
 }
 
 /// {@template BlocKycEstadoInicial}

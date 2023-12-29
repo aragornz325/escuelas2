@@ -24,16 +24,18 @@ class BotonAgregarBloqueMateria extends StatelessWidget {
     return TextButton.icon(
       onPressed: () =>
           context.read<BlocKyc>().add(const BlocKycEventoAgregarOpcion()),
-      icon: const Icon(
+      icon: Icon(
         Icons.add_circle_outline_outlined,
+        color: colores.onBackground,
+        size: 18.pw,
       ),
       label: Text(
-        l10n.pageKycFormAddSubject,
+        l10n.pageKycFormAddSubject.toUpperCase(),
         style: TextStyle(
           color: colores.onBackground,
           decoration: TextDecoration.underline,
           fontWeight: FontWeight.w700,
-          fontSize: 12.pf,
+          fontSize: 15.pf,
         ),
       ),
     );
