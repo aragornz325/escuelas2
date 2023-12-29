@@ -9,18 +9,14 @@ Future<void> inicializarClienteServerpod({
   required String hostUrl,
   required String entorno,
 }) async {
-  // The android emulator does not have access to the localhost of the machine.
-  // const ipAddress = '10.0.2.2'; // Android emulator ip for the host
+  // El emulador de Android no tiene acceso al host local de la máquina.
+  // dirección IP const = '10.0.2.2'; // IP del emulador de Android para el host
 
-  // On a real device replace the ipAddress with the IP address of your
-  // computer.
-
-  // Sets up a singleton client object that can be used to talk to the server
-  // from
-  // anywhere in our app. The client is generated from your server code.
-  // The client is set up to connect to a Serverpod running on a local server on
-  // the default port. You will need to modify this to connect to staging or
-  // production servers.
+  // En un dispositivo real, reemplace ipAddress con la dirección IP de su computadora.
+  // Configura un objeto de cliente singleton que se puede usar para hablar con el servidor desde
+  // cualquier lugar de nuestra aplicación. El cliente se genera a partir del código de su servidor.
+  // El cliente está configurado para conectarse a un Serverpod que se ejecuta en un servidor local en
+  // el puerto predeterminado. Deberá modificar esto para conectarse a  servidores de prueba o // de producción.
   client = Client(
     hostUrl,
     authenticationKeyManager: FlutterAuthenticationKeyManager(
@@ -29,9 +25,9 @@ Future<void> inicializarClienteServerpod({
     ),
   )..connectivityMonitor = FlutterConnectivityMonitor();
 
-  // The session manager keeps track of the signed-in state of the user. You
-  // can query it to see if the user is currently signed in and get information
-  // about the user.
+  // El administrador de sesión realiza un seguimiento del estado de inicio de sesión del usuario. Usted
+  // puede consultarlo para ver si el usuario ha iniciado sesión actualmente y obtener información
+  // sobre el usuario.
   sessionManager = SessionManager(
     caller: client.modules.auth,
   );

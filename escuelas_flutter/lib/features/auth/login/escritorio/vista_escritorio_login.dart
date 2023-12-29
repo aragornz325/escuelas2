@@ -1,14 +1,35 @@
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter/material.dart';
 
-/// {@template VistaEscritorioLogin}
-// TODO(anyone): AGREGAR DOCUMENTACION.
-/// {@endtemplate}
-class VistaEscritorioLogin extends StatelessWidget {
-  /// {@macro VistaEscritorioLogin}
-  const VistaEscritorioLogin({super.key});
+import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
+
+const _googleServerClientId =
+    '554988659961-kos5ov2pb8j6jujrkajo8866rp3gdic7.apps.googleusercontent.com';
+
+//! TODO(Anyone): cambiar por pagina de login
+class SignInPage extends StatelessWidget {
+  const SignInPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Center(
+      child: Dialog(
+        child: Container(
+          width: 260,
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              SignInWithGoogleButton(
+                caller: client.modules.auth,
+                serverClientId: _googleServerClientId,
+                redirectUri: Uri.parse('http://localhost:8082/googlesignin'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }
