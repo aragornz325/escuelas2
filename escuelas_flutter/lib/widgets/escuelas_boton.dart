@@ -43,10 +43,15 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Ancho del boton, por defecto es 130
     double? width,
+
+    /// Altura del boton, por defecto es 30
+    double? height,
   }) {
     final colores = context.colores;
+
     return EscuelasBoton(
-      width: width ?? 130.pw,
+      width: width,
+      height: height,
       estaHabilitado: estaHabilitado,
       onTap: onTap,
       color: color,
@@ -110,10 +115,13 @@ class EscuelasBoton extends StatelessWidget {
     required String texto,
 
     /// Ancho del boton
-    required double width,
+    double? width,
 
     /// Altura del boton
-    required double height,
+    double? height,
+
+    /// Color del boton
+    Color? color,
   }) {
     final colores = context.colores;
 
@@ -123,7 +131,7 @@ class EscuelasBoton extends StatelessWidget {
       height: height,
       width: width,
       onTap: onTap,
-      color: colores.background,
+      color: color ?? colores.background,
       child: Center(
         child: Text(
           texto,
@@ -163,20 +171,31 @@ class EscuelasBoton extends StatelessWidget {
 
     return GestureDetector(
       onTap: estaHabilitado ? onTap : null,
-      child: Container(
-        width: width ?? 130.pw,
-        height: max(height?.sh ?? 40.sh, height?.ph ?? 40.ph),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30.sw),
-          color: esOutlined
-              ? colores.background
-              : estaHabilitado
-                  ? color
-                  : colores.secondary,
-          border: esOutlined ? Border.all(color: colores.onSecondary) : null,
-        ),
-        child: Center(
-          child: child,
+      child: IntrinsicHeight(
+        child: IntrinsicWidth(
+          child: Container(
+            width: width,
+            height: height,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30.sw),
+              color: esOutlined
+                  ? colores.background
+                  : estaHabilitado
+                      ? color
+                      : colores.secondary,
+              border:
+                  esOutlined ? Border.all(color: colores.onSecondary) : null,
+            ),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                vertical: 5.ph,
+                horizontal: 20.ph,
+              ),
+              child: Center(
+                child: child,
+              ),
+            ),
+          ),
         ),
       ),
     );

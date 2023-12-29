@@ -25,6 +25,10 @@ extension EscuelasColorScheme on ColorScheme {
   /// containers expandibles
   Color get grisSC => const Color(0xff6D6D6D);
 
+  /// Se utiliza para el color del box shadow del ElementoLista cuando
+  /// esta presionado.
+  Color get grisClaroSombreado => const Color(0xFFEEEEEE);
+
   /// Se utiliza para el fondo del campo de texto para ingresar una calificacion
   Color get azul => const Color(0xff2E75FF);
 
@@ -36,4 +40,13 @@ extension EscuelasColorScheme on ColorScheme {
 
   /// Color utilizado en el promedio TED
   Color get rojoTED => const Color(0xffFF4444);
+
+  /// Color utilizado para los componentes deshabilitados
+  Color get grisDeshabilitado => const Color(0xffCCCCCC);
+
+  /// Color utilizado para los componentes deshabilitados
+  Color get grisBotonPresionado => const Color(0xffE2E2E2);
+
+  /// Color utilizado en los datos personales de los usuarios
+  Color get grisDato => const Color(0xff878787);
 }
