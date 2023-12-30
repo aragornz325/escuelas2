@@ -242,15 +242,7 @@
       "languageVersion": "2.18"
     }
   ],
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-  "generated": "2023-12-26T14:00:08.518378Z",
-=======
   "generated": "2023-12-28T13:29:52.828197Z",
->>>>>>> Stashed changes
-=======
-  "generated": "2023-12-26T15:00:23.283679Z",
->>>>>>> ca28863660c00046175fe3dd94fd6f2e71d86ffb
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }
