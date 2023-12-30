@@ -100,7 +100,12 @@ class BlocLoginEstadoExitosoIniciarSesion extends BlocLoginEstado {
 /// {@endtemplate}
 class BlocLoginEstadoExitosoGeneral extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoExitosoGeneral}
-  BlocLoginEstadoExitosoGeneral.desde(super.otro) : super.desde();
+  BlocLoginEstadoExitosoGeneral.desde(
+    super.otro, {
+    super.dni,
+    super.password,
+    super.botonIngresarHabilitado,
+  }) : super.desde();
 }
 
 /// {@template BlocLoginEstadoErrorAlIniciarSesion}
