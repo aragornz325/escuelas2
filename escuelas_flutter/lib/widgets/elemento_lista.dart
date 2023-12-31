@@ -50,6 +50,44 @@ class ElementoLista extends StatelessWidget {
       tieneBoxShadow: estaPresionado,
     );
   }
+
+  factory ElementoLista.materia({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Nombre de la materia.
+    required Text nombreMateria,
+
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+    required bool estaHabilitado,
+    required bool estaCargada,
+  }) {
+    final colores = context.colores;
+
+    return ElementoLista(
+      texto: nombreMateria,
+      altura: 40.ph,
+      ancho: 300.pw,
+      borderRadius: 20.sw,
+      colorFondo: colores.tertiary,
+      onTap: onTap,
+      widgetLateralDerecho: estaHabilitado && !estaCargada
+          ? Icon(
+              Icons.circle,
+              color: colores.error,
+              size: 15.sw,
+            )
+          : Icon(
+              Icons.check_circle,
+              color: estaHabilitado && estaCargada
+                  ? colores.verdeConfirmar
+                  : colores.secondary,
+              size: 15.sw,
+            ),
+    );
+  }
+
   factory ElementoLista.usuario({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
