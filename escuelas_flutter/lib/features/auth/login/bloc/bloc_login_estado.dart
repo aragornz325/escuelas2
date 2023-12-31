@@ -116,15 +116,6 @@ class BlocLoginEstadoErrorAlIniciarSesion extends BlocLoginEstado {
   BlocLoginEstadoErrorAlIniciarSesion.desde(super.otro) : super.desde();
 }
 
-/// {@template BlocLoginEstadoErrorAlIniciarSesionConGoogle}
-/// Estado de error al loguear con google
-/// {@endtemplate}
-class BlocLoginEstadoErrorAlIniciarSesionConGoogle extends BlocLoginEstado {
-  /// {@macro BlocLoginEstadoErrorAlIniciarSesionConGoogle}
-  BlocLoginEstadoErrorAlIniciarSesionConGoogle.desde(super.otro)
-      : super.desde();
-}
-
 /// {@template BlocLoginEstadoErrorGeneral}
 /// Estado de error de los componentes de la pantalla 'Login'
 /// {@endtemplate}

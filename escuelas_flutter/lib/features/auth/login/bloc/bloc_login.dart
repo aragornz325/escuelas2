@@ -2,6 +2,7 @@ import 'package:escuelas_flutter/extensiones/extension_bloc.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
 
 part 'bloc_login_estado.dart';
 part 'bloc_login_evento.dart';
@@ -13,9 +14,10 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
   /// {@macro BlocLogin}
   BlocLogin() : super(const BlocLoginEstadoInicial()) {
     on<BlocLoginEventoHabilitarBotonIngresar>(_habilitarBotonIngresar);
-    on<BlocLoginEventoIniciarSesionConCredenciales>(
-      _iniciarSesionConCredenciales,
-    );
+    // on<BlocLoginEventoIniciarSesionConCredenciales>(
+    //   _iniciarSesionConCredenciales,
+    // );
+    on<BlocLoginEventoIniciarSesionConGoogle>(_iniciarSesionConGoogle);
   }
 
   /// Verifica si el correo dni y contraseña son válidos, y emite
@@ -51,15 +53,44 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
     );
   }
 
-  Future<void> _iniciarSesionConCredenciales(
-    BlocLoginEventoIniciarSesionConCredenciales event,
+  /// Inicia sesión con cuenta de google, en caso de ser exitoso redirige a la
+  /// pagina correspondiente, en caso de error devuelve el error correspondiente
+  Future<void> _iniciarSesionConGoogle(
+    BlocLoginEventoIniciarSesionConGoogle event,
     Emitter<BlocLoginEstado> emit,
   ) async {
     emit(BlocLoginEstadoCargando.desde(state, estaIniciandoSesion: true));
     await operacionBloc(
-        callback: (client) async {
-          final userInfo = await emailaut;
-        },
-        onError: onError);
+      callback: () async {
+        final userInfo = await signInWithGoogle(
+          client.modules.auth,
+          redirectUri: Uri.parse('http://localhost:8082/googlesignin'),
+        );
+
+        if (userInfo == null) {
+          return emit(
+            BlocLoginEstadoErrorAlIniciarSesion.desde(state),
+          );
+        }
+
+        emit(BlocLoginEstadoExitosoIniciarSesion.desde(state));
+      },
+      onError: (e, st) {
+        emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
+      },
+    );
   }
+
+//! TODO(manu): Hablar con back para ver como soportar credenciales en auth
+  // Future<void> _iniciarSesionConCredenciales(
+  //   BlocLoginEventoIniciarSesionConCredenciales event,
+  //   Emitter<BlocLoginEstado> emit,
+  // ) async {
+  //   emit(BlocLoginEstadoCargando.desde(state, estaIniciandoSesion: true));
+  //   await operacionBloc(
+  //       callback: (client) async {
+  //         final userInfo = await emailaut;
+  //       },
+  //       onError: onError);
+  // }
 }
