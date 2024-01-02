@@ -7,9 +7,10 @@ class VistaEscritorioFormulario extends StatelessWidget {
   /// {@macro VistaEscritorioFormulario}
   const VistaEscritorioFormulario({super.key});
 
-  // TODO(anyone): Hacer la vista escritorio de la pantalla 'Kyc'
   @override
   Widget build(BuildContext context) {
+    // TODO(Gon): Agregar UI
+
     return const Placeholder();
   }
 }

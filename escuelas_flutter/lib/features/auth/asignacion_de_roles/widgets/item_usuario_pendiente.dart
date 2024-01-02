@@ -35,12 +35,12 @@ class ItemUsuarioPendiente extends StatelessWidget {
           ),
           context: context,
           onTap: () =>
-              context.router.push(PaginaPerfilUsuario(idUsuario: usuario.id)),
+              context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
           onTap: () =>
-              context.router.push(PaginaPerfilUsuario(idUsuario: usuario.id)),
+              context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),

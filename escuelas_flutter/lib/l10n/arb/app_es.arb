@@ -90,12 +90,29 @@
             }
         }
     },
+         "pageKycSuccessDialogDescription": "Registro Exitoso",
+    "@pageKycSuccessDialogDescription": {
+        "description": "Description of the alert dialog of success after the KYC"
+       
+    },
+        "pageHomeTitleAppBar":"Inicio",
+    "@pageHomeTitleAppBar":{
+        "description":"Title of the home page"
+    },
 
     "loginPageLoginWithGoogle": "Ingresar con Google",
     "@loginPageLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
     },
-    
+       "loginPageTitleAppBar": "Inicio de sesión",
+    "@loginPageTitleAppBar": {
+        "description": "Title of the login page"
+    },
+
+            "absencePageTitleAppBar": "Inasistencias",
+    "@absencePageTitleAppBar": {
+        "description": "Title of the absences page"
+    },
     "commonMail": "Mail",
     "@commonMail": {
         "description": "Text to be displayed in common places"

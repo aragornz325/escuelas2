@@ -3,7 +3,7 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 // import 'package:escuelas_flutter/app/auto_route/router_guards.dart';
 // import 'package:escuelas_flutter/utilidades/utilidades.dart';
 
-@AutoRouterConfig()
+@AutoRouterConfig(replaceInRouteName: 'Pagina,Ruta')
 class AppRouter extends $AppRouter {
   AppRouter();
 
@@ -25,45 +25,57 @@ class AppRouter extends $AppRouter {
   // AuthGuard get authGuard => AuthGuard(
   //       sessionManager: sessionManager,
   //     );
-
+// TODO(ANYONE): En algun momento descomentar los guards
   @override
   List<AutoRoute> get routes => [
-        CustomRoute(
-          page: PaginaKyc.page,
-          path: '/kyc',
-          // guards: [initialGuard],
-          transitionsBuilder: TransitionsBuilders.noTransition,
-          children: [
-            CustomRoute(
-              page: PaginaSeleccionDeRol.page,
-              initial: true,
-              path: 'role-selection',
-              // guards: [authGuard],
-              transitionsBuilder: TransitionsBuilders.noTransition,
-            ),
-            CustomRoute(
-              page: PaginaFormulario.page,
-              path: 'form',
-              // guards: [authGuard],
-              transitionsBuilder: TransitionsBuilders.noTransition,
-            ),
-          ],
-        ),
         AutoRoute(
-          page: PaginaPerfilUsuario.page,
+          page: RutaPerfilUsuario.page,
           path: '/perfil-usuario/:idUsuario',
           // guards: [initialGuard],
         ),
         AutoRoute(
-          initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
-          page: PaginaMisCursos.page,
-          path: '/mis-cursos',
-          // guards: [initialGuard],
+          page: RutaLogin.page,
+          path: '/login',
+          initial: true,
+          //    guards: [initialGuard],
         ),
-        AutoRoute(
-          page: PaginaAsistencia.page,
-          path: '/Attendance',
+        CustomRoute(
+          path: '/dashboard',
+          page: RutaDashboard.page,
+          // initial: true,
+          transitionsBuilder: TransitionsBuilders.noTransition,
           // guards: [initialGuard],
+
+          children: [
+            AutoRoute(
+              initial: true,
+              page: RutaInicio.page,
+              path: 'home',
+              // guards: [initialGuard],
+            ),
+            CustomRoute(
+              page: RutaFormulario.page,
+              path: 'form',
+              // guards: [authGuard],
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
+            AutoRoute(
+              page: RutaSeleccionDeRol.page,
+              path: 'role-selection',
+              //   initial: true,
+              // guards: [initialGuard],
+            ),
+            AutoRoute(
+              page: RutaKyc.page,
+              path: 'kyc-form',
+              // guards: [initialGuard],
+            ),
+            AutoRoute(
+              page: RutaInasistencia.page,
+              path: 'absences',
+              // guards: [initialGuard],
+            ),
+          ],
         ),
       ];
 }

@@ -20,7 +20,7 @@
 //     StackRouter router,
 //   ) async {
 //     final isSignedIn = _sessionManager.isSignedIn;
-//     // TODO(anyone) : aca tendria que esta la pagina principal del login
+//     TODO(anyone) : aca tendria que esta la pagina principal del login
 //     if (!isSignedIn) {
 //       // ejemplo
 //       // return router.replace<void>(const routeLogin());
@@ -47,7 +47,7 @@
 //     StackRouter router,
 //   ) async {
 //     final isSignedIn = _sessionManager.isSignedIn;
-//     // TODO(anyone) : aca tendria que esta la pagina principal que sea el dashboard
+//     TODO(anyone) : aca tendria que esta la pagina principal que sea el dashboard
 //     if (isSignedIn) {
 //       //ejemplo:
 //       // return router.push<void>(RouteDashboard());

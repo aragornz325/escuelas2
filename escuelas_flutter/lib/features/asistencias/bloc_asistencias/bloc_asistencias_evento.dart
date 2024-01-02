@@ -1,4 +1,4 @@
-part of 'bloc_asistencias_bloc.dart';
+part of 'bloc_asistencias.dart';
 
 /// {@template BlocAsistenciaEvento}
 /// Bloc que maneja los eventos generales de la pagina 'Asistencias'
