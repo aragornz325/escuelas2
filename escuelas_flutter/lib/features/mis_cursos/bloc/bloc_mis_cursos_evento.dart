@@ -1,7 +1,7 @@
 part of 'bloc_mis_cursos.dart';
 
 /// {@template BlocMisCursosEvento}
-/// AGREGAR DOCUMENTACION GENERADA
+/// Clase padre de los eventos de 'Mis Cursos'
 /// {@endtemplate}
 abstract class BlocMisCursosEvento {
   /// {@macro BlocMisCursosEvento}

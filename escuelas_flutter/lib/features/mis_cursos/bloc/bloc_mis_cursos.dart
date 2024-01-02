@@ -9,7 +9,7 @@ part 'bloc_mis_cursos_evento.dart';
 /// Bloc que maneja los estados y lógica de la pagina de 'Mis Cursos'
 /// {@endtemplate}
 class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
-  /// {@macro BlocMis Cursos}
+  /// {@macro BlocMisCursos}
   BlocMisCursos() : super(const BlocMisCursosEstadoInicial()) {
     on<BlocMisCursosEventoInicializar>(_inicializar);
 
