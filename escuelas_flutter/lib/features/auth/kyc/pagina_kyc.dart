@@ -21,8 +21,8 @@ class PaginaKyc extends StatelessWidget {
         cuerpo: AutoRouter(
           builder: (context, content) {
             return switch (context.router.current.name) {
-              PaginaSeleccionDeRol.name => content,
-              PaginaFormulario.name => content,
+              RutaSeleccionDeRol.name => content,
+             RutaFormulario.name => content,
               _ => const SizedBox.shrink()
             };
           },

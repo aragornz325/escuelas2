@@ -14,7 +14,7 @@ part 'bloc_asistencias_estado.dart';
 class BlocAsistencias
     extends Bloc<BlocAsistenciasEvento, BlocAsistenciasEstado> {
   /// {@macro BlocAsistencias}
-  BlocAsistencias() : super(BlocAsistenciasEstadoInicial()) {
+  BlocAsistencias() : super(const BlocAsistenciasEstadoInicial()) {
     on<BlocAsistenciasEventoInicializar>(_onInicializar);
     on<BlocAsistenciasEventoCambiarEstadoAsistencia>(
       _onCambiarEstadoDeAsistencia,

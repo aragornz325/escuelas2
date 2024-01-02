@@ -1,4 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+
+import 'package:escuelas_flutter/widgets/appbar/escuelas_appbar.dart';
+
 import 'package:flutter/material.dart';
 
 /// {@template EscuelasScaffold}
@@ -10,20 +13,25 @@ class EscuelasScaffold extends StatelessWidget {
   const EscuelasScaffold({
     required this.cuerpo,
     this.colorDeFondo,
+    this.tieneAppBar = true,
     super.key,
   });
 
   /// Componente a dibujar.
   final Widget cuerpo;
 
-  /// Color de fondo,por defecto va a tener el color de background del theme.
+  /// Color de fondo, por defecto va a tener el color de background del theme.
   final Color? colorDeFondo;
+
+  /// Determina si se muestra el AppBar o no.
+  final bool tieneAppBar;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
     return Scaffold(
+      appBar: tieneAppBar ? const EscuelasAppBar() : null,
       backgroundColor: colorDeFondo ?? colores.background,
       body: cuerpo,
     );

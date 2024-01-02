@@ -5,12 +5,12 @@ import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:full_responsive/full_responsive.dart';
 
 /// {@template MenuOpcionesPermisos}
 /// Muestra una lista de opciones de navegacion que el usuario ve segun
 /// sus permisos
 /// {@endtemplate}
-
 class MenuOpcionesPermisos extends StatelessWidget {
   /// {@macro MenuOpcionesPermisos}
   const MenuOpcionesPermisos({super.key});
@@ -21,9 +21,20 @@ class MenuOpcionesPermisos extends StatelessWidget {
       context: context,
       builder: (context) => EscuelasDialog.fallido(
         // TODO(anyone): Revisar si este container esta bien
-        content: Container(),
+        content: Column(
+          children: [
+            SizedBox(
+              height: 20.ph,
+            ),
+            Center(
+              child: Text(
+                l10n.commonDialogError,
+                style: TextStyle(fontSize: 18.pf),
+              ),
+            ),
+          ],
+        ),
         onTap: () => Navigator.of(context).pop(),
-        titulo: l10n.commonDialogError,
       ),
     );
   }

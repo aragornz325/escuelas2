@@ -16,6 +16,8 @@ enum InfoDeRol {
   calificaciones,
   personal;
 
+// TODO(Anyone): Ver si es inasistencias o asistencias.
+  // TODO(SAM): add funcion y pasarle context
   String get titulo {
     switch (this) {
       case InfoDeRol.tomarInasistencia:
@@ -71,21 +73,21 @@ enum InfoDeRol {
     switch (this) {
       // TODO(ANYONE): Agregar redirecciones adecuadas
       case InfoDeRol.tomarInasistencia:
-        context.router.push(PaginaInicio());
+        context.router.push(RutaInicio());
       case InfoDeRol.listaCursos:
-        context.router.push(PaginaInicio());
+        context.router.push(RutaInicio());
       case InfoDeRol.inasistencias:
-        context.router.push(PaginaInicio());
+        context.router.push(const RutaInasistencia());
       case InfoDeRol.misCursos:
-        context.router.push(PaginaInicio());
+        context.router.push(RutaInicio());
       case InfoDeRol.enviarJustificativo:
-        context.router.push(PaginaInicio());
+        context.router.push(RutaInicio());
       case InfoDeRol.usuariosPendientes:
-        context.router.push(PaginaInicio());
+        context.router.push(RutaInicio());
       case InfoDeRol.calificaciones:
-        context.router.push(PaginaInicio());
+        context.router.push(RutaInicio());
       case InfoDeRol.personal:
-        context.router.push(PaginaInicio());
+        context.router.push(RutaInicio());
     }
   }
 }

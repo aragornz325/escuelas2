@@ -46,7 +46,7 @@ class _ListaDeCursosState extends State<ListaDeCursos> {
       Future.delayed(const Duration(milliseconds: 250), () {
         _scrollController.animateTo(
           index * 80.0, // TODO(mati): ver bien esto con el emulador
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           curve: Curves.easeInOut,
         );
       });

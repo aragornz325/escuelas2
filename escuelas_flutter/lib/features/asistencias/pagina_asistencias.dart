@@ -14,12 +14,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PaginaAsistencia extends StatelessWidget {
   /// {@macro PaginaAsistencia}
   const PaginaAsistencia({super.key});
-
+// TODO(GON/ANYONE): Verificar si se usa Asistencia o Inasistencia
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocAsistencias>(
-      create: (context) =>
-          BlocAsistencias(),
+      create: (context) => BlocAsistencias(),
       child: const FullResponsiveScreen(
         celular: VistaCelularAsistencias(),
         escritorio: VistaEscritorioAsistencias(),
