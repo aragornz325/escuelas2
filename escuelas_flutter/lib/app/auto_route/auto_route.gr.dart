@@ -10,17 +10,17 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i10;
 import 'package:escuelas_flutter/features/asistencias/pagina_asistencias.dart'
-    as _i2;
+    as _i4;
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/pagina_asignacion_de_roles.dart'
     as _i1;
 import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.dart'
-    as _i4;
+    as _i3;
 import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i6;
 import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
     as _i9;
 import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i7;
 import 'package:escuelas_flutter/features/dashboard/pagina_dashboard.dart'
-    as _i3;
+    as _i2;
 import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart'
     as _i12;
 import 'package:escuelas_flutter/features/pantalla_inicio/pagina_inicio.dart'
@@ -40,18 +40,12 @@ abstract class $AppRouter extends _i10.RootStackRouter {
         child: const _i1.PaginaAsignacionDeRoles(),
       );
     },
-    RutaInasistencia.name: (routeData) {
-      return _i10.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i2.PaginaAsistencia(),
-      );
-    },
     RutaDashboard.name: (routeData) {
       final args = routeData.argsAs<RutaDashboardArgs>(
           orElse: () => const RutaDashboardArgs());
       return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i3.PaginaDashboard(
+        child: _i2.PaginaDashboard(
           key: args.key,
           userInfo: args.userInfo,
         ),
@@ -60,7 +54,13 @@ abstract class $AppRouter extends _i10.RootStackRouter {
     RutaFormulario.name: (routeData) {
       return _i10.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i4.PaginaFormulario(),
+        child: const _i3.PaginaFormulario(),
+      );
+    },
+    RutaInasistencia.name: (routeData) {
+      return _i10.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i4.PaginaInasistencia(),
       );
     },
     RutaInicio.name: (routeData) {
@@ -123,21 +123,7 @@ class RutaAsignacionDeRoles extends _i10.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i2.PaginaAsistencia]
-class RutaInasistencia extends _i10.PageRouteInfo<void> {
-  const RutaInasistencia({List<_i10.PageRouteInfo>? children})
-      : super(
-          RutaInasistencia.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'RutaInasistencia';
-
-  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i3.PaginaDashboard]
+/// [_i2.PaginaDashboard]
 class RutaDashboard extends _i10.PageRouteInfo<RutaDashboardArgs> {
   RutaDashboard({
     _i11.Key? key,
@@ -175,7 +161,7 @@ class RutaDashboardArgs {
 }
 
 /// generated route for
-/// [_i4.PaginaFormulario]
+/// [_i3.PaginaFormulario]
 class RutaFormulario extends _i10.PageRouteInfo<void> {
   const RutaFormulario({List<_i10.PageRouteInfo>? children})
       : super(
@@ -184,6 +170,20 @@ class RutaFormulario extends _i10.PageRouteInfo<void> {
         );
 
   static const String name = 'RutaFormulario';
+
+  static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
+}
+
+/// generated route for
+/// [_i4.PaginaInasistencia]
+class RutaInasistencia extends _i10.PageRouteInfo<void> {
+  const RutaInasistencia({List<_i10.PageRouteInfo>? children})
+      : super(
+          RutaInasistencia.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RutaInasistencia';
 
   static const _i10.PageInfo<void> page = _i10.PageInfo<void>(name);
 }

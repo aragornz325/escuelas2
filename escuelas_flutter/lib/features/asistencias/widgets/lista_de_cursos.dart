@@ -1,4 +1,4 @@
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias_bloc.dart';
+import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/features/asistencias/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

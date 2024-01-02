@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias_bloc.dart';
+import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/features/asistencias/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -10,9 +10,9 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@template VistaCelularAsistencias}
 /// Vista para celular de la pagina 'Asistencias'
 /// {@endtemplate}
-class VistaCelularAsistencias extends StatelessWidget {
+class VistaCelularInasistencias extends StatelessWidget {
   /// {@macro VistaCelularAsistencias}
-  const VistaCelularAsistencias({super.key});
+  const VistaCelularInasistencias({super.key});
 
   @override
   Widget build(BuildContext context) {
