@@ -3,7 +3,6 @@ import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart'
 import 'package:escuelas_flutter/features/pantalla_inicio/celular/vista_celular_inicio.dart';
 import 'package:escuelas_flutter/features/pantalla_inicio/escritorio/vista_escritorio_inicio.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
-import 'package:escuelas_flutter/widgets/escuelas_scaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -56,11 +55,9 @@ class _PaginaInicioState extends State<PaginaInicio> {
               permiso: [Permiso.alumno],
             ),
       ), // TODO(SAM): Remover luego, analizar como hacer.
-      child: const EscuelasScaffold(
-        cuerpo: FullResponsiveScreen(
-          celular: VistaCelularInicio(),
-          escritorio: VistaEscritorioInicio(),
-        ),
+      child: const FullResponsiveScreen(
+        celular: VistaCelularInicio(),
+        escritorio: VistaEscritorioInicio(),
       ),
     );
   }
