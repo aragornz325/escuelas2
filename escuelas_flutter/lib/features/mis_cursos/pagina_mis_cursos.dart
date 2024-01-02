@@ -3,7 +3,6 @@ import 'package:escuelas_flutter/features/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/features/mis_cursos/celular/vista_celular_mis_cursos.dart';
 import 'package:escuelas_flutter/features/mis_cursos/escritorio/vista_escritorio_mis_cursos.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
-import 'package:escuelas_flutter/widgets/selector_de_fecha/bloc/bloc_selector_de_fecha.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,16 +17,8 @@ class PaginaMisCursos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<BlocMisCursos>(
-          create: (context) => BlocMisCursos(),
-        ),
-        // TODO(Gon): Eliminar cuando este el routeo hecho
-        BlocProvider(
-          create: (context) => BlocSelectorDeFecha(),
-        ),
-      ],
+    return BlocProvider(
+      create: (context) => BlocMisCursos(),
       child: const FullResponsiveScreen(
         celular: VistaCelularMisCursos(),
         escritorio: VistaEscritorioMisCursos(),

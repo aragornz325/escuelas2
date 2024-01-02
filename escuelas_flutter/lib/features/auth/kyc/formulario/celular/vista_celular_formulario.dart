@@ -20,7 +20,7 @@ class VistaCelularFormulario extends StatelessWidget {
     final colores = context.colores;
 
     final l10n = context.l10n;
-    // TODO(Gon): El Scaffold y el appbar deberan ser eliminados cuando se defina la navegacion
+
     return BlocBuilder<BlocKyc, BlocKycEstado>(
       builder: (context, state) {
         if (state is BlocKycEstadoCargando) {
