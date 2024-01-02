@@ -1,0 +1,10 @@
+class: Jutificaciones
+table: justificaciones
+fields:
+  id: int
+  idAsistencia: int
+  observaciones: String
+  adjunto: String?
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

@@ -1,0 +1,6 @@
+enum: EstadosAsistencia
+values:
+  - presente
+  - ausente
+  - cuartoDeFalta
+  - mediaFalta
