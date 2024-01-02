@@ -1,7 +1,7 @@
 class: Domicilio
 table: domicilios
 fields:
-  idUsuario: int
+  idUsuario: int, relation(parent=usuarios)
   calle: String
   numero: int
   idCodigoPostal: int

@@ -1,0 +1,8 @@
+class: DireccionDeEmail
+table: direcciones_de_email
+fields:
+  idUsuario: int, relation(parent=usuarios)
+  direccion: String
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

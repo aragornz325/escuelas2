@@ -1,0 +1,6 @@
+enum: TiposDeTelefono
+values:
+  - casa
+  - celular
+  - trabajo
+  - otro

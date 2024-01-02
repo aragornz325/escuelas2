@@ -1,5 +1,5 @@
 class: InformacionDeContacto
 table: informacion_de_contactos
 fields:
-  direccionesDeEmail: String
+  direccionesDeEmail: List<String>
   numerosDeTelefono: String

@@ -1,0 +1,8 @@
+class: Rol
+table: roles
+fields:
+  nombre: String
+  descripcion: String
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?
