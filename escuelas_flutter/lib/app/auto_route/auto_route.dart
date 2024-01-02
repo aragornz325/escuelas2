@@ -34,7 +34,6 @@ class AppRouter extends $AppRouter {
           // guards: [initialGuard],
         ),
         AutoRoute(
-          initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
           page: PaginaAsignacionDeRoles.page,
           path: '/home',
           // guards: [initialGuard],
@@ -51,6 +50,13 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: PaginaAsistencia.page,
           path: '/Attendance',
+          // guards: [initialGuard],
+        ),
+        AutoRoute(
+          initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
+          page: PaginaCargaDeCalificaciones.page,
+          path: '/Carga-calificaciones',
+
           // guards: [initialGuard],
         ),
       ];
