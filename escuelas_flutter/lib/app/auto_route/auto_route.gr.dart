@@ -13,14 +13,12 @@ import 'package:escuelas_flutter/features/asistencias/pagina_asistencias.dart'
     as _i2;
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/pagina_asignacion_de_roles.dart'
     as _i1;
-import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_kyc.dart'
-    as _i5;
+import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.dart'
+    as _i3;
+import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i5;
 import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
     as _i8;
 import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i6;
-import 'package:escuelas_flutter/features/auth/modelos_temporales.dart' as _i12;
-import 'package:escuelas_flutter/features/carga_calificaciones/pagina_carga_calificaciones.dart'
-    as _i3;
 import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart'
     as _i11;
 import 'package:escuelas_flutter/features/pantalla_inicio/pagina_inicio.dart'
@@ -46,10 +44,10 @@ abstract class $AppRouter extends _i9.RootStackRouter {
         child: const _i2.PaginaAsistencia(),
       );
     },
-    PaginaCargaDeCalificaciones.name: (routeData) {
+    PaginaFormulario.name: (routeData) {
       return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.PaginaCargaDeCalificaciones(),
+        child: const _i3.PaginaFormulario(),
       );
     },
     PaginaInicio.name: (routeData) {
@@ -64,13 +62,9 @@ abstract class $AppRouter extends _i9.RootStackRouter {
       );
     },
     PaginaKyc.name: (routeData) {
-      final args = routeData.argsAs<PaginaKycArgs>();
       return _i9.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i5.PaginaKyc(
-          rolElegido: args.rolElegido,
-          key: args.key,
-        ),
+        child: const _i5.PaginaKyc(),
       );
     },
     PaginaLogin.name: (routeData) {
@@ -130,15 +124,15 @@ class PaginaAsistencia extends _i9.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i3.PaginaCargaDeCalificaciones]
-class PaginaCargaDeCalificaciones extends _i9.PageRouteInfo<void> {
-  const PaginaCargaDeCalificaciones({List<_i9.PageRouteInfo>? children})
+/// [_i3.PaginaFormulario]
+class PaginaFormulario extends _i9.PageRouteInfo<void> {
+  const PaginaFormulario({List<_i9.PageRouteInfo>? children})
       : super(
-          PaginaCargaDeCalificaciones.name,
+          PaginaFormulario.name,
           initialChildren: children,
         );
 
-  static const String name = 'PaginaCargaDeCalificaciones';
+  static const String name = 'PaginaFormulario';
 
   static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }
@@ -183,40 +177,16 @@ class PaginaInicioArgs {
 
 /// generated route for
 /// [_i5.PaginaKyc]
-class PaginaKyc extends _i9.PageRouteInfo<PaginaKycArgs> {
-  PaginaKyc({
-    required _i12.Rol rolElegido,
-    _i10.Key? key,
-    List<_i9.PageRouteInfo>? children,
-  }) : super(
+class PaginaKyc extends _i9.PageRouteInfo<void> {
+  const PaginaKyc({List<_i9.PageRouteInfo>? children})
+      : super(
           PaginaKyc.name,
-          args: PaginaKycArgs(
-            rolElegido: rolElegido,
-            key: key,
-          ),
           initialChildren: children,
         );
 
   static const String name = 'PaginaKyc';
 
-  static const _i9.PageInfo<PaginaKycArgs> page =
-      _i9.PageInfo<PaginaKycArgs>(name);
-}
-
-class PaginaKycArgs {
-  const PaginaKycArgs({
-    required this.rolElegido,
-    this.key,
-  });
-
-  final _i12.Rol rolElegido;
-
-  final _i10.Key? key;
-
-  @override
-  String toString() {
-    return 'PaginaKycArgs{rolElegido: $rolElegido, key: $key}';
-  }
+  static const _i9.PageInfo<void> page = _i9.PageInfo<void>(name);
 }
 
 /// generated route for
