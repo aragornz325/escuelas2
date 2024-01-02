@@ -1,0 +1,7 @@
+class: ConceptoCalificacion
+table: conceptos_calificacion
+fields:
+  concepto: String
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

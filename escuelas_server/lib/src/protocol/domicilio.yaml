@@ -1,0 +1,10 @@
+class: Domicilio
+table: domicilios
+fields:
+  idUsuario: int
+  calle: String
+  numero: int
+  idCodigoPostal: int
+  idCiudad: int
+  idProvincia: int
+  idLocalidad: int

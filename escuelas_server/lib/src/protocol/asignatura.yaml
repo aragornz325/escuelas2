@@ -1,0 +1,9 @@
+class: Asignatura
+table: asignaturas
+fields: 
+  nombre: String
+  idCurso: int
+  docentes: List<Docente>, !persist
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

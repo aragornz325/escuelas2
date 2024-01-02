@@ -1,0 +1,10 @@
+class: Comision
+table: comisiones
+fields:
+  nombre: String
+  idCurso: int
+  anioLectivo: int
+  estudiantes: List<Estudiante>, !persist
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?
