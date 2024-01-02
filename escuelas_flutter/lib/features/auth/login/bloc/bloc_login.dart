@@ -26,7 +26,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
     BlocLoginEventoHabilitarBotonIngresar event,
     Emitter<BlocLoginEstado> emit,
   ) {
-    if (ExpresionRegular.numerosRegExp.hasMatch(event.dni) &&
+    if (ExpresionesRegulares.numerosUnicamente.hasMatch(event.dni) &&
         event.password.length >= 8) {
       emit(
         BlocLoginEstadoExitosoGeneral.desde(
@@ -66,12 +66,6 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
           client.modules.auth,
           redirectUri: Uri.parse('http://localhost:8082/googlesignin'),
         );
-
-        if (userInfo == null) {
-          return emit(
-            BlocLoginEstadoErrorAlIniciarSesion.desde(state),
-          );
-        }
 
         emit(BlocLoginEstadoExitosoIniciarSesion.desde(state));
       },

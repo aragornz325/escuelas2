@@ -51,7 +51,7 @@ class BlocLoginEstado {
       estaIniciandoSesion ||
       estaIniciandoSesionConGoogle && this is BlocLoginEstadoCargando;
 
-  /// Getter que verifixa si el estado actual es de error y el error es
+  /// Getter que verifica si el estado actual es de error y el error es
   /// desconocido.
   bool get esEstadoErroneo => this is BlocLoginEstadoErrorGeneral;
 

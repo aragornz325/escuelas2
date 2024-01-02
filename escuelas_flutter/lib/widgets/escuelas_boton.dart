@@ -60,6 +60,7 @@ class EscuelasBoton extends StatelessWidget {
         style: TextStyle(
           fontSize: fontSize ?? 16.pf,
           color: colores.background,
+          fontWeight: FontWeight.w700,
         ),
       ),
     );
@@ -88,7 +89,7 @@ class EscuelasBoton extends StatelessWidget {
             Assets.images.gGoogle.path,
             width: 20.sw,
           ),
-          SizedBox(width: 5.pw),
+          SizedBox(width: 15.pw),
           Text(
             l10n.loginPageLoginWithGoogle,
             style: TextStyle(
