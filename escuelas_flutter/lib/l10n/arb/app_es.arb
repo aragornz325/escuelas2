@@ -1,7 +1,270 @@
 {
     "@@locale": "es",
-    "counterAppBarTitle": "Contador",
-    "@counterAppBarTitle": {
-        "description": "Texto mostrado en la AppBar de la página del contador"
+
+    "pageRoleAssigmentPersonalInformation": "Datos personales",
+    "@pageRoleAssigmentPersonalInformation": {
+        "description": "Message used to represent the personal information section in role assignment."
+    },
+
+    "pageRoleAssigmentDialogFirstText": "¿Estás seguro que deseas\n confirmar a ",
+    "@pageRoleAssigmentDialogFirstText": {
+        "description": "Initial text of a dialog box to confirm role assignment"
+    },
+
+    "pageRoleAssigmentDialogSecondText": "\n como ",
+    "@pageRoleAssigmentDialogSecondText": {
+        "description": "Secondary text of a dialog box to confirm role assignment."
+    },
+
+    "pageRoleAssigmentPendingUsers": "Datos personales",
+    "@pageRoleAssigmentPendingUsers": {
+        "description": "This message is used for the title of a page or section that deals with pending user role assignments."
+    },
+
+    "pageKycFormConfirmationDialogText": "¿Estás seguro que deseas solicitar el rol {roleName}?",
+    "@pageKycConfirmationDialogText": {
+        "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycFormAddSubject": "Agregar materia",
+    "@pageKycFormAddSubject": {
+        "description": "Button label to add a subject in the KYC (Know Your Customer) process."
+    },
+
+    "pageKycFormWhatGradeAreYouIn": "¿En qué curso estás?",
+    "@pageKycFormWhatGradeAreYouIn": {
+        "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
+    },
+
+    "pageKycFormWhichSubjectIsIt": "¿Qué materia es?",
+    "@pageKycFormWhichSubjectIs": {
+        "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
+    },
+
+    "pageKycFormWhatYearIsYourSubject": "¿De qué año es tu materia?",
+    "@pageKycFormWhatYearIsYourSubject": {
+        "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+    },
+
+    "pageKycFormTitle": "Formulario de {roleName}",
+    "@pageKycFormTitle": {
+        "description": "Title for the KYC form page with a placeholder for the role name.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycFormDescription": "Contesta estas preguntas sobre vos. Necesitamos esta información a modo de identificarte en tu solicitud.",
+    "@pageKycFormDescription": {
+        "description": "Description guiding the user to answer questions for identity verification in the KYC process."
+    },
+
+    "pageKycRoleSelectionTitle": "Selección de roles",
+    "@pageKycRoleSelectionTitle": {
+        "description": "Title for the page where users select their roles."
+    },
+
+    "pageRoleConfirmationText": "Te registrarás con el rol {roleName}. Todo rol tiene que ser aprobado por el administrador. Una vez aprobado podrás usar la app.",
+    "@pageRoleConfirmationText": {
+        "description": "Text displayed to confirm the selected role during the registration process.",
+        "placeholders" :{
+            "roleName" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageKycRoleSelectionWelcome": "¡Hola, {firstnameAndLastName}, decinos cual es tu rol!",
+    "@pageKycRoleSelectionWelcome": {
+        "description": "Welcome message prompting the user to specify their role.",
+        "placeholders" :{
+            "firstnameAndLastName" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "loginPageLoginWithGoogle": "Ingresar con Google",
+    "@loginPageLoginWithGoogle": {
+        "description": "Text to indicate the log in with google system"
+    },
+    
+    "commonMail": "Mail",
+    "@commonMail": {
+        "description": "Text to be displayed in common places"
+    },
+    
+    "commonCompleteTheField": "Complete el campo",
+    "@commonCompleteTheField": {
+        "description": "Text to be displayed in common places to indicate that the field must be completed"
+    },
+    
+    "commonEnterAValidEmail": "Ingrese un mail valido",
+    "@commonEnterAValidEmail": {
+        "description": "Text to indicate that the email is invalid"
+    },
+
+    "commonPassword": "Contraseña",
+    "@commonPassword": {
+        "description": "Text to be displayed in common places to indicate password text"
+    },
+
+    "commonOnlyNumbers": "Solo números",
+    "@commonOnlyNumbers": {
+        "description": "Text to indicate that only numbers are allowed"
+    },
+
+    "commonApply": "Solicitar",
+    "@commonRequest": {
+        "description": "Label for a button or action indicating to submit a request."
+    },
+    
+    "commonContinue": "Continuar",
+    "@commonContinue": {
+        "description": "Label for a button or action indicating to proceed."
+    },
+       
+    "commonDialogError": "Ha ocurrido un error",
+    "@commonDialogError": {
+        "description": "Description of the alert dialog error, informing the user of an error."
+    },    
+
+    "commonPhone": "Teléfono",
+    "@commonPhone": {
+        "description": "Label used to represent the phone field in personal data."
+    },
+
+    "commonBloodFactor": "Factor sanguÍneo",
+    "@commonBloodFactor": {
+        "description": "Label used to represent the blood factor field in personal data."
+    },
+
+    "commonAge": "Edad",
+    "@commonAge": {
+        "description": "Label used to represent the age field in personal data."
+    },
+
+    "commonEmergencyContact": "Contacto de emergencia",
+    "@commonEmergencyContact": {
+        "description": "Label used to represent the emergency contact field in personal data."
+    },
+
+    "commonBond": "Vínculo",
+    "@commonBond": {
+        "description": "Label used to represent the bond field in personal data."
+    },
+
+    "commonObservations": "Observaciones",
+    "@commonObservations": {
+        "description": "Label used to represent the observations field in personal data."
+    },
+
+    "commonNoData": "Sin datos",
+    "@commonNoData": {
+        "description": "Message used to represent the absence of data in a field."
+    },
+
+    "commonContact": "Contactar",
+    "@commonContact": {
+        "description": "Button or link used to initiate contact with the user."
+    },
+
+    "commonConfirm": "Confirmar",
+    "@commonConfirm": {
+        "description": "Button or link used to confirm an action or decision."
+    },
+
+    "commonDecline": "Rechazar",
+    "@commonDecline": {
+        "description": "Button or link used to decline or reject an action or decision."
+    },
+
+    "pageAttendanceWithoutCourses": "No hay cursos",
+    "@pageAttendanceWithoutCourses": {
+        "description": "Text to be displayed if there are no courses"
+    },
+
+    "pageAttendanceTitleFinishButtonToEndAttendance": "Finalizar",
+    "@pageAttendanceTitleFinishButtonToEndAttendance": {
+        "description": "Text to be displayed in the button to end the Attendance"
+    },
+
+    "pageAttendanceTitleDefinedMissingAmountComplete": "Definidos {missing}/{all}",
+    "@pageAttendanceTitleDefinedMissingAmountComplete": {
+        "description": "Text to be displayed in the button to end the Attendance",
+        "placeholders" :{
+            "missing" : {
+                "type": "int"
+            },
+            "all" : {
+                "type": "int"
+            }
+        }
+    },
+
+    "pageAttendanceNotAbsentStudents": "No hay alumnos ausentes",
+    "@pageAttendanceNotAbsentStudents": {
+        "description": "Text to be displayed when there are no absent students"
+    },
+
+    "dialogAttendanceOfDay": "Asistencias del día",
+    "@dialogAttendanceOfDay": {
+        "description": "Text to be displayed in the title of the dialog"
+    },
+    "dialogAttendanceStateOfStudents": "con",
+    "@dialogAttendanceStateOfStudents": {
+        "description": "text in the dialog in the status of absent students"
+       
+    },
+    "dialogSeeMore": "Ver más",
+    "@dialogSeeMore": {
+        "description": "text on a button to see less"
+    },
+    "dialogSeeLess": "Ver menos",
+    "@dialogSeeLess": {
+        "description": "text on a button to see more"
+    },
+
+    "commonName": "Nombre",
+    "@commonName": {
+        "description": "Label for the 'Name' field or column in the interface"
+    },
+    
+    "commonState": "Estado",
+    "@commonState": {
+        "description": "Label for the 'State' field or column in the interface"
+    },
+
+    "commonPresent": "Presente",
+    "@commonPresent": {
+        "description": "Label indicating that the student is present"
+    },
+
+    "commonAbsent": "Ausente",
+    "@commonAbsent": {
+        "description": "Label indicating that the student is absent"
+    },
+
+    "commonHalfLack": "1/2 falta",
+    "@commonHalfLack": {
+        "description": "Label indicating that the student has half of the required attendance"
+    }, 
+    
+    "commonFourthMissing": "1/4 falta",
+    "@commonFourthMissing": {
+        "description": "Label indicating that the student has a quarter of the required attendance"
+    }, 
+    
+    "commonUndefined": "Sin def.",
+    "@commonUndefined": {
+        "description": "Label indicating that the attendance status of the student is undefined or not specified"
     }
+
 }

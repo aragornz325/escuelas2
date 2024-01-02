@@ -8,14 +8,14 @@ const themeDefaultEscuelas = ColorScheme.light(
   /// textfields, botones, textos, etc
   primary: Color(0xff170E68),
 
+  /// Color a utilizarse en textos de items seleccionados
+  onPrimary: Color(0xffEEEEEE),
+
   /// Color utilizado en su mayoria para marcar un item seleccionado.
   primaryContainer: Color(0xff6788FF),
 
-  /// Color a utilizarse en textos de items seleccionados
-  onPrimary: Color(0xffffffff),
-
   /// Color de fondo Mobile
-  background: Color(0xffEEEEEE),
+  background: Color(0xffFFFFFF),
 
   /// Color utilizado en titulos mayormente
   onBackground: Color(0xff1E1E1E),

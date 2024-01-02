@@ -1,7 +1,271 @@
 {
     "@@locale": "en",
-    "counterAppBarTitle": "Counter",
-    "@counterAppBarTitle": {
-        "description": "Text shown in the AppBar of the Counter Page"
+
+    "pageRoleAssigmentPersonalInformation": "Personal information",
+    "@pageRoleAssigmentPersonalInformation": {
+        "description": "Message used to represent the personal information section in role assignment."
+    },
+
+    "pageRoleAssigmentDialogFirstText": "Are you sure you want\n to confirm ",
+    "@pageRoleAssigmentDialogFirstText": {
+        "description": "Initial text of a dialog box to confirm role assignment"
+    },
+
+    "pageRoleAssigmentDialogSecondText": "\n as a ",
+    "@pageRoleAssigmentDialogSecondText": {
+        "description": "Secondary text of a dialog box to confirm role assignment."
+    },
+
+    "pageRoleAssigmentPendingUsers": "Pending Users",
+    "@pageRoleAssigmentPendingUsers": {
+        "description": "This message is used for the title of a page or section that deals with pending user role assignments."
+    },
+
+    "pageKycFormConfirmationDialogText": "Are you sure you want to apply for the {roleName} role?",
+    "@pageKycFormConfirmationDialogText": {
+        "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycFormAddSubject": "Add subject",
+    "@pageKycFormAddSubject": {
+        "description": "Button label to add a subject in the KYC (Know Your Customer) process."
+    },
+
+    "pageKycFormWhatGradeAreYouIn": "What grade are you in?",
+    "@pageKycFormWhatGradeAreYouIn": {
+        "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
+    },
+
+    "pageKycFormWhichSubjectIsIt": "Which subject is it?",
+    "@pageKycFormWhichSubjectIs": {
+        "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
+    },
+
+    "pageKycFormWhatYearIsYourSubject": "What year is your subject?",
+    "@pageKycFormWhatYearIsYourSubject": {
+        "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+    },
+
+    "pageKycFormTitle": "{roleName} form",
+    "@pageKycFormTitle": {
+        "description": "Title for the KYC form page with a placeholder for the role name.",
+        "placeholders": {
+          "roleName": {
+            "type" : "String"
+          }
+        }
+    },
+
+    "pageKycFormDescription": "Answer these questions about yourself. We need this information in order to identify you in your request.",
+    "@pageKycFormDescription": {
+        "description": "Description guiding the user to answer questions for identity verification in the KYC process."
+    },
+
+    "pageKycRoleSelectionTitle": "Role selection",
+    "@pageKycRoleSelectionTitle": {
+        "description": "Title for the page where users select their roles."
+    },
+
+    "pageRoleConfirmationText": "You will register with the {roleName} role. All roles must be approved by the administrator. Once approved you will be able to use the app.",
+    "@pageRoleConfirmationText": {
+        "description": "Text displayed to confirm the selected role during the registration process.",
+        "placeholders" :{
+            "roleName" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageKycRoleSelectionWelcome": "Hello {firstnameAndLastName}, tell us what your role is!",
+    "@pageKycRoleSelectionWelcome": {
+        "description": "Welcome message prompting the user to specify their role.",
+        "placeholders" :{
+            "firstnameAndLastName" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "loginPageLoginWithGoogle": "Log in with Google",
+    "@loginPageLoginWithGoogle": {
+        "description": "Text to indicate the log in with google system"
+    },
+    
+    "commonMail": "Mail",
+    "@commonMail": {
+        "description": "Text to be displayed in common places"
+    },
+    
+    "commonCompleteTheField": "Complete the field",
+    "@commonCompleteTheField": {
+        "description": "Text to be displayed in common places to indicate that the field must be completed"
+    },
+
+    "commonEnterAValidEmail": "Enter a valid email",
+    "@commonEnterAValidEmail": {
+        "description": "Text to indicate that the email is invalid"
+    },
+
+    "commonPassword": "Password",
+    "@commonPassword": {
+        "description": "Text to be displayed in common places to indicate password text"
+    },
+
+    "commonOnlyNumbers": "Only numbers",
+    "@commonOnlyNumbers": {
+        "description": "Text to indicate that only numbers are allowed"
+    },
+
+    "pageAttendanceWithoutCourses": "There are no courses",
+    "@pageAttendanceWithoutCourses": {
+        "description": "Text to be displayed if there are no courses"
+    },
+
+    "pageAttendanceTitleFinishButtonToEndAttendance": "Finish",
+    "@pageAttendanceTitleFinishButtonToEndAttendance": {
+        "description": "Text to be displayed in the button to end the Attendance"
+    },
+
+    "pageAttendanceTitleDefinedMissingAmountComplete": "Defined {missing}/{all}",
+    "@pageAttendanceTitleDefinedMissingAmountComplete": {
+        "description": "Text to be displayed in the button to end the Attendance",
+        "placeholders" :{
+            "missing" : {
+                "type": "int"
+            },
+            "all" : {
+                "type": "int"
+            }
+        }
+    },
+
+    "pageAttendanceNotAbsentStudents": "There are no absent students",
+    "@pageAttendanceNotAbsentStudents": {
+        "description": "Text to be displayed when there are no absent students"
+    },
+
+    "dialogAttendanceOfDay": "Assists of the day",
+    "@dialogAttendanceOfDay": {
+        "description": "Text to be displayed in the title of the dialog"
+    },
+
+    "dialogAttendanceStateOfStudents": "with",
+    "@dialogAttendanceStateOfStudents": {
+        "description": "text in the dialog in the status of absent students"
+    },
+
+    "dialogSeeMore": "See more",
+    "@dialogSeeMore": {
+        "description": "text on a button to see less"
+    },
+
+    "dialogSeeLess": "See Less",
+    "@dialogSeeLess": {
+        "description": "text on a button to see more"
+    },
+
+    "commonName": "Name",
+    "@commonName": {
+        "description": "Label for the 'Name' field or column in the interface"
+    },
+
+    "commonState": "State",
+    "@commonState": {
+        "description": "Label for the 'State' field or column in the interface"
+    },
+
+    "commonPresent": "Present",
+    "@commonPresent": {
+        "description": "Label indicating that the student is present"
+    },
+
+    "commonAbsent": "absent",
+    "@commonAbsent": {
+        "description": "Label indicating that the student is absent"
+    },
+
+    "commonHalfAbsence": "1/2 absence",
+    "@commonHalfAbsence": {
+        "description": "Label indicating that the student has half of the required attendance"
+    }, 
+    
+    "commonFourthMissing": "1/4 absence",
+    "@commonFourthMissing": {
+        "description": "Label indicating that the student has a quarter of the required attendance"
+    }, 
+    
+    "commonUndefined": "Undef.",
+    "@commonUndefined": {
+        "description": "Label indicating that the attendance status of the student is undefined or not specified"
+    },
+
+    "commonContinue": "Continue",
+    "@commonContinue": {
+        "description": "Label for a button or action indicating to proceed."
+    },
+
+    "commonApply": "Request",
+    "@commonRequest": {
+        "description": "Label for a button or action indicating to submit a request."
+    }
+,
+    "commonDialogError": "An error ocurred",
+    "@commonDialogError": {
+        "description": "Description of the alert dialog error, informing the user of an error."
+    },
+
+    "commonPhone": "Phone",
+    "@commonPhone": {
+        "description": "Label used to represent the phone field in personal data."
+    },
+
+    "commonBloodFactor": "Blood Factor",
+    "@commonBloodFactor": {
+        "description": "Label used to represent the blood factor field in personal data."
+    },
+
+    "commonAge": "Age",
+    "@commonAge": {
+        "description": "Label used to represent the age field in personal data."
+    },
+
+    "commonEmergencyContact": "Emergency contact",
+    "@commonEmergencyContact": {
+        "description": "Label used to represent the emergency contact field in personal data."
+    },
+
+    "commonBond": "Bond",
+    "@commonBond": {
+        "description": "Label used to represent the bond field in personal data."
+    },
+
+    "commonObservations": "Observations",
+    "@commonObservations": {
+        "description": "Label used to represent the observations field in personal data."
+    },
+
+    "commonNoData": "No data",
+    "@commonNoData": {
+        "description": "Message used to represent the absence of data in a field."
+    },
+
+    "commonContact": "Contact",
+    "@commonContact": {
+        "description": "Button or link used to initiate contact with the user."
+    },
+
+    "commonConfirm": "Confirm",
+    "@commonConfirm": {
+        "description": "Button or link used to confirm an action or decision."
+    },
+
+    "commonDecline": "Decline",
+    "@commonDecline": {
+        "description": "Button or link used to decline or reject an action or decision."
     }
 }
