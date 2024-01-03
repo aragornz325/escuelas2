@@ -23,7 +23,8 @@ class PaginaPerfilUsuario extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocPerfilUsuario>(
-      create: (context) => BlocPerfilUsuario(idUsuario),
+      create: (context) => BlocPerfilUsuario()
+        ..add(BlocPerfilUsuarioEventoInicializar(idUsuario: idUsuario)),
       child: const FullResponsiveScreen(
         celular: VistaCelularPerfilUsuario(),
         escritorio: VistaEscritorioPerfilUsuario(),

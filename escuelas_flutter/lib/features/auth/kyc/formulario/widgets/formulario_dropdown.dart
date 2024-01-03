@@ -9,6 +9,7 @@ class FormularioDropdown extends StatelessWidget {
   const FormularioDropdown({
     required this.lista,
     required this.listaOpcionesSeleccionadas,
+    this.opcionesPreSeleccionadas = const [],
     super.key,
   });
 
@@ -18,12 +19,16 @@ class FormularioDropdown extends StatelessWidget {
   /// Devuelve la lista de opciones elegidas
   final ValueChanged<List<PopupOption>> listaOpcionesSeleccionadas;
 
+  /// Opciones inicialmente seleccionadas
+  final List<PopupOption> opcionesPreSeleccionadas;
+
   @override
   Widget build(BuildContext context) {
     // TODO(Gon): Hacerlo parecido al diseño (todavia no hay 23/12/23)
     return EscuelasDropdownPopup(
       list: lista,
       onChanged: listaOpcionesSeleccionadas,
+      initiallySelected: opcionesPreSeleccionadas,
     );
   }
 }

@@ -30,10 +30,19 @@
           }
         }
     },
+      "pageKycSuccessDialogDescription": "Successful registration",
+    "@pageKycSuccessDialogDescription": {
+        "description": "Description of the alert dialog of success after the KYC"
+    },
 
     "pageKycFormAddSubject": "Add subject",
     "@pageKycFormAddSubject": {
         "description": "Button label to add a subject in the KYC (Know Your Customer) process."
+    },
+
+    "pageKycFormDeleteSubject": "Delete subject",
+    "@pageKycFormDeleteSubject": {
+        "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
     },
 
     "pageKycFormWhatGradeAreYouIn": "What grade are you in?",
@@ -90,12 +99,26 @@
             }
         }
     },
+ 
+        "pageHomeTitleAppBar":"Home",
+    "@pageHomeTitleAppBar":{
+        "description":"Title of the home page"
+    },
+     "loginPageTitleAppBar": "Login",
+    "@loginPageTitleAppBar": {
+        "description": "Title of the login page"
+    },
 
     "loginPageLoginWithGoogle": "Log in with Google",
     "@loginPageLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
     },
     
+         "absencePageTitleAppBar": "Absences",
+    "@absencePageTitleAppBar": {
+        "description": "Title of the absences page"
+    },
+
     "commonMail": "Mail",
     "@commonMail": {
         "description": "Text to be displayed in common places"
@@ -149,7 +172,7 @@
         "description": "Text to be displayed when there are no absent students"
     },
 
-    "dialogAttendanceOfDay": "Assists of the day",
+    "dialogAttendanceOfDay": "Attendances of the day",
     "@dialogAttendanceOfDay": {
         "description": "Text to be displayed in the title of the dialog"
     },

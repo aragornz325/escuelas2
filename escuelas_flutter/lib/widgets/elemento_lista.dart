@@ -16,8 +16,8 @@ class ElementoLista extends StatelessWidget {
     this.tieneBoxShadow = false,
     this.estaHabilitado = true,
     this.onTap,
-    this.altura = 65,
-    this.ancho = 329,
+    this.altura,
+    this.ancho,
     this.borderRadius = 20,
     this.widgetLateralDerecho,
     this.colorTitulo,
@@ -42,7 +42,6 @@ class ElementoLista extends StatelessWidget {
     return ElementoLista(
       texto: nombreRol,
       altura: 65.ph,
-      ancho: 330.pw,
       borderRadius: 20.sw,
       colorFondo:
           estaPresionado ? colores.grisBotonPresionado : colores.tertiary,
@@ -50,6 +49,53 @@ class ElementoLista extends StatelessWidget {
       tieneBoxShadow: estaPresionado,
     );
   }
+
+  factory ElementoLista.materia({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Nombre de la materia.
+    required String nombreMateria,
+
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+    required bool estaHabilitado,
+    required bool estaCargada,
+  }) {
+    final colores = context.colores;
+
+    return ElementoLista(
+      texto: Text(
+        nombreMateria,
+        style: TextStyle(
+          fontSize: 12.pf,
+          overflow: TextOverflow.ellipsis,
+          fontWeight: FontWeight.w700,
+          color: estaHabilitado
+              ? colores.onBackground
+              : colores.onBackground.withOpacity(.3),
+        ),
+      ),
+      altura: 50.ph,
+      borderRadius: 20.sw,
+      colorFondo: colores.tertiary,
+      onTap: onTap,
+      widgetLateralDerecho: estaHabilitado && !estaCargada
+          ? Icon(
+              Icons.circle,
+              color: colores.error,
+              size: 15.sw,
+            )
+          : Icon(
+              Icons.check_circle,
+              color: estaHabilitado && estaCargada
+                  ? colores.verdeConfirmar
+                  : colores.secondary,
+              size: 15.sw,
+            ),
+    );
+  }
+
   factory ElementoLista.usuario({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
@@ -65,10 +111,37 @@ class ElementoLista extends StatelessWidget {
     return ElementoLista(
       texto: nombreUsuario,
       altura: 50.ph,
-      ancho: 300.pw,
       borderRadius: 40.sw,
       colorFondo: colores.tertiary,
       onTap: onTap,
+    );
+  }
+
+  /// Elemento de lista para la supervision de cursos
+  factory ElementoLista.supervisionCurso({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+    required String nombreCurso,
+    required Color colorFondo,
+    required BuildContext context,
+    Widget? widgetLateralDerecho,
+  }) {
+    final colores = context.colores;
+    return ElementoLista(
+      texto: Text(
+        nombreCurso.toUpperCase(),
+        style: TextStyle(
+          fontSize: 16.pf,
+          fontWeight: FontWeight.w700,
+          color: colores.background,
+        ),
+      ),
+      altura: 55.ph,
+      ancho: 340.pw,
+      borderRadius: 40.sw,
+      colorFondo: colorFondo,
+      onTap: onTap,
+      widgetLateralDerecho: widgetLateralDerecho,
     );
   }
 
@@ -82,10 +155,10 @@ class ElementoLista extends StatelessWidget {
   final Color? colorFondo;
 
   /// Altura
-  final double altura;
+  final double? altura;
 
   /// Ancho
-  final double ancho;
+  final double? ancho;
 
   /// Indica si esta habilitado para presionarse o no el boton
   final bool estaHabilitado;
@@ -109,6 +182,8 @@ class ElementoLista extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+    final widgetLateralDerecho = this.widgetLateralDerecho;
+    final widgetLateralIzquierdo = this.widgetLateralIzquierdo;
 
     return GestureDetector(
       onTap: estaHabilitado ? onTap : null,
@@ -139,26 +214,27 @@ class ElementoLista extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.pw,
-              vertical: 5.ph,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
-                    Padding(
-                      padding: const EdgeInsets.all(8),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  // TODO(anyone): Ver como hacer para que el overflow del texto sea dinamico segun el tamaño del componente
+                  if (widgetLateralIzquierdo != null) widgetLateralIzquierdo,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.pw,
+                      vertical: 5.ph,
+                    ),
+                    child: SizedBox(
+                      width: 200.pw,
                       child: texto,
                     ),
-                  ],
-                ),
-                if (widgetLateralDerecho != null) widgetLateralDerecho!,
-              ],
-            ),
+                  ),
+                ],
+              ),
+              if (widgetLateralDerecho != null) widgetLateralDerecho,
+            ],
           ),
         ),
       ),
