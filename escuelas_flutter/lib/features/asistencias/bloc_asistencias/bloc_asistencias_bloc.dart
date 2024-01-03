@@ -297,18 +297,18 @@ class ModeloAlumno {
   final String nombre;
   final int id;
   EstadoAsistencia asistencia;
-  List<ModeloCalificacion>? calificacion;
+  int? calificacion;
 }
 
 class ModeloCalificacion {
   ModeloCalificacion({
     required this.id,
-    required this.calificacion,
     required this.fecha,
+    this.alumnos = const [],
   });
 
-  final int calificacion;
   final DateTime fecha;
+  List<ModeloAlumno> alumnos;
   final int id;
 }
 

@@ -1,71 +1,109 @@
 part of 'bloc_carga_calificaciones.dart';
 
-/// {@template PaginaInicio}
-/// Todo agregar docu
+/// {@template BlocCargaCalificacionesEstado}
+/// Maneja el estado del bloc de las calificaciones de los alumnos dependiendo
+/// del rol del usuario.
 /// {@endtemplate}
 @immutable
 class BlocCargaCalificacionesEstado {
-  /// {@macro PaginaInicio}
+  /// {@macro BlocCargaCalificacionesEstado}
   const BlocCargaCalificacionesEstado._({
     this.rolDelUsuario,
-    this.alumnos = const [],
+    this.listaCalificaciones = const [],
+    this.calificacion,
   });
 
   BlocCargaCalificacionesEstado.desde(
     BlocCargaCalificacionesEstado otro, {
-    List<ModeloAlumno>? alumnos,
+    List<ModeloCalificacion>? listaCalificaciones,
     Rol? rolDelUsuario,
+    ModeloCalificacion? calificacion,
   }) : this._(
-          alumnos: alumnos ?? otro.alumnos,
+          listaCalificaciones: listaCalificaciones ?? otro.listaCalificaciones,
           rolDelUsuario: rolDelUsuario ?? otro.rolDelUsuario,
+          calificacion: calificacion ?? otro.calificacion,
         );
 
-  /// Lista de alumnos toda hard
-  final List<ModeloAlumno> alumnos;
+  /// Lista de listas de los alumnos
+  final List<ModeloCalificacion> listaCalificaciones;
 
+  /// Lista de los alumnos
+  final ModeloCalificacion? calificacion;
+
+  /// Rol del usuario //TODO(anyone): reemplazar por el modelo del rol
   final Rol? rolDelUsuario;
 
   List<Object?> get props => [
-        alumnos,
+        listaCalificaciones,
         rolDelUsuario,
+        calificacion,
       ];
 }
 
-/// {@template BlocKycEstadoInicial}
-/// Estado inicial de los componentes de la pantalla 'Kyc'
+/// {@template BlocCargaCalificacionesEstadoInicial}
+/// Estado `inicial` de los componentes de la pantalla 'Carga de calificaciones'
 /// {@endtemplate}
 class BlocCargaCalificacionesEstadoInicial
     extends BlocCargaCalificacionesEstado {
-  /// {@macro BlocKycEstadoInicial}
+  /// {@macro BlocCargaCalificacionesEstadoInicial}
   const BlocCargaCalificacionesEstadoInicial() : super._();
 }
 
-/// {@template BlocKycEstadoCargando}
-/// Todo agregar docu
+/// {@template BlocCargaCalificacionesEstadoCargando}
+/// Estado `cargando` de los componentes en la pantalla de
+/// 'Carga de calificaciones'
 /// {@endtemplate}
 class BlocCargaCalificacionesEstadoCargando
     extends BlocCargaCalificacionesEstado {
-  /// {@macro BlocKycEstadoCargando}
+  /// {@macro BlocCargaCalificacionesEstadoCargando}
   BlocCargaCalificacionesEstadoCargando.desde(super.otro) : super.desde();
 }
 
-/// {@template BlocKycEstadoExitoso}
-/// Estado exitoso general de los componentes de la pantalla 'Kyc'
+/// {@template BlocCargaCalificacionesEstadoExitoso}
+/// Estado `exitoso` general de los componentes de la pantalla
+/// 'Carga de calificaciones'
 /// {@endtemplate}
 class BlocCargaCalificacionesEstadoExitoso
     extends BlocCargaCalificacionesEstado {
-  /// {@macro BlocKycEstadoExitoso}
+  /// {@macro BlocCargaCalificacionesEstadoExitoso}
   BlocCargaCalificacionesEstadoExitoso.desde(
     super.otro, {
-    super.alumnos,
+    super.listaCalificaciones,
     super.rolDelUsuario,
+    super.calificacion,
   }) : super.desde();
 }
 
-/// {@template BlocKycEstadoFallido}
-/// Todo agregar docu
+/// {@template BlocCargaCalificacionesEstadoFallido}
+/// Estado de `error general` de los componentes de la pantalla
+/// 'Carga de calificaciones'
 /// {@endtemplate}
-class BlocCargaCalificacionesEstadoError extends BlocCargaCalificacionesEstado {
-  /// {@macro BlocKycEstadoError}
-  BlocCargaCalificacionesEstadoError.desde(super.otro) : super.desde();
+class BlocCargaCalificacionesEstadoFallido
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoFallido}
+  BlocCargaCalificacionesEstadoFallido.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoEnviadasCorrectamente}
+/// Estado de `enviadas correctamente` de los componentes de la pantalla
+/// 'Carga de calificaciones' para que muestre un popup indicando que las
+///  calificaciones fueron enviadas.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoEnviadasCorrectamente
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoEnviadasCorrectamente}
+  BlocCargaCalificacionesEstadoEnviadasCorrectamente.desde(super.otro)
+      : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoFallidoAlEnviarNotas}
+/// Estado de `error al enviar notas` de los componentes de la pantalla
+/// 'Carga de calificaciones' para que muestre un popup indicando que las
+/// calificaciones no fueron enviadas.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoFallidoAlEnviarNotas
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoFallidoAlEnviarNotas}
+  BlocCargaCalificacionesEstadoFallidoAlEnviarNotas.desde(super.otro)
+      : super.desde();
 }

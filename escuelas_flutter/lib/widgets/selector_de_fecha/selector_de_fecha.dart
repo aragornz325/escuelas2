@@ -11,7 +11,17 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@endtemplate}
 class SelectorDeFecha extends StatelessWidget {
   /// {@macro SelectorDeFecha}
-  const SelectorDeFecha({super.key});
+  const SelectorDeFecha({
+    super.key,
+    this.onTapAvanzar,
+    this.onTapRetroceder,
+  });
+
+  /// On tap avanzar
+  final VoidCallback? onTapAvanzar;
+
+  /// On tap retroceder
+  final VoidCallback? onTapRetroceder;
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +43,12 @@ class SelectorDeFecha extends StatelessWidget {
                   width: 150.pw,
                   padding: EdgeInsets.only(left: 15.pw),
                   child: GestureDetector(
-                    onTap: () => context
-                        .read<BlocSelectorDeFecha>()
-                        .add(BlocSelectorDeFechaEventoRetroceder()),
+                    onTap: () {
+                      context
+                          .read<BlocSelectorDeFecha>()
+                          .add(BlocSelectorDeFechaEventoRetroceder());
+                      onTapRetroceder?.call();
+                    },
                     child: Row(
                       children: [
                         Icon(
@@ -83,9 +96,12 @@ class SelectorDeFecha extends StatelessWidget {
                   width: 150.pw,
                   padding: EdgeInsets.only(right: 15.pw),
                   child: GestureDetector(
-                    onTap: () => context
-                        .read<BlocSelectorDeFecha>()
-                        .add(BlocSelectorDeFechaEventoAvanzar()),
+                    onTap: () {
+                      context
+                          .read<BlocSelectorDeFecha>()
+                          .add(BlocSelectorDeFechaEventoAvanzar());
+                      onTapAvanzar?.call();
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [

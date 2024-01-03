@@ -1,175 +1,131 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias_bloc.dart';
 import 'package:escuelas_flutter/features/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
-import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
-import 'package:escuelas_flutter/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/carga_calificaciones/widgets/popups/popups.dart';
+import 'package:escuelas_flutter/features/carga_calificaciones/widgets/widgets.dart';
+import 'package:escuelas_flutter/widgets/selector_de_fecha/bloc/bloc_selector_de_fecha.dart';
+import 'package:escuelas_flutter/widgets/selector_de_fecha/selector_de_fecha.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template PaginaInicio}
-/// Todo agregar docu
+/// {@template VistaCelularCargaDeCalificaciones}
+/// Vista para `celular` de la pagina 'Carga de Calificaciones'
 /// {@endtemplate}
-class VistaCelularCargaDeCalificaciones extends StatefulWidget {
-  /// {@macro PaginaInicio}
+class VistaCelularCargaDeCalificaciones extends StatelessWidget {
+  /// {@macro VistaCelularCargaDeCalificaciones}
   const VistaCelularCargaDeCalificaciones({super.key});
-
-  @override
-  State<VistaCelularCargaDeCalificaciones> createState() =>
-      _VistaCelularCargaDeCalificacionesState();
-}
-
-class _VistaCelularCargaDeCalificacionesState
-    extends State<VistaCelularCargaDeCalificaciones> {
-  var fecha = DateTime.now();
-
-  void _restarDia() {
-    setState(() {
-      fecha = fecha.subtract(Duration(days: 1));
-    });
-  }
-
-  void _sumarDia() {
-    setState(() {
-      fecha = fecha.add(Duration(days: 1));
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: BlocBuilder<BlocSelectorDeFecha, BlocSelectorDeFechaEstado>(
+        builder: (context, stateFecha) {
+          return Column(
             children: [
-              Text(
-                'MATEMATICA',
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 13.pf,
-                  color: colores.onBackground,
-                ),
-              ),
-              Text(
-                'PRIMERO',
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 13.pf,
-                  color: colores.onSecondary,
-                ),
-              ),
-            ],
-          ),
-          //TODO(anyone): reemplazar por el calendario este esta too feo.
-          Text(
-            '${fecha.year} ${fecha.month} ${fecha.day}',
-            style: TextStyle(
-              fontSize: 30.pf,
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () => _restarDia(),
-                child: Text(
-                  'Restar',
-                  style: TextStyle(
-                    fontSize: 15.pf,
-                  ),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () => _sumarDia(),
-                child: Text(
-                  'Sumar',
-                  style: TextStyle(
-                    fontSize: 15.pf,
-                  ),
-                ),
-              ),
-            ],
-          ),
-
-          /// TODO: Implementar lista de alumnos
-          BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
-            builder: (context, state) {
-              if (state.alumnos.isEmpty) {
-                return Center(
-                  child: Text('No hay alumnos'),
-                );
-              }
-              return Expanded(
-                child: Column(
-                  children: [
-                    ...state.alumnos.map(
-                      (alumno) => Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: max(5.ph, 5.sh),
-                          horizontal: 15.pw,
-                        ),
-                        child: EscuelasCargaCalificacionAlumno(
-                          listaCalificaciones: alumno.calificacion
-                                  ?.map((e) => e.calificacion.toDouble())
-                                  .toList() ??
-                              [],
-                          nombreAlumno: alumno.nombre,
-                          calificacionPrevia: getCalificacionForDate(
-                            alumno.calificacion ?? [],
-                            fecha,
+              SizedBox(height: max(20.ph, 20.sh)),
+              //TODO(mati) reemplazar el calendario por el nuevo
+              SelectorDeFecha(
+                onTapAvanzar: () => context.read<BlocCargaCalificaciones>().add(
+                      BlocCargaCalificacionesEventoFiltrarListaPorFecha(
+                        fecha: stateFecha.fechaEnElMesPosterior,
+                      ),
+                    ),
+                onTapRetroceder: () =>
+                    context.read<BlocCargaCalificaciones>().add(
+                          BlocCargaCalificacionesEventoFiltrarListaPorFecha(
+                            fecha: stateFecha.fechaEnElMesAnterior,
                           ),
-                          //TODO(anyone): reemplazar por los roles reales
-                          esEditable: state.rolDelUsuario?.nombre == 'docente'
-                              ? fecha.day == DateTime.now().day
-                              : state.rolDelUsuario?.nombre == 'directivo' &&
-                                  fecha.isBefore(DateTime.now()),
                         ),
+              ),
+              SizedBox(height: max(20.ph, 20.sh)),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.pw),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'MAATEMATICA', // TODO(mati) poner la materia/asignatura correspondiente
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 15.pf,
+                        color: colores.onBackground,
+                      ),
+                    ),
+                    Text(
+                      'PRIMERAO', // TODO(mati) el curso correspondiente
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 15.pf,
+                        color: colores.onSecondary,
                       ),
                     ),
                   ],
                 ),
-              );
-            },
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              EscuelasBoton.texto(
-                context: context,
-                estaHabilitado: true,
-                onTap: () {},
-                color: colores.error,
-                texto: 'BORRAR TODO',
               ),
-              EscuelasBoton.texto(
-                context: context,
-                estaHabilitado: true,
-                onTap: () {},
-                color: colores.azul,
-                texto: 'CONFIRMAR',
+              SizedBox(height: max(10.ph, 10.sh)),
+              BlocConsumer<BlocCargaCalificaciones,
+                  BlocCargaCalificacionesEstado>(
+                listener: (context, state) {
+                  if (state
+                      is BlocCargaCalificacionesEstadoFallidoAlEnviarNotas) {
+                    const DialogErrorAlEnviarCalificaciones().show(context);
+                  }
+                  if (state
+                      is BlocCargaCalificacionesEstadoEnviadasCorrectamente) {
+                    const DialogNotasEnviadasCorrectamente().show(context);
+                  }
+                },
+                builder: (context, state) {
+                  final calificacion = state.calificacion;
+
+                  if (calificacion == null) {
+                    return const Center(
+                      child: Text('No hay calificación'),
+                    );
+                  }
+
+                  if (state is BlocCargaCalificacionesEstadoCargando) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  return Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: calificacion.alumnos.map(
+                          (e) {
+                            return TarjetaCargaCalificacionAlumno(
+                              alumno: e,
+                              fecha: stateFecha.fecha,
+                              listaCalificaciones: state.listaCalificaciones,
+                              rolDelUsuario: state.rolDelUsuario,
+                            );
+                          },
+                        ).toList(),
+                      ),
+                    ),
+                  );
+                },
               ),
+              SizedBox(height: max(10.ph, 10.sh)),
+              BlocBuilder<BlocCargaCalificaciones,
+                  BlocCargaCalificacionesEstado>(
+                builder: (context, state) {
+                  return BotonesEnviarNotasYLimpiarNotas(
+                    calificacion: state.calificacion,
+                  );
+                },
+              ),
+              SizedBox(height: max(20.ph, 20.sh)),
             ],
-          ),
-        ],
+          );
+        },
       ),
     );
-  }
-
-  String? getCalificacionForDate(
-      List<ModeloCalificacion> calificaciones, DateTime fecha) {
-    for (ModeloCalificacion calificacion in calificaciones) {
-      if (calificacion.fecha.year == fecha.year &&
-          calificacion.fecha.month == fecha.month &&
-          calificacion.fecha.day == fecha.day) {
-        return calificacion.calificacion.toString();
-      }
-    }
-    return null; // Si no hay calificación para la fecha dada
   }
 }

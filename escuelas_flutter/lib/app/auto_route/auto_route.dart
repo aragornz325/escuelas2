@@ -29,7 +29,7 @@ class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
         CustomRoute(
-          initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
+          // initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
           page: PaginaKyc.page,
           path: '/kyc',
           // guards: [initialGuard],

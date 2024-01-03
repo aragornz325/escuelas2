@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-/// {@template PaginaInicio}
-/// Todo agregar docu
+/// {@template VistaEscritorioCargaDeCalificaciones}
+/// Vista para `escritorio` de la pantalla 'Carga de Calificaciones'
 /// {@endtemplate}
 class VistaEscritorioCargaDeCalificaciones extends StatelessWidget {
-  /// {@macro PaginaInicio}
+  /// {@macro VistaEscritorioCargaDeCalificaciones}
   const VistaEscritorioCargaDeCalificaciones({super.key});
 
   @override
