@@ -38,46 +38,49 @@ class _VistaCelularSeleccionDeRolState
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              children: [
-                SizedBox(height: 20.ph),
-                // TODO(Gon): Usar nombre del usuario logeado
-                Text(
-                  l10n.pageKycRoleSelectionWelcome('Gonzalo Rigoni'),
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 14.pf,
-                    fontWeight: FontWeight.w600,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.pw),
+              child: Column(
+                children: [
+                  SizedBox(height: 20.ph),
+                  // TODO(Gon): Usar nombre del usuario logeado
+                  Text(
+                    l10n.pageKycRoleSelectionWelcome('Gonzalo Rigoni'),
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontSize: 14.pf,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                SizedBox(height: 20.ph),
-                ...state.listaRoles.map(
-                  (rol) => Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 10.ph),
-                      child: ElementoLista.rol(
-                        context: context,
-                        nombreRol: Text(
-                          rol.nombre,
-                          style: TextStyle(
-                            fontSize: 16.pf,
-                            fontWeight: FontWeight.w900,
-                          ),
-                        ),
-                        estaPresionado: rol.id == rolPresionado?.id,
-                        onTap: () => context.read<BlocKyc>().add(
-                              BlocKycEventoSeleccionarRol(
-                                rolElegido: rol,
-                                eliminarRolSeleccionado:
-                                    rolPresionado?.id == rol.id &&
-                                        rolPresionado != null,
-                              ),
+                  SizedBox(height: 20.ph),
+                  ...state.listaRoles.map(
+                    (rol) => Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(bottom: 10.ph),
+                        child: ElementoLista.rol(
+                          context: context,
+                          nombreRol: Text(
+                            rol.nombre,
+                            style: TextStyle(
+                              fontSize: 16.pf,
+                              fontWeight: FontWeight.w900,
                             ),
+                          ),
+                          estaPresionado: rol.id == rolPresionado?.id,
+                          onTap: () => context.read<BlocKyc>().add(
+                                BlocKycEventoSeleccionarRol(
+                                  rolElegido: rol,
+                                  eliminarRolSeleccionado:
+                                      rolPresionado?.id == rol.id &&
+                                          rolPresionado != null,
+                                ),
+                              ),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Column(
               children: [

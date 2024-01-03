@@ -16,8 +16,8 @@ class ElementoLista extends StatelessWidget {
     this.tieneBoxShadow = false,
     this.estaHabilitado = true,
     this.onTap,
-    this.altura = 65,
-    this.ancho = 329,
+    this.altura,
+    this.ancho,
     this.borderRadius = 20,
     this.widgetLateralDerecho,
     this.colorTitulo,
@@ -42,7 +42,6 @@ class ElementoLista extends StatelessWidget {
     return ElementoLista(
       texto: nombreRol,
       altura: 65.ph,
-      ancho: 330.pw,
       borderRadius: 20.sw,
       colorFondo:
           estaPresionado ? colores.grisBotonPresionado : colores.tertiary,
@@ -77,7 +76,6 @@ class ElementoLista extends StatelessWidget {
               : colores.onBackground.withOpacity(.3),
         ),
       ),
-      ancho: 300.pw,
       altura: 50.ph,
       borderRadius: 20.sw,
       colorFondo: colores.tertiary,
@@ -113,7 +111,6 @@ class ElementoLista extends StatelessWidget {
     return ElementoLista(
       texto: nombreUsuario,
       altura: 50.ph,
-      ancho: 300.pw,
       borderRadius: 40.sw,
       colorFondo: colores.tertiary,
       onTap: onTap,
@@ -158,10 +155,10 @@ class ElementoLista extends StatelessWidget {
   final Color? colorFondo;
 
   /// Altura
-  final double altura;
+  final double? altura;
 
   /// Ancho
-  final double ancho;
+  final double? ancho;
 
   /// Indica si esta habilitado para presionarse o no el boton
   final bool estaHabilitado;

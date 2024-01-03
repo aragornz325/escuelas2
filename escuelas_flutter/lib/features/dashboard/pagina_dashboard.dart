@@ -104,7 +104,7 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
             ..add(BlocDashboardEventoTraerInformacion()),
         ),
         BlocProvider<BlocKyc>(
-          create: (context) => BlocKyc(),
+          create: (context) => BlocKyc()..add(const BlocKycEventoInicializar()),
         ),
       ],
       child: BlocListener<BlocKyc, BlocKycEstado>(
