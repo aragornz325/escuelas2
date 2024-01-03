@@ -91,6 +91,13 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
     );
   }
 
+  int indexSegunRuta(BuildContext context) {
+    return switch (context.router.current.name) {
+      RutaPerfilUsuario.name => 2,
+      _ => 0
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     AutoRouter.of(context);
@@ -142,7 +149,7 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
             return AutoRouter(
               navigatorObservers: () => [DashboardRouterObserver(context)],
               builder: (context, content) => EscuelasScaffold(
-                index: 0,
+                index: indexSegunRuta(context),
                 cuerpo: content,
               ),
             );

@@ -1,7 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 
 import 'package:escuelas_flutter/widgets/appbar/escuelas_appbar.dart';
-import 'package:escuelas_flutter/widgets/bottom_navigation_bar/escuelas_appbar.dart';
+import 'package:escuelas_flutter/widgets/bottom_navigation_bar/escuelas_bottom_navigation_bar.dart';
 
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class EscuelasScaffold extends StatelessWidget {
       appBar: tieneAppBar ? const EscuelasAppBar() : null,
       backgroundColor: colorDeFondo ?? colores.background,
       body: cuerpo,
-      bottomNavigationBar: EscuelasBottomNavigationBar(index: 0),
+      bottomNavigationBar: EscuelasBottomNavigationBar(index: index),
     );
   }
 }
