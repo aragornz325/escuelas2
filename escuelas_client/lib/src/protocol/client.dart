@@ -10,8 +10,98 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
-import 'dart:io' as _i3;
-import 'protocol.dart' as _i4;
+import 'package:escuelas_client/src/protocol/curso/asignatura.dart' as _i3;
+import 'package:escuelas_client/src/protocol/curso/curso.dart' as _i4;
+import 'dart:io' as _i5;
+import 'protocol.dart' as _i6;
+
+/// {@category Endpoint}
+class EndpointAsignatura extends _i1.EndpointRef {
+  EndpointAsignatura(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'asignatura';
+
+  _i2.Future<_i3.Asignatura> obtenerAsignaturaPorId({required int id}) =>
+      caller.callServerEndpoint<_i3.Asignatura>(
+        'asignatura',
+        'obtenerAsignaturaPorId',
+        {'id': id},
+      );
+
+  _i2.Future<List<_i3.Asignatura>> obtenerAsignaturas() =>
+      caller.callServerEndpoint<List<_i3.Asignatura>>(
+        'asignatura',
+        'obtenerAsignaturas',
+        {},
+      );
+
+  _i2.Future<_i3.Asignatura> crearAsignatura(
+          {required _i3.Asignatura asignatura}) =>
+      caller.callServerEndpoint<_i3.Asignatura>(
+        'asignatura',
+        'crearAsignatura',
+        {'asignatura': asignatura},
+      );
+
+  _i2.Future<_i3.Asignatura> actualizarAsignatura(
+          {required _i3.Asignatura asignatura}) =>
+      caller.callServerEndpoint<_i3.Asignatura>(
+        'asignatura',
+        'actualizarAsignatura',
+        {'asignatura': asignatura},
+      );
+
+  _i2.Future<int> eliminarAsignatura({required int id}) =>
+      caller.callServerEndpoint<int>(
+        'asignatura',
+        'eliminarAsignatura',
+        {'id': id},
+      );
+}
+
+/// {@category Endpoint}
+class EndpointCurso extends _i1.EndpointRef {
+  EndpointCurso(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'curso';
+
+  _i2.Future<_i4.Curso> obtenerCursoPorId({required int id}) =>
+      caller.callServerEndpoint<_i4.Curso>(
+        'curso',
+        'obtenerCursoPorId',
+        {'id': id},
+      );
+
+  _i2.Future<List<_i4.Curso>> obtenerCursos() =>
+      caller.callServerEndpoint<List<_i4.Curso>>(
+        'curso',
+        'obtenerCursos',
+        {},
+      );
+
+  _i2.Future<_i4.Curso> crearCurso({required _i4.Curso curso}) =>
+      caller.callServerEndpoint<_i4.Curso>(
+        'curso',
+        'crearCurso',
+        {'curso': curso},
+      );
+
+  _i2.Future<_i4.Curso> actualizarCurso({required _i4.Curso curso}) =>
+      caller.callServerEndpoint<_i4.Curso>(
+        'curso',
+        'actualizarCurso',
+        {'curso': curso},
+      );
+
+  _i2.Future<void> eliminarCurso({required int id}) =>
+      caller.callServerEndpoint<void>(
+        'curso',
+        'eliminarCurso',
+        {'id': id},
+      );
+}
 
 /// {@category Endpoint}
 class EndpointExample extends _i1.EndpointRef {
@@ -30,21 +120,31 @@ class EndpointExample extends _i1.EndpointRef {
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
-    _i3.SecurityContext? context,
+    _i5.SecurityContext? context,
     _i1.AuthenticationKeyManager? authenticationKeyManager,
   }) : super(
           host,
-          _i4.Protocol(),
+          _i6.Protocol(),
           context: context,
           authenticationKeyManager: authenticationKeyManager,
         ) {
+    asignatura = EndpointAsignatura(this);
+    curso = EndpointCurso(this);
     example = EndpointExample(this);
   }
+
+  late final EndpointAsignatura asignatura;
+
+  late final EndpointCurso curso;
 
   late final EndpointExample example;
 
   @override
-  Map<String, _i1.EndpointRef> get endpointRefLookup => {'example': example};
+  Map<String, _i1.EndpointRef> get endpointRefLookup => {
+        'asignatura': asignatura,
+        'curso': curso,
+        'example': example,
+      };
 
   @override
   Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};

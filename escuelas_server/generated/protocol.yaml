@@ -1,2 +1,14 @@
+asignatura:
+  - obtenerAsignaturaPorId:
+  - obtenerAsignaturas:
+  - crearAsignatura:
+  - actualizarAsignatura:
+  - eliminarAsignatura:
+curso:
+  - obtenerCursoPorId:
+  - obtenerCursos:
+  - crearCurso:
+  - actualizarCurso:
+  - eliminarCurso:
 example:
   - hello:
