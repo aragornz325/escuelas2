@@ -17,8 +17,6 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
     on<BlocKycEventoEliminarOpcion>(_eliminarOpcion);
     on<BlocKycEventoSeleccionarRol>(_seleccionarRol);
-
-    add(const BlocKycEventoInicializar());
   }
 
   /// Evento inicial donde trae todos los cursos del usuario.
