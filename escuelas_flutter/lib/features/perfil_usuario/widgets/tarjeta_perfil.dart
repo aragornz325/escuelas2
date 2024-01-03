@@ -42,16 +42,8 @@ class TarjetaPerfil extends StatelessWidget {
                   child: SizedBox(
                     width: 110.sw,
                     height: 110.sh,
-                    child: Image.network(
-                      state.usuario?.imagen ?? '',
-                      errorBuilder: (
-                        BuildContext context,
-                        Object error,
-                        StackTrace? stackTrace,
-                      ) {
-                        return Image.asset(Assets.images.usuario.path);
-                      },
-                    ),
+                    // TODO(Gon): Poner imagen del user
+                    child: Image.asset(Assets.images.usuario.path),
                   ),
                 ),
                 SizedBox(width: 20.pw),
