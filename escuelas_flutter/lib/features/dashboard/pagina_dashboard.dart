@@ -142,6 +142,7 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
             return AutoRouter(
               navigatorObservers: () => [DashboardRouterObserver(context)],
               builder: (context, content) => EscuelasScaffold(
+                index: 0,
                 cuerpo: content,
               ),
             );
