@@ -69,7 +69,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
             const Text('Error');
           }
           if (state is BlocLoginEstadoExitosoIniciarSesion) {
-            context.pushRoute(const PaginaKyc());
+            context.pushRoute(const RutaKyc());
           }
         },
         builder: (context, state) {

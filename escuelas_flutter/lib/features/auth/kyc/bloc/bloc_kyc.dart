@@ -15,9 +15,8 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     on<BlocKycEventoInicializar>(_inicializar);
     on<BlocKycEventoSeleccionarCursoYMateria>(_seleccionarCursoYMateria);
     on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
+    on<BlocKycEventoEliminarOpcion>(_eliminarOpcion);
     on<BlocKycEventoSeleccionarRol>(_seleccionarRol);
-
-    add(const BlocKycEventoInicializar());
   }
 
   /// Evento inicial donde trae todos los cursos del usuario.
@@ -46,10 +45,10 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           Curso(nombre: 'CUARTO', id: 3),
         ];
         final materias = [
-          Materia(nombre: 'MATEMATICA', id: 0),
-          Materia(nombre: 'LENGUA', id: 1),
-          Materia(nombre: 'SOCIALES', id: 2),
-          Materia(nombre: 'NATURALES', id: 3),
+          Materia(nombre: 'MATEMATICA', id: 0, idCurso: 0),
+          Materia(nombre: 'LENGUA', id: 1, idCurso: 0),
+          Materia(nombre: 'SOCIALES', id: 2, idCurso: 0),
+          Materia(nombre: 'NATURALES', id: 3, idCurso: 0),
         ];
         emit(
           BlocKycEstadoExitoso.desde(
@@ -62,7 +61,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
               OpcionFormulario(
                 id: 0,
                 curso: Curso(nombre: '', id: 0),
-                materia: Materia(nombre: '', id: 0),
+                materia: Materia(nombre: '', id: 0, idCurso: 0),
               ),
             ],
           ),
@@ -135,12 +134,29 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
                 nombre: '',
                 id: 0,
               ),
-              materia: Materia(
-                nombre: '',
-                id: 0,
-              ),
+              materia: Materia(nombre: '', id: 0, idCurso: 0),
             ),
           );
+    emit(
+      BlocKycEstadoExitoso.desde(
+        state,
+        opcionesFormulario: nuevaListaOpciones,
+      ),
+    );
+  }
+
+// TODO(Gon): Al eliminar no se actualizan los dropdowns
+  /// Elimina una opcion de la lista de kyc
+  void _eliminarOpcion(
+    BlocKycEventoEliminarOpcion event,
+    Emitter<BlocKycEstado> emit,
+  ) {
+    final nuevaListaOpciones =
+        List<OpcionFormulario>.from(state.opcionesFormulario)
+          ..remove(state.opcionesFormulario
+              .where((element) => element.id == event.idOpcion)
+              .first);
+
     emit(
       BlocKycEstadoExitoso.desde(
         state,

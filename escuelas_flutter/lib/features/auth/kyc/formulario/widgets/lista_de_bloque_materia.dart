@@ -1,5 +1,8 @@
+import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
+import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/boton_eliminar_opcion.dart';
 import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/widgets.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -15,6 +18,8 @@ class ListaDeBloqueMateria extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colores = context.colores;
+
     return Expanded(
       child: SingleChildScrollView(
         child: BlocBuilder<BlocKyc, BlocKycEstado>(
@@ -24,12 +29,18 @@ class ListaDeBloqueMateria extends StatelessWidget {
                 ...state.opcionesFormulario.map(
                   (e) => Column(
                     children: [
-                      // TODO(Gon): Revisar el diseño de cuando se scrollea(todavia no esta 24/12/23)
                       Padding(
                         padding: EdgeInsets.only(bottom: 30.ph),
                         child: BloqueMateria(id: e.id),
                       ),
-                      if (state.opcionesFormulario.length > 1) const Divider(),
+                      if (state.opcionesFormulario.length > 1)
+                        BotonEliminarOpcion(idBloque: e.id),
+                      if (state.opcionesFormulario.length > 1 &&
+                          e.id != state.opcionesFormulario.length)
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.pw),
+                          child: Divider(color: colores.grisDeshabilitado),
+                        ),
                     ],
                   ),
                 ),

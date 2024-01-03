@@ -30,10 +30,19 @@
           }
         }
     },
+      "pageKycSuccessDialogDescription": "Successful registration",
+    "@pageKycSuccessDialogDescription": {
+        "description": "Description of the alert dialog of success after the KYC"
+    },
 
     "pageKycFormAddSubject": "Add subject",
     "@pageKycFormAddSubject": {
         "description": "Button label to add a subject in the KYC (Know Your Customer) process."
+    },
+
+    "pageKycFormDeleteSubject": "Delete subject",
+    "@pageKycFormDeleteSubject": {
+        "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
     },
 
     "pageKycFormWhatGradeAreYouIn": "What grade are you in?",
@@ -90,6 +99,15 @@
             }
         }
     },
+ 
+        "pageHomeTitleAppBar":"Home",
+    "@pageHomeTitleAppBar":{
+        "description":"Title of the home page"
+    },
+     "loginPageTitleAppBar": "Login",
+    "@loginPageTitleAppBar": {
+        "description": "Title of the login page"
+    },
 
     "pageLoginCredentialsIndicativeText": "Enter your login credentials previously\nprovided by the school or director",
     "@pageLoginCredentialsIndicativeText": {
@@ -109,6 +127,61 @@
     "pageLoginTextOr": "Or",
     "@pageLoginTextOr": {
         "description": "text to indicate the the options of login"
+    },
+
+
+
+
+    "pageAttendanceWithoutCourses": "There are no courses",
+    "@pageAttendanceWithoutCourses": {
+        "description": "Text to be displayed if there are no courses"
+    },
+
+    "pageAttendanceTitleFinishButtonToEndAttendance": "Finish",
+    "@pageAttendanceTitleFinishButtonToEndAttendance": {
+        "description": "Text to be displayed in the button to end the Attendance"
+    },
+
+    "pageAttendanceTitleDefinedMissingAmountComplete": "Defined {missing}/{all}",
+    "@pageAttendanceTitleDefinedMissingAmountComplete": {
+        "description": "Text to be displayed in the button to end the Attendance",
+        "placeholders" :{
+            "missing" : {
+                "type": "int"
+            },
+            "all" : {
+                "type": "int"
+            }
+        }
+    },
+
+    "pageAttendanceNotAbsentStudents": "There are no absent students",
+    "@pageAttendanceNotAbsentStudents": {
+        "description": "Text to be displayed when there are no absent students"
+    },
+    "absencePageTitleAppBar": "Absences",
+    "@absencePageTitleAppBar": {
+        "description": "Title of the absences page"
+    },
+
+    "dialogAttendanceOfDay": "Attendances of the day",
+    "@dialogAttendanceOfDay": {
+        "description": "Text to be displayed in the title of the dialog"
+    },
+
+    "dialogAttendanceStateOfStudents": "with",
+    "@dialogAttendanceStateOfStudents": {
+        "description": "text in the dialog in the status of absent students"
+    },
+
+    "dialogSeeMore": "See more",
+    "@dialogSeeMore": {
+        "description": "text on a button to see less"
+    },
+
+    "dialogSeeLess": "See Less",
+    "@dialogSeeLess": {
+        "description": "text on a button to see more"
     },
 
 
@@ -152,54 +225,6 @@
     "commonOnlyNumbers": "Only numbers",
     "@commonOnlyNumbers": {
         "description": "Text to indicate that only numbers are allowed"
-    },
-
-    "pageAttendanceWithoutCourses": "There are no courses",
-    "@pageAttendanceWithoutCourses": {
-        "description": "Text to be displayed if there are no courses"
-    },
-
-    "pageAttendanceTitleFinishButtonToEndAttendance": "Finish",
-    "@pageAttendanceTitleFinishButtonToEndAttendance": {
-        "description": "Text to be displayed in the button to end the Attendance"
-    },
-
-    "pageAttendanceTitleDefinedMissingAmountComplete": "Defined {missing}/{all}",
-    "@pageAttendanceTitleDefinedMissingAmountComplete": {
-        "description": "Text to be displayed in the button to end the Attendance",
-        "placeholders" :{
-            "missing" : {
-                "type": "int"
-            },
-            "all" : {
-                "type": "int"
-            }
-        }
-    },
-
-    "pageAttendanceNotAbsentStudents": "There are no absent students",
-    "@pageAttendanceNotAbsentStudents": {
-        "description": "Text to be displayed when there are no absent students"
-    },
-
-    "dialogAttendanceOfDay": "Assists of the day",
-    "@dialogAttendanceOfDay": {
-        "description": "Text to be displayed in the title of the dialog"
-    },
-
-    "dialogAttendanceStateOfStudents": "with",
-    "@dialogAttendanceStateOfStudents": {
-        "description": "text in the dialog in the status of absent students"
-    },
-
-    "dialogSeeMore": "See more",
-    "@dialogSeeMore": {
-        "description": "text on a button to see less"
-    },
-
-    "dialogSeeLess": "See Less",
-    "@dialogSeeLess": {
-        "description": "text on a button to see more"
     },
 
     "commonName": "Name",

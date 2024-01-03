@@ -5,12 +5,12 @@ import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:full_responsive/full_responsive.dart';
 
 /// {@template MenuOpcionesPermisos}
 /// Muestra una lista de opciones de navegacion que el usuario ve segun
 /// sus permisos
 /// {@endtemplate}
-
 class MenuOpcionesPermisos extends StatelessWidget {
   /// {@macro MenuOpcionesPermisos}
   const MenuOpcionesPermisos({super.key});
@@ -21,9 +21,20 @@ class MenuOpcionesPermisos extends StatelessWidget {
       context: context,
       builder: (context) => EscuelasDialog.fallido(
         // TODO(anyone): Revisar si este container esta bien
-        content: Container(),
+        content: Column(
+          children: [
+            SizedBox(
+              height: 20.ph,
+            ),
+            Center(
+              child: Text(
+                l10n.commonDialogError,
+                style: TextStyle(fontSize: 18.pf),
+              ),
+            ),
+          ],
+        ),
         onTap: () => Navigator.of(context).pop(),
-        titulo: l10n.commonDialogError,
       ),
     );
   }
@@ -31,6 +42,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     return BlocConsumer<BlocInicio, BlocInicioEstado>(
       listener: (context, state) {
         if (state is BlocInicioEstadoFallido) {
@@ -43,30 +55,28 @@ class MenuOpcionesPermisos extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: state.listaEtiquetas
-                    .map(
-                      (etiqueta) => Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: ElementoLista(
-                          texto: Text(
-                            etiqueta.titulo,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                          colorFondo: colores.tertiary,
-                          onTap: () => etiqueta.redirigirAVista(context),
+          return Column(
+            children: state.listaEtiquetas
+                .map(
+                  (etiqueta) => Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15.ph)
+                        .copyWith(bottom: 15.ph),
+                    child: ElementoLista(
+                      altura: 65.ph,
+                      texto: Text(
+                        etiqueta.titulo,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16.pf,
+                          color: colores.onBackground,
                         ),
                       ),
-                    )
-                    .toList(),
-              ),
-            ),
+                      colorFondo: colores.tertiary,
+                      onTap: () => etiqueta.redirigirAVista(context),
+                    ),
+                  ),
+                )
+                .toList(),
           );
         }
       },

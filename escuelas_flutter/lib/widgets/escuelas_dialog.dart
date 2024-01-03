@@ -240,7 +240,7 @@ class EscuelasDialog extends StatelessWidget {
             if (conBotonOutline)
               EscuelasBoton.outlined(
                 context: context,
-                onTap: () => onTapConfirmar,
+                onTap: () => onTapConfirmar?.call(),
                 estaHabilitado: true,
                 color: colores.grisSC,
                 texto: tituloBotonPrincipal ??
@@ -249,7 +249,7 @@ class EscuelasDialog extends StatelessWidget {
             else
               EscuelasBoton.texto(
                 context: context,
-                onTap: () => onTapConfirmar,
+                onTap: () => onTapConfirmar?.call(),
                 estaHabilitado: true,
                 color: colores.verdeConfirmar,
                 texto: tituloBotonPrincipal ?? l10n.commonConfirm.toUpperCase(),

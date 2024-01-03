@@ -45,7 +45,11 @@
     },
     {
       "name": "collection",
+<<<<<<< HEAD
+      "rootUri": "file:///C:/Users/gonza/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.18.0",
+=======
       "rootUri": "file:///C:/Users/gonza/AppData/Local/Pub/Cache/hosted/pub.dev/collection-1.17.2",
+>>>>>>> acc4132d5f1ceae96e7266a57f8fb5892b639192
       "packageUri": "lib/",
       "languageVersion": "2.18"
     },
@@ -111,7 +115,11 @@
     },
     {
       "name": "meta",
+<<<<<<< HEAD
+      "rootUri": "file:///C:/Users/gonza/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.11.0",
+=======
       "rootUri": "file:///C:/Users/gonza/AppData/Local/Pub/Cache/hosted/pub.dev/meta-1.9.1",
+>>>>>>> acc4132d5f1ceae96e7266a57f8fb5892b639192
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -242,7 +250,23 @@
       "languageVersion": "2.18"
     }
   ],
+<<<<<<< HEAD
   "generated": "2023-12-28T13:29:52.828197Z",
+=======
+<<<<<<< HEAD
+  "generated": "2023-12-18T15:29:22.602891Z",
+=======
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+  "generated": "2023-12-26T14:00:08.518378Z",
+=======
+  "generated": "2023-12-28T13:29:52.828197Z",
+>>>>>>> Stashed changes
+=======
+  "generated": "2023-12-26T15:00:23.283679Z",
+>>>>>>> ca28863660c00046175fe3dd94fd6f2e71d86ffb
+>>>>>>> acc4132d5f1ceae96e7266a57f8fb5892b639192
+>>>>>>> 812827183d7fc2dd3213d3ae3e8d573198783dd1
   "generator": "pub",
   "generatorVersion": "3.1.5"
 }

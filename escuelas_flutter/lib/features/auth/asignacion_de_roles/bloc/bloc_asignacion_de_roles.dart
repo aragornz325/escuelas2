@@ -13,8 +13,6 @@ class BlocAsignacionDeRoles
   /// {@macro BlocAsignacionDeRoles}
   BlocAsignacionDeRoles() : super(const BlocAsignacionDeRolesEstadoInicial()) {
     on<BlocAsignacionDeRolesEventoInicializar>(_inicializar);
-
-    add(const BlocAsignacionDeRolesEventoInicializar());
   }
 
   /// Evento inicial donde trae todos usuarios pendientes de asignar un rol

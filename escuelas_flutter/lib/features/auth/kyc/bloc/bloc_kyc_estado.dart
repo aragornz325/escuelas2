@@ -146,6 +146,14 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
   }) : super.desde();
 }
 
+/// {@template BlocKycEstadoExitoAlSolicitarRol}
+/// Estado de exito al solicitar un rol en la pantalla 'Kyc'
+/// {@endtemplate}
+class BlocKycEstadoExitoAlSolicitarRol extends BlocKycEstado {
+  /// {@macro BlocKycEstadoExitoAlSolicitarRol}
+  BlocKycEstadoExitoAlSolicitarRol.desde(super.otro) : super.desde();
+}
+
 /// {@template BlocKycEstadoFallido}
 /// Estado de error de los componentes de la pantalla 'Kyc'
 /// {@endtemplate}
