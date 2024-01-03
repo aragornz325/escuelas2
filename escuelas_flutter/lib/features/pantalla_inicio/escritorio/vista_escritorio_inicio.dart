@@ -12,15 +12,6 @@ class VistaEscritorioInicio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      child: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(10),
-            child: MenuOpcionesPermisos(),
-          ),
-        ],
-      ),
-    );
+    return const MenuOpcionesPermisos();
   }
 }
