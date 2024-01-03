@@ -82,3 +82,18 @@ class BlocCargaCalificacionesEventoEnviarCalificaciones
   /// {@macro BlocCargaCalificacionesEventoEnviarCalificaciones}
   const BlocCargaCalificacionesEventoEnviarCalificaciones();
 }
+
+/// {@template BlocCargaCalificacionesEventoGuardarPeriodo}
+/// Evento para guardar el periodo del calendario
+/// {@endtemplate}
+@immutable
+class BlocCargaCalificacionesEventoGuardarPeriodo
+    extends BlocCargaCalificacionesEvento {
+  /// {@macro BlocCargaCalificacionesEventoGuardarPeriodo}
+  const BlocCargaCalificacionesEventoGuardarPeriodo({
+    required this.periodo,
+  });
+
+  /// Periodo actual del calendario
+  final Periodo periodo;
+}

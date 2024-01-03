@@ -13,6 +13,8 @@ class PaginaListaCursos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AutoRouter.of(context);
+
     return AutoRouter(
       builder: (context, content) {
         return switch (context.router.current.name) {

@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/utilidades/funciones/operacion_bloc.dart';
+import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 import 'package:meta/meta.dart';
 
 part 'bloc_carga_calificaciones_estado.dart';
@@ -31,6 +32,7 @@ class BlocCargaCalificaciones
     on<BlocCargaCalificacionesEventoFiltrarListaPorFecha>(
       _onFiltrarListaPorFecha,
     );
+    on<BlocCargaCalificacionesEventoGuardarPeriodo>(_onGuardarPeriodo);
   }
 
   /// Al iniciar la pantalla trae todos los alumnos de una fecha.
@@ -254,6 +256,18 @@ class BlocCargaCalificaciones
       },
       onError: (e, st) =>
           emit(BlocCargaCalificacionesEstadoFallidoAlEnviarNotas.desde(state)),
+    );
+  }
+
+  void _onGuardarPeriodo(
+    BlocCargaCalificacionesEventoGuardarPeriodo event,
+    Emitter<BlocCargaCalificacionesEstado> emit,
+  ) {
+    emit(
+      BlocCargaCalificacionesEstadoExitoso.desde(
+        state,
+        periodo: event.periodo,
+      ),
     );
   }
 }

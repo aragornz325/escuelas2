@@ -3,7 +3,6 @@ import 'package:escuelas_flutter/features/carga_calificaciones/bloc_carga_califi
 import 'package:escuelas_flutter/features/carga_calificaciones/celular/vista_celular_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/carga_calificaciones/escritorio/vista_escritorio_carga_calificaciones.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
-import 'package:escuelas_flutter/widgets/selector_de_fecha/bloc/bloc_selector_de_fecha.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,20 +20,13 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<BlocCargaCalificaciones>(
-          create: (context) => BlocCargaCalificaciones()
-            ..add(
-              BlocCargaCalificacionesEventoInicializar(
-                fecha: DateTime.now(),
-              ),
-            ),
+    return BlocProvider<BlocCargaCalificaciones>(
+      create: (context) => BlocCargaCalificaciones()
+        ..add(
+          BlocCargaCalificacionesEventoInicializar(
+            fecha: DateTime.now(),
+          ),
         ),
-        BlocProvider<BlocSelectorDeFecha>(
-          create: (context) => BlocSelectorDeFecha(),
-        ),
-      ],
       child: const FullResponsiveScreen(
         celular: VistaCelularCargaDeCalificaciones(),
         escritorio: VistaEscritorioCargaDeCalificaciones(),

@@ -11,6 +11,7 @@ class BlocCargaCalificacionesEstado {
     this.rolDelUsuario,
     this.listaCalificaciones = const [],
     this.calificacion,
+    this.periodo,
   });
 
   BlocCargaCalificacionesEstado.desde(
@@ -18,10 +19,12 @@ class BlocCargaCalificacionesEstado {
     List<ModeloCalificacion>? listaCalificaciones,
     Rol? rolDelUsuario,
     ModeloCalificacion? calificacion,
+    Periodo? periodo,
   }) : this._(
           listaCalificaciones: listaCalificaciones ?? otro.listaCalificaciones,
           rolDelUsuario: rolDelUsuario ?? otro.rolDelUsuario,
           calificacion: calificacion ?? otro.calificacion,
+          periodo: periodo ?? otro.periodo,
         );
 
   /// Lista de listas de los alumnos
@@ -33,10 +36,14 @@ class BlocCargaCalificacionesEstado {
   /// Rol del usuario //TODO(anyone): reemplazar por el modelo del rol
   final Rol? rolDelUsuario;
 
+  /// Periodo actual del calendaio
+  final Periodo? periodo;
+
   List<Object?> get props => [
         listaCalificaciones,
         rolDelUsuario,
         calificacion,
+        periodo,
       ];
 }
 
@@ -71,6 +78,7 @@ class BlocCargaCalificacionesEstadoExitoso
     super.listaCalificaciones,
     super.rolDelUsuario,
     super.calificacion,
+    super.periodo,
   }) : super.desde();
 }
 
