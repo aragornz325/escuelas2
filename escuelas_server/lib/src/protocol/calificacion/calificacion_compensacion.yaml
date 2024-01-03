@@ -1,0 +1,10 @@
+class: CalificacionCompensacion
+table: calificacion_compensaciones
+fields:
+  idValorCalificacion: int
+  idEstudiante: int
+  idComision: int
+  idLlamado: int
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

@@ -1,0 +1,8 @@
+enum: TipoDeInstitucion
+values:
+  - prescolar
+  - primaria
+  - secundaria
+  - terciaria
+  - universidad
+  - otro

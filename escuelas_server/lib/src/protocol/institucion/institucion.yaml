@@ -1,0 +1,8 @@
+class: Institucion
+table: instituciones
+fields:
+  nombre: String
+  tipo: TipoDeInstitucion
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?
