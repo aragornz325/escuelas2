@@ -119,11 +119,11 @@ class ElementoLista extends StatelessWidget {
       onTap: onTap,
     );
   }
+
+  /// Elemento de lista para la supervision de cursos
   factory ElementoLista.supervisionCurso({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
-
-    /// Nombre del rol.
     required String nombreCurso,
     required Color colorFondo,
     required BuildContext context,
