@@ -15,6 +15,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     on<BlocKycEventoInicializar>(_inicializar);
     on<BlocKycEventoSeleccionarCursoYMateria>(_seleccionarCursoYMateria);
     on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
+    on<BlocKycEventoEliminarOpcion>(_eliminarOpcion);
     on<BlocKycEventoSeleccionarRol>(_seleccionarRol);
 
     add(const BlocKycEventoInicializar());
@@ -138,6 +139,25 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
               materia: Materia(nombre: '', id: 0, idCurso: 0),
             ),
           );
+    emit(
+      BlocKycEstadoExitoso.desde(
+        state,
+        opcionesFormulario: nuevaListaOpciones,
+      ),
+    );
+  }
+
+  /// Agrega una nueva opcion a la lista de kyc
+  void _eliminarOpcion(
+    BlocKycEventoEliminarOpcion event,
+    Emitter<BlocKycEstado> emit,
+  ) {
+    final nuevaListaOpciones =
+        List<OpcionFormulario>.from(state.opcionesFormulario)
+          ..remove(state.opcionesFormulario
+              .where((element) => element.id == event.idOpcion)
+              .first);
+
     emit(
       BlocKycEstadoExitoso.desde(
         state,

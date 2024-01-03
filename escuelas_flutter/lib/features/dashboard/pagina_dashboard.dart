@@ -113,7 +113,7 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
       ],
       child: BlocListener<BlocKyc, BlocKycEstado>(
         listener: (context, state) {
-          if (state is BlocKycEstadoExitoso) {
+          if (state is BlocKycEstadoExitoAlSolicitarRol) {
             context.read<BlocDashboard>().add(
                   // TODO(ANYONE): Verificar cual va todos estos eventos y cosas de usuario registracion
                   BlocDashboardEventoTraerInformacion(),
