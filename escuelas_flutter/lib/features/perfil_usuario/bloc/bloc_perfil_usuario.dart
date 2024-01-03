@@ -11,15 +11,9 @@ part 'bloc_perfil_usuario_evento.dart';
 class BlocPerfilUsuario
     extends Bloc<BlocPerfilUsuarioEvento, BlocPerfilUsuarioEstado> {
   /// {@macro BlocPerfilUsuario}
-  BlocPerfilUsuario(this.idUsuario)
-      : super(const BlocPerfilUsuarioEstadoInicial()) {
+  BlocPerfilUsuario() : super(const BlocPerfilUsuarioEstadoInicial()) {
     on<BlocPerfilUsuarioEventoInicializar>(_inicializar);
-
-    add(BlocPerfilUsuarioEventoInicializar(idUsuario: idUsuario));
   }
-
-  /// Id del usuario a mostrar la informacion
-  final int idUsuario;
 
   /// Evento inicial donde trae todos usuarios pendientes de asignar un rol
   Future<void> _inicializar(

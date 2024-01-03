@@ -19,7 +19,8 @@ class PaginaAsignacionDeRoles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocAsignacionDeRoles>(
-      create: (context) => BlocAsignacionDeRoles(),
+      create: (context) => BlocAsignacionDeRoles()
+        ..add(const BlocAsignacionDeRolesEventoInicializar()),
       child: const FullResponsiveScreen(
         celular: VistaCelularAsignacionDeRoles(),
         escritorio: VistaEscritorioAsignacionDeRoles(),

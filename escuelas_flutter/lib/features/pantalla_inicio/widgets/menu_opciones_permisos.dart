@@ -59,8 +59,10 @@ class MenuOpcionesPermisos extends StatelessWidget {
             children: state.listaEtiquetas
                 .map(
                   (etiqueta) => Padding(
-                    padding: EdgeInsets.only(bottom: 15.ph),
+                    padding: EdgeInsets.symmetric(horizontal: 15.ph)
+                        .copyWith(bottom: 15.ph),
                     child: ElementoLista(
+                      altura: 65.ph,
                       texto: Text(
                         etiqueta.titulo,
                         style: TextStyle(
