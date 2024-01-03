@@ -49,11 +49,12 @@ class AppRouter extends $AppRouter {
           // guards: [initialGuard],
 
           children: [
-            AutoRoute(
+            CustomRoute(
               initial: true,
               page: RutaInicio.page,
               path: 'home',
               // guards: [initialGuard],
+              transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             CustomRoute(
               page: RutaMisCursos.page,

@@ -42,6 +42,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     return BlocConsumer<BlocInicio, BlocInicioEstado>(
       listener: (context, state) {
         if (state is BlocInicioEstadoFallido) {
@@ -54,28 +55,26 @@ class MenuOpcionesPermisos extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
-          return Padding(
-            padding: const EdgeInsets.all(25),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: state.listaEtiquetas
-                  .map(
-                    (etiqueta) => Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: ElementoLista(
-                        texto: Text(
-                          etiqueta.titulo,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w800,
-                          ),
+          return Column(
+            children: state.listaEtiquetas
+                .map(
+                  (etiqueta) => Padding(
+                    padding: EdgeInsets.only(bottom: 15.ph),
+                    child: ElementoLista(
+                      texto: Text(
+                        etiqueta.titulo,
+                        style: TextStyle(
+                          fontWeight: FontWeight.w800,
+                          fontSize: 16.pf,
+                          color: colores.onBackground,
                         ),
-                        colorFondo: colores.tertiary,
-                        onTap: () => etiqueta.redirigirAVista(context),
                       ),
+                      colorFondo: colores.tertiary,
+                      onTap: () => etiqueta.redirigirAVista(context),
                     ),
-                  )
-                  .toList(),
-            ),
+                  ),
+                )
+                .toList(),
           );
         }
       },
