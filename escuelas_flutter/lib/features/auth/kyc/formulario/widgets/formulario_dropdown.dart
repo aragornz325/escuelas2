@@ -1,5 +1,6 @@
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:flutter/material.dart';
+import 'package:full_responsive/full_responsive.dart';
 
 /// {@template FormularioDropdown}
 /// Dropdown para seleccionar el año/materia
@@ -26,6 +27,8 @@ class FormularioDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO(Gon): Hacerlo parecido al diseño (todavia no hay 23/12/23)
     return EscuelasDropdownPopup(
+      width: 285.pw,
+      hintText: 'Seleccione una opción',
       list: lista,
       onChanged: listaOpcionesSeleccionadas,
       initiallySelected: opcionesPreSeleccionadas,

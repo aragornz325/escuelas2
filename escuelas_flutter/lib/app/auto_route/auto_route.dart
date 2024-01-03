@@ -44,6 +44,7 @@ class AppRouter extends $AppRouter {
           children: [
             CustomRoute(
               page: RutaInicio.page,
+              initial: true,
               path: 'home',
               // guards: [initialGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
@@ -62,7 +63,6 @@ class AppRouter extends $AppRouter {
             ),
             CustomRoute(
               page: RutaAsignacionDeRoles.page,
-              initial: true,
               path: 'role-assignment',
               // guards: [authGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
