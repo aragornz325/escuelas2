@@ -46,10 +46,10 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           Curso(nombre: 'CUARTO', id: 3),
         ];
         final materias = [
-          Materia(nombre: 'MATEMATICA', id: 0),
-          Materia(nombre: 'LENGUA', id: 1),
-          Materia(nombre: 'SOCIALES', id: 2),
-          Materia(nombre: 'NATURALES', id: 3),
+          Materia(nombre: 'MATEMATICA', id: 0, idCurso: 0),
+          Materia(nombre: 'LENGUA', id: 1, idCurso: 0),
+          Materia(nombre: 'SOCIALES', id: 2, idCurso: 0),
+          Materia(nombre: 'NATURALES', id: 3, idCurso: 0),
         ];
         emit(
           BlocKycEstadoExitoso.desde(
@@ -62,7 +62,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
               OpcionFormulario(
                 id: 0,
                 curso: Curso(nombre: '', id: 0),
-                materia: Materia(nombre: '', id: 0),
+                materia: Materia(nombre: '', id: 0, idCurso: 0),
               ),
             ],
           ),
@@ -135,10 +135,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
                 nombre: '',
                 id: 0,
               ),
-              materia: Materia(
-                nombre: '',
-                id: 0,
-              ),
+              materia: Materia(nombre: '', id: 0, idCurso: 0),
             ),
           );
     emit(

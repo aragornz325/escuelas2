@@ -88,7 +88,7 @@ class _VistaCelularSeleccionDeRolState
                     estaHabilitado: rolPresionado != null,
                     // TODO(Gon): Esto se va a cambiar cuando cambie la navegacion
                     onTap: () => context.router.push(
-                      const PaginaFormulario(),
+                      const RutaFormulario(),
                     ),
                     color: rolPresionado != null
                         ? colores.azul

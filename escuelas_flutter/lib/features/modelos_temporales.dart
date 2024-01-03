@@ -55,21 +55,24 @@ class Materia {
   Materia({
     required this.nombre,
     required this.id,
+    required this.idCurso,
   });
 
   factory Materia.fromJson(Map<String, dynamic> json) {
     return Materia(
       nombre: json['nombre'] as String,
+      idCurso: json['id_curso'] as int,
       id: json['id'] as int,
     );
   }
-
+  final int idCurso;
   final String nombre;
   final int id;
 
   Map<String, dynamic> toJson() {
     return {
       'nombre': nombre,
+      'id_curso': idCurso,
       'id': id,
     };
   }

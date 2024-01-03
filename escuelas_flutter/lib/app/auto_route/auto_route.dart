@@ -3,7 +3,7 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 // import 'package:escuelas_flutter/app/auto_route/router_guards.dart';
 // import 'package:escuelas_flutter/utilidades/utilidades.dart';
 
-@AutoRouterConfig()
+@AutoRouterConfig(replaceInRouteName: 'Pagina,Ruta')
 class AppRouter extends $AppRouter {
   AppRouter();
 
@@ -25,45 +25,74 @@ class AppRouter extends $AppRouter {
   // AuthGuard get authGuard => AuthGuard(
   //       sessionManager: sessionManager,
   //     );
-
+// TODO(ANYONE): En algun momento descomentar los guards
   @override
   List<AutoRoute> get routes => [
         CustomRoute(
-          page: PaginaKyc.page,
-          path: '/kyc',
+          page: RutaPerfilUsuario.page,
+          path: '/perfil-usuario/:idUsuario',
           // guards: [initialGuard],
           transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          page: RutaLogin.page,
+          path: '/login',
+          initial: true,
+          //    guards: [initialGuard],
+          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        CustomRoute(
+          path: '/dashboard',
+          page: RutaDashboard.page,
+          // initial: true,
+          transitionsBuilder: TransitionsBuilders.noTransition,
+          // guards: [initialGuard],
+
           children: [
-            CustomRoute(
-              page: PaginaSeleccionDeRol.page,
+            AutoRoute(
               initial: true,
-              path: 'role-selection',
+              page: RutaInicio.page,
+              path: 'home',
+              // guards: [initialGuard],
+            ),
+            CustomRoute(
+              page: RutaMisCursos.page,
+              path: 'courses-list',
               // guards: [authGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             CustomRoute(
-              page: PaginaFormulario.page,
+              page: RutaAsignacionDeRoles.page,
+              path: 'role-assignment',
+              // guards: [authGuard],
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
+            CustomRoute(
+              page: RutaFormulario.page,
               path: 'form',
               // guards: [authGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
+            CustomRoute(
+              page: RutaSeleccionDeRol.page,
+              path: 'role-selection',
+              //   initial: true,
+              // guards: [initialGuard],
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
+            CustomRoute(
+              page: RutaKyc.page,
+              path: 'kyc-form',
+              // guards: [initialGuard],
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
+            CustomRoute(
+              page: RutaInasistencia.page,
+              path: 'absences',
+              // guards: [initialGuard],
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
           ],
-        ),
-        AutoRoute(
-          page: PaginaSupervisionCursos.page,
-          initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
-          path: '/supervision-curso',
-          // guards: [initialGuard],
-        ),
-        AutoRoute(
-          page: PaginaPerfilUsuario.page,
-          path: '/perfil-usuario/:idUsuario',
-          // guards: [initialGuard],
-        ),
-        AutoRoute(
-          page: PaginaAsistencia.page,
-          path: '/Attendance',
-          // guards: [initialGuard],
         ),
       ];
 }

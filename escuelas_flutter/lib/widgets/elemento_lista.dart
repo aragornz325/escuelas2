@@ -50,6 +50,53 @@ class ElementoLista extends StatelessWidget {
       tieneBoxShadow: estaPresionado,
     );
   }
+
+  factory ElementoLista.materia({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Nombre de la materia.
+    required String nombreMateria,
+
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+    required bool estaHabilitado,
+    required bool estaCargada,
+  }) {
+    final colores = context.colores;
+
+    return ElementoLista(
+      texto: Text(
+        nombreMateria,
+        style: TextStyle(
+          fontSize: 12.pf,
+          overflow: TextOverflow.ellipsis,
+          fontWeight: FontWeight.w700,
+          color: estaHabilitado
+              ? colores.onBackground
+              : colores.onBackground.withOpacity(.3),
+        ),
+      ),
+      ancho: 300.pw,
+      borderRadius: 20.sw,
+      colorFondo: colores.tertiary,
+      onTap: onTap,
+      widgetLateralDerecho: estaHabilitado && !estaCargada
+          ? Icon(
+              Icons.circle,
+              color: colores.error,
+              size: 15.sw,
+            )
+          : Icon(
+              Icons.check_circle,
+              color: estaHabilitado && estaCargada
+                  ? colores.verdeConfirmar
+                  : colores.secondary,
+              size: 15.sw,
+            ),
+    );
+  }
+
   factory ElementoLista.usuario({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
@@ -167,16 +214,24 @@ class ElementoLista extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20.pw,
-                      vertical: 5.ph,
+          child: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: 20.pw,
+              vertical: 5.ph,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    // TODO(anyone): Ver como hacer para que el overflow del texto sea dinamico segun el tamaño del componente
+                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
+                    Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: SizedBox(
+                        width: 230.pw,
+                        child: texto,
+                      ),
                     ),
                     child: texto,
                   ),
