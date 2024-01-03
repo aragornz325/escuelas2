@@ -19,39 +19,37 @@ class VistaCelularMisCursos extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    return Scaffold(
-      body: SingleChildScrollView(
-        child: BlocBuilder<BlocSelectorDeFecha, BlocSelectorDeFechaEstado>(
-          builder: (context, stateFecha) {
-            return Column(
-              children: [
-                const SelectorDeFecha(),
-                BlocBuilder<BlocMisCursos, BlocMisCursosEstado>(
-                  builder: (context, state) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: state.listaCursosConMaterias.keys
-                              .map(
-                                (cursoId) => Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8),
-                                      child: Text(
-                                        cursoId.toString(),
-                                        style: TextStyle(
-                                          color: colores.onSecondary,
-                                          fontSize: 13.pf,
-                                          fontWeight: FontWeight.w800,
-                                        ),
-                                      ),
+    return BlocBuilder<BlocSelectorDeFecha, BlocSelectorDeFechaEstado>(
+      builder: (context, stateFecha) {
+        return Column(
+          children: [
+            const SelectorDeFecha(),
+            BlocBuilder<BlocMisCursos, BlocMisCursosEstado>(
+              builder: (context, state) {
+                return Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: state.listaCursosConMaterias.keys
+                          .map(
+                            (cursoId) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    cursoId.toString(),
+                                    style: TextStyle(
+                                      color: colores.onSecondary,
+                                      fontSize: 13.pf,
+                                      fontWeight: FontWeight.w800,
                                     ),
-                                    Column(
-                                      children: state
-                                          .listaCursosConMaterias[cursoId]!
+                                  ),
+                                ),
+                                Column(
+                                  children:
+                                      state.listaCursosConMaterias[cursoId]!
                                           .map(
                                             (materia) => Padding(
                                               padding: EdgeInsets.only(
@@ -67,21 +65,19 @@ class VistaCelularMisCursos extends StatelessWidget {
                                             ),
                                           )
                                           .toList(),
-                                    ),
-                                  ],
                                 ),
-                              )
-                              .toList(),
-                        ),
-                      ],
-                    );
-                  },
-                ),
-              ],
-            );
-          },
-        ),
-      ),
+                              ],
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
+                );
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
