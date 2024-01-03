@@ -14,7 +14,7 @@ class VistaCelularLogin extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO(ANYONE): Cambiar por el verdadero login
     return EscuelasScaffold(
-      index: 1,
+      index: 0,
       cuerpo: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

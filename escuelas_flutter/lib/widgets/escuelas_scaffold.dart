@@ -27,6 +27,8 @@ class EscuelasScaffold extends StatelessWidget {
 
   /// Determina si se muestra el AppBar o no.
   final bool tieneAppBar;
+
+  /// Indice de la ruta seleccionada
   final int index;
 
   @override
