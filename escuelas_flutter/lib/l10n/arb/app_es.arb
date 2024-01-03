@@ -36,6 +36,11 @@
         "description": "Button label to add a subject in the KYC (Know Your Customer) process."
     },
 
+    "pageKycFormDeleteSubject": "Eliminar materia",
+    "@pageKycFormDeleteSubject": {
+        "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
+    },
+
     "pageKycFormWhatGradeAreYouIn": "¿En qué curso estás?",
     "@pageKycFormWhatGradeAreYouIn": {
         "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."

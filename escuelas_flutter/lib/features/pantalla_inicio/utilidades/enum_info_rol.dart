@@ -10,7 +10,7 @@ enum InfoDeRol {
   tomarInasistencia,
   listaCursos,
   usuariosPendientes,
-
+  kyc,
   personal;
 
 // TODO(Anyone): Ver si es inasistencias o asistencias.
@@ -25,7 +25,9 @@ enum InfoDeRol {
       case InfoDeRol.tomarInasistencia:
         return 'TOMAR INASISTENCIA';
       case InfoDeRol.usuariosPendientes:
-        return 'USUARIOS PENDIENTES'; 
+        return 'USUARIOS PENDIENTES';
+      case InfoDeRol.kyc:
+        return 'KYC';
     }
   }
 
@@ -43,6 +45,11 @@ enum InfoDeRol {
         return [
           Permiso.directivo,
         ];
+      case InfoDeRol.kyc:
+        return [
+          Permiso.directivo,
+          Permiso.alumno,
+        ];
     }
   }
 
@@ -58,6 +65,8 @@ enum InfoDeRol {
         context.router.push(const RutaInasistencia());
       case InfoDeRol.usuariosPendientes:
         context.router.push(const RutaAsignacionDeRoles());
+      case InfoDeRol.kyc:
+        context.router.push(const RutaKyc());
     }
   }
 }

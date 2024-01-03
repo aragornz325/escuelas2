@@ -23,8 +23,6 @@ class BlocAsistencias
     );
     on<BlocAsistenciasEventoAbrirCurso>(_onAbrirCurso);
     on<BlocAsistenciasFinalizarAsistencia>(_onFinalizarAsistencia);
-
-    add(const BlocAsistenciasEventoInicializar());
   }
 
   /// Al inicializar trae los cursos para tomar asistencias.
