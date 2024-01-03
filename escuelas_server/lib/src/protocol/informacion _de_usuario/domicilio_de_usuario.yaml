@@ -1,10 +1,10 @@
-class: Domicilio
-table: domicilios
+class: DomicilioDeUsuario
+table: domicilios_de_usuario
 fields:
   idUsuario: int, relation(parent=usuarios)
   calle: String
   numero: int
   idCodigoPostal: int
+  idLocalidad: int
   idCiudad: int
   idProvincia: int
-  idLocalidad: int

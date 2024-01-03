@@ -1,5 +1,0 @@
-class: InformacionDeContacto
-table: informacion_de_contactos
-fields:
-  direccionesDeEmail: List<String>
-  numerosDeTelefono: String

@@ -1,4 +1,4 @@
-enum: TiposDeTelefono
+enum: TipoDeTelefono
 values:
   - casa
   - celular

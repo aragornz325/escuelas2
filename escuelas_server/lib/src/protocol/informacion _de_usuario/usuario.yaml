@@ -1,8 +1,8 @@
 class: Usuario
 table: usuarios
 fields:
+  idUserInfo: int
   roles: List<Rol>
-  idUserInfo: int 
   dni: String
   ultimaModificacion: DateTime
   fechaCreacion: DateTime

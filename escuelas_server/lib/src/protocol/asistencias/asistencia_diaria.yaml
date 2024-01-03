@@ -1,13 +1,12 @@
 class: AsistenciaDiaria
-table: asistencia_diarias
+table: asistencias_diarias
 fields:
-  idEstudiante: int
-  idAsignatura: int
-  idComision: int
-  estado: estadosAsistencia
+  idEstudiante: int, relation(parent=usuarios)
+  idAsignatura: int, relation(parent=asignaturas)
+  idComision: int, relation(parent=comisiones)
+  estadoDeAsistencia: EstadoDeAsistencia
   fecha: DateTime
-  justificacion: idJustificacion, relation(parent=ajustificaciones)
+  idJustificacion: int, relation(parent=justificaciones_de_asistencia)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
-```

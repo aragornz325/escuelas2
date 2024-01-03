@@ -3,7 +3,7 @@ table: asignaturas
 fields: 
   nombre: String
   idCurso: int
-  docentes: List<Docente>, !persist
+  docentes: List<Usuario>, !persist
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?

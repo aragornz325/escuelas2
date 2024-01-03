@@ -1,9 +1,9 @@
 class: LlamadoCompensacion
-table: llamado_compensaciones
+table: llamados_compensacion
 fields:
   fechaLlamado: DateTime # Fecha para la que fue programado el llamado.
   fechaRealizacion: DateTime? # Fecha de la realizacion efectiva del llamado.
-  idAsignatura: int
+  idAsignatura: int, relation(parent=asignaturas)
   observaciones: String
   ultimaModificacion: DateTime
   fechaCreacion: DateTime

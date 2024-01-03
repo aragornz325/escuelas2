@@ -1,10 +1,10 @@
-class: Comision
-table: comisiones
+class: ComisionDeCurso
+table: comisiones_de_curso
 fields:
   nombre: String
-  idCurso: int
+  idCurso: int, relation(parent=cursos)
   anioLectivo: int
-  estudiantes: List<Estudiante>, !persist
+  estudiantes: List<Usuario>, !persist
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?

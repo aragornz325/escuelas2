@@ -1,5 +1,5 @@
-class: Rol
-table: roles
+class: RolDeUsuario
+table: roles_de_usuario
 fields:
   nombre: String
   descripcion: String

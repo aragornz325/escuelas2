@@ -1,0 +1,6 @@
+enum: EstadoDeAsistencia
+values:
+  - presente
+  - ausente
+  - cuartoDeInasistencia
+  - mediaInasistencia
