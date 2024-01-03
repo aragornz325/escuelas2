@@ -8,7 +8,6 @@ import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart'
 import 'package:escuelas_flutter/l10n/l10n.dart';
 
 import 'package:escuelas_flutter/widgets/drawer/bloc/bloc_drawer.dart';
-import 'package:escuelas_flutter/widgets/selector_de_fecha/bloc/bloc_selector_de_fecha.dart';
 
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -91,6 +90,13 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
     );
   }
 
+  int indexSegunRuta(BuildContext context) {
+    return switch (context.router.current.name) {
+      RutaPerfilUsuario.name => 2,
+      _ => 0
+    };
+  }
+
   @override
   Widget build(BuildContext context) {
     AutoRouter.of(context);
@@ -103,9 +109,6 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
         BlocProvider<BlocDashboard>(
           create: (context) => BlocDashboard(infoUsuario)
             ..add(BlocDashboardEventoTraerInformacion()),
-        ),
-        BlocProvider<BlocSelectorDeFecha>(
-          create: (context) => BlocSelectorDeFecha(),
         ),
         BlocProvider<BlocKyc>(
           create: (context) => BlocKyc()..add(const BlocKycEventoInicializar()),
@@ -142,6 +145,7 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
             return AutoRouter(
               navigatorObservers: () => [DashboardRouterObserver(context)],
               builder: (context, content) => EscuelasScaffold(
+                index: indexSegunRuta(context),
                 cuerpo: content,
               ),
             );

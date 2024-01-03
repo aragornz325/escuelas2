@@ -105,6 +105,11 @@ class AppRouter extends $AppRouter {
               // guards: [initialGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
+            CustomRoute(
+              page: RutaSupervisionCursos.page,
+              path: 'course-supervision',
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
           ],
         ),
       ];
