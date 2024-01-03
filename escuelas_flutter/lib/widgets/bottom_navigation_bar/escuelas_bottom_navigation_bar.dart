@@ -4,6 +4,8 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
+// TODO(anyone): Mejorar el routeo y hacerlo con switch, y hacer componente para los items de la barra, tambien mejorar el tema del index
+
 /// {@template EscuelasBottomNavigationBar}
 /// Componente de navegacion estatico
 /// {@endtemplate}
