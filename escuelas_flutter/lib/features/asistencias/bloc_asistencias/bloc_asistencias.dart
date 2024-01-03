@@ -8,13 +8,15 @@ import 'package:flutter/material.dart';
 part 'bloc_asistencias_evento.dart';
 part 'bloc_asistencias_estado.dart';
 
+// TODO(GON/ANYONE): Renombrar a BlocInasistencias ? junto con sus referencias.
+
 /// {@template BlocAsistencias}
-/// BLoc que maneja el estado y la lógica general de la pagina 'Asistencias'
+/// BLoC que maneja el estado y la lógica general de la pagina 'Inasistencias'
 /// {@endtemplate}
 class BlocAsistencias
     extends Bloc<BlocAsistenciasEvento, BlocAsistenciasEstado> {
   /// {@macro BlocAsistencias}
-  BlocAsistencias() : super(BlocAsistenciasEstadoInicial()) {
+  BlocAsistencias() : super(const BlocAsistenciasEstadoInicial()) {
     on<BlocAsistenciasEventoInicializar>(_onInicializar);
     on<BlocAsistenciasEventoCambiarEstadoAsistencia>(
       _onCambiarEstadoDeAsistencia,

@@ -1,7 +1,6 @@
 import 'dart:math';
 
-import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias_bloc.dart';
+import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/features/asistencias/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -11,59 +10,41 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@template VistaCelularAsistencias}
 /// Vista para celular de la pagina 'Asistencias'
 /// {@endtemplate}
-class VistaCelularAsistencias extends StatelessWidget {
+class VistaCelularInasistencias extends StatelessWidget {
   /// {@macro VistaCelularAsistencias}
-  const VistaCelularAsistencias({super.key});
+  const VistaCelularInasistencias({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final colores = context.colores;
-
     final l10n = context.l10n;
 
-    /// TODO(anyone): reemplazar por el Scaffold de escuelas
-    return Scaffold(
-      /// TODO(anyone): reemplazar por el appbar de escuelas
-      appBar: AppBar(
-        title: Text(
-          'Asistencias',
-          style: TextStyle(
-            color: colores.onBackground,
-            fontWeight: FontWeight.w800,
-            fontSize: 16.pf,
-          ),
-        ),
-        centerTitle: true,
-        elevation: 0,
-      ),
-      body: BlocBuilder<BlocAsistencias, BlocAsistenciasEstado>(
-        builder: (context, state) {
-          if (state is BlocAsistenciasEstadoCargando) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          if (state.cursos.isEmpty) {
-            //TODO(anyone): hacer una vista cuando no hay cursos.
-            return Center(
-              child: Text(l10n.pageAttendanceNotAbsentStudents),
-            );
-          }
-          return Column(
-            children: [
-              const Expanded(child: ListaDeCursos()),
-              if (state.cursoDesplegado)
-                BotonFinalizarAsistencias(
-                  //TODO(anyone): fecha hardcodeada reemplazar por la del
-                  //calendario
-                  fecha: DateTime.now(),
-                  curso: state.cursos[state.index],
-                ),
-              SizedBox(height: max(10.ph, 10.sh)),
-            ],
+    return BlocBuilder<BlocAsistencias, BlocAsistenciasEstado>(
+      builder: (context, state) {
+        if (state is BlocAsistenciasEstadoCargando) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-      ),
+        }
+        if (state.cursos.isEmpty) {
+          //TODO(anyone): hacer una vista cuando no hay cursos.
+          return Center(
+            child: Text(l10n.pageAttendanceNotAbsentStudents),
+          );
+        }
+        return Column(
+          children: [
+            const Expanded(child: ListaDeCursos()),
+            if (state.cursoDesplegado)
+              BotonFinalizarAsistencias(
+                //TODO(anyone): fecha hardcodeada reemplazar por la del
+                // calendario
+                fecha: DateTime.now(),
+                curso: state.cursos[state.index],
+              ),
+            SizedBox(height: max(10.ph, 10.sh)),
+          ],
+        );
+      },
     );
   }
 }

@@ -9,57 +9,36 @@ import 'package:flutter/material.dart';
 enum InfoDeRol {
   tomarInasistencia,
   listaCursos,
-  misCursos,
-  inasistencias,
-  enviarJustificativo,
   usuariosPendientes,
-  calificaciones,
   personal;
 
+// TODO(Anyone): Ver si es inasistencias o asistencias.
+  // TODO(SAM): add funcion y pasarle context
   String get titulo {
     switch (this) {
-      case InfoDeRol.tomarInasistencia:
-        return 'TOMAR INASISTENCIA';
+      // TODO(Anyone): Cuando esten definidos los roles decidir si va Mis Cursos o Lista de Cursos segun el rol
       case InfoDeRol.listaCursos:
         return 'LISTA DE CURSOS';
-      case InfoDeRol.inasistencias:
-        return 'INASISTENCIAS';
-      case InfoDeRol.misCursos:
-        return 'MIS CURSOS';
-      case InfoDeRol.calificaciones:
-        return 'CALIFICACIONES';
-      case InfoDeRol.enviarJustificativo:
-        return 'ENVIAR JUSTIFICATIVO';
-      case InfoDeRol.usuariosPendientes:
-        return 'USUARIOS PENDIENTES';
       case InfoDeRol.personal:
         return 'PERSONAL';
+      case InfoDeRol.tomarInasistencia:
+        return 'TOMAR INASISTENCIA';
+      case InfoDeRol.usuariosPendientes:
+        return 'USUARIOS PENDIENTES';
     }
   }
 
   List<Permiso> get permisosAsignados {
     switch (this) {
       case InfoDeRol.tomarInasistencia:
-        return [Permiso.directivo, Permiso.profesor];
+        return [Permiso.directivo, Permiso.docente];
       case InfoDeRol.listaCursos:
-        return [Permiso.directivo, Permiso.profesor];
-      case InfoDeRol.inasistencias:
-        return [
-          Permiso.alumno,
-          Permiso.profesor,
-          Permiso.directivo,
-        ];
-      case InfoDeRol.misCursos:
-        return [Permiso.profesor];
-      case InfoDeRol.enviarJustificativo:
-        return [Permiso.alumno];
-      case InfoDeRol.usuariosPendientes:
-        return [
-          Permiso.directivo,
-        ];
-      case InfoDeRol.calificaciones:
-        return [Permiso.alumno];
+        return [Permiso.directivo, Permiso.docente];
       case InfoDeRol.personal:
+        return [
+          Permiso.directivo,
+        ];
+      case InfoDeRol.usuariosPendientes:
         return [
           Permiso.directivo,
         ];
@@ -70,22 +49,14 @@ enum InfoDeRol {
   void redirigirAVista(BuildContext context) {
     switch (this) {
       // TODO(ANYONE): Agregar redirecciones adecuadas
-      case InfoDeRol.tomarInasistencia:
-        context.router.push(PaginaInicio());
       case InfoDeRol.listaCursos:
-        context.router.push(PaginaInicio());
-      case InfoDeRol.inasistencias:
-        context.router.push(PaginaInicio());
-      case InfoDeRol.misCursos:
-        context.router.push(PaginaInicio());
-      case InfoDeRol.enviarJustificativo:
-        context.router.push(PaginaInicio());
-      case InfoDeRol.usuariosPendientes:
-        context.router.push(PaginaInicio());
-      case InfoDeRol.calificaciones:
-        context.router.push(PaginaInicio());
+        context.router.push(const RutaMisCursos());
       case InfoDeRol.personal:
-        context.router.push(PaginaInicio());
+        context.router.push(RutaInicio());
+      case InfoDeRol.tomarInasistencia:
+        context.router.push(const RutaInasistencia());
+      case InfoDeRol.usuariosPendientes:
+        context.router.push(const RutaAsignacionDeRoles());
     }
   }
 }

@@ -29,9 +29,13 @@ class SelectorDeFecha extends StatelessWidget {
 
     return Container(
       height: 60.ph,
+      margin: EdgeInsets.symmetric(
+        vertical: 15.ph,
+        horizontal: 20.pw,
+      ),
       decoration: BoxDecoration(
         color: colores.tertiary,
-        borderRadius: BorderRadius.circular(20.sw),
+        borderRadius: BorderRadius.circular(40.sw),
       ),
       child: Center(
         child: BlocBuilder<BlocSelectorDeFecha, BlocSelectorDeFechaEstado>(
@@ -40,7 +44,7 @@ class SelectorDeFecha extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: 150.pw,
+                  width: 70.pw,
                   padding: EdgeInsets.only(left: 15.pw),
                   child: GestureDetector(
                     onTap: () {
@@ -93,7 +97,7 @@ class SelectorDeFecha extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  width: 150.pw,
+                  width: 70.pw,
                   padding: EdgeInsets.only(right: 15.pw),
                   child: GestureDetector(
                     onTap: () {
