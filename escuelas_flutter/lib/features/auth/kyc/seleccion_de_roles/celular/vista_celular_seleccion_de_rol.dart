@@ -59,13 +59,7 @@ class _VistaCelularSeleccionDeRolState
                         padding: EdgeInsets.only(bottom: 10.ph),
                         child: ElementoLista.rol(
                           context: context,
-                          nombreRol: Text(
-                            rol.nombre,
-                            style: TextStyle(
-                              fontSize: 16.pf,
-                              fontWeight: FontWeight.w900,
-                            ),
-                          ),
+                          nombreRol: rol.nombre,
                           estaPresionado: rol.id == rolPresionado?.id,
                           onTap: () => context.read<BlocKyc>().add(
                                 BlocKycEventoSeleccionarRol(

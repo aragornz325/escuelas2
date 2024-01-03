@@ -28,54 +28,48 @@ class VistaCelularMisCursos extends StatelessWidget {
           child: SingleChildScrollView(
             child: BlocBuilder<BlocMisCursos, BlocMisCursosEstado>(
               builder: (context, state) {
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: state.listaCursosConMaterias.keys
-                          .map(
-                            (cursoId) => Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Text(
-                                    cursoId.toString(),
-                                    style: TextStyle(
-                                      color: colores.onSecondary,
-                                      fontSize: 13.pf,
-                                      fontWeight: FontWeight.w800,
-                                    ),
-                                  ),
+                return Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10.pw),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: state.listaCursosConMaterias.keys
+                        .map(
+                          (cursoId) => Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                cursoId.toString(),
+                                style: TextStyle(
+                                  color: colores.onSecondary,
+                                  fontSize: 13.pf,
+                                  fontWeight: FontWeight.w800,
                                 ),
-                                Column(
-                                  children:
-                                      state.listaCursosConMaterias[cursoId]!
-                                          .map(
-                                            (materia) => Padding(
-                                              padding: EdgeInsets.only(
-                                                bottom: 10.ph,
-                                              ),
-                                              child: ItemMateria(
-                                                estaCargada: false,
-                                                // TODO(anyone):
-                                                // aca hay que chequear la fecha de la lista
-                                                // de materias actual y hacer la validacion con eso
-                                                estaHabilitado: true,
-                                                materia: materia,
-                                                onTap: () {},
-                                              ),
-                                            ),
-                                          )
-                                          .toList(),
-                                ),
-                              ],
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ],
+                              ),
+                              Column(
+                                children: state.listaCursosConMaterias[cursoId]!
+                                    .map(
+                                      (materia) => Padding(
+                                        padding: EdgeInsets.only(
+                                          bottom: 10.ph,
+                                        ),
+                                        child: ItemMateria(
+                                          estaCargada: false,
+                                          // TODO(anyone):
+                                          // aca hay que chequear la fecha de la lista
+                                          // de materias actual y hacer la validacion con eso
+                                          estaHabilitado: true,
+                                          materia: materia,
+                                          onTap: () {},
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ],
+                          ),
+                        )
+                        .toList(),
+                  ),
                 );
               },
             ),

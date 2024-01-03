@@ -35,19 +35,17 @@ class AppRouter extends $AppRouter {
           //    guards: [initialGuard],
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
-        CustomRoute(
+        AutoRoute(
           path: '/dashboard',
           page: RutaDashboard.page,
           // initial: true,
-          transitionsBuilder: TransitionsBuilders.noTransition,
           // guards: [initialGuard],
           children: [
-            CustomRoute(
+            AutoRoute(
               page: RutaInicio.page,
               initial: true,
               path: 'home',
               // guards: [initialGuard],
-              transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             CustomRoute(
               page: RutaPerfilUsuario.page,
@@ -55,11 +53,10 @@ class AppRouter extends $AppRouter {
               // guards: [initialGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
-            CustomRoute(
+            AutoRoute(
               page: RutaMisCursos.page,
               path: 'courses-list',
               // guards: [authGuard],
-              transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             CustomRoute(
               page: RutaAsignacionDeRoles.page,
@@ -94,10 +91,9 @@ class AppRouter extends $AppRouter {
               // guards: [initialGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
-            CustomRoute(
+            AutoRoute(
               page: RutaSupervisionCursos.page,
               path: 'course-supervision',
-              transitionsBuilder: TransitionsBuilders.noTransition,
             ),
           ],
         ),
