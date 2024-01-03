@@ -131,7 +131,7 @@ StackTrace: $st
       );
 
       if (respuestaRaw.isEmpty) {
-        throw Excepciones.desconocido(mensaje: 'Error al crear registro.');
+        throw Exception('Error al crear registro.');
       }
 
       final List<int> respuestaListaIds =
@@ -171,8 +171,11 @@ StackTrace: $st
       }
       var actualizaciones = listaActualizaciones.join(', ');
 
-      final retornoString =
-          retornar.isNotEmpty ? 'RETURNING ${retornar.map((e) => '"$e"',).join(', ')}' : '';
+      final retornoString = retornar.isNotEmpty
+          ? 'RETURNING ${retornar.map(
+                (e) => '"$e"',
+              ).join(', ')}'
+          : '';
 
       var query = '''
 UPDATE $nombreTabla 
