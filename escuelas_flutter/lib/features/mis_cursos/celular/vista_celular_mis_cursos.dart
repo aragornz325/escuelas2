@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/features/mis_cursos/widgets/item_materia.dart';
@@ -56,7 +58,9 @@ class VistaCelularMisCursos extends StatelessWidget {
                                       //     .isBefore(DateTime.now())
                                       ,
                                       materia: materia,
-                                      onTap: () {},
+                                      onTap: () => context.pushRoute(
+                                        const RutaCargaDeCalificaciones(),
+                                      ),
                                     ),
                                   ),
                                 )

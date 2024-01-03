@@ -44,23 +44,33 @@ class AppRouter extends $AppRouter {
         CustomRoute(
           path: '/dashboard',
           page: RutaDashboard.page,
-          // initial: true,
           transitionsBuilder: TransitionsBuilders.noTransition,
           // guards: [initialGuard],
 
           children: [
             CustomRoute(
-              // initial: true,
               page: RutaInicio.page,
               path: 'home',
+              initial: true,
               // guards: [initialGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             CustomRoute(
-              page: RutaMisCursos.page,
-              path: 'courses-list',
+              page: RutaListaCursos.page,
+              path: 'courses',
               // guards: [authGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
+              children: [
+                CustomRoute(
+                  page: RutaMisCursos.page,
+                  path: 'my-courses',
+                  initial: true,
+                ),
+                CustomRoute(
+                  page: RutaCargaDeCalificaciones.page,
+                  path: 'charge-califications',
+                ),
+              ],
             ),
             CustomRoute(
               page: RutaAsignacionDeRoles.page,
@@ -77,7 +87,6 @@ class AppRouter extends $AppRouter {
             CustomRoute(
               page: RutaSeleccionDeRol.page,
               path: 'role-selection',
-              //   initial: true,
               // guards: [initialGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
@@ -94,13 +103,6 @@ class AppRouter extends $AppRouter {
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
           ],
-        ),
-        AutoRoute(
-          initial: true, // TODO(ANYONE): Poner ruta correspondiente, login.
-          page: PaginaCargaDeCalificaciones.page,
-          path: '/Carga-calificaciones',
-
-          // guards: [initialGuard],
         ),
       ];
 }

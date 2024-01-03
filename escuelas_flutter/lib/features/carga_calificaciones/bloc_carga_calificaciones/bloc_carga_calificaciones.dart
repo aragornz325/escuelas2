@@ -1,11 +1,11 @@
 import 'package:bloc/bloc.dart';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias_bloc.dart';
+import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/utilidades/funciones/operacion_bloc.dart';
 import 'package:meta/meta.dart';
 
-part 'bloc_carga_calificaciones_evento.dart';
 part 'bloc_carga_calificaciones_estado.dart';
+part 'bloc_carga_calificaciones_evento.dart';
 
 /// {@template BlocCargaCalificaciones}
 /// Maneja la lógica principal de la pantalla 'Carga de calificaciones'

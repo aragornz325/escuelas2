@@ -10,6 +10,7 @@ enum InfoDeRol {
   tomarInasistencia,
   listaCursos,
   usuariosPendientes,
+
   personal;
 
 // TODO(Anyone): Ver si es inasistencias o asistencias.
@@ -24,7 +25,7 @@ enum InfoDeRol {
       case InfoDeRol.tomarInasistencia:
         return 'TOMAR INASISTENCIA';
       case InfoDeRol.usuariosPendientes:
-        return 'USUARIOS PENDIENTES';
+        return 'USUARIOS PENDIENTES'; 
     }
   }
 

@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias_bloc.dart';
+import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/features/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -73,6 +73,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
     );
   }
 
+  //TODO(anyone): ver si esta bien la funcion si depende de las notas anteriores del mes en el que esta o de todas
   /// Obtiene las calificaciones previas del usuario en el mes y año actual.
   List<double> _obtenerCalificacionesPrevias(
     List<ModeloCalificacion> lista,

@@ -95,7 +95,8 @@
         "description": "Description of the alert dialog of success after the KYC"
        
     },
-        "pageHomeTitleAppBar":"Inicio",
+
+    "pageHomeTitleAppBar":"Inicio",
     "@pageHomeTitleAppBar":{
         "description":"Title of the home page"
     },
@@ -109,10 +110,73 @@
         "description": "Title of the login page"
     },
 
-            "absencePageTitleAppBar": "Inasistencias",
+    "absencePageTitleAppBar": "Inasistencias",
     "@absencePageTitleAppBar": {
         "description": "Title of the absences page"
     },
+
+    "pageAttendanceWithoutCourses": "No hay cursos",
+    "@pageAttendanceWithoutCourses": {
+        "description": "Text to be displayed if there are no courses"
+    },
+
+    
+    "pageAttendanceTitleFinishButtonToEndAttendance": "Finalizar",
+    "@pageAttendanceTitleFinishButtonToEndAttendance": {
+        "description": "Text to be displayed in the button to end the Attendance"
+    },
+
+    "pageAttendanceTitleDefinedMissingAmountComplete": "Definidos {missing}/{all}",
+    "@pageAttendanceTitleDefinedMissingAmountComplete": {
+        "description": "Text to be displayed in the button to end the Attendance",
+        "placeholders" :{
+            "missing" : {
+                "type": "int"
+            },
+            "all" : {
+                "type": "int"
+            }
+        }
+    },
+
+    "pageAttendanceNotAbsentStudents": "No hay alumnos ausentes",
+    "@pageAttendanceNotAbsentStudents": {
+        "description": "Text to be displayed when there are no absent students"
+    },
+
+    "pageQualificationsNotQualification": "No hay calificaciones",
+    "@pageQualificationsNotQualification": {
+        "description": "Text to be displayed if there are no qualifications"
+    },
+
+    "dialogErrorToSendQualification": "Ha habido un error en el envío de\n notas. Intente nuevamente.",
+    "@dialogErrorToSendQualification": {
+        "description": "Label indicating an error when sending notes."
+    },
+
+    "dialogSuccessToSendQualification": "¡Las calificaciones fueron enviadas\n correctamente!",
+    "@dialogSuccessToSendQualification": {
+        "description": "Label indicating successful sending of qualifications."
+    },
+
+    "dialogAttendanceOfDay": "Asistencias del día",
+    "@dialogAttendanceOfDay": {
+        "description": "Text to be displayed in the title of the dialog"
+    },
+    "dialogAttendanceStateOfStudents": "con",
+    "@dialogAttendanceStateOfStudents": {
+        "description": "text in the dialog in the status of absent students"
+       
+    },
+    "dialogSeeMore": "Ver más",
+    "@dialogSeeMore": {
+        "description": "text on a button to see less"
+    },
+    "dialogSeeLess": "Ver menos",
+    "@dialogSeeLess": {
+        "description": "text on a button to see more"
+    },
+    
     "commonMail": "Mail",
     "@commonMail": {
         "description": "Text to be displayed in common places"
@@ -203,52 +267,6 @@
         "description": "Button or link used to decline or reject an action or decision."
     },
 
-    "pageAttendanceWithoutCourses": "No hay cursos",
-    "@pageAttendanceWithoutCourses": {
-        "description": "Text to be displayed if there are no courses"
-    },
-
-    "pageAttendanceTitleFinishButtonToEndAttendance": "Finalizar",
-    "@pageAttendanceTitleFinishButtonToEndAttendance": {
-        "description": "Text to be displayed in the button to end the Attendance"
-    },
-
-    "pageAttendanceTitleDefinedMissingAmountComplete": "Definidos {missing}/{all}",
-    "@pageAttendanceTitleDefinedMissingAmountComplete": {
-        "description": "Text to be displayed in the button to end the Attendance",
-        "placeholders" :{
-            "missing" : {
-                "type": "int"
-            },
-            "all" : {
-                "type": "int"
-            }
-        }
-    },
-
-    "pageAttendanceNotAbsentStudents": "No hay alumnos ausentes",
-    "@pageAttendanceNotAbsentStudents": {
-        "description": "Text to be displayed when there are no absent students"
-    },
-
-    "dialogAttendanceOfDay": "Asistencias del día",
-    "@dialogAttendanceOfDay": {
-        "description": "Text to be displayed in the title of the dialog"
-    },
-    "dialogAttendanceStateOfStudents": "con",
-    "@dialogAttendanceStateOfStudents": {
-        "description": "text in the dialog in the status of absent students"
-       
-    },
-    "dialogSeeMore": "Ver más",
-    "@dialogSeeMore": {
-        "description": "text on a button to see less"
-    },
-    "dialogSeeLess": "Ver menos",
-    "@dialogSeeLess": {
-        "description": "text on a button to see more"
-    },
-
     "commonName": "Nombre",
     "@commonName": {
         "description": "Label for the 'Name' field or column in the interface"
@@ -282,6 +300,11 @@
     "commonUndefined": "Sin def.",
     "@commonUndefined": {
         "description": "Label indicating that the attendance status of the student is undefined or not specified"
-    }
+    },
 
+    "commonDeleteAll": "Borrar todos",
+    "@commonDeleteAll": {
+        "description": "Label indicating to delete all items"
+    }
+    
 }

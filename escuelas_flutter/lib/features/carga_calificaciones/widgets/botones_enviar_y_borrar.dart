@@ -1,6 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias_bloc.dart';
+import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/features/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,8 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -35,7 +38,7 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
               .read<BlocCargaCalificaciones>()
               .add(BlocCargaCalificacionesEventoVaciarCalificaciones()),
           color: colores.error,
-          texto: 'BORRAR TODO', // TODO(mati): hacer l10n
+          texto: l10n.commonDeleteAll,
         ),
         EscuelasBoton.texto(
           context: context,
@@ -46,7 +49,7 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
               .read<BlocCargaCalificaciones>()
               .add(BlocCargaCalificacionesEventoEnviarCalificaciones()),
           color: colores.azul,
-          texto: 'CONFIRMAR', // TODO(mati): hacer l10n
+          texto: l10n.commonConfirm,
         ),
       ],
     );

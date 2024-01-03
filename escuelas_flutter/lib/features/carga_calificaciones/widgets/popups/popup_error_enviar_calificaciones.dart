@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -22,12 +23,13 @@ class DialogErrorAlEnviarCalificaciones extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return EscuelasDialog.fallido(
       altura: 80.ph,
       onTap: () => Navigator.pop(context),
       content: Text(
-        //TODO(mati): hacer l10n
-        'Ha habido un error en el envío de\n notas. Intente nuevamente,',
+        l10n.dialogErrorToSendQualification,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: colores.onBackground,

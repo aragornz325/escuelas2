@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -21,14 +22,14 @@ class DialogNotasEnviadasCorrectamente extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+    final l10n = context.l10n;
 
     return EscuelasDialog.exitoso(
       altura: 80.ph,
       context: context,
       onTap: () => Navigator.pop(context),
       content: Text(
-        //TODO(mati): hacer l10n
-        '¡Las notas fueron enviadas\n correctamente!',
+        l10n.dialogSuccessToSendQualification,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: colores.onBackground,
