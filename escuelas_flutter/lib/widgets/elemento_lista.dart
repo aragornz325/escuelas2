@@ -117,6 +117,34 @@ class ElementoLista extends StatelessWidget {
     );
   }
 
+  /// Elemento de lista para la supervision de cursos
+  factory ElementoLista.supervisionCurso({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+    required String nombreCurso,
+    required Color colorFondo,
+    required BuildContext context,
+    Widget? widgetLateralDerecho,
+  }) {
+    final colores = context.colores;
+    return ElementoLista(
+      texto: Text(
+        nombreCurso.toUpperCase(),
+        style: TextStyle(
+          fontSize: 16.pf,
+          fontWeight: FontWeight.w700,
+          color: colores.background,
+        ),
+      ),
+      altura: 55.ph,
+      ancho: 340.pw,
+      borderRadius: 40.sw,
+      colorFondo: colorFondo,
+      onTap: onTap,
+      widgetLateralDerecho: widgetLateralDerecho,
+    );
+  }
+
   /// Texto alineado a la izquierda
   final Text texto;
 
@@ -154,6 +182,8 @@ class ElementoLista extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+    final widgetLateralDerecho = this.widgetLateralDerecho;
+    final widgetLateralIzquierdo = this.widgetLateralIzquierdo;
 
     return GestureDetector(
       onTap: estaHabilitado ? onTap : null,
@@ -184,30 +214,27 @@ class ElementoLista extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.pw,
-              vertical: 5.ph,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    // TODO(anyone): Ver como hacer para que el overflow del texto sea dinamico segun el tamaño del componente
-                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: SizedBox(
-                        width: 230.pw,
-                        child: texto,
-                      ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  // TODO(anyone): Ver como hacer para que el overflow del texto sea dinamico segun el tamaño del componente
+                  if (widgetLateralIzquierdo != null) widgetLateralIzquierdo,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.pw,
+                      vertical: 5.ph,
                     ),
-                  ],
-                ),
-                if (widgetLateralDerecho != null) widgetLateralDerecho!,
-              ],
-            ),
+                    child: SizedBox(
+                      width: 200.pw,
+                      child: texto,
+                    ),
+                  ),
+                ],
+              ),
+              if (widgetLateralDerecho != null) widgetLateralDerecho,
+            ],
           ),
         ),
       ),
