@@ -15,6 +15,7 @@ class BlocSupervisionCursos
     on<BlocSupervisionCursosEventoInicializar>(_inicializar);
     add(BlocSupervisionCursosEventoInicializar());
   }
+
   Future<void> _inicializar(
     BlocSupervisionCursosEventoInicializar event,
     Emitter<BlocSupervisionCursosEstado> emit,
@@ -27,12 +28,30 @@ class BlocSupervisionCursos
           BlocSupervisionCursosEstadoExitoso.desde(
             state,
             listaCursos: [
-              Curso(nombre: 'Primero', id: 0),
-              Curso(nombre: 'Segundo', id: 1),
-              Curso(nombre: 'Tercero', id: 2),
-              Curso(nombre: 'Cuarto', id: 3),
-              Curso(nombre: 'Quinto', id: 4),
-              Curso(nombre: 'Sexto', id: 5),
+              CursosPorPeriodo(
+                desde: DateTime.now().copyWith(month: DateTime.now().month - 1),
+                hasta: DateTime.now(),
+                cursos: [
+                  Curso(nombre: 'Primero', id: 0),
+                  Curso(nombre: 'Segundo', id: 1),
+                  Curso(nombre: 'Tercero', id: 2),
+                  Curso(nombre: 'Cuarto', id: 3),
+                  Curso(nombre: 'Quinto', id: 4),
+                  Curso(nombre: 'Sexto', id: 5),
+                ],
+              ),
+              CursosPorPeriodo(
+                desde: DateTime.now(),
+                hasta: DateTime.now().copyWith(month: DateTime.now().month + 1),
+                cursos: [
+                  Curso(nombre: 'Primero', id: 0),
+                  Curso(nombre: 'Segundo', id: 1),
+                  Curso(nombre: 'Tercero', id: 2),
+                  Curso(nombre: 'Cuarto', id: 3),
+                  Curso(nombre: 'Quinto', id: 4),
+                  Curso(nombre: 'Sexto', id: 5),
+                ],
+              ),
             ],
           ),
         );
@@ -42,4 +61,16 @@ class BlocSupervisionCursos
       ),
     );
   }
+}
+
+class CursosPorPeriodo {
+  CursosPorPeriodo({
+    required this.desde,
+    required this.hasta,
+    required this.cursos,
+  });
+
+  final DateTime desde;
+  final DateTime hasta;
+  final List<Curso> cursos;
 }

@@ -184,6 +184,8 @@ class ElementoLista extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+    final widgetLateralDerecho = this.widgetLateralDerecho;
+    final widgetLateralIzquierdo = this.widgetLateralIzquierdo;
 
     return GestureDetector(
       onTap: estaHabilitado ? onTap : null,
@@ -214,30 +216,27 @@ class ElementoLista extends StatelessWidget {
         ),
         child: Align(
           alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-              horizontal: 20.pw,
-              vertical: 5.ph,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    // TODO(anyone): Ver como hacer para que el overflow del texto sea dinamico segun el tamaño del componente
-                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
-                    Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: SizedBox(
-                        width: 230.pw,
-                        child: texto,
-                      ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  // TODO(anyone): Ver como hacer para que el overflow del texto sea dinamico segun el tamaño del componente
+                  if (widgetLateralIzquierdo != null) widgetLateralIzquierdo,
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.pw,
+                      vertical: 5.ph,
                     ),
-                  ],
-                ),
-                if (widgetLateralDerecho != null) widgetLateralDerecho!,
-              ],
-            ),
+                    child: SizedBox(
+                      width: 200.pw,
+                      child: texto,
+                    ),
+                  ),
+                ],
+              ),
+              if (widgetLateralDerecho != null) widgetLateralDerecho,
+            ],
           ),
         ),
       ),

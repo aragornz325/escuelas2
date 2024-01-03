@@ -10,7 +10,8 @@ enum InfoDeRol {
   tomarInasistencia,
   listaCursos,
   usuariosPendientes,
-  personal;
+  personal,
+  supervision;
 
 // TODO(Anyone): Ver si es inasistencias o asistencias.
   // TODO(SAM): add funcion y pasarle context
@@ -25,6 +26,8 @@ enum InfoDeRol {
         return 'TOMAR INASISTENCIA';
       case InfoDeRol.usuariosPendientes:
         return 'USUARIOS PENDIENTES';
+      case InfoDeRol.supervision:
+        return 'SUPERVISION DE CURSOS';
     }
   }
 
@@ -39,6 +42,10 @@ enum InfoDeRol {
           Permiso.directivo,
         ];
       case InfoDeRol.usuariosPendientes:
+        return [
+          Permiso.directivo,
+        ];
+      case InfoDeRol.supervision:
         return [
           Permiso.directivo,
         ];
@@ -57,6 +64,8 @@ enum InfoDeRol {
         context.router.push(const RutaInasistencia());
       case InfoDeRol.usuariosPendientes:
         context.router.push(const RutaAsignacionDeRoles());
+      case InfoDeRol.supervision:
+        context.router.push(const RutaSupervisionCursos());
     }
   }
 }

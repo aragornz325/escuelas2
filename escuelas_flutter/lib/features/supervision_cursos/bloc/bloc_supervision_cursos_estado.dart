@@ -11,11 +11,11 @@ class BlocSupervisionCursosEstado {
 
   BlocSupervisionCursosEstado.desde(
     BlocSupervisionCursosEstado otro, {
-    List<Curso>? listaCursos,
+    List<CursosPorPeriodo>? listaCursos,
   }) : this._(
           listaCursos: listaCursos ?? otro.listaCursos,
         );
-  final List<Curso> listaCursos;
+  final List<CursosPorPeriodo> listaCursos;
   bool get todasMateriasCargadas => true;
   bool get habilitacionCargaDeCalificaciones => true;
   DateTime get fechaUltimaMateriaCargada => DateTime.now();

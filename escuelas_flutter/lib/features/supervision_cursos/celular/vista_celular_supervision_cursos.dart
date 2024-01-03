@@ -3,12 +3,14 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/supervision_cursos/bloc/bloc_supervision_cursos.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
-import 'package:escuelas_flutter/widgets/selector_de_fecha/selector_de_fecha.dart';
+import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_cuatrimestral_delegate.dart';
+import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
+import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
+import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
-import 'package:intl/intl.dart';
 
 /// {@template VistaCelularSupervisionCursos}
 /// TODO(anyone): AGREGAR DOCUMENTACION.
@@ -26,7 +28,19 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
         builder: (context, state) {
           return Column(
             children: [
-              const SelectorDeFecha(),
+              SelectorDePeriodo(
+                delegate: PeriodoMensualDelegate(
+                  context,
+                  onAvanzar: (periodo) {
+                    print(periodo.fechaDesde);
+                    print(periodo.fechaHasta);
+                  },
+                  onRetroceder: (periodo) {
+                    print(periodo.fechaDesde);
+                    print(periodo.fechaHasta);
+                  },
+                ),
+              ),
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
@@ -37,7 +51,7 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                             child: ElementoLista.supervisionCurso(
                               context: context,
                               onTap: () {},
-                              nombreCurso: e.nombre,
+                              nombreCurso: '',
                               colorFondo: state.todasMateriasCargadas
                                   ? colores.primaryContainer
                                   : colores.onSecondary,
@@ -45,7 +59,6 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                                       .habilitacionCargaDeCalificaciones
                                   ? Container(
                                       width: 80.pw,
-                                      height: 55.ph,
                                       decoration: BoxDecoration(
                                         borderRadius: BorderRadius.all(
                                           Radius.circular(30.sw),
