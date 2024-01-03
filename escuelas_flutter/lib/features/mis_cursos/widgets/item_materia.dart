@@ -1,23 +1,34 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-///{@template ItemUsuarioPendiente}
+///{@template ItemMateria}
 /// Datos del usuario pendiente
 /// {@endtemplate}
-class ItemUsuarioPendiente extends StatelessWidget {
-  /// {@macro ItemUsuarioPendiente}
-  const ItemUsuarioPendiente({
-    required this.usuario,
+class ItemMateria extends StatelessWidget {
+  /// {@macro ItemMateria}
+  const ItemMateria({
+    required this.materia,
+    required this.onTap,
+    required this.estaCargada,
+    required this.estaHabilitado,
     super.key,
   });
 
   /// Usuario del que se muestran los datos
-  final InfoUsuario usuario;
+  final Materia materia;
+
+  /// On tap del item
+  final VoidCallback onTap;
+
+  /// Indica si las calificaciones de esa materia ya fueron cargas en el mes
+  /// seleccionado
+  final bool estaCargada;
+
+  /// Indica si esta habilitado para presionarse o no el boton
+  final bool estaHabilitado;
 
   @override
   Widget build(BuildContext context) {
@@ -25,26 +36,22 @@ class ItemUsuarioPendiente extends StatelessWidget {
 
     return Row(
       children: [
-        ElementoLista.usuario(
-          nombreUsuario: Text(
-            usuario.nombre,
-            style: TextStyle(
-              fontSize: 14.pf,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
+        ElementoLista.materia(
+          nombreMateria: materia.nombre,
+          estaCargada: estaCargada,
+          estaHabilitado: estaHabilitado,
           context: context,
-          onTap: () =>
-              context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
+          onTap: () {},
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          onTap: () =>
-              context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
+          onTap: () {},
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),
-              color: colores.primaryContainer,
+              color: estaHabilitado
+                  ? colores.primaryContainer
+                  : colores.primaryContainer.withOpacity(.3),
             ),
             width: 35.sw,
             height: 35.sh,
@@ -52,7 +59,7 @@ class ItemUsuarioPendiente extends StatelessWidget {
               child: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: colores.background,
-                size: 15.sw,
+                size: 12.sw,
               ),
             ),
           ),

@@ -54,29 +54,27 @@ class MenuOpcionesPermisos extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
-          return SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(25),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: state.listaEtiquetas
-                    .map(
-                      (etiqueta) => Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: ElementoLista(
-                          texto: Text(
-                            etiqueta.titulo,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w800,
-                            ),
+          return Padding(
+            padding: const EdgeInsets.all(25),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: state.listaEtiquetas
+                  .map(
+                    (etiqueta) => Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: ElementoLista(
+                        texto: Text(
+                          etiqueta.titulo,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w800,
                           ),
-                          colorFondo: colores.tertiary,
-                          onTap: () => etiqueta.redirigirAVista(context),
                         ),
+                        colorFondo: colores.tertiary,
+                        onTap: () => etiqueta.redirigirAVista(context),
                       ),
-                    )
-                    .toList(),
-              ),
+                    ),
+                  )
+                  .toList(),
             ),
           );
         }

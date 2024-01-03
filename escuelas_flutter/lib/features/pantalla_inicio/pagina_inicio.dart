@@ -52,7 +52,7 @@ class _PaginaInicioState extends State<PaginaInicio> {
         widget.userInfo ??
             InfoUsuario(
               nombre: 'Pepe Silva',
-              permiso: [Permiso.alumno],
+              permiso: [Permiso.directivo],
             ),
       ), // TODO(SAM): Remover luego, analizar como hacer.
       child: const FullResponsiveScreen(
