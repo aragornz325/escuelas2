@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:full_responsive/full_responsive.dart';
 
 /// {@template EscuelasAppBar}
 /// Componente de navegacion estatico en conjunto con EscuelasDrawer
@@ -95,7 +94,6 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
                     ),
                   ),
             ],
-            expandedHeight: 100.ph,
             pinned: true,
           ),
         ],

@@ -78,6 +78,7 @@ class ElementoLista extends StatelessWidget {
         ),
       ),
       ancho: 300.pw,
+      altura: 50.ph,
       borderRadius: 20.sw,
       colorFondo: colores.tertiary,
       onTap: onTap,

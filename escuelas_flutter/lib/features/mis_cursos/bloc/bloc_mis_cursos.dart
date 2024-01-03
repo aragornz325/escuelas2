@@ -25,6 +25,7 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
     await operacionBloc(
       callback: () async {
         // final materias = await client.traermaterias;
+        // TODO(Gon): Eliminar hardcodeo y usar endpoint
         final materias = [
           Materia(nombre: 'MATEMATICA', id: 0, idCurso: 0),
           Materia(nombre: 'LENGUA', id: 1, idCurso: 1),
@@ -47,6 +48,7 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
           Materia(nombre: 'NATURALES', id: 3, idCurso: 2),
           Materia(nombre: 'LATIN', id: 3, idCurso: 2),
         ];
+
         final cursos = <int, List<Materia>>{};
 
         for (final materia in materias) {
