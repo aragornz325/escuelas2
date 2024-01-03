@@ -108,7 +108,7 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
           create: (context) => BlocSelectorDeFecha(),
         ),
         BlocProvider<BlocKyc>(
-          create: (context) => BlocKyc(),
+          create: (context) => BlocKyc()..add(const BlocKycEventoInicializar()),
         ),
       ],
       child: BlocListener<BlocKyc, BlocKycEstado>(

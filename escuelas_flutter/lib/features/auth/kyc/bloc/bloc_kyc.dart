@@ -145,7 +145,8 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
-  /// Agrega una nueva opcion a la lista de kyc
+// TODO(Gon): Al eliminar no se actualizan los dropdowns
+  /// Elimina una opcion de la lista de kyc
   void _eliminarOpcion(
     BlocKycEventoEliminarOpcion event,
     Emitter<BlocKycEstado> emit,
