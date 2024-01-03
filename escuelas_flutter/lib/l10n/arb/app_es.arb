@@ -36,7 +36,7 @@
         "description": "Button label to add a subject in the KYC (Know Your Customer) process."
     },
 
-    "pageKycFormDeleteSubject": "Delete subject",
+    "pageKycFormDeleteSubject": "Eliminar materia",
     "@pageKycFormDeleteSubject": {
         "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
     },

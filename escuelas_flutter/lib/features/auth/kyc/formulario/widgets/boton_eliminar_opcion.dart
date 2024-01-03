@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template BotonAgregarBloqueMateria}
+/// {@template BotonEliminarOpcion}
 /// Botón para agregar un [BloqueMateria]
 /// {@endtemplate}
 class BotonEliminarOpcion extends StatelessWidget {
-  /// {@macro BotonAgregarBloqueMateria}
+  /// {@macro BotonEliminarOpcion}
   const BotonEliminarOpcion({
     required this.idBloque,
     super.key,
