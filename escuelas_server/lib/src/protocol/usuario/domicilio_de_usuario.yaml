@@ -5,6 +5,5 @@ fields:
   calle: String
   numero: int
   idCodigoPostal: int
-  idLocalidad: int
   idCiudad: int
   idProvincia: int
