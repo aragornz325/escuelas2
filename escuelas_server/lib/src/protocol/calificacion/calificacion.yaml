@@ -1,0 +1,9 @@
+class: Calificacion
+table: calificaciones
+fields:
+  idTipoCalificacion: int
+  valor: int
+  detalle: String
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

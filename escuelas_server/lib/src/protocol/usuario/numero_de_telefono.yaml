@@ -1,0 +1,9 @@
+class: NumeroDeTelefono
+table: numeros_de_telefono
+fields:
+  idUsuario: int, relation(parent=usuarios)
+  numeroDeTelefono: String
+  tipoDeTelefono: TipoDeTelefono
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

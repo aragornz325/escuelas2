@@ -1,0 +1,7 @@
+class: ValorCalificacion
+table: valor_calificaciones
+fields:
+  valor: int
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?
