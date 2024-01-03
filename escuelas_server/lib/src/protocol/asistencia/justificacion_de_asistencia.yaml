@@ -1,0 +1,9 @@
+class: JustificacionDeAsistencia
+table: justificaciones_de_asistencia
+fields:
+  idAsistencia: int, relation(parent=asistencias_diarias)
+  observaciones: String
+  adjunto: String?
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

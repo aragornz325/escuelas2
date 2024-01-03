@@ -1,0 +1,7 @@
+exception: ExcepcionCustom
+fields:
+  titulo: String
+  mensaje: String
+  tipoDeError: TipoExcepcion
+  stackTrace: String?
+  codigoError: int
