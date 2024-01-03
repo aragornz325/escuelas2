@@ -61,9 +61,11 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
       body: BlocConsumer<BlocLogin, BlocLoginEstado>(
         listener: (context, state) {
           if (state is BlocLoginEstadoErrorAlIniciarSesion) {
+            //TODO! (Manu):agregar pop ups cuando esten
             const Text('Error al iniciar sesion');
           }
           if (state is BlocLoginEstadoErrorGeneral) {
+            //TODO! (Manu):agregar pop ups cuando esten
             const Text('Error');
           }
           if (state is BlocLoginEstadoExitosoIniciarSesion) {
@@ -91,7 +93,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                 ),
                 SizedBox(height: 20.ph),
                 Text(
-                  l10n.loginPageCredentialsIndicativeText,
+                  l10n.pageLoginCredentialsIndicativeText,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: colores.onBackground,
@@ -119,16 +121,18 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                 SizedBox(height: 30.ph),
                 EscuelasBoton.texto(
                   estaHabilitado: state.botonIngresarHabilitado,
-                  onTap: () {},
+                  onTap: () {
+                    //! TODO (Manu):agregar funcion cuando exista el endpoint
+                  },
                   color: colores.primary,
                   texto: l10n.commonLogIn.toUpperCase(),
                   context: context,
                 ),
                 SizedBox(height: 30.ph),
                 Text(
-                  'O',
+                  l10n.pageLoginTextOr,
                   style: TextStyle(
-                    color: colores.onPrimary,
+                    color: colores.onBackground,
                     fontSize: 10.pf,
                   ),
                 ),
@@ -137,6 +141,12 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                   onTap: _onPressedLoginConGoogle,
                   context: context,
                 ),
+                const Spacer(),
+                Text(
+                  l10n.pageLoginTextAllRightsReserved,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 30.ph),
               ],
             ),
           );

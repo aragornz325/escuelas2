@@ -91,7 +91,7 @@ class EscuelasBoton extends StatelessWidget {
           ),
           SizedBox(width: 15.pw),
           Text(
-            l10n.loginPageLoginWithGoogle,
+            l10n.pageLoginLoginWithGoogle,
             style: TextStyle(
               fontSize: 12.pf,
               color: colores.background,

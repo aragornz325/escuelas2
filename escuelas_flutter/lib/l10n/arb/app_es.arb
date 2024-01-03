@@ -91,15 +91,26 @@
         }
     },
 
-    "loginPageCredentialsIndicativeText": "Ingrese sus credenciales de ingreso brindadas\npreviamente por el colegio o directivo",
-    "@loginPageCredentialsIndicativeText": {
+    "pageLoginCredentialsIndicativeText": "Ingrese sus credenciales de ingreso brindadas\npreviamente por el colegio o directivo",
+    "@pageLoginCredentialsIndicativeText": {
         "description": "Text to indicate that you must enter your credentials"
     },
 
-    "loginPageLoginWithGoogle": "Ingresar con Google",
-    "@loginPageLoginWithGoogle": {
+    "pageLoginLoginWithGoogle": "Ingresar con Google",
+    "@pageLoginLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
     },
+    
+    "pageLoginTextAllRightsReserved": "Desarrollado por © Nidus Development - Argentina\nTodos los derechos reservados",
+    "@pageLoginTextAllRightsReserved": {
+        "description": "text to indicate the origin of development"
+    },
+
+    "pageLoginTextOr": "O",
+    "@pageLoginTextOr": {
+        "description": "text to indicate the the options of login"
+    },
+
     
     "commonWelcome": "¡Bienvenido!",
     "@commonWelcome": {

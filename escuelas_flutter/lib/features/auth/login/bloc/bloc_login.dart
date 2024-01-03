@@ -2,6 +2,7 @@ import 'package:escuelas_flutter/extensiones/extension_bloc.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
 
 part 'bloc_login_estado.dart';
@@ -64,10 +65,15 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
       callback: () async {
         final userInfo = await signInWithGoogle(
           client.modules.auth,
-          redirectUri: Uri.parse('http://localhost:8082/googlesignin'),
+          clientId: dotenv.env['CLIENT_ID_GOOGLE_SIGNIN'],
+          serverClientId: dotenv.env['SERVER_CLIENT_ID_GOOGLE_SIGNIN'],
+          redirectUri: Uri.parse(dotenv.env['REDIRECT_URI_GOOGLE_SIGNIN']!),
         );
-
-        emit(BlocLoginEstadoExitosoIniciarSesion.desde(state));
+        if (userInfo == null) {
+          emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
+        } else {
+          emit(BlocLoginEstadoExitosoIniciarSesion.desde(state));
+        }
       },
       onError: (e, st) {
         emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));

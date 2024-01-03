@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
 
 const _googleServerClientId =
-    '554988659961-kos5ov2pb8j6jujrkajo8866rp3gdic7.apps.googleusercontent.com';
+    '554988659961-utff4q26sh4e256ghmn986b90gutpqqg.apps.googleusercontent.com';
 
-//! TODO(Anyone): cambiar por pagina de login
+//! TODO(Anyone): cambiar por pagina de login escritorio
 class SignInPage extends StatelessWidget {
   const SignInPage({super.key});
 
@@ -21,6 +21,7 @@ class SignInPage extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              ///
               SignInWithGoogleButton(
                 caller: client.modules.auth,
                 serverClientId: _googleServerClientId,

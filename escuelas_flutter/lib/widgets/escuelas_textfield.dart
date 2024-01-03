@@ -151,7 +151,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
       height: widget.height ?? max(40.ph, 40.sh),
       child: TextFormField(
         controller: widget.controller,
-        keyboardType: widget.keyboardType ?? TextInputType.none,
+        keyboardType: widget.keyboardType ?? TextInputType.text,
         inputFormatters: widget.inputFormatters,
         obscureText: widget.obscureText ?? false,
         cursorColor: widget.cursorColor ?? colores.primary,

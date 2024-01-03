@@ -18,7 +18,6 @@ void run(List<String> args) async {
     Protocol(),
     Endpoints(),
   );
-  pod.webServer.addRoute(auth.RouteGoogleSignIn(), '/googlesignin');
 
   // If you are using any future calls, they need to be registered here.
   // pod.registerFutureCall(ExampleFutureCall(), 'exampleFutureCall');
@@ -31,6 +30,7 @@ void run(List<String> args) async {
     RouteStaticDirectory(serverDirectory: 'static', basePath: '/'),
     '/*',
   );
+  pod.webServer.addRoute(auth.RouteGoogleSignIn(), '/googlesignin');
 
   auth.AuthConfig.set(
     auth.AuthConfig(
