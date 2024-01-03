@@ -16,12 +16,9 @@ class PaginaSupervisionCursos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<BlocSupervisionCursos>(
-          create: (context) => BlocSupervisionCursos(),
-        ),
-      ],
+    return BlocProvider<BlocSupervisionCursos>(
+      create: (context) => BlocSupervisionCursos()
+        ..add(BlocSupervisionCursosEventoInicializar()),
       child: const FullResponsiveScreen(
         celular: VistaCelularSupervisionCursos(),
         escritorio: VistaEscritorioSupervisionCursos(),

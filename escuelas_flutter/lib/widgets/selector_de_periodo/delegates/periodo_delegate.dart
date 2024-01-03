@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
 /// {@template PeriodoDelegate}
-///
+/// Delegado para el selector de periodo.
 /// {@endtemplate}
 abstract class PeriodoDelegate {
+  /// {@macro PeriodoDelegate}
   PeriodoDelegate(Periodo periodoInicial) : periodoActual = periodoInicial;
 
   /// El periodo actualmente seleccionado

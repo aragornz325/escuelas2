@@ -22,7 +22,7 @@ class BlocSupervisionCursosEstado {
 }
 
 /// {@template BlocSupervisionCursosEstadoInicial}
-/// Estado inicial de los componentes de la pantalla 'Inicio'
+/// Estado inicial de los componentes de la pantalla 'SupervisionCursos'
 /// {@endtemplate}
 class BlocSupervisionCursosEstadoInicial extends BlocSupervisionCursosEstado {
   /// {@macro BlocSupervisionCursosEstadoInicial}
@@ -30,7 +30,7 @@ class BlocSupervisionCursosEstadoInicial extends BlocSupervisionCursosEstado {
 }
 
 /// {@template BlocSupervisionCursosEstadoCargando}
-/// Estado de cargando de los componentes de la pantalla 'Inicio'
+/// Estado de cargando de los componentes de la pantalla 'SupervisionCursos'
 /// {@endtemplate}
 class BlocSupervisionCursosEstadoCargando extends BlocSupervisionCursosEstado {
   /// {@macro BlocSupervisionCursosEstadoCargando}
@@ -38,7 +38,7 @@ class BlocSupervisionCursosEstadoCargando extends BlocSupervisionCursosEstado {
 }
 
 /// {@template BlocSupervisionCursosEstadoExitoso}
-/// Estado exitoso general de los componentes de la pantalla 'Inicio'
+/// Estado exitoso general de los componentes de la pantalla 'SupervisionCursos'
 /// {@endtemplate}
 class BlocSupervisionCursosEstadoExitoso extends BlocSupervisionCursosEstado {
   /// {@macro BlocSupervisionCursosEstadoExitoso}
@@ -49,7 +49,7 @@ class BlocSupervisionCursosEstadoExitoso extends BlocSupervisionCursosEstado {
 }
 
 /// {@template BlocSupervisionCursosEstadoFallido}
-/// Estado de error de los componentes de la pantalla 'Inicio'
+/// Estado de error de los componentes de la pantalla 'SupervisionCursos'
 /// {@endtemplate}
 class BlocSupervisionCursosEstadoError extends BlocSupervisionCursosEstado {
   /// {@macro BlocSupervisionCursosEstadoError}

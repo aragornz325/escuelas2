@@ -10,10 +10,9 @@ part 'bloc_supervision_cursos_evento.dart';
 /// {@endtemplate}
 class BlocSupervisionCursos
     extends Bloc<BlocSupervisionCursosEvento, BlocSupervisionCursosEstado> {
-  /// {@macro BlocInicio}
+  /// {@macro BlocSupervisionCursos}
   BlocSupervisionCursos() : super(const BlocSupervisionCursosEstadoInicial()) {
     on<BlocSupervisionCursosEventoInicializar>(_inicializar);
-    add(BlocSupervisionCursosEventoInicializar());
   }
 
   Future<void> _inicializar(
@@ -23,7 +22,7 @@ class BlocSupervisionCursos
     emit(BlocSupervisionCursosEstadoCargando.desde(state));
     await operacionBloc(
       callback: () {
-        // final listaCursos = await client.traercursos;
+// TODO(anyone): traer data del backend
         emit(
           BlocSupervisionCursosEstadoExitoso.desde(
             state,
@@ -63,6 +62,8 @@ class BlocSupervisionCursos
   }
 }
 
+// Clase temporal para simular la data que vendria del backend
+// TODO(anyone): borrar esta clase cuando se traiga la data del backend.
 class CursosPorPeriodo {
   CursosPorPeriodo({
     required this.desde,

@@ -11,15 +11,10 @@ import 'package:full_responsive/full_responsive.dart';
 /// Vista para celular de la pagina 'Mis Cursos' donde se muestra una lista de
 /// las materias ordenas por curso
 /// {@endtemplate}
-class VistaCelularMisCursos extends StatefulWidget {
+class VistaCelularMisCursos extends StatelessWidget {
   /// {@macro VistaCelularMisCursos}
   const VistaCelularMisCursos({super.key});
 
-  @override
-  State<VistaCelularMisCursos> createState() => _VistaCelularMisCursosState();
-}
-
-class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;

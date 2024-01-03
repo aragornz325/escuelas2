@@ -5,9 +5,13 @@ extension DateTimeX on DateTime {
   String nombreMes(BuildContext context) =>
       DateFormat('MMMM', Localizations.localeOf(context).languageCode)
           .format(this);
+
+  // TODO(anyone): En algun momento hacer que soporte
+  // formato de fecha segun el pais.
+  /// Devuelve la fecha formateada como dd/MM/yy.
   String get formatear => DateFormat('dd/MM/yy').format(this);
 
-  // TODO(anyomus): Agregar traducciones.
+  // TODO(anyone): Agregar traducciones.
   String devolverEtiqueta() {
     if (month >= 1 && month <= 3) {
       return '1er Cuat.';
