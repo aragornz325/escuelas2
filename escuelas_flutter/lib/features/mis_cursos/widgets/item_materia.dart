@@ -37,16 +37,7 @@ class ItemMateria extends StatelessWidget {
     return Row(
       children: [
         ElementoLista.materia(
-          nombreMateria: Text(
-            materia.nombre,
-            style: TextStyle(
-              fontSize: 12.pf,
-              fontWeight: FontWeight.w700,
-              color: estaHabilitado
-                  ? colores.onBackground
-                  : colores.onBackground.withOpacity(.3),
-            ),
-          ),
+          nombreMateria: materia.nombre,
           estaCargada: estaCargada,
           estaHabilitado: estaHabilitado,
           context: context,

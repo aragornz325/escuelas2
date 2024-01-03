@@ -56,7 +56,7 @@ class ElementoLista extends StatelessWidget {
     required VoidCallback onTap,
 
     /// Nombre de la materia.
-    required Text nombreMateria,
+    required String nombreMateria,
 
     /// Contexto para utilizar colores del tema
     required BuildContext context,
@@ -66,8 +66,17 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
 
     return ElementoLista(
-      texto: nombreMateria,
-      altura: 40.ph,
+      texto: Text(
+        nombreMateria,
+        style: TextStyle(
+          fontSize: 12.pf,
+          overflow: TextOverflow.ellipsis,
+          fontWeight: FontWeight.w700,
+          color: estaHabilitado
+              ? colores.onBackground
+              : colores.onBackground.withOpacity(.3),
+        ),
+      ),
       ancho: 300.pw,
       borderRadius: 20.sw,
       colorFondo: colores.tertiary,
@@ -187,10 +196,14 @@ class ElementoLista extends StatelessWidget {
               children: [
                 Row(
                   children: [
+                    // TODO(anyone): Ver como hacer para que el overflow del texto sea dinamico segun el tamaño del componente
                     if (widgetLateralIzquierdo != null) widgetLateralIzquierdo!,
                     Padding(
                       padding: const EdgeInsets.all(8),
-                      child: texto,
+                      child: SizedBox(
+                        width: 230.pw,
+                        child: texto,
+                      ),
                     ),
                   ],
                 ),
