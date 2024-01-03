@@ -12,8 +12,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
   /// {@macro BlocMisCursos}
   BlocMisCursos() : super(const BlocMisCursosEstadoInicial()) {
     on<BlocMisCursosEventoInicializar>(_inicializar);
-
-    add(BlocMisCursosEventoInicializar());
   }
 
   /// Trae las materias asignadas al usuario y las ordena por curso

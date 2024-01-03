@@ -6,14 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template BotonAgregarBloqueMateria}
+/// {@template BotonEliminarOpcion}
 /// Botón para agregar un [BloqueMateria]
 /// {@endtemplate}
-class BotonAgregarBloqueMateria extends StatelessWidget {
-  /// {@macro BotonAgregarBloqueMateria}
-  const BotonAgregarBloqueMateria({
+class BotonEliminarOpcion extends StatelessWidget {
+  /// {@macro BotonEliminarOpcion}
+  const BotonEliminarOpcion({
+    required this.idBloque,
     super.key,
   });
+  final int idBloque;
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +24,18 @@ class BotonAgregarBloqueMateria extends StatelessWidget {
     final l10n = context.l10n;
 
     return TextButton.icon(
-      onPressed: () =>
-          context.read<BlocKyc>().add(const BlocKycEventoAgregarOpcion()),
+      onPressed: () => context
+          .read<BlocKyc>()
+          .add(BlocKycEventoEliminarOpcion(idOpcion: idBloque)),
       icon: Icon(
         Icons.add_circle_outline_outlined,
-        color: colores.onBackground,
+        color: colores.error,
         size: 18.pw,
       ),
       label: Text(
-        l10n.pageKycFormAddSubject.toUpperCase(),
+        l10n.pageKycFormDeleteSubject.toUpperCase(),
         style: TextStyle(
-          color: colores.onBackground,
+          color: colores.error,
           decoration: TextDecoration.underline,
           fontWeight: FontWeight.w700,
           fontSize: 15.pf,

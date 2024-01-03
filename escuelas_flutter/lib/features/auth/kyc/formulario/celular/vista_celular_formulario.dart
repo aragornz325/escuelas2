@@ -49,7 +49,7 @@ class VistaCelularFormulario extends StatelessWidget {
               const ListaDeBloqueMateria(),
               //TODO (Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
               if (state.rolElegido?.nombre == 'DOCENTE')
-                const BotonAgregarBloqueMateria(),
+                const BotonAgregarOpcion(),
               SizedBox(height: 20.ph),
               const BotonSolicitarRol(),
             ],

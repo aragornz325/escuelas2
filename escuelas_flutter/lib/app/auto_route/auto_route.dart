@@ -29,12 +29,6 @@ class AppRouter extends $AppRouter {
   @override
   List<AutoRoute> get routes => [
         CustomRoute(
-          page: RutaPerfilUsuario.page,
-          path: '/perfil-usuario/:idUsuario',
-          // guards: [initialGuard],
-          transitionsBuilder: TransitionsBuilders.noTransition,
-        ),
-        CustomRoute(
           page: RutaLogin.page,
           path: '/login',
           initial: true,
@@ -47,12 +41,16 @@ class AppRouter extends $AppRouter {
           // initial: true,
           transitionsBuilder: TransitionsBuilders.noTransition,
           // guards: [initialGuard],
-
           children: [
             CustomRoute(
-              initial: true,
               page: RutaInicio.page,
               path: 'home',
+              // guards: [initialGuard],
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
+            CustomRoute(
+              page: RutaPerfilUsuario.page,
+              path: 'perfil-usuario/:idUsuario',
               // guards: [initialGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
@@ -64,28 +62,31 @@ class AppRouter extends $AppRouter {
             ),
             CustomRoute(
               page: RutaAsignacionDeRoles.page,
+              initial: true,
               path: 'role-assignment',
               // guards: [authGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             CustomRoute(
-              page: RutaFormulario.page,
-              path: 'form',
+              page: RutaKyc.page,
+              path: 'kyc',
               // guards: [authGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
-            ),
-            CustomRoute(
-              page: RutaSeleccionDeRol.page,
-              path: 'role-selection',
-              //   initial: true,
-              // guards: [initialGuard],
-              transitionsBuilder: TransitionsBuilders.noTransition,
-            ),
-            CustomRoute(
-              page: RutaKyc.page,
-              path: 'kyc-form',
-              // guards: [initialGuard],
-              transitionsBuilder: TransitionsBuilders.noTransition,
+              children: [
+                CustomRoute(
+                  page: RutaSeleccionDeRol.page,
+                  path: 'role-selection',
+                  initial: true,
+                  // guards: [initialGuard],
+                  transitionsBuilder: TransitionsBuilders.noTransition,
+                ),
+                CustomRoute(
+                  page: RutaFormulario.page,
+                  path: 'form',
+                  // guards: [initialGuard],
+                  transitionsBuilder: TransitionsBuilders.noTransition,
+                ),
+              ],
             ),
             CustomRoute(
               page: RutaInasistencia.page,
