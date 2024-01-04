@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:escuelas_flutter/extensiones/extension_bloc.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_drawer_estado.dart';
@@ -32,17 +31,13 @@ class BlocDrawer extends Bloc<BlocDrawerEvento, BlocDrawerEstado> {
 
     await operacionBloc(
       callback: () async {
+        // TODO(ANYONE): Ver si luego se agrega client.
         //(client) async {
-        final cerroSesion = Random().nextBool();
-        // await sessionManager.signOut();
-// TODO(ANYONE): Descomentar luego.
-        if (cerroSesion) {
-          emit(
-            BlocDrawerEstadoExitosoGeneral.desde(
-              state,
-              cerroSesion: cerroSesion,
-            ),
-          );
+
+        await sessionManager.signOut();
+
+        if (!sessionManager.isSignedIn) {
+          emit(BlocDrawerEstadoCerrarSesionExitoso.desde(state));
         } else {
           emit(
             BlocDrawerEstadoError.desde(state),
@@ -65,8 +60,6 @@ class BlocDrawer extends Bloc<BlocDrawerEvento, BlocDrawerEstado> {
     emit(
       BlocDrawerEstadoCambioDePagina.desde(
         state,
-
-        //    pageDrawer: event.pageDrawer,
       ),
     );
   }

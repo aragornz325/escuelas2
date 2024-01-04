@@ -16,6 +16,7 @@ class VistaCelularInasistencias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     final l10n = context.l10n;
 
     return BlocBuilder<BlocAsistencias, BlocAsistenciasEstado>(

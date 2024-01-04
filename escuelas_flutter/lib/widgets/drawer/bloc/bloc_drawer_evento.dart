@@ -18,8 +18,5 @@ class BlocDrawerEventoCerrarSesion extends BlocDrawerEvento {}
 /// {@endtemplate}
 class BlocDrawerEventoCambiarDeDrawerPage extends BlocDrawerEvento {
   BlocDrawerEventoCambiarDeDrawerPage();
-  // {required this.pageDrawer});
-// TODO(SAM): Descomentar si usamos este drawer
-  /// Page de Drawer seleccionado a cambiar.
-  // final DrawerPage pageDrawer;
+ 
 }
