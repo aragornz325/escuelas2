@@ -13,6 +13,8 @@ abstract class PeriodoDelegate {
   /// El periodo anterior al actualmente seleccionado
   Periodo get periodoAnterior => throw UnimplementedError();
 
+  int get cantidadDePeriodosEnPantalla => throw UnimplementedError();
+
   /// El periodo posterior al actualmente seleccionado
   Periodo get periodoPosterior => throw UnimplementedError();
 
@@ -47,10 +49,12 @@ class Periodo {
     required this.etiqueta,
     required this.fechaDesde,
     required this.fechaHasta,
+    this.etiqueta2,
   });
 
   /// La etiqueta del periodo
   final String etiqueta;
+  final String? etiqueta2;
 
   /// La fecha del periodo
   final DateTime fechaDesde;

@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/features/asistencias/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_diario_delegate.dart';
+import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo_diario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -33,6 +35,11 @@ class VistaCelularInasistencias extends StatelessWidget {
         }
         return Column(
           children: [
+            SelectorDePeriodoDiario(
+              delegate: PeriodoDiarioDelegate(
+                context,
+              ),
+            ),
             const Expanded(child: ListaDeCursos()),
             if (state.cursoDesplegado)
               BotonFinalizarAsistencias(
