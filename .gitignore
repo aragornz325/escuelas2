@@ -8,3 +8,4 @@ esculas_flutter/windows/flutter
 escuelas_server/config/passwords.yaml
 escuelas_server/lib/env/env.g.dart
 .dart_tool/package_config.json
+escuelas_server/lib/env/.env

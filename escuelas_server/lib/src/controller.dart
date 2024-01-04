@@ -1,4 +1,4 @@
-import 'package:escuelas_server/servicio.dart';
+import 'package:escuelas_server/src/servicio.dart';
 import 'package:logging/logging.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 
