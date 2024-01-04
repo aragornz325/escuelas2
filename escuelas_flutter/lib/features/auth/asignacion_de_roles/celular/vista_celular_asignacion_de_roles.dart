@@ -28,7 +28,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
 
         return SingleChildScrollView(
           child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10.pw),
+            padding: EdgeInsets.symmetric(horizontal: 20.pw),
             child: Column(
               children: Roles.values
                   .map(
@@ -57,6 +57,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                                 ),
                               ),
                             ),
+                        SizedBox(height: 20.ph),
                       ],
                     ),
                   )

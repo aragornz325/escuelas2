@@ -62,7 +62,7 @@ class ItemMateria extends StatelessWidget {
               child: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: colores.background,
-                size: 12.sw,
+                size: 10.sw,
               ),
             ),
           ),

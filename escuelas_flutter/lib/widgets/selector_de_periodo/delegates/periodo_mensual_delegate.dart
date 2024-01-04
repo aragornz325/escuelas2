@@ -13,8 +13,7 @@ class PeriodoMensualDelegate extends PeriodoDelegate {
     this.onAvanzar,
   }) : super(
           Periodo(
-            etiqueta:
-                DateTime.now().nombreMes(context).toUpperCase().substring(0, 3),
+            etiqueta: DateTime.now().nombreMes(context).toUpperCase(),
             fechaDesde: DateTime.now().copyWith(day: 1),
             fechaHasta: DateTime(DateTime.now().year, DateTime.now().month + 1)
                 .subtract(const Duration(days: 1)),
@@ -36,8 +35,7 @@ class PeriodoMensualDelegate extends PeriodoDelegate {
     );
 
     return Periodo(
-      etiqueta:
-          anteriorFechaDesde.nombreMes(context).toUpperCase().substring(0, 3),
+      etiqueta: anteriorFechaDesde.nombreMes(context).toUpperCase(),
       fechaDesde: anteriorFechaDesde,
       fechaHasta: anteriorFechaDesde.copyWith(
         month: anteriorFechaDesde.month + 1,
@@ -52,8 +50,7 @@ class PeriodoMensualDelegate extends PeriodoDelegate {
     );
 
     return Periodo(
-      etiqueta:
-          posteriorFechaDesde.nombreMes(context).toUpperCase().substring(0, 3),
+      etiqueta: posteriorFechaDesde.nombreMes(context).toUpperCase(),
       fechaDesde: posteriorFechaDesde,
       fechaHasta: posteriorFechaDesde.copyWith(
         month: posteriorFechaDesde.month + 1,

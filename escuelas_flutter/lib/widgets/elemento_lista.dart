@@ -16,11 +16,11 @@ class ElementoLista extends StatelessWidget {
     this.tieneBoxShadow = false,
     this.estaHabilitado = true,
     this.onTap,
+    this.padding,
     this.altura,
     this.ancho,
     this.borderRadius = 20,
     this.widgetLateralDerecho,
-    this.colorTitulo,
     this.widgetLateralIzquierdo,
     super.key,
   });
@@ -47,7 +47,10 @@ class ElementoLista extends StatelessWidget {
           fontWeight: FontWeight.w900,
         ),
       ),
-      altura: 65.ph,
+      padding: EdgeInsets.symmetric(
+        vertical: 5.ph,
+      ).copyWith(left: 20.pw),
+      altura: 85.ph,
       borderRadius: 20.sw,
       colorFondo:
           estaPresionado ? colores.grisBotonPresionado : colores.tertiary,
@@ -122,7 +125,7 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
 
     return ElementoLista(
-      altura: 50.ph,
+      altura: 55.ph,
       texto: Text(
         nombreUsuario,
         style: TextStyle(
@@ -133,6 +136,11 @@ class ElementoLista extends StatelessWidget {
       borderRadius: 40.sw,
       colorFondo: colores.tertiary,
       onTap: onTap,
+      widgetLateralIzquierdo: Icon(
+        Icons.circle,
+        color: colores.grisBotonPresionado,
+        size: 35.sw,
+      ),
     );
   }
 
@@ -281,7 +289,8 @@ class ElementoLista extends StatelessWidget {
   /// En caso de ser true agrega box shadow al presionar el elemento.
   final bool tieneBoxShadow;
 
-  final Color? colorTitulo;
+  /// Espacio entre el contenido y el borde del [ElementoLista]
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
@@ -323,9 +332,10 @@ class ElementoLista extends StatelessWidget {
           children: [
             Flexible(
               child: Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 5.ph,
-                ).copyWith(left: 10.pw),
+                padding: padding ??
+                    EdgeInsets.symmetric(
+                      vertical: 5.ph,
+                    ).copyWith(left: 10.pw),
                 child: Row(
                   children: [
                     if (widgetLateralIzquierdo != null) widgetLateralIzquierdo,

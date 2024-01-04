@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -259,10 +260,10 @@ class _EscuelasDropdownPopupState extends State<EscuelasDropdownPopup> {
                     decoration: BoxDecoration(
                       borderRadius: controller.isOpen
                           ? BorderRadius.only(
-                              topRight: Radius.circular(10.sw),
-                              topLeft: Radius.circular(10.sw),
+                              topRight: Radius.circular(20.sw),
+                              topLeft: Radius.circular(20.sw),
                             )
-                          : BorderRadius.all(Radius.circular(10.sw)),
+                          : BorderRadius.all(Radius.circular(20.sw)),
                       color: colores.tertiary,
                     ),
                     width: getWidth(boxConstraints).sw,
@@ -341,21 +342,27 @@ class _EscuelasDropdownPopupState extends State<EscuelasDropdownPopup> {
                   },
                   selectAllButtonHeight: aditionalOptionHeight,
                 ),
-              ...filteredOptions.map(
-                (option) => _CustomTile(
-                  option: option,
-                  filterController: filterController,
-                  heightTile: widget.heightTile,
-                  selectedList: selectedList,
-                  alwaysOneSelected: widget.alwaysOneSelected,
-                  unSelectedOptionColor: widget.unSelectedOptionColor,
-                  selectedOptionColor: widget.selectedOptionColor,
-                  multiSelect: widget.multiSelect,
-                  unSelectAll: selectedList.clear,
-                  isSelected: isSelected(option.id),
-                  onChanged: (value) =>
-                      handleOnChange(newValue: value, option: option),
-                ),
+              ...filteredOptions.asMap().entries.map(
+                (entry) {
+                  final index = entry.key;
+                  final option = entry.value;
+
+                  return _CustomTile(
+                    option: option,
+                    optionIndex: index,
+                    filterController: filterController,
+                    heightTile: widget.heightTile,
+                    selectedList: selectedList,
+                    alwaysOneSelected: widget.alwaysOneSelected,
+                    unSelectedOptionColor: widget.unSelectedOptionColor,
+                    selectedOptionColor: widget.selectedOptionColor,
+                    multiSelect: widget.multiSelect,
+                    unSelectAll: selectedList.clear,
+                    isSelected: isSelected(index),
+                    onChanged: (value) =>
+                        handleOnChange(newValue: value, option: option),
+                  );
+                },
               ),
             ],
           ),
@@ -377,12 +384,16 @@ class _CustomTile extends StatelessWidget {
     required this.option,
     required this.heightTile,
     required this.filterController,
+    required this.optionIndex,
     this.alwaysOneSelected = false,
     this.selectedList = const [],
   });
 
   /// Indicate if the option is selected
   final bool isSelected;
+
+  /// Index of the option
+  final int optionIndex;
 
   /// Called when the user taps a tile
   final ValueChanged<bool> onChanged;
@@ -494,6 +505,11 @@ class _CustomTile extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             color: isSelected ? selectedOptionColor : colores.tertiary,
+            border: Border(
+              top: optionIndex == 0
+                  ? BorderSide(color: colores.grisBotonPresionado)
+                  : BorderSide.none,
+            ),
           ),
           height: heightTile,
           child: Row(
