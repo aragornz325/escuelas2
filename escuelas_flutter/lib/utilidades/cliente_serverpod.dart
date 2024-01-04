@@ -20,9 +20,9 @@ Future<void> inicializarClienteServerpod({
   //en un servidor local en el puerto predeterminado. Deberá modificar esto para
   // conectarse a  servidores de prueba o de producción.
   client = Client(
-    hostUrl,
+    // hostUrl,
     //! TODO(Manu): verificar local host
-    // 'http://192.168.100.4:8080/',
+    'http://192.168.100.4:8080/',
     authenticationKeyManager: FlutterAuthenticationKeyManager(
       runMode: entorno,
       storage: SharedPreferenceStorage(),
