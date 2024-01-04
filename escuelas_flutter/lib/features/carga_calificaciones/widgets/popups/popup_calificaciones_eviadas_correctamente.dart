@@ -29,7 +29,7 @@ class DialogNotasEnviadasCorrectamente extends StatelessWidget {
       context: context,
       onTap: () => Navigator.pop(context),
       content: Text(
-        l10n.dialogSuccessToSendQualification,
+        l10n.dialogSuccessToSendGrades,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: colores.onBackground,

@@ -29,7 +29,7 @@ class DialogErrorAlEnviarCalificaciones extends StatelessWidget {
       altura: 80.ph,
       onTap: () => Navigator.pop(context),
       content: Text(
-        l10n.dialogErrorToSendQualification,
+        l10n.dialogErrorToSendGrades,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: colores.onBackground,

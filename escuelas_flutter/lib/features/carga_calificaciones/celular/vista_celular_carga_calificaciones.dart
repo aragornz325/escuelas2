@@ -80,7 +80,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
 
             if (calificacion == null) {
               return Center(
-                child: Text(l10n.pageQualificationsNotQualification),
+                child: Text(l10n.pageGradesNoGrades),
               );
             }
 
