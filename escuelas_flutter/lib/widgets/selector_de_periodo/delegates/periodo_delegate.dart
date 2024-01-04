@@ -1,3 +1,4 @@
+import 'package:escuelas_flutter/widgets/selector_de_periodo/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 /// {@template PeriodoDelegate}
@@ -8,36 +9,32 @@ abstract class PeriodoDelegate {
   PeriodoDelegate(Periodo periodoInicial) : periodoActual = periodoInicial;
 
   /// El periodo actualmente seleccionado
-  late Periodo periodoActual;
+  Periodo periodoActual;
 
-  /// El periodo anterior al actualmente seleccionado
-  Periodo get periodoAnterior => throw UnimplementedError();
+  /// Los periodos anterior al actualmente seleccionado
+  List<Periodo> get periodosAnterior => throw UnimplementedError();
 
-  int get cantidadDePeriodosEnPantalla => throw UnimplementedError();
+  int get cantidadDePeriodosVisibles => throw UnimplementedError();
 
-  /// El periodo posterior al actualmente seleccionado
-  Periodo get periodoPosterior => throw UnimplementedError();
+  /// Los periodos posterior al actualmente seleccionado
+  List<Periodo> get periodosPosteriores => throw UnimplementedError();
 
-  /// Ejecuta una acción al retroceder el periodo.
-  void Function(Periodo periodo)? get onRetroceder =>
-      throw UnimplementedError();
+  Widget buildPeriodoActual({required Periodo periodo}) =>
+      DefaultPeriodoActual(periodo: periodo);
 
-  /// Ejecuta una acción al avanzar el periodo.
-  void Function(Periodo periodo)? get onAvanzar => throw UnimplementedError();
+  Widget buildPeriodosAnteriores({
+    required void Function() onSeleccionarPeriodo,
+    required Periodo periodo,
+  }) =>
+      DefaultPeriodoAnterior(
+          onSeleccionarPeriodo: onSeleccionarPeriodo, periodo: periodo);
 
-  /// Retrocede el periodo actual
-  @mustCallSuper
-  Periodo retrocederPeriodo() {
-    onRetroceder?.call(periodoActual);
-    return periodoActual = periodoAnterior;
-  }
-
-  /// Avanza el periodo actual
-  @mustCallSuper
-  Periodo avanzarPeriodo() {
-    onAvanzar?.call(periodoActual);
-    return periodoActual = periodoPosterior;
-  }
+  Widget buildPeriodosPosteriores({
+    required void Function() onSeleccionarPeriodo,
+    required Periodo periodo,
+  }) =>
+      DefaultPeriodoPosterior(
+          onSeleccionarPeriodo: onSeleccionarPeriodo, periodo: periodo);
 }
 
 /// {@template Periodo}

@@ -25,6 +25,7 @@ class VistaCelularMisCursos extends StatelessWidget {
       children: [
         SelectorDePeriodo(
           delegate: PeriodoMensualDelegate(context),
+          onSeleccionarPeriodo: (periodo) {},
         ),
         Expanded(
           child: SingleChildScrollView(
