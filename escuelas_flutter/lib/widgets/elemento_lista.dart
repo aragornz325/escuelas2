@@ -327,7 +327,6 @@ class ElementoLista extends StatelessWidget {
                   vertical: 5.ph,
                 ).copyWith(left: 10.pw),
                 child: Row(
-                  mainAxisSize: MainAxisSize.min,
                   children: [
                     if (widgetLateralIzquierdo != null) widgetLateralIzquierdo,
                     if (widgetLateralIzquierdo != null) SizedBox(width: 5.pw),
