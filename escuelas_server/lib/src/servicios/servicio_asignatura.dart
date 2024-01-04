@@ -1,9 +1,9 @@
-import 'package:escuelas_server/servicio.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_asignatura.dart';
+import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
-class ServicioAsignatura extends Servicio {
+class ServicioAsignatura extends Servicio<OrmAsignatura> {
   OrmAsignatura get orm => OrmAsignatura();
 
   /// La función `crearAsignatura` crea un nuevo objeto `Asignatura` en la base de datos usando la
