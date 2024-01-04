@@ -56,7 +56,7 @@ class _VistaCelularSeleccionDeRolState
                   ...state.listaRoles.map(
                     (rol) => Center(
                       child: Padding(
-                        padding: EdgeInsets.only(bottom: 10.ph),
+                        padding: EdgeInsets.only(bottom: 20.ph),
                         child: ElementoLista.rol(
                           context: context,
                           nombreRol: rol.nombre,

@@ -30,10 +30,7 @@ class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
 
     return Container(
       height: 60.ph,
-      margin: EdgeInsets.symmetric(
-        vertical: 15.ph,
-        horizontal: 20.pw,
-      ),
+      margin: EdgeInsets.symmetric(horizontal: 20.pw),
       decoration: BoxDecoration(
         color: colores.tertiary,
         borderRadius: BorderRadius.circular(40.sw),
@@ -43,6 +40,7 @@ class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
+              width: 75.pw,
               padding: EdgeInsets.only(left: 15.pw),
               child: GestureDetector(
                 onTap: () => setState(() {
@@ -56,7 +54,7 @@ class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
                       color: colores.grisSC,
                     ),
                     Text(
-                      widget._delegate.periodoAnterior.etiqueta,
+                      widget._delegate.periodoAnterior.etiqueta.substring(0, 3),
                       style: TextStyle(
                         color: colores.grisSC,
                         fontSize: 14.pf,
@@ -89,6 +87,7 @@ class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
               ],
             ),
             Container(
+              width: 75.pw,
               padding: EdgeInsets.only(right: 15.pw),
               child: GestureDetector(
                 onTap: () => setState(() {
@@ -98,7 +97,8 @@ class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      widget._delegate.periodoPosterior.etiqueta,
+                      widget._delegate.periodoPosterior.etiqueta
+                          .substring(0, 3),
                       style: TextStyle(
                         color: colores.grisSC,
                         fontSize: 14.pf,

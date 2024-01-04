@@ -1,0 +1,12 @@
+name: escuelas_commons
+description: Paquete que contiene configuraciones en comun con los otros proyectos dentro de escuelas 2
+version: 0.1.0+1
+publish_to: none
+
+environment:
+  sdk: ">=3.0.0 <4.0.0"
+
+dev_dependencies:
+  mocktail: ^1.0.0
+  test: ^1.19.2
+  very_good_analysis: ^5.1.0

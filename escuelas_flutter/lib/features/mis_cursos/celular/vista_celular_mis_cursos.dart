@@ -31,7 +31,10 @@ class VistaCelularMisCursos extends StatelessWidget {
             child: BlocBuilder<BlocMisCursos, BlocMisCursosEstado>(
               builder: (context, state) {
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.pw),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 20.pw,
+                    vertical: 20.ph,
+                  ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: state.listaCursosConMaterias.keys
@@ -47,6 +50,7 @@ class VistaCelularMisCursos extends StatelessWidget {
                                   fontWeight: FontWeight.w800,
                                 ),
                               ),
+                              SizedBox(height: 10.ph),
                               Column(
                                 children: state.listaCursosConMaterias[cursoId]!
                                     .map(

@@ -60,6 +60,7 @@ class EscuelasBoton extends StatelessWidget {
         style: TextStyle(
           fontSize: fontSize ?? 16.pf,
           color: colores.background,
+          fontWeight: FontWeight.w700,
         ),
       ),
     );
@@ -88,9 +89,9 @@ class EscuelasBoton extends StatelessWidget {
             Assets.images.gGoogle.path,
             width: 20.sw,
           ),
-          SizedBox(width: 5.pw),
+          SizedBox(width: 15.pw),
           Text(
-            l10n.loginPageLoginWithGoogle,
+            l10n.pageLoginLoginWithGoogle,
             style: TextStyle(
               fontSize: 12.pf,
               color: colores.background,
@@ -151,7 +152,7 @@ class EscuelasBoton extends StatelessWidget {
   final bool esOutlined;
 
   /// Funcion al presionar el boton
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   /// Ancho del boton, por defecto es 130. Parametro con .pw aplicado.
   final double? width;

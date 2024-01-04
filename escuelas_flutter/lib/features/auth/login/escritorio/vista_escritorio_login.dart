@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioLogin}
-// TODO(anyone): AGREGAR DOCUMENTACION.
+/// Vista de esritorio de la pantalla de login
 /// {@endtemplate}
 class VistaEscritorioLogin extends StatelessWidget {
   /// {@macro VistaEscritorioLogin}
@@ -9,6 +9,7 @@ class VistaEscritorioLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //! TODO(Manu): crear la vista de escritorio de esta feature
     return const Placeholder();
   }
 }

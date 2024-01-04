@@ -49,4 +49,11 @@ extension EscuelasColorScheme on ColorScheme {
 
   /// Color utilizado en los datos personales de los usuarios
   Color get grisDato => const Color(0xff878787);
+
+  /// Color utilizado en el drawer para hacer transparente
+  /// y que se vea el background.
+  Color get transparente => const Color.fromRGBO(0, 0, 0, 0);
+
+  /// Color utilizado en el drawer para hacer sombreado al background.
+  Color get onSecondaryOpacidadTreinta => onSecondary.withOpacity(0.3);
 }

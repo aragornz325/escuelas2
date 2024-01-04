@@ -48,7 +48,7 @@ class ItemUsuarioPendiente extends StatelessWidget {
               child: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: colores.background,
-                size: 15.sw,
+                size: 10.sw,
               ),
             ),
           ),
