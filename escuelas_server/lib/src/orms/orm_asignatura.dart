@@ -61,7 +61,7 @@ class OrmAsignatura extends ORM {
   /// 
   /// Returns:
   ///   un objeto Future que se resuelve en una instancia de la clase Asignatura.
-  Future<Asignatura> otenerAsignaturaPorId(
+  Future<Asignatura> obtenerAsignaturaPorId(
     Session session, {
     required int id,
   }) async {
@@ -121,7 +121,7 @@ class OrmAsignatura extends ORM {
     Session session, {
     required int id,
   }) async {
-    final asignatura = await otenerAsignaturaPorId(
+    final asignatura = await obtenerAsignaturaPorId(
       session,
       id: id,
     );

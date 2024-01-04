@@ -8,11 +8,12 @@
 //   /// Esta excepción se utiliza cuando una solicitud no es válida.
 //   /// [titulo] y [mensaje] son opcionales y se utilizan para personalizar
 //   /// el mensaje de error.
+  
 //   Excepciones.solicitudIncorrecta({
 //     super.stackTrace,
 //     String? titulo,
 //     String? mensaje,
-//   }) : super(
+//     }) : super(
 //           tipoDeError: TipoExcepcion.solicitudIncorrecta,
 //           codigoError: 400,
 //           titulo: titulo ?? 'Error Code: BAD_REQUEST',
