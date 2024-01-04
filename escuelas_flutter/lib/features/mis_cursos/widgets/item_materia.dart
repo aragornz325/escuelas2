@@ -41,11 +41,11 @@ class ItemMateria extends StatelessWidget {
           estaCargada: estaCargada,
           estaHabilitado: estaHabilitado,
           context: context,
-          onTap: () {},
+          onTap: onTap,
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          onTap: () {},
+          onTap: onTap,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),
