@@ -95,10 +95,16 @@
             }
         }
     },
-         "pageKycSuccessDialogDescription": "Registro Exitoso",
+
+    "pageKycSuccessDialogDescription": "Registro Exitoso",
     "@pageKycSuccessDialogDescription": {
         "description": "Description of the alert dialog of success after the KYC"
        
+    },
+
+    "pageKycDropdownTitle": "Select an option",
+    "@pageKycDropdownTitle": {
+        "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
     },
 
     "pageHomeTitleAppBar":"Inicio",
@@ -110,7 +116,8 @@
     "@loginPageLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
     },
-       "loginPageTitleAppBar": "Inicio de sesión",
+
+    "loginPageTitleAppBar": "Inicio de sesión",
     "@loginPageTitleAppBar": {
         "description": "Title of the login page"
     },

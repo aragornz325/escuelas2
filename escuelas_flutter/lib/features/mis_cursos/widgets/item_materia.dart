@@ -36,12 +36,15 @@ class ItemMateria extends StatelessWidget {
 
     return Row(
       children: [
-        ElementoLista.materia(
-          nombreMateria: materia.nombre,
-          estaCargada: estaCargada,
-          estaHabilitado: estaHabilitado,
-          context: context,
-          onTap: onTap,
+        Expanded(
+          child: ElementoLista.materia(
+            nombreMateria: materia.nombre,
+            estaCargada: estaCargada,
+            estaHabilitado: estaHabilitado,
+            context: context,
+            // TODO(anyone): Poner la funcion
+            onTap: () {},
+          ),
         ),
         SizedBox(width: 10.pw),
         GestureDetector(

@@ -100,6 +100,11 @@
             }
         }
     },
+
+    "pageKycDropdownTitle": "Select an option",
+    "@pageKycDropdownTitle": {
+        "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
+    },
  
     "pageHomeTitleAppBar":"Home",
     "@pageHomeTitleAppBar":{

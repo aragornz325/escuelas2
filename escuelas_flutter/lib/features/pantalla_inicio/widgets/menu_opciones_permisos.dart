@@ -1,4 +1,3 @@
-import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
@@ -41,8 +40,6 @@ class MenuOpcionesPermisos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colores = context.colores;
-
     return BlocConsumer<BlocInicio, BlocInicioEstado>(
       listener: (context, state) {
         if (state is BlocInicioEstadoFallido) {
@@ -61,17 +58,9 @@ class MenuOpcionesPermisos extends StatelessWidget {
                   (etiqueta) => Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15.ph)
                         .copyWith(bottom: 15.ph),
-                    child: ElementoLista(
-                      altura: 65.ph,
-                      texto: Text(
-                        etiqueta.titulo,
-                        style: TextStyle(
-                          fontWeight: FontWeight.w800,
-                          fontSize: 16.pf,
-                          color: colores.onBackground,
-                        ),
-                      ),
-                      colorFondo: colores.tertiary,
+                    child: ElementoLista.menuInicial(
+                      nombreOpcion: etiqueta.titulo,
+                      context: context,
                       onTap: () => etiqueta.redirigirAVista(context),
                     ),
                   ),
