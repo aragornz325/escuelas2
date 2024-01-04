@@ -224,6 +224,7 @@ class _EscuelasTextFieldPasswordState extends State<EscuelasTextFieldPassword> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+
     final colores = context.colores;
 
     return EscuelasTextfield(

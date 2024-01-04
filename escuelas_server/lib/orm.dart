@@ -1,5 +1,5 @@
 import 'package:logging/logging.dart';
-import 'package:escuelas_server/src/excepciones/excepcion_endpoint.dart';
+
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:serverpod/serverpod.dart';
 
