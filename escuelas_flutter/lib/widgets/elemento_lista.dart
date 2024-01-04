@@ -78,6 +78,7 @@ class ElementoLista extends StatelessWidget {
       altura: 50.ph,
       texto: Text(
         nombreMateria,
+        maxLines: 1,
         style: TextStyle(
           fontSize: 12.pf,
           overflow: TextOverflow.ellipsis,
@@ -317,27 +318,26 @@ class ElementoLista extends StatelessWidget {
                 ]
               : [],
         ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  // TODO(anyone): Ver como hacer para que el overflow del texto sea dinamico segun el tamaño del componente
-                  if (widgetLateralIzquierdo != null) widgetLateralIzquierdo,
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20.pw,
-                      vertical: 5.ph,
-                    ),
-                    child: texto,
-                  ),
-                ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 5.ph,
+                ).copyWith(left: 10.pw),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo,
+                    if (widgetLateralIzquierdo != null) SizedBox(width: 5.pw),
+                    Flexible(child: texto),
+                  ],
+                ),
               ),
-              if (widgetLateralDerecho != null) widgetLateralDerecho,
-            ],
-          ),
+            ),
+            if (widgetLateralDerecho != null) widgetLateralDerecho,
+          ],
         ),
       ),
     );
