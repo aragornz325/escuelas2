@@ -63,7 +63,7 @@ class ServicioAsignatura extends Servicio {
     required int id,
   }) async {
     final asignatura = await ejecutarOperacion(
-      () => orm.otenerAsignaturaPorId(
+      () => orm.obtenerAsignaturaPorId(
         session,
         id: id,
       ),
