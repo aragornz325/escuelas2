@@ -1,4 +1,4 @@
-part of 'bloc_asistencias_bloc.dart';
+part of 'bloc_asistencias.dart';
 
 /// {@template BlocAsistenciasEstado}
 /// Bloc que maneja el estado de las asistencias

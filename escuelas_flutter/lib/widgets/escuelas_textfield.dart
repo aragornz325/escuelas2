@@ -49,7 +49,7 @@ class EscuelasTextfield extends StatefulWidget {
       validator: (email) {
         if (email?.isEmpty ?? false) {
           return l10n.commonCompleteTheField;
-        } else if (!ExpresionRegular.emailRegExp.hasMatch(email ?? '')) {
+        } else if (!ExpresionesRegulares.email.hasMatch(email ?? '')) {
           return l10n.commonEnterAValidEmail;
         }
         return null;
@@ -66,6 +66,9 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Contexto para traducciones
     required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    required void Function(String)? onChanged,
   }) {
     final l10n = context.l10n;
 
@@ -75,10 +78,12 @@ class EscuelasTextfield extends StatefulWidget {
       esPassword: false,
       keyboardType: TextInputType.number,
       inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+      onChanged: onChanged,
       validator: (value) {
         if (value?.isEmpty ?? false) {
           return l10n.commonCompleteTheField;
-        } else if (!ExpresionRegular.numerosRegExp.hasMatch(value ?? '')) {
+        } else if (!ExpresionesRegulares.numerosUnicamente
+            .hasMatch(value ?? '')) {
           return l10n.commonOnlyNumbers;
         }
         return null;
@@ -146,7 +151,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
       height: widget.height ?? max(40.ph, 40.sh),
       child: TextFormField(
         controller: widget.controller,
-        keyboardType: widget.keyboardType ?? TextInputType.none,
+        keyboardType: widget.keyboardType ?? TextInputType.text,
         inputFormatters: widget.inputFormatters,
         obscureText: widget.obscureText ?? false,
         cursorColor: widget.cursorColor ?? colores.primary,
@@ -194,6 +199,7 @@ class EscuelasTextFieldPassword extends StatefulWidget {
     super.key,
     this.validator,
     this.hintText,
+    this.onChanged,
   });
 
   /// Controller del TextFormField eMail
@@ -205,6 +211,8 @@ class EscuelasTextFieldPassword extends StatefulWidget {
   /// Texto interno del TextFormField
   final String? hintText;
 
+  /// Funcion onChanged del textfield
+  final void Function(String)? onChanged;
   @override
   State<EscuelasTextFieldPassword> createState() =>
       _EscuelasTextFieldPasswordState();
@@ -223,6 +231,11 @@ class _EscuelasTextFieldPasswordState extends State<EscuelasTextFieldPassword> {
       controller: widget.controller,
       esPassword: true,
       obscureText: _obscureText,
+      maxLines: 1,
+      onChanged: (value) {
+        setState(() {});
+        widget.onChanged?.call(value);
+      },
       suffixIcon: Padding(
         padding: EdgeInsets.only(right: 10.sw),
         child: IconButton(

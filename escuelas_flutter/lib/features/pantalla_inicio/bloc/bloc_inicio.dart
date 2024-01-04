@@ -25,7 +25,6 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
     // await operacionBloc(
     //   callback: (client) async {
     //     final Inicio = await client.cliente.obtenerInicioDelUsuario();
-
     //     emit(
     //       BlocInicioEstadoExitoso.desde(
     //         state,
@@ -48,7 +47,7 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
 }
 
 // TODO(SAM): Eliminar luego cuando venga del back
-enum Permiso { directivo, alumno, profesor }
+enum Permiso { directivo, alumno, docente }
 
 class InfoUsuario {
   InfoUsuario({required this.nombre, required this.permiso});

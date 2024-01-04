@@ -20,7 +20,7 @@ class VistaCelularFormulario extends StatelessWidget {
     final colores = context.colores;
 
     final l10n = context.l10n;
-    // TODO(Gon): El Scaffold y el appbar deberan ser eliminados cuando se defina la navegacion
+
     return BlocBuilder<BlocKyc, BlocKycEstado>(
       builder: (context, state) {
         if (state is BlocKycEstadoCargando) {
@@ -49,7 +49,7 @@ class VistaCelularFormulario extends StatelessWidget {
               const ListaDeBloqueMateria(),
               //TODO (Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
               if (state.rolElegido?.nombre == 'DOCENTE')
-                const BotonAgregarBloqueMateria(),
+                const BotonAgregarOpcion(),
               SizedBox(height: 20.ph),
               const BotonSolicitarRol(),
             ],

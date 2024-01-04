@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/modelos_temporales.dart';
-import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -26,34 +25,30 @@ class ItemUsuarioPendiente extends StatelessWidget {
 
     return Row(
       children: [
-        ElementoLista.usuario(
-          nombreUsuario: Text(
-            usuario.nombre,
-            style: TextStyle(
-              fontSize: 14.pf,
-              fontWeight: FontWeight.w700,
-            ),
+        Expanded(
+          child: ElementoLista.usuario(
+            nombreUsuario: usuario.nombre,
+            context: context,
+            onTap: () =>
+                context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
           ),
-          context: context,
-          onTap: () =>
-              context.router.push(PaginaPerfilUsuario(idUsuario: usuario.id)),
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
           onTap: () =>
-              context.router.push(PaginaPerfilUsuario(idUsuario: usuario.id)),
+              context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(100),
-              color: colores.azul,
+              borderRadius: BorderRadius.circular(100.sw),
+              color: colores.primaryContainer,
             ),
-            width: 38.sw,
-            height: 38.sh,
+            width: 35.sw,
+            height: 35.sh,
             child: Center(
               child: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: colores.background,
-                size: 20.sw,
+                size: 10.sw,
               ),
             ),
           ),

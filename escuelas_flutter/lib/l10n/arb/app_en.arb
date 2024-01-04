@@ -30,10 +30,20 @@
           }
         }
     },
+    
+    "pageKycSuccessDialogDescription": "Successful registration",
+    "@pageKycSuccessDialogDescription": {
+        "description": "Description of the alert dialog of success after the KYC"
+    },
 
     "pageKycFormAddSubject": "Add subject",
     "@pageKycFormAddSubject": {
         "description": "Button label to add a subject in the KYC (Know Your Customer) process."
+    },
+
+    "pageKycFormDeleteSubject": "Delete subject",
+    "@pageKycFormDeleteSubject": {
+        "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
     },
 
     "pageKycFormWhatGradeAreYouIn": "What grade are you in?",
@@ -91,35 +101,56 @@
         }
     },
 
-    "loginPageLoginWithGoogle": "Log in with Google",
-    "@loginPageLoginWithGoogle": {
+    "pageKycDropdownTitle": "Select an option",
+    "@pageKycDropdownTitle": {
+        "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
+    },
+ 
+    "pageHomeTitleAppBar":"Home",
+    "@pageHomeTitleAppBar":{
+        "description":"Title of the home page"
+    },
+     "loginPageTitleAppBar": "Login",
+    "@loginPageTitleAppBar": {
+        "description": "Title of the login page"
+    },
+
+    "pageLoginCredentialsIndicativeText": "Enter your login credentials previously\nprovided by the school or director",
+    "@pageLoginCredentialsIndicativeText": {
+        "description": "Text to indicate that you must enter your credentials"
+    },
+
+    "pageLoginLoginWithGoogle": "Log in with Google",
+    "@pageLoginLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
     },
+
+    "pageLoginTextAllRightsReserved": "Developed by © Nidus Development - Argentina\nAll rights reserved",
+    "@pageLoginTextAllRightsReserved": {
+        "description": "text to indicate the origin of development"
+    },
     
-    "commonMail": "Mail",
-    "@commonMail": {
-        "description": "Text to be displayed in common places"
-    },
-    
-    "commonCompleteTheField": "Complete the field",
-    "@commonCompleteTheField": {
-        "description": "Text to be displayed in common places to indicate that the field must be completed"
+    "pageLoginTextOr": "Or",
+    "@pageLoginTextOr": {
+        "description": "text to indicate the the options of login"
     },
 
-    "commonEnterAValidEmail": "Enter a valid email",
-    "@commonEnterAValidEmail": {
-        "description": "Text to indicate that the email is invalid"
+    "pageLoginDialogAnErrorOccurred":"An error occurred while registering.",
+    "@pageLoginDialogAnErrorOccurred":{
+        "description": "Text in the dialog to indicate that an error ocurred" 
     },
 
-    "commonPassword": "Password",
-    "@commonPassword": {
-        "description": "Text to be displayed in common places to indicate password text"
+
+    "pageGradesNoGrades": "They are no grades",
+    "@pageGradesNoGrades": {
+        "description": "Text to be displayed if there are no grades"
     },
 
-    "commonOnlyNumbers": "Only numbers",
-    "@commonOnlyNumbers": {
-        "description": "Text to indicate that only numbers are allowed"
+    "absencePageTitleAppBar": "Absences",
+    "@absencePageTitleAppBar": {
+        "description": "Title of the absences page"
     },
+
 
     "pageAttendanceWithoutCourses": "There are no courses",
     "@pageAttendanceWithoutCourses": {
@@ -148,8 +179,12 @@
     "@pageAttendanceNotAbsentStudents": {
         "description": "Text to be displayed when there are no absent students"
     },
+    "absencePageTitleAppBar": "Absences",
+    "@absencePageTitleAppBar": {
+        "description": "Title of the absences page"
+    },
 
-    "dialogAttendanceOfDay": "Assists of the day",
+    "dialogAttendanceOfDay": "Attendances of the day",
     "@dialogAttendanceOfDay": {
         "description": "Text to be displayed in the title of the dialog"
     },
@@ -167,6 +202,57 @@
     "dialogSeeLess": "See Less",
     "@dialogSeeLess": {
         "description": "text on a button to see more"
+    },
+    
+    "dialogErrorToSendGrades": "There was an error sending\ngrades. Try again.",
+    "@dialogErrorToSendGrades": {
+        "description": "Label indicating an error when sending notes."
+    },
+    
+    "dialogSuccessToSendGrades": "The grades were sent\nsuccessfully!",
+    "@dialogSuccessToSendGrades": {
+        "description": "Label indicating successful sending of grades."
+    },
+
+
+    "commonWelcome": "Welcome!",
+    "@commonWelcome": {
+        "description": "Welcoming text"
+    },
+
+    "commonDNI": "Identification number",
+    "@commonDNI": {
+        "description": "Hint text in textformfield to indicate that ID must be entered"
+    },
+
+    "commonMail": "Mail",
+    "@commonMail": {
+        "description": "Text to be displayed in common places"
+    },
+    
+    "commonLogIn": "Log in",
+    "@commonLogIn": {
+        "description": "Text on the button that indicates that its action is login"
+    },
+
+    "commonCompleteTheField": "Complete the field",
+    "@commonCompleteTheField": {
+        "description": "Text to be displayed in common places to indicate that the field must be completed"
+    },
+
+    "commonEnterAValidEmail": "Enter a valid email",
+    "@commonEnterAValidEmail": {
+        "description": "Text to indicate that the email is invalid"
+    },
+
+    "commonPassword": "Password",
+    "@commonPassword": {
+        "description": "Text to be displayed in common places to indicate password text"
+    },
+
+    "commonOnlyNumbers": "Only numbers",
+    "@commonOnlyNumbers": {
+        "description": "Text to indicate that only numbers are allowed"
     },
 
     "commonName": "Name",
@@ -267,5 +353,15 @@
     "commonDecline": "Decline",
     "@commonDecline": {
         "description": "Button or link used to decline or reject an action or decision."
+    },
+
+    "commonBack": "Back",
+    "@commonBack": {
+        "description": "Text in button to indicate the action back"
+    },
+    
+    "commonDeleteAll": "Delete All",
+    "@commonDeleteAll": {
+        "description": "Label indicating to delete all items"
     }
 }

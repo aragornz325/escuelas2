@@ -17,6 +17,7 @@ class EscuelasCargaCalificacionAlumno extends StatefulWidget {
   const EscuelasCargaCalificacionAlumno({
     required this.listaCalificaciones,
     required this.nombreAlumno,
+    this.onChanged,
     this.esEditable = true,
     this.calificacionPrevia,
     super.key,
@@ -34,6 +35,8 @@ class EscuelasCargaCalificacionAlumno extends StatefulWidget {
   /// Indica si tiene una calificacion previa para mostrar en el textfield
   /// inicialmente
   final String? calificacionPrevia;
+
+  final void Function(String)? onChanged;
 
   @override
   State<EscuelasCargaCalificacionAlumno> createState() =>
@@ -192,7 +195,10 @@ class _EscuelasCargaCalificacionAlumnoState
             textAlignVertical: TextAlignVertical.center,
             textAlign: TextAlign.center,
             controller: controllerCalificacion,
-            onChanged: (value) => calcularPromedioConNuevaCalificacion(),
+            onChanged: (value) {
+              calcularPromedioConNuevaCalificacion();
+              widget.onChanged?.call(value);
+            },
             keyboardType: TextInputType.number,
             style: TextStyle(
               fontSize: 20.pf,

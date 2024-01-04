@@ -12,8 +12,9 @@ import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:escuelas_client/src/protocol/curso/asignatura.dart' as _i3;
 import 'package:escuelas_client/src/protocol/curso/curso.dart' as _i4;
-import 'dart:io' as _i5;
-import 'protocol.dart' as _i6;
+import 'package:serverpod_auth_client/module.dart' as _i5;
+import 'dart:io' as _i6;
+import 'protocol.dart' as _i7;
 
 /// {@category Endpoint}
 class EndpointAsignatura extends _i1.EndpointRef {
@@ -132,20 +133,29 @@ class EndpointExample extends _i1.EndpointRef {
       );
 }
 
+class _Modules {
+  _Modules(Client client) {
+    auth = _i5.Caller(client);
+  }
+
+  late final _i5.Caller auth;
+}
+
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
-    _i5.SecurityContext? context,
+    _i6.SecurityContext? context,
     _i1.AuthenticationKeyManager? authenticationKeyManager,
   }) : super(
           host,
-          _i6.Protocol(),
+          _i7.Protocol(),
           context: context,
           authenticationKeyManager: authenticationKeyManager,
         ) {
     asignatura = EndpointAsignatura(this);
     curso = EndpointCurso(this);
     example = EndpointExample(this);
+    modules = _Modules(this);
   }
 
   late final EndpointAsignatura asignatura;
@@ -153,6 +163,8 @@ class Client extends _i1.ServerpodClient {
   late final EndpointCurso curso;
 
   late final EndpointExample example;
+
+  late final _Modules modules;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
@@ -162,5 +174,6 @@ class Client extends _i1.ServerpodClient {
       };
 
   @override
-  Map<String, _i1.ModuleEndpointCaller> get moduleLookup => {};
+  Map<String, _i1.ModuleEndpointCaller> get moduleLookup =>
+      {'auth': modules.auth};
 }
