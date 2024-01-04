@@ -252,13 +252,16 @@ class BlocCargaCalificaciones
     await operacionBloc(
       callback: () async {
         //TODO(anyone): llamar al endpoint de envio de calificacion/notas
-        emit(BlocCargaCalificacionesEstadoEnviadasCorrectamente.desde(state));
+        emit(BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
+            .desde(state));
       },
-      onError: (e, st) =>
-          emit(BlocCargaCalificacionesEstadoFallidoAlEnviarNotas.desde(state)),
+      onError: (e, st) => emit(
+          BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones.desde(
+              state)),
     );
   }
 
+  /// Guarda el periodo seleccionado del calendario
   void _onGuardarPeriodo(
     BlocCargaCalificacionesEventoGuardarPeriodo event,
     Emitter<BlocCargaCalificacionesEstado> emit,

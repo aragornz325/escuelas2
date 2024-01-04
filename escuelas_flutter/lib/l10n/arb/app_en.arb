@@ -30,7 +30,8 @@
           }
         }
     },
-      "pageKycSuccessDialogDescription": "Successful registration",
+    
+    "pageKycSuccessDialogDescription": "Successful registration",
     "@pageKycSuccessDialogDescription": {
         "description": "Description of the alert dialog of success after the KYC"
     },
@@ -114,9 +115,9 @@
         "description": "Text to indicate the log in with google system"
     },
 
-    "pageQualificationsNotQualification": "They aren't qualifications",
-    "@pageQualificationsNotQualification": {
-        "description": "Text to be displayed if there are no qualifications"
+    "pageGradesNoGrades": "They are no grades",
+    "@pageGradesNoGrades": {
+        "description": "Text to be displayed if there are no grades"
     },
 
     "absencePageTitleAppBar": "Absences",
@@ -173,14 +174,14 @@
         "description": "text on a button to see more"
     },
     
-    "dialogErrorToSendQualification": "There was an error sending\nnotes. Try again.",
-    "@dialogErrorToSendQualification": {
+    "dialogErrorToSendGrades": "There was an error sending\ngrades. Try again.",
+    "@dialogErrorToSendGrades": {
         "description": "Label indicating an error when sending notes."
     },
     
-    "dialogSuccessToSendQualification": "The qualifications were sent\nsuccessfully!",
-    "@dialogSuccessToSendQualification": {
-        "description": "Label indicating successful sending of qualifications."
+    "dialogSuccessToSendGrades": "The grades were sent\nsuccessfully!",
+    "@dialogSuccessToSendGrades": {
+        "description": "Label indicating successful sending of grades."
     },
 
     "commonMail": "Mail",

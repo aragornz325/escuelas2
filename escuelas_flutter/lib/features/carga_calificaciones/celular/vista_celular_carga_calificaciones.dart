@@ -18,8 +18,6 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
   /// {@macro VistaCelularCargaDeCalificaciones}
   const VistaCelularCargaDeCalificaciones({super.key});
 
-  /// Variables para manejar la fecha del calendario.
-
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -27,7 +25,6 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
 
     return Column(
       children: [
-
         SelectorDePeriodo(
           delegate: PeriodoMensualDelegate(
             context,
@@ -69,10 +66,12 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
         SizedBox(height: max(10.ph, 10.sh)),
         BlocConsumer<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
           listener: (context, state) {
-            if (state is BlocCargaCalificacionesEstadoFallidoAlEnviarNotas) {
+            if (state
+                is BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones) {
               const DialogErrorAlEnviarCalificaciones().show(context);
             }
-            if (state is BlocCargaCalificacionesEstadoEnviadasCorrectamente) {
+            if (state
+                is BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente) {
               const DialogNotasEnviadasCorrectamente().show(context);
             }
           },

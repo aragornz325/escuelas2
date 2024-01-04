@@ -38,7 +38,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: '/dashboard',
           page: RutaDashboard.page,
-          // transitionsBuilder: TransitionsBuilders.noTransition,
           // guards: [initialGuard],
           children: [
             CustomRoute(
@@ -66,7 +65,7 @@ class AppRouter extends $AppRouter {
                 ),
                 AutoRoute(
                   page: RutaCargaDeCalificaciones.page,
-                  path: 'charge-califications',
+                  path: 'upload-grades',
                 ),
               ],
             ),

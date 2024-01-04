@@ -92,26 +92,27 @@ class BlocCargaCalificacionesEstadoFallido
   BlocCargaCalificacionesEstadoFallido.desde(super.otro) : super.desde();
 }
 
-/// {@template BlocCargaCalificacionesEstadoEnviadasCorrectamente}
+/// {@template BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente}
 /// Estado de `enviadas correctamente` de los componentes de la pantalla
 /// 'Carga de calificaciones' para que muestre un popup indicando que las
 ///  calificaciones fueron enviadas.
 /// {@endtemplate}
-class BlocCargaCalificacionesEstadoEnviadasCorrectamente
+class BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
     extends BlocCargaCalificacionesEstado {
-  /// {@macro BlocCargaCalificacionesEstadoEnviadasCorrectamente}
-  BlocCargaCalificacionesEstadoEnviadasCorrectamente.desde(super.otro)
-      : super.desde();
+  /// {@macro BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente}
+  BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente.desde(
+    super.otro,
+  ) : super.desde();
 }
 
-/// {@template BlocCargaCalificacionesEstadoFallidoAlEnviarNotas}
+/// {@template BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones}
 /// Estado de `error al enviar notas` de los componentes de la pantalla
 /// 'Carga de calificaciones' para que muestre un popup indicando que las
 /// calificaciones no fueron enviadas.
 /// {@endtemplate}
-class BlocCargaCalificacionesEstadoFallidoAlEnviarNotas
+class BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones
     extends BlocCargaCalificacionesEstado {
-  /// {@macro BlocCargaCalificacionesEstadoFallidoAlEnviarNotas}
-  BlocCargaCalificacionesEstadoFallidoAlEnviarNotas.desde(super.otro)
+  /// {@macro BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones}
+  BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones.desde(super.otro)
       : super.desde();
 }

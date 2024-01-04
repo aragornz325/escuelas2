@@ -149,19 +149,19 @@
         "description": "Text to be displayed when there are no absent students"
     },
 
-    "pageQualificationsNotQualification": "No hay calificaciones",
-    "@pageQualificationsNotQualification": {
-        "description": "Text to be displayed if there are no qualifications"
+    "pageGradesNotGrades": "No hay calificaciones",
+    "@pageGradesNotGrades": {
+        "description": "Text to be displayed if there are no grades"
     },
 
-    "dialogErrorToSendQualification": "Ha habido un error en el envío de\n notas. Intente nuevamente.",
-    "@dialogErrorToSendQualification": {
+    "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
+    "@dialogErrorToSendGrades": {
         "description": "Label indicating an error when sending notes."
     },
 
-    "dialogSuccessToSendQualification": "¡Las calificaciones fueron enviadas\n correctamente!",
-    "@dialogSuccessToSendQualification": {
-        "description": "Label indicating successful sending of qualifications."
+    "dialogSuccessToSendGrades": "¡Las calificaciones fueron enviadas\n correctamente!",
+    "@dialogSuccessToSendGrades": {
+        "description": "Label indicating successful sending of grades."
     },
 
     "dialogAttendanceOfDay": "Asistencias del día",
