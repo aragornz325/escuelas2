@@ -34,6 +34,11 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
               .add(
                 BlocCargaCalificacionesEventoGuardarPeriodo(periodo: periodo),
               ),
+          decoration: BoxDecoration(
+            color: colores.tertiary,
+            borderRadius: BorderRadius.circular(40.sw),
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 20.pw),
         ),
         SizedBox(height: max(20.ph, 20.sh)),
         Padding(

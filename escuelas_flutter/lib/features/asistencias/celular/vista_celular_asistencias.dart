@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/features/asistencias/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -39,6 +38,7 @@ class VistaCelularInasistencias extends StatelessWidget {
               delegate: PeriodoDiarioDelegate(context),
               onSeleccionarPeriodo: (periodo) {},
             ),
+            const Divider(thickness: .5),
             const Expanded(child: ListaDeCursos()),
             if (state.cursoDesplegado)
               BotonFinalizarAsistencias(

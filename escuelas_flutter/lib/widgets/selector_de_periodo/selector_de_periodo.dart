@@ -1,7 +1,5 @@
-import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 import 'package:flutter/material.dart';
-import 'package:full_responsive/full_responsive.dart';
 
 /// {@template SelectorDePeriodo}
 /// Representa un selector de periodo de tiempo
@@ -11,6 +9,8 @@ class SelectorDePeriodo extends StatefulWidget {
   const SelectorDePeriodo({
     required PeriodoDelegate delegate,
     required this.onSeleccionarPeriodo,
+    this.decoration,
+    this.margin,
     super.key,
   }) : _delegate = delegate;
 
@@ -20,6 +20,12 @@ class SelectorDePeriodo extends StatefulWidget {
   /// Ejecuta una acción al retroceder el periodo.
   final void Function(Periodo periodo) onSeleccionarPeriodo;
 
+  /// La decoracion del selector de periodo
+  final BoxDecoration? decoration;
+
+  /// El margen del selector de periodo
+  final EdgeInsets? margin;
+
   @override
   State<SelectorDePeriodo> createState() => _SelectorDePeriodoState();
 }
@@ -27,14 +33,9 @@ class SelectorDePeriodo extends StatefulWidget {
 class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
   @override
   Widget build(BuildContext context) {
-    final colores = context.colores;
-
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20.pw),
-      decoration: BoxDecoration(
-        color: colores.tertiary,
-        borderRadius: BorderRadius.circular(40.sw),
-      ),
+      margin: widget.margin,
+      decoration: widget.decoration,
       child: Center(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

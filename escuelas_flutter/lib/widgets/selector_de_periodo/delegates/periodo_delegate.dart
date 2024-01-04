@@ -27,14 +27,18 @@ abstract class PeriodoDelegate {
     required Periodo periodo,
   }) =>
       DefaultPeriodoAnterior(
-          onSeleccionarPeriodo: onSeleccionarPeriodo, periodo: periodo);
+        onSeleccionarPeriodo: onSeleccionarPeriodo,
+        periodo: periodo,
+      );
 
   Widget buildPeriodosPosteriores({
     required void Function() onSeleccionarPeriodo,
     required Periodo periodo,
   }) =>
       DefaultPeriodoPosterior(
-          onSeleccionarPeriodo: onSeleccionarPeriodo, periodo: periodo);
+        onSeleccionarPeriodo: onSeleccionarPeriodo,
+        periodo: periodo,
+      );
 }
 
 /// {@template Periodo}
