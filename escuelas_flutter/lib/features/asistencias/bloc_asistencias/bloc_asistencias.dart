@@ -292,10 +292,24 @@ class ModeloAlumno {
     required this.id,
     required this.nombre,
     required this.asistencia,
+    this.calificacion,
   });
   final String nombre;
   final int id;
   EstadoAsistencia asistencia;
+  int? calificacion;
+}
+
+class ModeloCalificacion {
+  ModeloCalificacion({
+    required this.id,
+    required this.fecha,
+    this.alumnos = const [],
+  });
+
+  final DateTime fecha;
+  List<ModeloAlumno> alumnos;
+  final int id;
 }
 
 enum EstadoAsistencia {

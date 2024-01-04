@@ -30,7 +30,8 @@
           }
         }
     },
-      "pageKycSuccessDialogDescription": "Successful registration",
+    
+    "pageKycSuccessDialogDescription": "Successful registration",
     "@pageKycSuccessDialogDescription": {
         "description": "Description of the alert dialog of success after the KYC"
     },
@@ -100,7 +101,7 @@
         }
     },
  
-        "pageHomeTitleAppBar":"Home",
+    "pageHomeTitleAppBar":"Home",
     "@pageHomeTitleAppBar":{
         "description":"Title of the home page"
     },
@@ -113,36 +114,17 @@
     "@loginPageLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
     },
-    
-         "absencePageTitleAppBar": "Absences",
+
+    "pageGradesNoGrades": "They are no grades",
+    "@pageGradesNoGrades": {
+        "description": "Text to be displayed if there are no grades"
+    },
+
+    "absencePageTitleAppBar": "Absences",
     "@absencePageTitleAppBar": {
         "description": "Title of the absences page"
     },
 
-    "commonMail": "Mail",
-    "@commonMail": {
-        "description": "Text to be displayed in common places"
-    },
-    
-    "commonCompleteTheField": "Complete the field",
-    "@commonCompleteTheField": {
-        "description": "Text to be displayed in common places to indicate that the field must be completed"
-    },
-
-    "commonEnterAValidEmail": "Enter a valid email",
-    "@commonEnterAValidEmail": {
-        "description": "Text to indicate that the email is invalid"
-    },
-
-    "commonPassword": "Password",
-    "@commonPassword": {
-        "description": "Text to be displayed in common places to indicate password text"
-    },
-
-    "commonOnlyNumbers": "Only numbers",
-    "@commonOnlyNumbers": {
-        "description": "Text to indicate that only numbers are allowed"
-    },
 
     "pageAttendanceWithoutCourses": "There are no courses",
     "@pageAttendanceWithoutCourses": {
@@ -191,7 +173,42 @@
     "@dialogSeeLess": {
         "description": "text on a button to see more"
     },
+    
+    "dialogErrorToSendGrades": "There was an error sending\ngrades. Try again.",
+    "@dialogErrorToSendGrades": {
+        "description": "Label indicating an error when sending notes."
+    },
+    
+    "dialogSuccessToSendGrades": "The grades were sent\nsuccessfully!",
+    "@dialogSuccessToSendGrades": {
+        "description": "Label indicating successful sending of grades."
+    },
 
+    "commonMail": "Mail",
+    "@commonMail": {
+        "description": "Text to be displayed in common places"
+    },
+    
+    "commonCompleteTheField": "Complete the field",
+    "@commonCompleteTheField": {
+        "description": "Text to be displayed in common places to indicate that the field must be completed"
+    },
+
+    "commonEnterAValidEmail": "Enter a valid email",
+    "@commonEnterAValidEmail": {
+        "description": "Text to indicate that the email is invalid"
+    },
+
+    "commonPassword": "Password",
+    "@commonPassword": {
+        "description": "Text to be displayed in common places to indicate password text"
+    },
+
+    "commonOnlyNumbers": "Only numbers",
+    "@commonOnlyNumbers": {
+        "description": "Text to indicate that only numbers are allowed"
+    },
+    
     "commonName": "Name",
     "@commonName": {
         "description": "Label for the 'Name' field or column in the interface"
@@ -290,5 +307,10 @@
     "commonDecline": "Decline",
     "@commonDecline": {
         "description": "Button or link used to decline or reject an action or decision."
+    },
+
+    "commonDeleteAll": "Delete All",
+    "@commonDeleteAll": {
+        "description": "Label indicating to delete all items"
     }
 }

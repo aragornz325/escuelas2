@@ -25,7 +25,7 @@ class AppRouter extends $AppRouter {
   // AuthGuard get authGuard => AuthGuard(
   //       sessionManager: sessionManager,
   //     );
-// TODO(ANYONE): En algun momento descomentar los guards
+  // TODO(ANYONE): En algun momento descomentar los guards
   @override
   List<AutoRoute> get routes => [
         CustomRoute(
@@ -38,7 +38,6 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: '/dashboard',
           page: RutaDashboard.page,
-          // initial: true,
           // guards: [initialGuard],
           children: [
             AutoRoute(
@@ -54,9 +53,20 @@ class AppRouter extends $AppRouter {
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             AutoRoute(
-              page: RutaMisCursos.page,
-              path: 'courses-list',
+              page: RutaListaCursos.page,
+              path: 'courses',
               // guards: [authGuard],
+              children: [
+                AutoRoute(
+                  page: RutaMisCursos.page,
+                  path: 'my-courses',
+                  initial: true,
+                ),
+                AutoRoute(
+                  page: RutaCargaDeCalificaciones.page,
+                  path: 'upload-grades',
+                ),
+              ],
             ),
             CustomRoute(
               page: RutaAsignacionDeRoles.page,
@@ -64,24 +74,21 @@ class AppRouter extends $AppRouter {
               // guards: [authGuard],
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
-            CustomRoute(
+            AutoRoute(
               page: RutaKyc.page,
               path: 'kyc',
               // guards: [authGuard],
-              transitionsBuilder: TransitionsBuilders.noTransition,
               children: [
-                CustomRoute(
+                AutoRoute(
                   page: RutaSeleccionDeRol.page,
                   path: 'role-selection',
                   initial: true,
                   // guards: [initialGuard],
-                  transitionsBuilder: TransitionsBuilders.noTransition,
                 ),
-                CustomRoute(
+                AutoRoute(
                   page: RutaFormulario.page,
                   path: 'form',
                   // guards: [initialGuard],
-                  transitionsBuilder: TransitionsBuilders.noTransition,
                 ),
               ],
             ),
