@@ -1,6 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 
 import 'package:escuelas_flutter/widgets/appbar/escuelas_appbar.dart';
+import 'package:escuelas_flutter/widgets/drawer/escuelas_drawer.dart';
 import 'package:escuelas_flutter/widgets/bottom_navigation_bar/escuelas_bottom_navigation_bar.dart';
 
 import 'package:flutter/material.dart';
@@ -36,6 +37,11 @@ class EscuelasScaffold extends StatelessWidget {
     final colores = context.colores;
 
     return Scaffold(
+      drawer: const EscuelasDrawer(
+        // TODO(SAM): Agregar userInfo
+        nombre: 'Carlos',
+        apellido: 'Menem',
+      ),
       appBar: tieneAppBar ? const EscuelasAppBar() : null,
       backgroundColor: colorDeFondo ?? colores.background,
       body: cuerpo,

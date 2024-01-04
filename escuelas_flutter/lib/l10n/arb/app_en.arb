@@ -151,6 +151,35 @@
         "description": "Title of the absences page"
     },
 
+    "commonMail": "Mail",
+    "@commonMail": {
+        "description": "Text to be displayed in common places"
+    },
+
+    "commonError" : "Error!",
+    "@commonError": {
+        "description":"text in alertdialog title, Error"
+    },
+
+    "commonCompleteTheField": "Complete the field",
+    "@commonCompleteTheField": {
+        "description": "Text to be displayed in common places to indicate that the field must be completed"
+    },
+
+    "commonEnterAValidEmail": "Enter a valid email",
+    "@commonEnterAValidEmail": {
+        "description": "Text to indicate that the email is invalid"
+    },
+
+    "commonPassword": "Password",
+    "@commonPassword": {
+        "description": "Text to be displayed in common places to indicate password text"
+    },
+
+    "commonOnlyNumbers": "Only numbers",
+    "@commonOnlyNumbers": {
+        "description": "Text to indicate that only numbers are allowed"
+    },
 
     "pageAttendanceWithoutCourses": "There are no courses",
     "@pageAttendanceWithoutCourses": {
@@ -189,6 +218,11 @@
         "description": "Text to be displayed in the title of the dialog"
     },
 
+     "dialogLogoutQuestion": "Are you sure you \nwant to logout?",
+    "@dialogLogoutQuestion": {
+        "description": "Text of the dialog that asks the user if he is sure he wants to logout"
+    },
+
     "dialogAttendanceStateOfStudents": "with",
     "@dialogAttendanceStateOfStudents": {
         "description": "text in the dialog in the status of absent students"
@@ -202,6 +236,21 @@
     "dialogSeeLess": "See Less",
     "@dialogSeeLess": {
         "description": "text on a button to see more"
+    },
+
+    "drawerMyProfile": "My profile",
+    "@drawerMyProfile": {
+        "description": "Text of the button that indicates  that you will be redirected to profile page"
+    },
+
+      "drawerSettings":"Settings",
+    "@drawerSettings":{
+        "description":"Text of the button to indicate that you will be redirected to settings page"
+    },
+    
+    "drawerLogOut": "Log Out",
+    "@drawerLogOut":{
+        "description":"Text of the button in the logout item"
     },
     
     "dialogErrorToSendGrades": "There was an error sending\ngrades. Try again.",
@@ -348,6 +397,11 @@
     "commonConfirm": "Confirm",
     "@commonConfirm": {
         "description": "Button or link used to confirm an action or decision."
+    },
+    
+    "commonFeatureNotAvailable":"This feature is\n not available in this version.",
+    "@commonFeatureNotAvailable":{
+        "descripcion": "Text in pop up to indicate that a feature in progress"
     },
 
     "commonDecline": "Decline",

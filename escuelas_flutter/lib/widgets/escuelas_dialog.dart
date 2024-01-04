@@ -64,7 +64,7 @@ class EscuelasDialog extends StatelessWidget {
       ancho: ancho,
       altura: altura,
       onTapConfirmar: onTap,
-      tituloBotonPrincipal: l10n.commonConfirm,
+      tituloBotonPrincipal: l10n.commonConfirm.toUpperCase(),
       titulo: titulo,
       content: content,
     );
@@ -96,10 +96,43 @@ class EscuelasDialog extends StatelessWidget {
     );
   }
 
-  /// `Dialog fallido`:
+  /// `Dialog característica no disponible`:
   ///
-  /// Se usa para el procedimiento de una operación y indicarle al usuario que
-  /// algo fallo.
+  /// Se usa para mostrar un mensaje de error en caso de que la característica
+  /// solicitada no esté desarrollada o disponible.
+  ///
+  /// El Dialog requiere obligatoriamente la propiedad `[context]`.
+  factory EscuelasDialog.featNoDisponible({
+    required BuildContext context,
+  }) {
+    final l10n = context.l10n;
+    final colores = context.colores;
+
+    return EscuelasDialog(
+      altura: 120.ph,
+      onTapConfirmar: () => Navigator.of(context).pop(),
+      titulo: l10n.commonDialogError,
+      content: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8),
+        child: Center(
+          child: Text(
+            l10n.commonFeatureNotAvailable,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 16.pf,
+              color: colores.onBackground,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// `Dialog confirmar`:
+  ///
+  /// Se usa para el procedimiento de una operación y pedirle al usuario una
+  /// confirmacion.
   ///
   /// El Dialog requiere obligatoriamente la propiedad `[onTapConfirmar]`,
   /// `[titulo]` y `[context]`.
@@ -124,6 +157,40 @@ class EscuelasDialog extends StatelessWidget {
       colorDeFondoDelBotonSecundario: colores.error,
       content: content,
       titulo: titulo,
+    );
+  }
+
+  /// AlertDialog para consultar si desea cerrar sesión
+  factory EscuelasDialog.logOut({
+    required BuildContext context,
+    required VoidCallback onCerrarSesion,
+  }) {
+    final colores = context.colores;
+
+    final l10n = context.l10n;
+    return EscuelasDialog(
+      altura: 120.ph,
+      onTapConfirmar: onCerrarSesion,
+      iconoAlLadoDelTitulo: Icons.logout_outlined,
+      titulo: l10n.drawerLogOut,
+      content: Padding(
+        padding: EdgeInsets.only(
+          top: 30.ph,
+          bottom: 5.ph,
+        ),
+        child: Center(
+          child: Text(
+            l10n.dialogLogoutQuestion,
+            maxLines: 2,
+            style: TextStyle(
+              fontSize: 16.pf,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ),
+      ),
+      conBotonCancelar: true,
+      colorDeFondoDelBotonSecundario: colores.azul,
     );
   }
 
@@ -229,30 +296,41 @@ class EscuelasDialog extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             if (conBotonCancelar)
-              EscuelasBoton.texto(
-                onTap: () => Navigator.of(context).pop(),
-                estaHabilitado: true,
-                context: context,
-                texto: tituloDelBotonSecundario ??
-                    'cancelar', //TODO(anyone) ver si se hace l10n
-                color: colorDeFondoDelBotonSecundario ?? colores.onSecondary,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.pw),
+                child: EscuelasBoton.texto(
+                  onTap: () => Navigator.of(context).pop(),
+                  estaHabilitado: true,
+                  context: context,
+                  texto: tituloDelBotonSecundario ??
+                      'CANCELAR', //TODO(anyone) ver si se hace l10n
+                  color: colorDeFondoDelBotonSecundario ?? colores.onSecondary,
+                ),
               ),
             if (conBotonOutline)
-              EscuelasBoton.outlined(
-                context: context,
-                onTap: () => onTapConfirmar?.call(),
-                estaHabilitado: true,
-                color: colores.grisSC,
-                texto: tituloBotonPrincipal ??
-                    'VOLVER', //TODO(anyone) ver si se hace l10n
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.pw),
+                child: EscuelasBoton.outlined(
+                  context: context,
+                  onTap: () => onTapConfirmar?.call(),
+                  estaHabilitado: true,
+                  color: colores
+                      .verdeConfirmar, //TODO(anyone): Checkear color o q permita pasarle color del boton
+                  texto: tituloBotonPrincipal ??
+                      'VOLVER', //TODO(anyone) ver si se hace l10n
+                ),
               )
             else
-              EscuelasBoton.texto(
-                context: context,
-                onTap: () => onTapConfirmar?.call(),
-                estaHabilitado: true,
-                color: colores.verdeConfirmar,
-                texto: tituloBotonPrincipal ?? l10n.commonConfirm.toUpperCase(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 5.pw),
+                child: EscuelasBoton.texto(
+                  context: context,
+                  onTap: () => onTapConfirmar?.call(),
+                  estaHabilitado: true,
+                  color: colores.verdeConfirmar,
+                  texto:
+                      tituloBotonPrincipal ?? l10n.commonConfirm.toUpperCase(),
+                ),
               ),
           ],
         ),

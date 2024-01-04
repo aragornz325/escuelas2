@@ -97,6 +97,8 @@
     },
 
     "pageKycSuccessDialogDescription": "Registro Exitoso",
+
+    "pageKycSuccessDialogDescription": "Registro Exitoso",
     "@pageKycSuccessDialogDescription": {
         "description": "Description of the alert dialog of success after the KYC"
        
@@ -106,6 +108,8 @@
     "@pageKycDropdownTitle": {
         "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
     },
+
+    "pageHomeTitleAppBar":"Inicio",
 
     "pageHomeTitleAppBar":"Inicio",
     "@pageHomeTitleAppBar":{
@@ -122,11 +126,12 @@
         "description": "Text to indicate the log in with google system"
     },
 
-    "loginPageTitleAppBar": "Inicio de sesión",
+       "loginPageTitleAppBar": "Inicio de sesión",
     "@loginPageTitleAppBar": {
         "description": "Title of the login page"
     },
 
+    "absencePageTitleAppBar": "Inasistencias",
     "absencePageTitleAppBar": "Inasistencias",
     "@absencePageTitleAppBar": {
         "description": "Title of the absences page"
@@ -213,16 +218,42 @@
         "description": "Welcoming text"
     },
 
+
+    "drawerMyProfile": "Mi perfil",
+    "@drawerMyProfile": {
+        "description": "Text of the button that indicates  that you will be redirected to profile page"
+    },
+
+    "dialogLogoutQuestion": "Está seguro que \ndesea cerrar sesión?",
+    "@dialogLogoutQuestion": {
+        "description": "Text of the dialog that asks the user if he is sure he wants to logout"
+    },
+        
+    "drawerSettings":"Configuración",
+    "@drawerSettings":{
+        "description":"Text of the button to indicate that you will be redirected to settings page"
+    },
+
+    "drawerLogOut": "Cerrar sesión",
+    "@drawerLogOut":{
+        "description":"Text of the button in the logout item"
+    },
+
     "commonMail": "Mail",
     "@commonMail": {
         "description": "Text to be displayed in common places"
+    },
+
+    "commonFeatureNotAvailable":"Esta característica no está\n disponible en esta versión.",
+    "@commonFeatureNotAvailable":{
+        "descripcion": "Text in pop up to indicate that a feature in progress"
     },
 
     "commonLogIn": "Ingresar",
     "@commonLogIn": {
         "description": "Text on the button that indicates that its action is login"
     },
-    
+
     "commonCompleteTheField": "Complete el campo",
     "@commonCompleteTheField": {
         "description": "Text to be displayed in common places to indicate that the field must be completed"
@@ -256,7 +287,12 @@
     "commonDialogError": "Ha ocurrido un error",
     "@commonDialogError": {
         "description": "Description of the alert dialog error, informing the user of an error."
-    },    
+    },   
+
+    "commonError" : "Error!",
+    "@commonError": {
+        "description":"text in alertdialog title, Error"
+    },
 
     "commonPhone": "Teléfono",
     "@commonPhone": {
@@ -306,6 +342,55 @@
     "commonDecline": "Rechazar",
     "@commonDecline": {
         "description": "Button or link used to decline or reject an action or decision."
+    },
+
+    "pageAttendanceWithoutCourses": "No hay cursos",
+    "@pageAttendanceWithoutCourses": {
+        "description": "Text to be displayed if there are no courses"
+    },
+
+    "pageAttendanceTitleFinishButtonToEndAttendance": "Finalizar",
+    "@pageAttendanceTitleFinishButtonToEndAttendance": {
+        "description": "Text to be displayed in the button to end the Attendance"
+    },
+
+    "pageAttendanceTitleDefinedMissingAmountComplete": "Definidos {missing}/{all}",
+    "@pageAttendanceTitleDefinedMissingAmountComplete": {
+        "description": "Text to be displayed in the button to end the Attendance",
+        "placeholders" :{
+            "missing" : {
+                "type": "int"
+            },
+            "all" : {
+                "type": "int"
+            }
+        }
+    },
+
+    "pageAttendanceNotAbsentStudents": "No hay alumnos ausentes",
+    "@pageAttendanceNotAbsentStudents": {
+        "description": "Text to be displayed when there are no absent students"
+    },
+
+    "dialogAttendanceOfDay": "Asistencias del día",
+    "@dialogAttendanceOfDay": {
+        "description": "Text to be displayed in the title of the dialog"
+    },
+
+    "dialogAttendanceStateOfStudents": "con",
+    "@dialogAttendanceStateOfStudents": {
+        "description": "text in the dialog in the status of absent students"
+       
+    },
+    
+    "dialogSeeMore": "Ver más",
+    "@dialogSeeMore": {
+        "description": "text on a button to see less"
+    },
+
+    "dialogSeeLess": "Ver menos",
+    "@dialogSeeLess": {
+        "description": "text on a button to see more"
     },
 
     "commonName": "Nombre",

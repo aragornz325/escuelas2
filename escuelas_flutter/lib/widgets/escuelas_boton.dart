@@ -152,7 +152,7 @@ class EscuelasBoton extends StatelessWidget {
   final bool esOutlined;
 
   /// Funcion al presionar el boton
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
 
   /// Ancho del boton, por defecto es 130. Parametro con .pw aplicado.
   final double? width;

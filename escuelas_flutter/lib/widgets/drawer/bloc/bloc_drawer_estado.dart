@@ -5,56 +5,40 @@ part of 'bloc_drawer.dart';
 /// {@endtemplate}
 class BlocDrawerEstado {
   /// {@macro BlocDrawerEstado}
-  const BlocDrawerEstado._({
-    this.cerroSesion = false,
-    // this.pageDrawer = DrawerPage.home,
-  });
-// TODO(SAM): Analizar si descomentar pagedrawer.
+  const BlocDrawerEstado._();
+
   BlocDrawerEstado.desde(
-    BlocDrawerEstado otro, {
-    bool? cerroSesion,
-    //DrawerPage? pageDrawer,
-  }) : this._(
-          cerroSesion: cerroSesion ?? otro.cerroSesion,
-          //    pageDrawer: pageDrawer ?? otro.pageDrawer,
-        );
-
-  /// Indica si se cerro la sesion o no del usuario, se almacena en el bloc
-  /// para redirigir a la vista login.
-  final bool? cerroSesion;
-
-  /// Page de Drawer seleccionado.
-  // final DrawerPage pageDrawer;
+    // ignore: avoid_unused_constructor_parameters
+    BlocDrawerEstado otro,
+  ) : this._();
 }
 
-/// {@template BlocAdministracionMarcasEstadoInicial}
+/// {@template BlocDrawerEstadoInicial}
 /// Estado inicial de los componentes de la pantalla [BlocDrawer]
 /// {@endtemplate}
 class BlocDrawerEstadoInicial extends BlocDrawerEstado {
-  /// {@macro BlocAdministracionMarcasEstadoInicial}
+  /// {@macro BlocDrawerEstadoInicial}
   const BlocDrawerEstadoInicial() : super._();
 }
 
-/// {@template BlocAdministracionMarcasEstadoCargando}
+/// {@template BlocDrawerEstadoCargando}
 /// Estado de cargando de los componentes de la pantalla [BlocDrawer]
 /// {@endtemplate}
 class BlocDrawerEstadoCargando extends BlocDrawerEstado {
-  /// {@macro BlocAdministracionMarcasEstadoCargando}
+  /// {@macro BlocDrawerEstadoCargando}
   BlocDrawerEstadoCargando.desde(
     super.otro,
   ) : super.desde();
 }
 
-/// {@template BlocAdministracionMarcasEstadoExitosoGeneral}
-/// Estado exitoso general de los componentes de la pantalla [BlocDrawer]
+/// {@template BlocDrawerEstadoCerrarSesionExitoso}
+/// Estado exitoso de cierre de sesion del usuario.
 /// {@endtemplate}
-class BlocDrawerEstadoExitosoGeneral extends BlocDrawerEstado {
-  /// {@macro BlocAdministracionMarcasEstadoExitosoGeneral}
-  BlocDrawerEstadoExitosoGeneral.desde(
-    super.otro, {
-    super.cerroSesion,
-    //   super.pageDrawer,
-  }) : super.desde();
+class BlocDrawerEstadoCerrarSesionExitoso extends BlocDrawerEstado {
+  /// {@macro BlocDrawerEstadoCerrarSesionExitoso}
+  BlocDrawerEstadoCerrarSesionExitoso.desde(
+    super.otro,
+  ) : super.desde();
 }
 
 /// {@template BlocDrawerEstadoCambioDePagina}
@@ -64,14 +48,13 @@ class BlocDrawerEstadoCambioDePagina extends BlocDrawerEstado {
   /// {@macro BlocDrawerEstadoCambioDePagina}
   BlocDrawerEstadoCambioDePagina.desde(
     super.otro,
-//    required super.pageDrawer,
   ) : super.desde();
 }
 
-/// {@template BlocAdministracionMarcasEstadoError}
+/// {@template BlocDrawerEstadoError}
 /// Estado de error de los componentes de la pantalla [BlocDrawer]
 /// {@endtemplate}
 class BlocDrawerEstadoError extends BlocDrawerEstado {
-  /// {@macro BlocAdministracionMarcasEstadoError}
+  /// {@macro BlocDrawerEstadoError}
   BlocDrawerEstadoError.desde(super.otro) : super.desde();
 }
