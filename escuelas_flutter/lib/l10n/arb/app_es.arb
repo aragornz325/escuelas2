@@ -95,12 +95,19 @@
             }
         }
     },
-         "pageKycSuccessDialogDescription": "Registro Exitoso",
+
+    "pageKycSuccessDialogDescription": "Registro Exitoso",
     "@pageKycSuccessDialogDescription": {
         "description": "Description of the alert dialog of success after the KYC"
        
     },
-        "pageHomeTitleAppBar":"Inicio",
+
+    "pageKycDropdownTitle": "Select an option",
+    "@pageKycDropdownTitle": {
+        "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
+    },
+
+    "pageHomeTitleAppBar":"Inicio",
     "@pageHomeTitleAppBar":{
         "description":"Title of the home page"
     },
@@ -114,12 +121,13 @@
     "@pageLoginLoginWithGoogle": {
         "description": "Text to indicate the log in with google system"
     },
-       "loginPageTitleAppBar": "Inicio de sesión",
+
+    "loginPageTitleAppBar": "Inicio de sesión",
     "@loginPageTitleAppBar": {
         "description": "Title of the login page"
     },
 
-            "absencePageTitleAppBar": "Inasistencias",
+    "absencePageTitleAppBar": "Inasistencias",
     "@absencePageTitleAppBar": {
         "description": "Title of the absences page"
     },
@@ -167,6 +175,21 @@
         "description": "Text to be displayed when there are no absent students"
     },
 
+    "pageGradesNotGrades": "No hay calificaciones",
+    "@pageGradesNotGrades": {
+        "description": "Text to be displayed if there are no grades"
+    },
+
+    "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
+    "@dialogErrorToSendGrades": {
+        "description": "Label indicating an error when sending notes."
+    },
+
+    "dialogSuccessToSendGrades": "¡Las calificaciones fueron enviadas\n correctamente!",
+    "@dialogSuccessToSendGrades": {
+        "description": "Label indicating successful sending of grades."
+    },
+
     "dialogAttendanceOfDay": "Asistencias del día",
     "@dialogAttendanceOfDay": {
         "description": "Text to be displayed in the title of the dialog"
@@ -185,14 +208,10 @@
         "description": "text on a button to see more"
     },
 
-
-
-
     "commonWelcome": "¡Bienvenido!",
     "@commonWelcome": {
         "description": "Welcoming text"
     },
-
 
     "commonMail": "Mail",
     "@commonMail": {
@@ -289,8 +308,6 @@
         "description": "Button or link used to decline or reject an action or decision."
     },
 
-
-
     "commonName": "Nombre",
     "@commonName": {
         "description": "Label for the 'Name' field or column in the interface"
@@ -336,5 +353,9 @@
         "description": "Text in button to indicate the action back"
     }
 
-
+    "commonDeleteAll": "Borrar todos",
+    "@commonDeleteAll": {
+        "description": "Label indicating to delete all items"
+    }
+    
 }

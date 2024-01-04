@@ -4,7 +4,7 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-// TODO(anyone): Mejorar el routeo y hacerlo con switch, y hacer componente para los items de la barra, tambien mejorar el tema del index
+// TODO(anyone): Mejorar el routeo y hacerlo con switch, tambien mejorar el tema del index
 
 /// {@template EscuelasBottomNavigationBar}
 /// Componente de navegacion estatico
@@ -36,33 +36,60 @@ class EscuelasBottomNavigationBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          GestureDetector(
+          _ItemBottomNavigationBar(
+            icono: Icons.house_outlined,
+            estaSeleccionado: index == 0,
             onTap: () => context.pushRoute(RutaInicio()),
-            child: Icon(
-              Icons.house_outlined,
-              color: index == 0 ? colores.onBackground : colores.secondary,
-            ),
           ),
-          GestureDetector(
+          _ItemBottomNavigationBar(
+            icono: Icons.description_outlined,
+            estaSeleccionado: index == 1,
             onTap: () {},
-            child: Icon(
-              Icons.description_outlined,
-              color: index == 1 ? colores.onBackground : colores.secondary,
-            ),
           ),
-          GestureDetector(
+          _ItemBottomNavigationBar(
+            icono: Icons.person_2_outlined,
+            estaSeleccionado: index == 2,
             onTap: () => context.pushRoute(
               // TODO(Gon): Pasar id del usuario logeado
               RutaPerfilUsuario(
                 idUsuario: 0,
               ),
             ),
-            child: Icon(
-              Icons.person_2_outlined,
-              color: index == 2 ? colores.onBackground : colores.secondary,
-            ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+/// {@template _ItemBottomNavigationBar}
+/// Componente item de la barra de navegacion
+/// {@endtemplate}
+class _ItemBottomNavigationBar extends StatelessWidget {
+  /// {@macro _ItemBottomNavigationBar}
+  const _ItemBottomNavigationBar({
+    required this.onTap,
+    required this.estaSeleccionado,
+    required this.icono,
+  });
+
+  /// Icono a mostrar en el componente
+  final IconData icono;
+
+  /// Indica si el icono esta seleccionado
+  final bool estaSeleccionado;
+
+  /// Funcion al presionar el icono
+  final void Function() onTap;
+  @override
+  Widget build(BuildContext context) {
+    final colores = context.colores;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Icon(
+        icono,
+        color: estaSeleccionado ? colores.onBackground : colores.secondary,
       ),
     );
   }

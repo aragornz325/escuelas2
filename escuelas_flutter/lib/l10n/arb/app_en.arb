@@ -30,7 +30,8 @@
           }
         }
     },
-      "pageKycSuccessDialogDescription": "Successful registration",
+    
+    "pageKycSuccessDialogDescription": "Successful registration",
     "@pageKycSuccessDialogDescription": {
         "description": "Description of the alert dialog of success after the KYC"
     },
@@ -99,8 +100,13 @@
             }
         }
     },
+
+    "pageKycDropdownTitle": "Select an option",
+    "@pageKycDropdownTitle": {
+        "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
+    },
  
-        "pageHomeTitleAppBar":"Home",
+    "pageHomeTitleAppBar":"Home",
     "@pageHomeTitleAppBar":{
         "description":"Title of the home page"
     },
@@ -129,10 +135,21 @@
         "description": "text to indicate the the options of login"
     },
 
-"pageLoginDialogAnErrorOccurred":"An error occurred while registering.",
-"@pageLoginDialogAnErrorOccurred":{
-    "description": "Text in the dialog to indicate that an error ocurred" 
-},
+    "pageLoginDialogAnErrorOccurred":"An error occurred while registering.",
+    "@pageLoginDialogAnErrorOccurred":{
+        "description": "Text in the dialog to indicate that an error ocurred" 
+    },
+
+
+    "pageGradesNoGrades": "They are no grades",
+    "@pageGradesNoGrades": {
+        "description": "Text to be displayed if there are no grades"
+    },
+
+    "absencePageTitleAppBar": "Absences",
+    "@absencePageTitleAppBar": {
+        "description": "Title of the absences page"
+    },
 
 
     "pageAttendanceWithoutCourses": "There are no courses",
@@ -186,13 +203,22 @@
     "@dialogSeeLess": {
         "description": "text on a button to see more"
     },
+    
+    "dialogErrorToSendGrades": "There was an error sending\ngrades. Try again.",
+    "@dialogErrorToSendGrades": {
+        "description": "Label indicating an error when sending notes."
+    },
+    
+    "dialogSuccessToSendGrades": "The grades were sent\nsuccessfully!",
+    "@dialogSuccessToSendGrades": {
+        "description": "Label indicating successful sending of grades."
+    },
 
 
     "commonWelcome": "Welcome!",
     "@commonWelcome": {
         "description": "Welcoming text"
     },
-
 
     "commonDNI": "Identification number",
     "@commonDNI": {
@@ -208,7 +234,6 @@
     "@commonLogIn": {
         "description": "Text on the button that indicates that its action is login"
     },
-
 
     "commonCompleteTheField": "Complete the field",
     "@commonCompleteTheField": {
@@ -333,5 +358,10 @@
     "commonBack": "Back",
     "@commonBack": {
         "description": "Text in button to indicate the action back"
+    },
+    
+    "commonDeleteAll": "Delete All",
+    "@commonDeleteAll": {
+        "description": "Label indicating to delete all items"
     }
 }

@@ -32,7 +32,7 @@ class ElementoLista extends StatelessWidget {
     required VoidCallback onTap,
 
     /// Nombre del rol.
-    required Text nombreRol,
+    required String nombreRol,
 
     /// Contexto para utilizar colores del tema
     required BuildContext context,
@@ -40,7 +40,13 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
 
     return ElementoLista(
-      texto: nombreRol,
+      texto: Text(
+        nombreRol,
+        style: TextStyle(
+          fontSize: 16.pf,
+          fontWeight: FontWeight.w900,
+        ),
+      ),
       altura: 65.ph,
       borderRadius: 20.sw,
       colorFondo:
@@ -59,14 +65,20 @@ class ElementoLista extends StatelessWidget {
 
     /// Contexto para utilizar colores del tema
     required BuildContext context,
+
+    /// Indica si esta habilitado para presionarse o no
     required bool estaHabilitado,
+
+    /// Indica si las calificaciones de esa materia ya fueron cargas en el mes
     required bool estaCargada,
   }) {
     final colores = context.colores;
 
     return ElementoLista(
+      altura: 50.ph,
       texto: Text(
         nombreMateria,
+        maxLines: 1,
         style: TextStyle(
           fontSize: 12.pf,
           overflow: TextOverflow.ellipsis,
@@ -76,23 +88,24 @@ class ElementoLista extends StatelessWidget {
               : colores.onBackground.withOpacity(.3),
         ),
       ),
-      altura: 50.ph,
-      borderRadius: 20.sw,
       colorFondo: colores.tertiary,
       onTap: onTap,
-      widgetLateralDerecho: estaHabilitado && !estaCargada
-          ? Icon(
-              Icons.circle,
-              color: colores.error,
-              size: 15.sw,
-            )
-          : Icon(
-              Icons.check_circle,
-              color: estaHabilitado && estaCargada
-                  ? colores.verdeConfirmar
-                  : colores.secondary,
-              size: 15.sw,
-            ),
+      widgetLateralDerecho: Padding(
+        padding: EdgeInsets.only(right: 10.pw),
+        child: estaHabilitado && !estaCargada
+            ? Icon(
+                Icons.circle,
+                color: colores.error,
+                size: 15.sw,
+              )
+            : Icon(
+                Icons.check_circle,
+                color: estaHabilitado && estaCargada
+                    ? colores.verdeConfirmar
+                    : colores.secondary,
+                size: 15.sw,
+              ),
+      ),
     );
   }
 
@@ -101,7 +114,7 @@ class ElementoLista extends StatelessWidget {
     required VoidCallback onTap,
 
     /// Nombre del rol.
-    required Text nombreUsuario,
+    required String nombreUsuario,
 
     /// Contexto para utilizar colores del tema
     required BuildContext context,
@@ -109,8 +122,14 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
 
     return ElementoLista(
-      texto: nombreUsuario,
       altura: 50.ph,
+      texto: Text(
+        nombreUsuario,
+        style: TextStyle(
+          fontSize: 14.pf,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
       borderRadius: 40.sw,
       colorFondo: colores.tertiary,
       onTap: onTap,
@@ -121,9 +140,17 @@ class ElementoLista extends StatelessWidget {
   factory ElementoLista.supervisionCurso({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
+
+    /// Nombre del curso.
     required String nombreCurso,
+
+    /// Color del fondo del elemento
     required Color colorFondo,
+
+    /// Contexto para utilizar colores del tema
     required BuildContext context,
+
+    /// Componente que se agrega al final del [ElementoLista] a la derecha
     Widget? widgetLateralDerecho,
   }) {
     final colores = context.colores;
@@ -142,6 +169,83 @@ class ElementoLista extends StatelessWidget {
       colorFondo: colorFondo,
       onTap: onTap,
       widgetLateralDerecho: widgetLateralDerecho,
+    );
+  }
+
+  /// Elemento de lista para la pantalla inicial
+  factory ElementoLista.menuInicial({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Nombre de la opcion.
+    required String nombreOpcion,
+
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Componente que se agrega al final del [ElementoLista] a la derecha
+    Widget? widgetLateralDerecho,
+  }) {
+    final colores = context.colores;
+    return ElementoLista(
+      altura: 65.ph,
+      texto: Text(
+        nombreOpcion,
+        style: TextStyle(
+          fontWeight: FontWeight.w800,
+          fontSize: 16.pf,
+          color: colores.onBackground,
+        ),
+      ),
+      colorFondo: colores.tertiary,
+      onTap: onTap,
+      widgetLateralDerecho: widgetLateralDerecho,
+    );
+  }
+
+  /// Elemento de lista para la lista de cursos en inasistencia
+  factory ElementoLista.inasistencia({
+    /// Nombre del [ElementoLista]
+    required String nombre,
+
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Indica si se paso la asistencia o no
+    required bool sePasoAsistencia,
+
+    /// Cantidad de no ausentes sobre la cantidad total de alumnos
+    required String ratioCantidadDeNoAusentes,
+
+    /// Ancho del elemento
+    double? ancho,
+  }) {
+    final colores = context.colores;
+
+    return ElementoLista(
+      ancho: ancho ?? 300.pw,
+      altura: 50.ph,
+      borderRadius: 50.sw,
+      texto: Text(
+        nombre,
+        style: TextStyle(
+          color: sePasoAsistencia ? colores.onBackground : colores.onSecondary,
+          fontSize: 16.pf,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+      widgetLateralDerecho: Padding(
+        padding: EdgeInsets.only(right: 10.pw),
+        child: Text(
+          ratioCantidadDeNoAusentes,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colores.onSecondary,
+            fontSize: 16.pf,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
     );
   }
 
@@ -182,7 +286,9 @@ class ElementoLista extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     final widgetLateralDerecho = this.widgetLateralDerecho;
+
     final widgetLateralIzquierdo = this.widgetLateralIzquierdo;
 
     return GestureDetector(
@@ -212,30 +318,25 @@ class ElementoLista extends StatelessWidget {
                 ]
               : [],
         ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  // TODO(anyone): Ver como hacer para que el overflow del texto sea dinamico segun el tamaño del componente
-                  if (widgetLateralIzquierdo != null) widgetLateralIzquierdo,
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 20.pw,
-                      vertical: 5.ph,
-                    ),
-                    child: SizedBox(
-                      width: 200.pw,
-                      child: texto,
-                    ),
-                  ),
-                ],
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 5.ph,
+                ).copyWith(left: 10.pw),
+                child: Row(
+                  children: [
+                    if (widgetLateralIzquierdo != null) widgetLateralIzquierdo,
+                    if (widgetLateralIzquierdo != null) SizedBox(width: 5.pw),
+                    Flexible(child: texto),
+                  ],
+                ),
               ),
-              if (widgetLateralDerecho != null) widgetLateralDerecho,
-            ],
-          ),
+            ),
+            if (widgetLateralDerecho != null) widgetLateralDerecho,
+          ],
         ),
       ),
     );

@@ -190,6 +190,16 @@ class _EscuelasDropdownPopupState extends State<EscuelasDropdownPopup> {
     return height;
   }
 
+  /// Indicate if the option is selected
+  bool isSelected(int optionId) {
+    for (final obj in selectedList) {
+      if (obj.id == optionId) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   void initState() {
     filteredOptions = [...widget.list];
@@ -219,6 +229,12 @@ class _EscuelasDropdownPopupState extends State<EscuelasDropdownPopup> {
               fixedSize: MaterialStateProperty.resolveWith((states) {
                 return Size(getWidth(boxConstraints), getModalHeight());
               }),
+              backgroundColor: MaterialStateProperty.resolveWith(
+                (states) => colores.tertiary,
+              ),
+              elevation: MaterialStateProperty.resolveWith((states) {
+                return 0.0;
+              }),
             ),
             builder: (context, controller, _) {
               menuController = controller;
@@ -247,10 +263,7 @@ class _EscuelasDropdownPopupState extends State<EscuelasDropdownPopup> {
                               topLeft: Radius.circular(10.sw),
                             )
                           : BorderRadius.all(Radius.circular(10.sw)),
-                      border: Border.all(
-                        color: colores.outline,
-                      ),
-                      color: colores.background,
+                      color: colores.tertiary,
                     ),
                     width: getWidth(boxConstraints).sw,
                     child: Row(
@@ -329,18 +342,18 @@ class _EscuelasDropdownPopupState extends State<EscuelasDropdownPopup> {
                   selectAllButtonHeight: aditionalOptionHeight,
                 ),
               ...filteredOptions.map(
-                (option) => TileList(
-                  filterController: filterController,
+                (option) => _CustomTile(
                   option: option,
-                  alwaysOneSelected: widget.alwaysOneSelected,
+                  filterController: filterController,
                   heightTile: widget.heightTile,
-                  list: widget.list,
-                  multiSelect: widget.multiSelect,
-                  selectedOptionColor: widget.selectedOptionColor,
                   selectedList: selectedList,
+                  alwaysOneSelected: widget.alwaysOneSelected,
                   unSelectedOptionColor: widget.unSelectedOptionColor,
-                  menuController: menuController,
-                  handleOnChange: (value) =>
+                  selectedOptionColor: widget.selectedOptionColor,
+                  multiSelect: widget.multiSelect,
+                  unSelectAll: selectedList.clear,
+                  isSelected: isSelected(option.id),
+                  onChanged: (value) =>
                       handleOnChange(newValue: value, option: option),
                 ),
               ),
@@ -480,7 +493,7 @@ class _CustomTile extends StatelessWidget {
         onTap: handleOnChange,
         child: Container(
           decoration: BoxDecoration(
-            color: isSelected ? selectedOptionColor : colores.background,
+            color: isSelected ? selectedOptionColor : colores.tertiary,
           ),
           height: heightTile,
           child: Row(
@@ -520,7 +533,7 @@ class _CustomTile extends StatelessWidget {
                                             filterController.text,
                                           )
                                   ? colores.error
-                                  : colores.primary,
+                                  : colores.onBackground,
                             ),
                           ),
                         )
@@ -627,88 +640,6 @@ class _SelectAllButton extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
-
-/// List of options
-class TileList extends StatelessWidget {
-  const TileList({
-    required this.option,
-    required this.menuController,
-    required this.selectedList,
-    required this.heightTile,
-    required this.alwaysOneSelected,
-    required this.unSelectedOptionColor,
-    required this.selectedOptionColor,
-    required this.multiSelect,
-    required this.list,
-    required this.handleOnChange,
-    required this.filterController,
-    super.key,
-  });
-
-  /// MenuController to open and close the menu
-  final MenuController menuController;
-
-  /// The option to display
-  final PopupOption option;
-
-  /// List of selected option
-  final List<PopupOption> selectedList;
-
-  /// List of options
-  final List<PopupOption> list;
-
-  /// Height of the tiles
-  final double heightTile;
-
-  /// Always keep an option selected
-  final bool alwaysOneSelected;
-
-  /// Color of the unselected options
-  final Color unSelectedOptionColor;
-
-  /// Color of the selected options
-  final Color selectedOptionColor;
-
-  /// Allows multiple options to be selected
-  final bool multiSelect;
-
-  /// Called when the user taps a tile
-  final void Function(bool) handleOnChange;
-
-  final TextEditingController filterController;
-
-  /// Indicate if the option is selected
-  bool isSelected(int optionId) {
-    for (final obj in selectedList) {
-      if (obj.id == optionId) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _CustomTile(
-          filterController: filterController,
-          heightTile: heightTile,
-          selectedList: selectedList,
-          alwaysOneSelected: alwaysOneSelected,
-          unSelectedOptionColor: unSelectedOptionColor,
-          selectedOptionColor: selectedOptionColor,
-          multiSelect: multiSelect,
-          unSelectAll: selectedList.clear,
-          isSelected: isSelected(option.id),
-          onChanged: handleOnChange,
-          option: option,
-        ),
-        SizedBox(height: 1.ph),
-      ],
     );
   }
 }

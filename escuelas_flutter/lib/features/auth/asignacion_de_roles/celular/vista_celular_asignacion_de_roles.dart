@@ -27,43 +27,41 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
         }
 
         return SingleChildScrollView(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Column(
-                children: Roles.values
-                    .map(
-                      (rol) => Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            rol.name.toUpperCase(),
-                            style: TextStyle(
-                              color: colores.onSecondary,
-                              fontSize: 16.pf,
-                              fontWeight: FontWeight.w800,
-                            ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 10.pw),
+            child: Column(
+              children: Roles.values
+                  .map(
+                    (rol) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          rol.name.toUpperCase(),
+                          style: TextStyle(
+                            color: colores.onSecondary,
+                            fontSize: 16.pf,
+                            fontWeight: FontWeight.w800,
                           ),
-                          SizedBox(height: 10.ph),
-                          ...state.listaUsuariosPendientes
-                              .where(
-                                (usuario) => usuario.rol == rol,
-                              )
-                              .toList()
-                              .map(
-                                (usuario) => Padding(
-                                  padding: EdgeInsets.only(bottom: 10.ph),
-                                  child: ItemUsuarioPendiente(
-                                    usuario: usuario,
-                                  ),
+                        ),
+                        SizedBox(height: 10.ph),
+                        ...state.listaUsuariosPendientes
+                            .where(
+                              (usuario) => usuario.rol == rol,
+                            )
+                            .toList()
+                            .map(
+                              (usuario) => Padding(
+                                padding: EdgeInsets.only(bottom: 10.ph),
+                                child: ItemUsuarioPendiente(
+                                  usuario: usuario,
                                 ),
                               ),
-                        ],
-                      ),
-                    )
-                    .toList(),
-              ),
-            ],
+                            ),
+                      ],
+                    ),
+                  )
+                  .toList(),
+            ),
           ),
         );
       },

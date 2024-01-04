@@ -25,17 +25,13 @@ class ItemUsuarioPendiente extends StatelessWidget {
 
     return Row(
       children: [
-        ElementoLista.usuario(
-          nombreUsuario: Text(
-            usuario.nombre,
-            style: TextStyle(
-              fontSize: 14.pf,
-              fontWeight: FontWeight.w700,
-            ),
+        Expanded(
+          child: ElementoLista.usuario(
+            nombreUsuario: usuario.nombre,
+            context: context,
+            onTap: () =>
+                context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
           ),
-          context: context,
-          onTap: () =>
-              context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
