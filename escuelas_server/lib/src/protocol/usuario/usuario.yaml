@@ -2,7 +2,7 @@ class: Usuario
 table: usuarios
 fields:
   idUserInfo: int
-  roles: List<RolDeUsuario>
+  roles: List<RolDeUsuario>, !persist
   dni: String
   ultimaModificacion: DateTime
   fechaCreacion: DateTime

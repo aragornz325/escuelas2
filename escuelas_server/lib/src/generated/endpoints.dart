@@ -12,9 +12,12 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/asignatura_endpoint.dart' as _i2;
 import '../endpoints/curso_endpoint.dart' as _i3;
 import '../endpoints/example_endpoint.dart' as _i4;
-import 'package:escuelas_server/src/generated/curso/asignatura.dart' as _i5;
-import 'package:escuelas_server/src/generated/curso/curso.dart' as _i6;
-import 'package:serverpod_auth_server/module.dart' as _i7;
+import '../endpoints/usuario_endpoint.dart' as _i5;
+import 'package:escuelas_server/src/generated/curso/asignatura.dart' as _i6;
+import 'package:escuelas_server/src/generated/curso/curso.dart' as _i7;
+import 'package:escuelas_server/src/generated/usuario/usuario_pendiente.dart'
+    as _i8;
+import 'package:serverpod_auth_server/module.dart' as _i9;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -36,6 +39,12 @@ class Endpoints extends _i1.EndpointDispatch {
         ..initialize(
           server,
           'example',
+          null,
+        ),
+      'usuario': _i5.UsuarioEndpoint()
+        ..initialize(
+          server,
+          'usuario',
           null,
         ),
     };
@@ -77,7 +86,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'asignatura': _i1.ParameterDescription(
               name: 'asignatura',
-              type: _i1.getType<_i5.Asignatura>(),
+              type: _i1.getType<_i6.Asignatura>(),
               nullable: false,
             )
           },
@@ -96,7 +105,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'asignatura': _i1.ParameterDescription(
               name: 'asignatura',
-              type: _i1.getType<_i5.Asignatura>(),
+              type: _i1.getType<_i6.Asignatura>(),
               nullable: false,
             )
           },
@@ -167,7 +176,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'curso': _i1.ParameterDescription(
               name: 'curso',
-              type: _i1.getType<_i6.Curso>(),
+              type: _i1.getType<_i7.Curso>(),
               nullable: false,
             )
           },
@@ -185,7 +194,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'curso': _i1.ParameterDescription(
               name: 'curso',
-              type: _i1.getType<_i6.Curso>(),
+              type: _i1.getType<_i7.Curso>(),
               nullable: false,
             )
           },
@@ -242,6 +251,41 @@ class Endpoints extends _i1.EndpointDispatch {
         )
       },
     );
-    modules['serverpod_auth'] = _i7.Endpoints()..initializeEndpoints(server);
+    connectors['usuario'] = _i1.EndpointConnector(
+      name: 'usuario',
+      endpoint: endpoints['usuario']!,
+      methodConnectors: {
+        'obtenerUsuariosPendientes': _i1.MethodConnector(
+          name: 'obtenerUsuariosPendientes',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['usuario'] as _i5.UsuarioEndpoint)
+                  .obtenerUsuariosPendientes(session),
+        ),
+        'enviarSoliciturRegistro': _i1.MethodConnector(
+          name: 'enviarSoliciturRegistro',
+          params: {
+            'usuarioPendiente': _i1.ParameterDescription(
+              name: 'usuarioPendiente',
+              type: _i1.getType<_i8.UsuarioPendiente>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['usuario'] as _i5.UsuarioEndpoint)
+                  .enviarSoliciturRegistro(
+            session,
+            usuarioPendiente: params['usuarioPendiente'],
+          ),
+        ),
+      },
+    );
+    modules['serverpod_auth'] = _i9.Endpoints()..initializeEndpoints(server);
   }
 }

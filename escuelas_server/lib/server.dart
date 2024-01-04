@@ -1,3 +1,4 @@
+import 'package:escuelas_server/src/utils/logger.dart';
 import 'package:mailer/mailer.dart';
 import 'package:mailer/smtp_server.dart';
 import 'package:serverpod/serverpod.dart';
@@ -12,7 +13,7 @@ import 'src/generated/endpoints.dart';
 // configuring Relic (Serverpod's web-server), or need custom setup work.
 
 void run(List<String> args) async {
-  // Initialize Serverpod and connect it with your generated code.
+inicializarLogger();  // Initialize Serverpod and connect it with your generated code.
   final pod = Serverpod(
     args,
     Protocol(),

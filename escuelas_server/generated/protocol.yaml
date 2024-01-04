@@ -12,3 +12,6 @@ curso:
   - eliminarCurso:
 example:
   - hello:
+usuario:
+  - obtenerUsuariosPendientes:
+  - enviarSoliciturRegistro:
