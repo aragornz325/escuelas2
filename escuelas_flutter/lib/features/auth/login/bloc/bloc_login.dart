@@ -15,6 +15,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
   /// {@macro BlocLogin}
   BlocLogin() : super(const BlocLoginEstadoInicial()) {
     on<BlocLoginEventoHabilitarBotonIngresar>(_habilitarBotonIngresar);
+    //! TODO(Manu): descomentar cuando este el endpoint
     // on<BlocLoginEventoIniciarSesionConCredenciales>(
     //   _iniciarSesionConCredenciales,
     // );

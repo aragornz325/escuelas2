@@ -134,7 +134,60 @@
         "description": "text to indicate the the options of login"
     },
 
-    
+    "pageLoginDialogAnErrorOccurred":"Ocurrió un error al registrarse.",
+    "@pageLoginDialogAnErrorOccurred":{
+        "description": "Text in the dialog to indicate that an error ocurred" 
+    },    
+
+    "pageAttendanceWithoutCourses": "No hay cursos",
+    "@pageAttendanceWithoutCourses": {
+        "description": "Text to be displayed if there are no courses"
+    },
+
+    "pageAttendanceTitleFinishButtonToEndAttendance": "Finalizar",
+    "@pageAttendanceTitleFinishButtonToEndAttendance": {
+        "description": "Text to be displayed in the button to end the Attendance"
+    },
+
+    "pageAttendanceTitleDefinedMissingAmountComplete": "Definidos {missing}/{all}",
+    "@pageAttendanceTitleDefinedMissingAmountComplete": {
+        "description": "Text to be displayed in the button to end the Attendance",
+        "placeholders" :{
+            "missing" : {
+                "type": "int"
+            },
+            "all" : {
+                "type": "int"
+            }
+        }
+    },
+
+    "pageAttendanceNotAbsentStudents": "No hay alumnos ausentes",
+    "@pageAttendanceNotAbsentStudents": {
+        "description": "Text to be displayed when there are no absent students"
+    },
+
+    "dialogAttendanceOfDay": "Asistencias del día",
+    "@dialogAttendanceOfDay": {
+        "description": "Text to be displayed in the title of the dialog"
+    },
+    "dialogAttendanceStateOfStudents": "con",
+    "@dialogAttendanceStateOfStudents": {
+        "description": "text in the dialog in the status of absent students"
+       
+    },
+    "dialogSeeMore": "Ver más",
+    "@dialogSeeMore": {
+        "description": "text on a button to see less"
+    },
+    "dialogSeeLess": "Ver menos",
+    "@dialogSeeLess": {
+        "description": "text on a button to see more"
+    },
+
+
+
+
     "commonWelcome": "¡Bienvenido!",
     "@commonWelcome": {
         "description": "Welcoming text"
@@ -236,52 +289,6 @@
         "description": "Button or link used to decline or reject an action or decision."
     },
 
-    "pageAttendanceWithoutCourses": "No hay cursos",
-    "@pageAttendanceWithoutCourses": {
-        "description": "Text to be displayed if there are no courses"
-    },
-
-    "pageAttendanceTitleFinishButtonToEndAttendance": "Finalizar",
-    "@pageAttendanceTitleFinishButtonToEndAttendance": {
-        "description": "Text to be displayed in the button to end the Attendance"
-    },
-
-    "pageAttendanceTitleDefinedMissingAmountComplete": "Definidos {missing}/{all}",
-    "@pageAttendanceTitleDefinedMissingAmountComplete": {
-        "description": "Text to be displayed in the button to end the Attendance",
-        "placeholders" :{
-            "missing" : {
-                "type": "int"
-            },
-            "all" : {
-                "type": "int"
-            }
-        }
-    },
-
-    "pageAttendanceNotAbsentStudents": "No hay alumnos ausentes",
-    "@pageAttendanceNotAbsentStudents": {
-        "description": "Text to be displayed when there are no absent students"
-    },
-
-    "dialogAttendanceOfDay": "Asistencias del día",
-    "@dialogAttendanceOfDay": {
-        "description": "Text to be displayed in the title of the dialog"
-    },
-    "dialogAttendanceStateOfStudents": "con",
-    "@dialogAttendanceStateOfStudents": {
-        "description": "text in the dialog in the status of absent students"
-       
-    },
-    "dialogSeeMore": "Ver más",
-    "@dialogSeeMore": {
-        "description": "text on a button to see less"
-    },
-    "dialogSeeLess": "Ver menos",
-    "@dialogSeeLess": {
-        "description": "text on a button to see more"
-    },
-
 
 
     "commonName": "Nombre",
@@ -322,6 +329,12 @@
     "commonUndefined": "Sin def.",
     "@commonUndefined": {
         "description": "Label indicating that the attendance status of the student is undefined or not specified"
+    },
+
+    "commonBack": "Volver",
+    "@commonBack": {
+        "description": "Text in button to indicate the action back"
     }
+
 
 }

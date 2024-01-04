@@ -8,6 +8,7 @@ import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/escuelas_textfield.dart';
+import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -61,15 +62,20 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
       body: BlocConsumer<BlocLogin, BlocLoginEstado>(
         listener: (context, state) {
           if (state is BlocLoginEstadoErrorAlIniciarSesion) {
-            //TODO! (Manu):agregar pop ups cuando esten
-            const Text('Error al iniciar sesion');
+            showDialog<void>(
+              context: context,
+              builder: (_) => EscuelasDialog.fallido(
+                onTap: () {
+                  Navigator.of(context).pop();
+                },
+                tituloDelBoton: l10n.commonBack.toUpperCase(),
+                content: Text(l10n.pageLoginDialogAnErrorOccurred),
+              ),
+            );
           }
-          if (state is BlocLoginEstadoErrorGeneral) {
-            //TODO! (Manu):agregar pop ups cuando esten
-            const Text('Error');
-          }
+
           if (state is BlocLoginEstadoExitosoIniciarSesion) {
-            context.pushRoute(const RutaKyc());
+            context.replaceRoute(RutaInicio());
           }
         },
         builder: (context, state) {
@@ -79,75 +85,78 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
               child: CircularProgressIndicator(),
             );
           }
-          return Center(
-            child: Column(
-              children: [
-                SizedBox(height: 80.ph),
-                Text(
-                  l10n.commonWelcome,
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 24.pf,
-                    fontWeight: FontWeight.bold,
+
+          return SingleChildScrollView(
+            child: Center(
+              child: Column(
+                children: [
+                  SizedBox(height: 80.ph),
+                  Text(
+                    l10n.commonWelcome,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontSize: 24.pf,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                SizedBox(height: 20.ph),
-                Text(
-                  l10n.pageLoginCredentialsIndicativeText,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 13.pf,
+                  SizedBox(height: 20.ph),
+                  Text(
+                    l10n.pageLoginCredentialsIndicativeText,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontSize: 13.pf,
+                    ),
                   ),
-                ),
-                SizedBox(height: 55.ph),
-                Container(
-                  height: max(50.ph, 50.sh),
-                  width: 50.pw,
-                  decoration: BoxDecoration(color: colores.grisSC),
-                ),
-                SizedBox(height: 35.ph),
-                EscuelasTextfield.soloNumero(
-                  onChanged: (_) => _habilitarBoton(),
-                  controller: controllerDNI,
-                  hintText: l10n.commonDNI,
-                  context: context,
-                ),
-                SizedBox(height: 15.ph),
-                EscuelasTextFieldPassword(
-                  controller: controllerPassword,
-                  onChanged: (_) => _habilitarBoton(),
-                ),
-                SizedBox(height: 30.ph),
-                EscuelasBoton.texto(
-                  estaHabilitado: state.botonIngresarHabilitado,
-                  onTap: () {
-                    //! TODO (Manu):agregar funcion cuando exista el endpoint
-                  },
-                  color: colores.primary,
-                  texto: l10n.commonLogIn.toUpperCase(),
-                  context: context,
-                ),
-                SizedBox(height: 30.ph),
-                Text(
-                  l10n.pageLoginTextOr,
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 10.pf,
+                  SizedBox(height: 55.ph),
+                  Container(
+                    height: max(50.ph, 50.sh),
+                    width: 50.pw,
+                    decoration: BoxDecoration(color: colores.grisSC),
                   ),
-                ),
-                SizedBox(height: 30.ph),
-                EscuelasBoton.loginGoogle(
-                  onTap: _onPressedLoginConGoogle,
-                  context: context,
-                ),
-                const Spacer(),
-                Text(
-                  l10n.pageLoginTextAllRightsReserved,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(height: 30.ph),
-              ],
+                  SizedBox(height: 35.ph),
+                  EscuelasTextfield.soloNumero(
+                    onChanged: (_) => _habilitarBoton(),
+                    controller: controllerDNI,
+                    hintText: l10n.commonDNI,
+                    context: context,
+                  ),
+                  SizedBox(height: 15.ph),
+                  EscuelasTextFieldPassword(
+                    controller: controllerPassword,
+                    onChanged: (_) => _habilitarBoton(),
+                  ),
+                  SizedBox(height: 30.ph),
+                  EscuelasBoton.texto(
+                    estaHabilitado: state.botonIngresarHabilitado,
+                    onTap: () {
+                      //! TODO (Manu):agregar funcion cuando exista el endpoint
+                    },
+                    color: colores.primary,
+                    texto: l10n.commonLogIn.toUpperCase(),
+                    context: context,
+                  ),
+                  SizedBox(height: 30.ph),
+                  Text(
+                    l10n.pageLoginTextOr,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontSize: 10.pf,
+                    ),
+                  ),
+                  SizedBox(height: 30.ph),
+                  EscuelasBoton.loginGoogle(
+                    onTap: _onPressedLoginConGoogle,
+                    context: context,
+                  ),
+                  SizedBox(height: 170.ph),
+                  Text(
+                    l10n.pageLoginTextAllRightsReserved,
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(height: 30.ph),
+                ],
+              ),
             ),
           );
         },

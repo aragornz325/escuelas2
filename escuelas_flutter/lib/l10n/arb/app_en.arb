@@ -129,7 +129,10 @@
         "description": "text to indicate the the options of login"
     },
 
-
+"pageLoginDialogAnErrorOccurred":"An error occurred while registering.",
+"@pageLoginDialogAnErrorOccurred":{
+    "description": "Text in the dialog to indicate that an error ocurred" 
+},
 
 
     "pageAttendanceWithoutCourses": "There are no courses",
@@ -325,5 +328,10 @@
     "commonDecline": "Decline",
     "@commonDecline": {
         "description": "Button or link used to decline or reject an action or decision."
+    },
+
+    "commonBack": "Back",
+    "@commonBack": {
+        "description": "Text in button to indicate the action back"
     }
 }
