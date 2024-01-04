@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 final temaDebug = ThemeData.from(
   textTheme: const TextTheme(
     displayLarge: TextStyle(
-      fontFamily: 'Raleway',
+      fontFamily: 'Nunito',
     ),
   ),
   colorScheme: coloresDebug,
