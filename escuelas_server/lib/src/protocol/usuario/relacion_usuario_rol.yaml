@@ -1,0 +1,8 @@
+class: RelacionUsuarioRol
+table: r_usuario_roles
+fields:
+  idUsuario: int, relation(parent=usuarios)
+  idRol: int, relation(parent=roles_de_usuario)
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

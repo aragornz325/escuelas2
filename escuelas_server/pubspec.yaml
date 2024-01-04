@@ -8,6 +8,9 @@ environment:
 
 dependencies:
   mailer: ^6.0.1
+  cloudinary: ^1.2.0
+  dart_jsonwebtoken: ^2.8.2
+  logging: ^1.2.0
   serverpod: 1.2.0-rc.1
   serverpod_auth_server: 1.2.0-rc.1
   

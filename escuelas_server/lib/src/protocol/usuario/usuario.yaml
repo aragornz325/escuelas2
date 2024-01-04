@@ -1,0 +1,9 @@
+class: Usuario
+table: usuarios
+fields:
+  idUserInfo: int
+  roles: List<RolDeUsuario>
+  dni: String
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

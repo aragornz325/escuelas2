@@ -1,0 +1,7 @@
+class: TipoCalificacion
+table: tipo_calificaciones
+fields:
+  tipo: String
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

@@ -1,0 +1,9 @@
+enum: TipoExcepcion
+values:
+  - sinConexion
+  - noAutorizado
+  - noEncontrado
+  - prohibido
+  - solicitudIncorrecta
+  - parseo
+  - desconocido

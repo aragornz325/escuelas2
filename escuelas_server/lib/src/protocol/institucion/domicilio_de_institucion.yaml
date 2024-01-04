@@ -1,0 +1,9 @@
+class: DomicilioDeInstitucion
+table: domicilios_de_institucion
+fields:
+  idInstitucion: int, relation(parent=instituciones)
+  calle: String
+  numero: int
+  idCodigoPostal: int
+  idCiudad: int
+  idProvincia: int
