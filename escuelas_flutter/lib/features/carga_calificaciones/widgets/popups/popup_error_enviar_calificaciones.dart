@@ -13,7 +13,7 @@ class DialogErrorAlEnviarCalificaciones extends StatelessWidget {
   /// {@macro DialogErrorAlEnviarNotas}
   const DialogErrorAlEnviarCalificaciones({super.key});
 
-  //TODO(anyone): charlar con todos para ponerse de acuerdo en usar los .show()
+  // TODO(anyone): charlar con todos para ponerse de acuerdo en usar los .show()
   Future<void> show(BuildContext context) => showDialog(
         context: context,
         builder: (_) => this,

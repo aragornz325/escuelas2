@@ -15,7 +15,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
   /// {@macro BlocLogin}
   BlocLogin() : super(const BlocLoginEstadoInicial()) {
     on<BlocLoginEventoHabilitarBotonIngresar>(_habilitarBotonIngresar);
-    //! TODO(Manu): descomentar cuando este el endpoint
+    // TODO(Manu): descomentar cuando este el endpoint
     // on<BlocLoginEventoIniciarSesionConCredenciales>(
     //   _iniciarSesionConCredenciales,
     // );
@@ -82,7 +82,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
     );
   }
 
-//! TODO(manu): Hablar con back para ver como soportar credenciales en auth
+// TODO(manu): Hablar con back para ver como soportar credenciales en auth
   // Future<void> _iniciarSesionConCredenciales(
   //   BlocLoginEventoIniciarSesionConCredenciales event,
   //   Emitter<BlocLoginEstado> emit,

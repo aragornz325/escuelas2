@@ -19,9 +19,14 @@ enum RITE {
   String valorativoSegunRITE() {
     switch (this) {
       case RITE.tea:
-        return 'El alumno presenta buen nivel de compromiso y participación frecuente en las propuestas de la materia. Logró de manera satisfactoria apropiarse de los contenidos curriculares.';
+        return 'El alumno presenta buen nivel de compromiso y participación '
+            'frecuente en las propuestas de la materia. Logró de manera'
+            ' satisfactoria apropiarse de los contenidos curriculares.';
       case RITE.tep:
-        return 'El alumno presentó un bajo nivel de compromiso y participación en las propuestas de la materia. No logró todavía la apropiación de los contenidos curriculares y otros saberes esperados.';
+        return 'El alumno presentó un bajo nivel de compromiso y participación'
+            ' en las propuestas de la materia. No logró todavía la '
+            'apropiación de los contenidos curriculares y otros'
+            ' saberes esperados.';
       case RITE.ted:
         return 'El alumno no logró sostener el vínculo pedagógico, demostrando escaso compromiso y no participando de las propuestas de la materia. No logró apropiarse de los contenidos curriculares y otros saberes esperados. Se lo/la alienta a acercarse al docente para recibir orientación, a comprometerse y participar de manera activa para revertir su situación.';
       case RITE.sinCalificaciones:

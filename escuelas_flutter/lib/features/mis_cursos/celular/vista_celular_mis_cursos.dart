@@ -66,9 +66,9 @@ class VistaCelularMisCursos extends StatelessWidget {
                                         ),
                                         child: ItemMateria(
                                           estaCargada: false,
-                                          // TODO(anyone):
-                                          // aca hay que chequear la fecha de la lista
-                                          // de materias actual y hacer la validacion con eso
+                                          // TODO(anyone): aca hay que chequear
+                                          //la fecha de la lista de materias
+                                          //actual y hacer la validacion con eso
                                           estaHabilitado: true,
                                           materia: materia,
                                           onTap: () => context.pushRoute(

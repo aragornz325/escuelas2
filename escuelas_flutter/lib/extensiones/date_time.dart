@@ -7,6 +7,11 @@ extension DateTimeX on DateTime {
       DateFormat('MMMM', Localizations.localeOf(context).languageCode)
           .format(this);
 
+  /// Devuelve la fecha formateada
+  String formatear(BuildContext context) =>
+      DateFormat('dd/MM/yy', Localizations.localeOf(context).languageCode)
+          .format(this);
+
   /// Devuelve el numero del dia. (Ej: 01, 02, ...)
   String numeroDia(BuildContext context) =>
       DateFormat('dd', Localizations.localeOf(context).languageCode)
@@ -16,11 +21,6 @@ extension DateTimeX on DateTime {
   String nombreDia(BuildContext context) =>
       DateFormat('EEEE', Localizations.localeOf(context).languageCode)
           .format(this);
-
-  // TODO(anyone): En algun momento hacer que soporte
-  // formato de fecha segun el pais.
-  /// Devuelve la fecha formateada como dd/MM/yy.
-  String get formatear => DateFormat('dd/MM/yy').format(this);
 
   // TODO(anyone): Agregar traducciones.
   String devolverEtiqueta() {

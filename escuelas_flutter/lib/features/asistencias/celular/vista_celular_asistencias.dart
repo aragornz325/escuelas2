@@ -33,7 +33,7 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
           );
         }
         if (state.cursos.isEmpty) {
-          //TODO(anyone): hacer una vista cuando no hay cursos.
+          // TODO(anyone): hacer una vista cuando no hay cursos.
           return Center(
             child: Text(l10n.pageAttendanceNotAbsentStudents),
           );
@@ -43,7 +43,8 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
             // TODO(anyone): no se actualiza la fecha
             // Center(
             //   child: Text(
-            //     '${periodo.fechaDesde.nombreMes(context).toUpperCase()} - ${periodo.fechaDesde.year}',
+            //     '${periodo.fechaDesde.nombreMes(context).toUpperCase()} -
+            //      ${periodo.fechaDesde.year}',
             //     style: TextStyle(
             //       color: colores.onBackground,
             //       fontSize: 12.pf,
@@ -61,7 +62,7 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
             const Expanded(child: ListaDeCursos()),
             if (state.cursoDesplegado)
               BotonFinalizarAsistencias(
-                //TODO(anyone): fecha hardcodeada reemplazar por la del
+                // TODO(anyone): fecha hardcodeada reemplazar por la del
                 // calendario
                 fecha: DateTime.now(),
                 curso: state.cursos[state.index],

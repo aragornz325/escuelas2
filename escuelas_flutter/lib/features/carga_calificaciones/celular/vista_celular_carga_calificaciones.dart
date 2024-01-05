@@ -21,6 +21,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     final l10n = context.l10n;
 
     return Column(
@@ -47,7 +48,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                'MAATEMATICA', // TODO(mati) poner la materia/asignatura correspondiente
+                'MAATEMATICA', // TODO(mati): poner la materia/asignatura correspondiente
                 style: TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 15.pf,
@@ -55,7 +56,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                 ),
               ),
               Text(
-                'PRIMERAO', // TODO(mati) el curso correspondiente
+                'PRIMERO', // TODO(mati): el curso correspondiente
                 style: TextStyle(
                   fontWeight: FontWeight.w800,
                   fontSize: 15.pf,
@@ -68,12 +69,10 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
         SizedBox(height: max(10.ph, 10.sh)),
         BlocConsumer<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
           listener: (context, state) {
-            if (state
-                is BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones) {
+            if (state.falloAlEnviarCalificaciones) {
               const DialogErrorAlEnviarCalificaciones().show(context);
             }
-            if (state
-                is BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente) {
+            if (state.exitoAlEnviarCalificaciones) {
               const DialogNotasEnviadasCorrectamente().show(context);
             }
           },
