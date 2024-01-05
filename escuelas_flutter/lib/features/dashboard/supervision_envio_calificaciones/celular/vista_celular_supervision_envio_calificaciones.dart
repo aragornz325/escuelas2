@@ -13,7 +13,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template VistaCelularSupervisionEnvioCalificaciones}
-/// TODO(anyone): AGREGAR DOCUMENTACION.
+/// Vista para celular de la pagina 'Supervision de Envio de Calificaciones'
 /// {@endtemplate}
 class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
   /// {@macro VistaCelularSupervisionEnvioCalificaciones}
