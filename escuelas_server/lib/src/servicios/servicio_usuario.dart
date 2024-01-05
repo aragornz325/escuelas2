@@ -1,10 +1,11 @@
-import 'package:escuelas_server/servicio.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/orms/orm_usuario.dart';
+import 'package:escuelas_server/src/orms/orm_usuario_pendiente.dart';
+import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
-class ServicioUsuario extends Servicio {
-  OrmUsuario get orm => OrmUsuario();
+class ServicioUsuario extends Servicio<OrmUsuarioPendiente> {
+  @override
+  OrmUsuarioPendiente get orm => OrmUsuarioPendiente();
 
  /// La función "obtenerUsuariosPendientes" recupera usuarios pendientes usando una sesión y devuelve el
  /// resultado.

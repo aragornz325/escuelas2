@@ -1,8 +1,8 @@
-import 'package:escuelas_server/orm.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
+import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
-class OrmUsuario extends ORM {
+class OrmUsuarioPendiente extends ORM {
   /// La función `crearUsuarioPendiente` crea un nuevo usuario pendiente en una base de datos y devuelve
   /// el usuario insertado.
   ///

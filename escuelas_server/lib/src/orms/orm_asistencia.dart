@@ -1,5 +1,5 @@
-import 'package:escuelas_server/orm.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
+import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
 class OrmAsistencia extends ORM {

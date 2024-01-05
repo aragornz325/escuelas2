@@ -1,9 +1,10 @@
-import 'package:escuelas_server/servicio.dart';
 import 'package:escuelas_server/src/generated/asistencia/asistencia_diaria.dart';
 import 'package:escuelas_server/src/orms/orm_asistencia.dart';
+import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
-class ServicioAsistencia extends Servicio {
+class ServicioAsistencia extends Servicio<OrmAsistencia> {
+  @override
   OrmAsistencia get orm => OrmAsistencia();
 
   /// La función `crearAsistenciasEnLote` crea múltiples registros de asistencia diaria en un lote.
