@@ -1,36 +1,51 @@
 import 'package:escuelas_server/env/env.dart';
+import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicio.dart';
+import 'package:escuelas_server/utils/constants.dart';
 import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server/gmail.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioComunicaciones extends Servicio {
   
-  final smtpServer = gmail(EnvDev.direccionEmailGmail, EnvDev.passwordEmailGmail);
-  
-  Future enviarEmail(
+  Future<RespuestaMailer> enviarEmail(
     Session session, {
-    required List<String> mailsDestinatarios,
+    required String direccionEmailDestinatario,
     required String asuntoDelCorreo,
-    required String cuerpoHtmlDelCorreo,
+    required String contenidoHtmlDelCorreo,
   }) async {
-    
+    final RespuestaMailer respuesta = RespuestaMailer(
+      direccionEmailDestinatario: direccionEmailDestinatario,
+      asuntoDelCorreo: asuntoDelCorreo,
+      contenidoHtmlDelCorreo: contenidoHtmlDelCorreo,
+      huboUnError: false,
+    );
+
     final message = Message()
-      ..from = Address(EnvDev.direccionEmailGmail, 'Nidus Escuelas')
-      ..recipients.add(mailsDestinatarios)
+      ..from = Address(EnvDev.direccionEmailGmail, nombreEnCorreosElectronicos)
+      ..recipients.add(direccionEmailDestinatario)
       ..subject = asuntoDelCorreo
-      ..html = cuerpoHtmlDelCorreo;
+      ..html = contenidoHtmlDelCorreo;
 
     try {
       final sendReport = await send(message, smtpServer);
-      logger.fine('Message sent: $sendReport');
+      respuesta
+        ..conexionAbierta = sendReport.connectionOpened
+        ..comienzoEnvioDelCorreo = sendReport.messageSendingStart
+        ..finalizacionDeEnvioDelCorreo = sendReport.messageSendingEnd;
+      logger.fine(sendReport);
     } on MailerException catch (e) {
-      logger.shout('Message not sent.');
-      final log = StringBuffer();
+      final problemas = StringBuffer();
       for (var p in e.problems) {
-        log.write('Problem: ${p.code}: ${p.msg}\n');
+        problemas.write('Problem: ${p.code}: ${p.msg}\n');
       }
-      logger.shout(log);
+      respuesta
+        ..huboUnError = true
+        ..error = e.message
+        ..problemas = problemas.toString();
+      logger.shout('Message not sent.');
+      logger.shout(problemas);
     }
+
+    return respuesta;
   }
 }
