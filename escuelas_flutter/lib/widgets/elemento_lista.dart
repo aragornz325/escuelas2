@@ -1,5 +1,7 @@
+import 'package:escuelas_flutter/extensiones/date_time.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -59,7 +61,7 @@ class ElementoLista extends StatelessWidget {
     );
   }
 
-  factory ElementoLista.materia({
+  factory ElementoLista.misCursos({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
 
@@ -251,6 +253,53 @@ class ElementoLista extends StatelessWidget {
             color: colores.onSecondary,
             fontSize: 16.pf,
             fontWeight: FontWeight.w700,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Elemento de lista para la lista de cursos en supervision de envio de
+  /// calificaciones
+  factory ElementoLista.supervisionEnvioCalificaciones({
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Nombre de la materia
+    required String nombreAsignatura,
+
+    /// Nombre del profesor de la materia
+    required String nombreProfesor,
+
+    /// Fecha de carga de las calificaciones de la asignatura
+    required DateTime fechaDeCarga,
+  }) {
+    final colores = context.colores;
+
+    return ElementoLista(
+      altura: 40.ph,
+      borderRadius: 50.sw,
+      texto: Text(
+        '${nombreAsignatura.toUpperCase()} ($nombreProfesor)',
+        style: TextStyle(
+          color: colores.onBackground,
+          fontSize: 13.pf,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      widgetLateralDerecho: Padding(
+        padding: EdgeInsets.only(right: 10.pw),
+        child: Text(
+          fechaDeCarga.formatear(context),
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Colores(context).segunVencimientoSegunFecha(
+              dia: int.parse(
+                fechaDeCarga.numeroDia(context),
+              ),
+            ),
+            fontSize: 15.pf,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
