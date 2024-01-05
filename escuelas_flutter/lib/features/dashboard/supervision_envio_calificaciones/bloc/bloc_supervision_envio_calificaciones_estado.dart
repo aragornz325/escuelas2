@@ -18,12 +18,17 @@ class BlocSupervisionEnvioCalificacionesEstado {
           listaAsignaturas: listaAsignaturas ?? otro.listaAsignaturas,
           fecha: fecha ?? otro.fecha,
         );
+
+  /// Lista de asignaturas del curso a supervisar
   final List<Asignatura> listaAsignaturas;
+
+  /// Fecha del periodo a supervisar
   final DateTime? fecha;
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoInicial}
-/// Estado inicial de los componentes de la pantalla 'Inicio'
+/// Estado inicial de los componentes de la pantalla
+/// 'Supervision de envio deCalificaciones'
 /// {@endtemplate}
 class BlocSupervisionEnvioCalificacionesEstadoInicial
     extends BlocSupervisionEnvioCalificacionesEstado {
@@ -32,7 +37,8 @@ class BlocSupervisionEnvioCalificacionesEstadoInicial
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoCargando}
-/// Estado de cargando de los componentes de la pantalla 'Inicio'
+/// Estado de cargando de los componentes de la pantalla
+/// 'Supervision de envio de Calificaciones'
 /// {@endtemplate}
 class BlocSupervisionEnvioCalificacionesEstadoCargando
     extends BlocSupervisionEnvioCalificacionesEstado {
@@ -42,7 +48,8 @@ class BlocSupervisionEnvioCalificacionesEstadoCargando
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoExitoso}
-/// Estado exitoso general de los componentes de la pantalla 'Inicio'
+/// Estado exitoso general de los componentes de la pantalla
+/// 'Supervision de envio de Calificaciones'
 /// {@endtemplate}
 class BlocSupervisionEnvioCalificacionesEstadoExitoso
     extends BlocSupervisionEnvioCalificacionesEstado {
@@ -55,7 +62,8 @@ class BlocSupervisionEnvioCalificacionesEstadoExitoso
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoFallido}
-/// Estado de error de los componentes de la pantalla 'Inicio'
+/// Estado de error de los componentes de la pantalla
+/// 'Supervision de envio de Calificaciones'
 /// {@endtemplate}
 class BlocSupervisionEnvioCalificacionesEstadoError
     extends BlocSupervisionEnvioCalificacionesEstado {

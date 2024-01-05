@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template VistaEscritorioSupervisionEnvioCalificaciones}
-// TODO(anyone): AGREGAR DOCUMENTACION
+/// Vista para celular de la pagina 'Supervision de Envio de Calificaciones'
+/// donde se supervisa la carga de calificaciones de las materias de un curso
 /// {@endtemplate}
 @RoutePage()
 class PaginaSupervisionEnvioCalificaciones extends StatelessWidget {
@@ -17,7 +18,11 @@ class PaginaSupervisionEnvioCalificaciones extends StatelessWidget {
     @PathParam('fecha') required String fecha,
     super.key,
   }) : fecha = DateTime.parse(fecha);
+
+  /// Id del curso a supervisar
   final int idCurso;
+
+  /// Fecha del periodo a supervisar
   final DateTime fecha;
 
   @override

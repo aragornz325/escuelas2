@@ -46,17 +46,15 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                           padding: EdgeInsets.only(bottom: 15.ph),
                           child: ElementoLista.supervisionCurso(
                             context: context,
-                            onTap: () {
-                              context.router.push(
-                                RutaSupervisionEnvioCalificaciones(
-                                  idCurso: curso.id,
-                                  // TODO(anyone): Pasar fecha del periodo seleccionado
-                                  fecha: DateTime.now()
-                                      .copyWith(month: DateTime.now().month + 2)
-                                      .toString(),
-                                ),
-                              );
-                            },
+                            onTap: () => context.router.push(
+                              RutaSupervisionEnvioCalificaciones(
+                                idCurso: curso.id,
+                                // TODO(anyone): Pasar fecha del periodo seleccionado
+                                fecha: DateTime.now()
+                                    .copyWith(month: DateTime.now().month + 2)
+                                    .toString(),
+                              ),
+                            ),
                             nombreCurso: '',
                             colorFondo: state.todasMateriasCargadas
                                 ? colores.primaryContainer

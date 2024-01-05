@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioSupervisionEnvioCalificaciones}
-// TODO(anyone): AGREGAR DOCUMENTACION.
+/// Vista para escritorio de la pagina 'Supervision de Envio de Calificaciones'
+/// donde se supervisa la carga de calificaciones de las materias de un curso
 /// {@endtemplate}
 class VistaEscritorioSupervisionEnvioCalificaciones extends StatelessWidget {
   /// {@macro VistaEscritorioSupervisionEnvioCalificaciones}
@@ -9,6 +10,7 @@ class VistaEscritorioSupervisionEnvioCalificaciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO(anyone): Implementar vista escritorio supervision envio calificaciones
     return const Placeholder();
   }
 }
