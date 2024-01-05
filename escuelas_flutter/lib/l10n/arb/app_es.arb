@@ -438,6 +438,11 @@
         "description": "Text in button to indicate the action back"
     },
 
+    "commonCancel": "Cancelar",
+    "@commonCancel": {
+        "description": ""
+    },
+
     "commonDeleteAll": "Borrar todos",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"

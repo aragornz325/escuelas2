@@ -26,20 +26,14 @@ class BlocPerfilUsuario
           // client
           ) async {
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
-        // final InfoUsuario usuarioATraerDatos;
-
-        // if (event.idUsuario != null) {
-        // usuarioATraerDatos =  sessionManager.signedInUser?.id ;
-        // } else {
-        // usuarioATraerDatos =  await client.traerusuario;
-        // }
-        final usuario = listaUsuariosPendientes
-            .where((element) => element.id == event.idUsuario)
-            .first;
+        // final usuario = await traerDatosUsuario(event.idUsuario);
         emit(
           BlocPerfilUsuarioEstadoExitoso.desde(
             state,
-            usuario: usuario,
+            // TODO(Gon): Usar el usuario del back
+            usuario: listaUsuariosPendientes
+                .where((element) => element.id == event.idUsuario)
+                .first,
           ),
         );
       },

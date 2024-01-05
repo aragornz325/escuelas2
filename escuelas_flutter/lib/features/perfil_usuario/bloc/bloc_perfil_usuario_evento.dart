@@ -18,5 +18,5 @@ class BlocPerfilUsuarioEventoInicializar extends BlocPerfilUsuarioEvento {
   });
 
   /// Id del usuario que se va a asignar un rol
-  final int idUsuario;
+  final int? idUsuario;
 }

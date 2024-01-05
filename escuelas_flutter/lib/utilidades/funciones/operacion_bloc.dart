@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/foundation.dart';
-//TODO(anyone): ir modificando a medida que se realize en el back los modelos
-//y manejo de errores.
+// TODO(anyone): ir modificando a medida que se realize en el back los modelos
+// y manejo de errores.
 
 // void Function(ExcepcionCustom excepcion) onErrorCustom = (_) {};
 

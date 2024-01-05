@@ -13,7 +13,7 @@ class DialogNotasEnviadasCorrectamente extends StatelessWidget {
   /// {@macro DialogNotasEnviadasCorrectamente}
   const DialogNotasEnviadasCorrectamente({super.key});
 
-  //TODO(anyone): charlar con todos para ponerse de acuerdo en usar los .show()
+  // TODO(anyone): charlar con todos para ponerse de acuerdo en usar los .show()
   Future<void> show(BuildContext context) => showDialog(
         context: context,
         builder: (_) => this,

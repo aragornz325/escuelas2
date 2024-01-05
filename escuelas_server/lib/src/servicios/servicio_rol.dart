@@ -4,6 +4,7 @@ import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/server.dart';
 
 class ServicioRol extends Servicio<OrmRol> {
+  @override
   OrmRol get orm => OrmRol();
 
   /// La función "obtenerRolPorId" recupera un rol por su ID usando un ORM y lo devuelve como Future.

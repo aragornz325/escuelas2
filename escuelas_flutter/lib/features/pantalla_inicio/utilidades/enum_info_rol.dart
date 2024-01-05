@@ -18,7 +18,8 @@ enum InfoDeRol {
   // TODO(SAM): add funcion y pasarle context
   String get titulo {
     switch (this) {
-      // TODO(Anyone): Cuando esten definidos los roles decidir si va Mis Cursos o Lista de Cursos segun el rol
+      // TODO(Anyone): Cuando esten definidos los roles decidir si va Mis Cursos
+      // o Lista de Cursos segun el rol
       case InfoDeRol.listaCursos:
         return 'LISTA DE CURSOS';
       case InfoDeRol.personal:

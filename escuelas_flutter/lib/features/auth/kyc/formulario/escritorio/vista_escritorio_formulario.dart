@@ -9,7 +9,7 @@ class VistaEscritorioFormulario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(Gon): Agregar UI
+    // TODO(Gon): Agregar UI de la vista escritorio de la pantalla 'Formulario'
 
     return const Placeholder();
   }

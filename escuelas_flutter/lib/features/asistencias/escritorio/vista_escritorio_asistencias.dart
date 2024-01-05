@@ -27,7 +27,7 @@ class VistaEscritorioInasistencias extends StatelessWidget {
           );
         }
         if (state.cursos.isEmpty) {
-          //TODO(anyone): hacer una vista cuando no hay cursos.
+          // TODO(anyone): hacer una vista cuando no hay cursos.
           return Center(
             child: Text(l10n.pageAttendanceNotAbsentStudents),
           );
@@ -37,7 +37,7 @@ class VistaEscritorioInasistencias extends StatelessWidget {
             const Expanded(child: ListaDeCursos()),
             if (state.cursoDesplegado)
               BotonFinalizarAsistencias(
-                //TODO(anyone): fecha hardcodeada reemplazar por la del
+                // TODO(anyone): fecha hardcodeada reemplazar por la del
                 // calendario
                 fecha: DateTime.now(),
                 curso: state.cursos[state.index],

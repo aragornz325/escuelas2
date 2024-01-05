@@ -1,6 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
+import 'package:escuelas_server/src/utils/logger.dart';
 import 'package:escuelas_server/utils/constants.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
@@ -17,6 +18,7 @@ void run(List<String> args) async {
   final ServicioComunicaciones _servicioComunicaciones =
       ServicioComunicaciones();
   // Initialize Serverpod and connect it with your generated code.
+  inicializarLogger(); // Initialize Serverpod and connect it with your generated code.
   final pod = Serverpod(
     args,
     Protocol(),

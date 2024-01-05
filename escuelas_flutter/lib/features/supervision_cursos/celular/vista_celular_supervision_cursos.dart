@@ -11,7 +11,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template VistaCelularSupervisionCursos}
-/// TODO(anyone): AGREGAR DOCUMENTACION.
+/// Vista para celular de la pagina 'Supervision de Cursos' donde se supervisa
+/// la carga de calificaciones de las materias de los cursos
 /// {@endtemplate}
 class VistaCelularSupervisionCursos extends StatelessWidget {
   /// {@macro VistaCelularSupervisionCursos}
@@ -48,53 +49,52 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                             colorFondo: state.todasMateriasCargadas
                                 ? colores.primaryContainer
                                 : colores.onSecondary,
-                            widgetLateralDerecho:
-                                state.habilitacionCargaDeCalificaciones
-                                    ? Container(
-                                        width: 80.pw,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(30.sw),
-                                          ),
-                                          color: state
-                                                  .habilitacionCargaDeCalificaciones
-                                              ? state.todasMateriasCargadas
-                                                  ? Colores(context)
-                                                      .segunVencimientoSegunFecha(
-                                                      dia: 9,
-                                                    )
-                                                  : Colores(context)
-                                                      .segunProporcionDeMateriasCargadas(
-                                                      proporcion: .4,
-                                                    )
-                                              : colores.background,
-                                        ),
-                                        child: Center(
-                                          child: Text(
-                                            state.todasMateriasCargadas
-                                                ? state
-                                                    .fechaUltimaMateriaCargada
-                                                    .formatear
-                                                : '4/12',
-                                            style: TextStyle(
-                                              color: colores.background,
-                                              fontSize: 15.pf,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                          ),
-                                        ),
-                                      )
-                                    : Padding(
-                                        padding: EdgeInsets.only(right: 10.pw),
-                                        child: Text(
-                                          'SIN HABILITAR . 0/12',
-                                          style: TextStyle(
-                                            fontSize: 15.pf,
-                                            fontWeight: FontWeight.w600,
-                                            color: colores.onPrimary,
-                                          ),
+                            widgetLateralDerecho: state
+                                    .habilitacionCargaDeCalificaciones
+                                ? Container(
+                                    width: 80.pw,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(30.sw),
+                                      ),
+                                      color: state
+                                              .habilitacionCargaDeCalificaciones
+                                          ? state.todasMateriasCargadas
+                                              ? Colores(context)
+                                                  .segunVencimientoSegunFecha(
+                                                  dia: 9,
+                                                )
+                                              : Colores(context)
+                                                  .segunProporcionDeMateriasCargadas(
+                                                  proporcion: .4,
+                                                )
+                                          : colores.background,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        state.todasMateriasCargadas
+                                            ? state.fechaUltimaMateriaCargada
+                                                .formatear(context)
+                                            : '4/12',
+                                        style: TextStyle(
+                                          color: colores.background,
+                                          fontSize: 15.pf,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                       ),
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: EdgeInsets.only(right: 10.pw),
+                                    child: Text(
+                                      'SIN HABILITAR . 0/12',
+                                      style: TextStyle(
+                                        fontSize: 15.pf,
+                                        fontWeight: FontWeight.w600,
+                                        color: colores.onPrimary,
+                                      ),
+                                    ),
+                                  ),
                           ),
                         ),
                       )

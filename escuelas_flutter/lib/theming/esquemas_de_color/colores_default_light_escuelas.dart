@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//! TODO(Manu): Cuando vir unifique colores, revisar cuales quedaron.
+// TODO(Manu): Cuando vir unifique colores, revisar cuales quedaron.
 
 /// Esquema de color claro por defecto de Escuelas
 const themeDefaultEscuelas = ColorScheme.light(
@@ -15,6 +15,7 @@ const themeDefaultEscuelas = ColorScheme.light(
   primaryContainer: Color(0xff6788FF),
 
   /// Color de fondo Mobile
+  // ignore: avoid_redundant_argument_values
   background: Color(0xffFFFFFF),
 
   /// Color utilizado en titulos mayormente
@@ -34,4 +35,7 @@ const themeDefaultEscuelas = ColorScheme.light(
 
   /// Color utilizado en ocaciones de error notificacion y ausencia.
   error: Color(0xffFF4444),
+
+  /// Se usa para el fondo de los dropdowns
+  surfaceTint: Color(0xFFFFFFFF),
 );

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioSupervisionCursos}
-// TODO(anyone): AGREGAR DOCUMENTACION.
+/// Vista escritorio de la pantalla 'Supervision de Cursos' donde se supervisa
+/// la carga de calificaciones de las materias en los cursos
 /// {@endtemplate}
 class VistaEscritorioSupervisionCursos extends StatelessWidget {
   /// {@macro VistaEscritorioSupervisionCursos}

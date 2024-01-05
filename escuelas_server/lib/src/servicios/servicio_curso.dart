@@ -4,6 +4,7 @@ import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioCurso extends Servicio<OrmCurso> {
+  @override
   OrmCurso get orm => OrmCurso();
 
   /// La función `obtenerCursoPorId` recupera un curso por su ID usando una sesión y un ORM.

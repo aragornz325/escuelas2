@@ -17,7 +17,7 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
     super.key,
   });
 
-  //TODO(anyone): reemplazar modelo
+  // TODO(anyone): reemplazar modelo
   /// Modelo de calificación.
   final ModeloCalificacion? calificacion;
 
@@ -36,7 +36,7 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
               calificacion?.alumnos.any((e) => e.calificacion != null) ?? false,
           onTap: () => context
               .read<BlocCargaCalificaciones>()
-              .add(BlocCargaCalificacionesEventoVaciarCalificaciones()),
+              .add(const BlocCargaCalificacionesEventoVaciarCalificaciones()),
           color: colores.error,
           texto: l10n.commonDeleteAll,
         ),
@@ -47,7 +47,7 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
                   false,
           onTap: () => context
               .read<BlocCargaCalificaciones>()
-              .add(BlocCargaCalificacionesEventoEnviarCalificaciones()),
+              .add(const BlocCargaCalificacionesEventoEnviarCalificaciones()),
           color: colores.azul,
           texto: l10n.commonConfirm,
         ),

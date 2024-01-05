@@ -11,10 +11,14 @@
 import 'package:serverpod_client/serverpod_client.dart' as _i1;
 import 'dart:async' as _i2;
 import 'package:escuelas_client/src/protocol/curso/asignatura.dart' as _i3;
-import 'package:escuelas_client/src/protocol/curso/curso.dart' as _i4;
-import 'package:serverpod_auth_client/module.dart' as _i5;
-import 'dart:io' as _i6;
-import 'protocol.dart' as _i7;
+import 'package:escuelas_client/src/protocol/asistencia/asistencia_diaria.dart'
+    as _i4;
+import 'package:escuelas_client/src/protocol/curso/curso.dart' as _i5;
+import 'package:escuelas_client/src/protocol/usuario/usuario_pendiente.dart'
+    as _i6;
+import 'package:serverpod_auth_client/module.dart' as _i7;
+import 'dart:io' as _i8;
+import 'protocol.dart' as _i9;
 
 /// {@category Endpoint}
 class EndpointAsignatura extends _i1.EndpointRef {
@@ -70,6 +74,24 @@ class EndpointAsignatura extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointAsistencia extends _i1.EndpointRef {
+  EndpointAsistencia(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'asistencia';
+
+  /// La función `crearAsistenciasEnBatch` crea un nuevo objeto `AsistenciaDiaria` en la base de datos usando la
+  /// sesión proporcionada y devuelve el objeto creado.
+  _i2.Future<String> crearAsistenciasEnLote(
+          {required List<_i4.AsistenciaDiaria> asistencias}) =>
+      caller.callServerEndpoint<String>(
+        'asistencia',
+        'crearAsistenciasEnLote',
+        {'asistencias': asistencias},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointCurso extends _i1.EndpointRef {
   EndpointCurso(_i1.EndpointCaller caller) : super(caller);
 
@@ -77,16 +99,16 @@ class EndpointCurso extends _i1.EndpointRef {
   String get name => 'curso';
 
   /// La función "obtenerCursoPorId" recupera un curso por su ID usando una sesión y un ORM.
-  _i2.Future<_i4.Curso> obtenerCursoPorId({required int id}) =>
-      caller.callServerEndpoint<_i4.Curso>(
+  _i2.Future<_i5.Curso> obtenerCursoPorId({required int id}) =>
+      caller.callServerEndpoint<_i5.Curso>(
         'curso',
         'obtenerCursoPorId',
         {'id': id},
       );
 
   /// La función "obtenerCursos" recupera una lista de cursos utilizando un objeto de sesión.
-  _i2.Future<List<_i4.Curso>> obtenerCursos() =>
-      caller.callServerEndpoint<List<_i4.Curso>>(
+  _i2.Future<List<_i5.Curso>> obtenerCursos() =>
+      caller.callServerEndpoint<List<_i5.Curso>>(
         'curso',
         'obtenerCursos',
         {},
@@ -94,8 +116,8 @@ class EndpointCurso extends _i1.EndpointRef {
 
   /// La función `crearCurso` crea un curso en una base de datos utilizando la sesión y el objeto del
   /// curso proporcionados.
-  _i2.Future<_i4.Curso> crearCurso({required _i4.Curso curso}) =>
-      caller.callServerEndpoint<_i4.Curso>(
+  _i2.Future<_i5.Curso> crearCurso({required _i5.Curso curso}) =>
+      caller.callServerEndpoint<_i5.Curso>(
         'curso',
         'crearCurso',
         {'curso': curso},
@@ -103,8 +125,8 @@ class EndpointCurso extends _i1.EndpointRef {
 
   /// La función `actualizarCurso` actualiza un curso en una base de datos utilizando la sesión y el
   /// objeto del curso proporcionados.
-  _i2.Future<_i4.Curso> actualizarCurso({required _i4.Curso curso}) =>
-      caller.callServerEndpoint<_i4.Curso>(
+  _i2.Future<_i5.Curso> actualizarCurso({required _i5.Curso curso}) =>
+      caller.callServerEndpoint<_i5.Curso>(
         'curso',
         'actualizarCurso',
         {'curso': curso},
@@ -133,44 +155,75 @@ class EndpointExample extends _i1.EndpointRef {
       );
 }
 
+/// {@category Endpoint}
+class EndpointUsuario extends _i1.EndpointRef {
+  EndpointUsuario(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'usuario';
+
+  _i2.Future<_i6.UsuarioPendiente> obtenerUsuariosPendientes() =>
+      caller.callServerEndpoint<_i6.UsuarioPendiente>(
+        'usuario',
+        'obtenerUsuariosPendientes',
+        {},
+      );
+
+  _i2.Future<_i6.UsuarioPendiente> enviarSoliciturRegistro(
+          {required _i6.UsuarioPendiente usuarioPendiente}) =>
+      caller.callServerEndpoint<_i6.UsuarioPendiente>(
+        'usuario',
+        'enviarSoliciturRegistro',
+        {'usuarioPendiente': usuarioPendiente},
+      );
+}
+
 class _Modules {
   _Modules(Client client) {
-    auth = _i5.Caller(client);
+    auth = _i7.Caller(client);
   }
 
-  late final _i5.Caller auth;
+  late final _i7.Caller auth;
 }
 
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
-    _i6.SecurityContext? context,
+    _i8.SecurityContext? context,
     _i1.AuthenticationKeyManager? authenticationKeyManager,
   }) : super(
           host,
-          _i7.Protocol(),
+          _i9.Protocol(),
           context: context,
           authenticationKeyManager: authenticationKeyManager,
         ) {
     asignatura = EndpointAsignatura(this);
+    asistencia = EndpointAsistencia(this);
     curso = EndpointCurso(this);
     example = EndpointExample(this);
+    usuario = EndpointUsuario(this);
     modules = _Modules(this);
   }
 
   late final EndpointAsignatura asignatura;
 
+  late final EndpointAsistencia asistencia;
+
   late final EndpointCurso curso;
 
   late final EndpointExample example;
+
+  late final EndpointUsuario usuario;
 
   late final _Modules modules;
 
   @override
   Map<String, _i1.EndpointRef> get endpointRefLookup => {
         'asignatura': asignatura,
+        'asistencia': asistencia,
         'curso': curso,
         'example': example,
+        'usuario': usuario,
       };
 
   @override

@@ -34,7 +34,7 @@ class BloqueMateria extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                //TODO (Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
+                // TODO(Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
                 state.rolElegido!.nombre == 'ALUMNO'
                     ? l10n.pageKycFormWhatGradeAreYouIn
                     : l10n.pageKycFormWhatYearIsYourSubject,
@@ -56,7 +56,7 @@ class BloqueMateria extends StatelessWidget {
                         ),
               ),
               SizedBox(height: 20.ph),
-              //TODO (Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
+              // TODO(Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
               if (state.rolElegido!.nombre == 'DOCENTE')
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

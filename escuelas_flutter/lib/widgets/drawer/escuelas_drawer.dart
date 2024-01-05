@@ -38,7 +38,7 @@ class EscuelasDrawer extends StatelessWidget {
       ),
     );
     Navigator.pop(context);
-    // TODO(SAM/ Anyone): Agregar ID usuario del estado o de sessionMan
+    // TODO(Anyone): Agregar ID usuario del estado o de sessionMan
   }
 
   /// Navega a la ruta inicio y cierra el drawer.
@@ -219,7 +219,8 @@ class EscuelasDrawer extends StatelessWidget {
   }
 }
 
-// TODO(ANYONE): Agregar enum para opciones de navegacion en el caso de que haya mas?
+// TODO(ANYONE): Agregar enum para opciones de navegacion en el caso de que
+// haya mas?
 
 /// {@template  EscuelasDrawer}
 /// List tile del drawer custom, permite pasarle icono, texto y funcion.

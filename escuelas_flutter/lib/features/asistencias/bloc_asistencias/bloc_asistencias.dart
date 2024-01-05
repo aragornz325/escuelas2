@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 part 'bloc_asistencias_evento.dart';
 part 'bloc_asistencias_estado.dart';
 
-// TODO(GON/ANYONE): Renombrar a BlocInasistencias ? junto con sus referencias.
+// TODO(anyone): Renombrar a BlocInasistencias ? junto con sus referencias.
 
 /// {@template BlocAsistencias}
 /// BLoC que maneja el estado y la lógica general de la pagina 'Inasistencias'
@@ -235,7 +235,7 @@ class BlocAsistencias
     BlocAsistenciasFinalizarAsistencia event,
     Emitter<BlocAsistenciasEstado> emit,
   ) async {
-    //TODO(mati): en caso de que el modelo tenga un parametro que diga si se
+    // TODO(mati): en caso de que el modelo tenga un parametro que diga si se
     //pasoasistencia o no, cambiarlo hacer un operacion bloc en dicho caso.
 
     final cursos = List<ModeloCurso>.from(state.cursos);
@@ -251,7 +251,8 @@ class BlocAsistencias
   }
 }
 
-// TODO(seba/gon): sacar los modelos estan super hard y reemplazar por los del back
+// TODO(anyone): sacar los modelos estan super hard y reemplazar por los del
+// back
 class ModeloCurso {
   ModeloCurso({
     required this.id,

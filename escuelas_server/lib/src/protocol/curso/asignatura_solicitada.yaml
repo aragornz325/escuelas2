@@ -1,0 +1,8 @@
+class: AsignaturaSolicitada
+table: asignatura_solicitada
+fields:
+  idAsignatura: int
+  idUsuarioPendiente: int, relation(parent = usuarios_pendientes)
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

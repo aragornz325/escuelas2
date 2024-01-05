@@ -27,7 +27,8 @@ class BlocCargaCalificaciones
       _onVaciarCalificaciones,
     );
     on<BlocCargaCalificacionesEventoEnviarCalificaciones>(
-        _onEnviarCalificaciones);
+      _onEnviarCalificaciones,
+    );
 
     on<BlocCargaCalificacionesEventoFiltrarListaPorFecha>(
       _onFiltrarListaPorFecha,
@@ -42,122 +43,123 @@ class BlocCargaCalificaciones
   ) async {
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
-        callback: () async {
-          ///TODO(anyone): llamar al endpoint de traer calificaciones
-          ///y borrar la lista hardcodeada.
-          final lista = [
-            ModeloCalificacion(
-              id: 1,
-              fecha: DateTime.now(),
-              alumnos: [
-                ModeloAlumno(
-                  id: 1,
-                  nombre: 'Gonzalo',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 5,
-                ),
-                ModeloAlumno(
-                  id: 2,
-                  nombre: 'Matias',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 1,
-                ),
-                ModeloAlumno(
-                  id: 3,
-                  nombre: 'Sebas',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 11,
-                ),
-                ModeloAlumno(
-                  id: 4,
-                  nombre: 'Manu',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 9,
-                ),
-              ],
-            ),
-            ModeloCalificacion(
-              id: 1,
-              fecha: DateTime(2023, 12, 31),
-              alumnos: [
-                ModeloAlumno(
-                  id: 1,
-                  nombre: 'Gonzalo',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 10,
-                ),
-                ModeloAlumno(
-                  id: 2,
-                  nombre: 'Matias',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 5,
-                ),
-                ModeloAlumno(
-                  id: 3,
-                  nombre: 'Sebas',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 10,
-                ),
-                ModeloAlumno(
-                  id: 4,
-                  nombre: 'Manu',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 8,
-                ),
-              ],
-            ),
-            ModeloCalificacion(
-              id: 1,
-              fecha: DateTime(2024, 2, 10),
-              alumnos: [
-                ModeloAlumno(
-                  id: 1,
-                  nombre: 'Gonzalo',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 1,
-                ),
-                ModeloAlumno(
-                  id: 2,
-                  nombre: 'Matias',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 1,
-                ),
-                ModeloAlumno(
-                  id: 3,
-                  nombre: 'Sebas',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 1,
-                ),
-                ModeloAlumno(
-                  id: 4,
-                  nombre: 'Manu',
-                  asistencia: EstadoAsistencia.sinAsistencia,
-                  calificacion: 1,
-                ),
-              ],
-            ),
-          ];
-
-          final calificacion = lista.firstWhere(
-            (c) =>
-                c.fecha.year == event.fecha.year &&
-                c.fecha.month == event.fecha.month,
-          );
-
-          emit(
-            BlocCargaCalificacionesEstadoExitoso.desde(
-              state,
-              listaCalificaciones: lista,
-              calificacion: calificacion,
-              rolDelUsuario: Rol(
+      callback: () async {
+        // TODO(anyone): llamar al endpoint de traer calificaciones
+        // y borrar la lista hardcodeada.
+        final lista = [
+          ModeloCalificacion(
+            id: 1,
+            fecha: DateTime.now(),
+            alumnos: [
+              ModeloAlumno(
                 id: 1,
-                nombre: 'docente',
-                permisos: [],
+                nombre: 'Gonzalo',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 5,
               ),
+              ModeloAlumno(
+                id: 2,
+                nombre: 'Matias',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 1,
+              ),
+              ModeloAlumno(
+                id: 3,
+                nombre: 'Sebas',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 11,
+              ),
+              ModeloAlumno(
+                id: 4,
+                nombre: 'Manu',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 9,
+              ),
+            ],
+          ),
+          ModeloCalificacion(
+            id: 1,
+            fecha: DateTime(2023, 12, 31),
+            alumnos: [
+              ModeloAlumno(
+                id: 1,
+                nombre: 'Gonzalo',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 10,
+              ),
+              ModeloAlumno(
+                id: 2,
+                nombre: 'Matias',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 5,
+              ),
+              ModeloAlumno(
+                id: 3,
+                nombre: 'Sebas',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 10,
+              ),
+              ModeloAlumno(
+                id: 4,
+                nombre: 'Manu',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 8,
+              ),
+            ],
+          ),
+          ModeloCalificacion(
+            id: 1,
+            fecha: DateTime(2024, 2, 10),
+            alumnos: [
+              ModeloAlumno(
+                id: 1,
+                nombre: 'Gonzalo',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 1,
+              ),
+              ModeloAlumno(
+                id: 2,
+                nombre: 'Matias',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 1,
+              ),
+              ModeloAlumno(
+                id: 3,
+                nombre: 'Sebas',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 1,
+              ),
+              ModeloAlumno(
+                id: 4,
+                nombre: 'Manu',
+                asistencia: EstadoAsistencia.sinAsistencia,
+                calificacion: 1,
+              ),
+            ],
+          ),
+        ];
+
+        final calificacion = lista.firstWhere(
+          (c) =>
+              c.fecha.year == event.fecha.year &&
+              c.fecha.month == event.fecha.month,
+        );
+
+        emit(
+          BlocCargaCalificacionesEstadoExitoso.desde(
+            state,
+            listaCalificaciones: lista,
+            calificacion: calificacion,
+            rolDelUsuario: Rol(
+              id: 1,
+              nombre: 'docente',
+              permisos: [],
             ),
-          );
-        },
-        onError: (e, st) => BlocCargaCalificacionesEstadoFallido.desde(state));
+          ),
+        );
+      },
+      onError: (e, st) => BlocCargaCalificacionesEstadoFallido.desde(state),
+    );
   }
 
   /// Filtra la lista de calificaciones por fecha que le pases
@@ -166,13 +168,13 @@ class BlocCargaCalificaciones
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) async {
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
-    //TODO(anyone): ver por que pingo no anda esto sin un delay
-    //sin el delay no funciona no se rebuild-eah la screen
+    // TODO(anyone): ver por que pingo no anda esto sin un delay
+    // sin el delay no funciona no se rebuild-eah la screen
 
     // ignore: inference_failure_on_instance_creation
     await Future.delayed(const Duration(microseconds: 1));
 
-    final calificacion = await state.listaCalificaciones.firstWhere(
+    final calificacion = state.listaCalificaciones.firstWhere(
       (c) =>
           c.fecha.month == event.fecha.month &&
           c.fecha.year == event.fecha.year,
@@ -221,8 +223,8 @@ class BlocCargaCalificaciones
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) async {
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
-    //TODO(anyone): ver por que pingo no anda esto sin un delay
-    //sin el delay no funciona no se rebuild-eah la screen
+    // TODO(anyone): ver por que pingo no anda esto sin un delay
+    // sin el delay no funciona no se rebuild-eah la screen
 
     // ignore: inference_failure_on_instance_creation
     await Future.delayed(const Duration(microseconds: 00005));
@@ -251,13 +253,17 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: () async {
-        //TODO(anyone): llamar al endpoint de envio de calificacion/notas
-        emit(BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
-            .desde(state));
+        // TODO(anyone): llamar al endpoint de envio de calificacion/notas
+        emit(
+          BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
+              .desde(state),
+        );
       },
       onError: (e, st) => emit(
-          BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones.desde(
-              state)),
+        BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones.desde(
+          state,
+        ),
+      ),
     );
   }
 
