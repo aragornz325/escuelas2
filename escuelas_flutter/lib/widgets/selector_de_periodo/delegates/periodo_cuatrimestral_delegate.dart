@@ -7,11 +7,8 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class PeriodoCuatrimestralDelegate extends PeriodoDelegate {
   /// {@macro PeriodoCuatrimestralDelegate}
-  PeriodoCuatrimestralDelegate(
-    this.context, {
-    this.onRetroceder,
-    this.onAvanzar,
-  }) : super(
+  PeriodoCuatrimestralDelegate(this.context)
+      : super(
           Periodo(
             etiqueta: DateTime.now().devolverEtiqueta(),
             fechaDesde: DateTime.now().copyWith(day: 1),
@@ -23,38 +20,49 @@ class PeriodoCuatrimestralDelegate extends PeriodoDelegate {
   final BuildContext context;
 
   @override
-  void Function(Periodo periodo)? onRetroceder;
+  int get cantidadDePeriodosVisibles => 3;
 
   @override
-  void Function(Periodo periodo)? onAvanzar;
+  List<Periodo> get periodosAnterior {
+    final cantPeriodosAnterioresVisibles = cantidadDePeriodosVisibles.isEven
+        ? cantidadDePeriodosVisibles / 2
+        : (cantidadDePeriodosVisibles - 1) / 2;
 
-  @override
-  Periodo get periodoAnterior {
-    final anteriorFechaDesde = periodoActual.fechaDesde.copyWith(
-      month: periodoActual.fechaDesde.month - 3,
-    );
+    return List<Periodo>.generate(cantPeriodosAnterioresVisibles.toInt(),
+        (index) {
+      final anteriorFechaDesde = periodoActual.fechaDesde.copyWith(
+        month: periodoActual.fechaDesde.month - 3 * (index + 1),
+      );
 
-    return Periodo(
-      etiqueta: anteriorFechaDesde.devolverEtiqueta(),
-      fechaDesde: anteriorFechaDesde,
-      fechaHasta: anteriorFechaDesde.copyWith(
-        month: anteriorFechaDesde.month + 3,
-      ),
-    );
+      return Periodo(
+        etiqueta: anteriorFechaDesde.devolverEtiqueta(),
+        fechaDesde: anteriorFechaDesde,
+        fechaHasta: anteriorFechaDesde.copyWith(
+          month: anteriorFechaDesde.month + 3,
+        ),
+      );
+    });
   }
 
   @override
-  Periodo get periodoPosterior {
-    final posteriorFechaDesde = periodoActual.fechaDesde.copyWith(
-      month: periodoActual.fechaDesde.month + 3,
-    );
+  List<Periodo> get periodosPosteriores {
+    final cantPeriodosPosterioresVisibles = cantidadDePeriodosVisibles.isEven
+        ? cantidadDePeriodosVisibles / 2
+        : (cantidadDePeriodosVisibles - 1) / 2;
 
-    return Periodo(
-      etiqueta: posteriorFechaDesde.devolverEtiqueta(),
-      fechaDesde: posteriorFechaDesde,
-      fechaHasta: posteriorFechaDesde.copyWith(
-        month: posteriorFechaDesde.month + 3,
-      ),
-    );
+    return List<Periodo>.generate(cantPeriodosPosterioresVisibles.toInt(),
+        (index) {
+      final posteriorFechaDesde = periodoActual.fechaDesde.copyWith(
+        month: periodoActual.fechaDesde.month + 3 * (index + 1),
+      );
+
+      return Periodo(
+        etiqueta: posteriorFechaDesde.devolverEtiqueta(),
+        fechaDesde: posteriorFechaDesde,
+        fechaHasta: posteriorFechaDesde.copyWith(
+          month: posteriorFechaDesde.month + 3,
+        ),
+      );
+    });
   }
 }

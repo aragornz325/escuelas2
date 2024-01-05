@@ -1,4 +1,4 @@
-import 'package:escuelas_flutter/extensiones/extension_bloc.dart';
+import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
