@@ -61,7 +61,7 @@ class TarjetaPerfil extends StatelessWidget {
                     ),
                     // TODO(Gon): Poner apellido
                     Text(
-                      state.usuario?.nombre ?? '',
+                      state.usuario?.apellido ?? '',
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 20.pf,
@@ -71,7 +71,7 @@ class TarjetaPerfil extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 5.ph),
                       child: Text(
-                        (state.usuario?.rol.name ?? '').capitalize,
+                        (state.usuario?.roles[0].nombre ?? '').capitalize,
                         style: TextStyle(
                           color: colores.grisSC,
                           fontSize: 14.pf,

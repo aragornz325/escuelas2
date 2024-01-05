@@ -18,7 +18,7 @@ class SelectorDePeriodo extends StatefulWidget {
   final PeriodoDelegate _delegate;
 
   /// Ejecuta una acción al retroceder el periodo.
-  final void Function(Periodo periodo) onSeleccionarPeriodo;
+  final void Function(PeriodoDelSelector periodo) onSeleccionarPeriodo;
 
   /// La decoracion del selector de periodo
   final BoxDecoration? decoration;

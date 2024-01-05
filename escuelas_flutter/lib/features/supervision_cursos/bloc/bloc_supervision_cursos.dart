@@ -1,5 +1,5 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_supervision_cursos_estado.dart';
@@ -30,26 +30,12 @@ class BlocSupervisionCursos
               CursosPorPeriodo(
                 desde: DateTime.now().copyWith(month: DateTime.now().month - 1),
                 hasta: DateTime.now(),
-                cursos: [
-                  Curso(nombre: 'Primero', id: 0),
-                  Curso(nombre: 'Segundo', id: 1),
-                  Curso(nombre: 'Tercero', id: 2),
-                  Curso(nombre: 'Cuarto', id: 3),
-                  Curso(nombre: 'Quinto', id: 4),
-                  Curso(nombre: 'Sexto', id: 5),
-                ],
+                cursos: [],
               ),
               CursosPorPeriodo(
                 desde: DateTime.now(),
                 hasta: DateTime.now().copyWith(month: DateTime.now().month + 1),
-                cursos: [
-                  Curso(nombre: 'Primero', id: 0),
-                  Curso(nombre: 'Segundo', id: 1),
-                  Curso(nombre: 'Tercero', id: 2),
-                  Curso(nombre: 'Cuarto', id: 3),
-                  Curso(nombre: 'Quinto', id: 4),
-                  Curso(nombre: 'Sexto', id: 5),
-                ],
+                cursos: [],
               ),
             ],
           ),

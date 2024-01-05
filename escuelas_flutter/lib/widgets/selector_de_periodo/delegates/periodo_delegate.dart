@@ -6,29 +6,31 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 abstract class PeriodoDelegate {
   /// {@macro PeriodoDelegate}
-  PeriodoDelegate(Periodo periodoInicial) : periodoActual = periodoInicial;
+  PeriodoDelegate(PeriodoDelSelector periodoInicial)
+      : periodoActual = periodoInicial;
 
   /// El periodo actualmente seleccionado
-  Periodo periodoActual;
+  PeriodoDelSelector periodoActual;
 
   /// Los periodos anterior al actualmente seleccionado
-  List<Periodo> get periodosAnterior => throw UnimplementedError();
+  List<PeriodoDelSelector> get periodosAnterior => throw UnimplementedError();
 
   /// Cantidad de periodos visibles tiene que ser impar
   /// (Ej: 3, 5, 7, etc.)
   int get cantidadDePeriodosVisibles => throw UnimplementedError();
 
   /// Los periodos posterior al actualmente seleccionado
-  List<Periodo> get periodosPosteriores => throw UnimplementedError();
+  List<PeriodoDelSelector> get periodosPosteriores =>
+      throw UnimplementedError();
 
   /// Representa el periodo actualmente seleccionado
-  Widget buildPeriodoActual({required Periodo periodo}) =>
+  Widget buildPeriodoActual({required PeriodoDelSelector periodo}) =>
       DefaultPeriodoActual(periodo: periodo);
 
   /// Representa los widgets de los periodos anteriores
   Widget buildPeriodosAnteriores({
     required void Function() onSeleccionarPeriodo,
-    required Periodo periodo,
+    required PeriodoDelSelector periodo,
   }) =>
       DefaultPeriodoAnterior(
         onSeleccionarPeriodo: onSeleccionarPeriodo,
@@ -38,7 +40,7 @@ abstract class PeriodoDelegate {
   /// Representa los widgets de los periodos posteriores
   Widget buildPeriodosPosteriores({
     required void Function() onSeleccionarPeriodo,
-    required Periodo periodo,
+    required PeriodoDelSelector periodo,
   }) =>
       DefaultPeriodoPosterior(
         onSeleccionarPeriodo: onSeleccionarPeriodo,
@@ -49,9 +51,9 @@ abstract class PeriodoDelegate {
 /// {@template Periodo}
 /// Representa un periodo de tiempo
 /// {@endtemplate}
-class Periodo {
+class PeriodoDelSelector {
   /// {@macro Periodo}
-  Periodo({
+  PeriodoDelSelector({
     required this.etiqueta,
     required this.fechaDesde,
     required this.fechaHasta,

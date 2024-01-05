@@ -1,5 +1,5 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -35,20 +35,35 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         // final cursos =await client.;
         // final roles = await client.;
         final roles = [
-          Rol(nombre: 'ALUMNO', permisos: ['permiso1', 'permiso2'], id: 0),
-          Rol(nombre: 'DOCENTE', permisos: ['permiso1', 'permiso2'], id: 1),
+          RolDeUsuario(
+            nombre: 'ALUMNO',
+            descripcion: '',
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
+          RolDeUsuario(
+            nombre: 'DOCENTE',
+            descripcion: '',
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
         ];
         final cursos = [
-          Curso(nombre: 'PRIMERO', id: 0),
-          Curso(nombre: 'SEGUNDO', id: 1),
-          Curso(nombre: 'TERCERO', id: 2),
-          Curso(nombre: 'CUARTO', id: 3),
+          Curso(
+            nombre: 'nombre',
+            asignaturas: [],
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
         ];
         final materias = [
-          Materia(nombre: 'MATEMATICA', id: 0, idCurso: 0),
-          Materia(nombre: 'LENGUA', id: 1, idCurso: 0),
-          Materia(nombre: 'SOCIALES', id: 2, idCurso: 0),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 0),
+          Asignatura(
+            nombre: '',
+            idCurso: 0,
+            docentes: [],
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
         ];
         emit(
           BlocKycEstadoExitoso.desde(
@@ -60,8 +75,19 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
               // TODO(Gon): Ver manera de cambiar esto
               OpcionFormulario(
                 id: 0,
-                curso: Curso(nombre: '', id: 0),
-                materia: Materia(nombre: '', id: 0, idCurso: 0),
+                curso: Curso(
+                  nombre: 'nombre',
+                  asignaturas: [],
+                  ultimaModificacion: DateTime.now(),
+                  fechaCreacion: DateTime.now(),
+                ),
+                materia: Asignatura(
+                  nombre: '',
+                  idCurso: 0,
+                  docentes: [],
+                  ultimaModificacion: DateTime.now(),
+                  fechaCreacion: DateTime.now(),
+                ),
               ),
             ],
           ),
@@ -131,10 +157,18 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             OpcionFormulario(
               id: state.opcionesFormulario.length + 1,
               curso: Curso(
-                nombre: '',
-                id: 0,
+                nombre: 'nombre',
+                asignaturas: [],
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now(),
               ),
-              materia: Materia(nombre: '', id: 0, idCurso: 0),
+              materia: Asignatura(
+                nombre: '',
+                idCurso: 0,
+                docentes: [],
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now(),
+              ),
             ),
           );
     emit(
@@ -181,5 +215,39 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
   @override
   Map<String, dynamic> toJson(BlocKycEstado state) {
     return state.toJson();
+  }
+}
+
+class OpcionFormulario {
+  OpcionFormulario({
+    required this.curso,
+    required this.materia,
+    required this.id,
+  });
+
+  factory OpcionFormulario.fromJson(Map<String, dynamic> json) {
+    return OpcionFormulario(
+      curso: Curso.fromJson(
+        json['curso'] as Map<String, dynamic>,
+        Protocol(),
+      ),
+      materia: Asignatura.fromJson(
+        json['asignatura'] as Map<String, dynamic>,
+        Protocol(),
+      ),
+      id: json['id'] as int,
+    );
+  }
+
+  Curso curso;
+  Asignatura materia;
+  final int id;
+
+  Map<String, dynamic> toJson() {
+    return {
+      'curso': curso,
+      'materia': materia,
+      'id': id,
+    };
   }
 }

@@ -16,10 +16,10 @@ class BlocKycEstado {
   BlocKycEstado.desde(
     BlocKycEstado otro, {
     List<Curso>? listaCursos,
-    List<Materia>? listaMaterias,
+    List<Asignatura>? listaMaterias,
     List<OpcionFormulario>? opcionesFormulario,
-    Rol? rolElegido,
-    List<Rol>? listaRoles,
+    RolDeUsuario? rolElegido,
+    List<RolDeUsuario>? listaRoles,
     bool eliminarRolSeleccionado = false,
   }) : this._(
           listaCursos: listaCursos ?? otro.listaCursos,
@@ -36,20 +36,36 @@ class BlocKycEstado {
   ) {
     return BlocKycEstado._(
       listaCursos: (json['listaCursos'] as List<dynamic>?)
-              ?.map((e) => Curso.fromJson(e as Map<String, dynamic>))
+              ?.map(
+                (e) => Curso.fromJson(
+                  e as Map<String, dynamic>,
+                  Protocol(),
+                ),
+              )
               .toList() ??
           [],
-      listaMaterias: (json['listaMaterias'] as List<dynamic>?)
-              ?.map((e) => Materia.fromJson(e as Map<String, dynamic>))
+      listaMaterias: (json['listaAsignaturas'] as List<dynamic>?)
+              ?.map(
+                (e) => Asignatura.fromJson(
+                  e as Map<String, dynamic>,
+                  Protocol(),
+                ),
+              )
               .toList() ??
           [],
       rolElegido: json['rolElegido'] == null
           ? null
-          : Rol.fromJson(
+          : RolDeUsuario.fromJson(
               json['rolElegido'] as Map<String, dynamic>,
+              Protocol(),
             ),
       listaRoles: (json['listaRoles'] as List<dynamic>?)
-              ?.map((e) => Rol.fromJson(e as Map<String, dynamic>))
+              ?.map(
+                (e) => RolDeUsuario.fromJson(
+                  e as Map<String, dynamic>,
+                  Protocol(),
+                ),
+              )
               .toList() ??
           [],
     );
@@ -69,16 +85,16 @@ class BlocKycEstado {
   final List<Curso> listaCursos;
 
   /// Lista de materias de la escuela a la que pertenece el usuario
-  final List<Materia> listaMaterias;
+  final List<Asignatura> listaMaterias;
 
   /// Lista de opciones de kyc (inicialmente hay una)
   final List<OpcionFormulario> opcionesFormulario;
 
   /// Rol elegido por el usuario en la pantalla de seleccion de rol
-  final Rol? rolElegido;
+  final RolDeUsuario? rolElegido;
 
   /// Lista de roles a mostrar en pantalla
-  final List<Rol> listaRoles;
+  final List<RolDeUsuario> listaRoles;
 
   /// Indica si el state es cargando
   bool get estaEnEstadoCargando => this is BlocKycEstadoCargando;
@@ -88,7 +104,7 @@ class BlocKycEstado {
   List<PopupOption> get listaOpcionesCursos => listaCursos
       .map(
         (curso) => PopupOption(
-          id: curso.id,
+          id: curso.id ?? 0,
           name: curso.nombre,
         ),
       )
@@ -99,7 +115,7 @@ class BlocKycEstado {
   List<PopupOption> get listaOpcionesMaterias => listaMaterias
       .map(
         (materia) => PopupOption(
-          id: materia.id,
+          id: materia.id ?? 0,
           name: materia.nombre,
         ),
       )

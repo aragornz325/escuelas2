@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -17,7 +17,7 @@ class ItemUsuarioPendiente extends StatelessWidget {
   });
 
   /// Usuario del que se muestran los datos
-  final InfoUsuario usuario;
+  final Usuario usuario;
 
   @override
   Widget build(BuildContext context) {
@@ -29,14 +29,14 @@ class ItemUsuarioPendiente extends StatelessWidget {
           child: ElementoLista.usuario(
             nombreUsuario: usuario.nombre,
             context: context,
-            onTap: () =>
-                context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
+            onTap: () => context.router
+                .push(RutaPerfilUsuario(idUsuario: usuario.id ?? 0)),
           ),
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          onTap: () =>
-              context.router.push(RutaPerfilUsuario(idUsuario: usuario.id)),
+          onTap: () => context.router
+              .push(RutaPerfilUsuario(idUsuario: usuario.id ?? 0)),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),

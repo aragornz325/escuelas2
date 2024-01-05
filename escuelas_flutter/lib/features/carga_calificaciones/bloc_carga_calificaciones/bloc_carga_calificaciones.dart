@@ -1,9 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
-import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/utilidades/funciones/operacion_bloc.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
-import 'package:meta/meta.dart';
 
 part 'bloc_carga_calificaciones_estado.dart';
 part 'bloc_carga_calificaciones_evento.dart';
@@ -150,10 +149,12 @@ class BlocCargaCalificaciones
             state,
             listaCalificaciones: lista,
             calificacion: calificacion,
-            rolDelUsuario: Rol(
+            rolDelUsuario: RolDeUsuario(
               id: 1,
               nombre: 'docente',
-              permisos: [],
+              descripcion: '',
+              fechaCreacion: DateTime.now(),
+              ultimaModificacion: DateTime.now(),
             ),
           ),
         );

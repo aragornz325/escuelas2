@@ -3,7 +3,6 @@ part of 'bloc_carga_calificaciones.dart';
 /// {@template BlocCargaCalificacionesEvento}
 /// Maneja los eventos generales de la pantalla 'Carga de calificaciones'
 /// {@endtemplate}
-@immutable
 class BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEvento}
   const BlocCargaCalificacionesEvento();
@@ -14,7 +13,6 @@ class BlocCargaCalificacionesEvento {
 /// {@template BlocCargaCalificacionesEventoInicializar}
 /// Evento para inicializar la pantalla de 'Carga de calificaciones'.
 /// {@endtemplate}
-@immutable
 class BlocCargaCalificacionesEventoInicializar
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoInicializar}
@@ -28,7 +26,6 @@ class BlocCargaCalificacionesEventoInicializar
 /// Evento que filtra la lista de los alumnos para buscar entre listas de listas
 /// de calificaciones por una fecha en especifica.
 /// {@endtemplate}
-@immutable
 class BlocCargaCalificacionesEventoFiltrarListaPorFecha
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoFiltrarListaPorFecha}
@@ -43,7 +40,6 @@ class BlocCargaCalificacionesEventoFiltrarListaPorFecha
 /// {@template BlocCargaCalificacionesEventoCambiarCalificacionAlumno}
 /// Evento para cambiarle una calificación a un alumno
 /// {@endtemplate}
-@immutable
 class BlocCargaCalificacionesEventoCambiarCalificacionAlumno
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoCambiarCalificacionAlumno}
@@ -66,7 +62,6 @@ class BlocCargaCalificacionesEventoCambiarCalificacionAlumno
 /// {@template BlocCargaCalificacionesEventoVaciarCalificaciones}
 /// Evento para vaciar las calificaciones cargadas
 /// {@endtemplate}
-@immutable
 class BlocCargaCalificacionesEventoVaciarCalificaciones
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoVaciarCalificaciones}
@@ -76,7 +71,6 @@ class BlocCargaCalificacionesEventoVaciarCalificaciones
 /// {@template BlocCargaCalificacionesEventoEnviarCalificaciones}
 /// Evento para enviar todas las calificaciones cargadas
 /// {@endtemplate}
-@immutable
 class BlocCargaCalificacionesEventoEnviarCalificaciones
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoEnviarCalificaciones}
@@ -86,7 +80,7 @@ class BlocCargaCalificacionesEventoEnviarCalificaciones
 /// {@template BlocCargaCalificacionesEventoGuardarPeriodo}
 /// Evento para guardar el periodo del calendario
 /// {@endtemplate}
-@immutable
+
 class BlocCargaCalificacionesEventoGuardarPeriodo
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoGuardarPeriodo}
@@ -95,5 +89,5 @@ class BlocCargaCalificacionesEventoGuardarPeriodo
   });
 
   /// Periodo actual del calendario
-  final Periodo periodo;
+  final PeriodoDelSelector periodo;
 }

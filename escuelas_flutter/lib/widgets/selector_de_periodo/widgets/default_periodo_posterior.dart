@@ -14,7 +14,7 @@ class DefaultPeriodoPosterior extends StatelessWidget {
   /// Ejecuta una acción al retroceder el periodo.
   final void Function() onSeleccionarPeriodo;
 
-  final Periodo periodo;
+  final PeriodoDelSelector periodo;
 
   @override
   Widget build(BuildContext context) {
