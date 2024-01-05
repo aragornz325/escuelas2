@@ -4,6 +4,7 @@ import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioUsuario extends Servicio {
+  @override
   OrmUsuario get orm => OrmUsuario();
 
   /// La función "obtenerUsuariosPendientes" recupera usuarios pendientes usando una sesión y devuelve el

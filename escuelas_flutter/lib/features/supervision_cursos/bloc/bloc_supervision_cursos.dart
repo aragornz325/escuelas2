@@ -27,15 +27,26 @@ class BlocSupervisionCursos
           BlocSupervisionCursosEstadoExitoso.desde(
             state,
             listaCursos: [
-              CursosPorPeriodo(
-                desde: DateTime.now().copyWith(month: DateTime.now().month - 1),
-                hasta: DateTime.now(),
-                cursos: [],
+              Curso(
+                nombre: 'asd',
+                id: 1,
+                asignaturas: [],
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now(),
               ),
-              CursosPorPeriodo(
-                desde: DateTime.now(),
-                hasta: DateTime.now().copyWith(month: DateTime.now().month + 1),
-                cursos: [],
+              Curso(
+                nombre: '222',
+                id: 2,
+                asignaturas: [],
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now(),
+              ),
+              Curso(
+                nombre: 'a333sd',
+                id: 3,
+                asignaturas: [],
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now(),
               ),
             ],
           ),
@@ -46,18 +57,4 @@ class BlocSupervisionCursos
       ),
     );
   }
-}
-
-// Clase temporal para simular la data que vendria del backend
-// TODO(anyone): borrar esta clase cuando se traiga la data del backend.
-class CursosPorPeriodo {
-  CursosPorPeriodo({
-    required this.desde,
-    required this.hasta,
-    required this.cursos,
-  });
-
-  final DateTime desde;
-  final DateTime hasta;
-  final List<Curso> cursos;
 }

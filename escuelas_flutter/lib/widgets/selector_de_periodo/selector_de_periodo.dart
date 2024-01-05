@@ -1,5 +1,6 @@
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 import 'package:flutter/material.dart';
+import 'package:full_responsive/full_responsive.dart';
 
 /// {@template SelectorDePeriodo}
 /// Representa un selector de periodo de tiempo
@@ -35,6 +36,9 @@ class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
   Widget build(BuildContext context) {
     return Container(
       margin: widget.margin,
+      padding: EdgeInsets.symmetric(
+        vertical: 5.ph,
+      ),
       decoration: widget.decoration,
       child: Center(
         child: Row(

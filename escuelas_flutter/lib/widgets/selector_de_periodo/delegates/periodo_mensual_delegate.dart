@@ -7,14 +7,19 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class PeriodoMensualDelegate extends PeriodoDelegate {
   /// {@macro PeriodoMensualDelegate}
-  PeriodoMensualDelegate(this.context)
-      : super(
-          PeriodoDelSelector(
-            etiqueta: DateTime.now().nombreMes(context).toUpperCase(),
-            fechaDesde: DateTime.now().copyWith(day: 1),
-            fechaHasta: DateTime(DateTime.now().year, DateTime.now().month + 1)
-                .subtract(const Duration(days: 1)),
-          ),
+  PeriodoMensualDelegate(
+    this.context, {
+    PeriodoDelSelector? periodo,
+  }) : super(
+          periodo ??
+              PeriodoDelSelector(
+                etiqueta: DateTime.now().nombreMes(context).toUpperCase(),
+                fechaDesde: DateTime.now().copyWith(day: 1),
+                fechaHasta: DateTime(
+                  DateTime.now().year,
+                  DateTime.now().month + 1,
+                ).subtract(const Duration(days: 1)),
+              ),
         );
 
   final BuildContext context;

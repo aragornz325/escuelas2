@@ -4,6 +4,7 @@ import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:serverpod/serverpod.dart';
 
 class RolesEndpoint extends Endpoint with Controller {
+  @override
   ServicioRol get servicio => ServicioRol();
 
   /// La función `obtenerRolPorId` recupera un rol de usuario por su ID usando una sesión y un servicio.

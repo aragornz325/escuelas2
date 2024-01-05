@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/date_time.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/supervision_cursos/bloc/bloc_supervision_cursos.dart';
@@ -40,12 +42,20 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                 child: Column(
                   children: state.listaCursos
                       .map(
-                        (e) => Padding(
+                        (curso) => Padding(
                           padding: EdgeInsets.only(bottom: 15.ph),
                           child: ElementoLista.supervisionCurso(
                             context: context,
-                            onTap: () {},
-                            nombreCurso: '',
+                            onTap: () => context.router.push(
+                              RutaSupervisionEnvioCalificaciones(
+                                idCurso: curso.id,
+                                // TODO(anyone): Pasar fecha del periodo seleccionado
+                                fecha: DateTime.now()
+                                    .copyWith(month: DateTime.now().month + 2)
+                                    .toString(),
+                              ),
+                            ),
+                            nombreCurso: curso.nombre,
                             colorFondo: state.todasMateriasCargadas
                                 ? colores.primaryContainer
                                 : colores.onSecondary,

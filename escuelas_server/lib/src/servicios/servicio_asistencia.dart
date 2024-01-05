@@ -4,6 +4,7 @@ import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioAsistencia extends Servicio {
+  @override
   OrmAsistencia get orm => OrmAsistencia();
 
   /// La función `crearAsistenciasEnLote` crea múltiples registros de asistencia diaria en un lote.

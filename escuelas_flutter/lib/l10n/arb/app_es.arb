@@ -31,12 +31,12 @@
         }
     },
 
-    "pageKycFormAddSubject": "Agregar materia",
+    "pageKycFormAddSubject": "Agregar asignatura",
     "@pageKycFormAddSubject": {
         "description": "Button label to add a subject in the KYC (Know Your Customer) process."
     },
 
-    "pageKycFormDeleteSubject": "Eliminar materia",
+    "pageKycFormDeleteSubject": "Eliminar asignatura",
     "@pageKycFormDeleteSubject": {
         "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
     },
@@ -46,12 +46,12 @@
         "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
     },
 
-    "pageKycFormWhichSubjectIsIt": "¿Qué materia es?",
+    "pageKycFormWhichSubjectIsIt": "¿Qué asignatura es?",
     "@pageKycFormWhichSubjectIs": {
         "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
     },
 
-    "pageKycFormWhatYearIsYourSubject": "¿De qué año es tu materia?",
+    "pageKycFormWhatYearIsYourSubject": "¿De qué año es tu asignatura?",
     "@pageKycFormWhatYearIsYourSubject": {
         "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
     },
@@ -131,7 +131,16 @@
         "description": "Title of the login page"
     },
 
-    "absencePageTitleAppBar": "Inasistencias",
+    "pageGradeSubmissionSupervisionButton": "Request missing grades({numberOfGrades})",
+    "@pageGradeSubmissionSupervisionButton": {
+        "description": "Represents the text for a button that is used to request missing grades. The {numberOfGrades} placeholder is used to dynamically indicate the number of missing grades.",
+        "placeholders" :{
+            "numberOfGrades" : {
+                "type": "int"
+            }
+        }
+    },
+
     "absencePageTitleAppBar": "Inasistencias",
     "@absencePageTitleAppBar": {
         "description": "Title of the absences page"
@@ -441,6 +450,11 @@
     "commonCancel": "Cancelar",
     "@commonCancel": {
         "description": ""
+    },
+
+    "commonSubject": "Asignatura",
+    "@commonSubject": {
+        "description": "It is commonly used to refer to a specific academic subject or course."
     },
 
     "commonDeleteAll": "Borrar todos",
