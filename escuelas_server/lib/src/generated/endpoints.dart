@@ -10,14 +10,17 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/asignatura_endpoint.dart' as _i2;
-import '../endpoints/curso_endpoint.dart' as _i3;
-import '../endpoints/example_endpoint.dart' as _i4;
-import '../endpoints/usuario_endpoint.dart' as _i5;
-import 'package:escuelas_server/src/generated/curso/asignatura.dart' as _i6;
-import 'package:escuelas_server/src/generated/curso/curso.dart' as _i7;
-import 'package:escuelas_server/src/generated/usuario/usuario_pendiente.dart'
+import '../endpoints/asistencia_endpoint.dart' as _i3;
+import '../endpoints/curso_endpoint.dart' as _i4;
+import '../endpoints/example_endpoint.dart' as _i5;
+import '../endpoints/usuario_endpoint.dart' as _i6;
+import 'package:escuelas_server/src/generated/curso/asignatura.dart' as _i7;
+import 'package:escuelas_server/src/generated/asistencia/asistencia_diaria.dart'
     as _i8;
-import 'package:serverpod_auth_server/module.dart' as _i9;
+import 'package:escuelas_server/src/generated/curso/curso.dart' as _i9;
+import 'package:escuelas_server/src/generated/usuario/usuario_pendiente.dart'
+    as _i10;
+import 'package:serverpod_auth_server/module.dart' as _i11;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -29,19 +32,25 @@ class Endpoints extends _i1.EndpointDispatch {
           'asignatura',
           null,
         ),
-      'curso': _i3.CursoEndpoint()
+      'asistencia': _i3.AsistenciaEndpoint()
+        ..initialize(
+          server,
+          'asistencia',
+          null,
+        ),
+      'curso': _i4.CursoEndpoint()
         ..initialize(
           server,
           'curso',
           null,
         ),
-      'example': _i4.ExampleEndpoint()
+      'example': _i5.ExampleEndpoint()
         ..initialize(
           server,
           'example',
           null,
         ),
-      'usuario': _i5.UsuarioEndpoint()
+      'usuario': _i6.UsuarioEndpoint()
         ..initialize(
           server,
           'usuario',
@@ -86,7 +95,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'asignatura': _i1.ParameterDescription(
               name: 'asignatura',
-              type: _i1.getType<_i6.Asignatura>(),
+              type: _i1.getType<_i7.Asignatura>(),
               nullable: false,
             )
           },
@@ -105,7 +114,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'asignatura': _i1.ParameterDescription(
               name: 'asignatura',
-              type: _i1.getType<_i6.Asignatura>(),
+              type: _i1.getType<_i7.Asignatura>(),
               nullable: false,
             )
           },
@@ -140,6 +149,31 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
+    connectors['asistencia'] = _i1.EndpointConnector(
+      name: 'asistencia',
+      endpoint: endpoints['asistencia']!,
+      methodConnectors: {
+        'crearAsistenciasEnLote': _i1.MethodConnector(
+          name: 'crearAsistenciasEnLote',
+          params: {
+            'asistencias': _i1.ParameterDescription(
+              name: 'asistencias',
+              type: _i1.getType<List<_i8.AsistenciaDiaria>>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['asistencia'] as _i3.AsistenciaEndpoint)
+                  .crearAsistenciasEnLote(
+            session,
+            asistencias: params['asistencias'],
+          ),
+        )
+      },
+    );
     connectors['curso'] = _i1.EndpointConnector(
       name: 'curso',
       endpoint: endpoints['curso']!,
@@ -157,7 +191,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['curso'] as _i3.CursoEndpoint).obtenerCursoPorId(
+              (endpoints['curso'] as _i4.CursoEndpoint).obtenerCursoPorId(
             session,
             id: params['id'],
           ),
@@ -169,14 +203,14 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['curso'] as _i3.CursoEndpoint).obtenerCursos(session),
+              (endpoints['curso'] as _i4.CursoEndpoint).obtenerCursos(session),
         ),
         'crearCurso': _i1.MethodConnector(
           name: 'crearCurso',
           params: {
             'curso': _i1.ParameterDescription(
               name: 'curso',
-              type: _i1.getType<_i7.Curso>(),
+              type: _i1.getType<_i9.Curso>(),
               nullable: false,
             )
           },
@@ -184,7 +218,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['curso'] as _i3.CursoEndpoint).crearCurso(
+              (endpoints['curso'] as _i4.CursoEndpoint).crearCurso(
             session,
             curso: params['curso'],
           ),
@@ -194,7 +228,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'curso': _i1.ParameterDescription(
               name: 'curso',
-              type: _i1.getType<_i7.Curso>(),
+              type: _i1.getType<_i9.Curso>(),
               nullable: false,
             )
           },
@@ -202,7 +236,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['curso'] as _i3.CursoEndpoint).actualizarCurso(
+              (endpoints['curso'] as _i4.CursoEndpoint).actualizarCurso(
             session,
             curso: params['curso'],
           ),
@@ -220,7 +254,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['curso'] as _i3.CursoEndpoint).eliminarCurso(
+              (endpoints['curso'] as _i4.CursoEndpoint).eliminarCurso(
             session,
             id: params['id'],
           ),
@@ -244,7 +278,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['example'] as _i4.ExampleEndpoint).hello(
+              (endpoints['example'] as _i5.ExampleEndpoint).hello(
             session,
             params['name'],
           ),
@@ -262,7 +296,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['usuario'] as _i5.UsuarioEndpoint)
+              (endpoints['usuario'] as _i6.UsuarioEndpoint)
                   .obtenerUsuariosPendientes(session),
         ),
         'enviarSoliciturRegistro': _i1.MethodConnector(
@@ -270,7 +304,7 @@ class Endpoints extends _i1.EndpointDispatch {
           params: {
             'usuarioPendiente': _i1.ParameterDescription(
               name: 'usuarioPendiente',
-              type: _i1.getType<_i8.UsuarioPendiente>(),
+              type: _i1.getType<_i10.UsuarioPendiente>(),
               nullable: false,
             )
           },
@@ -278,7 +312,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['usuario'] as _i5.UsuarioEndpoint)
+              (endpoints['usuario'] as _i6.UsuarioEndpoint)
                   .enviarSoliciturRegistro(
             session,
             usuarioPendiente: params['usuarioPendiente'],
@@ -286,6 +320,6 @@ class Endpoints extends _i1.EndpointDispatch {
         ),
       },
     );
-    modules['serverpod_auth'] = _i9.Endpoints()..initializeEndpoints(server);
+    modules['serverpod_auth'] = _i11.Endpoints()..initializeEndpoints(server);
   }
 }

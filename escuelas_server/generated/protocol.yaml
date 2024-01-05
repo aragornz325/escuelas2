@@ -4,6 +4,8 @@ asignatura:
   - crearAsignatura:
   - actualizarAsignatura:
   - eliminarAsignatura:
+asistencia:
+  - crearAsistenciasEnLote:
 curso:
   - obtenerCursoPorId:
   - obtenerCursos:
