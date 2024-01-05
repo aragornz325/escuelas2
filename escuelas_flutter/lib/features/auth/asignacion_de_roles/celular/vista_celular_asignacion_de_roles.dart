@@ -43,9 +43,10 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 10.ph),
+                        // TODO (Gon): Ver que llega en el endpoint para mejorar esto
                         ...state.listaUsuariosPendientes
                             .where(
-                              (usuario) => usuario.roles == rol,
+                              (usuario) => usuario.rolSolicitado == rol.index,
                             )
                             .toList()
                             .map(

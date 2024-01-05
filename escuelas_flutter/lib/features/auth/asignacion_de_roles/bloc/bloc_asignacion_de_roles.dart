@@ -33,9 +33,13 @@ class BlocAsignacionDeRoles
           BlocAsignacionDeRolesEstadoExitoso.desde(
             state,
             listaUsuariosPendientes: [
-              Usuario(
+              UsuarioPendiente(
+                nombre: 'Gonzalo',
+                apellido: 'Gonzalez',
+                id: 0,
+                rolSolicitado: 3,
+                aprobado: false,
                 idUserInfo: 0,
-                roles: [],
                 dni: '43',
                 ultimaModificacion: DateTime.now(),
                 fechaCreacion: DateTime.now(),

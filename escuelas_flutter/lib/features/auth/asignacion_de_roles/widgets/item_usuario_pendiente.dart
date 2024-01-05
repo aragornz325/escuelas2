@@ -17,7 +17,7 @@ class ItemUsuarioPendiente extends StatelessWidget {
   });
 
   /// Usuario del que se muestran los datos
-  final Usuario usuario;
+  final UsuarioPendiente usuario;
 
   @override
   Widget build(BuildContext context) {
