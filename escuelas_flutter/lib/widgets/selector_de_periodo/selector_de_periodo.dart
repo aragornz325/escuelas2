@@ -48,9 +48,12 @@ class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
                 children: [
                   ...widget._delegate.periodosAnterior.map(
                     (periodo) => widget._delegate.buildPeriodosAnteriores(
-                      onSeleccionarPeriodo: () => setState(
-                        () => widget._delegate.periodoActual = periodo,
-                      ),
+                      onSeleccionarPeriodo: () {
+                        setState(
+                          () => widget._delegate.periodoActual = periodo,
+                        );
+                        widget.onSeleccionarPeriodo(periodo);
+                      },
                       periodo: periodo,
                     ),
                   ),
@@ -69,9 +72,12 @@ class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
                 children: [
                   ...widget._delegate.periodosPosteriores.map(
                     (periodo) => widget._delegate.buildPeriodosPosteriores(
-                      onSeleccionarPeriodo: () => setState(
-                        () => widget._delegate.periodoActual = periodo,
-                      ),
+                      onSeleccionarPeriodo: () {
+                        setState(
+                          () => widget._delegate.periodoActual = periodo,
+                        );
+                        widget.onSeleccionarPeriodo(periodo);
+                      },
                       periodo: periodo,
                     ),
                   ),

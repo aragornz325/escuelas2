@@ -14,14 +14,18 @@ abstract class PeriodoDelegate {
   /// Los periodos anterior al actualmente seleccionado
   List<Periodo> get periodosAnterior => throw UnimplementedError();
 
+  /// Cantidad de periodos visibles tiene que ser impar
+  /// (Ej: 3, 5, 7, etc.)
   int get cantidadDePeriodosVisibles => throw UnimplementedError();
 
   /// Los periodos posterior al actualmente seleccionado
   List<Periodo> get periodosPosteriores => throw UnimplementedError();
 
+  /// Representa el periodo actualmente seleccionado
   Widget buildPeriodoActual({required Periodo periodo}) =>
       DefaultPeriodoActual(periodo: periodo);
 
+  /// Representa los widgets de los periodos anteriores
   Widget buildPeriodosAnteriores({
     required void Function() onSeleccionarPeriodo,
     required Periodo periodo,
@@ -31,6 +35,7 @@ abstract class PeriodoDelegate {
         periodo: periodo,
       );
 
+  /// Representa los widgets de los periodos posteriores
   Widget buildPeriodosPosteriores({
     required void Function() onSeleccionarPeriodo,
     required Periodo periodo,
@@ -50,12 +55,10 @@ class Periodo {
     required this.etiqueta,
     required this.fechaDesde,
     required this.fechaHasta,
-    this.etiqueta2,
   });
 
   /// La etiqueta del periodo
   final String etiqueta;
-  final String? etiqueta2;
 
   /// La fecha del periodo
   final DateTime fechaDesde;

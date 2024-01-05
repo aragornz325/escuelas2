@@ -11,10 +11,16 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@template VistaCelularAsistencias}
 /// Vista para celular de la pagina 'Asistencias'
 /// {@endtemplate}
-class VistaCelularInasistencias extends StatelessWidget {
+class VistaCelularInasistencias extends StatefulWidget {
   /// {@macro VistaCelularAsistencias}
   const VistaCelularInasistencias({super.key});
 
+  @override
+  State<VistaCelularInasistencias> createState() =>
+      _VistaCelularInasistenciasState();
+}
+
+class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -34,8 +40,21 @@ class VistaCelularInasistencias extends StatelessWidget {
         }
         return Column(
           children: [
+            // TODO(anyone): no se actualiza la fecha
+            // Center(
+            //   child: Text(
+            //     '${periodo.fechaDesde.nombreMes(context).toUpperCase()} - ${periodo.fechaDesde.year}',
+            //     style: TextStyle(
+            //       color: colores.onBackground,
+            //       fontSize: 12.pf,
+            //       fontWeight: FontWeight.w700,
+            //     ),
+            //   ),
+            // ),
             SelectorDePeriodo(
-              delegate: PeriodoDiarioDelegate(context),
+              delegate: PeriodoDiarioDelegate(
+                context,
+              ),
               onSeleccionarPeriodo: (periodo) {},
             ),
             const Divider(thickness: .5),

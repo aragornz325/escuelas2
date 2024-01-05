@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 extension DateTimeX on DateTime {
+  /// Devuelve el nombre del mes. (Ej: Enero, Febrero, ...)
   String nombreMes(BuildContext context) =>
       DateFormat('MMMM', Localizations.localeOf(context).languageCode)
           .format(this);
 
+  /// Devuelve el numero del dia. (Ej: 01, 02, ...)
   String numeroDia(BuildContext context) =>
       DateFormat('dd', Localizations.localeOf(context).languageCode)
           .format(this);
 
+  /// Devuelve el nombre del dia. (Ej: Lunes, Martes, ...)
   String nombreDia(BuildContext context) =>
       DateFormat('EEEE', Localizations.localeOf(context).languageCode)
           .format(this);

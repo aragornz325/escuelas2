@@ -14,7 +14,6 @@ class PeriodoDiarioDelegate extends PeriodoDelegate {
       : super(
           Periodo(
             etiqueta: DateTime.now().numeroDia(context),
-            etiqueta2: DateTime.now().nombreDia(context),
             fechaDesde: DateTime.now(),
             fechaHasta: DateTime.now(),
           ),
@@ -39,13 +38,15 @@ class PeriodoDiarioDelegate extends PeriodoDelegate {
 
       return Periodo(
         etiqueta: anteriorFechaDesde.numeroDia(context),
-        etiqueta2: anteriorFechaDesde.nombreDia(context),
         fechaDesde: anteriorFechaDesde,
         fechaHasta: anteriorFechaDesde.copyWith(
           day: anteriorFechaDesde.day + 1,
         ),
       );
-    });
+    })
+      ..sort(
+        (a, b) => a.fechaDesde.compareTo(b.fechaDesde),
+      );
   }
 
   @override
@@ -62,7 +63,6 @@ class PeriodoDiarioDelegate extends PeriodoDelegate {
 
       return Periodo(
         etiqueta: posteriorFechaDesde.numeroDia(context),
-        etiqueta2: posteriorFechaDesde.nombreDia(context),
         fechaDesde: posteriorFechaDesde,
         fechaHasta: posteriorFechaDesde.copyWith(
           day: posteriorFechaDesde.day + 1,
@@ -98,7 +98,11 @@ class PeriodoDiarioDelegate extends PeriodoDelegate {
       );
 }
 
+/// {@template PeriodoDiarioDelegate}
+/// Representa un periodo de tiempo diario no seleccionado
+/// {@endtemplate}
 class PeriodoNoSeleccionado extends StatelessWidget {
+  /// {@macro PeriodoDiarioDelegate}
   const PeriodoNoSeleccionado({
     required this.onSeleccionarPeriodo,
     required this.periodo,
@@ -108,6 +112,7 @@ class PeriodoNoSeleccionado extends StatelessWidget {
   /// Ejecuta una acción al retroceder el periodo.
   final void Function() onSeleccionarPeriodo;
 
+  /// Periodo a mostrar
   final Periodo periodo;
 
   @override
@@ -122,7 +127,7 @@ class PeriodoNoSeleccionado extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              periodo.etiqueta2?.substring(0, 1) ?? '',
+              periodo.fechaDesde.nombreDia(context).substring(0, 1),
               style: TextStyle(
                 color: colores.onBackground,
                 fontSize: 12.pf,
@@ -132,7 +137,7 @@ class PeriodoNoSeleccionado extends StatelessWidget {
             Container(
               padding: EdgeInsets.all(8.sw),
               child: Text(
-                periodo.etiqueta,
+                periodo.fechaDesde.numeroDia(context),
                 style: TextStyle(
                   color: colores.onSecondary,
                   fontSize: 12.pf,
@@ -147,9 +152,14 @@ class PeriodoNoSeleccionado extends StatelessWidget {
   }
 }
 
+/// {@template PeriodoDiarioDelegate}
+/// Representa un periodo de tiempo de forma Diario seleccionado
+/// {@endtemplate}
 class PeriodoSeleccionado extends StatelessWidget {
+  /// {@macro PeriodoDiarioDelegate}
   const PeriodoSeleccionado({required this.periodo, super.key});
 
+  /// Periodo a mostrar
   final Periodo periodo;
 
   @override
@@ -162,7 +172,7 @@ class PeriodoSeleccionado extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            periodo.etiqueta2?.substring(0, 1) ?? '',
+            periodo.fechaDesde.nombreDia(context).substring(0, 1),
             style: TextStyle(
               color: colores.onBackground,
               fontSize: 12.pf,
@@ -176,7 +186,7 @@ class PeriodoSeleccionado extends StatelessWidget {
             ),
             padding: EdgeInsets.all(8.sw),
             child: Text(
-              periodo.etiqueta,
+              periodo.fechaDesde.numeroDia(context),
               style: TextStyle(
                 color: colores.grisClaroSombreado,
                 fontSize: 12.pf,
