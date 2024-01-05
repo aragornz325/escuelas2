@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:flutter/material.dart';
 
-//TODO(anyone): Unir las dos carpetas en una sola la de carga de calificaciones y mis cursos cuando no hay tantos mr
+// TODO(anyone): Unir las dos carpetas en una sola la de carga de calificaciones
+// y mis cursos cuando no hay tantos mr
+
 /// {@template PaginaListaCursos}
 /// Pagina para que el usuario pueda ver sus cursos
 /// {@endtemplate}

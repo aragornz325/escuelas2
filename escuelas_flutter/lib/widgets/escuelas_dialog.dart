@@ -302,8 +302,7 @@ class EscuelasDialog extends StatelessWidget {
                   onTap: () => Navigator.of(context).pop(),
                   estaHabilitado: true,
                   context: context,
-                  texto: tituloDelBotonSecundario ??
-                      'CANCELAR', //TODO(anyone) ver si se hace l10n
+                  texto: tituloDelBotonSecundario ?? l10n.commonCancel,
                   color: colorDeFondoDelBotonSecundario ?? colores.onSecondary,
                 ),
               ),
@@ -315,9 +314,9 @@ class EscuelasDialog extends StatelessWidget {
                   onTap: () => onTapConfirmar?.call(),
                   estaHabilitado: true,
                   color: colores
-                      .verdeConfirmar, //TODO(anyone): Checkear color o q permita pasarle color del boton
-                  texto: tituloBotonPrincipal ??
-                      'VOLVER', //TODO(anyone) ver si se hace l10n
+                      .verdeConfirmar, // TODO(anyone): Checkear color o q
+                  // permita pasarle color del boton
+                  texto: tituloBotonPrincipal ?? l10n.commonBack,
                 ),
               )
             else

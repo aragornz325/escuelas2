@@ -49,7 +49,8 @@ class BotonSolicitarRol extends StatelessWidget {
               );
             },
           ),
-          // TODO(Gon): Revisar esto cuando se arregle lo del bloc (como se crea la primer opcion)
+          // TODO(Gon): Revisar esto cuando se arregle lo del bloc (como se crea
+          // la primer opcion)
           color: state.opcionesFormulario.isNotEmpty &&
                   state.opcionesFormulario[0].curso.nombre != '' &&
                   state.opcionesFormulario[0].materia.nombre != ''

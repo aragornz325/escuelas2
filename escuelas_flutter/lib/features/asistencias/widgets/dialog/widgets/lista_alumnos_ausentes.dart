@@ -43,7 +43,7 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
       // Ordenar por nombre
       alumnosOrdenados.sort(
         (a, b) =>
-            //TODO(mati): reemplazar por en apellido
+            // TODO(mati): reemplazar por en apellido
             a.nombre.toLowerCase().compareTo(
                   b.nombre.toLowerCase(),
                 ),
@@ -148,7 +148,6 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
 class _TextoEIcono extends StatelessWidget {
   /// {@macro _TextoYIcono}
   const _TextoEIcono({
-    super.key,
     required this.titulo,
     required this.onTap,
     required this.estaDesplegado,

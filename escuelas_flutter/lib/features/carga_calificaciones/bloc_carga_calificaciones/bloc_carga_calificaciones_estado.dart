@@ -39,6 +39,16 @@ class BlocCargaCalificacionesEstado {
   /// Periodo actual del calendaio
   final Periodo? periodo;
 
+  /// Indica si el estado es
+  /// [BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones]
+  bool get falloAlEnviarCalificaciones =>
+      this is BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones;
+
+  /// Indica si el estado es
+  /// [BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente]
+  bool get exitoAlEnviarCalificaciones =>
+      this is BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente;
+
   List<Object?> get props => [
         listaCalificaciones,
         rolDelUsuario,

@@ -153,9 +153,11 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
   ) {
     final nuevaListaOpciones =
         List<OpcionFormulario>.from(state.opcionesFormulario)
-          ..remove(state.opcionesFormulario
-              .where((element) => element.id == event.idOpcion)
-              .first);
+          ..remove(
+            state.opcionesFormulario
+                .where((element) => element.id == event.idOpcion)
+                .first,
+          );
 
     emit(
       BlocKycEstadoExitoso.desde(

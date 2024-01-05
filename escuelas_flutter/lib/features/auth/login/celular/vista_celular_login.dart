@@ -131,7 +131,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                   EscuelasBoton.texto(
                     estaHabilitado: state.botonIngresarHabilitado,
                     onTap: () {
-                      //! TODO (Manu):agregar funcion cuando exista el endpoint
+                      // TODO(Manu): agregar funcion cuando exista el endpoint
                     },
                     color: colores.primary,
                     texto: l10n.commonLogIn.toUpperCase(),

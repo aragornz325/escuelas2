@@ -1,6 +1,8 @@
 import 'configs_de_escuelas.dart';
 
-// TODO(anyone): Antes de produccion chequear las configuraciones de las instancias
+// TODO(anyone): Antes de produccion chequear las configuraciones de las
+// instancias
+
 /// Configuraciones para la escuela Redemptoris Missio
 class RedemptorisMissioConfigs extends ConfigsDeInstancia {
   @override

@@ -9,7 +9,7 @@ class VistaEscritorioLogin extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //! TODO(Manu): crear la vista de escritorio de esta feature
+    // TODO(Manu): crear la vista de escritorio de esta feature
     return const Placeholder();
   }
 }

@@ -25,7 +25,8 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   /// Fecha actual de la calificación del alumno.
   final DateTime fecha;
 
-  //TODO(anyone): reemplazar modelo
+  // TODO(anyone): reemplazar modelo
+
   /// Lista de calificaciones previas del alumno.
   final List<ModeloCalificacion> listaCalificaciones;
 
@@ -73,7 +74,9 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
     );
   }
 
-  //TODO(anyone): ver si esta bien la funcion si depende de las notas anteriores del mes en el que esta o de todas
+  // TODO(anyone): ver si esta bien la funcion si depende de las notas
+  // anteriores del mes en el que esta o de todas
+
   /// Obtiene las calificaciones previas del usuario en el mes y año actual.
   List<double> _obtenerCalificacionesPrevias(
     List<ModeloCalificacion> lista,
@@ -82,10 +85,11 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   ) {
     final calificacionesPrevias = <double>[];
 
-    for (var calificacion in lista) {
+    for (final calificacion in lista) {
       final fechaCalificacion = calificacion.fecha;
 
-      // Verificar si la calificación pertenece al usuario y si no es del día actual
+      // Verificar si la calificación pertenece al usuario y si no es del día
+      // actual
       if (calificacion.alumnos.any((alumno) => alumno.id == idUsuario) &&
           !_esMismoDia(fechaCalificacion, DateTime.now())) {
         // Agregar la calificación a la lista de calificaciones previas

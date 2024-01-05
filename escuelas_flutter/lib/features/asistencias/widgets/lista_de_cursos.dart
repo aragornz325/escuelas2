@@ -20,6 +20,7 @@ class _ListaDeCursosState extends State<ListaDeCursos> {
   /// Controlador de desplazamiento
   late ScrollController _scrollController;
 
+  @override
   void initState() {
     super.initState();
     // Inicialización del controlador de desplazamiento
@@ -45,7 +46,7 @@ class _ListaDeCursosState extends State<ListaDeCursos> {
     if (indexCurso != index) {
       Future.delayed(const Duration(milliseconds: 250), () {
         _scrollController.animateTo(
-          index * 80.0, // TODO(mati): ver bien esto con el emulador
+          index * 80, // TODO(mati): ver bien esto con el emulador
           duration: const Duration(seconds: 1),
           curve: Curves.easeInOut,
         );

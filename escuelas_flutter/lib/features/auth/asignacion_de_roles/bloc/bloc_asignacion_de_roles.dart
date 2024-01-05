@@ -29,15 +29,6 @@ class BlocAsignacionDeRoles
 
         // final listaUsuariosPendientes =await client.;
 
-        // TODO(Gon): Eliminar hardcodeo y usar endpoint
-        // final InfoUsuario usuarioATraerDatos;
-
-        if (event.idUsuario != null) {
-          // usuarioATraerDatos =  sessionManager.signedInUser?.id ;
-        } else {
-          // usuarioATraerDatos =  await client.traerusuario;
-        }
-
         emit(
           BlocAsignacionDeRolesEstadoExitoso.desde(
             state,

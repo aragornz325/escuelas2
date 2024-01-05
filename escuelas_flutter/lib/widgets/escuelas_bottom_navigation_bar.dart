@@ -1,10 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-// TODO(anyone): Mejorar el routeo y hacerlo con switch, tambien mejorar el tema del index
+// TODO(anyone): Mejorar el routeo y hacerlo con switch, tambien mejorar el
+// tema del index
 
 /// {@template EscuelasBottomNavigationBar}
 /// Componente de navegacion estatico
@@ -50,9 +52,8 @@ class EscuelasBottomNavigationBar extends StatelessWidget {
             icono: Icons.person_2_outlined,
             estaSeleccionado: index == 2,
             onTap: () => context.pushRoute(
-              // TODO(Gon): Pasar id del usuario logeado
               RutaPerfilUsuario(
-                idUsuario: 0,
+                idUsuario: sessionManager.signedInUser?.id ?? 0,
               ),
             ),
           ),

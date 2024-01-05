@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
-import 'package:escuelas_flutter/app/auto_route/dashboard_router_observer.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
@@ -27,7 +26,8 @@ class PaginaDashboard extends StatefulWidget {
     this.userInfo,
   });
   final InfoUsuario? userInfo;
-  // TODO(SAM): Analizar y ver que el usuario no sea nulo se lo paso por parametro.
+  // TODO(SAM): Analizar y ver que el usuario no sea nulo se lo paso por
+  // parametro.
 
   @override
   State<PaginaDashboard> createState() => _PaginaDashboardState();
@@ -59,7 +59,8 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
     // infoUsuario = widget.userInfo ?? usuario;
   }
   // TODO(SAM): Si es exitoso el KYC redirigir a ruta inicio.
-  // TODO(SAM): Si no esta logueado lo checkea el guard, no hace falta redirigir.
+  // TODO(SAM): Si no esta logueado lo checkea el guard, no hace falta
+  // redirigir.
 
   /// Se muestra este dialog cuando el usuario se registra, luego de completar
   /// los datos del KYC exitosamente y presionar el boton continue finalizando
@@ -118,7 +119,8 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
         listener: (context, state) {
           if (state is BlocKycEstadoExitoso) {
             context.read<BlocDashboard>().add(
-                  // TODO(ANYONE): Verificar cual va todos estos eventos y cosas de usuario registracion
+                  // TODO(ANYONE): Verificar cual va todos estos eventos y
+                  // cosas de usuario registracion
                   BlocDashboardEventoTraerInformacion(),
                   // BlocDashboardEventoActualizarInfoUsuario(
                   //   nombreCompletoUsuario: state.nombreCompleto,
@@ -143,7 +145,6 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
           },
           builder: (context, state) {
             return AutoRouter(
-              navigatorObservers: () => [DashboardRouterObserver(context)],
               builder: (context, content) => EscuelasScaffold(
                 index: indexSegunRuta(context),
                 cuerpo: content,

@@ -4,6 +4,7 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
@@ -43,9 +44,10 @@ class _VistaCelularSeleccionDeRolState
               child: Column(
                 children: [
                   SizedBox(height: 20.ph),
-                  // TODO(Gon): Usar nombre del usuario logeado
                   Text(
-                    l10n.pageKycRoleSelectionWelcome('Gonzalo Rigoni'),
+                    l10n.pageKycRoleSelectionWelcome(
+                      sessionManager.signedInUser?.userName ?? '',
+                    ),
                     style: TextStyle(
                       color: colores.onBackground,
                       fontSize: 14.pf,
@@ -83,7 +85,8 @@ class _VistaCelularSeleccionDeRolState
                   child: EscuelasBoton.texto(
                     context: context,
                     estaHabilitado: rolPresionado != null,
-                    // TODO(Gon): Esto se va a cambiar cuando cambie la navegacion
+                    // TODO(Gon): Esto se va a cambiar cuando cambie la
+                    // navegacion
                     onTap: () => context.router.push(
                       const RutaFormulario(),
                     ),

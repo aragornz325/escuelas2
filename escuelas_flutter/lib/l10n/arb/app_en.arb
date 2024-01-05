@@ -413,6 +413,11 @@
     "@commonBack": {
         "description": "Text in button to indicate the action back"
     },
+
+    "commonCancel": "Cancel",
+    "@commonCancel": {
+        "description": ""
+    },
     
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {

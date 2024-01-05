@@ -16,6 +16,7 @@ class BotonFinalizarAsistencias extends StatelessWidget {
   const BotonFinalizarAsistencias({
     required this.curso,
     required this.fecha,
+    super.key,
   });
 
   /// Curso en el que se finalizaron las asistencias

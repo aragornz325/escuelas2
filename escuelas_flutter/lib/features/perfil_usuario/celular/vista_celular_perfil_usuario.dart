@@ -4,6 +4,7 @@ import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/widgets/seccion_datos_personales.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/widgets/tarjeta_perfil.dart';
+import 'package:escuelas_flutter/gen/fonts.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
@@ -35,7 +36,6 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
         ancho: 260.pw,
         // TODO(Gon): Dar funcion asignar rol al usuario
         onTapConfirmar: () {},
-        // TODO(Gon): Verificar el estilo de este widget, me parece que esta medio raro
         content: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
@@ -43,6 +43,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
               color: colores.grisSC,
               fontSize: 16.pf,
               fontWeight: FontWeight.w600,
+              fontFamily: FontFamily.nunito,
             ),
             children: <TextSpan>[
               TextSpan(
@@ -51,6 +52,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                   color: colores.grisSC,
                   fontSize: 16.pf,
                   fontWeight: FontWeight.w600,
+                  fontFamily: FontFamily.nunito,
                 ),
               ),
               TextSpan(
@@ -59,6 +61,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                   color: colores.onBackground,
                   fontSize: 16.pf,
                   fontWeight: FontWeight.w600,
+                  fontFamily: FontFamily.nunito,
                 ),
               ),
               TextSpan(
@@ -67,6 +70,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                   color: colores.grisSC,
                   fontSize: 16.pf,
                   fontWeight: FontWeight.w600,
+                  fontFamily: FontFamily.nunito,
                 ),
               ),
               TextSpan(
@@ -75,6 +79,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                   color: colores.onBackground,
                   fontSize: 16.pf,
                   fontWeight: FontWeight.w600,
+                  fontFamily: FontFamily.nunito,
                 ),
               ),
             ],
