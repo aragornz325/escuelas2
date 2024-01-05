@@ -26,17 +26,13 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
         return Column(
           children: [
             SelectorDePeriodo(
-              delegate: PeriodoMensualDelegate(
-                context,
-                onAvanzar: (periodo) {
-                  print(periodo.fechaDesde);
-                  print(periodo.fechaHasta);
-                },
-                onRetroceder: (periodo) {
-                  print(periodo.fechaDesde);
-                  print(periodo.fechaHasta);
-                },
+              delegate: PeriodoMensualDelegate(context),
+              onSeleccionarPeriodo: (periodo) {},
+              decoration: BoxDecoration(
+                color: colores.tertiary,
+                borderRadius: BorderRadius.circular(40.sw),
               ),
+              margin: EdgeInsets.symmetric(horizontal: 20.pw),
             ),
             Expanded(
               child: SingleChildScrollView(

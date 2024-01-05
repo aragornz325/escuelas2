@@ -28,15 +28,17 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
         SelectorDePeriodo(
           delegate: PeriodoMensualDelegate(
             context,
-            onAvanzar: (periodo) => context.read<BlocCargaCalificaciones>().add(
-                  BlocCargaCalificacionesEventoGuardarPeriodo(periodo: periodo),
-                ),
-            onRetroceder: (periodo) => context
-                .read<BlocCargaCalificaciones>()
-                .add(
-                  BlocCargaCalificacionesEventoGuardarPeriodo(periodo: periodo),
-                ),
           ),
+          onSeleccionarPeriodo: (periodo) => context
+              .read<BlocCargaCalificaciones>()
+              .add(
+                BlocCargaCalificacionesEventoGuardarPeriodo(periodo: periodo),
+              ),
+          decoration: BoxDecoration(
+            color: colores.tertiary,
+            borderRadius: BorderRadius.circular(40.sw),
+          ),
+          margin: EdgeInsets.symmetric(horizontal: 20.pw),
         ),
         SizedBox(height: max(20.ph, 20.sh)),
         Padding(

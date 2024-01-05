@@ -1,4 +1,4 @@
-import 'package:escuelas_flutter/extensiones/extension_bloc.dart';
+import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
