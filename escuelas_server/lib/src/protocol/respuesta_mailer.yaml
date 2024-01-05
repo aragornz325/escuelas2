@@ -1,0 +1,11 @@
+class: RespuestaMailer
+fields:
+  direccionEmailDestinatario: String
+  asuntoDelCorreo: String
+  contenidoHtmlDelCorreo: String
+  conexionAbierta: DateTime?
+  comienzoEnvioDelCorreo: DateTime?
+  finalizacionDeEnvioDelCorreo: DateTime?
+  huboUnError: bool
+  error: String?
+  problemas: String?

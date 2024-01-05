@@ -1,9 +1,9 @@
-import 'package:escuelas_server/servicio.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_rol.dart';
+import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/server.dart';
 
-class ServicioRol extends Servicio {
+class ServicioRol extends Servicio<OrmRol> {
   @override
   OrmRol get orm => OrmRol();
 

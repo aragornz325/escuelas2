@@ -1,6 +1,8 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers
+
+import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/utils/logger.dart';
-import 'package:mailer/mailer.dart';
-import 'package:mailer/smtp_server.dart';
+import 'package:escuelas_server/utils/constants.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
 import 'package:escuelas_server/src/web/routes/root.dart';
@@ -13,7 +15,10 @@ import 'src/generated/endpoints.dart';
 // configuring Relic (Serverpod's web-server), or need custom setup work.
 
 void run(List<String> args) async {
-inicializarLogger();  // Initialize Serverpod and connect it with your generated code.
+  final ServicioComunicaciones _servicioComunicaciones =
+      ServicioComunicaciones();
+  // Initialize Serverpod and connect it with your generated code.
+  inicializarLogger(); // Initialize Serverpod and connect it with your generated code.
   final pod = Serverpod(
     args,
     Protocol(),
@@ -36,46 +41,40 @@ inicializarLogger();  // Initialize Serverpod and connect it with your generated
   auth.AuthConfig.set(
     auth.AuthConfig(
       sendValidationEmail: (session, email, validationCode) async {
-        final gmailEmail = session.serverpod.getPassword('gmailEmail')!;
-        final gmailPassword = session.serverpod.getPassword('gmailPassword')!;
+        final enviarEmail = await _servicioComunicaciones.enviarEmail(
+          session,
+          direccionEmailDestinatario: email,
+          asuntoDelCorreo: asuntoDeCorreoVerificacionDeCuenta,
+          contenidoHtmlDelCorreo:
+              '<p>Tu código de validación es $validationCode.</p>',
+        );
 
-        // Crea un cliente SMTP para Gmail.
-        final smtpServer = gmail(gmailEmail, gmailPassword);
-
-        // Crea un mensaje de correo electrónico con el código de validación.
-        final message = Message()
-          ..from = Address(gmailEmail)
-          ..recipients.add(email)
-          ..subject = 'Codigo de validación'
-          ..html = 'Tu codigo de validación es: $validationCode';
-        //Envía el mensaje de correo electrónico.
-        try {
-          await send(message, smtpServer);
-        } catch (_) {
-          // Devuelve falso si no se pudo enviar el correo electrónico.
+        if (enviarEmail.huboUnError) {
           return false;
         }
+
         print('Validation code: $validationCode');
         return true;
       },
       sendPasswordResetEmail: (session, userInfo, validationCode) async {
-        final gmailEmail = session.serverpod.getPassword('gmailEmail')!;
-        final gmailPassword = session.serverpod.getPassword('gmailPassword')!;
+        if (userInfo.email == null) {
+          throw ExcepcionCustom(
+            titulo: 'Error Desconocido.',
+            mensaje: 'No se pudo acceder a la dirección de email del usuario.',
+            tipoDeError: TipoExcepcion.desconocido,
+            codigoError: 500,
+          );
+        }
 
-        // Crea un cliente SMTP para Gmail.
-        final smtpServer = gmail(gmailEmail, gmailPassword);
+        final enviarEmail = await _servicioComunicaciones.enviarEmail(
+          session,
+          direccionEmailDestinatario: userInfo.email!,
+          asuntoDelCorreo: asuntoDeCorreoRecuperacionDePassword,
+          contenidoHtmlDelCorreo:
+              '<p>Tu código de validación es $validationCode.</p>',
+        );
 
-        // Crea un mensaje de correo electrónico con el código de validación.
-        final message = Message()
-          ..from = Address(gmailEmail)
-          ..recipients.add(userInfo.email!)
-          ..subject = 'Codigo de validación'
-          ..html = 'Tu codigo de validación es: $validationCode';
-        //Envía el mensaje de correo electrónico.
-        try {
-          await send(message, smtpServer);
-        } catch (_) {
-          // Devuelve falso si no se pudo enviar el correo electrónico.
+        if (enviarEmail.huboUnError) {
           return false;
         }
 
