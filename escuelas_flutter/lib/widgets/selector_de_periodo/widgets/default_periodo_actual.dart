@@ -28,7 +28,7 @@ class DefaultPeriodoActual extends StatelessWidget {
           ),
         ),
         Text(
-          '${periodo.fechaDesde.year}',
+          periodo.fechaDesde.year.toString(),
           style: TextStyle(
             color: colores.grisSC,
             fontSize: 12.pf,
