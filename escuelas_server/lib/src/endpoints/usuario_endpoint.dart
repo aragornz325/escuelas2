@@ -7,6 +7,12 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   @override
   ServicioUsuario get servicio => ServicioUsuario();
 
+  Future<Usuario> obtenerDatosDelUsuario(Session session) =>
+      ejecutarOperacionControlador(
+        'obtenerDatosDelUsuario',
+        () => servicio.obtenerDatosDelUsuario(session),
+      );
+
   /// La función "obtenerUsuariosPendientes" devuelve un objeto Futuro que recupera usuarios pendientes
   /// usando una sesión.
   ///
