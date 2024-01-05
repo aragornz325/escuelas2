@@ -1,0 +1,12 @@
+class: UsuarioPendiente
+table: usuarios_pendientes
+fields:
+  idUserInfo: int
+  nombre: String
+  apellido: String
+  dni: String
+  rolSolicitado: int, relation (parent=roles_de_usuario)
+  aprobado: bool
+  ultimaModificacion: DateTime?
+  fechaCreacion: DateTime?
+  fechaEliminacion: DateTime?
