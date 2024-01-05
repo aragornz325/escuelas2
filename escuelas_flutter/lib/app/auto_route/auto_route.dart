@@ -33,14 +33,14 @@ class AppRouter extends $AppRouter {
         CustomRoute(
           page: RutaLogin.page,
           path: '/login',
-          initial: true,
-          guards: [initialGuard],
+          // guards: [initialGuard],
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         AutoRoute(
           path: '/dashboard',
+          initial: true,
           page: RutaDashboard.page,
-          guards: [authGuard],
+          // guards: [authGuard],
           children: [
             AutoRoute(
               page: RutaInicio.page,
@@ -95,6 +95,10 @@ class AppRouter extends $AppRouter {
             AutoRoute(
               page: RutaSupervisionCursos.page,
               path: 'course-supervision',
+            ),
+            AutoRoute(
+              page: RutaSupervisionEnvioCalificaciones.page,
+              path: 'grade-submission-supervision/:idCurso/:fecha',
             ),
           ],
         ),

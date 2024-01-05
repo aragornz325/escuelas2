@@ -1,9 +1,10 @@
-import 'package:escuelas_server/controller.dart';
+import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:serverpod/serverpod.dart';
 
 class RolesEndpoint extends Endpoint with Controller {
+  @override
   ServicioRol get servicio => ServicioRol();
 
   /// La función `obtenerRolPorId` recupera un rol de usuario por su ID usando una sesión y un servicio.
@@ -28,7 +29,6 @@ class RolesEndpoint extends Endpoint with Controller {
     );
   }
 
-
   /// La función `obtenerRoles` recupera una lista de roles de usuario utilizando una sesión y un
   /// servicio.
   ///  args:
@@ -48,7 +48,7 @@ class RolesEndpoint extends Endpoint with Controller {
   ///   session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
   /// sesión actual o la conexión a una base de datos o servidor.
   ///  rol (RolDeUsuario): El parámetro "rol" es de tipo "RolDeUsuario" y es obligatorio.
-  /// 
+  ///
   Future<RolDeUsuario> crearRol(
     Session session, {
     required RolDeUsuario rol,
@@ -77,12 +77,13 @@ class RolesEndpoint extends Endpoint with Controller {
               rol: rol,
             ));
   }
+
   /// La función `eliminarRol` elimina un rol de usuario utilizando una sesión y un servicio.
   /// args:
   ///  session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
   /// sesión actual o la conexión a una base de datos o servidor.
   /// id (int): El parámetro "id" es un número entero que representa el identificador único del rol.
-  /// 
+  ///
   Future<void> eliminarRol(
     Session session, {
     required int id,
