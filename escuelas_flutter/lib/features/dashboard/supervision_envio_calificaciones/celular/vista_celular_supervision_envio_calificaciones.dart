@@ -1,6 +1,7 @@
 import 'package:escuelas_flutter/extensiones/date_time.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/bloc/bloc_supervision_envio_calificaciones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/nombre_abreviado.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
@@ -22,6 +23,8 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
 
     return BlocBuilder<BlocSupervisionEnvioCalificaciones,
         BlocSupervisionEnvioCalificacionesEstado>(
@@ -50,6 +53,7 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                           ).subtract(const Duration(days: 1)),
                         ),
                       ),
+                      // TODO(anyone): Manejar seleccion de periodo
                       onSeleccionarPeriodo: (periodo) {},
                       decoration: BoxDecoration(
                         color: colores.tertiary,
@@ -66,7 +70,7 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Asignatura',
+                            l10n.commonSubject,
                             style: TextStyle(
                               color: colores.onSecondary,
                               fontSize: 12.pf,
@@ -74,7 +78,7 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            'Estado',
+                            l10n.commonState,
                             style: TextStyle(
                               color: colores.onSecondary,
                               fontSize: 12.pf,
@@ -104,9 +108,12 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
               ),
               EscuelasBoton.texto(
                 estaHabilitado: true,
+                // TODO(anyone): Implementar funcion
                 onTap: () {},
                 color: colores.azul,
-                texto: 'Solicitar calificaciones faltantes (0)',
+                texto: l10n.pageGradeSubmissionSupervisionButton(
+                  state.asignaturasFaltantes.length,
+                ),
                 context: context,
               ),
             ],

@@ -24,6 +24,10 @@ class BlocSupervisionEnvioCalificacionesEstado {
 
   /// Fecha del periodo a supervisar
   final DateTime? fecha;
+
+  List<Asignatura> get asignaturasFaltantes => [];
+  // TODO(anyone): Ver como saber si una asignatura no tiene fecha de envio
+  // listaAsignaturas.where((asignatura) => asignatura.fecha == null).toList();
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoInicial}

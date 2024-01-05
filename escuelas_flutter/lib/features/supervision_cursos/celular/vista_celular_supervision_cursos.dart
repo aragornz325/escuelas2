@@ -55,7 +55,7 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                                     .toString(),
                               ),
                             ),
-                            nombreCurso: '',
+                            nombreCurso: curso.nombre,
                             colorFondo: state.todasMateriasCargadas
                                 ? colores.primaryContainer
                                 : colores.onSecondary,

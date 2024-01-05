@@ -1,4 +1,5 @@
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/utilidades/funciones/funciones.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_supervision_envio_calificaciones_estado.dart';
@@ -24,55 +25,58 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     Emitter<BlocSupervisionEnvioCalificacionesEstado> emit,
   ) async {
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
-    try {
-      // final listaAsignaturas =
-      //await client.obtenerAsignaturasDeCurso(evento.idCurso,evento.idPeriodo);
-      emit(
-        BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(
-          state,
-          fecha: event.fecha,
-          listaAsignaturas: [
-            Asignatura(
-              id: 1,
-              nombre: 'Matematicas',
-              idCurso: 1,
-              docentes: [],
-              ultimaModificacion: DateTime.now(),
-              fechaCreacion: DateTime.now(),
-            ),
-            Asignatura(
-              id: 1,
-              nombre: 'Matematicas',
-              idCurso: 1,
-              docentes: [],
-              ultimaModificacion: DateTime.now(),
-              fechaCreacion: DateTime.now().add(const Duration(days: 6)),
-            ),
-            Asignatura(
-              id: 1,
-              nombre: 'Matematicas',
-              idCurso: 1,
-              docentes: [],
-              ultimaModificacion: DateTime.now().add(const Duration(days: 3)),
-              fechaCreacion: DateTime.now().add(const Duration(days: 3)),
-            ),
-            Asignatura(
-              id: 1,
-              nombre: 'Matematicas',
-              idCurso: 1,
-              docentes: [],
-              ultimaModificacion: DateTime.now(),
-              fechaCreacion: DateTime.now().add(const Duration(days: 10)),
-            ),
-          ],
-        ),
-      );
-    } catch (e) {
-      emit(
-        BlocSupervisionEnvioCalificacionesEstadoError.desde(
-          state,
-        ),
-      );
-    }
+    await operacionBloc(
+      callback: () {
+        // TODO(anyone): Descomentar cuando haya endpoint
+        // final listaAsignaturas =
+        //awaitclient.obtenerAsignaturasDeCurso(event.idCurso,event.idPeriodo);
+        emit(
+          BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(
+            state,
+            fecha: event.fecha,
+            // TODO(anyone): Cambiar por la lista de asignaturas que vienen del back
+            listaAsignaturas: [
+              Asignatura(
+                id: 1,
+                nombre: 'Matematicas',
+                idCurso: 1,
+                docentes: [],
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now(),
+              ),
+              Asignatura(
+                id: 1,
+                nombre: 'Matematicas',
+                idCurso: 1,
+                docentes: [],
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now().add(const Duration(days: 6)),
+              ),
+              Asignatura(
+                id: 1,
+                nombre: 'Matematicas',
+                idCurso: 1,
+                docentes: [],
+                ultimaModificacion: DateTime.now().add(const Duration(days: 3)),
+                fechaCreacion: DateTime.now().add(const Duration(days: 3)),
+              ),
+              Asignatura(
+                id: 1,
+                nombre: 'Matematicas',
+                idCurso: 1,
+                docentes: [],
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now().add(const Duration(days: 10)),
+              ),
+            ],
+          ),
+        );
+      },
+      onError: (e, st) {
+        emit(
+          BlocSupervisionEnvioCalificacionesEstadoError.desde(state),
+        );
+      },
+    );
   }
 }
