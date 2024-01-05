@@ -22,7 +22,7 @@ class ServicioUsuario extends Servicio {
     return result!;
   }
 
-  /// La función `enviarSoliciturRegistro` envía una solicitud de registro para que un usuario pendiente
+  /// La función `enviarSolicitudRegistro` envía una solicitud de registro para que un usuario pendiente
   /// sea creado en la base de datos.
   /// 
   /// Args:
@@ -34,7 +34,7 @@ class ServicioUsuario extends Servicio {
   /// 
   /// Returns:
   ///   a `Future<UsuarioPendiente>`.
-  Future<UsuarioPendiente> enviarSoliciturRegistro(
+  Future<UsuarioPendiente> enviarSolicitudRegistro(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
   }) async {

@@ -38,7 +38,7 @@ class UsuarioEndpoint extends Endpoint with Controller {
   }) async {
     return await ejecutarOperacionControlador(
         'enviarSoliciturRegistro',
-        () => servicio.enviarSoliciturRegistro(session,
+        () => servicio.enviarSolicitudRegistro(session,
             usuarioPendiente: usuarioPendiente));
   }
 }
