@@ -56,7 +56,8 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: usuario?.nombre ?? '',
+                // TODO(Gon): Cambiar por el nombre
+                text: usuario?.dni ?? '',
                 style: TextStyle(
                   color: colores.onBackground,
                   fontSize: 16.pf,
