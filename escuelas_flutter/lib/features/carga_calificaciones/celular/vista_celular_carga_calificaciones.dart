@@ -27,9 +27,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
     return Column(
       children: [
         SelectorDePeriodo(
-          delegate: PeriodoMensualDelegate(
-            context,
-          ),
+          delegate: PeriodoMensualDelegate(context),
           onSeleccionarPeriodo: (periodo) => context
               .read<BlocCargaCalificaciones>()
               .add(

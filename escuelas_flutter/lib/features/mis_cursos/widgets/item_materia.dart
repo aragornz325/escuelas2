@@ -37,7 +37,7 @@ class ItemMateria extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: ElementoLista.materia(
+          child: ElementoLista.misCursos(
             nombreMateria: materia.nombre,
             estaCargada: estaCargada,
             estaHabilitado: estaHabilitado,

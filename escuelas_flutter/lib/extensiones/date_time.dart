@@ -7,7 +7,7 @@ extension DateTimeX on DateTime {
       DateFormat('MMMM', Localizations.localeOf(context).languageCode)
           .format(this);
 
-  /// Devuelve la fecha formateada
+  /// Devuelve la fecha formateada como xx/xx/xx.
   String formatear(BuildContext context) =>
       DateFormat('dd/MM/yy', Localizations.localeOf(context).languageCode)
           .format(this);

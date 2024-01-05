@@ -14,11 +14,13 @@ import 'package:escuelas_client/src/protocol/curso/asignatura.dart' as _i3;
 import 'package:escuelas_client/src/protocol/asistencia/asistencia_diaria.dart'
     as _i4;
 import 'package:escuelas_client/src/protocol/curso/curso.dart' as _i5;
-import 'package:escuelas_client/src/protocol/usuario/usuario_pendiente.dart'
+import 'package:escuelas_client/src/protocol/usuario/rol_de_usuario.dart'
     as _i6;
-import 'package:serverpod_auth_client/module.dart' as _i7;
-import 'dart:io' as _i8;
-import 'protocol.dart' as _i9;
+import 'package:escuelas_client/src/protocol/usuario/usuario_pendiente.dart'
+    as _i7;
+import 'package:serverpod_auth_client/module.dart' as _i8;
+import 'dart:io' as _i9;
+import 'protocol.dart' as _i10;
 
 /// {@category Endpoint}
 class EndpointAsignatura extends _i1.EndpointRef {
@@ -156,22 +158,115 @@ class EndpointExample extends _i1.EndpointRef {
 }
 
 /// {@category Endpoint}
+class EndpointRoles extends _i1.EndpointRef {
+  EndpointRoles(_i1.EndpointCaller caller) : super(caller);
+
+  @override
+  String get name => 'roles';
+
+  /// La función `obtenerRolPorId` recupera un rol de usuario por su ID usando una sesión y un servicio.
+  ///
+  /// Args:
+  ///   session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
+  /// sesión actual o la conexión a una base de datos o servidor.
+  ///   id (int): El parámetro "id" es un número entero que representa el identificador único del rol.
+  ///
+  /// Returns:
+  ///   un `Futuro<RolDeUsuario>`.
+  _i2.Future<_i6.RolDeUsuario> obtenerRolPorId({required int id}) =>
+      caller.callServerEndpoint<_i6.RolDeUsuario>(
+        'roles',
+        'obtenerRolPorId',
+        {'id': id},
+      );
+
+  /// La función `obtenerRoles` recupera una lista de roles de usuario utilizando una sesión y un
+  /// servicio.
+  ///  args:
+  ///  session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
+  /// sesión actual o la conexión a una base de datos o servidor.
+  _i2.Future<List<_i6.RolDeUsuario>> obtenerRoles() =>
+      caller.callServerEndpoint<List<_i6.RolDeUsuario>>(
+        'roles',
+        'obtenerRoles',
+        {},
+      );
+
+  /// La función `crearRol` crea un rol de usuario utilizando una sesión y un servicio.
+  /// args:
+  ///   session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
+  /// sesión actual o la conexión a una base de datos o servidor.
+  ///  rol (RolDeUsuario): El parámetro "rol" es de tipo "RolDeUsuario" y es obligatorio.
+  ///
+  _i2.Future<_i6.RolDeUsuario> crearRol({required _i6.RolDeUsuario rol}) =>
+      caller.callServerEndpoint<_i6.RolDeUsuario>(
+        'roles',
+        'crearRol',
+        {'rol': rol},
+      );
+
+  /// La función `actualizarRol` actualiza un rol de usuario utilizando una sesión y un servicio.
+  /// args:
+  ///   session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
+  /// sesión actual o la conexión a una base de datos o servidor.
+  /// rol (RolDeUsuario): El parámetro "rol" es de tipo "RolDeUsuario" y es obligatorio.
+  _i2.Future<_i6.RolDeUsuario> actualizarRol({required _i6.RolDeUsuario rol}) =>
+      caller.callServerEndpoint<_i6.RolDeUsuario>(
+        'roles',
+        'actualizarRol',
+        {'rol': rol},
+      );
+
+  /// La función `eliminarRol` elimina un rol de usuario utilizando una sesión y un servicio.
+  /// args:
+  ///  session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
+  /// sesión actual o la conexión a una base de datos o servidor.
+  /// id (int): El parámetro "id" es un número entero que representa el identificador único del rol.
+  ///
+  _i2.Future<void> eliminarRol({required int id}) =>
+      caller.callServerEndpoint<void>(
+        'roles',
+        'eliminarRol',
+        {'id': id},
+      );
+}
+
+/// {@category Endpoint}
 class EndpointUsuario extends _i1.EndpointRef {
   EndpointUsuario(_i1.EndpointCaller caller) : super(caller);
 
   @override
   String get name => 'usuario';
 
-  _i2.Future<_i6.UsuarioPendiente> obtenerUsuariosPendientes() =>
-      caller.callServerEndpoint<_i6.UsuarioPendiente>(
+  /// La función "obtenerUsuariosPendientes" devuelve un objeto Futuro que recupera usuarios pendientes
+  /// usando una sesión.
+  ///
+  /// Args:
+  ///   session (Session): El parámetro de sesión es un objeto que representa la sesión del usuario
+  /// actual. Se utiliza para autenticar y autorizar al usuario que realiza la solicitud.
+  ///
+  /// Returns:
+  ///   El método está devolviendo un `Futuro<UsuarioPendiente>`.
+  _i2.Future<_i7.UsuarioPendiente> obtenerUsuariosPendientes() =>
+      caller.callServerEndpoint<_i7.UsuarioPendiente>(
         'usuario',
         'obtenerUsuariosPendientes',
         {},
       );
 
-  _i2.Future<_i6.UsuarioPendiente> enviarSoliciturRegistro(
-          {required _i6.UsuarioPendiente usuarioPendiente}) =>
-      caller.callServerEndpoint<_i6.UsuarioPendiente>(
+  /// La función `enviarSoliciturRegistro` envía una solicitud de registro para un usuario pendiente.
+  ///
+  /// Args:
+  ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual. Es necesario
+  /// para fines de autenticación y autorización.
+  ///   usuarioPendiente (UsuarioPendiente): El parámetro "UserPending" es de tipo "UserPending" y es
+  /// obligatorio.
+  ///
+  /// Returns:
+  ///   El método está devolviendo un `Futuro<UsuarioPendiente>`.
+  _i2.Future<_i7.UsuarioPendiente> enviarSoliciturRegistro(
+          {required _i7.UsuarioPendiente usuarioPendiente}) =>
+      caller.callServerEndpoint<_i7.UsuarioPendiente>(
         'usuario',
         'enviarSoliciturRegistro',
         {'usuarioPendiente': usuarioPendiente},
@@ -180,20 +275,20 @@ class EndpointUsuario extends _i1.EndpointRef {
 
 class _Modules {
   _Modules(Client client) {
-    auth = _i7.Caller(client);
+    auth = _i8.Caller(client);
   }
 
-  late final _i7.Caller auth;
+  late final _i8.Caller auth;
 }
 
 class Client extends _i1.ServerpodClient {
   Client(
     String host, {
-    _i8.SecurityContext? context,
+    _i9.SecurityContext? context,
     _i1.AuthenticationKeyManager? authenticationKeyManager,
   }) : super(
           host,
-          _i9.Protocol(),
+          _i10.Protocol(),
           context: context,
           authenticationKeyManager: authenticationKeyManager,
         ) {
@@ -201,6 +296,7 @@ class Client extends _i1.ServerpodClient {
     asistencia = EndpointAsistencia(this);
     curso = EndpointCurso(this);
     example = EndpointExample(this);
+    roles = EndpointRoles(this);
     usuario = EndpointUsuario(this);
     modules = _Modules(this);
   }
@@ -213,6 +309,8 @@ class Client extends _i1.ServerpodClient {
 
   late final EndpointExample example;
 
+  late final EndpointRoles roles;
+
   late final EndpointUsuario usuario;
 
   late final _Modules modules;
@@ -223,6 +321,7 @@ class Client extends _i1.ServerpodClient {
         'asistencia': asistencia,
         'curso': curso,
         'example': example,
+        'roles': roles,
         'usuario': usuario,
       };
 

@@ -201,13 +201,24 @@
             "all" : {
                 "type": "int"
             }
-        }
+        }  
     },
 
     "pageAttendanceNotAbsentStudents": "There are no absent students",
     "@pageAttendanceNotAbsentStudents": {
         "description": "Text to be displayed when there are no absent students"
     },
+    
+    "pageGradeSubmissionSupervisionButton": "Request missing grades({numberOfGrades})",
+    "@pageGradeSubmissionSupervisionButton": {
+        "description": "Represents the text for a button that is used to request missing grades. The {numberOfGrades} placeholder is used to dynamically indicate the number of missing grades.",
+        "placeholders" :{
+            "numberOfGrades" : {
+                "type": "int"
+            }
+        }
+    },
+
     "absencePageTitleAppBar": "Absences",
     "@absencePageTitleAppBar": {
         "description": "Title of the absences page"
@@ -262,7 +273,6 @@
     "@dialogSuccessToSendGrades": {
         "description": "Label indicating successful sending of grades."
     },
-
 
     "commonWelcome": "Welcome!",
     "@commonWelcome": {
@@ -418,7 +428,12 @@
     "@commonCancel": {
         "description": ""
     },
-    
+
+    "commonSubject": "Subject",
+    "@commonSubject": {
+        "description": "It is commonly used to refer to a specific academic subject or course."
+    },
+
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
