@@ -26,7 +26,7 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
   ) async {
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
-      callback: () {
+      callback: () async {
         // TODO(anyone): Descomentar cuando haya endpoint
         // final listaAsignaturas =
         //awaitclient.obtenerAsignaturasDeCurso(event.idCurso,event.idPeriodo);
