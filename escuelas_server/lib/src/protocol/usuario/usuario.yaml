@@ -2,8 +2,15 @@ class: Usuario
 table: usuarios
 fields:
   idUserInfo: int
-  roles: List<RolDeUsuario>, !persist
   dni: String
+  domicilio: DomicilioDeUsuario?, relation(optional)
+  direccionesDeEmail: List<DireccionDeEmail>?, relation
+  numerosDeTelefono: List<NumeroDeTelefono>?, relation
+  roles: List<RelacionUsuarioRol>?, relation(name=usuarios_roles)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
+indexes:
+  usuarios_domicilios_de_usuario_unique_idx:
+    fields: domicilioId
+    unique: true

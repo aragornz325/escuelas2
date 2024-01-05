@@ -27,6 +27,16 @@ class OrmUsuario extends ORM {
           }
           return t.id.notEquals(null);
         },
+        include: Usuario.include(
+          direccionesDeEmail: DireccionDeEmail.includeList(include: DireccionDeEmail.include()),
+          domicilio: DomicilioDeUsuario.include(),
+          numerosDeTelefono: NumeroDeTelefono.includeList(),
+          roles: RelacionUsuarioRol.includeList(
+            include: RelacionUsuarioRol.include(
+              rol: RolDeUsuario.include(),
+            ),
+          ),
+        ),
       ),
     );
   }
