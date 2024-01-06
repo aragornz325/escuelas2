@@ -22,10 +22,23 @@ class ServicioUsuario extends Servicio {
     required int idUserInfo,
   }) async =>
       await ejecutarOperacion(
-        () => orm.obtenerUsuariosPendiente(
+        () => orm.obtenerUsuarioPendiente(
           session,
           idUserInfo: idUserInfo,
         ),
+      );
+
+  /// La función "obtenerUsuariosPendientes" recupera los usuarios pendientes usando una sesión y devuelve el
+  /// resultado.
+  ///
+  /// Args:
+  ///   session (Session): El parámetro "sesión" es un objeto de tipo "Sesión". Se utiliza para
+  /// representar una sesión o conexión a una base de datos. Probablemente se esté pasando al método
+  /// "orm.obtenerUsuariosPendientes" para recuperar datos de usuario pendientes de la base de datos.
+  Future<List<UsuarioPendiente>> obtenerUsuariosPendientes(
+          Session session) async =>
+      await ejecutarOperacion(
+        () => orm.obtenerUsuariosPendientes(session),
       );
 
   /// La función `enviarSolicitudRegistro` envía una solicitud de registro para que un usuario pendiente

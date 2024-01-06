@@ -31,9 +31,9 @@ class OrmUsuario extends ORM {
   ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual.
   ///
   /// Returns:
-  ///   La función `obtenerUsuariosPendiente` devuelve un `Futuro` que se resuelve en una instancia de
+  ///   La función `obtenerUsuarioPendiente` devuelve un `Futuro` que se resuelve en una instancia de
   /// `UsuarioPendiente` o `null`.
-  Future<UsuarioPendiente?> obtenerUsuariosPendiente(
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(
     Session session, {
     required int idUserInfo,
   }) async {
@@ -43,5 +43,19 @@ class OrmUsuario extends ORM {
     );
 
     return usuarioPendiente;
+  }
+
+  /// La función obtiene la lista de usuarios pendientes de la base de datos.
+  ///
+  /// Args:
+  ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual.
+  Future<List<UsuarioPendiente>> obtenerUsuariosPendientes(
+      Session session) async {
+    final usuarioPendientes = await UsuarioPendiente.db.find(
+      session,
+      where: (t) => t.estadoDeSolitud.equals(EstadoDeSolicitud.pendiente),
+    );
+
+    return usuarioPendientes;
   }
 }

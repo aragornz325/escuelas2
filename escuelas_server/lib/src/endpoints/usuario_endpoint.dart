@@ -25,6 +25,19 @@ class UsuarioEndpoint extends Endpoint with Controller {
         ),
       );
 
+  /// La función "obtenerUsuariosPendientes" devuelve un objeto Futuro que recupera los
+  /// usuarios pendientes usando una sesión.
+  ///
+  /// Args:
+  ///   session (Session): El parámetro de sesión es un objeto que representa la sesión del usuario
+  /// actual. Se utiliza para autenticar y autorizar al usuario que realiza la solicitud.
+  Future<List<UsuarioPendiente>> obtenerUsuariosPendientes(
+          Session session) async =>
+      ejecutarOperacionControlador(
+        'obtenerUsuariosPendientes',
+        () => servicio.obtenerUsuariosPendientes(session),
+      );
+
   /// La función `enviarSoliciturRegistro` envía una solicitud de registro para un usuario pendiente.
   ///
   /// Args:
