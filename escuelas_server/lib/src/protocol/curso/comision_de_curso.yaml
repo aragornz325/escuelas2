@@ -8,3 +8,4 @@ fields:
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
+  usuarios: List<RelacionComisionUsuario>?, relation(name=comision_usuario)

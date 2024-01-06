@@ -99,11 +99,6 @@ class OrmAsignatura extends ORM {
         session,
       ),
     );
-    if (asignaturas.isEmpty) {
-      throw Exception(
-        'No hay asignaturas',
-      );
-    }
     return asignaturas;
   }
 

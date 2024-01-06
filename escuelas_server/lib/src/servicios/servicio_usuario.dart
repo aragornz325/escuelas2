@@ -2,6 +2,8 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_usuario_pendiente.dart';
 import 'package:escuelas_server/src/servicio.dart';
+import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
+import 'package:escuelas_server/src/servicios/servicio_comision.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
 
@@ -10,6 +12,10 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   OrmUsuario get orm => OrmUsuario();
 
   final OrmUsuarioPendiente _ormUsuarioPendiente = OrmUsuarioPendiente();
+
+  final ServicioAsignatura _servicioAsignatura = ServicioAsignatura();
+
+  final ServicioComision _servicioComision = ServicioComision();
 
   Future<Usuario> obtenerDatosDelUsuario(Session session) async {
     final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
@@ -94,11 +100,13 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   Future<UsuarioPendiente> enviarSolicitudRegistro(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
+    List<Asignatura>? asignaturasASolicitar,
+    ComisionDeCurso? comisionDeCurso,
     bool esDocente = false,
   }) async {
     final ahora = DateTime.now();
 
-    final result = await ejecutarOperacion(
+    final usuarioPendienteCreado = await ejecutarOperacion(
       () => _ormUsuarioPendiente.crearUsuarioPendiente(
         session,
         usuarioPendiente: UsuarioPendiente(
@@ -113,7 +121,35 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         ),
       ),
     );
-    return result;
+
+    if (esDocente) {
+      final asignaturasSolicitadas = asignaturasASolicitar
+              ?.map((asignatura) => AsignaturaSolicitada(
+                    idAsignatura: asignatura.id ?? 0,
+                    idUsuarioPendiente: usuarioPendienteCreado.id ?? 0,
+                    ultimaModificacion: ahora,
+                    fechaCreacion: ahora,
+                  ))
+              .toList() ??
+          [];
+
+      await ejecutarOperacion(
+        () => _servicioAsignatura.crearAsignaturasSolicitadas(
+          session,
+          asignaturasSolicitadas: asignaturasSolicitadas,
+        ),
+      );
+    } else {
+      await ejecutarOperacion(
+        () => _servicioComision.crearComisionSolicitada(
+          session,
+          idComision: comisionDeCurso?.id ?? 0,
+          idUsuarioPendiente: usuarioPendienteCreado.id ?? 0,
+        ),
+      );
+    }
+
+    return usuarioPendienteCreado;
   }
 
   /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
