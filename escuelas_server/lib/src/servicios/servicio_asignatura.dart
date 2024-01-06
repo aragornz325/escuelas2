@@ -110,4 +110,28 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
       ),
     );
   }
+
+  Future<void> relacionarUsuarioAAsignaturas(
+    Session session, {
+    required List<Asignatura> asignaturas,
+    required int usuarioId,
+  }) async =>
+      ejecutarOperacion(
+        () => orm.relacionarUsuarioAAsignaturas(
+          session,
+          asignaturas: asignaturas,
+          usuarioId: usuarioId,
+        ),
+      );
+
+  Future<List<AsignaturaSolicitada>> crearAsignaturasSolicitadas(
+    Session session, {
+    required List<AsignaturaSolicitada> asignaturasSolicitadas,
+  }) async =>
+      ejecutarOperacion(
+        () => orm.crearAsignaturasSolicitadas(
+          session,
+          asignaturasSolicitadas: asignaturasSolicitadas,
+        ),
+      );
 }

@@ -28,7 +28,6 @@ class AsignaturaEndpoint extends Endpoint with Controller {
     return servicio.obtenerAsignaturas(session);
   }
 
-
   /// La función `crearAsignatura` crea un nuevo objeto `Asignatura` en la base de datos usando la
   /// sesión proporcionada y devuelve el objeto creado.
   Future<Asignatura> crearAsignatura(
@@ -40,7 +39,6 @@ class AsignaturaEndpoint extends Endpoint with Controller {
       asignatura: asignatura,
     );
   }
-
 
   /// La función `actualizarAsignatura` actualiza un objeto `Asignatura` en una base de datos usando un
   /// objeto `Session` proporcionado.
@@ -54,7 +52,6 @@ class AsignaturaEndpoint extends Endpoint with Controller {
     );
   }
 
-
   /// La función `eliminarAsignatura` elimina un objeto `Asignatura` de una base de datos utilizando una
   /// `Session` proporcionada.
   Future<int> eliminarAsignatura(
@@ -66,4 +63,18 @@ class AsignaturaEndpoint extends Endpoint with Controller {
       id: id,
     );
   }
+
+  Future<void> relacionUsuarioAAsignaturas(
+    Session session, {
+    required List<Asignatura> asignaturas,
+    required int idUsuario,
+  }) async =>
+      ejecutarOperacionControlador(
+        'relacionUsuarioAAsignaturas',
+        () => servicio.relacionarUsuarioAAsignaturas(
+          session,
+          asignaturas: asignaturas,
+          usuarioId: idUsuario,
+        ),
+      );
 }

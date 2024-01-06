@@ -49,12 +49,14 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   Future<UsuarioPendiente> enviarSolicitudRegistroDocente(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
+    required List<Asignatura> asignaturasASolicitar,
   }) async =>
       ejecutarOperacionControlador(
         'enviarSolicitudRegistroDocente',
         () => servicio.enviarSolicitudRegistro(
           session,
           usuarioPendiente: usuarioPendiente,
+          asignaturasASolicitar: asignaturasASolicitar,
           esDocente: true,
         ),
       );
@@ -70,12 +72,14 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   Future<UsuarioPendiente> enviarSolicitudRegistroAlumno(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
+    required ComisionDeCurso comisionDeCurso,
   }) async =>
       ejecutarOperacionControlador(
         'enviarSolicitudRegistroAlumno',
         () => servicio.enviarSolicitudRegistro(
           session,
           usuarioPendiente: usuarioPendiente,
+          comisionDeCurso: comisionDeCurso,
         ),
       );
 

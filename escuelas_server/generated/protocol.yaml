@@ -4,15 +4,17 @@ asignatura:
   - crearAsignatura:
   - actualizarAsignatura:
   - eliminarAsignatura:
+  - relacionUsuarioAAsignaturas:
 asistencia:
   - crearAsistenciasEnLote:
+comisiones:
+  - relacionarUsuarioAComision:
 curso:
   - obtenerCursoPorId:
   - obtenerCursos:
   - crearCurso:
   - actualizarCurso:
   - eliminarCurso:
-  - relacionarUsuarioACurso:
 example:
   - hello:
 rol:

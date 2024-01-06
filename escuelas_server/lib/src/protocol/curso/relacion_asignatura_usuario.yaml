@@ -1,0 +1,12 @@
+class: RelacionAsignaturaUsuario
+table: r_asignaturas_usuarios
+fields:
+  usuario: Usuario?, relation(name=usuario_asignatura), scope=serverOnly
+  asignatura: Asignatura?, relation(name=asignatura_usuario)
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?
+indexes:
+  r_usuario_asignatura_index_idx:
+    fields: usuarioId, asignaturaId
+    unique: true

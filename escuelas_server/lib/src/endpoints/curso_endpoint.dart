@@ -60,17 +60,4 @@ class CursoEndpoint extends Endpoint with Controller<ServicioCurso> {
       id: id,
     );
   }
-
-  /// Relaciona
-  Future<void> relacionarUsuarioACurso(
-    Session session, {
-    required int idCurso,
-    required int idUsuario,
-  }) async {
-    // return servicio.relacionarUsuarioACurso(
-    //   session,
-    //   idCurso: idCurso,
-    //   idUsuario: idUsuario,
-    // );
-  }
 }
