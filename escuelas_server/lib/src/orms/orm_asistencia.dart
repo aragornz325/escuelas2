@@ -27,4 +27,31 @@ class OrmAsistencia extends ORM {
 
     return 'Asistencias creadas correctamente';
   }
+
+  /// la funcion "traerAsistenciaPorDia" trae la asistencia de un dia en particular
+  Future<List<AsistenciaDiaria>> traerAsistenciaPorDia(
+    Session session, {
+    required int idComision,
+    required DateTime fecha,
+  }) async {
+    DateTime inicioDelDia = DateTime(fecha.year, fecha.month, fecha.day);
+    DateTime finDelDia =
+        DateTime(fecha.year, fecha.month, fecha.day, 23, 59, 59);
+
+    final asistencias = await AsistenciaDiaria.db.find(
+      session,
+      where: (t) =>
+          t.fecha.between(inicioDelDia, finDelDia) &
+          t.idComision.equals(idComision),
+    );
+
+    if (asistencias.isEmpty) {
+      throw ExcepcionCustom(
+          codigoError: 404,
+          mensaje: 'No hay asistencias con ese id de comision',
+          titulo: 'No hay asistencias',
+          tipoDeError: TipoExcepcion.noEncontrado);
+    }
+    return asistencias;
+  }
 }
