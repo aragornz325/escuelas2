@@ -3,6 +3,7 @@ table: roles_de_usuario
 fields:
   nombre: String
   descripcion: String
-  ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?
+  relacionesUsuarioRol: List<RelacionUsuarioRol>?, relation(name=rol_roles), scope=serverOnly
+  ultimaModificacion: DateTime, scope=serverOnly
+  fechaCreacion: DateTime, scope=serverOnly
+  fechaEliminacion: DateTime?, scope=serverOnly

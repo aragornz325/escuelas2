@@ -3,7 +3,7 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_asistencia.dart';
 import 'package:serverpod/server.dart';
 
-class AsistenciaEndpoint extends Endpoint with Controller {
+class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
   @override
   ServicioAsistencia get servicio => ServicioAsistencia();
 

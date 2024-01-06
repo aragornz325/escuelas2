@@ -3,80 +3,64 @@ import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
 class OrmUsuario extends ORM {
-  /// La función `crearUsuarioPendiente` crea un nuevo usuario pendiente en una base de datos y devuelve
-  /// el usuario insertado.
-  ///
-  /// Args:
-  ///   session (Session): El parámetro de sesión es de tipo Sesión  y es obligatorio.
-  ///   usuarioPendiente (UsuarioPendiente): El parámetro "UserPending" es de tipo "UserPending" y es
-  /// obligatorio.
-  ///
-  /// Returns:
-  ///   a `Future<UsuarioPendiente>`.
-  Future<UsuarioPendiente> crearUsuarioPendiente(
+  Future<Usuario> crearUsuario(
     Session session, {
-    required UsuarioPendiente usuarioPendiente,
+    required Usuario nuevoUsuario,
   }) async {
-    return await UsuarioPendiente.db.insert(session, [usuarioPendiente]).then(
-      (rows) {
-        return rows.first;
-      },
+    return await ejecutarOperacionOrm(
+      session,
+      (session) async => await Usuario.db.insertRow(session, nuevoUsuario),
     );
   }
 
-  /// La función obtiene el primer usuario pendiente de la base de datos y lanza una excepción si no hay
-  /// usuarios pendientes.
-  ///
-  /// Args:
-  ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual.
-  ///
-  /// Returns:
-  ///   La función `obtenerUsuarioPendiente` devuelve un `Futuro` que se resuelve en una instancia de
-  /// `UsuarioPendiente` o `null`.
-  Future<UsuarioPendiente?> obtenerUsuarioPendiente(
+  Future<Usuario> obtenerUsuario(
     Session session, {
-    required int idUserInfo,
+    int? idUserInfo,
   }) async {
-    final usuarioPendiente = await UsuarioPendiente.db.findFirstRow(
+    final usuario = await ejecutarOperacionOrm(
       session,
-      where: (t) => t.idUserInfo.equals(idUserInfo),
-    );
-
-    return usuarioPendiente;
-  }
-
-  /// La función obtiene la lista de usuarios pendientes de la base de datos.
-  ///
-  /// Args:
-  ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual.
-  Future<List<UsuarioPendiente>> obtenerUsuariosPendientes(
-      Session session) async {
-    final usuarioPendientes = await UsuarioPendiente.db.find(
-      session,
-      where: (t) => t.estadoDeSolicitud.equals(EstadoDeSolicitud.pendiente),
-    );
-
-    return usuarioPendientes;
-  }
-
-  /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
-  Future<void> actualizarUsuarioPendiente(
-    Session session, {
-    required UsuarioPendiente usuarioPendiente,
-  }) async =>
-      ejecutarOperacionOrm(
+      (session) async => await Usuario.db.findFirstRow(
         session,
-        (session) => UsuarioPendiente.db.updateRow(
-          session,
-          usuarioPendiente,
-          columns: (t) => [
-            t.nombre,
-            t.apellido,
-            t.dni,
-            t.rolSolicitado,
-            t.estadoDeSolicitud,
-            t.ultimaModificacion,
-          ],
+        where: (t) {
+          if (idUserInfo != null) {
+            return t.idUserInfo.equals(idUserInfo);
+          }
+          return t.id.notEquals(null);
+        },
+        include: Usuario.include(
+          direccionesDeEmail: DireccionDeEmail.includeList(
+            include: DireccionDeEmail.include(),
+          ),
+          domicilio: DomicilioDeUsuario.include(),
+          numerosDeTelefono: NumeroDeTelefono.includeList(),
+          roles: RelacionUsuarioRol.includeList(
+            include: RelacionUsuarioRol.include(
+              rol: RolDeUsuario.include(),
+            ),
+          ),
         ),
+      ),
+    );
+
+    if (usuario == null) {
+      throw ExcepcionCustom(
+        titulo: 'Usuario no encontrado.',
+        mensaje: 'Usuario no encontrado.',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
       );
+    }
+
+    return usuario;
+  }
+
+  Future<Usuario> actualizarUsuario(
+    Session session, {
+    required Usuario usuario,
+  }) async {
+    return await ejecutarOperacionOrm(
+      session,
+      (session) async => await Usuario.db.updateRow(session, usuario),
+    );
+  }
 }
