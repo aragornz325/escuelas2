@@ -183,7 +183,7 @@ class ElementoLista extends StatelessWidget {
   }
 
   /// Elemento de lista para la pantalla inicial
-  factory ElementoLista.menuInicial({
+  factory ElementoLista.menu({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
 
@@ -199,8 +199,9 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
     return ElementoLista(
       altura: 65.ph,
+      padding: EdgeInsets.only(left: 20.pw),
       texto: Text(
-        nombreOpcion,
+        nombreOpcion.toUpperCase(),
         style: TextStyle(
           fontWeight: FontWeight.w800,
           fontSize: 16.pf,

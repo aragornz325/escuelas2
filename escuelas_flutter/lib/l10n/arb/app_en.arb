@@ -434,6 +434,16 @@
         "description": "It is commonly used to refer to a specific academic subject or course."
     },
 
+    "commonCourse": "Course",
+    "@commonCourse": {
+        "description": "It is commonly used to refer to a specific academic course."
+    },
+
+    "commonName": "Name",
+    "@commonName": {
+        "description": "Label indicating the name of something"
+    },
+
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"

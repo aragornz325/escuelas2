@@ -454,7 +454,17 @@
 
     "commonSubject": "Asignatura",
     "@commonSubject": {
-        "description": "It is commonly used to refer to a specific academic subject or course."
+        "description": "It is commonly used to refer to a specific academic subject"
+    },
+
+    "commonCourse": "Curso",
+    "@commonCourse": {
+        "description": "It is commonly used to refer to a specific academic course."
+    },
+
+    "commonName": "Nombre",
+    "@commonName": {
+        "description": "Label indicating the name of something"
     },
 
     "commonDeleteAll": "Borrar todos",

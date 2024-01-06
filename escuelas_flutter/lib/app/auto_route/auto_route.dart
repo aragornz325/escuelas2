@@ -87,6 +87,21 @@ class AppRouter extends $AppRouter {
                 ),
               ],
             ),
+            AutoRoute(
+              page: RutaComunidadAcademica.page,
+              path: 'academic-community',
+              children: [
+                AutoRoute(
+                  page: RutaMenuComunidadAcademica.page,
+                  path: 'menu',
+                  initial: true,
+                ),
+                AutoRoute(
+                  page: RutaListadoComunidad.page,
+                  path: 'list/:idRol',
+                ),
+              ],
+            ),
             CustomRoute(
               page: RutaInasistencia.page,
               path: 'absences',
