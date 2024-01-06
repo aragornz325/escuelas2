@@ -4,13 +4,13 @@ import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioComision extends Servicio<OrmComision> {
-  Future<void> relacionarUsuarioAComision(
+  Future<void> asignarUsuarioAComision(
     Session session, {
     required int idComision,
     required int idUsuario,
   }) async =>
       ejecutarOperacion(
-        () => orm.relacionarUsuarioAComision(
+        () => orm.asignarUsuarioAComision(
           session,
           idComision: idComision,
           idUsuario: idUsuario,

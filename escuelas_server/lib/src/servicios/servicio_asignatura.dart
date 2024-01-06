@@ -59,7 +59,7 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
   ///
   /// Returns:
   ///   a `Futuro<Asignatura>`.
-  Future<Asignatura> otenerAsignaturaPorId(
+  Future<Asignatura> obtenerAsignaturaPorId(
     Session session, {
     required int id,
   }) async {
@@ -111,13 +111,13 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
     );
   }
 
-  Future<void> relacionarUsuarioAAsignaturas(
+  Future<void> asignarUsuarioAAsignaturas(
     Session session, {
     required List<Asignatura> asignaturas,
     required int usuarioId,
   }) async =>
       ejecutarOperacion(
-        () => orm.relacionarUsuarioAAsignaturas(
+        () => orm.asignarUsuarioAAsignaturas(
           session,
           asignaturas: asignaturas,
           usuarioId: usuarioId,

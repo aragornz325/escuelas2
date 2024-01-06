@@ -15,7 +15,7 @@ class AsignaturaEndpoint extends Endpoint with Controller {
     Session session, {
     required int id,
   }) async {
-    return servicio.otenerAsignaturaPorId(
+    return servicio.obtenerAsignaturaPorId(
       session,
       id: id,
     );
@@ -64,14 +64,14 @@ class AsignaturaEndpoint extends Endpoint with Controller {
     );
   }
 
-  Future<void> relacionUsuarioAAsignaturas(
+  Future<void> asignarUsuarioAAsignaturas(
     Session session, {
     required List<Asignatura> asignaturas,
     required int idUsuario,
   }) async =>
       ejecutarOperacionControlador(
         'relacionUsuarioAAsignaturas',
-        () => servicio.relacionarUsuarioAAsignaturas(
+        () => servicio.asignarUsuarioAAsignaturas(
           session,
           asignaturas: asignaturas,
           usuarioId: idUsuario,

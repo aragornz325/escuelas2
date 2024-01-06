@@ -3,7 +3,7 @@ import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
 class OrmComision extends ORM {
-  Future<void> relacionarUsuarioAComision(
+  Future<void> asignarUsuarioAComision(
     Session session, {
     required int idComision,
     required int idUsuario,

@@ -4,14 +4,14 @@ import 'package:escuelas_server/src/servicios/servicio_comision.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ComisionesEndpoint extends Endpoint with Controller<ServicioComision> {
-  Future<void> relacionarUsuarioAComision(
+  Future<void> asignarUsuarioAComision(
     Session session, {
     required int idComision,
     required int idUsuario,
   }) async =>
       ejecutarOperacionControlador(
-        'relacionarUsuarioAComision',
-        () => servicio.relacionarUsuarioAComision(
+        'asignarUsuarioAComision',
+        () => servicio.asignarUsuarioAComision(
           session,
           idComision: idComision,
           idUsuario: idUsuario,

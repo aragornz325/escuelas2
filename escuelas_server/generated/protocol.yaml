@@ -4,11 +4,11 @@ asignatura:
   - crearAsignatura:
   - actualizarAsignatura:
   - eliminarAsignatura:
-  - relacionUsuarioAAsignaturas:
 asistencia:
   - crearAsistenciasEnLote:
 comisiones:
   - relacionarUsuarioAComision:
+  - obtenerComisiones:
 curso:
   - obtenerCursoPorId:
   - obtenerCursos:
