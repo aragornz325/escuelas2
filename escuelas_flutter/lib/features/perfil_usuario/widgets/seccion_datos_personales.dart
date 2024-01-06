@@ -19,66 +19,87 @@ class DatosPersonales extends StatelessWidget {
 
     final l10n = context.l10n;
 
-    return Expanded(
-      child: Container(
-        width: 340.pw,
-        padding: EdgeInsets.all(20.sw),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.sw),
-          color: colores.tertiary,
-        ),
-        child: SingleChildScrollView(
-          child: BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
-            builder: (context, state) {
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.pageRoleAssigmentPersonalInformation.toUpperCase(),
-                    style: TextStyle(
-                      color: colores.onBackground,
-                      fontSize: 16.pf,
-                      fontWeight: FontWeight.w800,
-                    ),
-                  ),
-                  SizedBox(height: 10.ph),
-                  _DatoPersonal(
-                    tipoDato: '${l10n.commonPhone}: ',
-                    // TODO(anyone):Poner telefono
-                    dato: state.usuario?.dni.toString(),
-                  ),
-                  _DatoPersonal(
-                    tipoDato: '${l10n.commonMail}: ',
-                    // TODO(anyone):Poner email
-                    dato: state.usuario?.dni,
-                  ),
-                  SizedBox(height: 10.ph),
-                  _DatoPersonal(
-                    tipoDato: '${l10n.commonBloodFactor}: ',
-                    // TODO(anyone):Poner factorSanguineo
-                    dato: state.usuario?.dni,
-                  ),
-                  _DatoPersonal(
-                    tipoDato: '${l10n.commonAge}: ',
-                    // TODO(anyone):Poner edad
-                    dato: state.usuario?.dni,
-                  ),
-                  SizedBox(height: 10.ph),
-                  _DatoPersonal(
-                    tipoDato: '${l10n.commonEmergencyContact}: ',
-                  ),
-                  _DatoPersonal(
-                    tipoDato: '${l10n.commonBond}: ',
-                  ),
-                  SizedBox(height: 10.ph),
-                  _DatoPersonal(
-                    tipoDato: '${l10n.commonObservations}: ',
-                  ),
-                ],
-              );
-            },
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: 20.pw,
+        vertical: 10.ph,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(50.sw)),
+        color: colores.marfilBackgroundDesktop,
+      ),
+      child: ExpansionTile(
+        title: Text(
+          'DATOS PERSONALES',
+          style: TextStyle(
+            color: colores.onBackground,
+            fontSize: 13.pf,
+            fontWeight: FontWeight.w700,
           ),
         ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.sw),
+        ),
+        collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.sw),
+        ),
+        backgroundColor: colores.marfilBackgroundDesktop,
+        children: <Widget>[
+          Divider(
+            height: .5,
+            thickness: .5,
+            color: colores.grisSC,
+          ),
+          ListTile(
+            title: BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
+              builder: (context, state) {
+                return Column(
+                  children: [
+                    SizedBox(height: 10.ph),
+                    _DatoPersonal(
+                      tipoDato: '${l10n.commonPhone}: ',
+                      // TODO(anyone):Poner telefono
+                      dato: state.usuario?.dni.toString(),
+                    ),
+                    _DatoPersonal(
+                      tipoDato: '${l10n.commonMail}: ',
+                      // TODO(anyone):Poner email
+                      dato: state.usuario?.dni,
+                    ),
+                    SizedBox(height: 10.ph),
+                    _DatoPersonal(
+                      tipoDato: '${l10n.commonBloodFactor}: ',
+                      // TODO(anyone):Poner factorSanguineo
+                      dato: state.usuario?.dni,
+                    ),
+                    _DatoPersonal(
+                      tipoDato: '${l10n.commonAge}: ',
+                      // TODO(anyone):Poner edad
+                      dato: state.usuario?.dni,
+                    ),
+                    SizedBox(height: 10.ph),
+                    _DatoPersonal(
+                      tipoDato: '${l10n.commonEmergencyContact}: ',
+                    ),
+                    _DatoPersonal(
+                      tipoDato: '${l10n.commonBond}: ',
+                    ),
+                    SizedBox(height: 10.ph),
+                    _DatoPersonal(
+                      tipoDato: '${l10n.commonObservations}: ',
+                    ),
+                  ],
+                );
+              },
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20.sw),
+                bottomRight: Radius.circular(20.sw),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
