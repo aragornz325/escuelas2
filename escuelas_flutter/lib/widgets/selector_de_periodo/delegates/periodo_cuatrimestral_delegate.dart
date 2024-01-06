@@ -7,14 +7,18 @@ import 'package:flutter/material.dart';
 /// {@endtemplate}
 class PeriodoCuatrimestralDelegate extends PeriodoDelegate {
   /// {@macro PeriodoCuatrimestralDelegate}
-  PeriodoCuatrimestralDelegate(this.context)
-      : super(
-          PeriodoDelSelector(
-            etiqueta: DateTime.now().devolverEtiqueta(),
-            fechaDesde: DateTime.now().copyWith(day: 1),
-            fechaHasta: DateTime(DateTime.now().year, DateTime.now().month + 3)
-                .subtract(const Duration(days: 1)),
-          ),
+  PeriodoCuatrimestralDelegate(
+    this.context, {
+    PeriodoDelSelector? periodoInicial,
+  }) : super(
+          periodoInicial ??
+              PeriodoDelSelector(
+                etiqueta: DateTime.now().devolverEtiqueta(),
+                fechaDesde: DateTime.now().copyWith(day: 1),
+                fechaHasta:
+                    DateTime(DateTime.now().year, DateTime.now().month + 3)
+                        .subtract(const Duration(days: 1)),
+              ),
         );
 
   final BuildContext context;

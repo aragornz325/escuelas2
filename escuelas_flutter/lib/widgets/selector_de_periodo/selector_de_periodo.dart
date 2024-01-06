@@ -33,6 +33,14 @@ class SelectorDePeriodo extends StatefulWidget {
 
 class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
   @override
+  void didUpdateWidget(SelectorDePeriodo oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Cuando se actualice el widget por un setState o lo que
+    // fuera por fuera del componente, se reescribe el periodo actual.
+    widget._delegate.periodoActual = oldWidget._delegate.periodoActual;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: widget.margin,

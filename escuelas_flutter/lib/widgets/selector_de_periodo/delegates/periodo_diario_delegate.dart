@@ -10,13 +10,16 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@endtemplate}
 class PeriodoDiarioDelegate extends PeriodoDelegate {
   /// {@macro PeriodoDiarioDelegate}
-  PeriodoDiarioDelegate(this.context)
-      : super(
-          PeriodoDelSelector(
-            etiqueta: DateTime.now().numeroDia(context),
-            fechaDesde: DateTime.now(),
-            fechaHasta: DateTime.now(),
-          ),
+  PeriodoDiarioDelegate(
+    this.context, {
+    PeriodoDelSelector? periodoInicial,
+  }) : super(
+          periodoInicial ??
+              PeriodoDelSelector(
+                etiqueta: DateTime.now().numeroDia(context),
+                fechaDesde: DateTime.now(),
+                fechaHasta: DateTime.now(),
+              ),
         );
 
   final BuildContext context;
