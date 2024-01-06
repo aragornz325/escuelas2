@@ -14,13 +14,15 @@ curso:
   - eliminarCurso:
 example:
   - hello:
-roles:
+rol:
   - obtenerRolPorId:
   - obtenerRoles:
   - crearRol:
   - actualizarRol:
   - eliminarRol:
 usuario:
+  - obtenerDatosDelUsuario:
   - obtenerUsuarioPendiente:
   - obtenerUsuariosPendientes:
   - enviarSoliciturRegistro:
+  - actualizarUsuarioPendiente:

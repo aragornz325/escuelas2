@@ -153,8 +153,6 @@ class BlocCargaCalificaciones
               id: 1,
               nombre: 'docente',
               descripcion: '',
-              fechaCreacion: DateTime.now(),
-              ultimaModificacion: DateTime.now(),
             ),
           ),
         );

@@ -24,18 +24,29 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-
+        if (state.listaRoles.isEmpty) {
+          return Center(
+            child: Text(
+              'No hay roles para asignar',
+              style: TextStyle(
+                color: colores.onSecondary,
+                fontSize: 16.pf,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          );
+        }
         return SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.pw),
             child: Column(
-              children: Roles.values
+              children: state.listaRoles
                   .map(
                     (rol) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          rol.name.toUpperCase(),
+                          rol.nombre.toUpperCase(),
                           style: TextStyle(
                             color: colores.onSecondary,
                             fontSize: 16.pf,
@@ -43,10 +54,9 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 10.ph),
-                        // TODO (Gon): Ver que llega en el endpoint para mejorar esto
                         ...state.listaUsuariosPendientes
                             .where(
-                              (usuario) => usuario.rolSolicitado == rol.index,
+                              (usuario) => usuario.rolSolicitado == rol.id,
                             )
                             .toList()
                             .map(

@@ -1,5 +1,4 @@
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -63,7 +62,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
   ) async {
     emit(BlocLoginEstadoCargando.desde(state, estaIniciandoSesion: true));
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         final userInfo = await signInWithGoogle(
           client.modules.auth,
           clientId: dotenv.env['CLIENT_ID_GOOGLE_SIGNIN'],

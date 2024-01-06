@@ -75,7 +75,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: '${usuario?.roles[0].nombre.toUpperCase()}?',
+                text: '${usuario?.roles?[0].rol?.nombre.toUpperCase()}?',
                 style: TextStyle(
                   color: colores.onBackground,
                   fontSize: 16.pf,
@@ -106,7 +106,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
               child: ElementoLista(
                 texto: Text(
                   // TODO(Gon): Verificar
-                  (state.usuario?.roles[0].nombre ?? '').capitalize,
+                  (state.usuario?.roles?[0].rol?.nombre ?? '').capitalize,
                   style: TextStyle(
                     color: colores.onSecondary,
                     fontSize: 13.pf,
