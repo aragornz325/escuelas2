@@ -1,0 +1,5 @@
+enum: OrdenarPor
+values:
+  - apellido
+  - curso
+  - asignatura
