@@ -1,11 +1,10 @@
+.dart_tool/
 escuelas_client/lib/src/protocol/
-escuelas_server/lib/src/generated/
-escuelas_server/generated
 esculas_flutter/linux/flutter
 esculas_flutter/macos/Flutter
 esculas_flutter/windows/flutter
-.dart_tool/
-escuelas_server/config/passwords.yaml
-escuelas_server/lib/env/env.g.dart
 .dart_tool/package_config.json
+escuelas_server/config/passwords.yaml
 escuelas_server/lib/env/.env
+escuelas_server/lib/env/env.g.dart
+escuelas_server/lib/src/generated/
