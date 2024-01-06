@@ -1,11 +1,17 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_asignatura.dart';
+import 'package:escuelas_server/src/orms/orm_asignatura_solicitada.dart';
+import 'package:escuelas_server/src/orms/orm_asignatura_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioAsignatura extends Servicio<OrmAsignatura> {
   @override
   OrmAsignatura get orm => OrmAsignatura();
+
+  final _ormUsuarioAsignatura = OrmUsuarioAsignatura();
+
+  final _ormAsignaturaSolicitada = OrmAsignaturaSolicitada();
 
   /// La función `crearAsignatura` crea un nuevo objeto `Asignatura` en la base de datos usando la
   /// sesión proporcionada y devuelve el objeto creado.
@@ -117,7 +123,7 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
     required int usuarioId,
   }) async =>
       ejecutarOperacion(
-        () => orm.crearRelacionUsuarioAAsignaturas(
+        () => _ormUsuarioAsignatura.crearRelacionUsuarioAAsignaturas(
           session,
           asignaturas: asignaturas,
           usuarioId: usuarioId,
@@ -129,7 +135,7 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
     required List<AsignaturaSolicitada> asignaturasSolicitadas,
   }) async =>
       ejecutarOperacion(
-        () => orm.crearAsignaturasSolicitadas(
+        () => _ormAsignaturaSolicitada.crearAsignaturasSolicitadas(
           session,
           asignaturasSolicitadas: asignaturasSolicitadas,
         ),

@@ -129,43 +129,4 @@ class OrmAsignatura extends ORM {
     );
     return eliminado.first;
   }
-
-  Future<void> crearRelacionUsuarioAAsignaturas(
-    Session session, {
-    required List<Asignatura> asignaturas,
-    required int usuarioId,
-  }) async {
-    final ahora = DateTime.now();
-
-    await ejecutarOperacionOrm(
-      session,
-      (session) async {
-        await RelacionAsignaturaUsuario.db.insert(
-          session,
-          [
-            ...asignaturas.map(
-              (asignatura) => RelacionAsignaturaUsuario(
-                asignaturaId: asignatura.id ?? 0,
-                usuarioId: usuarioId,
-                ultimaModificacion: ahora,
-                fechaCreacion: ahora,
-              ),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<List<AsignaturaSolicitada>> crearAsignaturasSolicitadas(
-    Session session, {
-    required List<AsignaturaSolicitada> asignaturasSolicitadas,
-  }) async =>
-      ejecutarOperacionOrm(
-        session,
-        (session) => AsignaturaSolicitada.db.insert(
-          session,
-          asignaturasSolicitadas,
-        ),
-      );
 }
