@@ -22,4 +22,5 @@ roles:
   - eliminarRol:
 usuario:
   - obtenerUsuarioPendiente:
+  - obtenerUsuariosPendientes:
   - enviarSoliciturRegistro:

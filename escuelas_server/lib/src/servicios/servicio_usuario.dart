@@ -17,16 +17,13 @@ class ServicioUsuario extends Servicio {
   ///
   /// Returns:
   ///   a `Future<UsuarioPendiente>`.
-  Future<UsuarioPendiente?> obtenerUsuarioPendiente(
-    Session session, {
-    required int idUserInfo,
-  }) async =>
-      await ejecutarOperacion(
-        () => orm.obtenerUsuarioPendiente(
-          session,
-          idUserInfo: idUserInfo,
-        ),
-      );
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(Session session) async {
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+
+    return await ejecutarOperacion(
+      () => orm.obtenerUsuarioPendiente(session, idUserInfo: idUserInfo),
+    );
+  }
 
   /// La función "obtenerUsuariosPendientes" recupera los usuarios pendientes usando una sesión y devuelve el
   /// resultado.
