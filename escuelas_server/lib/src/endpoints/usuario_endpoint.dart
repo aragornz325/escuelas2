@@ -50,4 +50,17 @@ class UsuarioEndpoint extends Endpoint with Controller {
           usuarioPendiente: usuarioPendiente,
         ),
       );
+
+  /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
+  Future<void> actualizarUsuarioPendiente(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async =>
+      ejecutarOperacionControlador(
+        'actualizarUsuarioPendiente',
+        () => servicio.actualizarUsuarioPendiente(
+          session,
+          usuarioPendiente: usuarioPendiente,
+        ),
+      );
 }
