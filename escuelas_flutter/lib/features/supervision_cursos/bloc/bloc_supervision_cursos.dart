@@ -1,12 +1,13 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+import 'package:escuelas_flutter/features/supervision_cursos/pagina_supervision_cursos.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_supervision_cursos_estado.dart';
 part 'bloc_supervision_cursos_evento.dart';
 
 /// {@template BlocSupervisionCursos}
-/// Bloc que maneja los estados y lógica de la pagina de 'Inicio'
+/// Bloc que maneja los estados y lógica de la [PaginaSupervisionCursos]
 /// {@endtemplate}
 class BlocSupervisionCursos
     extends Bloc<BlocSupervisionCursosEvento, BlocSupervisionCursosEstado> {

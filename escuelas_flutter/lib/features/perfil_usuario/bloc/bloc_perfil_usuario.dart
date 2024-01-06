@@ -1,12 +1,13 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+import 'package:escuelas_flutter/features/perfil_usuario/pagina_perfil_usuario.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_perfil_usuario_estado.dart';
 part 'bloc_perfil_usuario_evento.dart';
 
 /// {@template BlocPerfilUsuario}
-/// Bloc que maneja los estados y lógica de la pagina de 'Inicio'
+/// Bloc que maneja los estados y lógica de la pagina de [PaginaPerfilUsuario]
 /// {@endtemplate}
 class BlocPerfilUsuario
     extends Bloc<BlocPerfilUsuarioEvento, BlocPerfilUsuarioEstado> {
