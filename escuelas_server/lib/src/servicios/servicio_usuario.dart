@@ -3,6 +3,7 @@ import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_usuario_pendiente.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
+import 'package:serverpod_auth_server/module.dart' as auth;
 
 class ServicioUsuario extends Servicio<OrmUsuario> {
   @override
@@ -20,7 +21,14 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
 
-    if (datosDeUsuario == null) {
+    final userInfo = await ejecutarOperacion(
+      () => auth.UserInfo.db.findById(
+        session,
+        datosDeUsuario.idUserInfo,
+      ),
+    );
+
+    if (userInfo == null) {
       throw ExcepcionCustom(
         titulo: 'Usuario no encontrado.',
         mensaje: 'Usuario no encontrado.',
@@ -28,6 +36,13 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         codigoError: 404,
       );
     }
+
+    final userInfoNombresYApellidos = userInfo.fullName?.split('|');
+
+    datosDeUsuario
+      ..nombre = userInfoNombresYApellidos?.first ?? ''
+      ..apellido = userInfoNombresYApellidos?.last ?? ''
+      ..urlFotoDePerfil = userInfo.imageUrl ?? '';
 
     return datosDeUsuario;
   }

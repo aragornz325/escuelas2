@@ -13,11 +13,11 @@ class OrmUsuario extends ORM {
     );
   }
 
-  Future<Usuario?> buscarUsuario(
+  Future<Usuario> buscarUsuario(
     Session session, {
     int? idUserInfo,
   }) async {
-    return await ejecutarOperacionOrm(
+    final usuario = await ejecutarOperacionOrm(
       session,
       (session) async => await Usuario.db.findFirstRow(
         session,
@@ -28,7 +28,9 @@ class OrmUsuario extends ORM {
           return t.id.notEquals(null);
         },
         include: Usuario.include(
-          direccionesDeEmail: DireccionDeEmail.includeList(include: DireccionDeEmail.include()),
+          direccionesDeEmail: DireccionDeEmail.includeList(
+            include: DireccionDeEmail.include(),
+          ),
           domicilio: DomicilioDeUsuario.include(),
           numerosDeTelefono: NumeroDeTelefono.includeList(),
           roles: RelacionUsuarioRol.includeList(
@@ -39,6 +41,17 @@ class OrmUsuario extends ORM {
         ),
       ),
     );
+
+    if (usuario == null) {
+      throw ExcepcionCustom(
+        titulo: 'Usuario no encontrado.',
+        mensaje: 'Usuario no encontrado.',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
+    }
+
+    return usuario;
   }
 
   Future<Usuario> actualizarUsuario(

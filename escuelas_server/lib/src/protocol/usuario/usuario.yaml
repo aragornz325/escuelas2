@@ -2,6 +2,9 @@ class: Usuario
 table: usuarios
 fields:
   idUserInfo: int
+  nombre: String?, !persist
+  apellido: String?, !persist
+  urlFotoDePerfil: String?, !persist
   dni: String
   domicilio: DomicilioDeUsuario?, relation(optional)
   direccionesDeEmail: List<DireccionDeEmail>?, relation
