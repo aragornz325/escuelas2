@@ -13,7 +13,7 @@ class OrmUsuario extends ORM {
     );
   }
 
-  Future<Usuario> buscarUsuario(
+  Future<Usuario> obtenerUsuario(
     Session session, {
     int? idUserInfo,
   }) async {

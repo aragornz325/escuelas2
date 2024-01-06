@@ -15,7 +15,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
 
     final datosDeUsuario = await ejecutarOperacion(
-      () => orm.buscarUsuario(
+      () => orm.obtenerUsuario(
         session,
         idUserInfo: idUserInfo,
       ),
