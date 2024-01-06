@@ -424,6 +424,25 @@ class Endpoints extends _i1.EndpointDispatch {
             usuarioPendiente: params['usuarioPendiente'],
           ),
         ),
+        'actualizarUsuarioPendiente': _i1.MethodConnector(
+          name: 'actualizarUsuarioPendiente',
+          params: {
+            'usuarioPendiente': _i1.ParameterDescription(
+              name: 'usuarioPendiente',
+              type: _i1.getType<_i12.UsuarioPendiente>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['usuario'] as _i7.UsuarioEndpoint)
+                  .actualizarUsuarioPendiente(
+            session,
+            usuarioPendiente: params['usuarioPendiente'],
+          ),
+        ),
       },
     );
     modules['serverpod_auth'] = _i13.Endpoints()..initializeEndpoints(server);

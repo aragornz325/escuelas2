@@ -278,6 +278,15 @@ class EndpointUsuario extends _i1.EndpointRef {
         'enviarSoliciturRegistro',
         {'usuarioPendiente': usuarioPendiente},
       );
+
+  /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
+  _i2.Future<void> actualizarUsuarioPendiente(
+          {required _i7.UsuarioPendiente usuarioPendiente}) =>
+      caller.callServerEndpoint<void>(
+        'usuario',
+        'actualizarUsuarioPendiente',
+        {'usuarioPendiente': usuarioPendiente},
+      );
 }
 
 class _Modules {

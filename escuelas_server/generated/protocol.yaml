@@ -24,3 +24,4 @@ usuario:
   - obtenerUsuarioPendiente:
   - obtenerUsuariosPendientes:
   - enviarSoliciturRegistro:
+  - actualizarUsuarioPendiente:

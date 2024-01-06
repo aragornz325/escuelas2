@@ -6,7 +6,7 @@ fields:
   apellido: String
   dni: String
   rolSolicitado: int, relation (parent=roles_de_usuario)
-  estadoDeSolitud: EstadoDeSolicitud
+  estadoDeSolicitud: EstadoDeSolicitud
   ultimaModificacion: DateTime?
   fechaCreacion: DateTime?
   fechaEliminacion: DateTime?

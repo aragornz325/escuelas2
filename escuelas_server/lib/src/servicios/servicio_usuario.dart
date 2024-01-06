@@ -65,7 +65,7 @@ class ServicioUsuario extends Servicio {
           apellido: usuarioPendiente.apellido,
           dni: usuarioPendiente.dni,
           rolSolicitado: usuarioPendiente.rolSolicitado,
-          estadoDeSolitud: EstadoDeSolicitud.pendiente,
+          estadoDeSolicitud: EstadoDeSolicitud.pendiente,
           fechaCreacion: ahora,
           ultimaModificacion: ahora,
         ),

@@ -53,7 +53,7 @@ class OrmUsuario extends ORM {
       Session session) async {
     final usuarioPendientes = await UsuarioPendiente.db.find(
       session,
-      where: (t) => t.estadoDeSolitud.equals(EstadoDeSolicitud.pendiente),
+      where: (t) => t.estadoDeSolicitud.equals(EstadoDeSolicitud.pendiente),
     );
 
     return usuarioPendientes;
@@ -74,7 +74,7 @@ class OrmUsuario extends ORM {
             t.apellido,
             t.dni,
             t.rolSolicitado,
-            t.estadoDeSolitud,
+            t.estadoDeSolicitud,
             t.ultimaModificacion,
           ],
         ),
