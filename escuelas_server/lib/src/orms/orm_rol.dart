@@ -17,10 +17,37 @@ class OrmRol extends ORM {
   Future<RolDeUsuario> obtenerRolPorId(
     Session session, {
     required int id,
+    OrdenarPor ordenarUsuariosPor = OrdenarPor.apellido,
   }) async {
     final rol = await ejecutarOperacionOrm(
       session,
-      (session) => RolDeUsuario.db.findById(session, id),
+      (session) => RolDeUsuario.db.findById(
+        session,
+        id,
+        include: RolDeUsuario.include(
+          relacionesUsuarioRol: RelacionUsuarioRol.includeList(
+            orderBy: (t) {
+              switch (ordenarUsuariosPor) {
+                case OrdenarPor.apellido:
+                  return t.usuario.apellido;
+                case OrdenarPor.asignatura:
+                  return t.usuario.apellido;
+                case OrdenarPor.curso:
+                  return t.usuario.apellido;
+                default:
+                  return t.usuario.apellido;
+              }
+            },
+            include: RelacionUsuarioRol.include(
+              usuario: Usuario.include(
+                domicilio: DomicilioDeUsuario.include(),
+                direccionesDeEmail: DireccionDeEmail.includeList(),
+                numerosDeTelefono: NumeroDeTelefono.includeList(),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
     if (rol == null) {
       throw Exception(

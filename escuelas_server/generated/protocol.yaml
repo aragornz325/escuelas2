@@ -17,6 +17,7 @@ example:
   - hello:
 rol:
   - obtenerRolPorId:
+  - obtenerUsuariosConRol:
   - obtenerRoles:
   - crearRol:
   - actualizarRol:
