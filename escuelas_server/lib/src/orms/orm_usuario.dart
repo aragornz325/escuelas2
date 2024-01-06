@@ -58,4 +58,25 @@ class OrmUsuario extends ORM {
 
     return usuarioPendientes;
   }
+
+  /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
+  Future<void> actualizarUsuarioPendiente(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => UsuarioPendiente.db.updateRow(
+          session,
+          usuarioPendiente,
+          columns: (t) => [
+            t.nombre,
+            t.apellido,
+            t.dni,
+            t.rolSolicitado,
+            t.estadoDeSolitud,
+            t.ultimaModificacion,
+          ],
+        ),
+      );
 }

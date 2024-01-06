@@ -73,4 +73,19 @@ class ServicioUsuario extends Servicio {
     );
     return result;
   }
+
+  /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
+  Future<void> actualizarUsuarioPendiente(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async {
+    final ahora = DateTime.now();
+
+    return ejecutarOperacion(
+      () => orm.actualizarUsuarioPendiente(
+        session,
+        usuarioPendiente: usuarioPendiente..ultimaModificacion = ahora,
+      ),
+    );
+  }
 }
