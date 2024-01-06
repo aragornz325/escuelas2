@@ -1,5 +1,3 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/features/mis_cursos/widgets/item_materia.dart';
@@ -13,9 +11,16 @@ import 'package:full_responsive/full_responsive.dart';
 /// Vista para celular de la pagina 'Mis Cursos' donde se muestra una lista de
 /// las materias ordenas por curso
 /// {@endtemplate}
-class VistaCelularMisCursos extends StatelessWidget {
+class VistaCelularMisCursos extends StatefulWidget {
   /// {@macro VistaCelularMisCursos}
   const VistaCelularMisCursos({super.key});
+
+  @override
+  State<VistaCelularMisCursos> createState() => _VistaCelularMisCursosState();
+}
+
+class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
+  DateTime fecha = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,11 @@ class VistaCelularMisCursos extends StatelessWidget {
       children: [
         SelectorDePeriodo(
           delegate: PeriodoMensualDelegate(context),
-          onSeleccionarPeriodo: (periodo) {},
+          onSeleccionarPeriodo: (periodo) {
+            setState(() {
+              fecha = periodo.fechaDesde;
+            });
+          },
           decoration: BoxDecoration(
             color: colores.tertiary,
             borderRadius: BorderRadius.circular(40.sw),
@@ -67,13 +76,11 @@ class VistaCelularMisCursos extends StatelessWidget {
                                         child: ItemMateria(
                                           estaCargada: false,
                                           // TODO(anyone): aca hay que chequear
-                                          //la fecha de la lista de materias
+                                          // la fecha de la lista de materias
                                           //actual y hacer la validacion con eso
-                                          estaHabilitado: true,
+                                          estaHabilitado:
+                                              fecha.isBefore(DateTime.now()),
                                           materia: materia,
-                                          onTap: () => context.pushRoute(
-                                            const RutaCargaDeCalificaciones(),
-                                          ),
                                         ),
                                       ),
                                     )

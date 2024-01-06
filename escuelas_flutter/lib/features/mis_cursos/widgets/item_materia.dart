@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +13,6 @@ class ItemMateria extends StatelessWidget {
   /// {@macro ItemMateria}
   const ItemMateria({
     required this.materia,
-    required this.onTap,
     required this.estaCargada,
     required this.estaHabilitado,
     super.key,
@@ -19,9 +20,6 @@ class ItemMateria extends StatelessWidget {
 
   /// Usuario del que se muestran los datos
   final Asignatura materia;
-
-  /// On tap del item
-  final VoidCallback onTap;
 
   /// Indica si las calificaciones de esa materia ya fueron cargas en el mes
   /// seleccionado
@@ -48,7 +46,11 @@ class ItemMateria extends StatelessWidget {
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          onTap: onTap,
+          onTap: () => estaHabilitado
+              ? context.pushRoute(
+                  const RutaCargaDeCalificaciones(),
+                )
+              : null,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),
