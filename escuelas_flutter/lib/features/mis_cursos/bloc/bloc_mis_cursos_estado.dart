@@ -9,14 +9,14 @@ class BlocMisCursosEstado {
 
   BlocMisCursosEstado.desde(
     BlocMisCursosEstado otro, {
-    Map<int, List<Materia>>? listaCursosConMaterias,
+    Map<int, List<Asignatura>>? listaCursosConMaterias,
   }) : this._(
           listaCursosConMaterias:
               listaCursosConMaterias ?? otro.listaCursosConMaterias,
         );
 
   /// Lista de materias por curso
-  final Map<int, List<Materia>> listaCursosConMaterias;
+  final Map<int, List<Asignatura>> listaCursosConMaterias;
 }
 
 /// {@template BlocMisCursosEstadoInicial}

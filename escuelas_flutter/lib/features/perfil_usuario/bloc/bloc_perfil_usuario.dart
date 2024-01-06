@@ -1,5 +1,5 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_perfil_usuario_estado.dart';
@@ -31,9 +31,13 @@ class BlocPerfilUsuario
           BlocPerfilUsuarioEstadoExitoso.desde(
             state,
             // TODO(Gon): Usar el usuario del back
-            usuario: listaUsuariosPendientes
-                .where((element) => element.id == event.idUsuario)
-                .first,
+            usuario: Usuario(
+              idUserInfo: 0,
+              roles: [],
+              dni: '43',
+              ultimaModificacion: DateTime.now(),
+              fechaCreacion: DateTime.now(),
+            ),
           ),
         );
       },

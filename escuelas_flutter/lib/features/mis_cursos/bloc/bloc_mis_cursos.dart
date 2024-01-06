@@ -1,5 +1,5 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_mis_cursos_estado.dart';
@@ -25,42 +25,34 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
         // final materias = await client.traermaterias;
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
         final materias = [
-          Materia(
+          Asignatura(
             nombre: 'MATEMMATEMATICAMATEMATICAMATEMATICAATICA',
             id: 0,
             idCurso: 0,
+            docentes: [],
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
           ),
-          Materia(
+          Asignatura(
             nombre: 'LENGUALENGUALENGUALENGUALENGUALENGUALENGUALENGUA',
             id: 1,
             idCurso: 1,
+            docentes: [],
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
           ),
-          Materia(
+          Asignatura(
             nombre:
                 'SOCIALESSOCIALESSOCIALESSOCIALESSOCIALESSOCIALESSOCIALESSOCIA',
             id: 2,
             idCurso: 1,
+            docentes: [],
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
           ),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 0),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 2),
-          Materia(nombre: 'LATIN', id: 3, idCurso: 2),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 2),
-          Materia(nombre: 'LENGUA', id: 1, idCurso: 1),
-          Materia(nombre: 'SOCIALES', id: 2, idCurso: 1),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 0),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 2),
-          Materia(nombre: 'LATIN', id: 3, idCurso: 2),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 2),
-          Materia(nombre: 'LENGUA', id: 1, idCurso: 1),
-          Materia(nombre: 'SOCIALES', id: 2, idCurso: 1),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 0),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 2),
-          Materia(nombre: 'LATIN', id: 3, idCurso: 2),
-          Materia(nombre: 'NATURALES', id: 3, idCurso: 2),
-          Materia(nombre: 'LATIN', id: 3, idCurso: 2),
         ];
 
-        final cursos = <int, List<Materia>>{};
+        final cursos = <int, List<Asignatura>>{};
 
         for (final materia in materias) {
           cursos.putIfAbsent(materia.idCurso, () => []);

@@ -11,14 +11,14 @@ class BlocAsignacionDeRolesEstado {
 
   BlocAsignacionDeRolesEstado.desde(
     BlocAsignacionDeRolesEstado otro, {
-    List<InfoUsuario>? listaUsuariosPendientes,
+    List<UsuarioPendiente>? listaUsuariosPendientes,
   }) : this._(
           listaUsuariosPendientes:
               listaUsuariosPendientes ?? otro.listaUsuariosPendientes,
         );
 
   /// Lista de usuarios pendientes a ser asignados un rol
-  final List<InfoUsuario> listaUsuariosPendientes;
+  final List<UsuarioPendiente> listaUsuariosPendientes;
 
   /// Indica si se encuentra cargando
   bool get estaCargando => this is BlocAsignacionDeRolesEstadoCargando;

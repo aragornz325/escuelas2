@@ -48,7 +48,7 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                             context: context,
                             onTap: () => context.router.push(
                               RutaSupervisionEnvioCalificaciones(
-                                idCurso: curso.id,
+                                idCurso: curso.id ?? 0,
                                 // TODO(anyone): Pasar fecha del periodo seleccionado
                                 fecha: DateTime.now()
                                     .copyWith(month: DateTime.now().month + 2)

@@ -41,7 +41,7 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                     SelectorDePeriodo(
                       delegate: PeriodoMensualDelegate(
                         context,
-                        periodo: Periodo(
+                        periodo: PeriodoDelSelector(
                           etiqueta:
                               state.fecha?.nombreMes(context).toUpperCase() ??
                                   '',

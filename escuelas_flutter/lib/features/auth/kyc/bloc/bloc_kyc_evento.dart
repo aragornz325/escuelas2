@@ -27,7 +27,7 @@ class BlocKycEventoSeleccionarRol extends BlocKycEvento {
   });
 
   /// Rol elegido por el usuario en la pantalla de seleccion de rol
-  final Rol? rolElegido;
+  final RolDeUsuario? rolElegido;
 
   /// Indica si se debe eliminar el rol seleccionado
   final bool eliminarRolSeleccionado;

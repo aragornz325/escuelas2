@@ -4,7 +4,6 @@ part of 'bloc_carga_calificaciones.dart';
 /// Maneja el estado del bloc de las calificaciones de los alumnos dependiendo
 /// del rol del usuario.
 /// {@endtemplate}
-@immutable
 class BlocCargaCalificacionesEstado {
   /// {@macro BlocCargaCalificacionesEstado}
   const BlocCargaCalificacionesEstado._({
@@ -17,9 +16,9 @@ class BlocCargaCalificacionesEstado {
   BlocCargaCalificacionesEstado.desde(
     BlocCargaCalificacionesEstado otro, {
     List<ModeloCalificacion>? listaCalificaciones,
-    Rol? rolDelUsuario,
+    RolDeUsuario? rolDelUsuario,
     ModeloCalificacion? calificacion,
-    Periodo? periodo,
+    PeriodoDelSelector? periodo,
   }) : this._(
           listaCalificaciones: listaCalificaciones ?? otro.listaCalificaciones,
           rolDelUsuario: rolDelUsuario ?? otro.rolDelUsuario,
@@ -34,10 +33,10 @@ class BlocCargaCalificacionesEstado {
   final ModeloCalificacion? calificacion;
 
   /// Rol del usuario //TODO(anyone): reemplazar por el modelo del rol
-  final Rol? rolDelUsuario;
+  final RolDeUsuario? rolDelUsuario;
 
   /// Periodo actual del calendaio
-  final Periodo? periodo;
+  final PeriodoDelSelector? periodo;
 
   /// Indica si el estado es
   /// [BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones]
