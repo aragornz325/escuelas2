@@ -34,16 +34,14 @@ class OrmUsuario extends ORM {
   ///   La función `obtenerUsuariosPendiente` devuelve un `Futuro` que se resuelve en una instancia de
   /// `UsuarioPendiente` o `null`.
   Future<UsuarioPendiente?> obtenerUsuariosPendiente(
-    Session session,
-  ) async {
-    final usuarios = await UsuarioPendiente.db.find(
+    Session session, {
+    required int idUserInfo,
+  }) async {
+    final usuarioPendiente = await UsuarioPendiente.db.findFirstRow(
       session,
-      where: (t) => t.aprobado.equals(false),
+      where: (t) => t.idUserInfo.equals(idUserInfo),
     );
 
-    if (usuarios.isEmpty) {
-      throw Exception('No hay usuarios pendientes');
-    }
-    return usuarios.first;
+    return usuarioPendiente;
   }
 }

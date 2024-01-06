@@ -1,0 +1,5 @@
+enum: EstadoDeSolicitud
+values:
+  - rechazado
+  - pendiente
+  - aprobado

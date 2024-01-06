@@ -7,21 +7,26 @@ class ServicioUsuario extends Servicio {
   @override
   OrmUsuario get orm => OrmUsuario();
 
-  /// La función "obtenerUsuariosPendientes" recupera usuarios pendientes usando una sesión y devuelve el
+  /// La función "obtenerUsuarioPendiente" recupera un usuario pendiente usando una sesión y devuelve el
   /// resultado.
   ///
   /// Args:
   ///   session (Session): El parámetro "sesión" es un objeto de tipo "Sesión". Se utiliza para
   /// representar una sesión o conexión a una base de datos. Probablemente se esté pasando al método
-  /// "orm.obtenerUsuariosPendiente" para recuperar datos de usuario pendientes de la base de datos.
+  /// "orm.obtenerUsuarioPendiente" para recuperar datos de usuario pendientes de la base de datos.
   ///
   /// Returns:
   ///   a `Future<UsuarioPendiente>`.
-  Future<UsuarioPendiente> obtenerUsuariosPendientes(Session session) async {
-    final result =
-        await ejecutarOperacion(() => orm.obtenerUsuariosPendiente(session));
-    return result!;
-  }
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(
+    Session session, {
+    required int idUserInfo,
+  }) async =>
+      await ejecutarOperacion(
+        () => orm.obtenerUsuariosPendiente(
+          session,
+          idUserInfo: idUserInfo,
+        ),
+      );
 
   /// La función `enviarSolicitudRegistro` envía una solicitud de registro para que un usuario pendiente
   /// sea creado en la base de datos.
@@ -40,18 +45,20 @@ class ServicioUsuario extends Servicio {
     required UsuarioPendiente usuarioPendiente,
   }) async {
     final ahora = DateTime.now();
+
     final result = await ejecutarOperacion(
       () => orm.crearUsuarioPendiente(
         session,
         usuarioPendiente: UsuarioPendiente(
-            idUserInfo: usuarioPendiente.idUserInfo,
-            nombre: usuarioPendiente.nombre,
-            apellido: usuarioPendiente.apellido,
-            dni: usuarioPendiente.dni,
-            rolSolicitado: usuarioPendiente.rolSolicitado,
-            aprobado: usuarioPendiente.aprobado,
-            fechaCreacion: ahora,
-            ultimaModificacion: ahora),
+          idUserInfo: usuarioPendiente.idUserInfo,
+          nombre: usuarioPendiente.nombre,
+          apellido: usuarioPendiente.apellido,
+          dni: usuarioPendiente.dni,
+          rolSolicitado: usuarioPendiente.rolSolicitado,
+          estadoDeSolitud: EstadoDeSolicitud.pendiente,
+          fechaCreacion: ahora,
+          ultimaModificacion: ahora,
+        ),
       ),
     );
     return result;

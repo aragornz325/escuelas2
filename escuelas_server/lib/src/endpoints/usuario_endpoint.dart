@@ -7,21 +7,23 @@ class UsuarioEndpoint extends Endpoint with Controller {
   @override
   ServicioUsuario get servicio => ServicioUsuario();
 
-  /// La función "obtenerUsuariosPendientes" devuelve un objeto Futuro que recupera usuarios pendientes
+  /// La función "obtenerUsuarioPendiente" devuelve un objeto Futuro que recupera usuario pendiente
   /// usando una sesión.
   ///
   /// Args:
   ///   session (Session): El parámetro de sesión es un objeto que representa la sesión del usuario
   /// actual. Se utiliza para autenticar y autorizar al usuario que realiza la solicitud.
-  ///
-  /// Returns:
-  ///   El método está devolviendo un `Futuro<UsuarioPendiente>`.
-  Future<UsuarioPendiente> obtenerUsuariosPendientes(
-    Session session,
-  ) async {
-    return await ejecutarOperacionControlador('obtenerUsuariosPendientes',
-        () => servicio.obtenerUsuariosPendientes(session));
-  }
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(
+    Session session, {
+    required int idUserInfo,
+  }) async =>
+      ejecutarOperacionControlador(
+        'obtenerUsuarioPendiente',
+        () => servicio.obtenerUsuarioPendiente(
+          session,
+          idUserInfo: idUserInfo,
+        ),
+      );
 
   /// La función `enviarSoliciturRegistro` envía una solicitud de registro para un usuario pendiente.
   ///
@@ -30,16 +32,15 @@ class UsuarioEndpoint extends Endpoint with Controller {
   /// para fines de autenticación y autorización.
   ///   usuarioPendiente (UsuarioPendiente): El parámetro "UserPending" es de tipo "UserPending" y es
   /// obligatorio.
-  ///
-  /// Returns:
-  ///   El método está devolviendo un `Futuro<UsuarioPendiente>`.
   Future<UsuarioPendiente> enviarSoliciturRegistro(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
-  }) async {
-    return await ejecutarOperacionControlador(
+  }) async =>
+      ejecutarOperacionControlador(
         'enviarSoliciturRegistro',
-        () => servicio.enviarSolicitudRegistro(session,
-            usuarioPendiente: usuarioPendiente));
-  }
+        () => servicio.enviarSolicitudRegistro(
+          session,
+          usuarioPendiente: usuarioPendiente,
+        ),
+      );
 }

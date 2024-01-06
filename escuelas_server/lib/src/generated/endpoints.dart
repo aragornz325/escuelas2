@@ -385,15 +385,24 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'usuario',
       endpoint: endpoints['usuario']!,
       methodConnectors: {
-        'obtenerUsuariosPendientes': _i1.MethodConnector(
-          name: 'obtenerUsuariosPendientes',
-          params: {},
+        'obtenerUsuarioPendiente': _i1.MethodConnector(
+          name: 'obtenerUsuarioPendiente',
+          params: {
+            'idUserInfo': _i1.ParameterDescription(
+              name: 'idUserInfo',
+              type: _i1.getType<int>(),
+              nullable: false,
+            )
+          },
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
               (endpoints['usuario'] as _i7.UsuarioEndpoint)
-                  .obtenerUsuariosPendientes(session),
+                  .obtenerUsuarioPendiente(
+            session,
+            idUserInfo: params['idUserInfo'],
+          ),
         ),
         'enviarSoliciturRegistro': _i1.MethodConnector(
           name: 'enviarSoliciturRegistro',

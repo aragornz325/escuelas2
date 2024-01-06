@@ -238,20 +238,18 @@ class EndpointUsuario extends _i1.EndpointRef {
   @override
   String get name => 'usuario';
 
-  /// La función "obtenerUsuariosPendientes" devuelve un objeto Futuro que recupera usuarios pendientes
+  /// La función "obtenerUsuarioPendiente" devuelve un objeto Futuro que recupera usuario pendiente
   /// usando una sesión.
   ///
   /// Args:
   ///   session (Session): El parámetro de sesión es un objeto que representa la sesión del usuario
   /// actual. Se utiliza para autenticar y autorizar al usuario que realiza la solicitud.
-  ///
-  /// Returns:
-  ///   El método está devolviendo un `Futuro<UsuarioPendiente>`.
-  _i2.Future<_i7.UsuarioPendiente> obtenerUsuariosPendientes() =>
-      caller.callServerEndpoint<_i7.UsuarioPendiente>(
+  _i2.Future<_i7.UsuarioPendiente?> obtenerUsuarioPendiente(
+          {required int idUserInfo}) =>
+      caller.callServerEndpoint<_i7.UsuarioPendiente?>(
         'usuario',
-        'obtenerUsuariosPendientes',
-        {},
+        'obtenerUsuarioPendiente',
+        {'idUserInfo': idUserInfo},
       );
 
   /// La función `enviarSoliciturRegistro` envía una solicitud de registro para un usuario pendiente.
@@ -261,9 +259,6 @@ class EndpointUsuario extends _i1.EndpointRef {
   /// para fines de autenticación y autorización.
   ///   usuarioPendiente (UsuarioPendiente): El parámetro "UserPending" es de tipo "UserPending" y es
   /// obligatorio.
-  ///
-  /// Returns:
-  ///   El método está devolviendo un `Futuro<UsuarioPendiente>`.
   _i2.Future<_i7.UsuarioPendiente> enviarSoliciturRegistro(
           {required _i7.UsuarioPendiente usuarioPendiente}) =>
       caller.callServerEndpoint<_i7.UsuarioPendiente>(
