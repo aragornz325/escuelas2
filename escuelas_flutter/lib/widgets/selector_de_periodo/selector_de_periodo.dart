@@ -1,5 +1,6 @@
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 import 'package:flutter/material.dart';
+import 'package:full_responsive/full_responsive.dart';
 
 /// {@template SelectorDePeriodo}
 /// Representa un selector de periodo de tiempo
@@ -18,7 +19,7 @@ class SelectorDePeriodo extends StatefulWidget {
   final PeriodoDelegate _delegate;
 
   /// Ejecuta una acción al retroceder el periodo.
-  final void Function(Periodo periodo) onSeleccionarPeriodo;
+  final void Function(PeriodoDelSelector periodo) onSeleccionarPeriodo;
 
   /// La decoracion del selector de periodo
   final BoxDecoration? decoration;
@@ -32,9 +33,20 @@ class SelectorDePeriodo extends StatefulWidget {
 
 class _SelectorDePeriodoState extends State<SelectorDePeriodo> {
   @override
+  void didUpdateWidget(SelectorDePeriodo oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    // Cuando se actualice el widget por un setState o lo que
+    // fuera por fuera del componente, se reescribe el periodo actual.
+    widget._delegate.periodoActual = oldWidget._delegate.periodoActual;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       margin: widget.margin,
+      padding: EdgeInsets.symmetric(
+        vertical: 5.ph,
+      ),
       decoration: widget.decoration,
       child: Center(
         child: Row(

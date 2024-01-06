@@ -58,7 +58,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
                   (etiqueta) => Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15.ph)
                         .copyWith(bottom: 15.ph),
-                    child: ElementoLista.menuInicial(
+                    child: ElementoLista.menu(
                       nombreOpcion: etiqueta.titulo,
                       context: context,
                       onTap: () => etiqueta.redirigirAVista(context),

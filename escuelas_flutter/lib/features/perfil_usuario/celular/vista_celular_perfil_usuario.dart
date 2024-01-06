@@ -1,6 +1,6 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/extensiones/string.dart';
-import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/widgets/seccion_datos_personales.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/widgets/tarjeta_perfil.dart';
@@ -23,7 +23,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
   /// Dialog para confirmar la asignacion de un rol al usuario
   void _dialogAsignarRol(
     BuildContext context,
-    InfoUsuario? usuario,
+    Usuario? usuario,
   ) {
     final colores = context.colores;
 
@@ -56,7 +56,8 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: usuario?.nombre ?? '',
+                // TODO(Gon): Cambiar por el nombre
+                text: usuario?.dni ?? '',
                 style: TextStyle(
                   color: colores.onBackground,
                   fontSize: 16.pf,
@@ -74,7 +75,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: '${usuario?.rol.name.toUpperCase()}?',
+                text: '${usuario?.roles[0].nombre.toUpperCase()}?',
                 style: TextStyle(
                   color: colores.onBackground,
                   fontSize: 16.pf,
@@ -104,7 +105,8 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20.ph),
               child: ElementoLista(
                 texto: Text(
-                  (state.usuario?.rol.name ?? '').capitalize,
+                  // TODO(Gon): Verificar
+                  (state.usuario?.roles[0].nombre ?? '').capitalize,
                   style: TextStyle(
                     color: colores.onSecondary,
                     fontSize: 13.pf,

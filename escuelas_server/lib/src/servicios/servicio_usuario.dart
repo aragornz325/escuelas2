@@ -47,21 +47,36 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     return datosDeUsuario;
   }
 
-  /// La función "obtenerUsuariosPendientes" recupera usuarios pendientes usando una sesión y devuelve el
+  /// La función "obtenerUsuarioPendiente" recupera un usuario pendiente usando una sesión y devuelve el
   /// resultado.
   ///
   /// Args:
   ///   session (Session): El parámetro "sesión" es un objeto de tipo "Sesión". Se utiliza para
   /// representar una sesión o conexión a una base de datos. Probablemente se esté pasando al método
-  /// "orm.obtenerUsuariosPendiente" para recuperar datos de usuario pendientes de la base de datos.
+  /// "orm.obtenerUsuarioPendiente" para recuperar datos de usuario pendientes de la base de datos.
   ///
   /// Returns:
   ///   a `Future<UsuarioPendiente>`.
-  Future<UsuarioPendiente> obtenerUsuariosPendientes(Session session) async {
-    final result = await ejecutarOperacion(
-        () => _ormUsuarioPendiente.obtenerUsuariosPendiente(session));
-    return result!;
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(Session session) async {
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+
+    return await ejecutarOperacion(
+      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(session, idUserInfo: idUserInfo),
+    );
   }
+
+  /// La función "obtenerUsuariosPendientes" recupera los usuarios pendientes usando una sesión y devuelve el
+  /// resultado.
+  ///
+  /// Args:
+  ///   session (Session): El parámetro "sesión" es un objeto de tipo "Sesión". Se utiliza para
+  /// representar una sesión o conexión a una base de datos. Probablemente se esté pasando al método
+  /// "orm.obtenerUsuariosPendientes" para recuperar datos de usuario pendientes de la base de datos.
+  Future<List<UsuarioPendiente>> obtenerUsuariosPendientes(
+          Session session) async =>
+      await ejecutarOperacion(
+        () => _ormUsuarioPendiente.obtenerUsuariosPendientes(session),
+      );
 
   /// La función `enviarSolicitudRegistro` envía una solicitud de registro para que un usuario pendiente
   /// sea creado en la base de datos.
@@ -80,20 +95,37 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     required UsuarioPendiente usuarioPendiente,
   }) async {
     final ahora = DateTime.now();
+
     final result = await ejecutarOperacion(
       () => _ormUsuarioPendiente.crearUsuarioPendiente(
         session,
         usuarioPendiente: UsuarioPendiente(
-            idUserInfo: usuarioPendiente.idUserInfo,
-            nombre: usuarioPendiente.nombre,
-            apellido: usuarioPendiente.apellido,
-            dni: usuarioPendiente.dni,
-            rolSolicitado: usuarioPendiente.rolSolicitado,
-            aprobado: usuarioPendiente.aprobado,
-            fechaCreacion: ahora,
-            ultimaModificacion: ahora),
+          idUserInfo: usuarioPendiente.idUserInfo,
+          nombre: usuarioPendiente.nombre,
+          apellido: usuarioPendiente.apellido,
+          dni: usuarioPendiente.dni,
+          rolSolicitado: usuarioPendiente.rolSolicitado,
+          estadoDeSolitud: EstadoDeSolicitud.pendiente,
+          fechaCreacion: ahora,
+          ultimaModificacion: ahora,
+        ),
       ),
     );
     return result;
+  }
+
+  /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
+  Future<void> actualizarUsuarioPendiente(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async {
+    final ahora = DateTime.now();
+
+    return ejecutarOperacion(
+      () => _ormUsuarioPendiente.actualizarUsuarioPendiente(
+        session,
+        usuarioPendiente: usuarioPendiente..ultimaModificacion = ahora,
+      ),
+    );
   }
 }

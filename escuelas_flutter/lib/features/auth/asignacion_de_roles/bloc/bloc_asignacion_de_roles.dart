@@ -1,5 +1,5 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_asignacion_de_roles_estado.dart';
@@ -32,7 +32,19 @@ class BlocAsignacionDeRoles
         emit(
           BlocAsignacionDeRolesEstadoExitoso.desde(
             state,
-            listaUsuariosPendientes: listaUsuariosPendientes,
+            listaUsuariosPendientes: [
+              UsuarioPendiente(
+                nombre: 'Gonzalo',
+                apellido: 'Gonzalez',
+                id: 0,
+                rolSolicitado: 3,
+                aprobado: false,
+                idUserInfo: 0,
+                dni: '43',
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now(),
+              ),
+            ],
           ),
         );
       },
@@ -44,5 +56,41 @@ class BlocAsignacionDeRoles
         );
       },
     );
+  }
+}
+
+enum Roles {
+  directivo,
+  alumno,
+  docente;
+
+  RolDeUsuario get rol {
+    switch (this) {
+      case Roles.directivo:
+        return RolDeUsuario(
+          nombre: 'Directivo',
+          id: 0,
+          descripcion: '',
+          fechaCreacion: DateTime.now(),
+          ultimaModificacion: DateTime.now(),
+        );
+
+      case Roles.alumno:
+        return RolDeUsuario(
+          nombre: 'Alumno',
+          descripcion: '',
+          fechaCreacion: DateTime.now(),
+          ultimaModificacion: DateTime.now(),
+          id: 1,
+        );
+      case Roles.docente:
+        return RolDeUsuario(
+          nombre: 'Docente',
+          descripcion: '',
+          fechaCreacion: DateTime.now(),
+          ultimaModificacion: DateTime.now(),
+          id: 2,
+        );
+    }
   }
 }

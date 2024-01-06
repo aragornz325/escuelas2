@@ -10,7 +10,7 @@ enum InfoDeRol {
   tomarInasistencia,
   listaCursos,
   usuariosPendientes,
-  personal,
+  comunidadAcademica,
   supervision,
   kyc;
 
@@ -22,8 +22,8 @@ enum InfoDeRol {
       // o Lista de Cursos segun el rol
       case InfoDeRol.listaCursos:
         return 'LISTA DE CURSOS';
-      case InfoDeRol.personal:
-        return 'PERSONAL';
+      case InfoDeRol.comunidadAcademica:
+        return 'COMUNIDAD ACADEMICA';
       case InfoDeRol.tomarInasistencia:
         return 'TOMAR INASISTENCIA';
       case InfoDeRol.usuariosPendientes:
@@ -41,7 +41,7 @@ enum InfoDeRol {
         return [Permiso.directivo, Permiso.docente];
       case InfoDeRol.listaCursos:
         return [Permiso.directivo, Permiso.docente];
-      case InfoDeRol.personal:
+      case InfoDeRol.comunidadAcademica:
         return [
           Permiso.directivo,
         ];
@@ -67,8 +67,8 @@ enum InfoDeRol {
       // TODO(ANYONE): Agregar redirecciones adecuadas
       case InfoDeRol.listaCursos:
         context.router.push(const RutaMisCursos());
-      case InfoDeRol.personal:
-        context.router.push(RutaInicio());
+      case InfoDeRol.comunidadAcademica:
+        context.router.push(const RutaComunidadAcademica());
       case InfoDeRol.tomarInasistencia:
         context.router.push(const RutaInasistencia());
       case InfoDeRol.usuariosPendientes:

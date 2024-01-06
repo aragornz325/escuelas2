@@ -1,5 +1,5 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/modelos_temporales.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -18,7 +18,7 @@ class ItemMateria extends StatelessWidget {
   });
 
   /// Usuario del que se muestran los datos
-  final Materia materia;
+  final Asignatura materia;
 
   /// On tap del item
   final VoidCallback onTap;
@@ -37,7 +37,7 @@ class ItemMateria extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: ElementoLista.materia(
+          child: ElementoLista.misCursos(
             nombreMateria: materia.nombre,
             estaCargada: estaCargada,
             estaHabilitado: estaHabilitado,

@@ -8,11 +8,11 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
   OrmAsistencia get orm => OrmAsistencia();
 
   /// La función `crearAsistenciasEnLote` crea múltiples registros de asistencia diaria en un lote.
-  /// 
+  ///
   /// Args:
-  ///   session (Session): 
+  ///   session (Session):
   ///   asistencias (List<AsistenciaDiaria>): Una lista de objetos del tipo "AsistenciaDiaria".
-  /// 
+  ///
   /// Returns:
   ///   El método `crearAsistenciasEnLote` devuelve un `Futuro<String>`.
   Future<String> crearAsistenciasEnLote(

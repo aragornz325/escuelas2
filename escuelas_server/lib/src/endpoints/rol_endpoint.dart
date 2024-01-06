@@ -30,7 +30,6 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
     );
   }
 
-
   /// La función `obtenerRoles` recupera una lista de roles de usuario utilizando una sesión y un
   /// servicio.
   ///  args:
@@ -50,7 +49,7 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
   ///   session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
   /// sesión actual o la conexión a una base de datos o servidor.
   ///  rol (RolDeUsuario): El parámetro "rol" es de tipo "RolDeUsuario" y es obligatorio.
-  /// 
+  ///
   Future<RolDeUsuario> crearRol(
     Session session, {
     required RolDeUsuario rol,
@@ -79,12 +78,13 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
               rol: rol,
             ));
   }
+
   /// La función `eliminarRol` elimina un rol de usuario utilizando una sesión y un servicio.
   /// args:
   ///  session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
   /// sesión actual o la conexión a una base de datos o servidor.
   /// id (int): El parámetro "id" es un número entero que representa el identificador único del rol.
-  /// 
+  ///
   Future<void> eliminarRol(
     Session session, {
     required int id,

@@ -10,7 +10,7 @@ class DefaultPeriodoActual extends StatelessWidget {
     super.key,
   });
 
-  final Periodo periodo;
+  final PeriodoDelSelector periodo;
 
   @override
   Widget build(BuildContext context) {

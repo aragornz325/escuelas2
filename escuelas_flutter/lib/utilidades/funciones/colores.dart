@@ -15,11 +15,11 @@ class Colores {
     if (dia > 0 && dia <= 4) {
       return colores.verdeConfirmar;
     } else if (dia > 4 && dia <= 6) {
-      return Colors.green;
+      return colores.verdeTEA;
     } else if (dia > 6 && dia <= 8) {
-      return colores.amarilloCuartoFalta;
+      return colores.naranjaTEP;
     } else if (dia > 8 && dia >= 9) {
-      return colores.error;
+      return colores.rojoTED;
     } else {
       return colores.onSecondary;
     }

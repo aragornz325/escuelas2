@@ -31,19 +31,52 @@ class OrmUsuarioPendiente extends ORM {
   ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual.
   ///
   /// Returns:
-  ///   La función `obtenerUsuariosPendiente` devuelve un `Futuro` que se resuelve en una instancia de
+  ///   La función `obtenerUsuarioPendiente` devuelve un `Futuro` que se resuelve en una instancia de
   /// `UsuarioPendiente` o `null`.
-  Future<UsuarioPendiente?> obtenerUsuariosPendiente(
-    Session session,
-  ) async {
-    final usuarios = await UsuarioPendiente.db.find(
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(
+    Session session, {
+    required int idUserInfo,
+  }) async {
+    final usuarioPendiente = await UsuarioPendiente.db.findFirstRow(
       session,
-      where: (t) => t.aprobado.equals(false),
+      where: (t) => t.idUserInfo.equals(idUserInfo),
     );
 
-    if (usuarios.isEmpty) {
-      throw Exception('No hay usuarios pendientes');
-    }
-    return usuarios.first;
+    return usuarioPendiente;
   }
+
+  /// La función obtiene la lista de usuarios pendientes de la base de datos.
+  ///
+  /// Args:
+  ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual.
+  Future<List<UsuarioPendiente>> obtenerUsuariosPendientes(
+      Session session) async {
+    final usuarioPendientes = await UsuarioPendiente.db.find(
+      session,
+      where: (t) => t.estadoDeSolitud.equals(EstadoDeSolicitud.pendiente),
+    );
+
+    return usuarioPendientes;
+  }
+
+  /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
+  Future<void> actualizarUsuarioPendiente(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => UsuarioPendiente.db.updateRow(
+          session,
+          usuarioPendiente,
+          columns: (t) => [
+            t.nombre,
+            t.apellido,
+            t.dni,
+            t.rolSolicitado,
+            t.estadoDeSolitud,
+            t.ultimaModificacion,
+          ],
+        ),
+      );
 }

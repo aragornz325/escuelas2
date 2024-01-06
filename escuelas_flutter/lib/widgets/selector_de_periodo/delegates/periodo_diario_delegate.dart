@@ -10,13 +10,16 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@endtemplate}
 class PeriodoDiarioDelegate extends PeriodoDelegate {
   /// {@macro PeriodoDiarioDelegate}
-  PeriodoDiarioDelegate(this.context)
-      : super(
-          Periodo(
-            etiqueta: DateTime.now().numeroDia(context),
-            fechaDesde: DateTime.now(),
-            fechaHasta: DateTime.now(),
-          ),
+  PeriodoDiarioDelegate(
+    this.context, {
+    PeriodoDelSelector? periodoInicial,
+  }) : super(
+          periodoInicial ??
+              PeriodoDelSelector(
+                etiqueta: DateTime.now().numeroDia(context),
+                fechaDesde: DateTime.now(),
+                fechaHasta: DateTime.now(),
+              ),
         );
 
   final BuildContext context;
@@ -25,18 +28,18 @@ class PeriodoDiarioDelegate extends PeriodoDelegate {
   int get cantidadDePeriodosVisibles => 7;
 
   @override
-  List<Periodo> get periodosAnterior {
+  List<PeriodoDelSelector> get periodosAnterior {
     final cantPeriodosAnterioresVisibles = cantidadDePeriodosVisibles.isEven
         ? cantidadDePeriodosVisibles / 2
         : (cantidadDePeriodosVisibles - 1) / 2;
 
-    return List<Periodo>.generate(cantPeriodosAnterioresVisibles.toInt(),
-        (index) {
+    return List<PeriodoDelSelector>.generate(
+        cantPeriodosAnterioresVisibles.toInt(), (index) {
       final anteriorFechaDesde = periodoActual.fechaDesde.copyWith(
         day: periodoActual.fechaDesde.day - 1 * (index + 1),
       );
 
-      return Periodo(
+      return PeriodoDelSelector(
         etiqueta: anteriorFechaDesde.numeroDia(context),
         fechaDesde: anteriorFechaDesde,
         fechaHasta: anteriorFechaDesde.copyWith(
@@ -50,18 +53,18 @@ class PeriodoDiarioDelegate extends PeriodoDelegate {
   }
 
   @override
-  List<Periodo> get periodosPosteriores {
+  List<PeriodoDelSelector> get periodosPosteriores {
     final cantPeriodosPosterioresVisibles = cantidadDePeriodosVisibles.isEven
         ? cantidadDePeriodosVisibles / 2
         : (cantidadDePeriodosVisibles - 1) / 2;
 
-    return List<Periodo>.generate(cantPeriodosPosterioresVisibles.toInt(),
-        (index) {
+    return List<PeriodoDelSelector>.generate(
+        cantPeriodosPosterioresVisibles.toInt(), (index) {
       final posteriorFechaDesde = periodoActual.fechaDesde.copyWith(
         day: periodoActual.fechaDesde.day + 1 * (index + 1),
       );
 
-      return Periodo(
+      return PeriodoDelSelector(
         etiqueta: posteriorFechaDesde.numeroDia(context),
         fechaDesde: posteriorFechaDesde,
         fechaHasta: posteriorFechaDesde.copyWith(
@@ -73,14 +76,14 @@ class PeriodoDiarioDelegate extends PeriodoDelegate {
 
   @override
   Widget buildPeriodoActual({
-    required Periodo periodo,
+    required PeriodoDelSelector periodo,
   }) =>
       PeriodoSeleccionado(periodo: periodoActual);
 
   @override
   Widget buildPeriodosAnteriores({
     required void Function() onSeleccionarPeriodo,
-    required Periodo periodo,
+    required PeriodoDelSelector periodo,
   }) =>
       PeriodoNoSeleccionado(
         periodo: periodo,
@@ -90,7 +93,7 @@ class PeriodoDiarioDelegate extends PeriodoDelegate {
   @override
   Widget buildPeriodosPosteriores({
     required void Function() onSeleccionarPeriodo,
-    required Periodo periodo,
+    required PeriodoDelSelector periodo,
   }) =>
       PeriodoNoSeleccionado(
         periodo: periodo,
@@ -113,7 +116,7 @@ class PeriodoNoSeleccionado extends StatelessWidget {
   final void Function() onSeleccionarPeriodo;
 
   /// Periodo a mostrar
-  final Periodo periodo;
+  final PeriodoDelSelector periodo;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +163,7 @@ class PeriodoSeleccionado extends StatelessWidget {
   const PeriodoSeleccionado({required this.periodo, super.key});
 
   /// Periodo a mostrar
-  final Periodo periodo;
+  final PeriodoDelSelector periodo;
 
   @override
   Widget build(BuildContext context) {

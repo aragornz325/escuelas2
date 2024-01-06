@@ -9,13 +9,13 @@ class BlocPerfilUsuarioEstado {
 
   BlocPerfilUsuarioEstado.desde(
     BlocPerfilUsuarioEstado otro, {
-    InfoUsuario? usuario,
+    Usuario? usuario,
   }) : this._(
           usuario: usuario ?? otro.usuario,
         );
 
   /// Informacion del usuario
-  final InfoUsuario? usuario;
+  final Usuario? usuario;
 }
 
 /// {@template BlocPerfilUsuarioEstadoInicial}

@@ -44,20 +44,24 @@ class DatosPersonales extends StatelessWidget {
                   SizedBox(height: 10.ph),
                   _DatoPersonal(
                     tipoDato: '${l10n.commonPhone}: ',
-                    dato: state.usuario?.telefono.toString(),
+                    // TODO(anyone):Poner telefono
+                    dato: state.usuario?.dni.toString(),
                   ),
                   _DatoPersonal(
                     tipoDato: '${l10n.commonMail}: ',
-                    dato: state.usuario?.email,
+                    // TODO(anyone):Poner email
+                    dato: state.usuario?.dni,
                   ),
                   SizedBox(height: 10.ph),
                   _DatoPersonal(
                     tipoDato: '${l10n.commonBloodFactor}: ',
-                    dato: state.usuario?.factorSanguineo,
+                    // TODO(anyone):Poner factorSanguineo
+                    dato: state.usuario?.dni,
                   ),
                   _DatoPersonal(
                     tipoDato: '${l10n.commonAge}: ',
-                    dato: state.usuario?.edad.toString(),
+                    // TODO(anyone):Poner edad
+                    dato: state.usuario?.dni,
                   ),
                   SizedBox(height: 10.ph),
                   _DatoPersonal(
