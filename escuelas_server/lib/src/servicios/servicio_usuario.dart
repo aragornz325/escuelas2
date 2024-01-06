@@ -61,7 +61,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
 
     return await ejecutarOperacion(
-      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(session, idUserInfo: idUserInfo),
+      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(session,
+          idUserInfo: idUserInfo),
     );
   }
 
@@ -93,6 +94,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   Future<UsuarioPendiente> enviarSolicitudRegistro(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
+    bool esDocente = false,
   }) async {
     final ahora = DateTime.now();
 

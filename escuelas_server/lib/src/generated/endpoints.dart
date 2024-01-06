@@ -13,7 +13,7 @@ import '../endpoints/asignatura_endpoint.dart' as _i2;
 import '../endpoints/asistencia_endpoint.dart' as _i3;
 import '../endpoints/curso_endpoint.dart' as _i4;
 import '../endpoints/example_endpoint.dart' as _i5;
-import '../endpoints/roles_endpoint.dart' as _i6;
+import '../endpoints/rol_endpoint.dart' as _i6;
 import '../endpoints/usuario_endpoint.dart' as _i7;
 import 'package:escuelas_server/src/generated/curso/asignatura.dart' as _i8;
 import 'package:escuelas_server/src/generated/asistencia/asistencia_diaria.dart'
@@ -53,10 +53,10 @@ class Endpoints extends _i1.EndpointDispatch {
           'example',
           null,
         ),
-      'roles': _i6.RolesEndpoint()
+      'rol': _i6.RolEndpoint()
         ..initialize(
           server,
-          'roles',
+          'rol',
           null,
         ),
       'usuario': _i7.UsuarioEndpoint()
@@ -268,6 +268,30 @@ class Endpoints extends _i1.EndpointDispatch {
             id: params['id'],
           ),
         ),
+        'relacionarUsuarioACurso': _i1.MethodConnector(
+          name: 'relacionarUsuarioACurso',
+          params: {
+            'idCurso': _i1.ParameterDescription(
+              name: 'idCurso',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+            'idUsuario': _i1.ParameterDescription(
+              name: 'idUsuario',
+              type: _i1.getType<int>(),
+              nullable: false,
+            ),
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['curso'] as _i4.CursoEndpoint).relacionarUsuarioACurso(
+            session,
+            idCurso: params['idCurso'],
+            idUsuario: params['idUsuario'],
+          ),
+        ),
       },
     );
     connectors['example'] = _i1.EndpointConnector(
@@ -294,9 +318,9 @@ class Endpoints extends _i1.EndpointDispatch {
         )
       },
     );
-    connectors['roles'] = _i1.EndpointConnector(
-      name: 'roles',
-      endpoint: endpoints['roles']!,
+    connectors['rol'] = _i1.EndpointConnector(
+      name: 'rol',
+      endpoint: endpoints['rol']!,
       methodConnectors: {
         'obtenerRolPorId': _i1.MethodConnector(
           name: 'obtenerRolPorId',
@@ -311,7 +335,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['roles'] as _i6.RolesEndpoint).obtenerRolPorId(
+              (endpoints['rol'] as _i6.RolEndpoint).obtenerRolPorId(
             session,
             id: params['id'],
           ),
@@ -323,7 +347,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['roles'] as _i6.RolesEndpoint).obtenerRoles(session),
+              (endpoints['rol'] as _i6.RolEndpoint).obtenerRoles(session),
         ),
         'crearRol': _i1.MethodConnector(
           name: 'crearRol',
@@ -338,7 +362,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['roles'] as _i6.RolesEndpoint).crearRol(
+              (endpoints['rol'] as _i6.RolEndpoint).crearRol(
             session,
             rol: params['rol'],
           ),
@@ -356,7 +380,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['roles'] as _i6.RolesEndpoint).actualizarRol(
+              (endpoints['rol'] as _i6.RolEndpoint).actualizarRol(
             session,
             rol: params['rol'],
           ),
@@ -374,7 +398,7 @@ class Endpoints extends _i1.EndpointDispatch {
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['roles'] as _i6.RolesEndpoint).eliminarRol(
+              (endpoints['rol'] as _i6.RolEndpoint).eliminarRol(
             session,
             id: params['id'],
           ),
@@ -385,6 +409,16 @@ class Endpoints extends _i1.EndpointDispatch {
       name: 'usuario',
       endpoint: endpoints['usuario']!,
       methodConnectors: {
+        'obtenerDatosDelUsuario': _i1.MethodConnector(
+          name: 'obtenerDatosDelUsuario',
+          params: {},
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['usuario'] as _i7.UsuarioEndpoint)
+                  .obtenerDatosDelUsuario(session),
+        ),
         'obtenerUsuarioPendiente': _i1.MethodConnector(
           name: 'obtenerUsuarioPendiente',
           params: {},
@@ -405,8 +439,8 @@ class Endpoints extends _i1.EndpointDispatch {
               (endpoints['usuario'] as _i7.UsuarioEndpoint)
                   .obtenerUsuariosPendientes(session),
         ),
-        'enviarSoliciturRegistro': _i1.MethodConnector(
-          name: 'enviarSoliciturRegistro',
+        'enviarSolicitudRegistroDocente': _i1.MethodConnector(
+          name: 'enviarSolicitudRegistroDocente',
           params: {
             'usuarioPendiente': _i1.ParameterDescription(
               name: 'usuarioPendiente',
@@ -419,7 +453,26 @@ class Endpoints extends _i1.EndpointDispatch {
             Map<String, dynamic> params,
           ) async =>
               (endpoints['usuario'] as _i7.UsuarioEndpoint)
-                  .enviarSoliciturRegistro(
+                  .enviarSolicitudRegistroDocente(
+            session,
+            usuarioPendiente: params['usuarioPendiente'],
+          ),
+        ),
+        'enviarSolicitudRegistroAlumno': _i1.MethodConnector(
+          name: 'enviarSolicitudRegistroAlumno',
+          params: {
+            'usuarioPendiente': _i1.ParameterDescription(
+              name: 'usuarioPendiente',
+              type: _i1.getType<_i12.UsuarioPendiente>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['usuario'] as _i7.UsuarioEndpoint)
+                  .enviarSolicitudRegistroAlumno(
             session,
             usuarioPendiente: params['usuarioPendiente'],
           ),

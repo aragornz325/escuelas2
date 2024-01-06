@@ -12,16 +12,19 @@ curso:
   - crearCurso:
   - actualizarCurso:
   - eliminarCurso:
+  - relacionarUsuarioACurso:
 example:
   - hello:
-roles:
+rol:
   - obtenerRolPorId:
   - obtenerRoles:
   - crearRol:
   - actualizarRol:
   - eliminarRol:
 usuario:
+  - obtenerDatosDelUsuario:
   - obtenerUsuarioPendiente:
   - obtenerUsuariosPendientes:
-  - enviarSoliciturRegistro:
+  - enviarSolicitudRegistroDocente:
+  - enviarSolicitudRegistroAlumno:
   - actualizarUsuarioPendiente:

@@ -38,19 +38,41 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         () => servicio.obtenerUsuariosPendientes(session),
       );
 
-  /// La función `enviarSoliciturRegistro` envía una solicitud de registro para un usuario pendiente.
+  /// La función `enviarSolicitudRegistroDocente` envía una solicitud de registro para
+  /// un usuario pendiente.
   ///
   /// Args:
   ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual. Es necesario
   /// para fines de autenticación y autorización.
   ///   usuarioPendiente (UsuarioPendiente): El parámetro "UserPending" es de tipo "UserPending" y es
   /// obligatorio.
-  Future<UsuarioPendiente> enviarSoliciturRegistro(
+  Future<UsuarioPendiente> enviarSolicitudRegistroDocente(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
   }) async =>
       ejecutarOperacionControlador(
-        'enviarSoliciturRegistro',
+        'enviarSolicitudRegistroDocente',
+        () => servicio.enviarSolicitudRegistro(
+          session,
+          usuarioPendiente: usuarioPendiente,
+          esDocente: true,
+        ),
+      );
+
+  /// La función `enviarSoliciturRegistroAlumno` envía una solicitud de registro
+  /// para un usuario pendiente.
+  ///
+  /// Args:
+  ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual. Es necesario
+  /// para fines de autenticación y autorización.
+  ///   usuarioPendiente (UsuarioPendiente): El parámetro "UserPending" es de tipo "UserPending" y es
+  /// obligatorio.
+  Future<UsuarioPendiente> enviarSolicitudRegistroAlumno(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async =>
+      ejecutarOperacionControlador(
+        'enviarSolicitudRegistroAlumno',
         () => servicio.enviarSolicitudRegistro(
           session,
           usuarioPendiente: usuarioPendiente,

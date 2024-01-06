@@ -10,7 +10,6 @@ class CursoEndpoint extends Endpoint with Controller<ServicioCurso> {
   @override
   bool get requireLogin => false;
 
-
   /// La función "obtenerCursoPorId" recupera un curso por su ID usando una sesión y un ORM.
   Future<Curso> obtenerCursoPorId(
     Session session, {
@@ -51,7 +50,6 @@ class CursoEndpoint extends Endpoint with Controller<ServicioCurso> {
     );
   }
 
-
   /// La función `eliminarCurso` elimina un curso de una base de datos utilizando una sesión y un ORM.
   Future<void> eliminarCurso(
     Session session, {
@@ -61,5 +59,18 @@ class CursoEndpoint extends Endpoint with Controller<ServicioCurso> {
       session,
       id: id,
     );
+  }
+
+  /// Relaciona
+  Future<void> relacionarUsuarioACurso(
+    Session session, {
+    required int idCurso,
+    required int idUsuario,
+  }) async {
+    // return servicio.relacionarUsuarioACurso(
+    //   session,
+    //   idCurso: idCurso,
+    //   idUsuario: idUsuario,
+    // );
   }
 }

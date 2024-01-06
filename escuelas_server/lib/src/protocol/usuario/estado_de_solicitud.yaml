@@ -1,4 +1,8 @@
-enum: EstadoDeSolicitud
+## Estado de solicitud de registro de usuario
+##
+## Una vez que el usuario completa el KYC, el administrador
+## puede aprobar o rechazar la solicitud de registro.
+enum: EstadoDeSolicitud 
 values:
   - rechazado
   - pendiente
