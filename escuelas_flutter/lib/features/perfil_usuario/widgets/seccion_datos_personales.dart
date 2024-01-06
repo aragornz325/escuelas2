@@ -26,7 +26,7 @@ class DatosPersonales extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(50.sw)),
-        color: colores.marfilBackgroundDesktop,
+        color: colores.tertiary,
       ),
       child: ExpansionTile(
         title: Text(
@@ -43,7 +43,7 @@ class DatosPersonales extends StatelessWidget {
         collapsedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50.sw),
         ),
-        backgroundColor: colores.marfilBackgroundDesktop,
+        backgroundColor: colores.tertiary,
         children: <Widget>[
           Divider(
             height: .5,

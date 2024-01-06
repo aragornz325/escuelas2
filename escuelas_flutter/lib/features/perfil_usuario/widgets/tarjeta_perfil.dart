@@ -28,7 +28,7 @@ class TarjetaPerfil extends StatelessWidget {
       width: 340.pw,
       padding: EdgeInsets.all(20.sw),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.sw),
+        borderRadius: BorderRadius.circular(30.sw),
         color: colores.tertiary,
       ),
       child: SingleChildScrollView(

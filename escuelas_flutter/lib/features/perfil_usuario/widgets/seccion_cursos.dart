@@ -17,7 +17,7 @@ class SeccionCursos extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(50.sw)),
-        color: colores.marfilBackgroundDesktop,
+        color: colores.tertiary,
       ),
       child: ExpansionTile(
         title: Text(
@@ -34,7 +34,7 @@ class SeccionCursos extends StatelessWidget {
         collapsedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(50.sw),
         ),
-        backgroundColor: colores.marfilBackgroundDesktop,
+        backgroundColor: colores.tertiary,
         children: <Widget>[
           Divider(
             height: .5,
@@ -77,7 +77,7 @@ class SeccionCursos extends StatelessWidget {
                             style: TextStyle(
                               color: colores.grisSC,
                               fontSize: 14.pf,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
@@ -85,7 +85,7 @@ class SeccionCursos extends StatelessWidget {
                             style: TextStyle(
                               color: colores.grisSC,
                               fontSize: 14.pf,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
@@ -98,7 +98,7 @@ class SeccionCursos extends StatelessWidget {
                             style: TextStyle(
                               color: colores.grisSC,
                               fontSize: 14.pf,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
@@ -106,7 +106,7 @@ class SeccionCursos extends StatelessWidget {
                             style: TextStyle(
                               color: colores.grisSC,
                               fontSize: 14.pf,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
@@ -119,7 +119,7 @@ class SeccionCursos extends StatelessWidget {
                             style: TextStyle(
                               color: colores.grisSC,
                               fontSize: 14.pf,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                           Text(
@@ -127,7 +127,7 @@ class SeccionCursos extends StatelessWidget {
                             style: TextStyle(
                               color: colores.grisSC,
                               fontSize: 14.pf,
-                              fontWeight: FontWeight.w600,
+                              fontWeight: FontWeight.w400,
                             ),
                           ),
                         ],
