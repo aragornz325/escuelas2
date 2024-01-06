@@ -3,7 +3,7 @@ import 'package:escuelas_server/src/orms/orm_asistencia.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
-class ServicioAsistencia extends Servicio {
+class ServicioAsistencia extends Servicio<OrmAsistencia> {
   @override
   OrmAsistencia get orm => OrmAsistencia();
 

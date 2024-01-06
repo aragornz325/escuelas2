@@ -1,4 +1,5 @@
 class: InformacionDeContacto
 fields:
-  direccionesDeEmail: List<DireccionDeEmail>
-  numerosDeTelefono: List<NumeroDeTelefono>
+  idUsuario: int
+  direccionesDeEmail: List<DireccionDeEmail>?
+  numerosDeTelefono: List<NumeroDeTelefono>?

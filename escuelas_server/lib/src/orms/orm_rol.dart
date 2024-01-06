@@ -162,10 +162,8 @@ class OrmRol extends ORM {
         session,
         [
           RelacionUsuarioRol(
-            idUsuario: idUsuario,
-            idRol: idRol,
-            fechaCreacion: ahora,
-            ultimaModificacion: ahora,
+            usuarioId: idUsuario,
+            rolId: idRol,
           ),
         ],
       ),

@@ -1,8 +1,9 @@
 class: RelacionUsuarioRol
-table: r_usuario_roles
+table: r_usuario_rol
 fields:
-  idUsuario: int, relation(parent=usuarios)
-  idRol: int, relation(parent=roles_de_usuario)
-  ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?
+  usuario: Usuario?, relation(name=usuarios_roles), scope=serverOnly
+  rol: RolDeUsuario?, relation(name=rol_roles)
+indexes:
+  r_usuario_rol_index_idx:
+    fields: usuarioId, rolId
+    unique: true
