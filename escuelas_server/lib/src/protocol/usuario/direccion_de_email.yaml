@@ -1,8 +1,7 @@
 class: DireccionDeEmail
 table: direcciones_de_email
 fields:
-  idUsuario: int, relation(parent=usuarios)
   direccionDeEmail: String
-  ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?
+  ultimaModificacion: DateTime, scope=serverOnly
+  fechaCreacion: DateTime, scope=serverOnly
+  fechaEliminacion: DateTime?, scope=serverOnly

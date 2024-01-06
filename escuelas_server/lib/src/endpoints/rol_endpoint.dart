@@ -3,7 +3,8 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:serverpod/serverpod.dart';
 
-class RolesEndpoint extends Endpoint with Controller {
+class RolEndpoint extends Endpoint with Controller<ServicioRol> {
+  
   @override
   ServicioRol get servicio => ServicioRol();
 

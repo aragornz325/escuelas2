@@ -3,9 +3,15 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:serverpod/serverpod.dart';
 
-class UsuarioEndpoint extends Endpoint with Controller {
+class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   @override
   ServicioUsuario get servicio => ServicioUsuario();
+
+  Future<Usuario> obtenerDatosDelUsuario(Session session) =>
+      ejecutarOperacionControlador(
+        'obtenerDatosDelUsuario',
+        () => servicio.obtenerDatosDelUsuario(session),
+      );
 
   /// La función "obtenerUsuarioPendiente" devuelve un objeto Futuro que recupera usuario pendiente
   /// usando una sesión.
