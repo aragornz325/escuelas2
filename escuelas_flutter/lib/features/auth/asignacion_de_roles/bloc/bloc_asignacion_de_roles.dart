@@ -38,7 +38,7 @@ class BlocAsignacionDeRoles
                 apellido: 'Gonzalez',
                 id: 0,
                 rolSolicitado: 3,
-                aprobado: false,
+                estadoDeSolicitud: EstadoDeSolicitud.aprobado,
                 idUserInfo: 0,
                 dni: '43',
                 ultimaModificacion: DateTime.now(),
