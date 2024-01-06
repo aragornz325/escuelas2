@@ -1,16 +1,19 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_comision.dart';
+import 'package:escuelas_server/src/orms/orm_comision_solicitada.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioComision extends Servicio<OrmComision> {
+  final _ormComisionSolicitada = OrmComisionSolicitada();
+
   Future<void> asignarUsuarioAComision(
     Session session, {
     required int idComision,
     required int idUsuario,
   }) async =>
       ejecutarOperacion(
-        () => orm.asignarUsuarioAComision(
+        () => orm.crearRelacionUsuarioAComision(
           session,
           idComision: idComision,
           idUsuario: idUsuario,
@@ -23,7 +26,7 @@ class ServicioComision extends Servicio<OrmComision> {
     required int idUsuarioPendiente,
   }) async =>
       ejecutarOperacion(
-        () => orm.crearComisionSolicitada(
+        () => _ormComisionSolicitada.crearComisionSolicitada(
           session,
           idComision: idComision,
           idUsuarioPendiente: idUsuarioPendiente,

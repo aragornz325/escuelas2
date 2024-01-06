@@ -130,7 +130,7 @@ class OrmAsignatura extends ORM {
     return eliminado.first;
   }
 
-  Future<void> asignarUsuarioAAsignaturas(
+  Future<void> crearRelacionUsuarioAAsignaturas(
     Session session, {
     required List<Asignatura> asignaturas,
     required int usuarioId,

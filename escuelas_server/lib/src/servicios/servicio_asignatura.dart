@@ -117,7 +117,7 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
     required int usuarioId,
   }) async =>
       ejecutarOperacion(
-        () => orm.asignarUsuarioAAsignaturas(
+        () => orm.crearRelacionUsuarioAAsignaturas(
           session,
           asignaturas: asignaturas,
           usuarioId: usuarioId,
