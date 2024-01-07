@@ -35,11 +35,20 @@ class OrmUsuarioPendiente extends ORM {
   /// `UsuarioPendiente` o `null`.
   Future<UsuarioPendiente?> obtenerUsuarioPendiente(
     Session session, {
-    required int idUserInfo,
+    int? idUsuarioPendiente,
+    int? idUserInfo,
   }) async {
     final usuarioPendiente = await UsuarioPendiente.db.findFirstRow(
       session,
-      where: (t) => t.idUserInfo.equals(idUserInfo),
+      where: (t) {
+          if (idUserInfo != null) {
+            return t.idUserInfo.equals(idUserInfo);
+          }
+          if (idUsuarioPendiente != null) {
+            return t.id.equals(idUsuarioPendiente);
+          }
+          return t.id.notEquals(null);
+        },
     );
 
     return usuarioPendiente;
