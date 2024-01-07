@@ -37,22 +37,16 @@ class BlocComunidadAcademica
             nombre: 'Administrador',
             descripcion: 'Administrador',
             id: 1,
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
           ),
           RolDeUsuario(
             nombre: 'Docente',
             descripcion: 'Docente',
             id: 2,
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
           ),
           RolDeUsuario(
             nombre: 'Alumno',
             descripcion: 'Alumno',
             id: 3,
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
           ),
         ];
         emit(

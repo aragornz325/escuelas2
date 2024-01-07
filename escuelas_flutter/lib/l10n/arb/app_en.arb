@@ -146,40 +146,18 @@
         "description": "Text to be displayed if there are no grades"
     },
 
-    "absencePageTitleAppBar": "Absences",
-    "@absencePageTitleAppBar": {
-        "description": "Title of the absences page"
-    },
 
-    "commonMail": "Mail",
-    "@commonMail": {
-        "description": "Text to be displayed in common places"
-    },
 
     "commonError" : "Error!",
     "@commonError": {
         "description":"text in alertdialog title, Error"
     },
 
-    "commonCompleteTheField": "Complete the field",
-    "@commonCompleteTheField": {
-        "description": "Text to be displayed in common places to indicate that the field must be completed"
-    },
 
-    "commonEnterAValidEmail": "Enter a valid email",
-    "@commonEnterAValidEmail": {
-        "description": "Text to indicate that the email is invalid"
-    },
 
-    "commonPassword": "Password",
-    "@commonPassword": {
-        "description": "Text to be displayed in common places to indicate password text"
-    },
 
-    "commonOnlyNumbers": "Only numbers",
-    "@commonOnlyNumbers": {
-        "description": "Text to indicate that only numbers are allowed"
-    },
+
+
 
     "pageAttendanceWithoutCourses": "There are no courses",
     "@pageAttendanceWithoutCourses": {
