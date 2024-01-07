@@ -73,7 +73,8 @@ class TarjetaPerfil extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 5.ph),
                       child: Text(
-                        (state.usuario?.roles[0].nombre ?? '').capitalize,
+                        (state.usuario?.roles?.first.rol?.nombre ?? '')
+                            .capitalize,
                         style: TextStyle(
                           color: colores.grisSC,
                           fontSize: 14.pf,

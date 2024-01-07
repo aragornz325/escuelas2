@@ -40,11 +40,11 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           path: '/dashboard',
           page: RutaDashboard.page,
+          initial: true,
           guards: [authGuard],
           children: [
             AutoRoute(
               page: RutaInicio.page,
-              initial: true,
               path: 'home',
             ),
             CustomRoute(
