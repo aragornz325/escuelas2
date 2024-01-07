@@ -30,12 +30,29 @@ class AppRouter extends $AppRouter {
 
   @override
   List<AutoRoute> get routes => [
-        CustomRoute(
+        AutoRoute(
           page: RutaLogin.page,
           path: '/login',
           guards: [initialGuard],
-          initial: true,
-          transitionsBuilder: TransitionsBuilders.noTransition,
+        ),
+        AutoRoute(
+          page: RutaKyc.page,
+          path: '/kyc',
+          children: [
+            AutoRoute(
+              page: RutaSeleccionDeRol.page,
+              path: 'role-selection',
+              initial: true,
+            ),
+            AutoRoute(
+              page: RutaFormulario.page,
+              path: 'form',
+            ),
+            AutoRoute(
+              page: RutaEspera.page,
+              path: 'await-approval',
+            ),
+          ],
         ),
         AutoRoute(
           path: '/dashboard',
@@ -75,21 +92,6 @@ class AppRouter extends $AppRouter {
               page: RutaAsignacionDeRoles.page,
               path: 'role-assignment',
               transitionsBuilder: TransitionsBuilders.noTransition,
-            ),
-            AutoRoute(
-              page: RutaKyc.page,
-              path: 'kyc',
-              children: [
-                AutoRoute(
-                  page: RutaSeleccionDeRol.page,
-                  path: 'role-selection',
-                  initial: true,
-                ),
-                AutoRoute(
-                  page: RutaFormulario.page,
-                  path: 'form',
-                ),
-              ],
             ),
             AutoRoute(
               page: RutaComunidadAcademica.page,

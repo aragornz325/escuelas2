@@ -12,9 +12,10 @@ class EscuelasScaffold extends StatelessWidget {
   /// {@macro EscuelasScaffold}
   const EscuelasScaffold({
     required this.cuerpo,
-    required this.index,
+    this.index,
     this.colorDeFondo,
-    this.tieneAppBar = true,
+    this.tieneAppBar = false,
+    this.tieneBottomNavBar = false,
     super.key,
   });
 
@@ -27,8 +28,11 @@ class EscuelasScaffold extends StatelessWidget {
   /// Determina si se muestra el AppBar o no.
   final bool tieneAppBar;
 
+  /// Determina si se muestra el BottomNavBar o no.
+  final bool tieneBottomNavBar;
+
   /// Indice de la ruta seleccionada
-  final int index;
+  final int? index;
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +47,9 @@ class EscuelasScaffold extends StatelessWidget {
       appBar: tieneAppBar ? const EscuelasAppBar() : null,
       backgroundColor: colorDeFondo ?? colores.background,
       body: cuerpo,
-      bottomNavigationBar: EscuelasBottomNavigationBar(index: index),
+      bottomNavigationBar: tieneBottomNavBar
+          ? EscuelasBottomNavigationBar(index: index ?? 0)
+          : null,
     );
   }
 }

@@ -64,7 +64,7 @@ enum InfoDeRol {
   /// Redirige al usuario a esa vista
   void redirigirAVista(BuildContext context) {
     switch (this) {
-      // TODO(ANYONE): Agregar redirecciones adecuadas
+      // TODO(ANYONE): Agregar redireccion de compensaciones
       case InfoDeRol.listaCursos:
         context.router.push(const RutaMisCursos());
       case InfoDeRol.comunidadAcademica:

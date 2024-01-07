@@ -74,10 +74,10 @@ class BlocKycEstado {
   /// Metodo toJson del [BlocKycEstado]
   Map<String, dynamic> toJson() {
     return {
-      'listaCursos': listaCursos.map((e) => e.toJson()).toList(),
-      'listaMaterias': listaAsignaturas.map((e) => e.toJson()).toList(),
-      'rolElegido': rolElegido?.toJson(),
-      'listaRoles': listaRoles.map((e) => e.toJson()).toList(),
+      'listaCursos': listaCursos.map((e) => e.toJsonBloc()).toList(),
+      'listaAsignaturas': listaAsignaturas.map((e) => e.toJsonBloc()).toList(),
+      'rolElegido': rolElegido?.toJsonBloc(),
+      'listaRoles': listaRoles.map((e) => e.toJsonBloc()).toList(),
     };
   }
 
@@ -168,4 +168,14 @@ class BlocKycEstadoExitoAlSolicitarRol extends BlocKycEstado {
 class BlocKycEstadoError extends BlocKycEstado {
   /// {@macro BlocKycEstadoError}
   BlocKycEstadoError.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocKycEstadoCerrarSesionExitoso}
+/// Estado exitoso de cierre de sesion del usuario.
+/// {@endtemplate}
+class BlocKycEstadoCerrarSesionExitoso extends BlocKycEstado {
+  /// {@macro BlocKycEstadoCerrarSesionExitoso}
+  BlocKycEstadoCerrarSesionExitoso.desde(
+    super.otro,
+  ) : super.desde();
 }

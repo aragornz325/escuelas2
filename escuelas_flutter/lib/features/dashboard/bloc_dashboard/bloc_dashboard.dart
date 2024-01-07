@@ -1,7 +1,6 @@
-import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart';
-
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:serverpod_auth_client/module.dart';
 
 part 'bloc_dashboard_estado.dart';
 part 'bloc_dashboard_evento.dart';
@@ -12,36 +11,13 @@ part 'bloc_dashboard_evento.dart';
 /// {@endtemplate}
 class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
   /// {@macro BlocDashboard}
-  BlocDashboard(
-    InfoUsuario infoUsuario,
-  ) : super(BlocDashboardEstadoInicial(infoUsuario)) {
-    on<BlocDashboardEventoTraerInformacion>(_verificarUsuarioLogueado);
-  }
-
-  /// Se encarga de verificar si el usuario está logueado
-  Future<void> _verificarUsuarioLogueado(
-    BlocDashboardEventoTraerInformacion event,
-    Emitter<BlocDashboardEstado> emit,
-  ) async {
-    emit(BlocDashboardEstadoCargando.desde(super.state));
-    await operacionBloc(
-      callback: (client) async {
-        // TODO(ANYONE): Descomentar luego
-        //(client) async {
-        // final respuesta = await client.cliente.comprobarKyc(
-        //   sessionManager.signedInUser?.id ?? 0,
-        // );
-
-        // if (!respuesta) {
-        //   emit(BlocDashboardEstadoFaltaCompletarKyc.desde(super.state));
-        // } else {
-        //   emit(BlocDashboardEstadoLogueoExitoso.desde(super.state));
-        // }
-        emit(BlocDashboardEstadoLogueoExitoso.desde(super.state));
-      },
-      onError: (e, st) {
-        emit(BlocDashboardEstadoLogueoFallido.desde(super.state));
-      },
-    );
-  }
+  BlocDashboard({
+    required UserInfo infoUsuario,
+    required Usuario usuario,
+  }) : super(
+          BlocDashboardEstadoInicial(
+            usuario: usuario,
+            infoUsuario: infoUsuario,
+          ),
+        );
 }

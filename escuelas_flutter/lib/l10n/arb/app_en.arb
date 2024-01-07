@@ -158,11 +158,10 @@
         "description":"text in alertdialog title, Error"
     },
 
-
-
-
-
-
+    "pageAwaitApprovalDescription": "Your account and role are pending for approval by the administrators.\n We will inform you via email.",
+    "@pageAwaitApprovalDescription": {
+        "description": "Text of the page Await Approval where it informs the user that his role and account are pending for approval and will contact him with a mail."
+    },
 
     "pageAttendanceWithoutCourses": "There are no courses",
     "@pageAttendanceWithoutCourses": {
