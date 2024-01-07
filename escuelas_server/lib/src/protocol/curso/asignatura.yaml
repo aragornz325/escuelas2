@@ -2,6 +2,7 @@ class: Asignatura
 table: asignaturas
 fields: 
   nombre: String
+  idCurso: int, relation(parent=cursos)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
