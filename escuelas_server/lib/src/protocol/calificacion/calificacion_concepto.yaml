@@ -1,8 +1,0 @@
-class: CalificacionConcepto
-table: calificaciones_conceptos
-fields:
-  idConceptoCalificacion: int
-  idCalificacion: int
-  ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?
