@@ -1,5 +1,7 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
@@ -53,19 +55,61 @@ class MenuOpcionesPermisos extends StatelessWidget {
           );
         } else {
           return Column(
-            children: state.listaEtiquetas
-                .map(
-                  (etiqueta) => Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.ph)
-                        .copyWith(bottom: 15.ph),
-                    child: ElementoLista.menu(
-                      nombreOpcion: etiqueta.titulo,
-                      context: context,
-                      onTap: () => etiqueta.redirigirAVista(context),
-                    ),
+            children: [
+              ...state.listaEtiquetas.map(
+                (etiqueta) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.ph)
+                      .copyWith(bottom: 15.ph),
+                  child: ElementoLista.menu(
+                    nombreOpcion: etiqueta.titulo,
+                    context: context,
+                    onTap: () => etiqueta.redirigirAVista(context),
                   ),
-                )
-                .toList(),
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await client.usuario.enviarSolicitudRegistroAlumno(
+                    usuarioPendiente: UsuarioPendiente(
+                      idUserInfo: 0,
+                      nombre: 'Gon Pendiente',
+                      apellido: 'Rigoni Pendiente',
+                      dni: '434242',
+                      rolSolicitado: 1,
+                      estadoDeSolicitud: EstadoDeSolicitud.pendiente,
+                    ),
+                    comisionDeCurso: ComisionDeCurso(
+                      nombre: 'cursillo',
+                      idCurso: 13,
+                      anioLectivo: 2024,
+                      estudiantes: [],
+                      ultimaModificacion: DateTime.now(),
+                      fechaCreacion: DateTime.now(),
+                    ),
+                  );
+                  await client.usuario.enviarSolicitudRegistroDocente(
+                    usuarioPendiente: UsuarioPendiente(
+                      idUserInfo: 0,
+                      nombre: 'Gon Pendiente',
+                      apellido: 'Rigoni Pendiente',
+                      dni: '434242',
+                      rolSolicitado: 1,
+                      estadoDeSolicitud: EstadoDeSolicitud.pendiente,
+                    ),
+                    asignaturasASolicitar: [
+                      Asignatura(
+                        idCurso: 1,
+                        nombre: 'asd',
+                        docentes: [],
+                        ultimaModificacion: DateTime.now(),
+                        fechaCreacion: DateTime.now(),
+                      ),
+                    ],
+                  );
+                },
+                child: Text('solicitar'),
+              ),
+            ],
           );
         }
       },

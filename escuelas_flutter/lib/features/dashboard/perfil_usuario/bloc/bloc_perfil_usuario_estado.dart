@@ -5,17 +5,36 @@ part of 'bloc_perfil_usuario.dart';
 /// {@endtemplate}
 class BlocPerfilUsuarioEstado {
   /// {@macro BlocPerfilUsuarioEstado}
-  const BlocPerfilUsuarioEstado._({this.usuario});
+  const BlocPerfilUsuarioEstado._({
+    this.usuario,
+    this.usuarioPendiente,
+    this.listaRoles = const [],
+  });
 
   BlocPerfilUsuarioEstado.desde(
     BlocPerfilUsuarioEstado otro, {
     Usuario? usuario,
+    UsuarioPendiente? usuarioPendiente,
+    List<RolDeUsuario>? listaRoles,
   }) : this._(
           usuario: usuario ?? otro.usuario,
+          usuarioPendiente: usuarioPendiente ?? otro.usuarioPendiente,
+          listaRoles: listaRoles ?? otro.listaRoles,
         );
 
   /// Informacion del usuario
   final Usuario? usuario;
+
+  /// Informacion del usuario pendiente
+  final UsuarioPendiente? usuarioPendiente;
+
+  /// Lista de roles de la institucion
+  final List<RolDeUsuario> listaRoles;
+
+  /// Nombre del rol del usuario
+  String get nombreRol => listaRoles
+      .firstWhere((rol) => rol.id == usuarioPendiente?.rolSolicitado)
+      .nombre;
 }
 
 /// {@template BlocPerfilUsuarioEstadoInicial}
@@ -35,13 +54,36 @@ class BlocPerfilUsuarioEstadoCargando extends BlocPerfilUsuarioEstado {
 }
 
 /// {@template BlocPerfilUsuarioEstadoExitoso}
-/// Estado exitoso general de los componentes de la pantalla 'Perfil de usuario'
+/// Estado exitoso de los componentes de la pantalla 'Perfil de usuario'
 /// {@endtemplate}
 class BlocPerfilUsuarioEstadoExitoso extends BlocPerfilUsuarioEstado {
   /// {@macro BlocPerfilUsuarioEstadoExitoso}
-  BlocPerfilUsuarioEstadoExitoso.desde(
+  BlocPerfilUsuarioEstadoExitoso.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocPerfilUsuarioEstadoExitosoAltraerUsuario}
+/// Estado exitoso al traer los datos del usuario
+/// {@endtemplate}
+class BlocPerfilUsuarioEstadoExitosoAltraerUsuario
+    extends BlocPerfilUsuarioEstado {
+  /// {@macro BlocPerfilUsuarioEstadoExitosoAltraerUsuario}
+  BlocPerfilUsuarioEstadoExitosoAltraerUsuario.desde(
     super.otro, {
     super.usuario,
+    super.listaRoles,
+  }) : super.desde();
+}
+
+/// {@template BlocPerfilUsuarioEstadoExitosoAltraerUsuarioPendiente}
+/// Estado exitoso al traer los datos del usuario pendiente
+/// {@endtemplate}
+class BlocPerfilUsuarioEstadoExitosoAltraerUsuarioPendiente
+    extends BlocPerfilUsuarioEstado {
+  /// {@macro BlocPerfilUsuarioEstadoExitoso}
+  BlocPerfilUsuarioEstadoExitosoAltraerUsuarioPendiente.desde(
+    super.otro, {
+    super.usuarioPendiente,
+    super.listaRoles,
   }) : super.desde();
 }
 

@@ -254,8 +254,7 @@ class BlocCargaCalificaciones
     // TODO(anyone): ver por que pingo no anda esto sin un delay
     // sin el delay no funciona no se rebuild-eah la screen
 
-    // ignore: inference_failure_on_instance_creation
-    await Future.delayed(const Duration(microseconds: 1));
+    await Future<void>.delayed(const Duration(microseconds: 1));
 
     state.listaCalificaciones.firstWhere(
       (c) => c.fechaCreacion.mismaFecha(event.fecha),
@@ -307,8 +306,7 @@ class BlocCargaCalificaciones
     // TODO(anyone): ver por que pingo no anda esto sin un delay
     // sin el delay no funciona no se rebuild-eah la screen
 
-    // ignore: inference_failure_on_instance_creation
-    await Future.delayed(const Duration(microseconds: 00001));
+    await Future<void>.delayed(const Duration(microseconds: 00001));
 
     final calificaciones = state.listaCalificaciones;
 

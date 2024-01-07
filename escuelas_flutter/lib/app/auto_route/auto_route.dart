@@ -48,7 +48,12 @@ class AppRouter extends $AppRouter {
             ),
             CustomRoute(
               page: RutaPerfilUsuario.page,
-              path: 'perfil-usuario/:idUsuario',
+              path: 'user-profile/:userId',
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
+            CustomRoute(
+              page: RutaPerfilUsuarioPendiente.page,
+              path: 'pending-user-profile/:pendingUserId',
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             AutoRoute(

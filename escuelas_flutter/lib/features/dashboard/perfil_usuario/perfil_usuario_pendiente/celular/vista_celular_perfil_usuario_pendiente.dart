@@ -1,9 +1,8 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/perfil_usuario/bloc/bloc_perfil_usuario.dart';
-import 'package:escuelas_flutter/features/perfil_usuario/widgets/seccion_cursos.dart';
-import 'package:escuelas_flutter/features/perfil_usuario/widgets/seccion_datos_personales.dart';
-import 'package:escuelas_flutter/features/perfil_usuario/widgets/tarjeta_perfil.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/tarjeta_perfil.dart';
 import 'package:escuelas_flutter/gen/fonts.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -13,12 +12,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template VistaCelularPerfilUsuario}
-/// Vista celular de la pantalla 'Perfil de usuario'
+/// {@template VistaCelularPerfilUsuarioPendiente}
+/// Vista celular de la pantalla 'Perfil de usuario pendiente'
 /// {@endtemplate}
-class VistaCelularPerfilUsuario extends StatelessWidget {
+class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
   /// {@macro VistaCelularPerfilUsuario}
-  const VistaCelularPerfilUsuario({super.key});
+  const VistaCelularPerfilUsuarioPendiente({super.key});
 
   /// Dialog para confirmar la asignacion de un rol al usuario
   void _dialogAsignarRol(
@@ -98,23 +97,28 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
 
     return BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
       builder: (context, state) {
+        if (state is BlocPerfilUsuarioEstadoCargando) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const TarjetaPerfil(),
+            TarjetaPerfil(
+              nombreRol: state.nombreRol,
+              nombre: state.usuarioPendiente?.nombre ?? '',
+              apellido: state.usuarioPendiente?.apellido ?? '',
+            ),
             const Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    DatosPersonales(),
                     SeccionCursos(),
                   ],
                 ),
               ),
             ),
-            // TODO(Gon): Estos botones solo se ven si se navega desde
-            // asignacion de rol habria que aplicar una logica para decidir
-            // cuando mostrarlo
             Padding(
               padding: EdgeInsets.only(bottom: 20.ph),
               child: Row(

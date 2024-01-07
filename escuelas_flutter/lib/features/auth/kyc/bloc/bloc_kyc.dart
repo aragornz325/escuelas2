@@ -27,7 +27,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     emit(BlocKycEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final asignaturas = await client.asignatura.obtenerAsignaturas();
+        // final asignaturas = await client.asignatura.obtenerAsignaturas();
 
         // final cursos = await client.curso.obtenerCursos();
 
@@ -38,7 +38,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            listaAsignaturas: asignaturas,
+            listaAsignaturas: [],
             listaCursos: [],
             listaRoles: rolesAMostrar,
             opcionesFormulario: [
