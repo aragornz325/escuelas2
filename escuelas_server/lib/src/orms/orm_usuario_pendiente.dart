@@ -40,6 +40,10 @@ class OrmUsuarioPendiente extends ORM {
     final usuarioPendiente = await UsuarioPendiente.db.findFirstRow(
       session,
       where: (t) => t.idUserInfo.equals(idUserInfo),
+      include: UsuarioPendiente.include(
+        asignaturasSolicitadas: AsignaturaSolicitada.includeList(),
+        comisionSolicitada: ComisionSolicitada.include(),
+      ),
     );
 
     return usuarioPendiente;

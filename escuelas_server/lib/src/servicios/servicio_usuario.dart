@@ -67,8 +67,10 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
 
     return await ejecutarOperacion(
-      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(session,
-          idUserInfo: idUserInfo),
+      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(
+        session,
+        idUserInfo: idUserInfo,
+      ),
     );
   }
 
@@ -113,6 +115,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           idUserInfo: usuarioPendiente.idUserInfo,
           nombre: usuarioPendiente.nombre,
           apellido: usuarioPendiente.apellido,
+          urlFotoDePerfil: usuarioPendiente.urlFotoDePerfil,
           dni: usuarioPendiente.dni,
           rolSolicitado: usuarioPendiente.rolSolicitado,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,

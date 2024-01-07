@@ -1,0 +1,582 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "deleteTable": null,
+      "alterTable": {
+        "name": "asignatura_solicitada",
+        "dartName": null,
+        "module": null,
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId",
+            "columnType": 2,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "int?"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "asignatura_solicitada_fk_1",
+            "columns": [
+              "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"comision_solicitada_unique_idx\" is added to table \"usuarios_pendientes\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios_pendientes",
+            "columns": [
+              "comisionSolicitadaId"
+            ],
+            "destrucive": false
+          },
+          {
+            "type": "tableDropped",
+            "message": "One or more columns are added to table \"usuarios_pendientes\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+            "table": "usuarios_pendientes",
+            "columns": [
+              "urlFotoDePerfil"
+            ],
+            "destrucive": true
+          }
+        ]
+      },
+      "createTable": null
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "comision_solicitada",
+        "dartName": "ComisionSolicitada",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('comision_solicitada_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "idComision",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "idUsuarioPendiente",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "comision_solicitada_fk_0",
+            "columns": [
+              "idUsuarioPendiente"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "comision_solicitada_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "r_asignaturas_usuarios",
+        "dartName": "RelacionAsignaturaUsuario",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('r_asignaturas_usuarios_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "usuarioId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "asignaturaId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "r_asignaturas_usuarios_fk_0",
+            "columns": [
+              "usuarioId"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "r_asignaturas_usuarios_fk_1",
+            "columns": [
+              "asignaturaId"
+            ],
+            "referenceTable": "asignaturas",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "r_asignaturas_usuarios_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          },
+          {
+            "indexName": "r_usuario_asignatura_index_idx",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "usuarioId"
+              },
+              {
+                "type": 0,
+                "definition": "asignaturaId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "r_comisiones_usuarios",
+        "dartName": "RelacionComisionUsuario",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('r_comisiones_usuarios_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "usuarioId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "comisionDeCursoId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "r_comisiones_usuarios_fk_0",
+            "columns": [
+              "usuarioId"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "r_comisiones_usuarios_fk_1",
+            "columns": [
+              "comisionDeCursoId"
+            ],
+            "referenceTable": "comisiones_de_curso",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "r_comisiones_usuarios_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          },
+          {
+            "indexName": "r_usuario_comision_index_idx",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "usuarioId"
+              },
+              {
+                "type": 0,
+                "definition": "comisionDeCursoId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "usuarios_pendientes",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "usuarios_pendientes",
+        "dartName": "UsuarioPendiente",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('usuarios_pendientes_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "idUserInfo",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "nombre",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "apellido",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "urlFotoDePerfil",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "dni",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "rolSolicitado",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "estadoDeSolicitud",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "protocol:EstadoDeSolicitud"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "comisionSolicitadaId",
+            "columnType": 2,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "int?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "usuarios_pendientes_fk_0",
+            "columns": [
+              "rolSolicitado"
+            ],
+            "referenceTable": "roles_de_usuario",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "usuarios_pendientes_fk_1",
+            "columns": [
+              "comisionSolicitadaId"
+            ],
+            "referenceTable": "comision_solicitada",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "usuarios_pendientes_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          },
+          {
+            "indexName": "comision_solicitada_unique_idx",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "comisionSolicitadaId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"comision_solicitada_unique_idx\" is added to table \"usuarios_pendientes\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "usuarios_pendientes",
+      "columns": [
+        "comisionSolicitadaId"
+      ],
+      "destrucive": false
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"usuarios_pendientes\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "usuarios_pendientes",
+      "columns": [
+        "urlFotoDePerfil"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}
