@@ -25,22 +25,22 @@ class BlocPerfilUsuario
     await operacionBloc(
       callback: (client) async {
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
-        // final usuario = await client.usuario.obtenerDatosDelUsuario(event.idUsuario);
+        // final usuario = await client.usuario.obtenerDatosDelUsuario();
         emit(
-          BlocPerfilUsuarioEstadoExitoso.desde(
-            state,
-            // TODO(Gon): Usar el usuario del back
-            usuario: Usuario(
-              idUserInfo: 0,
-              roles: [],
-              dni: '43',
-              ultimaModificacion: DateTime.now(),
-              fechaCreacion: DateTime.now(),
-              nombre: 'gonzalo',
-              apellido: 'higuain',
-              urlFotoDePerfil: 'https://picsum.photos/200/300',
-            ),
-          ),
+          BlocPerfilUsuarioEstadoExitoso.desde(state,
+              // TODO(Gon): Usar el usuario del back
+              usuario: usuario
+              usuario: Usuario(
+                idUserInfo: 0,
+                roles: [],
+                dni: '43',
+                ultimaModificacion: DateTime.now(),
+                fechaCreacion: DateTime.now(),
+                nombre: 'gonzalo',
+                apellido: 'higuain',
+                urlFotoDePerfil: 'https://picsum.photos/200/300',
+              ),
+              ),
         );
       },
       onError: (e, st) {

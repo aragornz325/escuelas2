@@ -33,14 +33,14 @@ class AppRouter extends $AppRouter {
         CustomRoute(
           page: RutaLogin.page,
           path: '/login',
-          // guards: [initialGuard],
+          initial: true,
+          guards: [initialGuard],
           transitionsBuilder: TransitionsBuilders.noTransition,
         ),
         AutoRoute(
           path: '/dashboard',
-          initial: true,
           page: RutaDashboard.page,
-          // guards: [authGuard],
+          guards: [authGuard],
           children: [
             AutoRoute(
               page: RutaInicio.page,
