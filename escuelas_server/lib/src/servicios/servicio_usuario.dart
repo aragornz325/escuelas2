@@ -150,17 +150,10 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     final usuarioPendienteCreado = await ejecutarOperacion(
       () => _ormUsuarioPendiente.crearUsuarioPendiente(
         session,
-        usuarioPendiente: UsuarioPendiente(
-          idUserInfo: usuarioPendiente.idUserInfo,
-          nombre: usuarioPendiente.nombre,
-          apellido: usuarioPendiente.apellido,
-          urlFotoDePerfil: usuarioPendiente.urlFotoDePerfil,
-          dni: usuarioPendiente.dni,
-          rolSolicitado: usuarioPendiente.rolSolicitado,
-          estadoDeSolicitud: EstadoDeSolicitud.pendiente,
-          fechaCreacion: ahora,
-          ultimaModificacion: ahora,
-        ),
+        usuarioPendiente: usuarioPendiente
+          ..estadoDeSolicitud = EstadoDeSolicitud.pendiente
+          ..fechaCreacion = ahora
+          ..ultimaModificacion = ahora,
       ),
     );
 
