@@ -3,6 +3,8 @@ table: asignatura_solicitada
 fields:
   idAsignatura: int
   idUsuarioPendiente: int, relation(parent=usuarios_pendientes)
+  nombreAsignatura: String
+  nombreCurso: String
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?

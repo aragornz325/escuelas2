@@ -4,6 +4,7 @@ import 'package:escuelas_server/src/orms/orm_usuario_pendiente.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
 import 'package:escuelas_server/src/servicios/servicio_comision.dart';
+import 'package:escuelas_server/src/servicios/servicio_curso.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
 
@@ -16,6 +17,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   final ServicioAsignatura _servicioAsignatura = ServicioAsignatura();
 
   final ServicioComision _servicioComision = ServicioComision();
+
+  final ServicioCurso _servicioCurso = ServicioCurso();
 
   Future<Usuario> obtenerDatosDelUsuario(Session session) async {
     final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
@@ -89,14 +92,13 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   /// con [UserInfo]
   ///
   /// El usuario pendiente se obtiene a traves del id de [UserInfo] dentro del manager.
-  Future<UsuarioPendiente?> obtenerUsuarioPendiente(Session session) async {
-    return await ejecutarOperacion(
-      () async => _ormUsuarioPendiente.obtenerUsuarioPendiente(
-        session,
-        idUserInfo: await obtenerIdDeUsuarioLogueado(session),
-      ),
-    );
-  }
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(Session session) async =>
+      ejecutarOperacion(
+        () async => _ormUsuarioPendiente.obtenerUsuarioPendiente(
+          session,
+          idUserInfo: await obtenerIdDeUsuarioLogueado(session),
+        ),
+      );
 
   /// Obtiene un usuario pendiente a través del id de [UsuarioPendiente]
   Future<UsuarioPendiente?> obtenerUsuarioPendientePorId(
@@ -163,15 +165,26 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     );
 
     if (esDocente) {
-      final asignaturasSolicitadas = asignaturasASolicitar
-              ?.map((asignatura) => AsignaturaSolicitada(
-                    idAsignatura: asignatura.id ?? 0,
-                    idUsuarioPendiente: usuarioPendienteCreado.id ?? 0,
-                    ultimaModificacion: ahora,
-                    fechaCreacion: ahora,
-                  ))
-              .toList() ??
-          [];
+      List<AsignaturaSolicitada> asignaturasSolicitadas = [];
+
+      // Crea  una lista de [AsignaturaSolicitada] a partir de las asignaturas a solicitar.
+      for (final asignatura in (asignaturasASolicitar ?? <Asignatura>[])) {
+        final cursoSolicitado = await _servicioCurso.obtenerCursoPorId(
+          session,
+          id: asignatura.idCurso,
+        );
+
+        asignaturasSolicitadas.add(
+          AsignaturaSolicitada(
+            idAsignatura: asignatura.id ?? 0,
+            idUsuarioPendiente: usuarioPendienteCreado.id ?? 0,
+            ultimaModificacion: ahora,
+            fechaCreacion: ahora,
+            nombreAsignatura: asignatura.nombre,
+            nombreCurso: cursoSolicitado.nombre,
+          ),
+        );
+      }
 
       await ejecutarOperacion(
         () => _servicioAsignatura.crearAsignaturasSolicitadas(
@@ -185,6 +198,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           session,
           idComision: comisionDeCurso?.id ?? 0,
           idUsuarioPendiente: usuarioPendienteCreado.id ?? 0,
+          nombreComision: comisionDeCurso?.nombre ?? '',
         ),
       );
     }

@@ -140,4 +140,18 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
           asignaturasSolicitadas: asignaturasSolicitadas,
         ),
       );
+
+  Future<List<AsignaturaSolicitada>>
+      obtenerAsignaturasSolicitadasPorIdUsuarioPendiente(
+    Session session, {
+    required int idUsuarioPendiente,
+  }) async {
+    return await ejecutarOperacion(
+      () => _ormAsignaturaSolicitada
+          .obtenerAsignaturasSolicitadasPorIdUsuarioPendiente(
+        session,
+        idUsuarioPendiente: idUsuarioPendiente,
+      ),
+    );
+  }
 }

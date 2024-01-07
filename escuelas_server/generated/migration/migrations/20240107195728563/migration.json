@@ -1,0 +1,257 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "asignatura_solicitada",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "asignatura_solicitada",
+        "dartName": "AsignaturaSolicitada",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('asignatura_solicitada_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "idAsignatura",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "idUsuarioPendiente",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "nombreAsignatura",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "nombreCurso",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId",
+            "columnType": 2,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "int?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "asignatura_solicitada_fk_0",
+            "columns": [
+              "idUsuarioPendiente"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "asignatura_solicitada_fk_1",
+            "columns": [
+              "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "asignatura_solicitada_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "comision_solicitada",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "comision_solicitada",
+        "dartName": "ComisionSolicitada",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('comision_solicitada_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "idComision",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "idUsuarioPendiente",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "nombreComision",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "comision_solicitada_fk_0",
+            "columns": [
+              "idUsuarioPendiente"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "comision_solicitada_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"asignatura_solicitada\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "asignatura_solicitada",
+      "columns": [
+        "nombreAsignatura"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"comision_solicitada\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "comision_solicitada",
+      "columns": [
+        "nombreComision"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

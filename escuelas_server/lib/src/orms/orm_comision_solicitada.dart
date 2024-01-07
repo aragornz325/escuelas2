@@ -7,6 +7,7 @@ class OrmComisionSolicitada extends ORM {
     Session session, {
     required int idComision,
     required int idUsuarioPendiente,
+    required String nombreComision,
   }) async {
     final ahora = DateTime.now();
 
@@ -18,6 +19,7 @@ class OrmComisionSolicitada extends ORM {
           idUsuarioPendiente: idUsuarioPendiente,
           ultimaModificacion: ahora,
           fechaCreacion: ahora,
+          nombreComision: nombreComision,
         ),
       );
     });
