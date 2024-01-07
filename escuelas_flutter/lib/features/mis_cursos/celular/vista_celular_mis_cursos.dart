@@ -68,31 +68,32 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                               SizedBox(height: 10.ph),
                               Column(
                                 children: curso.asignaturas
-                                    .map(
-                                      (asignatura) => Padding(
-                                        padding: EdgeInsets.only(
-                                          bottom: 10.ph,
-                                        ),
-                                        child: ItemMateria(
-                                          estaCargada: false,
-                                          // TODO(anyone): aca hay que chequear
-                                          // la fecha de la lista de materias
-                                          //actual y hacer la validacion con eso
-                                          estaHabilitado:
-                                              fecha.isBefore(DateTime.now()),
-                                          materia: asignatura,
-                                          onTap: () => context.pushRoute(
-                                            RutaCargaDeCalificaciones(
-                                              fecha: fecha.toString(),
-                                              nombreAsignatura:
-                                                  asignatura.nombre,
-                                              idCurso: asignatura.idCurso,
+                                        ?.map(
+                                          (asignatura) => Padding(
+                                            padding: EdgeInsets.only(
+                                              bottom: 10.ph,
+                                            ),
+                                            child: ItemMateria(
+                                              estaCargada: false,
+                                              // TODO(anyone): aca hay que chequear
+                                              // la fecha de la lista de materias
+                                              //actual y hacer la validacion con eso
+                                              estaHabilitado: fecha
+                                                  .isBefore(DateTime.now()),
+                                              materia: asignatura,
+                                              onTap: () => context.pushRoute(
+                                                RutaCargaDeCalificaciones(
+                                                  fecha: fecha.toString(),
+                                                  nombreAsignatura:
+                                                      asignatura.nombre,
+                                                  idCurso: asignatura.idCurso,
+                                                ),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ),
-                                    )
-                                    .toList(),
+                                        )
+                                        .toList() ??
+                                    [],
                               ),
                             ],
                           ),

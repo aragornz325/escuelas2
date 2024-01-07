@@ -179,3 +179,13 @@ class BlocKycEstadoCerrarSesionExitoso extends BlocKycEstado {
     super.otro,
   ) : super.desde();
 }
+
+/// {@template BlocKycEstadoCerrarSesionExitoso}
+/// Estado exitoso de cierre de sesion del usuario.
+/// {@endtemplate}
+class BlocKycEstadoExitoAlSolicitarRegistro extends BlocKycEstado {
+  /// {@macro BlocKycEstadoCerrarSesionExitoso}
+  BlocKycEstadoExitoAlSolicitarRegistro.desde(
+    super.otro,
+  ) : super.desde();
+}

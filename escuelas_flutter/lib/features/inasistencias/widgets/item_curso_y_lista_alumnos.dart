@@ -71,7 +71,7 @@ class ItemCursoConListaDeAlumnos extends StatelessWidget {
                         SizedBox(
                           width: 250.pw,
                           child: Text(
-                            curso.estudiantes[index].dni,
+                            curso.estudiantes[index].dni ?? '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(

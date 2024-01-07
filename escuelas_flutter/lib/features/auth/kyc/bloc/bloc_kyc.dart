@@ -3,6 +3,8 @@ import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+// TODO(anyone): Revisar si esto sirve, tenia un problema de importaciones con el userInfo y el protocol
+import 'package:serverpod_auth_client/module.dart' as auth;
 
 part 'bloc_kyc_estado.dart';
 part 'bloc_kyc_evento.dart';
@@ -19,7 +21,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     on<BlocKycEventoEliminarOpcion>(_eliminarOpcion);
     on<BlocKycEventoSeleccionarRol>(_seleccionarRol);
     on<BlocKycEventoCerrarSesion>(_cerrarSesion);
-    // TODO(SAM): eNVIAR solicitud de registro, con endpoint crear o enviar sol registro
+    on<BlocKycEventoSolicitarRegistro>(_onSolicitarRegistro);
   }
 
   /// Evento inicial donde trae todos los cursos del usuario.
@@ -55,10 +57,9 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
                   ultimaModificacion: DateTime.now(),
                   fechaCreacion: DateTime.now(),
                 ),
-                materia: Asignatura(
+                asignatura: Asignatura(
                   nombre: 'Matematica',
                   idCurso: 0,
-                  docentes: [],
                   ultimaModificacion: DateTime.now(),
                   fechaCreacion: DateTime.now(),
                 ),
@@ -106,7 +107,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     }
 
     if (event.idMateria != null) {
-      opcionAModificar.materia = state.listaAsignaturas
+      opcionAModificar.asignatura = state.listaAsignaturas
           .firstWhere((materia) => materia.id == event.idMateria);
     }
 
@@ -134,10 +135,9 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
                 ultimaModificacion: DateTime.now(),
                 fechaCreacion: DateTime.now(),
               ),
-              materia: Asignatura(
+              asignatura: Asignatura(
                 nombre: '',
                 idCurso: 0,
-                docentes: [],
                 ultimaModificacion: DateTime.now(),
                 fechaCreacion: DateTime.now(),
               ),
@@ -202,6 +202,56 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
+  /// Elimina una opcion de la lista de kyc
+  Future<void> _onSolicitarRegistro(
+    BlocKycEventoSolicitarRegistro event,
+    Emitter<BlocKycEstado> emit,
+  ) async {
+    await operacionBloc(
+      callback: (client) async {
+        final usuarioPendiente = UsuarioPendiente(
+          idUserInfo: sessionManager.signedInUser?.id ?? 0,
+          nombre: sessionManager.signedInUser?.fullName ?? '',
+          apellido: sessionManager.signedInUser?.userName ?? '',
+          urlFotoDePerfil: sessionManager.signedInUser?.imageUrl ?? '',
+          dni: '123',
+          rolSolicitado: state.rolElegido?.id ?? 0,
+          estadoDeSolicitud: EstadoDeSolicitud.pendiente,
+        );
+        if (state.rolElegido?.nombre == 'docente') {
+          await client.usuario.enviarSolicitudRegistroDocente(
+            asignaturasASolicitar: state.listaAsignaturas,
+            usuarioPendiente: usuarioPendiente,
+          );
+        }
+        if (state.rolElegido?.nombre == 'alumno') {
+          final curso = state.opcionesFormulario.first.curso;
+
+          await client.usuario.enviarSolicitudRegistroAlumno(
+            // TODO(anyone): Este Comision curso viene del dropdown elegido
+            comisionDeCurso: ComisionDeCurso(
+              nombre: curso.nombre,
+              idCurso: curso.id ?? 0,
+              anioLectivo: 2021,
+              estudiantes: [],
+              ultimaModificacion: DateTime.now(),
+              fechaCreacion: DateTime.now(),
+            ),
+            usuarioPendiente: usuarioPendiente,
+          );
+        }
+        emit(
+          BlocKycEstadoExitoAlSolicitarRegistro.desde(state),
+        );
+      },
+      onError: (e, st) {
+        emit(
+          BlocKycEstadoError.desde(state),
+        );
+      },
+    );
+  }
+
   /// Factory constructor fromJson para poder ser utilizado en [HydratedBloc]
   /// transforma el objeto json guardado del local storage a la clase estado
   /// del Bloc dentro contiene lo que fue previamente guardado.
@@ -222,7 +272,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
 class OpcionFormulario {
   OpcionFormulario({
     required this.curso,
-    required this.materia,
+    required this.asignatura,
     required this.id,
   });
 
@@ -232,7 +282,7 @@ class OpcionFormulario {
         json['curso'] as Map<String, dynamic>,
         Protocol(),
       ),
-      materia: Asignatura.fromJson(
+      asignatura: Asignatura.fromJson(
         json['asignatura'] as Map<String, dynamic>,
         Protocol(),
       ),
@@ -241,13 +291,13 @@ class OpcionFormulario {
   }
 
   Curso curso;
-  Asignatura materia;
+  Asignatura asignatura;
   final int id;
 
   Map<String, dynamic> toJson() {
     return {
       'curso': curso,
-      'materia': materia,
+      'asignatura': asignatura,
       'id': id,
     };
   }
@@ -264,7 +314,7 @@ extension CursoX on Curso {
       'id': id,
       'nombre': nombre,
       'asignaturas':
-          asignaturas.map((asignatura) => asignatura.toJsonBloc()).toList(),
+          asignaturas?.map((asignatura) => asignatura.toJsonBloc()).toList(),
       'ultimaModificacion': ultimaModificacion.toIso8601String(),
       'fechaCreacion': fechaCreacion.toIso8601String(),
       'fechaEliminacion': fechaEliminacion?.toIso8601String(),
@@ -280,7 +330,6 @@ extension AsignaturaX on Asignatura {
       'id': id,
       'nombre': nombre,
       'idCurso': idCurso,
-      'docentes': docentes.map((docente) => docente.toJson()).toList(),
       'ultimaModificacion': ultimaModificacion.toIso8601String(),
       'fechaCreacion': fechaCreacion.toIso8601String(),
       'fechaEliminacion': fechaEliminacion?.toIso8601String(),

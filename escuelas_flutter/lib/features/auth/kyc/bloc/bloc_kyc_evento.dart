@@ -72,3 +72,14 @@ class BlocKycEventoEliminarOpcion extends BlocKycEvento {
 /// Cierra sesion del usuario.
 /// {@endtemplate}
 class BlocKycEventoCerrarSesion extends BlocKycEvento {}
+
+/// {@template BlocKycEventoSolicitarRol}
+/// Envia una solicitacion de rol
+/// {@endtemplate}
+class BlocKycEventoSolicitarRegistro extends BlocKycEvento {
+  /// {@macro BlocKycEventoSolicitarRol}
+  const BlocKycEventoSolicitarRegistro({required this.userInfo});
+
+  /// Informacion del usuario
+  final auth.UserInfo? userInfo;
+}

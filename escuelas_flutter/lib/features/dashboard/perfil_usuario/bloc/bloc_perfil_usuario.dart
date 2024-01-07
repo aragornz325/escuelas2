@@ -91,7 +91,7 @@ class BlocPerfilUsuario
         if (usuarioPendiente == null) {
           emit(BlocPerfilUsuarioEstadoError.desde(state));
         } else {
-          await client.usuario.actualizarUsuarioPendiente(
+          await client.usuario.responderSolicitudDeRegistro(
             usuarioPendiente: usuarioPendiente
               ..estadoDeSolicitud = EstadoDeSolicitud.aprobado,
           );
