@@ -21,6 +21,11 @@
         "description": "This message is used for the title of a page or section that deals with pending user role assignments."
     },
 
+    "pageRoleAssigmentNoPendingUsers": "There are no pending users",
+    "@pageRoleAssigmentNoPendingUsers": {
+        "description": "This message is used when the institution doesnt have pending users."
+    },
+
     "pageKycFormConfirmationDialogText": "Are you sure you want to apply for the {roleName} role?",
     "@pageKycFormConfirmationDialogText": {
         "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",
