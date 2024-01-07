@@ -15,6 +15,7 @@ class OrmUsuario extends ORM {
 
   Future<Usuario> obtenerUsuario(
     Session session, {
+    int? idUsuario,
     int? idUserInfo,
   }) async {
     final usuario = await ejecutarOperacionOrm(
@@ -24,6 +25,9 @@ class OrmUsuario extends ORM {
         where: (t) {
           if (idUserInfo != null) {
             return t.idUserInfo.equals(idUserInfo);
+          }
+          if (idUsuario != null) {
+            return t.id.equals(idUsuario);
           }
           return t.id.notEquals(null);
         },
