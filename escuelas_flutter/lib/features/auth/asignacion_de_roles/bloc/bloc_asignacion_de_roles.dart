@@ -38,7 +38,7 @@ class BlocAsignacionDeRoles
                 apellido: 'Gonzalez',
                 id: 0,
                 rolSolicitado: 3,
-                aprobado: false,
+                estadoDeSolicitud: EstadoDeSolicitud.aprobado,
                 idUserInfo: 0,
                 dni: '43',
                 ultimaModificacion: DateTime.now(),
@@ -71,24 +71,18 @@ enum Roles {
           nombre: 'Directivo',
           id: 0,
           descripcion: '',
-          fechaCreacion: DateTime.now(),
-          ultimaModificacion: DateTime.now(),
         );
 
       case Roles.alumno:
         return RolDeUsuario(
           nombre: 'Alumno',
           descripcion: '',
-          fechaCreacion: DateTime.now(),
-          ultimaModificacion: DateTime.now(),
           id: 1,
         );
       case Roles.docente:
         return RolDeUsuario(
           nombre: 'Docente',
           descripcion: '',
-          fechaCreacion: DateTime.now(),
-          ultimaModificacion: DateTime.now(),
           id: 2,
         );
     }

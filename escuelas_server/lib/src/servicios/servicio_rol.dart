@@ -1,4 +1,5 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
+import 'package:escuelas_server/src/orms/orm_relacion_usuario_rol.dart';
 import 'package:escuelas_server/src/orms/orm_rol.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/server.dart';
@@ -6,6 +7,8 @@ import 'package:serverpod/server.dart';
 class ServicioRol extends Servicio<OrmRol> {
   @override
   OrmRol get orm => OrmRol();
+
+  final OrmRelacionUsuarioRol _ormRelacionUsuarioRol = OrmRelacionUsuarioRol();
 
   /// La función "obtenerRolPorId" recupera un rol por su ID usando un ORM y lo devuelve como Future.
   ///
@@ -19,12 +22,28 @@ class ServicioRol extends Servicio<OrmRol> {
   Future<RolDeUsuario> obtenerRolPorId(
     Session session, {
     required int id,
+    OrdenarPor ordenarUsuariosPor = OrdenarPor.apellido,
   }) async {
     final rol = await ejecutarOperacion(() => orm.obtenerRolPorId(
           session,
           id: id,
+          ordenarUsuariosPor: ordenarUsuariosPor,
         ));
     return rol;
+  }
+
+  Future<List<RelacionUsuarioRol>> obtenerUsuariosConRol(
+    Session session, {
+    required int idRol,
+    OrdenarPor ordenarUsuariosPor = OrdenarPor.apellido,
+  }) async {
+    return await ejecutarOperacion(
+      () => _ormRelacionUsuarioRol.obtenerRelacionesUsuarioRol(
+        session,
+        idRol: idRol,
+        ordenarUsuariosPor: ordenarUsuariosPor,
+      ),
+    );
   }
 
   /// La función "obtenerRoles" recupera una lista de roles de usuario utilizando un objeto de sesión.

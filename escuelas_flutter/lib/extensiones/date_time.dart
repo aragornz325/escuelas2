@@ -34,4 +34,8 @@ extension DateTimeX on DateTime {
       return '4to Cuat.';
     }
   }
+
+  /// Compara si dos fechas son iguales
+  bool mismaFecha(DateTime other) =>
+      year == other.year && month == other.month && day == other.day;
 }

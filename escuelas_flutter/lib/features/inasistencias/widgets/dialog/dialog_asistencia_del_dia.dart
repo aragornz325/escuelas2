@@ -1,8 +1,10 @@
 import 'dart:math';
 
+import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/extensiones/extension_estado_asistencia.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
-import 'package:escuelas_flutter/features/asistencias/widgets/dialog/widgets/widget.dart';
+import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
+import 'package:escuelas_flutter/features/inasistencias/widgets/dialog/widgets/widget.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -11,22 +13,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 import 'package:intl/intl.dart';
 
-/// {@template DialogAsistenciasDelDia}
+/// {@template DialogInasistenciasDelDia}
 /// Dialog que confirma la asistencia tomada del dia y muestra mas detalles
 /// sobre dicho dia con la cantidad de alumnos que no asistieron y que estado
 /// de asistencia tiene cada alumno.
 /// {@endtemplate}
-class DialogAsistenciasDelDia extends StatefulWidget {
-  /// {@macro DialogAsistenciasDelDia}
-  const DialogAsistenciasDelDia({
+class DialogInasistenciasDelDia extends StatefulWidget {
+  /// {@macro DialogInasistenciasDelDia}
+  const DialogInasistenciasDelDia({
     required this.alumnos,
     required this.idCurso,
     required this.fecha,
+    required this.asistencias,
     super.key,
   });
 
   /// Cantidad de alumnos que no asistieron esa fecha.
-  final List<ModeloAlumno> alumnos;
+  final List<Usuario> alumnos;
 
   /// ID del curso.
   final int idCurso;
@@ -34,40 +37,38 @@ class DialogAsistenciasDelDia extends StatefulWidget {
   /// Fecha en la cual se tomaron asistencias.
   final DateTime fecha;
 
+  /// Lista de asistencias
+  final List<AsistenciaDiaria> asistencias;
+
   @override
-  State<DialogAsistenciasDelDia> createState() =>
-      _DialogAsistenciasDelDiaState();
+  State<DialogInasistenciasDelDia> createState() =>
+      _DialogInasistenciasDelDiaState();
 }
 
-class _DialogAsistenciasDelDiaState extends State<DialogAsistenciasDelDia> {
-  /// Variable que indica si se desplega el ver mas o no muestra una lista mas
+class _DialogInasistenciasDelDiaState extends State<DialogInasistenciasDelDia> {
+  /// Variable que indica si se desplegó el ver mas o no muestra una lista mas
   /// detallada
   bool desplegarVerMas = false;
 
   /// Lista de Estados de los alumnos que solamente que tienen no asistieron.
-  List<EstadoAsistencia> get alumnosAusentes => EstadoAsistencia.values
+  List<EstadoDeAsistencia> get alumnosAusentes => EstadoDeAsistencia.values
       .where(
         (estadoAsistencia) =>
-            estadoAsistencia == EstadoAsistencia.ausente ||
-            estadoAsistencia == EstadoAsistencia.mediaFalta ||
-            estadoAsistencia == EstadoAsistencia.cuartoFalta,
+            estadoAsistencia == EstadoDeAsistencia.ausente ||
+            estadoAsistencia == EstadoDeAsistencia.mediaInasistencia ||
+            estadoAsistencia == EstadoDeAsistencia.cuartoDeInasistencia,
       )
       .toList();
 
-  /// Lista de alumnos filtradas por ausentismo
-  List<ModeloAlumno> get alumnosFiltrados => widget.alumnos
-      .where(
-        (alumno) =>
-            alumno.asistencia != EstadoAsistencia.presente &&
-            alumno.asistencia != EstadoAsistencia.sinAsistencia,
-      )
-      .toList();
-
-  /// Cantidad de alumnos que no asistieron
-  int _cantidad(EstadoAsistencia estadoAsistencia) {
-    return widget.alumnos
-        .where((alumno) => alumno.asistencia == estadoAsistencia)
-        .length;
+  /// Confirmar las asistencia
+  void _confirmarInasistencias(BuildContext context) {
+    context.read<BlocInasistencias>().add(
+          BlocInasistenciasEventoFinalizarInasistencias(
+            idCurso: widget.idCurso,
+            fecha: widget.fecha,
+          ),
+        );
+    Navigator.of(context).pop();
   }
 
   @override
@@ -77,16 +78,9 @@ class _DialogAsistenciasDelDiaState extends State<DialogAsistenciasDelDia> {
     final l10n = context.l10n;
 
     return EscuelasDialog(
-      altura: desplegarVerMas ? max(300.ph, 300.sh) : max(160.ph, 160.sh),
+      altura: desplegarVerMas ? max(300.ph, 300.sh) : max(200.ph, 200.sh),
       conIconoCerrar: false,
-      onTapConfirmar: () {
-        context.read<BlocAsistencias>().add(
-              BlocAsistenciasFinalizarAsistencia(
-                idCurso: widget.idCurso,
-              ),
-            );
-        Navigator.of(context).pop();
-      },
+      onTapConfirmar: () => _confirmarInasistencias(context),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -111,13 +105,20 @@ class _DialogAsistenciasDelDiaState extends State<DialogAsistenciasDelDia> {
           SizedBox(height: max(15.ph, 15.sh)),
           ...alumnosAusentes.map(
             (estadoAsistencia) => _CantidadAusentes(
-              cantidad: _cantidad(estadoAsistencia),
+              cantidad: estadoAsistencia.cantidadDeAlumnos(
+                widget.alumnos,
+                widget.asistencias,
+                estadoAsistencia,
+              ),
               estadoAsistencia: estadoAsistencia,
             ),
           ),
           SizedBox(height: max(15.ph, 15.sh)),
           if (desplegarVerMas) ...[
-            ListaDeAlumnosAusentes(alumnosFiltrados: alumnosFiltrados),
+            ListaDeAlumnosAusentes(
+              usuarios: widget.alumnos,
+              asistencias: widget.asistencias,
+            ),
           ],
           SizedBox(height: max(10.ph, 10.sh)),
           InkWell(
@@ -151,12 +152,12 @@ class _CantidadAusentes extends StatelessWidget {
   /// cantidad de ese estado de asistencia
   final int cantidad;
 
-  final EstadoAsistencia estadoAsistencia;
+  final EstadoDeAsistencia estadoAsistencia;
 
   /// Indica los alumnos que tienen de estado media falta o cuarto falta.
-  bool alumnosSinAusenteCompleto(EstadoAsistencia estadoAsistencia) =>
-      estadoAsistencia == EstadoAsistencia.mediaFalta ||
-      estadoAsistencia == EstadoAsistencia.cuartoFalta;
+  bool alumnosSinAusenteCompleto(EstadoDeAsistencia estadoAsistencia) =>
+      estadoAsistencia == EstadoDeAsistencia.mediaInasistencia ||
+      estadoAsistencia == EstadoDeAsistencia.cuartoDeInasistencia;
 
   @override
   Widget build(BuildContext context) {

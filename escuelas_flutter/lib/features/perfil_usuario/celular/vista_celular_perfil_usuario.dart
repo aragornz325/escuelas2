@@ -75,7 +75,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                text: '${usuario?.roles[0].nombre.toUpperCase()}?',
+                text: '${usuario?.roles?.first.rol?.nombre.toUpperCase()}?',
                 style: TextStyle(
                   color: colores.onBackground,
                   fontSize: 16.pf,

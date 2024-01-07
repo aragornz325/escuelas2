@@ -1,0 +1,32 @@
+import 'package:escuelas_server/src/generated/protocol.dart';
+import 'package:escuelas_server/src/orm.dart';
+import 'package:serverpod/serverpod.dart';
+
+class OrmUsuarioAsignatura extends ORM {
+  Future<void> crearRelacionUsuarioAAsignaturas(
+    Session session, {
+    required List<Asignatura> asignaturas,
+    required int usuarioId,
+  }) async {
+    final ahora = DateTime.now();
+
+    await ejecutarOperacionOrm(
+      session,
+      (session) async {
+        await RelacionAsignaturaUsuario.db.insert(
+          session,
+          [
+            ...asignaturas.map(
+              (asignatura) => RelacionAsignaturaUsuario(
+                asignaturaId: asignatura.id ?? 0,
+                usuarioId: usuarioId,
+                ultimaModificacion: ahora,
+                fechaCreacion: ahora,
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+}

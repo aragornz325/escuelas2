@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/string.dart';
 import 'package:escuelas_flutter/features/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -72,8 +73,8 @@ class TarjetaPerfil extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 5.ph),
                       child: Text(
-                        // (state.usuario?.roles[0].nombre ?? '').capitalize,
-                        'ROL',
+                        (state.usuario?.roles?.first.rol?.nombre ?? '')
+                            .capitalize,
                         style: TextStyle(
                           color: colores.grisSC,
                           fontSize: 14.pf,

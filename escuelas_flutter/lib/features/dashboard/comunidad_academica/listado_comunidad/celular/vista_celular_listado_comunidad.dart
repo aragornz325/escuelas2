@@ -71,8 +71,7 @@ class _VistaCelularListadoComunidadState
                                     idUsuario: usuario.id,
                                   ),
                                 ),
-                                // TODO(anyone): Cambiar esto al nombre del usuario
-                                nombreUsuario: usuario.dni,
+                                nombreUsuario: usuario.nombre,
                                 context: context,
                               ),
                             )

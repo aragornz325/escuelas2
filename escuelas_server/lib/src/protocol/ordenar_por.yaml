@@ -1,0 +1,6 @@
+# Enum para ordenar listas de usuarios consultadas en general.
+enum: OrdenarPor
+values:
+  - apellido
+  - curso
+  - asignatura

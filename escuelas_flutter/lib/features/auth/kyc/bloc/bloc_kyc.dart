@@ -38,14 +38,10 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           RolDeUsuario(
             nombre: 'ALUMNO',
             descripcion: '',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
           ),
           RolDeUsuario(
             nombre: 'DOCENTE',
             descripcion: '',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
           ),
         ];
         final cursos = [
