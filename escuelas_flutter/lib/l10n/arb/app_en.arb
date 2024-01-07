@@ -421,8 +421,7 @@
     "@commonCourses": {
         "description": "It is commonly used to refer to various academic courses."
     },
-
-
+    
     "commonName": "Name",
     "@commonName": {
         "description": "Label indicating the name of something"
