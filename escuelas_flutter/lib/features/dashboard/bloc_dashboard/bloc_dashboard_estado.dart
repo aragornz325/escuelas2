@@ -9,17 +9,25 @@ part of 'bloc_dashboard.dart';
 class BlocDashboardEstado {
   /// {@macro BlocDashboardEstado}
   const BlocDashboardEstado._({
+    required this.usuario,
     required this.infoUsuario,
   });
 
   BlocDashboardEstado.desde(
     BlocDashboardEstado otro, {
-    InfoUsuario? infoUsuario,
+    UserInfo? infoUsuario,
+    Usuario? usuario,
   }) : this._(
           infoUsuario: infoUsuario ?? otro.infoUsuario,
+          usuario: usuario ?? otro.usuario,
         );
 
-  final InfoUsuario infoUsuario;
+  /// Modelo de usuario de la base de datos que contiene info de los roles y
+  /// demas datos importantes del usuario.
+  final Usuario usuario;
+
+  /// Modelo de usuario logueado por google que contiene info del cliente.
+  final UserInfo infoUsuario;
 }
 
 /// {@template BlocDashboardEstadoInicial}
@@ -27,11 +35,10 @@ class BlocDashboardEstado {
 /// {@endtemplate}
 class BlocDashboardEstadoInicial extends BlocDashboardEstado {
   /// {@macro BlocDashboardEstadoInicial}
-  const BlocDashboardEstadoInicial(
-    InfoUsuario infoUsuario,
-  ) : super._(
-          infoUsuario: infoUsuario,
-        );
+  const BlocDashboardEstadoInicial({
+    required super.infoUsuario,
+    required super.usuario,
+  }) : super._();
 }
 
 /// {@template BlocDashboardEstadoCargando}
@@ -49,8 +56,9 @@ class BlocDashboardEstadoCargando extends BlocDashboardEstado {
 class BlocDashboardEstadoExitoso extends BlocDashboardEstado {
   /// {@macro BlocDashboardEstadoExitoso}
   BlocDashboardEstadoExitoso.desde(
-    super.otro,
-  ) : super.desde();
+    super.otro, {
+    required super.usuario,
+  }) : super.desde();
 }
 
 /// {@template BlocDashboardEstadoFallido}
@@ -61,34 +69,10 @@ class BlocDashboardEstadoFallido extends BlocDashboardEstado {
   BlocDashboardEstadoFallido.desde(super.otro) : super.desde();
 }
 
-/// {@template BlocDashboardEstadoLogueoExitoso}
-/// Este estado ocurre cuando la verificacion del logueo es exitosa
-/// {@endtemplate}
-class BlocDashboardEstadoLogueoExitoso extends BlocDashboardEstado {
-  /// {@macro BlocDashboardEstadoLogueoExitoso}
-  BlocDashboardEstadoLogueoExitoso.desde(
-    super.otro, {
-    super.infoUsuario,
-  }) : super.desde();
-}
-
 /// {@template BlocDashboardEstadoLogueoFallido}
 /// Este estado ocurre cuando la verificacion del logueo falla
 /// {@endtemplate}
 class BlocDashboardEstadoLogueoFallido extends BlocDashboardEstado {
   /// {@macro BlocDashboardEstadoLogueoFallido}
   BlocDashboardEstadoLogueoFallido.desde(super.otro) : super.desde();
-}
-
-/// {@template BlocDashboardEstadoFaltaCompletarKyc}
-/// Este estado ocurre cuando se ingresa en el dashboard,
-/// se averigua si en la db el usuario actual ya completo el
-/// kcy, en caso de no ser así se emite este estado.
-///
-/// Si este estado es emitido, se redirige al usuario a completar
-/// el kyc.
-/// {@endtemplate}
-class BlocDashboardEstadoFaltaCompletarKyc extends BlocDashboardEstado {
-  /// {@macro BlocDashboardEstadoFaltaCompletarKyc}
-  BlocDashboardEstadoFaltaCompletarKyc.desde(super.otro) : super.desde();
 }

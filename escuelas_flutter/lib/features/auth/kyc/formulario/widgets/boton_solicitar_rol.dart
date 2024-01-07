@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -33,8 +35,10 @@ class BotonSolicitarRol extends StatelessWidget {
             builder: (context) {
               return EscuelasDialog.confirmar(
                 context: context,
-                // TODO(Gon): Enviar solicitud de rol al admin
-                onTapConfirmar: () {},
+                onTapConfirmar: () {
+                  Navigator.pop(context);
+                  context.router.replace(const RutaEspera());
+                },
                 content: Text(
                   l10n.pageKycFormConfirmationDialogText(
                     state.rolElegido?.nombre ?? '',

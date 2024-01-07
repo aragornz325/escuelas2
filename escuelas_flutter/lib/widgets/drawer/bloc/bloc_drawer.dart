@@ -31,9 +31,6 @@ class BlocDrawer extends Bloc<BlocDrawerEvento, BlocDrawerEstado> {
 
     await operacionBloc(
       callback: (client) async {
-        // TODO(ANYONE): Ver si luego se agrega client.
-        //(client) async {
-
         await sessionManager.signOut();
 
         if (!sessionManager.isSignedIn) {

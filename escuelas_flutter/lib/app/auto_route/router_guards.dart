@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_client/escuelas_client.dart';
+
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
@@ -48,7 +51,22 @@ class InitialGuard extends AutoRouteGuard {
     final isSignedIn = _sessionManager.isSignedIn;
 
     if (isSignedIn) {
-      return router.push<void>(RutaDashboard());
+      return router.push<void>(
+        RutaDashboard(
+          // TODO(SAM): Eliminar y luego agarrar de localstorage/isar/etc
+          userInfo: sessionManager.signedInUser!,
+          usuario: Usuario(
+            id: 1,
+            idUserInfo: 2,
+            nombre: 'John',
+            apellido: 'Doe',
+            urlFotoDePerfil: 'https://example.com/profile.jpg',
+            dni: '123456789',
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
+        ),
+      );
     }
 
     return resolver.next();

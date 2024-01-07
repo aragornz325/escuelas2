@@ -67,3 +67,8 @@ class BlocKycEventoEliminarOpcion extends BlocKycEvento {
   const BlocKycEventoEliminarOpcion({required this.idOpcion});
   final int idOpcion;
 }
+
+/// {@template BlocKycEventoCerrarSesion}
+/// Cierra sesion del usuario.
+/// {@endtemplate}
+class BlocKycEventoCerrarSesion extends BlocKycEvento {}
