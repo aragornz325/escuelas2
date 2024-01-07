@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
-import 'package:escuelas_flutter/utilidades/funciones/operacion_bloc.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 
 part 'bloc_carga_calificaciones_estado.dart';
@@ -42,7 +42,7 @@ class BlocCargaCalificaciones
   ) async {
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         ///TODO(anyone): llamar al endpoint de traer calificaciones
         ///y borrar la lista hardcodeada.
         final lista = [
@@ -251,7 +251,7 @@ class BlocCargaCalificaciones
   ) async {
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         // TODO(anyone): llamar al endpoint de envio de calificacion/notas
         emit(
           BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente

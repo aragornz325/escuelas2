@@ -26,9 +26,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
   ) async {
     emit(BlocKycEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (
-          // client
-          ) async {
+      callback: (client) async {
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
 
         // final materias =await client.;
