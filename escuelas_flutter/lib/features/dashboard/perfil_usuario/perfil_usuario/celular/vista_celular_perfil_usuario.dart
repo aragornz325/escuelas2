@@ -26,8 +26,8 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
           children: [
             TarjetaPerfil(
               nombreRol: state.nombreRol,
-              nombre: state.usuario?.nombre ?? '',
-              apellido: state.usuario?.apellido ?? '',
+              nombreUsuario: state.usuario?.nombre ?? '',
+              apellidoUsuario: state.usuario?.apellido ?? '',
             ),
             const Expanded(
               child: SingleChildScrollView(

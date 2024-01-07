@@ -52,8 +52,8 @@ class EscuelasBottomNavigationBar extends StatelessWidget {
             icono: Icons.person_2_outlined,
             estaSeleccionado: index == 2,
             onTap: () => context.pushRoute(
-              RutaPerfilUsuarioPendiente(
-                idUsuarioPendiente: 3,
+              RutaPerfilUsuario(
+                idUsuario: sessionManager.signedInUser?.id ?? 0,
               ),
             ),
           ),

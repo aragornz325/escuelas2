@@ -21,7 +21,7 @@ class BlocPerfilUsuario
     on<BlocPerfilUsuarioEventoAceptarSolicitud>(_onAceptarSolicitud);
   }
 
-  /// Trae un usuarios pendiente y la lista de roles
+  /// Trae un usuario pendiente y la lista de roles
   Future<void> _traerUsuarioPendiente(
     BlocPerfilUsuarioEventoTraerUsuarioPendiente event,
     Emitter<BlocPerfilUsuarioEstado> emit,
@@ -50,7 +50,7 @@ class BlocPerfilUsuario
     );
   }
 
-  /// Evento inicial donde trae todos usuarios pendientes de asignar un rol
+  /// Trae un usuario y la lista de roles
   Future<void> _traerUsuario(
     BlocPerfilUsuarioEventoTraerUsuario event,
     Emitter<BlocPerfilUsuarioEstado> emit,
@@ -77,7 +77,7 @@ class BlocPerfilUsuario
     );
   }
 
-  /// Evento inicial donde trae todos usuarios pendientes de asignar un rol
+  /// Acepta la solicitud de un usuario pendiente
   Future<void> _onAceptarSolicitud(
     BlocPerfilUsuarioEventoAceptarSolicitud event,
     Emitter<BlocPerfilUsuarioEstado> emit,

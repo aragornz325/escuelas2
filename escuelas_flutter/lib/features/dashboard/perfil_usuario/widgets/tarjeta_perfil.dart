@@ -15,13 +15,16 @@ class TarjetaPerfil extends StatelessWidget {
   /// {@macro TarjetaPerfil}
   const TarjetaPerfil({
     required this.nombreRol,
-    required this.nombre,
-    required this.apellido,
+    required this.nombreUsuario,
+    required this.apellidoUsuario,
     super.key,
   });
+
   final String nombreRol;
-  final String nombre;
-  final String apellido;
+
+  final String nombreUsuario;
+
+  final String apellidoUsuario;
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +57,7 @@ class TarjetaPerfil extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  nombre,
+                  nombreUsuario,
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 20.pf,
@@ -62,7 +65,7 @@ class TarjetaPerfil extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  apellido,
+                  apellidoUsuario,
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 20.pf,

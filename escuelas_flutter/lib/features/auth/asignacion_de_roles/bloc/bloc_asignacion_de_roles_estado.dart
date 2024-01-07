@@ -23,6 +23,7 @@ class BlocAsignacionDeRolesEstado {
   /// Lista de usuarios pendientes a ser asignados un rol
   final List<UsuarioPendiente> listaUsuariosPendientes;
 
+  /// Lista de roles de la institucion
   final List<RolDeUsuario> listaRoles;
 
   /// Indica si se encuentra cargando

@@ -32,6 +32,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         // final cursos = await client.curso.obtenerCursos();
 
         final roles = await client.rol.obtenerRoles();
+        // TODO(anyone): Ver como manejar los roles que se muestran
         final rolesAMostrar = roles
             .where((rol) => rol.nombre == 'Mati' || rol.nombre == 'Chepibe')
             .toList();

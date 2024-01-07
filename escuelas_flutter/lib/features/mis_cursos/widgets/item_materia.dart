@@ -27,6 +27,7 @@ class ItemMateria extends StatelessWidget {
   /// Indica si esta habilitado para presionarse o no el boton
   final bool estaHabilitado;
 
+  /// Funcion que se ejecuta cuando se presiona el boton
   final void Function() onTap;
 
   @override
