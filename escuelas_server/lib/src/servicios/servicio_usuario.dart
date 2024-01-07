@@ -213,4 +213,66 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
   }
+
+  /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
+  Future<void> responderSolicitudDeRegistro(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async {
+    final ahora = DateTime.now();
+
+    if (usuarioPendiente.estadoDeSolicitud == EstadoDeSolicitud.aprobado) {
+      final usuario = await ejecutarOperacion(
+        () => orm.crearUsuario(
+          session,
+          nuevoUsuario: Usuario(
+            idUserInfo: usuarioPendiente.idUserInfo,
+            nombre: usuarioPendiente.nombre,
+            apellido: usuarioPendiente.apellido,
+            urlFotoDePerfil: usuarioPendiente.urlFotoDePerfil,
+            fechaCreacion: ahora,
+            ultimaModificacion: ahora,
+          ),
+        ),
+      );
+
+      final idUsuario = usuario.id;
+      final asignaturasSolicitadas = usuarioPendiente.asignaturasSolicitadas;
+      final comisionSolicitada = usuarioPendiente.comisionSolicitada;
+
+      if (idUsuario == null) {
+        throw ExcepcionCustom(
+          titulo: 'Error al crear el usuario.',
+          mensaje: 'Error al crear el usuario.',
+          tipoDeError: TipoExcepcion.noEncontrado,
+          codigoError: 404,
+        );
+      }
+
+      if (asignaturasSolicitadas != null && asignaturasSolicitadas.isNotEmpty) {
+        await ejecutarOperacion(
+          () => _servicioAsignatura.asignarAsignaturasSolicitadas(
+            session,
+            asignaturasSolicitadas: asignaturasSolicitadas,
+            usuarioId: idUsuario,
+          ),
+        );
+      } else if (comisionSolicitada != null) {
+        await ejecutarOperacion(
+          () => _servicioComision.asignarUsuarioAComision(
+            session,
+            idComision: comisionSolicitada.idComision,
+            idUsuario: idUsuario,
+          ),
+        );
+      }
+
+      return ejecutarOperacion(
+        () => _ormUsuarioPendiente.actualizarUsuarioPendiente(
+          session,
+          usuarioPendiente: usuarioPendiente..ultimaModificacion = ahora,
+        ),
+      );
+    }
+  }
 }
