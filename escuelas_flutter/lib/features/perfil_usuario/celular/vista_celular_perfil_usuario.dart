@@ -35,7 +35,9 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
         context: context,
         ancho: 260.pw,
         // TODO(Gon): Dar funcion asignar rol al usuario
-        onTapConfirmar: () {},
+        onTapConfirmar: () => context
+            .read<BlocPerfilUsuario>()
+            .add(BlocPerfilUsuarioEventoAceptarSolicitud()),
         content: RichText(
           textAlign: TextAlign.center,
           text: TextSpan(

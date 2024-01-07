@@ -20,3 +20,8 @@ class BlocPerfilUsuarioEventoInicializar extends BlocPerfilUsuarioEvento {
   /// Id del usuario que se va a asignar un rol
   final int? idUsuario;
 }
+
+/// {@template BlocPerfilUsuarioEventoAceptarSolicitud}
+/// Acepta la solicitud de un usuario
+/// {@endtemplate}
+class BlocPerfilUsuarioEventoAceptarSolicitud extends BlocPerfilUsuarioEvento {}

@@ -14,6 +14,7 @@ class BlocPerfilUsuario
   /// {@macro BlocPerfilUsuario}
   BlocPerfilUsuario() : super(const BlocPerfilUsuarioEstadoInicial()) {
     on<BlocPerfilUsuarioEventoInicializar>(_inicializar);
+    on<BlocPerfilUsuarioEventoAceptarSolicitud>(_onAceptarSolicitud);
   }
 
   /// Evento inicial donde trae todos usuarios pendientes de asignar un rol
@@ -43,6 +44,37 @@ class BlocPerfilUsuario
             ),
           ),
         );
+      },
+      onError: (e, st) {
+        emit(
+          BlocPerfilUsuarioEstadoError.desde(
+            state,
+          ),
+        );
+      },
+    );
+  }
+
+  /// Evento inicial donde trae todos usuarios pendientes de asignar un rol
+  Future<void> _onAceptarSolicitud(
+    BlocPerfilUsuarioEventoAceptarSolicitud event,
+    Emitter<BlocPerfilUsuarioEstado> emit,
+  ) async {
+    emit(BlocPerfilUsuarioEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        final usuario = await client.usuario.obtenerUsuarioPendiente();
+
+        if (usuario == null) {
+          throw Exception('No hay usuarios pendientes');
+        } else {
+          await client.usuario.actualizarUsuarioPendiente(
+            usuarioPendiente: usuario
+              ..estadoDeSolicitud = EstadoDeSolicitud.aprobado,
+          );
+        }
+
+        emit(BlocPerfilUsuarioEstadoExitoso.desde(state));
       },
       onError: (e, st) {
         emit(
