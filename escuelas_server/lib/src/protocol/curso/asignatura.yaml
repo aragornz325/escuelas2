@@ -2,7 +2,6 @@ class: Asignatura
 table: asignaturas
 fields: 
   nombre: String
-  idCurso: int
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
