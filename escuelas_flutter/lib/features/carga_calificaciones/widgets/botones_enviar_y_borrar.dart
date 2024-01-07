@@ -1,6 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
-import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
@@ -12,14 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// {@endtemplate}
 class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
   /// {@macro BotonesEnviarNotasYLimpiarNotas}
-  const BotonesEnviarNotasYLimpiarNotas({
-    required this.calificacion,
-    super.key,
-  });
-
-  // TODO(anyone): reemplazar modelo
-  /// Modelo de calificación.
-  final ModeloCalificacion? calificacion;
+  const BotonesEnviarNotasYLimpiarNotas({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,31 +19,36 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
 
     final l10n = context.l10n;
 
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        EscuelasBoton.texto(
-          context: context,
-          estaHabilitado:
-              calificacion?.alumnos.any((e) => e.calificacion != null) ?? false,
-          onTap: () => context
-              .read<BlocCargaCalificaciones>()
-              .add(const BlocCargaCalificacionesEventoVaciarCalificaciones()),
-          color: colores.error,
-          texto: l10n.commonDeleteAll,
-        ),
-        EscuelasBoton.texto(
-          context: context,
-          estaHabilitado:
-              calificacion?.alumnos.every((e) => e.calificacion != null) ??
-                  false,
-          onTap: () => context
-              .read<BlocCargaCalificaciones>()
-              .add(const BlocCargaCalificacionesEventoEnviarCalificaciones()),
-          color: colores.azul,
-          texto: l10n.commonConfirm,
-        ),
-      ],
+    return BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
+      builder: (context, state) {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            EscuelasBoton.texto(
+              context: context,
+              // TODO(anyone): reemplazar por las calificaciones previas ver como vienen las calificaciones previas y mostrarlas
+              estaHabilitado: //TODO(anyone): reemplazar por nulleable
+                  state.listaCalificaciones.any((c) => c.valor != 0),
+              onTap: () => context.read<BlocCargaCalificaciones>().add(
+                  const BlocCargaCalificacionesEventoVaciarCalificaciones()),
+              color: colores.error,
+              texto: l10n.commonDeleteAll,
+            ),
+            EscuelasBoton.texto(
+              context: context,
+              estaHabilitado:
+
+                  // TODO(anyone): reemplazar por nulleable
+                  state.listaCalificaciones.every((e) => e.valor != 0),
+              onTap: () => context.read<BlocCargaCalificaciones>().add(
+                    const BlocCargaCalificacionesEventoEnviarCalificaciones(),
+                  ),
+              color: colores.azul,
+              texto: l10n.commonConfirm,
+            ),
+          ],
+        );
+      },
     );
   }
 }

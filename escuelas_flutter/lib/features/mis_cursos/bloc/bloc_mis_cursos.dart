@@ -24,45 +24,76 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
       callback: (client) async {
         // final materias = await client.traermaterias;
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
-        final materias = [
+        //TODO ver si son estos
+        // final cursos = await client.curso.obtenerCursos();
+
+        final asignaturas = [
           Asignatura(
-            nombre: 'MATEMMATEMATICAMATEMATICAMATEMATICAATICA',
-            id: 0,
-            idCurso: 0,
-            docentes: [],
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-          ),
-          Asignatura(
-            nombre: 'LENGUALENGUALENGUALENGUALENGUALENGUALENGUALENGUA',
             id: 1,
-            idCurso: 1,
+            nombre: 'matematica',
             docentes: [],
             fechaCreacion: DateTime.now(),
+            idCurso: 1,
             ultimaModificacion: DateTime.now(),
+            fechaEliminacion: DateTime.now(),
+            usuarios: [],
           ),
           Asignatura(
-            nombre:
-                'SOCIALESSOCIALESSOCIALESSOCIALESSOCIALESSOCIALESSOCIALESSOCIA',
             id: 2,
-            idCurso: 1,
+            nombre: 'ingenieria',
             docentes: [],
             fechaCreacion: DateTime.now(),
+            idCurso: 1,
             ultimaModificacion: DateTime.now(),
+            fechaEliminacion: DateTime.now(),
+            usuarios: [],
+          ),
+        ];
+        final asignaturas2 = [
+          Asignatura(
+            id: 3,
+            nombre: 'inglish',
+            docentes: [],
+            fechaCreacion: DateTime.now(),
+            idCurso: 2,
+            ultimaModificacion: DateTime.now(),
+            fechaEliminacion: DateTime.now(),
+            usuarios: [],
+          ),
+          Asignatura(
+            id: 4,
+            nombre: 'comunicacion',
+            docentes: [],
+            fechaCreacion: DateTime.now(),
+            idCurso: 2,
+            ultimaModificacion: DateTime.now(),
+            fechaEliminacion: DateTime.now(),
+            usuarios: [],
           ),
         ];
 
-        final cursos = <int, List<Asignatura>>{};
-
-        for (final materia in materias) {
-          cursos.putIfAbsent(materia.idCurso, () => []);
-          cursos[materia.idCurso]!.add(materia);
-        }
-
+        final cursos = [
+          Curso(
+            nombre: 'Primero',
+            asignaturas: asignaturas,
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+            fechaEliminacion: DateTime.now(),
+            id: 1,
+          ),
+          Curso(
+            nombre: 'segundo',
+            asignaturas: asignaturas2,
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+            fechaEliminacion: DateTime.now(),
+            id: 2,
+          ),
+        ];
         emit(
           BlocMisCursosEstadoExitoso.desde(
             state,
-            listaCursosConMaterias: cursos,
+            cursos: cursos,
           ),
         );
       },

@@ -5,18 +5,19 @@ part of 'bloc_mis_cursos.dart';
 /// {@endtemplate}
 class BlocMisCursosEstado {
   /// {@macro BlocMisCursosEstado}
-  const BlocMisCursosEstado._({this.listaCursosConMaterias = const {}});
+  const BlocMisCursosEstado._({
+    this.cursos = const [],
+  });
 
   BlocMisCursosEstado.desde(
     BlocMisCursosEstado otro, {
-    Map<int, List<Asignatura>>? listaCursosConMaterias,
+    List<Curso>? cursos,
   }) : this._(
-          listaCursosConMaterias:
-              listaCursosConMaterias ?? otro.listaCursosConMaterias,
+          cursos: cursos ?? otro.cursos,
         );
 
-  /// Lista de materias por curso
-  final Map<int, List<Asignatura>> listaCursosConMaterias;
+  /// Cursos del usuario.
+  final List<Curso> cursos;
 }
 
 /// {@template BlocMisCursosEstadoInicial}
@@ -42,7 +43,7 @@ class BlocMisCursosEstadoExitoso extends BlocMisCursosEstado {
   /// {@macro BlocMisCursosEstadoExitoso}
   BlocMisCursosEstadoExitoso.desde(
     super.otro, {
-    super.listaCursosConMaterias,
+    super.cursos,
   }) : super.desde();
 }
 

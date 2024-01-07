@@ -16,7 +16,17 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@endtemplate}
 class VistaCelularCargaDeCalificaciones extends StatelessWidget {
   /// {@macro VistaCelularCargaDeCalificaciones}
-  const VistaCelularCargaDeCalificaciones({super.key});
+  const VistaCelularCargaDeCalificaciones({
+    required this.nombreAsignatura,
+    required this.fecha,
+    super.key,
+  });
+
+  /// Fecha actual de la calificación del alumno.
+  final DateTime fecha;
+
+  /// Nombre del curso
+  final String nombreAsignatura;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +38,10 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
       children: [
         SelectorDePeriodo(
           delegate: PeriodoMensualDelegate(context),
-          onSeleccionarPeriodo: (periodo) => context
-              .read<BlocCargaCalificaciones>()
-              .add(
-                BlocCargaCalificacionesEventoGuardarPeriodo(periodo: periodo),
-              ),
+          onSeleccionarPeriodo: (periodo) =>
+              context.read<BlocCargaCalificaciones>().add(
+                    BlocCargaCalificacionesEventoGuardarFecha(fecha: fecha),
+                  ),
           decoration: BoxDecoration(
             color: colores.tertiary,
             borderRadius: BorderRadius.circular(40.sw),
@@ -40,29 +49,38 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
           margin: EdgeInsets.symmetric(horizontal: 20.pw),
         ),
         SizedBox(height: max(20.ph, 20.sh)),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 15.pw),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                'MAATEMATICA', // TODO(mati): poner la materia/asignatura correspondiente
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 15.pf,
-                  color: colores.onBackground,
-                ),
+        BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
+          builder: (context, state) {
+            final curso = state.curso;
+
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: 15.pw),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    nombreAsignatura,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w800,
+                      fontSize: 15.pf,
+                      color: colores.onSecondary,
+                    ),
+                  ),
+                  if (curso != null)
+                    Text(
+                      curso.nombre,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w800,
+                        fontSize: 15.pf,
+                        color: colores.onBackground,
+                      ),
+                    )
+                  else
+                    const CircularProgressIndicator(),
+                ],
               ),
-              Text(
-                'PRIMERO', // TODO(mati): el curso correspondiente
-                style: TextStyle(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 15.pf,
-                  color: colores.onSecondary,
-                ),
-              ),
-            ],
-          ),
+            );
+          },
         ),
         SizedBox(height: max(10.ph, 10.sh)),
         BlocConsumer<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
@@ -75,9 +93,9 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            final calificacion = state.calificacion;
+            final curso = state.curso;
 
-            if (calificacion == null) {
+            if (curso == null) {
               return Center(
                 child: Text(l10n.pageGradesNoGrades),
               );
@@ -92,12 +110,13 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
             return Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: calificacion.alumnos.map(
+                  children: curso.estudiantes.map(
                     (e) {
+                      print(e);
                       return TarjetaCargaCalificacionAlumno(
-                        alumno: e,
-                        fecha: state.periodo?.fechaDesde ?? DateTime.now(),
-                        listaCalificaciones: state.listaCalificaciones,
+                        curso: curso,
+                        usuario: e,
+                        fecha: state.fecha ?? DateTime.now(),
                         rolDelUsuario: state.rolDelUsuario,
                       );
                     },
@@ -108,13 +127,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
           },
         ),
         SizedBox(height: max(10.ph, 10.sh)),
-        BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
-          builder: (context, state) {
-            return BotonesEnviarNotasYLimpiarNotas(
-              calificacion: state.calificacion,
-            );
-          },
-        ),
+        const BotonesEnviarNotasYLimpiarNotas(),
         SizedBox(height: max(20.ph, 20.sh)),
       ],
     );
