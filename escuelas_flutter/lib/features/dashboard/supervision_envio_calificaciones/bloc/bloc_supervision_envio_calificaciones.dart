@@ -12,7 +12,7 @@ part 'bloc_supervision_envio_calificaciones_evento.dart';
 class BlocSupervisionEnvioCalificaciones extends Bloc<
     BlocSupervisionEnvioCalificacionesEvento,
     BlocSupervisionEnvioCalificacionesEstado> {
-  /// {@macro BlocSupervision de envio de Calificaciones}
+  /// {@macro BlocSupervision}
   BlocSupervisionEnvioCalificaciones()
       : super(const BlocSupervisionEnvioCalificacionesEstadoInicial()) {
     on<BlocSupervisionEnvioCalificacionesEventoInicializar>(_onInicializar);

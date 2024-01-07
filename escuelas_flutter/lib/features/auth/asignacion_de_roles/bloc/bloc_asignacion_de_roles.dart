@@ -41,6 +41,7 @@ class BlocAsignacionDeRoles
                 dni: '43',
                 ultimaModificacion: DateTime.now(),
                 fechaCreacion: DateTime.now(),
+                urlFotoDePerfil: '',
               ),
             ],
           ),

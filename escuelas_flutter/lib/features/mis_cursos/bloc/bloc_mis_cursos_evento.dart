@@ -10,4 +10,5 @@ abstract class BlocMisCursosEvento {
 
 /// {@template BlocMisCursosEventoicializar}
 /// Inicializa la pagina, en este caso, trae las materias asignadas al usuario
+/// {@endtemplate}
 class BlocMisCursosEventoInicializar extends BlocMisCursosEvento {}
