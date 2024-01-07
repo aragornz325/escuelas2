@@ -4,8 +4,13 @@ asignatura:
   - crearAsignatura:
   - actualizarAsignatura:
   - eliminarAsignatura:
+  - asignarUsuarioAAsignaturas:
 asistencia:
   - crearAsistenciasEnLote:
+  - traerAsistenciaPorDia:
+comisiones:
+  - asignarUsuarioAComision:
+  - obtenerComisiones:
 curso:
   - obtenerCursoPorId:
   - obtenerCursos:
@@ -16,6 +21,7 @@ example:
   - hello:
 rol:
   - obtenerRolPorId:
+  - obtenerUsuariosConRol:
   - obtenerRoles:
   - crearRol:
   - actualizarRol:
@@ -24,5 +30,6 @@ usuario:
   - obtenerDatosDelUsuario:
   - obtenerUsuarioPendiente:
   - obtenerUsuariosPendientes:
-  - enviarSoliciturRegistro:
+  - enviarSolicitudRegistroDocente:
+  - enviarSolicitudRegistroAlumno:
   - actualizarUsuarioPendiente:

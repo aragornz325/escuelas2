@@ -4,7 +4,6 @@ import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:serverpod/serverpod.dart';
 
 class RolEndpoint extends Endpoint with Controller<ServicioRol> {
-  
   @override
   ServicioRol get servicio => ServicioRol();
 
@@ -20,12 +19,29 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
   Future<RolDeUsuario> obtenerRolPorId(
     Session session, {
     required int id,
+    OrdenarPor? ordenarUsuariosPor,
   }) async {
     return await ejecutarOperacionControlador(
       'obtenerRolPorId',
       () => servicio.obtenerRolPorId(
         session,
         id: id,
+        ordenarUsuariosPor: ordenarUsuariosPor ?? OrdenarPor.apellido,
+      ),
+    );
+  }
+
+  Future<List<RelacionUsuarioRol>> obtenerUsuariosConRol(
+    Session session, {
+    required int idRol,
+    OrdenarPor? ordenarUsuariosPor,
+  }) async {
+    return await ejecutarOperacionControlador(
+      'obtenerUsuariosConRol',
+      () => servicio.obtenerUsuariosConRol(
+        session,
+        idRol: idRol,
+        ordenarUsuariosPor: ordenarUsuariosPor ?? OrdenarPor.apellido,
       ),
     );
   }

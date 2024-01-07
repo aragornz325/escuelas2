@@ -1,7 +1,8 @@
 import 'dart:math';
 
+import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/extensiones/extension_estado_asistencia.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -12,18 +13,36 @@ import 'package:full_responsive/full_responsive.dart';
 class ListaDeAlumnosAusentes extends StatefulWidget {
   /// {@macro ListaDeAlumnosAusentes}
   const ListaDeAlumnosAusentes({
-    required this.alumnosFiltrados,
+    required this.usuarios,
+    required this.asistencias,
     super.key,
   });
 
-  /// Lista de alumnos filtrados por los ausentes.
-  final List<ModeloAlumno> alumnosFiltrados;
+  /// Lista de alumnos a filtrar por ausentismo.
+  final List<Usuario> usuarios;
+
+  /// Lista de asistencias
+  final List<AsistenciaDiaria> asistencias;
 
   @override
   State<ListaDeAlumnosAusentes> createState() => _ListaDeAlumnosAusentesState();
 }
 
 class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
+  /// Lista de alumnos filtradas por ausentismo
+  List<Usuario> get usuarioSinEstadoPresente => widget.usuarios.where(
+        (usuario) {
+          return widget.asistencias.any(
+            (asistencia) =>
+                asistencia.idEstudiante == usuario.idUserInfo &&
+                !(asistencia.estadoDeAsistencia ==
+                        EstadoDeAsistencia.presente ||
+                    asistencia.estadoDeAsistencia ==
+                        EstadoDeAsistencia.sinEstado),
+          );
+        },
+      ).toList();
+
   /// Variables de ordenamiento por Estado
   bool ordenEstado = false;
 
@@ -37,27 +56,35 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
     final l10n = context.l10n;
 
     /// Variables de ordenamiento de la lista de alumnos
-    var alumnosOrdenados = List<ModeloAlumno>.from(widget.alumnosFiltrados);
+    var alumnosOrdenados = usuarioSinEstadoPresente;
 
     if (ordenPorNombre) {
-      // Ordenar por nombre
+      // Ordenar por apellido
+
       alumnosOrdenados.sort(
-        (a, b) =>
-            // TODO(mati): reemplazar por en apellido
-            a.nombre.toLowerCase().compareTo(
-                  b.nombre.toLowerCase(),
-                ),
+        (a, b) => a.apellido.toLowerCase().compareTo(
+              b.apellido.toLowerCase(),
+            ),
       );
     } else if (ordenEstado) {
       // Ordenar por estado ascendente
       alumnosOrdenados.sort(
-        (a, b) => a.asistencia.index.compareTo(
-          b.asistencia.index,
-        ),
+        (a, b) {
+          // Obtener las asistencias diarias asociadas a cada usuario
+          final asistenciaA = widget.asistencias.firstWhere(
+            (asistencia) => asistencia.idEstudiante == a.idUserInfo,
+          );
+          final asistenciaB = widget.asistencias.firstWhere(
+            (asistencia) => asistencia.idEstudiante == b.idUserInfo,
+          );
+
+          return asistenciaA.estadoDeAsistencia.index
+              .compareTo(asistenciaB.estadoDeAsistencia.index);
+        },
       );
     } else {
       // No ordenar si ambas opciones están en false
-      alumnosOrdenados = widget.alumnosFiltrados;
+      alumnosOrdenados = widget.usuarios;
     }
 
     return Column(
@@ -85,39 +112,50 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
         ),
         SizedBox(height: max(5.ph, 5.sh)),
         SizedBox(
-          height: max(120.ph, 120.sh),
+          height: max(100.ph, 100.sh),
           child: SingleChildScrollView(
             child: Column(
               children: [
                 if (alumnosOrdenados.isNotEmpty) ...[
                   ...alumnosOrdenados.map(
                     (alumno) {
-                      return Row(
-                        children: [
-                          SizedBox(
-                            width: 150.pw,
-                            child: Text(
-                              alumno.nombre,
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                fontSize: 15.pf,
-                                color: colores.onBackground,
-                              ),
-                            ),
-                          ),
-                          const Spacer(),
-                          Text(
-                            alumno.asistencia.nombreEstado(context),
-                            style: TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 13.pf,
-                              color: alumno.asistencia.colorEstado(context),
-                            ),
-                          ),
-                        ],
+                      //TODO(mati): cambiar esta horrible logica
+                      final asistenciaDiaria = widget.asistencias.firstWhere(
+                        (asistencia) =>
+                            asistencia.idEstudiante == alumno.idUserInfo,
                       );
+
+                      return asistenciaDiaria.estadoDeAsistencia !=
+                              EstadoDeAsistencia.presente
+                          ? Row(
+                              children: [
+                                SizedBox(
+                                  width: 150.pw,
+                                  child: Text(
+                                    '${alumno.nombre} ${alumno.apellido}',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 15.pf,
+                                      color: colores.onBackground,
+                                    ),
+                                  ),
+                                ),
+                                const Spacer(),
+                                Text(
+                                  asistenciaDiaria.estadoDeAsistencia
+                                      .nombreEstado(context),
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 13.pf,
+                                    color: asistenciaDiaria.estadoDeAsistencia
+                                        .colorEstado(context),
+                                  ),
+                                ),
+                              ],
+                            )
+                          : const SizedBox.shrink();
                     },
                   ),
                 ] else ...[

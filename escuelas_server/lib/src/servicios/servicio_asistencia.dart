@@ -31,4 +31,25 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
       ),
     );
   }
+
+  /// La función `traerAsistenciaPorDia` recupera la asistencia de un día en particular.
+  /// Args:
+  ///  session (Session): Un objeto de tipo "Session" que representa una conexión a una base de datos.
+  /// idComision (int): Un número entero que representa el identificador único de la comisión.
+  /// fecha (DateTime): Un objeto de tipo "DateTime" que representa la fecha de la asistencia.
+  /// Returns:
+  ///  El método `traerAsistenciaPorDia` devuelve un `Futuro<List<AsistenciaDiaria>>`.
+  Future<List<AsistenciaDiaria>> traerAsistenciaPorDia(
+    Session session, {
+    required int idComision,
+    required DateTime fecha,
+  }) async {
+    return await ejecutarOperacion(
+      () => orm.traerAsistenciaPorDia(
+        session,
+        idComision: idComision,
+        fecha: fecha,
+      ),
+    );
+  }
 }

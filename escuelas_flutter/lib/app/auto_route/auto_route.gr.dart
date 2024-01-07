@@ -9,8 +9,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i18;
-import 'package:escuelas_flutter/features/asistencias/pagina_asistencias.dart'
-    as _i6;
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/pagina_asignacion_de_roles.dart'
     as _i1;
 import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.dart'
@@ -31,6 +29,8 @@ import 'package:escuelas_flutter/features/dashboard/pagina_dashboard.dart'
     as _i4;
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/pagina_supervision_envio_calificaciones.dart'
     as _i17;
+import 'package:escuelas_flutter/features/inasistencias/pagina_inasistencias.dart'
+    as _i6;
 import 'package:escuelas_flutter/features/lista_cursos/lista_cursos.dart'
     as _i9;
 import 'package:escuelas_flutter/features/mis_cursos/pagina_mis_cursos.dart'

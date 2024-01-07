@@ -1,6 +1,6 @@
 import 'dart:math';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
-import 'package:escuelas_flutter/features/asistencias/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
+import 'package:escuelas_flutter/features/inasistencias/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_diario_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
@@ -25,19 +25,21 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
-    return BlocBuilder<BlocAsistencias, BlocAsistenciasEstado>(
+    return BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
       builder: (context, state) {
-        if (state is BlocAsistenciasEstadoCargando) {
+        if (state is BlocInasistenciasEstadoCargando) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
+
         if (state.cursos.isEmpty) {
           // TODO(anyone): hacer una vista cuando no hay cursos.
           return Center(
             child: Text(l10n.pageAttendanceNotAbsentStudents),
           );
         }
+
         return Column(
           children: [
             // TODO(anyone): no se actualiza la fecha
@@ -59,14 +61,11 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
               onSeleccionarPeriodo: (periodo) {},
             ),
             const Divider(thickness: .5),
-            const Expanded(child: ListaDeCursos()),
-            if (state.cursoDesplegado)
-              BotonFinalizarAsistencias(
-                // TODO(anyone): fecha hardcodeada reemplazar por la del
-                // calendario
+            Expanded(
+              child: ListaDeCursos(
                 fecha: DateTime.now(),
-                curso: state.cursos[state.index],
               ),
+            ),
             SizedBox(height: max(10.ph, 10.sh)),
           ],
         );

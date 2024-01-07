@@ -36,6 +36,9 @@ class BlocPerfilUsuario
               dni: '43',
               ultimaModificacion: DateTime.now(),
               fechaCreacion: DateTime.now(),
+              nombre: 'gonzalo',
+              apellido: 'higuain',
+              urlFotoDePerfil: 'https://picsum.photos/200/300',
             ),
           ),
         );

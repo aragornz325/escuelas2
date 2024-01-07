@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
+import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/utilidades/funciones/operacion_bloc.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 
@@ -43,99 +43,99 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: () async {
-        // TODO(anyone): llamar al endpoint de traer calificaciones
-        // y borrar la lista hardcodeada.
+        ///TODO(anyone): llamar al endpoint de traer calificaciones
+        ///y borrar la lista hardcodeada.
         final lista = [
           ModeloCalificacion(
             id: 1,
             fecha: DateTime.now(),
             alumnos: [
-              ModeloAlumno(
-                id: 1,
-                nombre: 'Gonzalo',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 5,
-              ),
-              ModeloAlumno(
-                id: 2,
-                nombre: 'Matias',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 1,
-              ),
-              ModeloAlumno(
-                id: 3,
-                nombre: 'Sebas',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 11,
-              ),
-              ModeloAlumno(
-                id: 4,
-                nombre: 'Manu',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 9,
-              ),
+              // ModeloAlumno(
+              //   id: 1,
+              //   nombre: 'Gonzalo',
+              //   asistencia: EstadoAsistencia.sinAsistencia,
+              //   calificacion: 5,
+              // ),
+              // ModeloAlumno(
+              //   id: 2,
+              //   nombre: 'Matias',
+              //   asistencia: EstadoAsistencia.sinAsistencia,
+              //   calificacion: 1,
+              // ),
+              // ModeloAlumno(
+              //   id: 3,
+              //   nombre: 'Sebas',
+              //   asistencia: EstadoAsistencia.sinAsistencia,
+              //   calificacion: 11,
+              // ),
+              // ModeloAlumno(
+              //   id: 4,
+              //   nombre: 'Manu',
+              //   asistencia: EstadoAsistencia.sinAsistencia,
+              //   calificacion: 9,
+              // ),
             ],
           ),
-          ModeloCalificacion(
-            id: 1,
-            fecha: DateTime(2023, 12, 31),
-            alumnos: [
-              ModeloAlumno(
-                id: 1,
-                nombre: 'Gonzalo',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 10,
-              ),
-              ModeloAlumno(
-                id: 2,
-                nombre: 'Matias',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 5,
-              ),
-              ModeloAlumno(
-                id: 3,
-                nombre: 'Sebas',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 10,
-              ),
-              ModeloAlumno(
-                id: 4,
-                nombre: 'Manu',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 8,
-              ),
-            ],
-          ),
-          ModeloCalificacion(
-            id: 1,
-            fecha: DateTime(2024, 2, 10),
-            alumnos: [
-              ModeloAlumno(
-                id: 1,
-                nombre: 'Gonzalo',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 1,
-              ),
-              ModeloAlumno(
-                id: 2,
-                nombre: 'Matias',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 1,
-              ),
-              ModeloAlumno(
-                id: 3,
-                nombre: 'Sebas',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 1,
-              ),
-              ModeloAlumno(
-                id: 4,
-                nombre: 'Manu',
-                asistencia: EstadoAsistencia.sinAsistencia,
-                calificacion: 1,
-              ),
-            ],
-          ),
+          // ModeloCalificacion(
+          //   id: 1,
+          //   fecha: DateTime(2023, 12, 31),
+          //   alumnos: [
+          //     ModeloAlumno(
+          //       id: 1,
+          //       nombre: 'Gonzalo',
+          //       asistencia: EstadoAsistencia.sinAsistencia,
+          //       calificacion: 10,
+          //     ),
+          //     ModeloAlumno(
+          //       id: 2,
+          //       nombre: 'Matias',
+          //       asistencia: EstadoAsistencia.sinAsistencia,
+          //       calificacion: 5,
+          //     ),
+          //     ModeloAlumno(
+          //       id: 3,
+          //       nombre: 'Sebas',
+          //       asistencia: EstadoAsistencia.sinAsistencia,
+          //       calificacion: 10,
+          //     ),
+          //     ModeloAlumno(
+          //       id: 4,
+          //       nombre: 'Manu',
+          //       asistencia: EstadoAsistencia.sinAsistencia,
+          //       calificacion: 8,
+          //     ),
+          //   ],
+          // ),
+          // ModeloCalificacion(
+          //   id: 1,
+          //   fecha: DateTime(2024, 2, 10),
+          //   alumnos: [
+          //     ModeloAlumno(
+          //       id: 1,
+          //       nombre: 'Gonzalo',
+          //       asistencia: EstadoAsistencia.sinAsistencia,
+          //       calificacion: 1,
+          //     ),
+          //     ModeloAlumno(
+          //       id: 2,
+          //       nombre: 'Matias',
+          //       asistencia: EstadoAsistencia.sinAsistencia,
+          //       calificacion: 1,
+          //     ),
+          //     ModeloAlumno(
+          //       id: 3,
+          //       nombre: 'Sebas',
+          //       asistencia: EstadoAsistencia.sinAsistencia,
+          //       calificacion: 1,
+          //     ),
+          //     ModeloAlumno(
+          //       id: 4,
+          //       nombre: 'Manu',
+          //       asistencia: EstadoAsistencia.sinAsistencia,
+          //       calificacion: 1,
+          //     ),
+          //   ],
+          // ),
         ];
 
         final calificacion = lista.firstWhere(
