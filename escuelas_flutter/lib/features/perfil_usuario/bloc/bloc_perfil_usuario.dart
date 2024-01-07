@@ -26,22 +26,14 @@ class BlocPerfilUsuario
     await operacionBloc(
       callback: (client) async {
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
-        // final usuario = await client.usuario.obtenerDatosDelUsuario();
+        final usuarioPendiente =
+            await client.usuario.obtenerUsuarioPendiente(idUsuarioPendiente: 2);
+        final usuario = await client.usuario
+            .obtenerUsuario(idUsuario: usuarioPendiente?.idUserInfo ?? 0);
         emit(
           BlocPerfilUsuarioEstadoExitoso.desde(
             state,
-            // TODO(Gon): Usar el usuario del back
-            // usuario: usuario
-            usuario: Usuario(
-              idUserInfo: 0,
-              roles: [],
-              dni: '43',
-              ultimaModificacion: DateTime.now(),
-              fechaCreacion: DateTime.now(),
-              nombre: 'gonzalo',
-              apellido: 'higuain',
-              urlFotoDePerfil: 'https://picsum.photos/200/300',
-            ),
+            usuario: usuario,
           ),
         );
       },
@@ -63,7 +55,9 @@ class BlocPerfilUsuario
     emit(BlocPerfilUsuarioEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final usuario = await client.usuario.obtenerUsuarioPendiente();
+        final usuario = await client.usuario.obtenerUsuarioPendiente(
+          idUsuarioPendiente: state.usuario?.id ?? 0,
+        );
 
         if (usuario == null) {
           throw Exception('No hay usuarios pendientes');

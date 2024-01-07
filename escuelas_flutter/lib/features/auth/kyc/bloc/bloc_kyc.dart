@@ -12,7 +12,7 @@ part 'bloc_kyc_evento.dart';
 class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
   /// {@macro BlocKyc}
   BlocKyc() : super(const BlocKycEstadoInicial()) {
-    on<BlocKycEventoInicializar>(_inicializar);
+    on<BlocKycEventoInicializar>(_onInicializar);
     on<BlocKycEventoSeleccionarCursoYMateria>(_seleccionarCursoYMateria);
     on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
     on<BlocKycEventoEliminarOpcion>(_eliminarOpcion);
@@ -20,57 +20,33 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
   }
 
   /// Evento inicial donde trae todos los cursos del usuario.
-  Future<void> _inicializar(
+  Future<void> _onInicializar(
     BlocKycEventoInicializar event,
     Emitter<BlocKycEstado> emit,
   ) async {
     emit(BlocKycEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(Gon): Eliminar hardcodeo y usar endpoint
+        final asignaturas = await client.asignatura.obtenerAsignaturas();
 
-        // final materias =await client.;
-        // final cursos =await client.;
-        // final roles = await client.;
-        final roles = [
-          RolDeUsuario(
-            nombre: 'ALUMNO',
-            descripcion: '',
-          ),
-          RolDeUsuario(
-            nombre: 'DOCENTE',
-            descripcion: '',
-          ),
-        ];
-        final cursos = [
-          Curso(
-            nombre: 'nombre',
-            asignaturas: [],
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-        ];
-        final materias = [
-          Asignatura(
-            nombre: '',
-            idCurso: 0,
-            docentes: [],
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-        ];
+        // final cursos = await client.curso.obtenerCursos();
+
+        final roles = await client.rol.obtenerRoles();
+        final rolesAMostrar = roles
+            .where((rol) => rol.nombre == 'Mati' || rol.nombre == 'Chepibe')
+            .toList();
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            listaCursos: cursos,
-            listaMaterias: materias,
-            listaRoles: roles,
+            listaAsignaturas: asignaturas,
+            listaCursos: [],
+            listaRoles: rolesAMostrar,
             opcionesFormulario: [
               // TODO(Gon): Ver manera de cambiar esto
               OpcionFormulario(
                 id: 0,
                 curso: Curso(
-                  nombre: 'nombre',
+                  nombre: '',
                   asignaturas: [],
                   ultimaModificacion: DateTime.now(),
                   fechaCreacion: DateTime.now(),
@@ -89,9 +65,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
       },
       onError: (e, st) {
         emit(
-          BlocKycEstadoError.desde(
-            state,
-          ),
+          BlocKycEstadoError.desde(state),
         );
       },
     );
@@ -128,7 +102,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     }
 
     if (event.idMateria != null) {
-      opcionAModificar.materia = state.listaMaterias
+      opcionAModificar.materia = state.listaAsignaturas
           .firstWhere((materia) => materia.id == event.idMateria);
     }
 
@@ -151,7 +125,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             OpcionFormulario(
               id: state.opcionesFormulario.length + 1,
               curso: Curso(
-                nombre: 'nombre',
+                nombre: '',
                 asignaturas: [],
                 ultimaModificacion: DateTime.now(),
                 fechaCreacion: DateTime.now(),

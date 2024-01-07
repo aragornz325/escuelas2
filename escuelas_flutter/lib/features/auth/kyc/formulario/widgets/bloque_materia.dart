@@ -35,7 +35,7 @@ class BloqueMateria extends StatelessWidget {
             children: [
               Text(
                 // TODO(Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
-                state.rolElegido!.nombre == 'ALUMNO'
+                state.rolElegido!.nombre == 'Mati'
                     ? l10n.pageKycFormWhatGradeAreYouIn
                     : l10n.pageKycFormWhatYearIsYourSubject,
                 style: TextStyle(
@@ -57,7 +57,7 @@ class BloqueMateria extends StatelessWidget {
               ),
               SizedBox(height: 20.ph),
               // TODO(Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
-              if (state.rolElegido!.nombre == 'DOCENTE')
+              if (state.rolElegido!.nombre == 'Chepibe')
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -71,7 +71,7 @@ class BloqueMateria extends StatelessWidget {
                     ),
                     SizedBox(height: 5.ph),
                     FormularioDropdown(
-                      lista: state.listaOpcionesMaterias,
+                      lista: state.listaOpcionesAsignaturas,
                       listaOpcionesSeleccionadas: (value) =>
                           context.read<BlocKyc>().add(
                                 BlocKycEventoSeleccionarCursoYMateria(

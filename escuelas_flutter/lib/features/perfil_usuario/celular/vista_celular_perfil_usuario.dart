@@ -34,7 +34,6 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
       builder: (context) => EscuelasDialog.confirmar(
         context: context,
         ancho: 260.pw,
-        // TODO(Gon): Dar funcion asignar rol al usuario
         onTapConfirmar: () => context
             .read<BlocPerfilUsuario>()
             .add(BlocPerfilUsuarioEventoAceptarSolicitud()),
@@ -58,8 +57,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
                 ),
               ),
               TextSpan(
-                // TODO(Gon): Cambiar por el nombre
-                text: usuario?.dni ?? '',
+                text: usuario?.nombre ?? '',
                 style: TextStyle(
                   color: colores.onBackground,
                   fontSize: 16.pf,
