@@ -32,7 +32,8 @@ class BlocPerfilUsuario
       callback: (client) async {
         final listaRoles = await client.rol.obtenerRoles();
 
-        final usuarioPendiente = await client.usuario.obtenerUsuarioPendiente(
+        final usuarioPendiente =
+            await client.usuario.obtenerUsuarioPendientePorId(
           idUsuarioPendiente: event.idUsuarioPendiente ?? 0,
         );
 
@@ -85,9 +86,7 @@ class BlocPerfilUsuario
     emit(BlocPerfilUsuarioEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final usuarioPendiente = await client.usuario.obtenerUsuarioPendiente(
-          idUsuarioPendiente: state.usuario?.id ?? 0,
-        );
+        final usuarioPendiente = state.usuarioPendiente;
 
         if (usuarioPendiente == null) {
           emit(BlocPerfilUsuarioEstadoError.desde(state));
