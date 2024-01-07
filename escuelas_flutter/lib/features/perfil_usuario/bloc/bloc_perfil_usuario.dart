@@ -25,11 +25,12 @@ class BlocPerfilUsuario
     await operacionBloc(
       callback: (client) async {
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
-        // final usuario = await traerDatosUsuario(event.idUsuario);
+        // final usuario = await client.usuario.obtenerDatosDelUsuario();
         emit(
           BlocPerfilUsuarioEstadoExitoso.desde(
             state,
             // TODO(Gon): Usar el usuario del back
+            // usuario: usuario
             usuario: Usuario(
               idUserInfo: 0,
               roles: [],
