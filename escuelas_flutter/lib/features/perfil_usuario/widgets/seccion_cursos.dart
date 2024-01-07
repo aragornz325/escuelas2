@@ -1,14 +1,22 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
+/// {@template SeccionCursos}
+/// Seccion de cursos del perfil de usuario donde se puede ver a que cursos esta
+/// asignado el usuario
+/// {@endtemplate}
 class SeccionCursos extends StatelessWidget {
+  /// {@macro SeccionCursos}
   const SeccionCursos({super.key});
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
 
     return Container(
       margin: EdgeInsets.symmetric(
@@ -21,7 +29,7 @@ class SeccionCursos extends StatelessWidget {
       ),
       child: ExpansionTile(
         title: Text(
-          'CURSOS',
+          l10n.commonCourses,
           style: TextStyle(
             color: colores.onBackground,
             fontSize: 13.pf,
@@ -48,7 +56,7 @@ class SeccionCursos extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Asignatura',
+                      l10n.commonSubject,
                       style: TextStyle(
                         color: colores.grisSC,
                         fontSize: 14.pf,
@@ -56,7 +64,7 @@ class SeccionCursos extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Curso',
+                      l10n.commonCourse,
                       style: TextStyle(
                         color: colores.grisSC,
                         fontSize: 14.pf,
@@ -69,6 +77,7 @@ class SeccionCursos extends StatelessWidget {
                   padding: EdgeInsets.only(top: 14.ph),
                   child: Column(
                     children: [
+                      // TODO(anyone): Traer la relacion de cursos/materias del usuario
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

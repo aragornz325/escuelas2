@@ -30,7 +30,7 @@ class DatosPersonales extends StatelessWidget {
       ),
       child: ExpansionTile(
         title: Text(
-          'DATOS PERSONALES',
+          l10n.pageRoleAssigmentPersonalInformation.toUpperCase(),
           style: TextStyle(
             color: colores.onBackground,
             fontSize: 13.pf,
