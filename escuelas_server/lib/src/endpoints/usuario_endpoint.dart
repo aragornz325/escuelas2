@@ -35,13 +35,24 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         () => servicio.obtenerDatosDeSolicitudDelUsuario(session),
       );
 
-  Future<UsuarioPendiente?> obtenerUsuarioPendiente(
+  /// Obtiene un usuario pendiente a traves de la relacion de [UsuarioPendiente]
+  /// con [UserInfo]
+  ///
+  /// El usuario pendiente se obtiene a traves del id de [UserInfo] dentro del manager.
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(Session session) async =>
+      ejecutarOperacionControlador(
+        'obtenerUsuarioPendiente',
+        () => servicio.obtenerUsuarioPendiente(session),
+      );
+
+  /// Obtiene un usuario pendiente a través del id de [UsuarioPendiente]
+  Future<UsuarioPendiente?> obtenerUsuarioPendientePorId(
     Session session, {
     required int idUsuarioPendiente,
   }) async =>
       ejecutarOperacionControlador(
-        'obtenerUsuarioPendiente',
-        () => servicio.obtenerUsuarioPendiente(
+        'obtenerUsuarioPendientePorId',
+        () => servicio.obtenerUsuarioPendientePorId(
           session,
           idUsuarioPendiente: idUsuarioPendiente,
         ),
