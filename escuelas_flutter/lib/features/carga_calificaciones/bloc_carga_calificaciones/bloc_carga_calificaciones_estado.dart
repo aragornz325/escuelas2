@@ -8,35 +8,41 @@ class BlocCargaCalificacionesEstado {
   /// {@macro BlocCargaCalificacionesEstado}
   const BlocCargaCalificacionesEstado._({
     this.rolDelUsuario,
+    this.curso,
+    this.fecha,
+    this.listaCalificacionesCompensadas = const [],
     this.listaCalificaciones = const [],
-    this.calificacion,
-    this.periodo,
   });
 
   BlocCargaCalificacionesEstado.desde(
     BlocCargaCalificacionesEstado otro, {
-    List<ModeloCalificacion>? listaCalificaciones,
+    ComisionDeCurso? curso,
     RolDeUsuario? rolDelUsuario,
-    ModeloCalificacion? calificacion,
-    PeriodoDelSelector? periodo,
+    Asignatura? asignatura,
+    List<CalificacionCompensacion>? listaCalificacionesCompensadas,
+    DateTime? fecha,
+    List<Calificacion>? listaCalificaciones,
   }) : this._(
-          listaCalificaciones: listaCalificaciones ?? otro.listaCalificaciones,
+          fecha: fecha ?? otro.fecha,
+          curso: curso ?? otro.curso,
           rolDelUsuario: rolDelUsuario ?? otro.rolDelUsuario,
-          calificacion: calificacion ?? otro.calificacion,
-          periodo: periodo ?? otro.periodo,
+          listaCalificacionesCompensadas: listaCalificacionesCompensadas ??
+              otro.listaCalificacionesCompensadas,
+          listaCalificaciones: listaCalificaciones ?? otro.listaCalificaciones,
         );
 
-  /// Lista de listas de los alumnos
-  final List<ModeloCalificacion> listaCalificaciones;
+  /// Curso con los alumnos.
+  final ComisionDeCurso? curso;
 
-  /// Lista de los alumnos
-  final ModeloCalificacion? calificacion;
-
-  /// Rol del usuario //TODO(anyone): reemplazar por el modelo del rol
+  /// Rol del usuario
   final RolDeUsuario? rolDelUsuario;
 
   /// Periodo actual del calendaio
-  final PeriodoDelSelector? periodo;
+  final DateTime? fecha;
+
+  final List<CalificacionCompensacion> listaCalificacionesCompensadas;
+
+  final List<Calificacion> listaCalificaciones;
 
   /// Indica si el estado es
   /// [BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones]
@@ -49,10 +55,11 @@ class BlocCargaCalificacionesEstado {
       this is BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente;
 
   List<Object?> get props => [
-        listaCalificaciones,
+        curso,
+        fecha,
         rolDelUsuario,
-        calificacion,
-        periodo,
+        listaCalificaciones,
+        listaCalificacionesCompensadas,
       ];
 }
 
@@ -84,10 +91,12 @@ class BlocCargaCalificacionesEstadoExitoso
   /// {@macro BlocCargaCalificacionesEstadoExitoso}
   BlocCargaCalificacionesEstadoExitoso.desde(
     super.otro, {
-    super.listaCalificaciones,
+    super.curso,
+    super.fecha,
+    super.asignatura,
     super.rolDelUsuario,
-    super.calificacion,
-    super.periodo,
+    super.listaCalificaciones,
+    super.listaCalificacionesCompensadas,
   }) : super.desde();
 }
 

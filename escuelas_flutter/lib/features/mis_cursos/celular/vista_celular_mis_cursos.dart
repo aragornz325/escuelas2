@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/features/mis_cursos/widgets/item_materia.dart';
@@ -30,11 +32,9 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
       children: [
         SelectorDePeriodo(
           delegate: PeriodoMensualDelegate(context),
-          onSeleccionarPeriodo: (periodo) {
-            setState(() {
-              fecha = periodo.fechaDesde;
-            });
-          },
+          onSeleccionarPeriodo: (periodo) => setState(
+            () => fecha = periodo.fechaDesde,
+          ),
           decoration: BoxDecoration(
             color: colores.tertiary,
             borderRadius: BorderRadius.circular(40.sw),
@@ -52,13 +52,13 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: state.listaCursosConMaterias.keys
+                    children: state.cursos
                         .map(
-                          (cursoId) => Column(
+                          (curso) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                cursoId.toString(),
+                                curso.nombre.toUpperCase(),
                                 style: TextStyle(
                                   color: colores.onSecondary,
                                   fontSize: 13.pf,
@@ -67,9 +67,9 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                               ),
                               SizedBox(height: 10.ph),
                               Column(
-                                children: state.listaCursosConMaterias[cursoId]!
+                                children: curso.asignaturas
                                     .map(
-                                      (materia) => Padding(
+                                      (asignatura) => Padding(
                                         padding: EdgeInsets.only(
                                           bottom: 10.ph,
                                         ),
@@ -80,7 +80,15 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                                           //actual y hacer la validacion con eso
                                           estaHabilitado:
                                               fecha.isBefore(DateTime.now()),
-                                          materia: materia,
+                                          materia: asignatura,
+                                          onTap: () => context.pushRoute(
+                                            RutaCargaDeCalificaciones(
+                                              fecha: fecha.toString(),
+                                              nombreAsignatura:
+                                                  asignatura.nombre,
+                                              idCurso: asignatura.idCurso,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     )

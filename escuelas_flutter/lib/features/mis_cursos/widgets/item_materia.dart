@@ -1,6 +1,4 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +13,7 @@ class ItemMateria extends StatelessWidget {
     required this.materia,
     required this.estaCargada,
     required this.estaHabilitado,
+    required this.onTap,
     super.key,
   });
 
@@ -27,6 +26,8 @@ class ItemMateria extends StatelessWidget {
 
   /// Indica si esta habilitado para presionarse o no el boton
   final bool estaHabilitado;
+
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -46,11 +47,7 @@ class ItemMateria extends StatelessWidget {
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          onTap: () => estaHabilitado
-              ? context.pushRoute(
-                  const RutaCargaDeCalificaciones(),
-                )
-              : null,
+          onTap: () => estaHabilitado ? onTap : null,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),

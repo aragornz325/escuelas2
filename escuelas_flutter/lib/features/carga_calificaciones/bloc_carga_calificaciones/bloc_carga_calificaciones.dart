@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
-import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
+import 'package:escuelas_flutter/extensiones/extensiones.dart';
 
 part 'bloc_carga_calificaciones_estado.dart';
 part 'bloc_carga_calificaciones_evento.dart';
@@ -32,7 +31,8 @@ class BlocCargaCalificaciones
     on<BlocCargaCalificacionesEventoFiltrarListaPorFecha>(
       _onFiltrarListaPorFecha,
     );
-    on<BlocCargaCalificacionesEventoGuardarPeriodo>(_onGuardarPeriodo);
+
+    on<BlocCargaCalificacionesEventoGuardarFecha>(_onGuardarFecha);
   }
 
   /// Al iniciar la pantalla trae todos los alumnos de una fecha.
@@ -45,110 +45,194 @@ class BlocCargaCalificaciones
       callback: (client) async {
         ///TODO(anyone): llamar al endpoint de traer calificaciones
         ///y borrar la lista hardcodeada.
-        final lista = [
-          ModeloCalificacion(
-            id: 1,
-            fecha: DateTime.now(),
-            alumnos: [
-              // ModeloAlumno(
-              //   id: 1,
-              //   nombre: 'Gonzalo',
-              //   asistencia: EstadoAsistencia.sinAsistencia,
-              //   calificacion: 5,
-              // ),
-              // ModeloAlumno(
-              //   id: 2,
-              //   nombre: 'Matias',
-              //   asistencia: EstadoAsistencia.sinAsistencia,
-              //   calificacion: 1,
-              // ),
-              // ModeloAlumno(
-              //   id: 3,
-              //   nombre: 'Sebas',
-              //   asistencia: EstadoAsistencia.sinAsistencia,
-              //   calificacion: 11,
-              // ),
-              // ModeloAlumno(
-              //   id: 4,
-              //   nombre: 'Manu',
-              //   asistencia: EstadoAsistencia.sinAsistencia,
-              //   calificacion: 9,
-              // ),
-            ],
+        ///
+        ///TODO(anyone): ver como se traen todas las calificaciones de los
+        ///usuarios
+        // final curso = await client.comisiones.obtenercomicionporid(id: event.idCurso);
+
+        final alumnos = [
+          Usuario(
+            idUserInfo: 1,
+            nombre: 'gon',
+            apellido: 'higuain',
+            urlFotoDePerfil: '',
+            dni: '4343512',
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
           ),
-          // ModeloCalificacion(
-          //   id: 1,
-          //   fecha: DateTime(2023, 12, 31),
-          //   alumnos: [
-          //     ModeloAlumno(
-          //       id: 1,
-          //       nombre: 'Gonzalo',
-          //       asistencia: EstadoAsistencia.sinAsistencia,
-          //       calificacion: 10,
-          //     ),
-          //     ModeloAlumno(
-          //       id: 2,
-          //       nombre: 'Matias',
-          //       asistencia: EstadoAsistencia.sinAsistencia,
-          //       calificacion: 5,
-          //     ),
-          //     ModeloAlumno(
-          //       id: 3,
-          //       nombre: 'Sebas',
-          //       asistencia: EstadoAsistencia.sinAsistencia,
-          //       calificacion: 10,
-          //     ),
-          //     ModeloAlumno(
-          //       id: 4,
-          //       nombre: 'Manu',
-          //       asistencia: EstadoAsistencia.sinAsistencia,
-          //       calificacion: 8,
-          //     ),
-          //   ],
-          // ),
-          // ModeloCalificacion(
-          //   id: 1,
-          //   fecha: DateTime(2024, 2, 10),
-          //   alumnos: [
-          //     ModeloAlumno(
-          //       id: 1,
-          //       nombre: 'Gonzalo',
-          //       asistencia: EstadoAsistencia.sinAsistencia,
-          //       calificacion: 1,
-          //     ),
-          //     ModeloAlumno(
-          //       id: 2,
-          //       nombre: 'Matias',
-          //       asistencia: EstadoAsistencia.sinAsistencia,
-          //       calificacion: 1,
-          //     ),
-          //     ModeloAlumno(
-          //       id: 3,
-          //       nombre: 'Sebas',
-          //       asistencia: EstadoAsistencia.sinAsistencia,
-          //       calificacion: 1,
-          //     ),
-          //     ModeloAlumno(
-          //       id: 4,
-          //       nombre: 'Manu',
-          //       asistencia: EstadoAsistencia.sinAsistencia,
-          //       calificacion: 1,
-          //     ),
-          //   ],
-          // ),
+          Usuario(
+            idUserInfo: 2,
+            nombre: 'gon',
+            apellido: 'higuain',
+            urlFotoDePerfil: '',
+            dni: '4343512',
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
+          Usuario(
+            idUserInfo: 3,
+            nombre: 'gon',
+            apellido: 'higuain',
+            urlFotoDePerfil: '',
+            dni: '4343512',
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
+          Usuario(
+            idUserInfo: 4,
+            nombre: 'gon',
+            apellido: 'higuain',
+            urlFotoDePerfil: '',
+            dni: '4343512',
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
+          Usuario(
+            idUserInfo: 5,
+            nombre: 'gon',
+            apellido: 'higuain',
+            urlFotoDePerfil: '',
+            dni: '4343512',
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
+          Usuario(
+            idUserInfo: 6,
+            nombre: 'gon',
+            apellido: 'higuain',
+            urlFotoDePerfil: '',
+            dni: '4343512',
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
         ];
 
-        final calificacion = lista.firstWhere(
-          (c) =>
-              c.fecha.year == event.fecha.year &&
-              c.fecha.month == event.fecha.month,
+        final curso = ComisionDeCurso(
+          id: 1,
+          nombre: 'primero',
+          idCurso: 1,
+          anioLectivo: 1,
+          estudiantes: alumnos,
+          ultimaModificacion: DateTime.now(),
+          fechaCreacion: DateTime.now(),
         );
+
+        final listaCalificacionCompensacion = [
+          CalificacionCompensacion(
+            idValorCalificacion: 1,
+            idEstudiante: 1,
+            idComision: 1,
+            idLlamado: 1,
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+          ),
+          CalificacionCompensacion(
+            idValorCalificacion: 2,
+            idEstudiante: 2,
+            idComision: 1,
+            idLlamado: 2,
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+          ),
+          CalificacionCompensacion(
+            idValorCalificacion: 3,
+            idEstudiante: 3,
+            idComision: 1,
+            idLlamado: 3,
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+          ),
+          CalificacionCompensacion(
+            idValorCalificacion: 4,
+            idEstudiante: 4,
+            idComision: 1,
+            idLlamado: 4,
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+          ),
+          CalificacionCompensacion(
+            idValorCalificacion: 5,
+            idEstudiante: 5,
+            idComision: 1,
+            idLlamado: 5,
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+          ),
+          CalificacionCompensacion(
+            idValorCalificacion: 6,
+            idEstudiante: 6,
+            idComision: 1,
+            idLlamado: 6,
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+          ),
+        ];
+
+        final listaCalificaciones = [
+          Calificacion(
+            id: 1,
+            detalle: 'nose',
+            fechaCreacion: DateTime.now(),
+            idTipoCalificacion: 1,
+            ultimaModificacion: DateTime.now(),
+            valor: 5,
+            fechaEliminacion: DateTime.now(),
+          ),
+          Calificacion(
+            id: 2,
+            detalle: 'nose',
+            fechaCreacion: DateTime.now(),
+            idTipoCalificacion: 1,
+            ultimaModificacion: DateTime.now(),
+            valor: 3,
+            fechaEliminacion: DateTime.now(),
+          ),
+          Calificacion(
+            id: 3,
+            detalle: 'nose',
+            fechaCreacion: DateTime.now(),
+            idTipoCalificacion: 1,
+            ultimaModificacion: DateTime.now(),
+            valor: 6,
+            fechaEliminacion: DateTime.now(),
+          ),
+          Calificacion(
+            id: 4,
+            detalle: 'nose',
+            fechaCreacion: DateTime.now(),
+            idTipoCalificacion: 1,
+            ultimaModificacion: DateTime.now(),
+            valor: 10,
+            fechaEliminacion: DateTime.now(),
+          ),
+          Calificacion(
+            id: 5,
+            detalle: 'nose',
+            fechaCreacion: DateTime.now(),
+            idTipoCalificacion: 1,
+            ultimaModificacion: DateTime.now(),
+            valor: 8,
+            fechaEliminacion: DateTime.now(),
+          ),
+          Calificacion(
+            id: 6,
+            detalle: 'nose',
+            fechaCreacion: DateTime.now(),
+            idTipoCalificacion: 1,
+            ultimaModificacion: DateTime.now(),
+            valor: 8,
+            fechaEliminacion: DateTime.now(),
+          ),
+        ];
 
         emit(
           BlocCargaCalificacionesEstadoExitoso.desde(
             state,
-            listaCalificaciones: lista,
-            calificacion: calificacion,
+            curso: curso,
+            fecha: event.fecha,
+            listaCalificaciones: listaCalificaciones,
+            listaCalificacionesCompensadas: listaCalificacionCompensacion,
+            //TODO(anyone): usar el usuario del dashboard cuando gon lo haga.
             rolDelUsuario: RolDeUsuario(
               id: 1,
               nombre: 'docente',
@@ -173,21 +257,14 @@ class BlocCargaCalificaciones
     // ignore: inference_failure_on_instance_creation
     await Future.delayed(const Duration(microseconds: 1));
 
-    final calificacion = state.listaCalificaciones.firstWhere(
-      (c) =>
-          c.fecha.month == event.fecha.month &&
-          c.fecha.year == event.fecha.year,
-      orElse: () => ModeloCalificacion(
-        id: state.calificacion?.id ?? 1,
-        fecha: event.fecha,
-        alumnos: state.calificacion?.alumnos ?? [],
-      ),
+    state.listaCalificaciones.firstWhere(
+      (c) => c.fechaCreacion.mismaFecha(event.fecha),
     );
 
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        calificacion: calificacion,
+        listaCalificaciones: state.listaCalificaciones,
       ),
     );
   }
@@ -197,21 +274,26 @@ class BlocCargaCalificaciones
     BlocCargaCalificacionesEventoCambiarCalificacionAlumno event,
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) {
-    final calificacion = state.calificacion;
-    final alumno =
-        calificacion?.alumnos.firstWhere((e) => e.id == event.idAlumno);
+    final alumno = state.curso?.estudiantes.firstWhere(
+      (c) => c.idUserInfo == event.idAlumno,
+    );
 
-    alumno?.calificacion = event.calificacion;
-
+    /// TODO(anyone): hablar con los modelos para que la calificacion pueda ser
+    ///  nulleable
     state.listaCalificaciones
-        .firstWhere((e) => e.id == calificacion?.id)
-        .alumnos = calificacion?.alumnos ?? [];
+        .firstWhere((calificacion) =>
+            calificacion.id ==
+            state.listaCalificacionesCompensadas
+                .firstWhere((calicompensada) =>
+                    calicompensada.idEstudiante == alumno?.idUserInfo)
+                .idValorCalificacion)
+        .valor = event.calificacion ?? 0;
 
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        calificacion: state.calificacion,
         listaCalificaciones: state.listaCalificaciones,
+        listaCalificacionesCompensadas: state.listaCalificacionesCompensadas,
       ),
     );
   }
@@ -226,20 +308,19 @@ class BlocCargaCalificaciones
     // sin el delay no funciona no se rebuild-eah la screen
 
     // ignore: inference_failure_on_instance_creation
-    await Future.delayed(const Duration(microseconds: 00005));
+    await Future.delayed(const Duration(microseconds: 00001));
 
-    final calificacion = state.calificacion;
+    final calificaciones = state.listaCalificaciones;
 
-    if (calificacion != null) {
-      for (final a in calificacion.alumnos) {
-        a.calificacion = null;
-      }
+    for (final calificacion in calificaciones) {
+      /// TODO(anyone):hacer que sea nullable
+      calificacion.valor = 0;
     }
 
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        calificacion: state.calificacion,
+        listaCalificaciones: calificaciones,
       ),
     );
   }
@@ -267,14 +348,14 @@ class BlocCargaCalificaciones
   }
 
   /// Guarda el periodo seleccionado del calendario
-  void _onGuardarPeriodo(
-    BlocCargaCalificacionesEventoGuardarPeriodo event,
+  void _onGuardarFecha(
+    BlocCargaCalificacionesEventoGuardarFecha event,
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) {
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        periodo: event.periodo,
+        fecha: event.fecha,
       ),
     );
   }

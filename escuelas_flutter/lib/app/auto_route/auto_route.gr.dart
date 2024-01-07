@@ -57,9 +57,21 @@ abstract class $AppRouter extends _i18.RootStackRouter {
       );
     },
     RutaCargaDeCalificaciones.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<RutaCargaDeCalificacionesArgs>(
+          orElse: () => RutaCargaDeCalificacionesArgs(
+                nombreAsignatura: pathParams.getString('nombreAsignatura'),
+                idCurso: pathParams.getInt('idCurso'),
+                fecha: pathParams.getString('fecha'),
+              ));
       return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.PaginaCargaDeCalificaciones(),
+        child: _i2.PaginaCargaDeCalificaciones(
+          nombreAsignatura: args.nombreAsignatura,
+          idCurso: args.idCurso,
+          fecha: args.fecha,
+          key: args.key,
+        ),
       );
     },
     RutaComunidadAcademica.name: (routeData) {
@@ -205,16 +217,56 @@ class RutaAsignacionDeRoles extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.PaginaCargaDeCalificaciones]
-class RutaCargaDeCalificaciones extends _i18.PageRouteInfo<void> {
-  const RutaCargaDeCalificaciones({List<_i18.PageRouteInfo>? children})
-      : super(
+class RutaCargaDeCalificaciones
+    extends _i18.PageRouteInfo<RutaCargaDeCalificacionesArgs> {
+  RutaCargaDeCalificaciones({
+    required String nombreAsignatura,
+    required int idCurso,
+    required String fecha,
+    _i19.Key? key,
+    List<_i18.PageRouteInfo>? children,
+  }) : super(
           RutaCargaDeCalificaciones.name,
+          args: RutaCargaDeCalificacionesArgs(
+            nombreAsignatura: nombreAsignatura,
+            idCurso: idCurso,
+            fecha: fecha,
+            key: key,
+          ),
+          rawPathParams: {
+            'nombreAsignatura': nombreAsignatura,
+            'idCurso': idCurso,
+            'fecha': fecha,
+          },
           initialChildren: children,
         );
 
   static const String name = 'RutaCargaDeCalificaciones';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static const _i18.PageInfo<RutaCargaDeCalificacionesArgs> page =
+      _i18.PageInfo<RutaCargaDeCalificacionesArgs>(name);
+}
+
+class RutaCargaDeCalificacionesArgs {
+  const RutaCargaDeCalificacionesArgs({
+    required this.nombreAsignatura,
+    required this.idCurso,
+    required this.fecha,
+    this.key,
+  });
+
+  final String nombreAsignatura;
+
+  final int idCurso;
+
+  final String fecha;
+
+  final _i19.Key? key;
+
+  @override
+  String toString() {
+    return 'RutaCargaDeCalificacionesArgs{nombreAsignatura: $nombreAsignatura, idCurso: $idCurso, fecha: $fecha, key: $key}';
+  }
 }
 
 /// generated route for
