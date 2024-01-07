@@ -34,6 +34,7 @@ class AppRouter extends $AppRouter {
           page: RutaLogin.page,
           path: '/login',
           guards: [initialGuard],
+          initial: true,
         ),
         AutoRoute(
           page: RutaKyc.page,

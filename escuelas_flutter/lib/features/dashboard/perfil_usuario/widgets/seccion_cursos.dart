@@ -1,7 +1,9 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template SeccionCursos}
@@ -75,73 +77,38 @@ class SeccionCursos extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 14.ph),
-                  child: Column(
-                    children: [
-                      // TODO(anyone): Traer la relacion de cursos/materias del usuario
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Matematica',
-                            style: TextStyle(
-                              color: colores.grisSC,
-                              fontSize: 14.pf,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            '4to',
-                            style: TextStyle(
-                              color: colores.grisSC,
-                              fontSize: 14.pf,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Lengua',
-                            style: TextStyle(
-                              color: colores.grisSC,
-                              fontSize: 14.pf,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            '5to',
-                            style: TextStyle(
-                              color: colores.grisSC,
-                              fontSize: 14.pf,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Quimica',
-                            style: TextStyle(
-                              color: colores.grisSC,
-                              fontSize: 14.pf,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                          Text(
-                            '1ero',
-                            style: TextStyle(
-                              color: colores.grisSC,
-                              fontSize: 14.pf,
-                              fontWeight: FontWeight.w400,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
+                  child:
+                      BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
+                    builder: (context, state) {
+                      return Column(
+                        children:
+                            state.usuarioPendiente!.asignaturasSolicitadas!.map(
+                          (e) {
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  e.nombreAsignatura,
+                                  style: TextStyle(
+                                    color: colores.grisSC,
+                                    fontSize: 14.pf,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                Text(
+                                  e.nombreCurso,
+                                  style: TextStyle(
+                                    color: colores.grisSC,
+                                    fontSize: 14.pf,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        ).toList(),
+                      );
+                    },
                   ),
                 ),
               ],

@@ -30,21 +30,21 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     emit(BlocKycEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // final asignaturas = await client.asignatura.obtenerAsignaturas();
+        final asignaturas = await client.asignatura.obtenerAsignaturas();
 
-        // final cursos = await client.curso.obtenerCursos();
+        final cursos = await client.curso.obtenerCursos();
 
         final roles = await client.rol.obtenerRoles();
         // TODO(anyone): Ver como manejar los roles que se muestran
-        final rolesAMostrar = roles
-            .where((rol) => rol.nombre == 'Mati' || rol.nombre == 'Chepibe')
-            .toList();
+        // final rolesAMostrar = roles
+        //     .where((rol) => rol.nombre == 'Mati' || rol.nombre == 'Chepibe')
+        //     .toList();
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            listaAsignaturas: [],
-            listaCursos: [],
-            listaRoles: rolesAMostrar,
+            listaAsignaturas: asignaturas,
+            listaCursos: cursos,
+            listaRoles: roles,
             opcionesFormulario: [
               // TODO(Gon): Ver manera de cambiar esto
               OpcionFormulario(

@@ -57,31 +57,31 @@ class BloqueMateria extends StatelessWidget {
               ),
               SizedBox(height: 20.ph),
               // TODO(Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
-              if (state.rolElegido!.nombre == 'Chepibe')
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      l10n.pageKycFormWhichSubjectIsIt,
-                      style: TextStyle(
-                        color: colores.onBackground,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13.pf,
-                      ),
+              // if (state.rolElegido!.nombre == 'Chepibe')
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.pageKycFormWhichSubjectIsIt,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13.pf,
                     ),
-                    SizedBox(height: 5.ph),
-                    FormularioDropdown(
-                      lista: state.listaOpcionesAsignaturas,
-                      listaOpcionesSeleccionadas: (value) =>
-                          context.read<BlocKyc>().add(
-                                BlocKycEventoSeleccionarCursoYMateria(
-                                  idOpcion: id,
-                                  idMateria: value[0].id,
-                                ),
+                  ),
+                  SizedBox(height: 5.ph),
+                  FormularioDropdown(
+                    lista: state.listaOpcionesAsignaturas,
+                    listaOpcionesSeleccionadas: (value) =>
+                        context.read<BlocKyc>().add(
+                              BlocKycEventoSeleccionarCursoYMateria(
+                                idOpcion: id,
+                                idMateria: value[0].id,
                               ),
-                    ),
-                  ],
-                ),
+                            ),
+                  ),
+                ],
+              ),
             ],
           ),
         );
