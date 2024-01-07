@@ -22,7 +22,7 @@ class BlocSupervisionCursos
   ) async {
     emit(BlocSupervisionCursosEstadoCargando.desde(state));
     await operacionBloc(
-      callback: () {
+      callback: (client) {
 // TODO(anyone): traer data del backend
         emit(
           BlocSupervisionCursosEstadoExitoso.desde(

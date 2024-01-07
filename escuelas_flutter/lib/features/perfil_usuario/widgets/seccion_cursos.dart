@@ -1,0 +1,160 @@
+import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
+import 'package:flutter/material.dart';
+import 'package:full_responsive/full_responsive.dart';
+
+/// {@template SeccionCursos}
+/// Seccion de cursos del perfil de usuario donde se puede ver a que cursos esta
+/// asignado el usuario
+/// {@endtemplate}
+class SeccionCursos extends StatelessWidget {
+  /// {@macro SeccionCursos}
+  const SeccionCursos({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colores = context.colores;
+
+    final l10n = context.l10n;
+
+    return Container(
+      margin: EdgeInsets.symmetric(
+        horizontal: 20.pw,
+        vertical: 14.ph,
+      ),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(Radius.circular(50.sw)),
+        color: colores.tertiary,
+      ),
+      child: ExpansionTile(
+        title: Text(
+          l10n.commonCourses,
+          style: TextStyle(
+            color: colores.onBackground,
+            fontSize: 13.pf,
+            fontWeight: FontWeight.w700,
+          ),
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.sw),
+        ),
+        collapsedShape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50.sw),
+        ),
+        backgroundColor: colores.tertiary,
+        children: <Widget>[
+          Divider(
+            height: .5,
+            thickness: .5,
+            color: colores.grisSC,
+          ),
+          ListTile(
+            title: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      l10n.commonSubject,
+                      style: TextStyle(
+                        color: colores.grisSC,
+                        fontSize: 14.pf,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Text(
+                      l10n.commonCourse,
+                      style: TextStyle(
+                        color: colores.grisSC,
+                        fontSize: 14.pf,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ],
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 14.ph),
+                  child: Column(
+                    children: [
+                      // TODO(anyone): Traer la relacion de cursos/materias del usuario
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Matematica',
+                            style: TextStyle(
+                              color: colores.grisSC,
+                              fontSize: 14.pf,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            '4to',
+                            style: TextStyle(
+                              color: colores.grisSC,
+                              fontSize: 14.pf,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Lengua',
+                            style: TextStyle(
+                              color: colores.grisSC,
+                              fontSize: 14.pf,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            '5to',
+                            style: TextStyle(
+                              color: colores.grisSC,
+                              fontSize: 14.pf,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Quimica',
+                            style: TextStyle(
+                              color: colores.grisSC,
+                              fontSize: 14.pf,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                          Text(
+                            '1ero',
+                            style: TextStyle(
+                              color: colores.grisSC,
+                              fontSize: 14.pf,
+                              fontWeight: FontWeight.w400,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(20.sw),
+                bottomRight: Radius.circular(20.sw),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

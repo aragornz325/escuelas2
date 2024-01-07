@@ -30,7 +30,7 @@ class BlocDrawer extends Bloc<BlocDrawerEvento, BlocDrawerEstado> {
     emit(BlocDrawerEstadoCargando.desde(state));
 
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         // TODO(ANYONE): Ver si luego se agrega client.
         //(client) async {
 
