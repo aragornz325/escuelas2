@@ -27,12 +27,14 @@ class ServicioComision extends Servicio<OrmComision> {
     Session session, {
     required int idComision,
     required int idUsuarioPendiente,
+    required String nombreComision,
   }) async =>
       ejecutarOperacion(
         () => _ormComisionSolicitada.crearComisionSolicitada(
           session,
           idComision: idComision,
           idUsuarioPendiente: idUsuarioPendiente,
+          nombreComision: nombreComision,
         ),
       );
 

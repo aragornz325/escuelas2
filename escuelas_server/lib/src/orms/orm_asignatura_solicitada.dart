@@ -14,4 +14,19 @@ class OrmAsignaturaSolicitada extends ORM {
           asignaturasSolicitadas,
         ),
       );
+
+  Future<List<AsignaturaSolicitada>>
+      obtenerAsignaturasSolicitadasPorIdUsuarioPendiente(
+    Session session, {
+    required int idUsuarioPendiente,
+  }) async =>
+          ejecutarOperacionOrm(
+            session,
+            (session) {
+              return AsignaturaSolicitada.db.find(
+                session,
+                where: (t) => t.idUsuarioPendiente.equals(idUsuarioPendiente),
+              );
+            },
+          );
 }

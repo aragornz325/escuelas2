@@ -3,6 +3,7 @@ table: comision_solicitada
 fields:
   idComision: int
   idUsuarioPendiente: int, relation(parent=usuarios_pendientes)
+  nombreComision: String
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
