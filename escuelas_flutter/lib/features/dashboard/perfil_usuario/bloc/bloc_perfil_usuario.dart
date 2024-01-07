@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario.dart';
@@ -26,6 +27,7 @@ class BlocPerfilUsuario
     Emitter<BlocPerfilUsuarioEstado> emit,
   ) async {
     emit(BlocPerfilUsuarioEstadoCargando.desde(state));
+
     await operacionBloc(
       callback: (client) async {
         final listaRoles = await client.rol.obtenerRoles();
@@ -43,9 +45,7 @@ class BlocPerfilUsuario
         );
       },
       onError: (e, st) {
-        emit(
-          BlocPerfilUsuarioEstadoError.desde(state),
-        );
+        emit(BlocPerfilUsuarioEstadoError.desde(state));
       },
     );
   }

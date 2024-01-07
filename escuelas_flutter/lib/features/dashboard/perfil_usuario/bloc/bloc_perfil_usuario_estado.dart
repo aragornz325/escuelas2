@@ -32,9 +32,11 @@ class BlocPerfilUsuarioEstado {
   final List<RolDeUsuario> listaRoles;
 
   /// Nombre del rol del usuario
-  String get nombreRol => listaRoles
-      .firstWhere((rol) => rol.id == usuarioPendiente?.rolSolicitado)
-      .nombre;
+  String get nombreRol =>
+      listaRoles
+          .firstWhereOrNull((rol) => rol.id == usuarioPendiente?.rolSolicitado)
+          ?.nombre ??
+      '';
 }
 
 /// {@template BlocPerfilUsuarioEstadoInicial}
