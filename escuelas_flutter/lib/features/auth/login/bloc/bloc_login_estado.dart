@@ -87,14 +87,6 @@ class BlocLoginEstadoCargando extends BlocLoginEstado {
   }) : super.desde();
 }
 
-/// {@template BlocLoginEstadoExitosoInicioSesion}
-/// Estado exitoso emitido al iniciar sesión
-/// {@endtemplate}
-class BlocLoginEstadoExitosoIniciarSesion extends BlocLoginEstado {
-  /// {@macro BlocLoginEstadoExitosoInicioSesion}
-  BlocLoginEstadoExitosoIniciarSesion.desde(super.otro) : super.desde();
-}
-
 /// {@template BlocLoginEstadoExitosoGeneral}
 /// Estado exitoso general de los componentes de la pantalla 'Login'
 /// {@endtemplate}
@@ -128,4 +120,58 @@ class BlocLoginEstadoErrorGeneral extends BlocLoginEstado {
 
   /// Mensaje de error que se muestra al usuario
   final String mensajeDeError;
+}
+
+/// {@template BlocLoginEstadoFaltaCompletarKyc}
+/// Este estado ocurre cuando el usuario hizo el login con google,
+/// se averigua si en la db el usuario actual ya completo el
+/// KCY, en caso de no ser así se emite este estado.
+/// Si este estado es emitido, se redirige al usuario a completar
+/// el kyc.
+/// {@endtemplate}
+class BlocLoginEstadoFaltaCompletarKyc extends BlocLoginEstado {
+  /// {@macro BlocLoginEstadoFaltaCompletarKyc}
+  BlocLoginEstadoFaltaCompletarKyc.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocLoginEstadoSolicitudRechazada}
+/// Este estado ocurre cuando el usuario hizo el login con google,
+/// en el caso de ser rechazado de acuerdo a su [EstadoDeSolicitud]
+/// {@endtemplate}
+class BlocLoginEstadoSolicitudRechazada extends BlocLoginEstado {
+  /// {@macro  BlocLoginEstadoSolicitudRechazada}
+  BlocLoginEstadoSolicitudRechazada.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocLoginEstadoSolicitudPendiente}
+/// Estado exitoso emitido luego de que se llame al endpoint
+/// obtenerUsuariosPendientes y que devuelva null, significando que
+/// el usuario debe ser redirigido al KYC para completarlo.
+/// {@endtemplate}
+class BlocLoginEstadoSolicitudPendiente extends BlocLoginEstado {
+  /// {@macro BlocLoginEstadoSolicitudPendiente}
+  BlocLoginEstadoSolicitudPendiente.desde(
+    super.otro, {
+    required this.usuarioPendiente,
+  }) : super.desde();
+  final UsuarioPendiente usuarioPendiente;
+}
+
+/// {@template BlocLoginEstadoSolicitudAceptada}
+/// Estado exitoso emitido al iniciar sesión
+/// {@endtemplate}
+class BlocLoginEstadoSolicitudAceptada extends BlocLoginEstado {
+  /// {@macro BlocLoginEstadoSolicitudAceptada}
+  BlocLoginEstadoSolicitudAceptada.desde(
+    super.otro, {
+    required this.usuario,
+    required this.userInfo,
+  }) : super.desde();
+
+  /// Modelo de usuario de la base de datos que contiene info de los roles y
+  /// demas datos importantes del usuario.
+  final Usuario usuario;
+
+  /// Modelo de usuario logueado por google que contiene info del cliente.
+  final UserInfo userInfo;
 }

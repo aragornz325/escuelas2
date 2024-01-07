@@ -31,6 +31,11 @@
         }
     },
 
+    "pageAwaitApprovalDescription": "Tu cuenta y rol están pendientes a aprobar por los directivos.\n Te informaremos mediante un mail.",
+    "@pageAwaitApprovalDescription": {
+        "description": "Text of the page Await Approval where it informs the user that his role and account are pending for approval and will contact him with a mail."
+    },
+
     "pageKycFormAddSubject": "Agregar asignatura",
     "@pageKycFormAddSubject": {
         "description": "Button label to add a subject in the KYC (Know Your Customer) process."

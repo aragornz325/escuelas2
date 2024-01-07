@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
+
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/login/bloc/bloc_login.dart';
@@ -59,109 +60,112 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
     final colores = context.colores;
     final l10n = context.l10n;
 
-    return Scaffold(
-      body: BlocConsumer<BlocLogin, BlocLoginEstado>(
-        listener: (context, state) {
-          if (state is BlocLoginEstadoErrorAlIniciarSesion) {
-            showDialog<void>(
-              context: context,
-              builder: (_) => EscuelasDialog.fallido(
-                onTap: () {
-                  Navigator.of(context).pop();
-                },
-                tituloDelBoton: l10n.commonBack.toUpperCase(),
-                content: Text(l10n.pageLoginDialogAnErrorOccurred),
-              ),
-            );
-          }
+    return BlocConsumer<BlocLogin, BlocLoginEstado>(
+      listener: (context, state) {
+        if (state is BlocLoginEstadoFaltaCompletarKyc) {
+          context.replaceRoute(const RutaKyc());
+        }
 
-          if (state is BlocLoginEstadoExitosoIniciarSesion) {
-            context.replaceRoute(RutaInicio());
-          }
-        },
-        builder: (context, state) {
-          if (state is BlocLoginEstadoCargando &&
-              state.estaIniciandoSesion == false) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+        if (state is BlocLoginEstadoSolicitudPendiente) {
+          context.replaceRoute(const RutaEspera());
+        }
 
-          return SingleChildScrollView(
-            child: Center(
-              child: Column(
-                children: [
-                  SizedBox(height: 80.ph),
-                  Text(
-                    l10n.commonWelcome,
-                    style: TextStyle(
-                      color: colores.onBackground,
-                      fontSize: 24.pf,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(height: 20.ph),
-                  Text(
-                    l10n.pageLoginCredentialsIndicativeText,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: colores.onBackground,
-                      fontSize: 13.pf,
-                    ),
-                  ),
-                  SizedBox(height: 55.ph),
-                  Container(
-                    height: max(50.ph, 50.sh),
-                    width: 50.pw,
-                    decoration: BoxDecoration(color: colores.grisSC),
-                  ),
-                  SizedBox(height: 35.ph),
-                  EscuelasTextfield.soloNumero(
-                    onChanged: (_) => _habilitarBoton(),
-                    controller: controllerDNI,
-                    hintText: l10n.commonDNI,
-                    context: context,
-                  ),
-                  SizedBox(height: 15.ph),
-                  EscuelasTextFieldPassword(
-                    controller: controllerPassword,
-                    onChanged: (_) => _habilitarBoton(),
-                  ),
-                  SizedBox(height: 30.ph),
-                  EscuelasBoton.texto(
-                    estaHabilitado: state.botonIngresarHabilitado,
-                    onTap: () {
-                      // TODO(Manu): agregar funcion cuando exista el endpoint
-                    },
-                    color: colores.primary,
-                    texto: l10n.commonLogIn.toUpperCase(),
-                    context: context,
-                  ),
-                  SizedBox(height: 30.ph),
-                  Text(
-                    l10n.pageLoginTextOr,
-                    style: TextStyle(
-                      color: colores.onBackground,
-                      fontSize: 10.pf,
-                    ),
-                  ),
-                  SizedBox(height: 30.ph),
-                  EscuelasBoton.loginGoogle(
-                    onTap: _onPressedLoginConGoogle,
-                    context: context,
-                  ),
-                  SizedBox(height: 170.ph),
-                  Text(
-                    l10n.pageLoginTextAllRightsReserved,
-                    textAlign: TextAlign.center,
-                  ),
-                  SizedBox(height: 30.ph),
-                ],
-              ),
+        if (state is BlocLoginEstadoSolicitudAceptada) {
+          context.replaceRoute(
+            RutaDashboard(
+              usuario: state.usuario,
+              userInfo: state.userInfo,
             ),
           );
-        },
-      ),
+        }
+
+        if (state is BlocLoginEstadoSolicitudRechazada) {
+          // TODO(SAM): Mostrar dialog de aviso solicitud rechazada y redireccion a KYC.
+          context.replaceRoute(const RutaKyc());
+        }
+      },
+      builder: (context, state) {
+        if (state is BlocLoginEstadoCargando &&
+            state.estaIniciandoSesion == false) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        return SingleChildScrollView(
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(height: 80.ph),
+                Text(
+                  l10n.commonWelcome,
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontSize: 24.pf,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(height: 20.ph),
+                Text(
+                  l10n.pageLoginCredentialsIndicativeText,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontSize: 13.pf,
+                  ),
+                ),
+                SizedBox(height: 55.ph),
+                Container(
+                  height: max(50.ph, 50.sh),
+                  width: 50.pw,
+                  decoration: BoxDecoration(color: colores.grisSC),
+                ),
+                SizedBox(height: 35.ph),
+                EscuelasTextfield.soloNumero(
+                  onChanged: (_) => _habilitarBoton(),
+                  controller: controllerDNI,
+                  hintText: l10n.commonDNI,
+                  context: context,
+                ),
+                SizedBox(height: 15.ph),
+                EscuelasTextFieldPassword(
+                  controller: controllerPassword,
+                  onChanged: (_) => _habilitarBoton(),
+                ),
+                SizedBox(height: 30.ph),
+                EscuelasBoton.texto(
+                  estaHabilitado: state.botonIngresarHabilitado,
+                  onTap: () {
+                    // TODO(Manu): agregar funcion cuando exista el endpoint
+                  },
+                  color: colores.primary,
+                  texto: l10n.commonLogIn.toUpperCase(),
+                  context: context,
+                ),
+                SizedBox(height: 30.ph),
+                Text(
+                  l10n.pageLoginTextOr,
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontSize: 10.pf,
+                  ),
+                ),
+                SizedBox(height: 30.ph),
+                EscuelasBoton.loginGoogle(
+                  onTap: _onPressedLoginConGoogle,
+                  context: context,
+                ),
+                SizedBox(height: 170.ph),
+                Text(
+                  l10n.pageLoginTextAllRightsReserved,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 30.ph),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
