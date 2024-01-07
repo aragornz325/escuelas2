@@ -4,9 +4,17 @@ fields:
   idUserInfo: int
   nombre: String
   apellido: String
+  urlFotoDePerfil: String
   dni: String
   rolSolicitado: int, relation (parent=roles_de_usuario)
   estadoDeSolicitud: EstadoDeSolicitud
   ultimaModificacion: DateTime?
   fechaCreacion: DateTime?
   fechaEliminacion: DateTime?
+  asignaturasSolicitadas: List<AsignaturaSolicitada>?, relation
+  comisionSolicitada: ComisionSolicitada?, relation(optional)
+indexes:
+  comision_solicitada_unique_idx:
+    fields: comisionSolicitadaId
+    unique: true
+

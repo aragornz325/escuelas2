@@ -2,7 +2,7 @@ class: ComisionSolicitada
 table: comision_solicitada
 fields:
   idComision: int
-  idUsuarioPendiente: int, relation(parent = usuarios_pendientes)
+  idUsuarioPendiente: int, relation(parent=usuarios_pendientes)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?

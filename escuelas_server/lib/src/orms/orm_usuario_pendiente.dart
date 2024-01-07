@@ -41,14 +41,18 @@ class OrmUsuarioPendiente extends ORM {
     final usuarioPendiente = await UsuarioPendiente.db.findFirstRow(
       session,
       where: (t) {
-          if (idUserInfo != null) {
-            return t.idUserInfo.equals(idUserInfo);
-          }
-          if (idUsuarioPendiente != null) {
-            return t.id.equals(idUsuarioPendiente);
-          }
-          return t.id.notEquals(null);
-        },
+        if (idUserInfo != null) {
+          return t.idUserInfo.equals(idUserInfo);
+        }
+        if (idUsuarioPendiente != null) {
+          return t.id.equals(idUsuarioPendiente);
+        }
+        return t.id.notEquals(null);
+      },
+      include: UsuarioPendiente.include(
+        asignaturasSolicitadas: AsignaturaSolicitada.includeList(),
+        comisionSolicitada: ComisionSolicitada.include(),
+      ),
     );
 
     return usuarioPendiente;

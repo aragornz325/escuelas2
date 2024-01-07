@@ -78,12 +78,28 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
 
     return await ejecutarOperacion(
-      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(session,
-          idUserInfo: idUserInfo),
+      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(
+        session,
+        idUserInfo: idUserInfo,
+      ),
     );
   }
 
-  Future<UsuarioPendiente?> obtenerUsuarioPendiente(
+  /// Obtiene un usuario pendiente a traves de la relacion de [UsuarioPendiente]
+  /// con [UserInfo]
+  ///
+  /// El usuario pendiente se obtiene a traves del id de [UserInfo] dentro del manager.
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(Session session) async {
+    return await ejecutarOperacion(
+      () async => _ormUsuarioPendiente.obtenerUsuarioPendiente(
+        session,
+        idUserInfo: await obtenerIdDeUsuarioLogueado(session),
+      ),
+    );
+  }
+
+  /// Obtiene un usuario pendiente a través del id de [UsuarioPendiente]
+  Future<UsuarioPendiente?> obtenerUsuarioPendientePorId(
     Session session, {
     required int idUsuarioPendiente,
   }) async {
@@ -136,6 +152,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           idUserInfo: usuarioPendiente.idUserInfo,
           nombre: usuarioPendiente.nombre,
           apellido: usuarioPendiente.apellido,
+          urlFotoDePerfil: usuarioPendiente.urlFotoDePerfil,
           dni: usuarioPendiente.dni,
           rolSolicitado: usuarioPendiente.rolSolicitado,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
