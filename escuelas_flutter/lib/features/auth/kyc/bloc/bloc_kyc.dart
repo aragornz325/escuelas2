@@ -1,5 +1,6 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
@@ -17,6 +18,8 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
     on<BlocKycEventoEliminarOpcion>(_eliminarOpcion);
     on<BlocKycEventoSeleccionarRol>(_seleccionarRol);
+    on<BlocKycEventoCerrarSesion>(_cerrarSesion);
+    // TODO(SAM): eNVIAR solicitud de registro, con endpoint crear o enviar sol registro
   }
 
   /// Evento inicial donde trae todos los cursos del usuario.
@@ -31,39 +34,17 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
 
         // final materias =await client.;
         // final cursos =await client.;
-        // final roles = await client.;
-        final roles = [
-          RolDeUsuario(
-            nombre: 'ALUMNO',
-            descripcion: '',
-          ),
-          RolDeUsuario(
-            nombre: 'DOCENTE',
-            descripcion: '',
-          ),
-        ];
-        final cursos = [
-          Curso(
-            nombre: 'nombre',
-            asignaturas: [],
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-        ];
-        final materias = [
-          Asignatura(
-            nombre: '',
-            idCurso: 0,
-            docentes: [],
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-        ];
+
+        final roles = await client.rol.obtenerRoles();
+        // TODO(anyone): Ver como manejar los roles que se muestran
+        // final rolesAMostrar = roles
+        //     .where((rol) => rol.nombre == 'DOCENTE' || rol.nombre == 'Chepibe')
+        //     .toList();
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            listaCursos: cursos,
-            listaMaterias: materias,
+            listaCursos: [],
+            listaMaterias: [],
             listaRoles: roles,
             opcionesFormulario: [
               // TODO(Gon): Ver manera de cambiar esto
@@ -76,7 +57,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
                   fechaCreacion: DateTime.now(),
                 ),
                 materia: Asignatura(
-                  nombre: '',
+                  nombre: 'Matematica',
                   idCurso: 0,
                   docentes: [],
                   ultimaModificacion: DateTime.now(),
@@ -173,6 +154,35 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
+  /// Trata de cerrar la sesión de un usuario.
+  /// En caso de error, devuelve un mensaje de fallo
+  /// de cierre de sesión.
+  Future<void> _cerrarSesion(
+    BlocKycEventoCerrarSesion event,
+    Emitter<BlocKycEstado> emit,
+  ) async {
+    emit(BlocKycEstadoCargando.desde(state));
+
+    await operacionBloc(
+      callback: (client) async {
+        await sessionManager.signOut();
+
+        if (!sessionManager.isSignedIn) {
+          emit(BlocKycEstadoCerrarSesionExitoso.desde(state));
+        } else {
+          emit(
+            BlocKycEstadoError.desde(state),
+          );
+        }
+      },
+      onError: (e, st) {
+        emit(
+          BlocKycEstadoError.desde(state),
+        );
+      },
+    );
+  }
+
 // TODO(Gon): Al eliminar no se actualizan los dropdowns
   /// Elimina una opcion de la lista de kyc
   void _eliminarOpcion(
@@ -245,3 +255,51 @@ class OpcionFormulario {
     };
   }
 }
+
+/// Posee un toJson mas adecuado para la clase [Curso]
+/// ya que Serverpod no deserealiza correctamente.
+extension CursoX on Curso {
+  //! TODO(anyone): Remover esto cuando se arregle el toJson() de Serverpod
+  /// toJson para evitar usar el del modelo Serverpod porque no deserializa
+  /// correctamente [DateTime] para eso agregamos un  .toIso8601String().
+  Map<String, dynamic> toJsonBloc() {
+    return {
+      'id': id,
+      'nombre': nombre,
+      'asignaturas':
+          asignaturas.map((asignatura) => asignatura.toJsonBloc()).toList(),
+      'ultimaModificacion': ultimaModificacion.toIso8601String(),
+      'fechaCreacion': fechaCreacion.toIso8601String(),
+      'fechaEliminacion': fechaEliminacion?.toIso8601String(),
+    };
+  }
+}
+
+/// Posee un toJson mas adecuado para la clase [Asignatura]
+/// ya que Serverpod no deserealiza correctamente.
+extension AsignaturaX on Asignatura {
+  Map<String, dynamic> toJsonBloc() {
+    return {
+      'id': id,
+      'nombre': nombre,
+      'idCurso': idCurso,
+      'docentes': docentes.map((docente) => docente.toJson()).toList(),
+      'ultimaModificacion': ultimaModificacion.toIso8601String(),
+      'fechaCreacion': fechaCreacion.toIso8601String(),
+      'fechaEliminacion': fechaEliminacion?.toIso8601String(),
+    };
+  }
+}
+
+/// Posee un toJson mas adecuado para la clase [RolDeUsuario]
+/// ya que Serverpod no deserealiza correctamente.
+extension RolDeUsuarioX on RolDeUsuario {
+  Map<String, dynamic> toJsonBloc() {
+    return {
+      'id': id,
+      'nombre': nombre,
+      'descripcion': descripcion,
+    };
+  }
+}
+// TODO(SAM): Agregar logout event y tmb clear de localstorage de datos del user

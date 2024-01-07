@@ -1,6 +1,7 @@
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
+import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
+ 
 
 late SessionManager sessionManager;
 late Client client;

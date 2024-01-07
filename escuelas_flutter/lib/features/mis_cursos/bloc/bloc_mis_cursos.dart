@@ -36,7 +36,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
             idCurso: 1,
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
-            usuarios: [],
           ),
           Asignatura(
             id: 2,
@@ -46,7 +45,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
             idCurso: 1,
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
-            usuarios: [],
           ),
         ];
         final asignaturas2 = [
@@ -58,7 +56,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
             idCurso: 2,
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
-            usuarios: [],
           ),
           Asignatura(
             id: 4,
@@ -68,7 +65,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
             idCurso: 2,
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
-            usuarios: [],
           ),
         ];
 

@@ -14,5 +14,8 @@ abstract class BlocDashboardEvento {
 
 class BlocDashboardEventoTraerInformacion extends BlocDashboardEvento {
   /// {@macro BlocDashboardEventoTraerInformacion}
-  BlocDashboardEventoTraerInformacion();
+  BlocDashboardEventoTraerInformacion({
+    required this.idUsuario,
+  });
+  final int? idUsuario;
 }

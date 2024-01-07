@@ -1,7 +1,10 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:serverpod_auth_client/module.dart';
 import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
 
 part 'bloc_login_estado.dart';
@@ -69,10 +72,43 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
           serverClientId: dotenv.env['SERVER_CLIENT_ID_GOOGLE_SIGNIN'],
           redirectUri: Uri.parse(dotenv.env['REDIRECT_URI_GOOGLE_SIGNIN']!),
         );
+
         if (userInfo == null) {
           emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
-        } else {
-          emit(BlocLoginEstadoExitosoIniciarSesion.desde(state));
+        }
+
+        final usuarioPendiente =
+            await client.usuario.obtenerDatosDeSolicitudDelUsuario();
+
+        if (usuarioPendiente == null) {
+          return emit(
+            BlocLoginEstadoFaltaCompletarKyc.desde(state),
+          );
+        }
+
+        switch (usuarioPendiente.estadoDeSolicitud) {
+          case EstadoDeSolicitud.rechazado:
+            emit(
+              BlocLoginEstadoSolicitudRechazada.desde(
+                state,
+              ),
+            );
+          case EstadoDeSolicitud.pendiente:
+            emit(
+              BlocLoginEstadoSolicitudPendiente.desde(
+                state,
+                usuarioPendiente: usuarioPendiente,
+              ),
+            );
+          case EstadoDeSolicitud.aprobado:
+            final usuario = await client.usuario.obtenerDatosDelUsuario();
+            emit(
+              BlocLoginEstadoSolicitudAceptada.desde(
+                state,
+                usuario: usuario,
+                userInfo: userInfo!,
+              ),
+            );
         }
       },
       onError: (e, st) {

@@ -169,7 +169,7 @@ class EscuelasDialog extends StatelessWidget {
 
     final l10n = context.l10n;
     return EscuelasDialog(
-      altura: 120.ph,
+      altura: 160.ph,
       onTapConfirmar: onCerrarSesion,
       iconoAlLadoDelTitulo: Icons.logout_outlined,
       titulo: l10n.drawerLogOut,

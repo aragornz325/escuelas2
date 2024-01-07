@@ -44,7 +44,7 @@ class EscuelasDrawer extends StatelessWidget {
   /// Navega a la ruta inicio y cierra el drawer.
   void _redireccionHome(BuildContext context) {
     context.replaceRoute(
-      RutaInicio(),
+      const RutaInicio(),
     );
     Navigator.pop(context);
   }
