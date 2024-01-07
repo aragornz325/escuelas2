@@ -28,6 +28,8 @@ rol:
   - eliminarRol:
 usuario:
   - obtenerDatosDelUsuario:
+  - obtenerUsuario:
+  - obtenerDatosDeSolicitudDelUsuario:
   - obtenerUsuarioPendiente:
   - obtenerUsuariosPendientes:
   - enviarSolicitudRegistroDocente:
