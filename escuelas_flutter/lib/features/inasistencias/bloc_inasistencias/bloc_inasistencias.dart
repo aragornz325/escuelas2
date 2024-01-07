@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/utilidades/funciones/funciones.dart';
-import 'package:escuelas_flutter/utilidades/utilidades.dart';
+import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:flutter/material.dart';
 
 part 'bloc_inasistencias_evento.dart';
@@ -32,7 +31,7 @@ class BlocInasistencias
     // TODO(mati): agregar funcion del back de traer los cursos ver que no te devuelva la lista de inasistencias
     emit(BlocInasistenciasEstadoCargando.desde(state));
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         ///TODO(anyone): llamar al endpoint de traer cursos
         final alumnos = [
           Usuario(
@@ -181,7 +180,7 @@ class BlocInasistencias
     Emitter<BlocInasistenciasEstado> emit,
   ) async {
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         final asistenciasDiarias = state.asistencias
             .expand(
               (lista) => lista.where((e) => e.idComision == event.idCurso),

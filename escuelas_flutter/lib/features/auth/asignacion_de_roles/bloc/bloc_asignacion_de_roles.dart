@@ -22,9 +22,7 @@ class BlocAsignacionDeRoles
   ) async {
     emit(BlocAsignacionDeRolesEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (
-          // client
-          ) async {
+      callback: (client) async {
         // TODO(Gon): Eliminar hardcodeo y usar endpoint
 
         // final listaUsuariosPendientes =await client.;

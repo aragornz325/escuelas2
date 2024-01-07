@@ -25,7 +25,7 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
   ) async {
     emit(BlocDashboardEstadoCargando.desde(super.state));
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         // TODO(ANYONE): Descomentar luego
         //(client) async {
         // final respuesta = await client.cliente.comprobarKyc(
