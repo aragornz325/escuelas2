@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
+import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -16,96 +16,63 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   /// {@macro TarjetaCargaCalificacionAlumno}
   const TarjetaCargaCalificacionAlumno({
     required this.fecha,
-    required this.listaCalificaciones,
-    required this.alumno,
+    required this.curso,
+    required this.usuario,
     this.rolDelUsuario,
     super.key,
   });
 
   /// Fecha actual de la calificación del alumno.
   final DateTime fecha;
-
-  // TODO(anyone): reemplazar modelo
-
-  /// Lista de calificaciones previas del alumno.
-  final List<ModeloCalificacion> listaCalificaciones;
+  ///
+  final ComisionDeCurso curso;
 
   /// Alumno con la calificación previa.
-  final ModeloAlumno alumno;
+  final Usuario usuario;
 
   /// Rol del usuario.
   final RolDeUsuario? rolDelUsuario;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: max(5.ph, 5.sh),
-        horizontal: 15.pw,
-      ),
-      child: EscuelasCargaCalificacionAlumno(
-        onChanged: (v) => context.read<BlocCargaCalificaciones>().add(
-              BlocCargaCalificacionesEventoCambiarCalificacionAlumno(
-                calificacion: int.tryParse(v),
-                fecha: fecha,
-                idAlumno: alumno.id,
-              ),
-            ),
-        nombreAlumno: alumno.nombre,
-        calificacionPrevia:
-
-            // TODO(anyone): ver otro condicional por que
-            //viene un tipo int? cuando es un String?
-            (alumno.calificacion) != null
-                ? alumno.calificacion.toString()
-                : null,
-        listaCalificaciones: _obtenerCalificacionesPrevias(
-          listaCalificaciones,
-          alumno.id,
-          DateTime.now(),
-        ),
-        // TODO(anyone): reemplazar por los roles reales
-        esEditable: rolDelUsuario?.nombre == 'docente'
-            ? fecha.month == DateTime.now().month &&
-                fecha.day == DateTime.now().day
-            : rolDelUsuario?.nombre == 'directivo' &&
-                fecha.isBefore(DateTime.now()),
-      ),
+    return BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
+      builder: (context, state) {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: max(5.ph, 5.sh),
+            horizontal: 15.pw,
+          ),
+          child: EscuelasCargaCalificacionAlumno(
+            onChanged: (v) => context.read<BlocCargaCalificaciones>().add(
+                  BlocCargaCalificacionesEventoCambiarCalificacionAlumno(
+                    calificacion: int.tryParse(v),
+                    fecha: fecha,
+                    idAlumno: curso.idCurso,
+                  ),
+                ),
+            // TODO(anyone): reemplazar por las calificaciones previas ver como vienen las calificaciones previas y mostrarlas
+            listaCalificaciones: const [],
+            // TODO(anyone): ver si los modelos seran utilizados de esta forma para traer solamente la calificacion del alumno
+            calificacionPrevia: state.listaCalificaciones
+                .firstWhere(
+                  (c) =>
+                      c.id ==
+                      state.listaCalificacionesCompensadas
+                          .firstWhere(
+                            (cc) => cc.idEstudiante == usuario.idUserInfo,
+                          )
+                          .idValorCalificacion,
+                )
+                .valor
+                .toString(),
+            nombreAlumno: '${usuario.nombre} ${usuario.apellido}',
+            esEditable: rolDelUsuario?.nombre == 'docente'
+                ? fecha.mismaFecha(DateTime.now())
+                : rolDelUsuario?.nombre == 'directivo' &&
+                    fecha.isBefore(DateTime.now()),
+          ),
+        );
+      },
     );
-  }
-
-  // TODO(anyone): ver si esta bien la funcion si depende de las notas
-  // anteriores del mes en el que esta o de todas
-
-  /// Obtiene las calificaciones previas del usuario en el mes y año actual.
-  List<double> _obtenerCalificacionesPrevias(
-    List<ModeloCalificacion> lista,
-    int idUsuario,
-    DateTime fechaActual,
-  ) {
-    final calificacionesPrevias = <double>[];
-
-    for (final calificacion in lista) {
-      final fechaCalificacion = calificacion.fecha;
-
-      // Verificar si la calificación pertenece al usuario y si no es del día
-      // actual
-      if (calificacion.alumnos.any((alumno) => alumno.id == idUsuario) &&
-          !_esMismoDia(fechaCalificacion, DateTime.now())) {
-        // Agregar la calificación a la lista de calificaciones previas
-        final calificacionUsuario = calificacion.alumnos
-            .firstWhere((alumno) => alumno.id == idUsuario)
-            .calificacion
-            ?.toDouble();
-        calificacionesPrevias.add(calificacionUsuario ?? 0);
-      }
-    }
-
-    return calificacionesPrevias;
-  }
-
-  /// Verifica si dos fechas son del mismo mes y año.
-  bool _esMismoDia(DateTime fecha1, DateTime fecha2) {
-    return fecha1.year == fecha2.year && fecha1.month == fecha2.month;
   }
 }

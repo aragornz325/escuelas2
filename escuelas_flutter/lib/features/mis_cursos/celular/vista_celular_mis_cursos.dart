@@ -13,9 +13,16 @@ import 'package:full_responsive/full_responsive.dart';
 /// Vista para celular de la pagina 'Mis Cursos' donde se muestra una lista de
 /// las materias ordenas por curso
 /// {@endtemplate}
-class VistaCelularMisCursos extends StatelessWidget {
+class VistaCelularMisCursos extends StatefulWidget {
   /// {@macro VistaCelularMisCursos}
   const VistaCelularMisCursos({super.key});
+
+  @override
+  State<VistaCelularMisCursos> createState() => _VistaCelularMisCursosState();
+}
+
+class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
+  DateTime fecha = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,9 @@ class VistaCelularMisCursos extends StatelessWidget {
       children: [
         SelectorDePeriodo(
           delegate: PeriodoMensualDelegate(context),
-          onSeleccionarPeriodo: (periodo) {},
+          onSeleccionarPeriodo: (periodo) => setState(
+            () => fecha = periodo.fechaDesde,
+          ),
           decoration: BoxDecoration(
             color: colores.tertiary,
             borderRadius: BorderRadius.circular(40.sw),
@@ -43,13 +52,13 @@ class VistaCelularMisCursos extends StatelessWidget {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: state.listaCursosConMaterias.keys
+                    children: state.cursos
                         .map(
-                          (cursoId) => Column(
+                          (curso) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                cursoId.toString(),
+                                curso.nombre.toUpperCase(),
                                 style: TextStyle(
                                   color: colores.onSecondary,
                                   fontSize: 13.pf,
@@ -58,9 +67,9 @@ class VistaCelularMisCursos extends StatelessWidget {
                               ),
                               SizedBox(height: 10.ph),
                               Column(
-                                children: state.listaCursosConMaterias[cursoId]!
+                                children: curso.asignaturas
                                     .map(
-                                      (materia) => Padding(
+                                      (asignatura) => Padding(
                                         padding: EdgeInsets.only(
                                           bottom: 10.ph,
                                         ),
@@ -70,9 +79,14 @@ class VistaCelularMisCursos extends StatelessWidget {
                                           //la fecha de la lista de materias
                                           //actual y hacer la validacion con eso
                                           estaHabilitado: true,
-                                          materia: materia,
+                                          materia: asignatura,
                                           onTap: () => context.pushRoute(
-                                            const RutaCargaDeCalificaciones(),
+                                            RutaCargaDeCalificaciones(
+                                              fecha: fecha.toString(),
+                                              nombreAsignatura:
+                                                  asignatura.nombre,
+                                              idCurso: asignatura.idCurso,
+                                            ),
                                           ),
                                         ),
                                       ),

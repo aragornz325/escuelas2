@@ -44,7 +44,6 @@ class AppRouter extends $AppRouter {
           children: [
             AutoRoute(
               page: RutaInicio.page,
-              initial: true,
               path: 'home',
             ),
             CustomRoute(

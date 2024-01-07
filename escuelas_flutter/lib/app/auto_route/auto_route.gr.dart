@@ -9,8 +9,6 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i18;
-import 'package:escuelas_flutter/features/asistencias/pagina_asistencias.dart'
-    as _i6;
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/pagina_asignacion_de_roles.dart'
     as _i1;
 import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.dart'
@@ -31,6 +29,8 @@ import 'package:escuelas_flutter/features/dashboard/pagina_dashboard.dart'
     as _i4;
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/pagina_supervision_envio_calificaciones.dart'
     as _i17;
+import 'package:escuelas_flutter/features/inasistencias/pagina_inasistencias.dart'
+    as _i6;
 import 'package:escuelas_flutter/features/lista_cursos/lista_cursos.dart'
     as _i9;
 import 'package:escuelas_flutter/features/mis_cursos/pagina_mis_cursos.dart'
@@ -57,9 +57,21 @@ abstract class $AppRouter extends _i18.RootStackRouter {
       );
     },
     RutaCargaDeCalificaciones.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<RutaCargaDeCalificacionesArgs>(
+          orElse: () => RutaCargaDeCalificacionesArgs(
+                nombreAsignatura: pathParams.getString('nombreAsignatura'),
+                idCurso: pathParams.getInt('idCurso'),
+                fecha: pathParams.getString('fecha'),
+              ));
       return _i18.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i2.PaginaCargaDeCalificaciones(),
+        child: _i2.PaginaCargaDeCalificaciones(
+          nombreAsignatura: args.nombreAsignatura,
+          idCurso: args.idCurso,
+          fecha: args.fecha,
+          key: args.key,
+        ),
       );
     },
     RutaComunidadAcademica.name: (routeData) {
@@ -205,16 +217,56 @@ class RutaAsignacionDeRoles extends _i18.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.PaginaCargaDeCalificaciones]
-class RutaCargaDeCalificaciones extends _i18.PageRouteInfo<void> {
-  const RutaCargaDeCalificaciones({List<_i18.PageRouteInfo>? children})
-      : super(
+class RutaCargaDeCalificaciones
+    extends _i18.PageRouteInfo<RutaCargaDeCalificacionesArgs> {
+  RutaCargaDeCalificaciones({
+    required String nombreAsignatura,
+    required int idCurso,
+    required String fecha,
+    _i19.Key? key,
+    List<_i18.PageRouteInfo>? children,
+  }) : super(
           RutaCargaDeCalificaciones.name,
+          args: RutaCargaDeCalificacionesArgs(
+            nombreAsignatura: nombreAsignatura,
+            idCurso: idCurso,
+            fecha: fecha,
+            key: key,
+          ),
+          rawPathParams: {
+            'nombreAsignatura': nombreAsignatura,
+            'idCurso': idCurso,
+            'fecha': fecha,
+          },
           initialChildren: children,
         );
 
   static const String name = 'RutaCargaDeCalificaciones';
 
-  static const _i18.PageInfo<void> page = _i18.PageInfo<void>(name);
+  static const _i18.PageInfo<RutaCargaDeCalificacionesArgs> page =
+      _i18.PageInfo<RutaCargaDeCalificacionesArgs>(name);
+}
+
+class RutaCargaDeCalificacionesArgs {
+  const RutaCargaDeCalificacionesArgs({
+    required this.nombreAsignatura,
+    required this.idCurso,
+    required this.fecha,
+    this.key,
+  });
+
+  final String nombreAsignatura;
+
+  final int idCurso;
+
+  final String fecha;
+
+  final _i19.Key? key;
+
+  @override
+  String toString() {
+    return 'RutaCargaDeCalificacionesArgs{nombreAsignatura: $nombreAsignatura, idCurso: $idCurso, fecha: $fecha, key: $key}';
+  }
 }
 
 /// generated route for

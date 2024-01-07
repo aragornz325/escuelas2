@@ -1,2 +1,4 @@
+export 'calcular_promedio.dart';
+export 'colores.dart';
 export 'expresion_regular.dart';
-export 'operacion_bloc.dart';
+export 'nombre_abreviado.dart';

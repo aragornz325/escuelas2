@@ -13,16 +13,38 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         () => servicio.obtenerDatosDelUsuario(session),
       );
 
+  Future<Usuario> obtenerUsuario(
+    Session session, {
+    required int idUsuario,
+  }) =>
+      servicio.obtenerUsuario(
+        session,
+        idUsuario: idUsuario,
+      );
+
   /// La función "obtenerUsuarioPendiente" devuelve un objeto Futuro que recupera usuario pendiente
   /// usando una sesión.
   ///
   /// Args:
   ///   session (Session): El parámetro de sesión es un objeto que representa la sesión del usuario
   /// actual. Se utiliza para autenticar y autorizar al usuario que realiza la solicitud.
-  Future<UsuarioPendiente?> obtenerUsuarioPendiente(Session session) async =>
+  Future<UsuarioPendiente?> obtenerDatosDeSolicitudDelUsuario(
+          Session session) async =>
+      ejecutarOperacionControlador(
+        'obtenerDatosDeSolicitudDelUsuario',
+        () => servicio.obtenerDatosDeSolicitudDelUsuario(session),
+      );
+
+  Future<UsuarioPendiente?> obtenerUsuarioPendiente(
+    Session session, {
+    required int idUsuarioPendiente,
+  }) async =>
       ejecutarOperacionControlador(
         'obtenerUsuarioPendiente',
-        () => servicio.obtenerUsuarioPendiente(session),
+        () => servicio.obtenerUsuarioPendiente(
+          session,
+          idUsuarioPendiente: idUsuarioPendiente,
+        ),
       );
 
   /// La función "obtenerUsuariosPendientes" devuelve un objeto Futuro que recupera los

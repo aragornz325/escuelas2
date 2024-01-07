@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/pagina_comunidad_academica.dart';
-import 'package:escuelas_flutter/utilidades/funciones/funciones.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_comunidad_academica_estado.dart';
@@ -29,7 +29,7 @@ class BlocComunidadAcademica
   ) async {
     emit(BlocComunidadAcademicaEstadoCargando.desde(state));
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         // TODO(anyone): Eliminar hardcodeo y utilizar endpoint
         // final listadoRoles = await traertodoslosroles;
         final listadoRoles = [
@@ -37,22 +37,16 @@ class BlocComunidadAcademica
             nombre: 'Administrador',
             descripcion: 'Administrador',
             id: 1,
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
           ),
           RolDeUsuario(
             nombre: 'Docente',
             descripcion: 'Docente',
             id: 2,
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
           ),
           RolDeUsuario(
             nombre: 'Alumno',
             descripcion: 'Alumno',
             id: 3,
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
           ),
         ];
         emit(
@@ -75,7 +69,7 @@ class BlocComunidadAcademica
   ) async {
     emit(BlocComunidadAcademicaEstadoCargando.desde(state));
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         // TODO(anyone): Eliminar hardcodeo y utilizar endpoint
         // final listaUsuarios = await traerUsuarioPorRol(event.idRol));
         final listaUsuarios = [

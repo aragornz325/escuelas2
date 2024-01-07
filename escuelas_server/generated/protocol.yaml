@@ -7,6 +7,7 @@ asignatura:
   - asignarUsuarioAAsignaturas:
 asistencia:
   - crearAsistenciasEnLote:
+  - traerAsistenciaPorDia:
 comisiones:
   - asignarUsuarioAComision:
   - obtenerComisiones:
@@ -27,6 +28,8 @@ rol:
   - eliminarRol:
 usuario:
   - obtenerDatosDelUsuario:
+  - obtenerUsuario:
+  - obtenerDatosDeSolicitudDelUsuario:
   - obtenerUsuarioPendiente:
   - obtenerUsuariosPendientes:
   - enviarSolicitudRegistroDocente:

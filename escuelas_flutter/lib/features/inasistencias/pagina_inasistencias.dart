@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/features/asistencias/bloc_asistencias/bloc_asistencias.dart';
-import 'package:escuelas_flutter/features/asistencias/celular/vista_celular_asistencias.dart';
-import 'package:escuelas_flutter/features/asistencias/escritorio/vista_escritorio_asistencias.dart';
+import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
+import 'package:escuelas_flutter/features/inasistencias/celular/vista_celular_inasistencias.dart';
+import 'package:escuelas_flutter/features/inasistencias/escritorio/vista_escritorio_inasistencias.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,9 +17,9 @@ class PaginaInasistencia extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BlocAsistencias>(
+    return BlocProvider<BlocInasistencias>(
       create: (context) =>
-          BlocAsistencias()..add(const BlocAsistenciasEventoInicializar()),
+          BlocInasistencias()..add(const BlocInasistenciasEventoInicializar()),
       child: const FullResponsiveScreen(
         celular: VistaCelularInasistencias(),
         escritorio: VistaEscritorioInasistencias(),

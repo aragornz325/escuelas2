@@ -1,5 +1,5 @@
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/utilidades/funciones/funciones.dart';
+import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_supervision_envio_calificaciones_estado.dart';
@@ -26,7 +26,7 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
   ) async {
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
-      callback: () async {
+      callback: (client) async {
         // TODO(anyone): Descomentar cuando haya endpoint
         // final listaAsignaturas =
         //awaitclient.obtenerAsignaturasDeCurso(event.idCurso,event.idPeriodo);
