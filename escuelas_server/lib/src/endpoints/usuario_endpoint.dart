@@ -116,14 +116,16 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         ),
       );
 
-  /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
-  Future<void> actualizarUsuarioPendiente(
+  /// Se utiliza para aceptar o rechazar una solicitud de registro.
+  ///
+  /// En caso de aprobar la solicitud, se crea un [Usuario].
+  Future<void> responderSolicitudDeRegistro(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
-  }) async =>
+  }) =>
       ejecutarOperacionControlador(
-        'actualizarUsuarioPendiente',
-        () => servicio.actualizarUsuarioPendiente(
+        'responderSolicitudDeRegistro',
+        () => servicio.responderSolicitudDeRegistro(
           session,
           usuarioPendiente: usuarioPendiente,
         ),
