@@ -2,7 +2,7 @@ class: Curso
 table: cursos
 fields:
   nombre: String
-  asignaturas: List<Asignatura>, !persist
+  asignaturas: List<Asignatura>?, relation
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
