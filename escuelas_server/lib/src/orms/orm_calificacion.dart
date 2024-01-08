@@ -13,15 +13,51 @@ class OrmCalificacion extends ORM {
     );
   }
 
-  Future<List<Calificacion>> obtenerCalificaciones(Session session) async {
-    return await Calificacion.db.find(session);
+  Future<List<Calificacion>> obtenerCalificaciones(
+    Session session,
+    Periodo? periodo,
+    int? idConceptoDeCalificacion,
+  ) async =>
+      Calificacion.db.find(
+        session,
+        where: (t) {
+          if (periodo != null && idConceptoDeCalificacion != null) {
+            return t.fechaCreacion.between(
+                  periodo.fechaInicio,
+                  periodo.fechaFin,
+                ) &
+                t.idConcepto.equals(idConceptoDeCalificacion);
+          }
+
+          if (periodo != null) {
+            return t.fechaCreacion.between(
+              periodo.fechaInicio,
+              periodo.fechaFin,
+            );
+          }
+
+          if (idConceptoDeCalificacion != null) {
+            return t.idConcepto.equals(idConceptoDeCalificacion);
+          }
+
+          return t.id.notEquals(null);
+        },
+      );
+
+  Future<List<Calificacion>> actualizarCalificaciones(
+    Session session, {
+    required List<Calificacion> calificaciones,
+  }) async {
+    return await Calificacion.db.update(
+      session,
+      calificaciones,
+    );
   }
 
-  Future<List<Calificacion>> actualizarCalificaciones(Session session, {required List<Calificacion> calificaciones,}) async {
-    return await Calificacion.db.update(session, calificaciones);
-  }
-
-  Future<List<int>> eliminarCalificaciones(Session session, {required List<Calificacion> calificaciones,}) async {
+  Future<List<int>> eliminarCalificaciones(
+    Session session, {
+    required List<Calificacion> calificaciones,
+  }) async {
     return await Calificacion.db.delete(session, calificaciones);
   }
 }
