@@ -42,6 +42,8 @@ class OrmUsuario extends ORM {
               rol: RolDeUsuario.include(),
             ),
           ),
+          comisiones: RelacionComisionUsuario.includeList(),
+          asignaturas: RelacionAsignaturaUsuario.includeList(),
         ),
       ),
     );
