@@ -199,7 +199,7 @@ class BlocCargaCalificaciones
     BlocCargaCalificacionesEventoCambiarCalificacionAlumno event,
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) {
-    final alumno = state.curso?.estudiantes.firstWhere(
+    final alumno = state.estudiantes.firstWhere(
       (c) => c.idUserInfo == event.idAlumno,
     );
 
@@ -211,7 +211,7 @@ class BlocCargaCalificaciones
             state.listaCalificacionesCompensadas
                 .firstWhere(
                   (calicompensada) =>
-                      calicompensada.idEstudiante == alumno?.idUserInfo,
+                      calicompensada.idEstudiante == alumno.idUserInfo,
                 )
                 .id) // TODO(ANYONE): Cambiar por el id correspondiente
         .id = event.calificacion ?? 0;

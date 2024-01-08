@@ -45,6 +45,8 @@ class ItemCursoConListaDeAlumnos extends StatelessWidget {
       builder: (context, state) {
         final estudiantesPorCurso = state.asistenciasDiarias(curso.idCurso);
 
+        final estudiantes = curso.estudiantes ?? [];
+
         return Column(
           children: [
             ItemCurso(
@@ -52,7 +54,7 @@ class ItemCursoConListaDeAlumnos extends StatelessWidget {
               curso: curso,
               onTap: onTap,
             ),
-            if (curso.estudiantes.isEmpty)
+            if (estudiantes.isEmpty)
               //TODO(anyone): hacer una vista cuando no hay cursos.
               Center(
                 child: Text(l10n.pageAttendanceNotAbsentStudents),
@@ -60,7 +62,7 @@ class ItemCursoConListaDeAlumnos extends StatelessWidget {
             else
               Expanded(
                 child: ListView.builder(
-                  itemCount: curso.estudiantes.length,
+                  itemCount: estudiantes.length,
                   itemBuilder: (context, index) => Padding(
                     padding: EdgeInsets.symmetric(
                       horizontal: 20.pw,
@@ -71,7 +73,7 @@ class ItemCursoConListaDeAlumnos extends StatelessWidget {
                         SizedBox(
                           width: 250.pw,
                           child: Text(
-                            curso.estudiantes[index].dni ?? '',
+                            estudiantes[index].dni ?? '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -86,7 +88,7 @@ class ItemCursoConListaDeAlumnos extends StatelessWidget {
                           onTap: () => context.read<BlocInasistencias>().add(
                                 BlocAsistenciaEventoCambiarInasistenciaAlumno(
                                   idCurso: curso.idCurso,
-                                  idAlumno: curso.estudiantes[index].idUserInfo,
+                                  idAlumno: estudiantes[index].idUserInfo,
                                   fecha: DateTime.now(),
                                   asistenciaDiaria: estudiantesPorCurso[index]
                                       .estadoDeAsistencia

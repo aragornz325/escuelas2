@@ -46,7 +46,7 @@ class BotonFinalizarInasistencias extends StatelessWidget {
         value: context.read<BlocInasistencias>(),
         child: DialogInasistenciasDelDia(
           asistencias: asistencias,
-          alumnos: curso.estudiantes,
+          alumnos: curso.estudiantes ?? [],
           idCurso: curso.idCurso,
           fecha: fecha,
         ),
@@ -84,7 +84,7 @@ class BotonFinalizarInasistencias extends StatelessWidget {
                 curso.cantidadDeNoAusentes(
                   asistencias,
                 ), //TODO(mati) revisar esto
-                curso.estudiantes.length,
+                curso.estudiantes?.length ?? 0,
               )
               .toUpperCase(),
     );

@@ -34,7 +34,7 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
         (usuario) {
           return widget.asistencias.any(
             (asistencia) =>
-                asistencia.idEstudiante == usuario.idUserInfo &&
+                asistencia.estudianteId == usuario.idUserInfo &&
                 !(asistencia.estadoDeAsistencia ==
                         EstadoDeAsistencia.presente ||
                     asistencia.estadoDeAsistencia ==
@@ -72,10 +72,10 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
         (a, b) {
           // Obtener las asistencias diarias asociadas a cada usuario
           final asistenciaA = widget.asistencias.firstWhere(
-            (asistencia) => asistencia.idEstudiante == a.idUserInfo,
+            (asistencia) => asistencia.estudianteId == a.idUserInfo,
           );
           final asistenciaB = widget.asistencias.firstWhere(
-            (asistencia) => asistencia.idEstudiante == b.idUserInfo,
+            (asistencia) => asistencia.estudianteId == b.idUserInfo,
           );
 
           return asistenciaA.estadoDeAsistencia.index
@@ -122,7 +122,7 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
                       //TODO(mati): cambiar esta horrible logica
                       final asistenciaDiaria = widget.asistencias.firstWhere(
                         (asistencia) =>
-                            asistencia.idEstudiante == alumno.idUserInfo,
+                            asistencia.estudianteId == alumno.idUserInfo,
                       );
 
                       return asistenciaDiaria.estadoDeAsistencia !=
