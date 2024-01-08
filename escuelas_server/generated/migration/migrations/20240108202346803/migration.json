@@ -1,0 +1,78 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "deleteTable": null,
+      "alterTable": {
+        "name": "asignatura_solicitada",
+        "dartName": null,
+        "module": null,
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "asignatura_solicitada_fk_0",
+            "columns": [
+              "idUsuarioPendiente"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 4,
+            "matchType": null
+          }
+        ],
+        "deleteForeignKeys": [
+          "asignatura_solicitada_fk_0"
+        ],
+        "warnings": []
+      },
+      "createTable": null
+    },
+    {
+      "type": "alterTable",
+      "deleteTable": null,
+      "alterTable": {
+        "name": "comision_solicitada",
+        "dartName": null,
+        "module": null,
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "comision_solicitada_fk_0",
+            "columns": [
+              "idUsuarioPendiente"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 4,
+            "matchType": null
+          }
+        ],
+        "deleteForeignKeys": [
+          "comision_solicitada_fk_0"
+        ],
+        "warnings": []
+      },
+      "createTable": null
+    }
+  ],
+  "warnings": [],
+  "migrationApiVersion": 1
+}
