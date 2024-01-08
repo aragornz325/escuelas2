@@ -1,11 +1,8 @@
 class: Periodo
 table: periodos
 fields:
-  nombre: String
-  diaInicio: int
-  mesInicio: int
-  diaFin: int
-  mesFin: int
+  fechaInicio: DateTime
+  fechaFin: DateTime
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
