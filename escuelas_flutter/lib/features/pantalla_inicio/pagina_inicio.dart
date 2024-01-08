@@ -31,8 +31,7 @@ class _PaginaInicioState extends State<PaginaInicio> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocInicio>(
-      create: (context) =>
-          BlocInicio()..add(BlocInicioEventoTraerInfoInicial()),
+      create: (context) => BlocInicio()..add(BlocInicioEventoInicializar()),
       child: const FullResponsiveScreen(
         celular: VistaCelularInicio(),
         escritorio: VistaEscritorioInicio(),

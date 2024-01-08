@@ -102,7 +102,7 @@ class SeccionCursos extends StatelessWidget {
                 ),
                 child: Text(
                   state.usuario?.comisiones?.first.comisionDeCurso?.nombre ??
-                      'asd',
+                      '',
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 13.pf,

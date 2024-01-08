@@ -31,6 +31,7 @@ enum InfoDeRol {
     }
   }
 
+// TODO(anyone): Aca se ponen las ids de los roles que tienen acceso a esa vista
   List<int> get rolesAsignados {
     switch (this) {
       case InfoDeRol.tomarInasistencia:

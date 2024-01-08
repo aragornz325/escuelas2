@@ -14,12 +14,12 @@ part 'bloc_inicio_evento.dart';
 class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
   /// {@macro BlocInicio}
   BlocInicio() : super(const BlocInicioEstadoInicial()) {
-    on<BlocInicioEventoTraerInfoInicial>(_onInicializar);
+    on<BlocInicioEventoInicializar>(_onInicializar);
   }
 
-  /// Trae la informacion de acuerdo a los permisos del usuario.
+  /// Trae los roles de la institucion que luego se filtraran para mostrar
   Future<void> _onInicializar(
-    BlocInicioEventoTraerInfoInicial event,
+    BlocInicioEventoInicializar event,
     Emitter<BlocInicioEstado> emit,
   ) async {
     emit(BlocInicioEstadoCargando.desde(state));
