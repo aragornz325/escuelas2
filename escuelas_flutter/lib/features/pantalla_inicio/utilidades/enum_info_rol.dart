@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
-import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:flutter/material.dart';
 
 /// Distintas etiquetas que tienen un titulo, permisos asignados
@@ -11,8 +10,7 @@ enum InfoDeRol {
   listaCursos,
   usuariosPendientes,
   comunidadAcademica,
-  supervision,
-  kyc;
+  supervision;
 
 // TODO(Anyone): Ver si es inasistencias o asistencias.
   // TODO(SAM): add funcion y pasarle context
@@ -30,34 +28,22 @@ enum InfoDeRol {
         return 'USUARIOS PENDIENTES';
       case InfoDeRol.supervision:
         return 'SUPERVISION DE CURSOS';
-      case InfoDeRol.kyc:
-        return 'KYC';
     }
   }
 
-  List<Permiso> get permisosAsignados {
+// TODO(anyone): Aca se ponen las ids de los roles que tienen acceso a esa vista
+  List<int> get rolesAsignados {
     switch (this) {
       case InfoDeRol.tomarInasistencia:
-        return [Permiso.directivo, Permiso.docente];
+        return [2];
       case InfoDeRol.listaCursos:
-        return [Permiso.directivo, Permiso.docente];
+        return [2];
       case InfoDeRol.comunidadAcademica:
-        return [
-          Permiso.directivo,
-        ];
+        return [2];
       case InfoDeRol.usuariosPendientes:
-        return [
-          Permiso.directivo,
-        ];
+        return [2];
       case InfoDeRol.supervision:
-        return [
-          Permiso.directivo,
-        ];
-      case InfoDeRol.kyc:
-        return [
-          Permiso.directivo,
-          Permiso.alumno,
-        ];
+        return [2];
     }
   }
 
@@ -75,8 +61,6 @@ enum InfoDeRol {
         context.router.push(const RutaAsignacionDeRoles());
       case InfoDeRol.supervision:
         context.router.push(const RutaSupervisionCursos());
-      case InfoDeRol.kyc:
-        context.router.push(const RutaKyc());
     }
   }
 }

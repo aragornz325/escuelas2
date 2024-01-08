@@ -11,7 +11,7 @@ abstract class BlocInicioEvento {
 /// {@template BlocInicioEventoTraerInfoInicial}
 /// Evento que trae la informacion relacionada con los permisos del usuario.
 /// {@endtemplate}
-class BlocInicioEventoTraerInfoInicial extends BlocInicioEvento {
+class BlocInicioEventoInicializar extends BlocInicioEvento {
   /// {@macro BlocInicioEventoTraerInfoInicial}
-  BlocInicioEventoTraerInfoInicial();
+  BlocInicioEventoInicializar();
 }

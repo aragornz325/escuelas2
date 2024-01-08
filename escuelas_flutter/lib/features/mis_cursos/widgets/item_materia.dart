@@ -11,17 +11,14 @@ class ItemMateria extends StatelessWidget {
   /// {@macro ItemMateria}
   const ItemMateria({
     required this.materia,
-    required this.onTap,
     required this.estaCargada,
     required this.estaHabilitado,
+    required this.onTap,
     super.key,
   });
 
   /// Usuario del que se muestran los datos
   final Asignatura materia;
-
-  /// On tap del item
-  final VoidCallback onTap;
 
   /// Indica si las calificaciones de esa materia ya fueron cargas en el mes
   /// seleccionado
@@ -29,6 +26,9 @@ class ItemMateria extends StatelessWidget {
 
   /// Indica si esta habilitado para presionarse o no el boton
   final bool estaHabilitado;
+
+  /// Funcion que se ejecuta cuando se presiona el boton
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class ItemMateria extends StatelessWidget {
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          onTap: onTap,
+          onTap: () => estaHabilitado ? onTap : null,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),

@@ -8,8 +8,8 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i19;
-import 'package:escuelas_client/escuelas_client.dart' as _i21;
+import 'package:auto_route/auto_route.dart' as _i20;
+import 'package:escuelas_client/escuelas_client.dart' as _i22;
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/pagina_asignacion_de_roles.dart'
     as _i1;
 import 'package:escuelas_flutter/features/auth/kyc/espera/pagina_espera.dart'
@@ -18,7 +18,7 @@ import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.
     as _i6;
 import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i9;
 import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
-    as _i16;
+    as _i17;
 import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i12;
 import 'package:escuelas_flutter/features/carga_calificaciones/pagina_carga_calificaciones.dart'
     as _i2;
@@ -30,8 +30,12 @@ import 'package:escuelas_flutter/features/dashboard/comunidad_academica/pagina_c
     as _i3;
 import 'package:escuelas_flutter/features/dashboard/pagina_dashboard.dart'
     as _i4;
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario.dart'
+    as _i15;
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario_pendiente.dart'
+    as _i16;
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/pagina_supervision_envio_calificaciones.dart'
-    as _i18;
+    as _i19;
 import 'package:escuelas_flutter/features/inasistencias/pagina_inasistencias.dart'
     as _i7;
 import 'package:escuelas_flutter/features/lista_cursos/lista_cursos.dart'
@@ -40,20 +44,18 @@ import 'package:escuelas_flutter/features/mis_cursos/pagina_mis_cursos.dart'
     as _i14;
 import 'package:escuelas_flutter/features/pantalla_inicio/pagina_inicio.dart'
     as _i8;
-import 'package:escuelas_flutter/features/perfil_usuario/pagina_perfil_usuario.dart'
-    as _i15;
 import 'package:escuelas_flutter/features/supervision_cursos/pagina_supervision_cursos.dart'
-    as _i17;
-import 'package:flutter/material.dart' as _i20;
-import 'package:serverpod_auth_client/module.dart' as _i22;
+    as _i18;
+import 'package:flutter/material.dart' as _i21;
+import 'package:serverpod_auth_client/module.dart' as _i23;
 
-abstract class $AppRouter extends _i19.RootStackRouter {
+abstract class $AppRouter extends _i20.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i19.PageFactory> pagesMap = {
+  final Map<String, _i20.PageFactory> pagesMap = {
     RutaAsignacionDeRoles.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.PaginaAsignacionDeRoles(),
       );
@@ -66,7 +68,7 @@ abstract class $AppRouter extends _i19.RootStackRouter {
                 idCurso: pathParams.getInt('idCurso'),
                 fecha: pathParams.getString('fecha'),
               ));
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.PaginaCargaDeCalificaciones(
           nombreAsignatura: args.nombreAsignatura,
@@ -77,14 +79,14 @@ abstract class $AppRouter extends _i19.RootStackRouter {
       );
     },
     RutaComunidadAcademica.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i3.PaginaComunidadAcademica(),
       );
     },
     RutaDashboard.name: (routeData) {
       final args = routeData.argsAs<RutaDashboardArgs>();
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i4.PaginaDashboard(
           usuario: args.usuario,
@@ -94,37 +96,37 @@ abstract class $AppRouter extends _i19.RootStackRouter {
       );
     },
     RutaEspera.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i5.PaginaEspera(),
       );
     },
     RutaFormulario.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i6.PaginaFormulario(),
       );
     },
     RutaInasistencia.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i7.PaginaInasistencia(),
       );
     },
     RutaInicio.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i8.PaginaInicio(),
       );
     },
     RutaKyc.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i9.PaginaKyc(),
       );
     },
     RutaListaCursos.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i10.PaginaListaCursos(),
       );
@@ -134,7 +136,7 @@ abstract class $AppRouter extends _i19.RootStackRouter {
       final args = routeData.argsAs<RutaListadoComunidadArgs>(
           orElse: () =>
               RutaListadoComunidadArgs(idRol: pathParams.getInt('idRol')));
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i11.PaginaListadoComunidad(
           idRol: args.idRol,
@@ -143,19 +145,19 @@ abstract class $AppRouter extends _i19.RootStackRouter {
       );
     },
     RutaLogin.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i12.PaginaLogin(),
       );
     },
     RutaMenuComunidadAcademica.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i13.PaginaMenuComunidadAcademica(),
       );
     },
     RutaMisCursos.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i14.PaginaMisCursos(),
       );
@@ -164,8 +166,8 @@ abstract class $AppRouter extends _i19.RootStackRouter {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<RutaPerfilUsuarioArgs>(
           orElse: () =>
-              RutaPerfilUsuarioArgs(idUsuario: pathParams.getInt('idUsuario')));
-      return _i19.AutoRoutePage<dynamic>(
+              RutaPerfilUsuarioArgs(idUsuario: pathParams.getInt('userId')));
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i15.PaginaPerfilUsuario(
           idUsuario: args.idUsuario,
@@ -173,16 +175,29 @@ abstract class $AppRouter extends _i19.RootStackRouter {
         ),
       );
     },
-    RutaSeleccionDeRol.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+    RutaPerfilUsuarioPendiente.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<RutaPerfilUsuarioPendienteArgs>(
+          orElse: () => RutaPerfilUsuarioPendienteArgs(
+              idUsuarioPendiente: pathParams.getInt('pendingUserId')));
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i16.PaginaSeleccionDeRol(),
+        child: _i16.PaginaPerfilUsuarioPendiente(
+          idUsuarioPendiente: args.idUsuarioPendiente,
+          key: args.key,
+        ),
+      );
+    },
+    RutaSeleccionDeRol.name: (routeData) {
+      return _i20.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i17.PaginaSeleccionDeRol(),
       );
     },
     RutaSupervisionCursos.name: (routeData) {
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i17.PaginaSupervisionCursos(),
+        child: const _i18.PaginaSupervisionCursos(),
       );
     },
     RutaSupervisionEnvioCalificaciones.name: (routeData) {
@@ -192,9 +207,9 @@ abstract class $AppRouter extends _i19.RootStackRouter {
                 idCurso: pathParams.getInt('idCurso'),
                 fecha: pathParams.getString('fecha'),
               ));
-      return _i19.AutoRoutePage<dynamic>(
+      return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i18.PaginaSupervisionEnvioCalificaciones(
+        child: _i19.PaginaSupervisionEnvioCalificaciones(
           idCurso: args.idCurso,
           fecha: args.fecha,
           key: args.key,
@@ -206,8 +221,8 @@ abstract class $AppRouter extends _i19.RootStackRouter {
 
 /// generated route for
 /// [_i1.PaginaAsignacionDeRoles]
-class RutaAsignacionDeRoles extends _i19.PageRouteInfo<void> {
-  const RutaAsignacionDeRoles({List<_i19.PageRouteInfo>? children})
+class RutaAsignacionDeRoles extends _i20.PageRouteInfo<void> {
+  const RutaAsignacionDeRoles({List<_i20.PageRouteInfo>? children})
       : super(
           RutaAsignacionDeRoles.name,
           initialChildren: children,
@@ -215,19 +230,19 @@ class RutaAsignacionDeRoles extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaAsignacionDeRoles';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.PaginaCargaDeCalificaciones]
 class RutaCargaDeCalificaciones
-    extends _i19.PageRouteInfo<RutaCargaDeCalificacionesArgs> {
+    extends _i20.PageRouteInfo<RutaCargaDeCalificacionesArgs> {
   RutaCargaDeCalificaciones({
     required String nombreAsignatura,
     required int idCurso,
     required String fecha,
-    _i20.Key? key,
-    List<_i19.PageRouteInfo>? children,
+    _i21.Key? key,
+    List<_i20.PageRouteInfo>? children,
   }) : super(
           RutaCargaDeCalificaciones.name,
           args: RutaCargaDeCalificacionesArgs(
@@ -246,8 +261,8 @@ class RutaCargaDeCalificaciones
 
   static const String name = 'RutaCargaDeCalificaciones';
 
-  static const _i19.PageInfo<RutaCargaDeCalificacionesArgs> page =
-      _i19.PageInfo<RutaCargaDeCalificacionesArgs>(name);
+  static const _i20.PageInfo<RutaCargaDeCalificacionesArgs> page =
+      _i20.PageInfo<RutaCargaDeCalificacionesArgs>(name);
 }
 
 class RutaCargaDeCalificacionesArgs {
@@ -264,7 +279,7 @@ class RutaCargaDeCalificacionesArgs {
 
   final String fecha;
 
-  final _i20.Key? key;
+  final _i21.Key? key;
 
   @override
   String toString() {
@@ -274,8 +289,8 @@ class RutaCargaDeCalificacionesArgs {
 
 /// generated route for
 /// [_i3.PaginaComunidadAcademica]
-class RutaComunidadAcademica extends _i19.PageRouteInfo<void> {
-  const RutaComunidadAcademica({List<_i19.PageRouteInfo>? children})
+class RutaComunidadAcademica extends _i20.PageRouteInfo<void> {
+  const RutaComunidadAcademica({List<_i20.PageRouteInfo>? children})
       : super(
           RutaComunidadAcademica.name,
           initialChildren: children,
@@ -283,17 +298,17 @@ class RutaComunidadAcademica extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaComunidadAcademica';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i4.PaginaDashboard]
-class RutaDashboard extends _i19.PageRouteInfo<RutaDashboardArgs> {
+class RutaDashboard extends _i20.PageRouteInfo<RutaDashboardArgs> {
   RutaDashboard({
-    required _i21.Usuario usuario,
-    required _i22.UserInfo userInfo,
-    _i20.Key? key,
-    List<_i19.PageRouteInfo>? children,
+    required _i22.Usuario usuario,
+    required _i23.UserInfo userInfo,
+    _i21.Key? key,
+    List<_i20.PageRouteInfo>? children,
   }) : super(
           RutaDashboard.name,
           args: RutaDashboardArgs(
@@ -306,8 +321,8 @@ class RutaDashboard extends _i19.PageRouteInfo<RutaDashboardArgs> {
 
   static const String name = 'RutaDashboard';
 
-  static const _i19.PageInfo<RutaDashboardArgs> page =
-      _i19.PageInfo<RutaDashboardArgs>(name);
+  static const _i20.PageInfo<RutaDashboardArgs> page =
+      _i20.PageInfo<RutaDashboardArgs>(name);
 }
 
 class RutaDashboardArgs {
@@ -317,11 +332,11 @@ class RutaDashboardArgs {
     this.key,
   });
 
-  final _i21.Usuario usuario;
+  final _i22.Usuario usuario;
 
-  final _i22.UserInfo userInfo;
+  final _i23.UserInfo userInfo;
 
-  final _i20.Key? key;
+  final _i21.Key? key;
 
   @override
   String toString() {
@@ -331,8 +346,8 @@ class RutaDashboardArgs {
 
 /// generated route for
 /// [_i5.PaginaEspera]
-class RutaEspera extends _i19.PageRouteInfo<void> {
-  const RutaEspera({List<_i19.PageRouteInfo>? children})
+class RutaEspera extends _i20.PageRouteInfo<void> {
+  const RutaEspera({List<_i20.PageRouteInfo>? children})
       : super(
           RutaEspera.name,
           initialChildren: children,
@@ -340,13 +355,13 @@ class RutaEspera extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaEspera';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i6.PaginaFormulario]
-class RutaFormulario extends _i19.PageRouteInfo<void> {
-  const RutaFormulario({List<_i19.PageRouteInfo>? children})
+class RutaFormulario extends _i20.PageRouteInfo<void> {
+  const RutaFormulario({List<_i20.PageRouteInfo>? children})
       : super(
           RutaFormulario.name,
           initialChildren: children,
@@ -354,13 +369,13 @@ class RutaFormulario extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaFormulario';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i7.PaginaInasistencia]
-class RutaInasistencia extends _i19.PageRouteInfo<void> {
-  const RutaInasistencia({List<_i19.PageRouteInfo>? children})
+class RutaInasistencia extends _i20.PageRouteInfo<void> {
+  const RutaInasistencia({List<_i20.PageRouteInfo>? children})
       : super(
           RutaInasistencia.name,
           initialChildren: children,
@@ -368,13 +383,13 @@ class RutaInasistencia extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaInasistencia';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i8.PaginaInicio]
-class RutaInicio extends _i19.PageRouteInfo<void> {
-  const RutaInicio({List<_i19.PageRouteInfo>? children})
+class RutaInicio extends _i20.PageRouteInfo<void> {
+  const RutaInicio({List<_i20.PageRouteInfo>? children})
       : super(
           RutaInicio.name,
           initialChildren: children,
@@ -382,13 +397,13 @@ class RutaInicio extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaInicio';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i9.PaginaKyc]
-class RutaKyc extends _i19.PageRouteInfo<void> {
-  const RutaKyc({List<_i19.PageRouteInfo>? children})
+class RutaKyc extends _i20.PageRouteInfo<void> {
+  const RutaKyc({List<_i20.PageRouteInfo>? children})
       : super(
           RutaKyc.name,
           initialChildren: children,
@@ -396,13 +411,13 @@ class RutaKyc extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaKyc';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i10.PaginaListaCursos]
-class RutaListaCursos extends _i19.PageRouteInfo<void> {
-  const RutaListaCursos({List<_i19.PageRouteInfo>? children})
+class RutaListaCursos extends _i20.PageRouteInfo<void> {
+  const RutaListaCursos({List<_i20.PageRouteInfo>? children})
       : super(
           RutaListaCursos.name,
           initialChildren: children,
@@ -410,17 +425,17 @@ class RutaListaCursos extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaListaCursos';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i11.PaginaListadoComunidad]
 class RutaListadoComunidad
-    extends _i19.PageRouteInfo<RutaListadoComunidadArgs> {
+    extends _i20.PageRouteInfo<RutaListadoComunidadArgs> {
   RutaListadoComunidad({
     required int idRol,
-    _i20.Key? key,
-    List<_i19.PageRouteInfo>? children,
+    _i21.Key? key,
+    List<_i20.PageRouteInfo>? children,
   }) : super(
           RutaListadoComunidad.name,
           args: RutaListadoComunidadArgs(
@@ -433,8 +448,8 @@ class RutaListadoComunidad
 
   static const String name = 'RutaListadoComunidad';
 
-  static const _i19.PageInfo<RutaListadoComunidadArgs> page =
-      _i19.PageInfo<RutaListadoComunidadArgs>(name);
+  static const _i20.PageInfo<RutaListadoComunidadArgs> page =
+      _i20.PageInfo<RutaListadoComunidadArgs>(name);
 }
 
 class RutaListadoComunidadArgs {
@@ -445,7 +460,7 @@ class RutaListadoComunidadArgs {
 
   final int idRol;
 
-  final _i20.Key? key;
+  final _i21.Key? key;
 
   @override
   String toString() {
@@ -455,8 +470,8 @@ class RutaListadoComunidadArgs {
 
 /// generated route for
 /// [_i12.PaginaLogin]
-class RutaLogin extends _i19.PageRouteInfo<void> {
-  const RutaLogin({List<_i19.PageRouteInfo>? children})
+class RutaLogin extends _i20.PageRouteInfo<void> {
+  const RutaLogin({List<_i20.PageRouteInfo>? children})
       : super(
           RutaLogin.name,
           initialChildren: children,
@@ -464,13 +479,13 @@ class RutaLogin extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaLogin';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i13.PaginaMenuComunidadAcademica]
-class RutaMenuComunidadAcademica extends _i19.PageRouteInfo<void> {
-  const RutaMenuComunidadAcademica({List<_i19.PageRouteInfo>? children})
+class RutaMenuComunidadAcademica extends _i20.PageRouteInfo<void> {
+  const RutaMenuComunidadAcademica({List<_i20.PageRouteInfo>? children})
       : super(
           RutaMenuComunidadAcademica.name,
           initialChildren: children,
@@ -478,13 +493,13 @@ class RutaMenuComunidadAcademica extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaMenuComunidadAcademica';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i14.PaginaMisCursos]
-class RutaMisCursos extends _i19.PageRouteInfo<void> {
-  const RutaMisCursos({List<_i19.PageRouteInfo>? children})
+class RutaMisCursos extends _i20.PageRouteInfo<void> {
+  const RutaMisCursos({List<_i20.PageRouteInfo>? children})
       : super(
           RutaMisCursos.name,
           initialChildren: children,
@@ -492,30 +507,30 @@ class RutaMisCursos extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaMisCursos';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i15.PaginaPerfilUsuario]
-class RutaPerfilUsuario extends _i19.PageRouteInfo<RutaPerfilUsuarioArgs> {
+class RutaPerfilUsuario extends _i20.PageRouteInfo<RutaPerfilUsuarioArgs> {
   RutaPerfilUsuario({
     required int idUsuario,
-    _i20.Key? key,
-    List<_i19.PageRouteInfo>? children,
+    _i21.Key? key,
+    List<_i20.PageRouteInfo>? children,
   }) : super(
           RutaPerfilUsuario.name,
           args: RutaPerfilUsuarioArgs(
             idUsuario: idUsuario,
             key: key,
           ),
-          rawPathParams: {'idUsuario': idUsuario},
+          rawPathParams: {'userId': idUsuario},
           initialChildren: children,
         );
 
   static const String name = 'RutaPerfilUsuario';
 
-  static const _i19.PageInfo<RutaPerfilUsuarioArgs> page =
-      _i19.PageInfo<RutaPerfilUsuarioArgs>(name);
+  static const _i20.PageInfo<RutaPerfilUsuarioArgs> page =
+      _i20.PageInfo<RutaPerfilUsuarioArgs>(name);
 }
 
 class RutaPerfilUsuarioArgs {
@@ -526,7 +541,7 @@ class RutaPerfilUsuarioArgs {
 
   final int idUsuario;
 
-  final _i20.Key? key;
+  final _i21.Key? key;
 
   @override
   String toString() {
@@ -535,9 +550,49 @@ class RutaPerfilUsuarioArgs {
 }
 
 /// generated route for
-/// [_i16.PaginaSeleccionDeRol]
-class RutaSeleccionDeRol extends _i19.PageRouteInfo<void> {
-  const RutaSeleccionDeRol({List<_i19.PageRouteInfo>? children})
+/// [_i16.PaginaPerfilUsuarioPendiente]
+class RutaPerfilUsuarioPendiente
+    extends _i20.PageRouteInfo<RutaPerfilUsuarioPendienteArgs> {
+  RutaPerfilUsuarioPendiente({
+    required int idUsuarioPendiente,
+    _i21.Key? key,
+    List<_i20.PageRouteInfo>? children,
+  }) : super(
+          RutaPerfilUsuarioPendiente.name,
+          args: RutaPerfilUsuarioPendienteArgs(
+            idUsuarioPendiente: idUsuarioPendiente,
+            key: key,
+          ),
+          rawPathParams: {'pendingUserId': idUsuarioPendiente},
+          initialChildren: children,
+        );
+
+  static const String name = 'RutaPerfilUsuarioPendiente';
+
+  static const _i20.PageInfo<RutaPerfilUsuarioPendienteArgs> page =
+      _i20.PageInfo<RutaPerfilUsuarioPendienteArgs>(name);
+}
+
+class RutaPerfilUsuarioPendienteArgs {
+  const RutaPerfilUsuarioPendienteArgs({
+    required this.idUsuarioPendiente,
+    this.key,
+  });
+
+  final int idUsuarioPendiente;
+
+  final _i21.Key? key;
+
+  @override
+  String toString() {
+    return 'RutaPerfilUsuarioPendienteArgs{idUsuarioPendiente: $idUsuarioPendiente, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i17.PaginaSeleccionDeRol]
+class RutaSeleccionDeRol extends _i20.PageRouteInfo<void> {
+  const RutaSeleccionDeRol({List<_i20.PageRouteInfo>? children})
       : super(
           RutaSeleccionDeRol.name,
           initialChildren: children,
@@ -545,13 +600,13 @@ class RutaSeleccionDeRol extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaSeleccionDeRol';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i17.PaginaSupervisionCursos]
-class RutaSupervisionCursos extends _i19.PageRouteInfo<void> {
-  const RutaSupervisionCursos({List<_i19.PageRouteInfo>? children})
+/// [_i18.PaginaSupervisionCursos]
+class RutaSupervisionCursos extends _i20.PageRouteInfo<void> {
+  const RutaSupervisionCursos({List<_i20.PageRouteInfo>? children})
       : super(
           RutaSupervisionCursos.name,
           initialChildren: children,
@@ -559,18 +614,18 @@ class RutaSupervisionCursos extends _i19.PageRouteInfo<void> {
 
   static const String name = 'RutaSupervisionCursos';
 
-  static const _i19.PageInfo<void> page = _i19.PageInfo<void>(name);
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i18.PaginaSupervisionEnvioCalificaciones]
+/// [_i19.PaginaSupervisionEnvioCalificaciones]
 class RutaSupervisionEnvioCalificaciones
-    extends _i19.PageRouteInfo<RutaSupervisionEnvioCalificacionesArgs> {
+    extends _i20.PageRouteInfo<RutaSupervisionEnvioCalificacionesArgs> {
   RutaSupervisionEnvioCalificaciones({
     required int idCurso,
     required String fecha,
-    _i20.Key? key,
-    List<_i19.PageRouteInfo>? children,
+    _i21.Key? key,
+    List<_i20.PageRouteInfo>? children,
   }) : super(
           RutaSupervisionEnvioCalificaciones.name,
           args: RutaSupervisionEnvioCalificacionesArgs(
@@ -587,8 +642,8 @@ class RutaSupervisionEnvioCalificaciones
 
   static const String name = 'RutaSupervisionEnvioCalificaciones';
 
-  static const _i19.PageInfo<RutaSupervisionEnvioCalificacionesArgs> page =
-      _i19.PageInfo<RutaSupervisionEnvioCalificacionesArgs>(name);
+  static const _i20.PageInfo<RutaSupervisionEnvioCalificacionesArgs> page =
+      _i20.PageInfo<RutaSupervisionEnvioCalificacionesArgs>(name);
 }
 
 class RutaSupervisionEnvioCalificacionesArgs {
@@ -602,7 +657,7 @@ class RutaSupervisionEnvioCalificacionesArgs {
 
   final String fecha;
 
-  final _i20.Key? key;
+  final _i21.Key? key;
 
   @override
   String toString() {

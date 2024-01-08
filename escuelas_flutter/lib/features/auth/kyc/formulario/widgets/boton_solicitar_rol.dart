@@ -1,9 +1,8 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -32,22 +31,26 @@ class BotonSolicitarRol extends StatelessWidget {
           estaHabilitado: state.rolElegido != null,
           onTap: () => showDialog<void>(
             context: context,
-            builder: (context) {
-              return EscuelasDialog.confirmar(
-                context: context,
-                onTapConfirmar: () {
-                  Navigator.pop(context);
-                  context.router.replace(const RutaEspera());
-                },
-                content: Text(
-                  l10n.pageKycFormConfirmationDialogText(
-                    state.rolElegido?.nombre ?? '',
-                  ),
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 15.pf,
-                    fontWeight: FontWeight.w600,
-                    color: colores.grisSC,
+            builder: (_) {
+              return BlocProvider(
+                create: (context) => BlocKyc(),
+                child: EscuelasDialog.confirmar(
+                  context: context,
+                  onTapConfirmar: () => context.read<BlocKyc>().add(
+                        BlocKycEventoSolicitarRegistro(
+                          userInfo: sessionManager.signedInUser,
+                        ),
+                      ),
+                  content: Text(
+                    l10n.pageKycFormConfirmationDialogText(
+                      state.rolElegido?.nombre ?? '',
+                    ),
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 15.pf,
+                      fontWeight: FontWeight.w600,
+                      color: colores.grisSC,
+                    ),
                   ),
                 ),
               );
@@ -57,7 +60,7 @@ class BotonSolicitarRol extends StatelessWidget {
           // la primer opcion)
           color: state.opcionesFormulario.isNotEmpty &&
                   state.opcionesFormulario[0].curso.nombre != '' &&
-                  state.opcionesFormulario[0].materia.nombre != ''
+                  state.opcionesFormulario[0].asignatura.nombre != ''
               ? colores.azul
               : colores.grisDeshabilitado,
           texto: l10n.commonApply,

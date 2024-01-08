@@ -141,13 +141,13 @@ class BlocInasistencias
 
         final listasDeAsistencia = <List<AsistenciaDiaria>>[];
 
-        for (var curso in cursos) {
-          final listaAsistenciaDiaria = curso.estudiantes.map(
+        for (final curso in cursos) {
+          final estudiantes = curso.estudiantes ?? [];
+          final listaAsistenciaDiaria = estudiantes.map(
             (estudiante) {
               return AsistenciaDiaria(
-                idEstudiante: estudiante.idUserInfo,
-                idAsignatura: 0,
-                idComision:
+                estudianteId: estudiante.idUserInfo,
+                comisionId:
                     curso.idCurso, // Usar el ID del curso como identificador
                 estadoDeAsistencia: EstadoDeAsistencia.sinEstado,
                 fecha: DateTime.now(),
@@ -183,7 +183,7 @@ class BlocInasistencias
       callback: (client) async {
         final asistenciasDiarias = state.asistencias
             .expand(
-              (lista) => lista.where((e) => e.idComision == event.idCurso),
+              (lista) => lista.where((e) => e.comisionId == event.idCurso),
             )
             .toList();
 
@@ -221,11 +221,11 @@ class BlocInasistencias
 
     state.asistencias
         .expand(
-          (lista) => lista.where((e) => e.idComision == curso.idCurso),
+          (lista) => lista.where((e) => e.comisionId == curso.idCurso),
         )
         .toList()
         .firstWhere(
-          (asistencia) => asistencia.idEstudiante == event.idAlumno,
+          (asistencia) => asistencia.estudianteId == event.idAlumno,
         )
         .estadoDeAsistencia = event.asistenciaDiaria;
 

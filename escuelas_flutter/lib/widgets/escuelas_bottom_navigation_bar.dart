@@ -41,7 +41,7 @@ class EscuelasBottomNavigationBar extends StatelessWidget {
           _ItemBottomNavigationBar(
             icono: Icons.house_outlined,
             estaSeleccionado: index == 0,
-            onTap: () => context.pushRoute(RutaInicio()),
+            onTap: () => context.pushRoute(const RutaInicio()),
           ),
           _ItemBottomNavigationBar(
             icono: Icons.description_outlined,

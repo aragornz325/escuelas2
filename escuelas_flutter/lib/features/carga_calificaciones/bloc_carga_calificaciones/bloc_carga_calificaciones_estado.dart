@@ -54,6 +54,9 @@ class BlocCargaCalificacionesEstado {
   bool get exitoAlEnviarCalificaciones =>
       this is BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente;
 
+  /// lista de estudiantes de un curso
+  List<Usuario> get estudiantes => curso?.estudiantes ?? [];
+
   List<Object?> get props => [
         curso,
         fecha,

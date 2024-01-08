@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/widgets.dart';
@@ -21,7 +23,13 @@ class VistaCelularFormulario extends StatelessWidget {
 
     final l10n = context.l10n;
 
-    return BlocBuilder<BlocKyc, BlocKycEstado>(
+    return BlocConsumer<BlocKyc, BlocKycEstado>(
+      listener: (context, state) {
+        if (state is BlocKycEstadoExitoAlSolicitarRegistro) {
+          Navigator.of(context).pop();
+          context.router.replace(const RutaEspera());
+        }
+      },
       builder: (context, state) {
         if (state is BlocKycEstadoCargando) {
           return const Center(
@@ -48,8 +56,8 @@ class VistaCelularFormulario extends StatelessWidget {
               SizedBox(height: 20.ph),
               const ListaDeBloqueMateria(),
               // TODO(Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
-              if (state.rolElegido?.nombre == 'DOCENTE')
-                const BotonAgregarOpcion(),
+              // if (state.rolElegido?.nombre == 'Chepibe')
+              const BotonAgregarOpcion(),
               SizedBox(height: 20.ph),
               const BotonSolicitarRol(),
             ],

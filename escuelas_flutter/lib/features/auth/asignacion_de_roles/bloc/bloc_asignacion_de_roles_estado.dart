@@ -7,18 +7,24 @@ class BlocAsignacionDeRolesEstado {
   /// {@macro BlocAsignacionDeRolesEstado}
   const BlocAsignacionDeRolesEstado._({
     this.listaUsuariosPendientes = const [],
+    this.listaRoles = const [],
   });
 
   BlocAsignacionDeRolesEstado.desde(
     BlocAsignacionDeRolesEstado otro, {
     List<UsuarioPendiente>? listaUsuariosPendientes,
+    List<RolDeUsuario>? listaRoles,
   }) : this._(
           listaUsuariosPendientes:
               listaUsuariosPendientes ?? otro.listaUsuariosPendientes,
+          listaRoles: listaRoles ?? otro.listaRoles,
         );
 
   /// Lista de usuarios pendientes a ser asignados un rol
   final List<UsuarioPendiente> listaUsuariosPendientes;
+
+  /// Lista de roles de la institucion
+  final List<RolDeUsuario> listaRoles;
 
   /// Indica si se encuentra cargando
   bool get estaCargando => this is BlocAsignacionDeRolesEstadoCargando;
@@ -48,6 +54,7 @@ class BlocAsignacionDeRolesEstadoExitoso extends BlocAsignacionDeRolesEstado {
   BlocAsignacionDeRolesEstadoExitoso.desde(
     super.otro, {
     super.listaUsuariosPendientes,
+    super.listaRoles,
   }) : super.desde();
 }
 

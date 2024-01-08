@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 
 import 'package:escuelas_flutter/features/pantalla_inicio/utilidades/enum_info_rol.dart';
@@ -13,21 +14,24 @@ part 'bloc_inicio_evento.dart';
 class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
   /// {@macro BlocInicio}
   BlocInicio() : super(const BlocInicioEstadoInicial()) {
-    on<BlocInicioEventoTraerInfoInicial>(_onInicializar);
+    on<BlocInicioEventoInicializar>(_onInicializar);
   }
 
-  /// Trae la informacion de acuerdo a los permisos del usuario.
+  /// Trae los roles de la institucion que luego se filtraran para mostrar
   Future<void> _onInicializar(
-    BlocInicioEventoTraerInfoInicial event,
+    BlocInicioEventoInicializar event,
     Emitter<BlocInicioEstado> emit,
   ) async {
     emit(BlocInicioEstadoCargando.desde(state));
 // TODO(SAM): En algun momento si se requiere info inicial agregar func
     await operacionBloc(
       callback: (client) async {
+        final listaRoles = await client.rol.obtenerRoles();
+
         emit(
           BlocInicioEstadoExitoso.desde(
             state,
+            listaRoles: listaRoles,
           ),
         );
       },

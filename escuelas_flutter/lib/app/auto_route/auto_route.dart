@@ -33,8 +33,8 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: RutaLogin.page,
           path: '/login',
-          initial: true,
           guards: [initialGuard],
+          initial: true,
         ),
         AutoRoute(
           page: RutaKyc.page,
@@ -49,7 +49,7 @@ class AppRouter extends $AppRouter {
               page: RutaFormulario.page,
               path: 'form',
             ),
-              AutoRoute(
+            AutoRoute(
               page: RutaEspera.page,
               path: 'await-approval',
             ),
@@ -63,10 +63,16 @@ class AppRouter extends $AppRouter {
             AutoRoute(
               page: RutaInicio.page,
               path: 'home',
+              initial: true,
             ),
             CustomRoute(
               page: RutaPerfilUsuario.page,
-              path: 'perfil-usuario/:idUsuario',
+              path: 'user-profile/:userId',
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
+            CustomRoute(
+              page: RutaPerfilUsuarioPendiente.page,
+              path: 'pending-user-profile/:pendingUserId',
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             AutoRoute(
