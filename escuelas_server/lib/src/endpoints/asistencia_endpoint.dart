@@ -46,4 +46,23 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
       ),
     );
   }
+
+  /// La función `actualizarAsistenciasEnLote` actualiza múltiples registros de asistencia diaria en un lote.
+  /// Args:
+  /// session (Session):
+  /// asistencias (List<AsistenciaDiaria>): Una lista de objetos del tipo "AsistenciaDiaria".
+  /// Returns:
+  /// El método `actualizarAsistenciasEnLote` devuelve un `Futuro<String>`.
+  Future<String> actualizarAsistenciasEnLote(
+    Session session, {
+    required List<AsistenciaDiaria> asistencias,
+  }) async {
+    return ejecutarOperacionControlador(
+      'actualizarAsistenciasEnLote',
+      () => servicio.actualizarAsistenciasEnLote(
+        session,
+        asistencias: asistencias,
+      ),
+    );
+  }
 }
