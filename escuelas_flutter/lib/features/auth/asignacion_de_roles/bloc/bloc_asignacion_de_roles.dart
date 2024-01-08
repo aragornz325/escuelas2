@@ -23,27 +23,16 @@ class BlocAsignacionDeRoles
     emit(BlocAsignacionDeRolesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(Gon): Eliminar hardcodeo y usar endpoint
+        final listaUsuariosPendientes =
+            await client.usuario.obtenerUsuariosPendientes();
 
-        // final listaUsuariosPendientes =await client.;
+        final listaRoles = await client.rol.obtenerRoles();
 
         emit(
           BlocAsignacionDeRolesEstadoExitoso.desde(
             state,
-            listaUsuariosPendientes: [
-              UsuarioPendiente(
-                nombre: 'Gonzalo',
-                apellido: 'Gonzalez',
-                id: 0,
-                rolSolicitado: 3,
-                estadoDeSolicitud: EstadoDeSolicitud.aprobado,
-                idUserInfo: 0,
-                dni: '43',
-                ultimaModificacion: DateTime.now(),
-                fechaCreacion: DateTime.now(),
-                urlFotoDePerfil: '',
-              ),
-            ],
+            listaUsuariosPendientes: listaUsuariosPendientes,
+            listaRoles: listaRoles,
           ),
         );
       },
@@ -55,35 +44,5 @@ class BlocAsignacionDeRoles
         );
       },
     );
-  }
-}
-
-enum Roles {
-  directivo,
-  alumno,
-  docente;
-
-  RolDeUsuario get rol {
-    switch (this) {
-      case Roles.directivo:
-        return RolDeUsuario(
-          nombre: 'Directivo',
-          id: 0,
-          descripcion: '',
-        );
-
-      case Roles.alumno:
-        return RolDeUsuario(
-          nombre: 'Alumno',
-          descripcion: '',
-          id: 1,
-        );
-      case Roles.docente:
-        return RolDeUsuario(
-          nombre: 'Docente',
-          descripcion: '',
-          id: 2,
-        );
-    }
   }
 }

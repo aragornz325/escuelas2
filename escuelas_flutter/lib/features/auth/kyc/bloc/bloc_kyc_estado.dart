@@ -7,7 +7,7 @@ class BlocKycEstado {
   /// {@macro BlocKycEstado}
   const BlocKycEstado._({
     this.listaCursos = const [],
-    this.listaMaterias = const [],
+    this.listaAsignaturas = const [],
     this.opcionesFormulario = const [],
     this.listaRoles = const [],
     this.rolElegido,
@@ -16,14 +16,14 @@ class BlocKycEstado {
   BlocKycEstado.desde(
     BlocKycEstado otro, {
     List<Curso>? listaCursos,
-    List<Asignatura>? listaMaterias,
+    List<Asignatura>? listaAsignaturas,
     List<OpcionFormulario>? opcionesFormulario,
     RolDeUsuario? rolElegido,
     List<RolDeUsuario>? listaRoles,
     bool eliminarRolSeleccionado = false,
   }) : this._(
           listaCursos: listaCursos ?? otro.listaCursos,
-          listaMaterias: listaMaterias ?? otro.listaMaterias,
+          listaAsignaturas: listaAsignaturas ?? otro.listaAsignaturas,
           opcionesFormulario: opcionesFormulario ?? otro.opcionesFormulario,
           rolElegido:
               eliminarRolSeleccionado ? null : rolElegido ?? otro.rolElegido,
@@ -44,7 +44,7 @@ class BlocKycEstado {
               )
               .toList() ??
           [],
-      listaMaterias: (json['listaAsignaturas'] as List<dynamic>?)
+      listaAsignaturas: (json['listaAsignaturas'] as List<dynamic>?)
               ?.map(
                 (e) => Asignatura.fromJson(
                   e as Map<String, dynamic>,
@@ -75,7 +75,7 @@ class BlocKycEstado {
   Map<String, dynamic> toJson() {
     return {
       'listaCursos': listaCursos.map((e) => e.toJsonBloc()).toList(),
-      'listaMaterias': listaMaterias.map((e) => e.toJsonBloc()).toList(),
+      'listaAsignaturas': listaAsignaturas.map((e) => e.toJsonBloc()).toList(),
       'rolElegido': rolElegido?.toJsonBloc(),
       'listaRoles': listaRoles.map((e) => e.toJsonBloc()).toList(),
     };
@@ -85,7 +85,7 @@ class BlocKycEstado {
   final List<Curso> listaCursos;
 
   /// Lista de materias de la escuela a la que pertenece el usuario
-  final List<Asignatura> listaMaterias;
+  final List<Asignatura> listaAsignaturas;
 
   /// Lista de opciones de kyc (inicialmente hay una)
   final List<OpcionFormulario> opcionesFormulario;
@@ -112,22 +112,14 @@ class BlocKycEstado {
 
   /// Retorna la lista de materias de la escuela a la que pertenece el usuario
   /// en forma de [PopupOption]
-  List<PopupOption> get listaOpcionesMaterias => listaMaterias
+  List<PopupOption> get listaOpcionesAsignaturas => listaAsignaturas
       .map(
-        (materia) => PopupOption(
-          id: materia.id ?? 0,
-          name: materia.nombre,
+        (asignatura) => PopupOption(
+          id: asignatura.id ?? 0,
+          name: asignatura.nombre,
         ),
       )
       .toList();
-
-  List<Object?> get props => [
-        listaCursos,
-        listaMaterias,
-        opcionesFormulario,
-        rolElegido,
-        listaRoles,
-      ];
 }
 
 /// {@template BlocKycEstadoInicial}
@@ -154,7 +146,7 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
   BlocKycEstadoExitoso.desde(
     super.otro, {
     super.listaCursos,
-    super.listaMaterias,
+    super.listaAsignaturas,
     super.opcionesFormulario,
     super.rolElegido,
     super.listaRoles,
@@ -184,6 +176,16 @@ class BlocKycEstadoError extends BlocKycEstado {
 class BlocKycEstadoCerrarSesionExitoso extends BlocKycEstado {
   /// {@macro BlocKycEstadoCerrarSesionExitoso}
   BlocKycEstadoCerrarSesionExitoso.desde(
+    super.otro,
+  ) : super.desde();
+}
+
+/// {@template BlocKycEstadoCerrarSesionExitoso}
+/// Estado exitoso de cierre de sesion del usuario.
+/// {@endtemplate}
+class BlocKycEstadoExitoAlSolicitarRegistro extends BlocKycEstado {
+  /// {@macro BlocKycEstadoCerrarSesionExitoso}
+  BlocKycEstadoExitoAlSolicitarRegistro.desde(
     super.otro,
   ) : super.desde();
 }

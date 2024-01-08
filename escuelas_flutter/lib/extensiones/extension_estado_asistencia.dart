@@ -62,7 +62,7 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
     return usuarios.where((usuario) {
       return asistenciasDiarias.any(
         (asistencia) =>
-            asistencia.idEstudiante == usuario.idUserInfo &&
+            asistencia.estudianteId == usuario.idUserInfo &&
             asistencia.estadoDeAsistencia != EstadoDeAsistencia.presente &&
             asistencia.estadoDeAsistencia != EstadoDeAsistencia.sinEstado &&
             asistencia.estadoDeAsistencia == estado,

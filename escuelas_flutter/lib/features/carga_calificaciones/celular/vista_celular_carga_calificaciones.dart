@@ -110,9 +110,8 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
             return Expanded(
               child: SingleChildScrollView(
                 child: Column(
-                  children: curso.estudiantes.map(
+                  children: state.estudiantes.map(
                     (e) {
-                      print(e);
                       return TarjetaCargaCalificacionAlumno(
                         curso: curso,
                         usuario: e,

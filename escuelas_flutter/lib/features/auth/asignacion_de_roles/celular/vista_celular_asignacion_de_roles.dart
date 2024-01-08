@@ -1,6 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/bloc/bloc_asignacion_de_roles.dart';
 import 'package:escuelas_flutter/features/auth/asignacion_de_roles/widgets/widget.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -17,6 +18,8 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return BlocBuilder<BlocAsignacionDeRoles, BlocAsignacionDeRolesEstado>(
       builder: (context, state) {
         if (state.estaCargando) {
@@ -24,18 +27,29 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
-
+        if (state.listaUsuariosPendientes.isEmpty) {
+          return Center(
+            child: Text(
+              l10n.pageRoleAssigmentNoPendingUsers,
+              style: TextStyle(
+                color: colores.onSecondary,
+                fontSize: 16.pf,
+                fontWeight: FontWeight.w800,
+              ),
+            ),
+          );
+        }
         return SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.pw),
             child: Column(
-              children: Roles.values
+              children: state.listaRoles
                   .map(
                     (rol) => Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          rol.name.toUpperCase(),
+                          rol.nombre.toUpperCase(),
                           style: TextStyle(
                             color: colores.onSecondary,
                             fontSize: 16.pf,
@@ -43,10 +57,9 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: 10.ph),
-                        // TODO (Gon): Ver que llega en el endpoint para mejorar esto
                         ...state.listaUsuariosPendientes
                             .where(
-                              (usuario) => usuario.rolSolicitado == rol.index,
+                              (usuario) => usuario.rolSolicitado == rol.id,
                             )
                             .toList()
                             .map(

@@ -1,5 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/perfil_usuario/bloc/bloc_perfil_usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
@@ -58,24 +58,13 @@ class DatosPersonales extends StatelessWidget {
                     SizedBox(height: 10.ph),
                     _DatoPersonal(
                       tipoDato: '${l10n.commonPhone}: ',
-                      // TODO(anyone):Poner telefono
-                      dato: state.usuario?.dni.toString(),
+                      dato: state
+                          .usuario?.numerosDeTelefono?.first.numeroDeTelefono,
                     ),
                     _DatoPersonal(
                       tipoDato: '${l10n.commonMail}: ',
-                      // TODO(anyone):Poner email
-                      dato: state.usuario?.dni,
-                    ),
-                    SizedBox(height: 10.ph),
-                    _DatoPersonal(
-                      tipoDato: '${l10n.commonBloodFactor}: ',
-                      // TODO(anyone):Poner factorSanguineo
-                      dato: state.usuario?.dni,
-                    ),
-                    _DatoPersonal(
-                      tipoDato: '${l10n.commonAge}: ',
-                      // TODO(anyone):Poner edad
-                      dato: state.usuario?.dni,
+                      dato: state
+                          .usuario?.direccionesDeEmail?.first.direccionDeEmail,
                     ),
                     SizedBox(height: 10.ph),
                     _DatoPersonal(

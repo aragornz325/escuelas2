@@ -180,8 +180,7 @@ class BlocCargaCalificaciones
     // TODO(anyone): ver por que pingo no anda esto sin un delay
     // sin el delay no funciona no se rebuild-eah la screen
 
-    // ignore: inference_failure_on_instance_creation
-    await Future.delayed(const Duration(microseconds: 1));
+    await Future<void>.delayed(const Duration(microseconds: 1));
 
     state.listaCalificaciones.firstWhere(
       (c) => c.fechaCreacion.mismaFecha(event.fecha),
@@ -200,7 +199,7 @@ class BlocCargaCalificaciones
     BlocCargaCalificacionesEventoCambiarCalificacionAlumno event,
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) {
-    final alumno = state.curso?.estudiantes.firstWhere(
+    final alumno = state.estudiantes.firstWhere(
       (c) => c.idUserInfo == event.idAlumno,
     );
 
@@ -212,7 +211,7 @@ class BlocCargaCalificaciones
             state.listaCalificacionesCompensadas
                 .firstWhere(
                   (calicompensada) =>
-                      calicompensada.idEstudiante == alumno?.idUserInfo,
+                      calicompensada.idEstudiante == alumno.idUserInfo,
                 )
                 .id) // TODO(ANYONE): Cambiar por el id correspondiente
         .id = event.calificacion ?? 0;
@@ -235,8 +234,7 @@ class BlocCargaCalificaciones
     // TODO(anyone): ver por que pingo no anda esto sin un delay
     // sin el delay no funciona no se rebuild-eah la screen
 
-    // ignore: inference_failure_on_instance_creation
-    await Future.delayed(const Duration(microseconds: 00001));
+    await Future<void>.delayed(const Duration(microseconds: 00001));
 
     final calificaciones = state.listaCalificaciones;
 

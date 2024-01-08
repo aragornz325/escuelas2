@@ -29,14 +29,20 @@ class ItemUsuarioPendiente extends StatelessWidget {
           child: ElementoLista.usuario(
             nombreUsuario: usuario.nombre,
             context: context,
-            onTap: () => context.router
-                .push(RutaPerfilUsuario(idUsuario: usuario.id ?? 0)),
+            onTap: () => context.router.push(
+              RutaPerfilUsuarioPendiente(
+                idUsuarioPendiente: usuario.id ?? 0,
+              ),
+            ),
           ),
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          onTap: () => context.router
-              .push(RutaPerfilUsuario(idUsuario: usuario.id ?? 0)),
+          onTap: () => context.router.push(
+            RutaPerfilUsuarioPendiente(
+              idUsuarioPendiente: usuario.id ?? 0,
+            ),
+          ),
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),
