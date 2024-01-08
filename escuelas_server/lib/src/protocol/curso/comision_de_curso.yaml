@@ -4,7 +4,7 @@ fields:
   nombre: String
   idCurso: int, relation(parent=cursos)
   anioLectivo: int
-  estudiantes: List<Usuario>, !persist
+  estudiantes: List<Usuario>?, !persist
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
