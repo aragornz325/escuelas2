@@ -8,6 +8,7 @@ asignatura:
 asistencia:
   - crearAsistenciasEnLote:
   - traerAsistenciaPorDia:
+  - actualizarAsistenciasEnLote:
 comisiones:
   - asignarUsuarioAComision:
   - obtenerComisiones:

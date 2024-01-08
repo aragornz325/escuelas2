@@ -4,6 +4,8 @@ import 'package:escuelas_server/src/servicios/servicio_comision.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ComisionesEndpoint extends Endpoint with Controller<ServicioComision> {
+  @override
+  ServicioComision get servicio => ServicioComision();
   Future<void> asignarUsuarioAComision(
     Session session, {
     required int idComision,

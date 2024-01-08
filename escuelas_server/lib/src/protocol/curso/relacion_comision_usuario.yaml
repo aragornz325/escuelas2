@@ -1,7 +1,7 @@
 class: RelacionComisionUsuario
 table: r_comisiones_usuarios
 fields:
-  usuario: Usuario?, relation(name=usuario_comision), scope=serverOnly
+  usuario: Usuario?, relation(name=usuario_comision)
   comisionDeCurso: ComisionDeCurso?, relation(name=comision_usuario)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
