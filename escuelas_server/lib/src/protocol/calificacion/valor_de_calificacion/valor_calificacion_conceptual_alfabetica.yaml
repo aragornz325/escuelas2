@@ -1,0 +1,14 @@
+enum: ValorDeCalificacionConceptualAlfabetica
+values:
+  - aMas
+  - a
+  - bMas
+  - b
+  - bMenos
+  - cMas
+  - c
+  - cMenos
+  - dMas
+  - d
+  - dMenos
+  - f
