@@ -6,6 +6,7 @@ import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioComision extends Servicio<OrmComision> {
+  final orm = OrmComision();
   final _ormComisionSolicitada = OrmComisionSolicitada();
 
   final _ormUsuarioComision = OrmUsuarioComision();
@@ -38,7 +39,9 @@ class ServicioComision extends Servicio<OrmComision> {
         ),
       );
 
-  Future<List<ComisionDeCurso>> obtenerComisiones(Session session) async =>
+  Future<List<ComisionDeCurso>> obtenerComisiones(
+    Session session,
+  ) async =>
       ejecutarOperacion(
         () => orm.obtenerComisiones(session),
       );
