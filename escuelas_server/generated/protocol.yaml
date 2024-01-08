@@ -9,10 +9,6 @@ asistencia:
   - crearAsistenciasEnLote:
   - traerAsistenciaPorDia:
   - actualizarAsistenciasEnLote:
-calificacion:
-  - crearCalificacionesEnBloque:
-  - crearConceptoDeCalificacion:
-  - obtenerCalificaciones:
 comisiones:
   - asignarUsuarioAComision:
   - obtenerComisiones:
