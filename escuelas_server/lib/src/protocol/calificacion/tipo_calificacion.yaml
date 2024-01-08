@@ -1,7 +1,7 @@
-class: TipoCalificacion
-table: tipo_calificaciones
-fields:
-  tipo: String
-  ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?
+### El tipo de calificación se refiere a los valores o clasificaciones que se utilizan 
+### para calificar (ej: de la A a la F; TEA, TEP y TED; o numérico)
+enum: TipoCalificacion
+values:
+  - numericoDecimal
+  - alfabetico
+  - rite

@@ -67,6 +67,7 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                               ),
                               SizedBox(height: 10.ph),
                               Column(
+                                // TODO(anyone): Check porq es nulleable y si hay que forzarlo
                                 children: curso.asignaturas
                                         ?.map(
                                           (asignatura) => Padding(
@@ -76,7 +77,7 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                                             child: ItemMateria(
                                               estaCargada: false,
                                               // TODO(anyone): aca hay que chequear
-                                              // la fecha de la lista de materias
+                                              //la fecha de la lista de materias
                                               //actual y hacer la validacion con eso
                                               estaHabilitado: fecha
                                                   .isBefore(DateTime.now()),

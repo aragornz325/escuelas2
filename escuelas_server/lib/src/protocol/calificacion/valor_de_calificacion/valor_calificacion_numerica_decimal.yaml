@@ -1,0 +1,12 @@
+enum: ValorDeCalificacionNumericaDecimal
+values:
+  - diez
+  - nueve
+  - ocho
+  - siete
+  - seis
+  - cinco
+  - cuatro
+  - tres
+  - dos
+  - uno

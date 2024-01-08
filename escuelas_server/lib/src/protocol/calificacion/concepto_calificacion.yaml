@@ -1,7 +1,9 @@
+### Etiqueta con información que agrupa las calificaciones 
+### (ej: "examen", "conducta")
 class: ConceptoCalificacion
 table: conceptos_calificacion
 fields:
   concepto: String
-  ultimaModificacion: DateTime
+  ultimaModificacion: DateTime 
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?

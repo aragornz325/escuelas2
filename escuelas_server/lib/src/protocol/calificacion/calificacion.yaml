@@ -1,8 +1,16 @@
 class: Calificacion
 table: calificaciones
 fields:
-  idTipoCalificacion: int
-  valor: int
+  idEstudiante: int, relation(parent=usuarios)
+  idComision: int, relation(parent=comisiones_de_curso)
+  idAsignatura: int, relation(parent=asignaturas)
+  idConcepto: int, relation(parent=conceptos_calificacion)
+  ### Index del Enum que contiene los tipos posibles de calificaciones
+  tipoCalificacion: TipoCalificacion 
+  ### Index del Enum que contiene los valores posibles para 
+  ### la calificación manipulado de acuerdo a su tipo
+  index: int 
+  diferencial: String
   detalle: String
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
