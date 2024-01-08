@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
+// TODO(anyone): HACER FACTORY
 /// {@template SeccionCursos}
 /// Seccion de cursos del perfil de usuario donde se puede ver a que cursos esta
 /// asignado el usuario
@@ -101,7 +102,7 @@ class SeccionCursos extends StatelessWidget {
                 ),
                 child: Text(
                   state.usuario?.comisiones?.first.comisionDeCurso?.nombre ??
-                      '',
+                      'asd',
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 13.pf,

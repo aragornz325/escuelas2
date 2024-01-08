@@ -49,12 +49,12 @@ class BlocPerfilUsuarioEstado {
   Tipo get tipoUsuario => usuarioPendiente != null
       ? usuario?.roles?.first.rol?.nombre == 'alumno' ||
               usuarioPendiente?.comisionSolicitada != null
-          ? Tipo.alumnoAprobado
-          : Tipo.docenteAprobado
+          ? Tipo.alumnoPendiente
+          : Tipo.docentePendiente
       : usuario?.roles?.first.rol?.nombre == 'alumno' ||
               usuarioPendiente?.comisionSolicitada != null
-          ? Tipo.alumnoPendiente
-          : Tipo.docentePendiente;
+          ? Tipo.alumnoAprobado
+          : Tipo.docenteAprobado;
 }
 
 /// {@template BlocPerfilUsuarioEstadoInicial}

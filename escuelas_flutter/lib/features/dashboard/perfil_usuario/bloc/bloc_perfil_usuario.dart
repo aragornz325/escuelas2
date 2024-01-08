@@ -9,6 +9,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'bloc_perfil_usuario_estado.dart';
 part 'bloc_perfil_usuario_evento.dart';
 
+// TODO(anyone): DIVIDIR EN DOS BLOCS
+
 /// {@template BlocPerfilUsuario}
 /// Bloc que maneja los estados y lógica de la pagina de [PaginaPerfilUsuario]
 /// y [PaginaPerfilUsuarioPendiente]
@@ -61,8 +63,10 @@ class BlocPerfilUsuario
     await operacionBloc(
       callback: (client) async {
         final listaRoles = await client.rol.obtenerRoles();
+
         final usuario = await client.usuario
             .obtenerUsuario(idUsuario: event.idUsuario ?? 0);
+
         emit(
           BlocPerfilUsuarioEstadoExitosoAltraerUsuario.desde(
             state,

@@ -30,59 +30,62 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
 
     showDialog<void>(
       context: context,
-      builder: (context) => EscuelasDialog.confirmar(
-        context: context,
-        ancho: 260.pw,
-        onTapConfirmar: () => context
-            .read<BlocPerfilUsuario>()
-            .add(BlocPerfilUsuarioEventoAceptarSolicitud()),
-        content: RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: TextStyle(
-              color: colores.grisSC,
-              fontSize: 16.pf,
-              fontWeight: FontWeight.w600,
-              fontFamily: FontFamily.nunito,
+      builder: (_) => BlocProvider(
+        create: (context) => BlocPerfilUsuario(),
+        child: EscuelasDialog.confirmar(
+          context: context,
+          ancho: 260.pw,
+          onTapConfirmar: () => context
+              .read<BlocPerfilUsuario>()
+              .add(BlocPerfilUsuarioEventoAceptarSolicitud()),
+          content: RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              style: TextStyle(
+                color: colores.grisSC,
+                fontSize: 16.pf,
+                fontWeight: FontWeight.w600,
+                fontFamily: FontFamily.nunito,
+              ),
+              children: <TextSpan>[
+                TextSpan(
+                  text: l10n.pageRoleAssigmentDialogFirstText,
+                  style: TextStyle(
+                    color: colores.grisSC,
+                    fontSize: 16.pf,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: FontFamily.nunito,
+                  ),
+                ),
+                TextSpan(
+                  text: usuario?.nombre ?? '',
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontSize: 16.pf,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: FontFamily.nunito,
+                  ),
+                ),
+                TextSpan(
+                  text: l10n.pageRoleAssigmentDialogSecondText,
+                  style: TextStyle(
+                    color: colores.grisSC,
+                    fontSize: 16.pf,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: FontFamily.nunito,
+                  ),
+                ),
+                TextSpan(
+                  text: '${usuario?.roles?.first.rol?.nombre.toUpperCase()}?',
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontSize: 16.pf,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: FontFamily.nunito,
+                  ),
+                ),
+              ],
             ),
-            children: <TextSpan>[
-              TextSpan(
-                text: l10n.pageRoleAssigmentDialogFirstText,
-                style: TextStyle(
-                  color: colores.grisSC,
-                  fontSize: 16.pf,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: FontFamily.nunito,
-                ),
-              ),
-              TextSpan(
-                text: usuario?.nombre ?? '',
-                style: TextStyle(
-                  color: colores.onBackground,
-                  fontSize: 16.pf,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: FontFamily.nunito,
-                ),
-              ),
-              TextSpan(
-                text: l10n.pageRoleAssigmentDialogSecondText,
-                style: TextStyle(
-                  color: colores.grisSC,
-                  fontSize: 16.pf,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: FontFamily.nunito,
-                ),
-              ),
-              TextSpan(
-                text: '${usuario?.roles?.first.rol?.nombre.toUpperCase()}?',
-                style: TextStyle(
-                  color: colores.onBackground,
-                  fontSize: 16.pf,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: FontFamily.nunito,
-                ),
-              ),
-            ],
           ),
         ),
       ),

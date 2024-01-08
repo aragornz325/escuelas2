@@ -5,26 +5,26 @@ part of 'bloc_inicio.dart';
 /// {@endtemplate}
 class BlocInicioEstado {
   /// {@macro BlocInicioEstado}
-  const BlocInicioEstado._();
+  const BlocInicioEstado._({this.listaRoles = const []});
 
-  BlocInicioEstado.desde(BlocInicioEstado otro) : this._();
+  BlocInicioEstado.desde(
+    BlocInicioEstado otro, {
+    List<RolDeUsuario>? listaRoles,
+  }) : this._(
+          listaRoles: listaRoles ?? otro.listaRoles,
+        );
 
+  final List<RolDeUsuario> listaRoles;
 // TODO(SAM): VERIFICAR logica para roles
   /// Obtiene la lista de permisos del usuario y devuelve la lista iterable
   /// de [InfoDeRol] para poder mapearla en la UI.
-  List<InfoDeRol> get listaEtiquetas => [
-        InfoDeRol.kyc,
-        InfoDeRol.listaCursos,
-        InfoDeRol.comunidadAcademica,
-        InfoDeRol.usuariosPendientes,
-      ];
-  // InfoDeRol.values
-  //     .where(
-  //       (etiqueta) => listaRoles!.roles.any(
-  //         (permiso) => etiqueta.permisosAsignados.contains(permiso.nombre),
-  //       ),
-  //     )
-  //     .toList();
+  List<InfoDeRol> get listaEtiquetas => InfoDeRol.values
+      .where(
+        (etiqueta) => listaRoles.any(
+          (rol) => etiqueta.rolesAsignados.contains(rol.id),
+        ),
+      )
+      .toList();
 }
 
 /// {@template BlocInicioEstadoInicial}
@@ -48,9 +48,7 @@ class BlocInicioEstadoCargando extends BlocInicioEstado {
 /// {@endtemplate}
 class BlocInicioEstadoExitoso extends BlocInicioEstado {
   /// {@macro BlocInicioEstadoExitoso}
-  BlocInicioEstadoExitoso.desde(
-    super.otro,
-  ) : super.desde();
+  BlocInicioEstadoExitoso.desde(super.otro, {super.listaRoles}) : super.desde();
 }
 
 /// {@template BlocInicioEstadoFallido}

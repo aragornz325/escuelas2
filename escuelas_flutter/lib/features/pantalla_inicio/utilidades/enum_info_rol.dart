@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
-import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:flutter/material.dart';
 
 /// Distintas etiquetas que tienen un titulo, permisos asignados
@@ -35,29 +34,20 @@ enum InfoDeRol {
     }
   }
 
-  List<Permiso> get permisosAsignados {
+  List<int> get rolesAsignados {
     switch (this) {
       case InfoDeRol.tomarInasistencia:
-        return [Permiso.directivo, Permiso.docente];
+        return [2];
       case InfoDeRol.listaCursos:
-        return [Permiso.directivo, Permiso.docente];
+        return [2];
       case InfoDeRol.comunidadAcademica:
-        return [
-          Permiso.directivo,
-        ];
+        return [2];
       case InfoDeRol.usuariosPendientes:
-        return [
-          Permiso.directivo,
-        ];
+        return [2];
       case InfoDeRol.supervision:
-        return [
-          Permiso.directivo,
-        ];
+        return [2];
       case InfoDeRol.kyc:
-        return [
-          Permiso.directivo,
-          Permiso.alumno,
-        ];
+        return [2];
     }
   }
 

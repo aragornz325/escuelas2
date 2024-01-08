@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 
 import 'package:escuelas_flutter/features/pantalla_inicio/utilidades/enum_info_rol.dart';
@@ -25,9 +26,12 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
 // TODO(SAM): En algun momento si se requiere info inicial agregar func
     await operacionBloc(
       callback: (client) async {
+        final listaRoles = await client.rol.obtenerRoles();
+
         emit(
           BlocInicioEstadoExitoso.desde(
             state,
+            listaRoles: listaRoles,
           ),
         );
       },
