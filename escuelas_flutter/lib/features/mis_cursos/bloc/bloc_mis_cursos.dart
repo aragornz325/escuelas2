@@ -31,7 +31,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
           Asignatura(
             id: 1,
             nombre: 'matematica',
-            docentes: [],
             fechaCreacion: DateTime.now(),
             idCurso: 1,
             ultimaModificacion: DateTime.now(),
@@ -40,7 +39,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
           Asignatura(
             id: 2,
             nombre: 'ingenieria',
-            docentes: [],
             fechaCreacion: DateTime.now(),
             idCurso: 1,
             ultimaModificacion: DateTime.now(),
@@ -51,7 +49,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
           Asignatura(
             id: 3,
             nombre: 'inglish',
-            docentes: [],
             fechaCreacion: DateTime.now(),
             idCurso: 2,
             ultimaModificacion: DateTime.now(),
@@ -60,7 +57,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
           Asignatura(
             id: 4,
             nombre: 'comunicacion',
-            docentes: [],
             fechaCreacion: DateTime.now(),
             idCurso: 2,
             ultimaModificacion: DateTime.now(),

@@ -59,7 +59,6 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
                 materia: Asignatura(
                   nombre: 'Matematica',
                   idCurso: 0,
-                  docentes: [],
                   ultimaModificacion: DateTime.now(),
                   fechaCreacion: DateTime.now(),
                 ),
@@ -140,7 +139,6 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
               materia: Asignatura(
                 nombre: '',
                 idCurso: 0,
-                docentes: [],
                 ultimaModificacion: DateTime.now(),
                 fechaCreacion: DateTime.now(),
               ),
@@ -267,7 +265,7 @@ extension CursoX on Curso {
       'id': id,
       'nombre': nombre,
       'asignaturas':
-          asignaturas.map((asignatura) => asignatura.toJsonBloc()).toList(),
+          asignaturas?.map((asignatura) => asignatura.toJsonBloc()).toList(),
       'ultimaModificacion': ultimaModificacion.toIso8601String(),
       'fechaCreacion': fechaCreacion.toIso8601String(),
       'fechaEliminacion': fechaEliminacion?.toIso8601String(),
@@ -283,7 +281,6 @@ extension AsignaturaX on Asignatura {
       'id': id,
       'nombre': nombre,
       'idCurso': idCurso,
-      'docentes': docentes.map((docente) => docente.toJson()).toList(),
       'ultimaModificacion': ultimaModificacion.toIso8601String(),
       'fechaCreacion': fechaCreacion.toIso8601String(),
       'fechaEliminacion': fechaEliminacion?.toIso8601String(),

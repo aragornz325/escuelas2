@@ -67,8 +67,9 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                               ),
                               SizedBox(height: 10.ph),
                               Column(
+                                // TODO(anyone): Check porq es nulleable y si hay que forzarlo
                                 children: curso.asignaturas
-                                    .map(
+                                    ?.map(
                                       (asignatura) => Padding(
                                         padding: EdgeInsets.only(
                                           bottom: 10.ph,
@@ -91,7 +92,7 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                                         ),
                                       ),
                                     )
-                                    .toList(),
+                                    .toList() ?? [],
                               ),
                             ],
                           ),

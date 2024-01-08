@@ -118,53 +118,19 @@ class BlocCargaCalificaciones
         );
 
         final listaCalificacionCompensacion = [
-          CalificacionCompensacion(
-            idValorCalificacion: 1,
+          Calificacion(
+            id: 1,
+            detalle: 'nose',
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+            fechaEliminacion: DateTime.now(),
             idEstudiante: 1,
             idComision: 1,
-            idLlamado: 1,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-          ),
-          CalificacionCompensacion(
-            idValorCalificacion: 2,
-            idEstudiante: 2,
-            idComision: 1,
-            idLlamado: 2,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-          ),
-          CalificacionCompensacion(
-            idValorCalificacion: 3,
-            idEstudiante: 3,
-            idComision: 1,
-            idLlamado: 3,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-          ),
-          CalificacionCompensacion(
-            idValorCalificacion: 4,
-            idEstudiante: 4,
-            idComision: 1,
-            idLlamado: 4,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-          ),
-          CalificacionCompensacion(
-            idValorCalificacion: 5,
-            idEstudiante: 5,
-            idComision: 1,
-            idLlamado: 5,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-          ),
-          CalificacionCompensacion(
-            idValorCalificacion: 6,
-            idEstudiante: 6,
-            idComision: 1,
-            idLlamado: 6,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
+            idAsignatura: 1,
+            idConcepto: 1,
+            tipoCalificacion: TipoCalificacion.rite,
+            index: 1,
+            diferencial: '',
           ),
         ];
 
@@ -173,55 +139,15 @@ class BlocCargaCalificaciones
             id: 1,
             detalle: 'nose',
             fechaCreacion: DateTime.now(),
-            idTipoCalificacion: 1,
             ultimaModificacion: DateTime.now(),
-            valor: 5,
             fechaEliminacion: DateTime.now(),
-          ),
-          Calificacion(
-            id: 2,
-            detalle: 'nose',
-            fechaCreacion: DateTime.now(),
-            idTipoCalificacion: 1,
-            ultimaModificacion: DateTime.now(),
-            valor: 3,
-            fechaEliminacion: DateTime.now(),
-          ),
-          Calificacion(
-            id: 3,
-            detalle: 'nose',
-            fechaCreacion: DateTime.now(),
-            idTipoCalificacion: 1,
-            ultimaModificacion: DateTime.now(),
-            valor: 6,
-            fechaEliminacion: DateTime.now(),
-          ),
-          Calificacion(
-            id: 4,
-            detalle: 'nose',
-            fechaCreacion: DateTime.now(),
-            idTipoCalificacion: 1,
-            ultimaModificacion: DateTime.now(),
-            valor: 10,
-            fechaEliminacion: DateTime.now(),
-          ),
-          Calificacion(
-            id: 5,
-            detalle: 'nose',
-            fechaCreacion: DateTime.now(),
-            idTipoCalificacion: 1,
-            ultimaModificacion: DateTime.now(),
-            valor: 8,
-            fechaEliminacion: DateTime.now(),
-          ),
-          Calificacion(
-            id: 6,
-            detalle: 'nose',
-            fechaCreacion: DateTime.now(),
-            idTipoCalificacion: 1,
-            ultimaModificacion: DateTime.now(),
-            valor: 8,
-            fechaEliminacion: DateTime.now(),
+            idEstudiante: 1,
+            idComision: 1,
+            idAsignatura: 1,
+            idConcepto: 1,
+            tipoCalificacion: TipoCalificacion.numericoDecimal,
+            index: 1,
+            diferencial: '',
           ),
         ];
 
@@ -232,7 +158,7 @@ class BlocCargaCalificaciones
             fecha: event.fecha,
             listaCalificaciones: listaCalificaciones,
             listaCalificacionesCompensadas: listaCalificacionCompensacion,
-            //TODO(anyone): usar el usuario del dashboard cuando gon lo haga.
+            // TODO(anyone): usar el usuario del dashboard cuando gon lo haga.
             rolDelUsuario: RolDeUsuario(
               id: 1,
               nombre: 'docente',
@@ -284,11 +210,13 @@ class BlocCargaCalificaciones
         .firstWhere((calificacion) =>
             calificacion.id ==
             state.listaCalificacionesCompensadas
-                .firstWhere((calicompensada) =>
-                    calicompensada.idEstudiante == alumno?.idUserInfo)
-                .idValorCalificacion)
-        .valor = event.calificacion ?? 0;
-
+                .firstWhere(
+                  (calicompensada) =>
+                      calicompensada.idEstudiante == alumno?.idUserInfo,
+                )
+                .id) // TODO(ANYONE): Cambiar por el id correspondiente
+        .id = event.calificacion ?? 0;
+    // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
@@ -314,7 +242,8 @@ class BlocCargaCalificaciones
 
     for (final calificacion in calificaciones) {
       /// TODO(anyone):hacer que sea nullable
-      calificacion.valor = 0;
+      calificacion.id = 0;
+      // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
     }
 
     emit(

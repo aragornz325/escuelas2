@@ -24,6 +24,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
 
   /// Fecha actual de la calificación del alumno.
   final DateTime fecha;
+
   ///
   final ComisionDeCurso curso;
 
@@ -61,10 +62,12 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                           .firstWhere(
                             (cc) => cc.idEstudiante == usuario.idUserInfo,
                           )
-                          .idValorCalificacion,
+                          .id,
+                  // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
                 )
-                .valor
+                .id
                 .toString(),
+            // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
             nombreAlumno: '${usuario.nombre} ${usuario.apellido}',
             esEditable: rolDelUsuario?.nombre == 'docente'
                 ? fecha.mismaFecha(DateTime.now())

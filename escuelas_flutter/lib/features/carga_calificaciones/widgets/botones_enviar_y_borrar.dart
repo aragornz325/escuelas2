@@ -28,7 +28,8 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
               context: context,
               // TODO(anyone): reemplazar por las calificaciones previas ver como vienen las calificaciones previas y mostrarlas
               estaHabilitado: //TODO(anyone): reemplazar por nulleable
-                  state.listaCalificaciones.any((c) => c.valor != 0),
+                  state.listaCalificaciones.any((c) => c.id != 0),
+              // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
               onTap: () => context.read<BlocCargaCalificaciones>().add(
                   const BlocCargaCalificacionesEventoVaciarCalificaciones()),
               color: colores.error,
@@ -39,7 +40,8 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
               estaHabilitado:
 
                   // TODO(anyone): reemplazar por nulleable
-                  state.listaCalificaciones.every((e) => e.valor != 0),
+                  state.listaCalificaciones.every((e) => e.id != 0),
+              // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
               onTap: () => context.read<BlocCargaCalificaciones>().add(
                     const BlocCargaCalificacionesEventoEnviarCalificaciones(),
                   ),

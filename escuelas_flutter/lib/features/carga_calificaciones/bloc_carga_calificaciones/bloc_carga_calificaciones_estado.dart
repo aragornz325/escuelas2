@@ -19,7 +19,7 @@ class BlocCargaCalificacionesEstado {
     ComisionDeCurso? curso,
     RolDeUsuario? rolDelUsuario,
     Asignatura? asignatura,
-    List<CalificacionCompensacion>? listaCalificacionesCompensadas,
+    List<Calificacion>? listaCalificacionesCompensadas,
     DateTime? fecha,
     List<Calificacion>? listaCalificaciones,
   }) : this._(
@@ -40,7 +40,7 @@ class BlocCargaCalificacionesEstado {
   /// Periodo actual del calendaio
   final DateTime? fecha;
 
-  final List<CalificacionCompensacion> listaCalificacionesCompensadas;
+  final List<Calificacion> listaCalificacionesCompensadas;
 
   final List<Calificacion> listaCalificaciones;
 
