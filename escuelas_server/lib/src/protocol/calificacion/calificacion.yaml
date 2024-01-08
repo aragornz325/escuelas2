@@ -2,7 +2,7 @@ class: Calificacion
 table: calificaciones
 fields:
   idEstudiante: int, relation(parent=usuarios)
-  idComision: int, relation(parent=comisiones)
+  idComision: int, relation(parent=comisiones_de_curso)
   idAsignatura: int, relation(parent=asignaturas)
   idConcepto: int, relation(parent=conceptos_calificacion)
   ### Index del Enum que contiene los tipos posibles de calificaciones
