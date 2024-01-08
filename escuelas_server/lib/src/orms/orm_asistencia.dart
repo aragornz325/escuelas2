@@ -28,6 +28,22 @@ class OrmAsistencia extends ORM {
     return 'Asistencias creadas correctamente';
   }
 
+  /// La función `actualizarAsistenciasEnLote` actualiza múltiples registros de asistencia diaria en una base de
+  /// datos y devuelve un mensaje de éxito si todos los registros se actualizaron exitosamente.
+  Future<String> actualizarAsistenciasEnLote(
+    Session session, {
+    required List<AsistenciaDiaria> asistencias,
+  }) async {
+    final asistenciasADb =
+        await AsistenciaDiaria.db.update(session, asistencias);
+
+    if (asistenciasADb.length != asistencias.length) {
+      throw Exception('No se pudieron actualizar todas las asistencias');
+    }
+
+    return 'Asistencias actualizadas correctamente';
+  }
+
   /// la funcion "traerAsistenciaPorDia" trae la asistencia de un dia en particular
   Future<List<AsistenciaDiaria>> traerAsistenciaPorDia(
     Session session, {
@@ -40,9 +56,7 @@ class OrmAsistencia extends ORM {
 
     final asistencias = await AsistenciaDiaria.db.find(
       session,
-      where: (t) =>
-          t.fecha.between(inicioDelDia, finDelDia) &
-          t.comisionId.equals(idComision),
+      where: (t) => t.fecha.between(inicioDelDia, finDelDia),
       include: AsistenciaDiaria.include(estudiante: Usuario.include()),
     );
 
@@ -55,4 +69,6 @@ class OrmAsistencia extends ORM {
     }
     return asistencias;
   }
+
+ 
 }

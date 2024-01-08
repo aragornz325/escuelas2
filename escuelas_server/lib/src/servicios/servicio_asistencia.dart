@@ -52,4 +52,26 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
       ),
     );
   }
+
+  /// La función `actualizarAsistenciasEnLote` actualiza múltiples registros de asistencia diaria en un lote.
+  /// Args:
+  ///  session (Session):
+  /// asistencias (List<AsistenciaDiaria>): Una lista de objetos del tipo "AsistenciaDiaria".
+  /// Returns:
+  /// El método `actualizarAsistenciasEnLote` devuelve un `Futuro<String>`.
+  Future<String> actualizarAsistenciasEnLote(
+    Session session, {
+    required List<AsistenciaDiaria> asistencias,
+  }) async {
+    final ahora = DateTime.now();
+    for (var asistencia in asistencias) {
+      asistencia.ultimaModificacion = ahora;
+    }
+    return await ejecutarOperacion(
+      () => orm.actualizarAsistenciasEnLote(
+        session,
+        asistencias: asistencias,
+      ),
+    );
+  }
 }
