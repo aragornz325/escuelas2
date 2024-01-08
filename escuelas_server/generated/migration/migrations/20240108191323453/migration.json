@@ -1,0 +1,187 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "asistencias_diarias",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "asistencias_diarias",
+        "dartName": "AsistenciaDiaria",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('asistencias_diarias_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "estudianteId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "comisionId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "estadoDeAsistencia",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "protocol:EstadoDeAsistencia"
+          },
+          {
+            "name": "fecha",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "idJustificacion",
+            "columnType": 2,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "int?"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "asistencias_diarias_fk_0",
+            "columns": [
+              "estudianteId"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "asistencias_diarias_fk_1",
+            "columns": [
+              "comisionId"
+            ],
+            "referenceTable": "comisiones_de_curso",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "asistencias_diarias_fk_2",
+            "columns": [
+              "idJustificacion"
+            ],
+            "referenceTable": "justificaciones_de_asistencia",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "asistencias_diarias_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"idEstudiante\" of table \"asistencias_diarias\" will be dropped.",
+      "table": "asistencias_diarias",
+      "columns": [
+        "idEstudiante"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"idAsignatura\" of table \"asistencias_diarias\" will be dropped.",
+      "table": "asistencias_diarias",
+      "columns": [
+        "idAsignatura"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"idComision\" of table \"asistencias_diarias\" will be dropped.",
+      "table": "asistencias_diarias",
+      "columns": [
+        "idComision"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"asistencias_diarias\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "asistencias_diarias",
+      "columns": [
+        "estudianteId"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

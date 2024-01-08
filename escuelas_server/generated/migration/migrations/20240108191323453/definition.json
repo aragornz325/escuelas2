@@ -1,0 +1,4329 @@
+{
+  "name": null,
+  "moduleName": "escuelas",
+  "tables": [
+    {
+      "name": "asignatura_solicitada",
+      "dartName": "AsignaturaSolicitada",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('asignatura_solicitada_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idAsignatura",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idUsuarioPendiente",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "nombreAsignatura",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "nombreCurso",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "asignatura_solicitada_fk_0",
+          "columns": [
+            "idUsuarioPendiente"
+          ],
+          "referenceTable": "usuarios_pendientes",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "asignatura_solicitada_fk_1",
+          "columns": [
+            "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId"
+          ],
+          "referenceTable": "usuarios_pendientes",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "asignatura_solicitada_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "asignaturas",
+      "dartName": "Asignatura",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('asignaturas_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "nombre",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "idCurso",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "_cursosAsignaturasCursosId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "asignaturas_fk_0",
+          "columns": [
+            "idCurso"
+          ],
+          "referenceTable": "cursos",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "asignaturas_fk_1",
+          "columns": [
+            "_cursosAsignaturasCursosId"
+          ],
+          "referenceTable": "cursos",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "asignaturas_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "asistencias_diarias",
+      "dartName": "AsistenciaDiaria",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('asistencias_diarias_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "estudianteId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "comisionId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "estadoDeAsistencia",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "protocol:EstadoDeAsistencia"
+        },
+        {
+          "name": "fecha",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "idJustificacion",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "asistencias_diarias_fk_0",
+          "columns": [
+            "estudianteId"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "asistencias_diarias_fk_1",
+          "columns": [
+            "comisionId"
+          ],
+          "referenceTable": "comisiones_de_curso",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "asistencias_diarias_fk_2",
+          "columns": [
+            "idJustificacion"
+          ],
+          "referenceTable": "justificaciones_de_asistencia",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "asistencias_diarias_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "calificaciones",
+      "dartName": "Calificacion",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('calificaciones_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idEstudiante",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idComision",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idAsignatura",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idConcepto",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "tipoCalificacion",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "protocol:TipoCalificacion"
+        },
+        {
+          "name": "index",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "diferencial",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "detalle",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "calificaciones_fk_0",
+          "columns": [
+            "idEstudiante"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "calificaciones_fk_1",
+          "columns": [
+            "idComision"
+          ],
+          "referenceTable": "comisiones_de_curso",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "calificaciones_fk_2",
+          "columns": [
+            "idAsignatura"
+          ],
+          "referenceTable": "asignaturas",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "calificaciones_fk_3",
+          "columns": [
+            "idConcepto"
+          ],
+          "referenceTable": "conceptos_calificacion",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "calificaciones_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "comision_solicitada",
+      "dartName": "ComisionSolicitada",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('comision_solicitada_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idComision",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idUsuarioPendiente",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "nombreComision",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "comision_solicitada_fk_0",
+          "columns": [
+            "idUsuarioPendiente"
+          ],
+          "referenceTable": "usuarios_pendientes",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "comision_solicitada_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "comisiones_de_curso",
+      "dartName": "ComisionDeCurso",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('comisiones_de_curso_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "nombre",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "idCurso",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "anioLectivo",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "comisiones_de_curso_fk_0",
+          "columns": [
+            "idCurso"
+          ],
+          "referenceTable": "cursos",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "comisiones_de_curso_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "conceptos_calificacion",
+      "dartName": "ConceptoCalificacion",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('conceptos_calificacion_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "concepto",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "conceptos_calificacion_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "cursos",
+      "dartName": "Curso",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('cursos_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "nombre",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "cursos_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "direcciones_de_email",
+      "dartName": "DireccionDeEmail",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('direcciones_de_email_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "direccionDeEmail",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "_usuariosDireccionesdeemailUsuariosId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "direcciones_de_email_fk_0",
+          "columns": [
+            "_usuariosDireccionesdeemailUsuariosId"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "direcciones_de_email_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "direcciones_de_email_institucion",
+      "dartName": "DireccionDeEmailInstitucion",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('direcciones_de_email_institucion_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idInstitucion",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "direccionDeEmail",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "direcciones_de_email_institucion_fk_0",
+          "columns": [
+            "idInstitucion"
+          ],
+          "referenceTable": "instituciones",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "direcciones_de_email_institucion_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "domicilios_de_institucion",
+      "dartName": "DomicilioDeInstitucion",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('domicilios_de_institucion_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idInstitucion",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "calle",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "numero",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idCodigoPostal",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idCiudad",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idProvincia",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "domicilios_de_institucion_fk_0",
+          "columns": [
+            "idInstitucion"
+          ],
+          "referenceTable": "instituciones",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "domicilios_de_institucion_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "domicilios_de_usuario",
+      "dartName": "DomicilioDeUsuario",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('domicilios_de_usuario_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idUsuario",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "calle",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "numero",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idCodigoPostal",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idCiudad",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idProvincia",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "domicilios_de_usuario_fk_0",
+          "columns": [
+            "idUsuario"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "domicilios_de_usuario_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "instituciones",
+      "dartName": "Institucion",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('instituciones_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "nombre",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "tipo",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "protocol:TipoDeInstitucion"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "instituciones_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "justificaciones_de_asistencia",
+      "dartName": "JustificacionDeAsistencia",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('justificaciones_de_asistencia_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idAsistencia",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "observaciones",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "adjunto",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "justificaciones_de_asistencia_fk_0",
+          "columns": [
+            "idAsistencia"
+          ],
+          "referenceTable": "asistencias_diarias",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "justificaciones_de_asistencia_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "llamados_compensacion",
+      "dartName": "LlamadoCompensacion",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('llamados_compensacion_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "fechaLlamado",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaRealizacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "idAsignatura",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "observaciones",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "llamados_compensacion_fk_0",
+          "columns": [
+            "idAsignatura"
+          ],
+          "referenceTable": "asignaturas",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "llamados_compensacion_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "numeros_de_telefono",
+      "dartName": "NumeroDeTelefono",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('numeros_de_telefono_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "numeroDeTelefono",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "tipoDeTelefono",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "protocol:TipoDeTelefono"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "_usuariosNumerosdetelefonoUsuariosId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "numeros_de_telefono_fk_0",
+          "columns": [
+            "_usuariosNumerosdetelefonoUsuariosId"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "numeros_de_telefono_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "numeros_de_telefono_institucion",
+      "dartName": "NumeroDeTelefonoInstitucion",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('numeros_de_telefono_institucion_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idinstitucion",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "numeroDeTelefono",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "tipoDeTelefono",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "protocol:TipoDeTelefono"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "numeros_de_telefono_institucion_fk_0",
+          "columns": [
+            "idinstitucion"
+          ],
+          "referenceTable": "instituciones",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "numeros_de_telefono_institucion_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "periodos",
+      "dartName": "Periodo",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('periodos_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "nombre",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "diaInicio",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "mesInicio",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "diaFin",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "mesFin",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "periodos_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "r_asignaturas_usuarios",
+      "dartName": "RelacionAsignaturaUsuario",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('r_asignaturas_usuarios_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "usuarioId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "asignaturaId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "r_asignaturas_usuarios_fk_0",
+          "columns": [
+            "usuarioId"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "r_asignaturas_usuarios_fk_1",
+          "columns": [
+            "asignaturaId"
+          ],
+          "referenceTable": "asignaturas",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "r_asignaturas_usuarios_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "r_usuario_asignatura_index_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "usuarioId"
+            },
+            {
+              "type": 0,
+              "definition": "asignaturaId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "r_comisiones_usuarios",
+      "dartName": "RelacionComisionUsuario",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('r_comisiones_usuarios_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "usuarioId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "comisionDeCursoId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "r_comisiones_usuarios_fk_0",
+          "columns": [
+            "usuarioId"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "r_comisiones_usuarios_fk_1",
+          "columns": [
+            "comisionDeCursoId"
+          ],
+          "referenceTable": "comisiones_de_curso",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "r_comisiones_usuarios_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "r_usuario_comision_index_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "usuarioId"
+            },
+            {
+              "type": 0,
+              "definition": "comisionDeCursoId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "r_usuario_rol",
+      "dartName": "RelacionUsuarioRol",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('r_usuario_rol_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "usuarioId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "rolId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "r_usuario_rol_fk_0",
+          "columns": [
+            "usuarioId"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "r_usuario_rol_fk_1",
+          "columns": [
+            "rolId"
+          ],
+          "referenceTable": "roles_de_usuario",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "r_usuario_rol_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "r_usuario_rol_index_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "usuarioId"
+            },
+            {
+              "type": 0,
+              "definition": "rolId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "roles_de_usuario",
+      "dartName": "RolDeUsuario",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('roles_de_usuario_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "nombre",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "descripcion",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "roles_de_usuario_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "usuarios",
+      "dartName": "Usuario",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('usuarios_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idUserInfo",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "nombre",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "apellido",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "urlFotoDePerfil",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "dni",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "domicilioId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "usuarios_fk_0",
+          "columns": [
+            "domicilioId"
+          ],
+          "referenceTable": "domicilios_de_usuario",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "usuarios_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "usuarios_domicilios_de_usuario_unique_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "domicilioId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "usuarios_pendientes",
+      "dartName": "UsuarioPendiente",
+      "module": "escuelas",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('usuarios_pendientes_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idUserInfo",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "nombre",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "apellido",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "urlFotoDePerfil",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "dni",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "rolSolicitado",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "estadoDeSolicitud",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "protocol:EstadoDeSolicitud"
+        },
+        {
+          "name": "ultimaModificacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "comisionSolicitadaId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "usuarios_pendientes_fk_0",
+          "columns": [
+            "rolSolicitado"
+          ],
+          "referenceTable": "roles_de_usuario",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "usuarios_pendientes_fk_1",
+          "columns": [
+            "comisionSolicitadaId"
+          ],
+          "referenceTable": "comision_solicitada",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "usuarios_pendientes_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "comision_solicitada_unique_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "comisionSolicitadaId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_auth_key",
+      "dartName": "AuthKey",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_auth_key_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "hash",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "scopeNames",
+          "columnType": 8,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "List<String>"
+        },
+        {
+          "name": "method",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_auth_key_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_auth_key_userId_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "userId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_cloud_storage",
+      "dartName": "CloudStorageEntry",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_cloud_storage_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "storageId",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "path",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "addedTime",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "expiration",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "byteData",
+          "columnType": 5,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "dart:typed_data:ByteData"
+        },
+        {
+          "name": "verified",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "bool"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_cloud_storage_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_cloud_storage_path_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "storageId"
+            },
+            {
+              "type": 0,
+              "definition": "path"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_cloud_storage_expiration",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "expiration"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_cloud_storage_direct_upload",
+      "dartName": "CloudStorageDirectUploadEntry",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_cloud_storage_direct_upload_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "storageId",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "path",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "expiration",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "authKey",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_cloud_storage_direct_upload_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_cloud_storage_direct_upload_storage_path",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "storageId"
+            },
+            {
+              "type": 0,
+              "definition": "path"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_future_call",
+      "dartName": "FutureCallEntry",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_future_call_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "name",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "time",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "serializedObject",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "serverId",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "identifier",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_future_call_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_future_call_time_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "time"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_future_call_serverId_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "serverId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_future_call_identifier_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "identifier"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_health_connection_info",
+      "dartName": "ServerHealthConnectionInfo",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_health_connection_info_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "serverId",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "timestamp",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "active",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "closing",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idle",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "granularity",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_health_connection_info_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_health_connection_info_timestamp_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "timestamp"
+            },
+            {
+              "type": 0,
+              "definition": "serverId"
+            },
+            {
+              "type": 0,
+              "definition": "granularity"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_health_metric",
+      "dartName": "ServerHealthMetric",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_health_metric_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "name",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "serverId",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "timestamp",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "isHealthy",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "bool"
+        },
+        {
+          "name": "value",
+          "columnType": 3,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "double"
+        },
+        {
+          "name": "granularity",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_health_metric_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_health_metric_timestamp_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "timestamp"
+            },
+            {
+              "type": 0,
+              "definition": "serverId"
+            },
+            {
+              "type": 0,
+              "definition": "name"
+            },
+            {
+              "type": 0,
+              "definition": "granularity"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_log",
+      "dartName": "LogEntry",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_log_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "sessionLogId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "messageId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        },
+        {
+          "name": "reference",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "serverId",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "time",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "logLevel",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "protocol:LogLevel"
+        },
+        {
+          "name": "message",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "error",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "stackTrace",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "order",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "serverpod_log_fk_0",
+          "columns": [
+            "sessionLogId"
+          ],
+          "referenceTable": "serverpod_session_log",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 4,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "serverpod_log_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_log_sessionLogId_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "sessionLogId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_message_log",
+      "dartName": "MessageLogEntry",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_message_log_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "sessionLogId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "serverId",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "messageId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "endpoint",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "messageName",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "duration",
+          "columnType": 3,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "double"
+        },
+        {
+          "name": "error",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "stackTrace",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "slow",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "bool"
+        },
+        {
+          "name": "order",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "serverpod_message_log_fk_0",
+          "columns": [
+            "sessionLogId"
+          ],
+          "referenceTable": "serverpod_session_log",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 4,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "serverpod_message_log_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_method",
+      "dartName": "MethodInfo",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_method_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "endpoint",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "method",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_method_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_method_endpoint_method_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "endpoint"
+            },
+            {
+              "type": 0,
+              "definition": "method"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_migrations",
+      "dartName": "DatabaseMigrationVersion",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_migrations_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "module",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "version",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "timestamp",
+          "columnType": 4,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_migrations_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_migrations_ids",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "module"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_query_log",
+      "dartName": "QueryLogEntry",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_query_log_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "serverId",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "sessionLogId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "messageId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        },
+        {
+          "name": "query",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "duration",
+          "columnType": 3,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "double"
+        },
+        {
+          "name": "numRows",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        },
+        {
+          "name": "error",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "stackTrace",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "slow",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "bool"
+        },
+        {
+          "name": "order",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "serverpod_query_log_fk_0",
+          "columns": [
+            "sessionLogId"
+          ],
+          "referenceTable": "serverpod_session_log",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 4,
+          "matchType": null
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "serverpod_query_log_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_query_log_sessionLogId_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "sessionLogId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_readwrite_test",
+      "dartName": "ReadWriteTestEntry",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_readwrite_test_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "number",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_readwrite_test_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_runtime_settings",
+      "dartName": "RuntimeSettings",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_runtime_settings_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "logSettings",
+          "columnType": 8,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "protocol:LogSettings"
+        },
+        {
+          "name": "logSettingsOverrides",
+          "columnType": 8,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "List<protocol:LogSettingsOverride>"
+        },
+        {
+          "name": "logServiceCalls",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "bool"
+        },
+        {
+          "name": "logMalformedCalls",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "bool"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_runtime_settings_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_session_log",
+      "dartName": "SessionLogEntry",
+      "module": "serverpod",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_session_log_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "serverId",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "time",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "module",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "endpoint",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "method",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "duration",
+          "columnType": 3,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "double?"
+        },
+        {
+          "name": "numQueries",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        },
+        {
+          "name": "slow",
+          "columnType": 1,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "bool?"
+        },
+        {
+          "name": "error",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "stackTrace",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "authenticatedUserId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
+        },
+        {
+          "name": "isOpen",
+          "columnType": 1,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "bool?"
+        },
+        {
+          "name": "touched",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_session_log_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_session_log_serverid_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "serverId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_session_log_touched_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "touched"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_session_log_isopen_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "isOpen"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_email_auth",
+      "dartName": "EmailAuth",
+      "module": "serverpod_auth",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_email_auth_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "email",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "hash",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_email_auth_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_email_auth_email",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "email"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_email_create_request",
+      "dartName": "EmailCreateAccountRequest",
+      "module": "serverpod_auth",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_email_create_request_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userName",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "email",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "hash",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "verificationCode",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_email_create_request_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_email_auth_create_account_request_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "email"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_email_failed_sign_in",
+      "dartName": "EmailFailedSignIn",
+      "module": "serverpod_auth",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_email_failed_sign_in_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "email",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "time",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "ipAddress",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_email_failed_sign_in_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_email_failed_sign_in_email_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "email"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_email_failed_sign_in_time_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "time"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_email_reset",
+      "dartName": "EmailReset",
+      "module": "serverpod_auth",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_email_reset_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "verificationCode",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "expiration",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_email_reset_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_email_reset_verification_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "verificationCode"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_google_refresh_token",
+      "dartName": "GoogleRefreshToken",
+      "module": "serverpod_auth",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_google_refresh_token_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "refreshToken",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_google_refresh_token_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_google_refresh_token_userId_idx",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "userId"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_user_image",
+      "dartName": "UserImage",
+      "module": "serverpod_auth",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_user_image_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userId",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "version",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "url",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_user_image_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_user_image_user_id",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "userId"
+            },
+            {
+              "type": 0,
+              "definition": "version"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    },
+    {
+      "name": "serverpod_user_info",
+      "dartName": "UserInfo",
+      "module": "serverpod_auth",
+      "schema": "public",
+      "tableSpace": null,
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('serverpod_user_info_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "userIdentifier",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "userName",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
+        },
+        {
+          "name": "fullName",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "email",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "created",
+          "columnType": 4,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "DateTime"
+        },
+        {
+          "name": "imageUrl",
+          "columnType": 0,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "String?"
+        },
+        {
+          "name": "scopeNames",
+          "columnType": 8,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "List<String>"
+        },
+        {
+          "name": "blocked",
+          "columnType": 1,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "bool"
+        }
+      ],
+      "foreignKeys": [],
+      "indexes": [
+        {
+          "indexName": "serverpod_user_info_pkey",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_user_info_user_identifier",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "userIdentifier"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": false,
+          "predicate": null
+        },
+        {
+          "indexName": "serverpod_user_info_email",
+          "tableSpace": null,
+          "elements": [
+            {
+              "type": 0,
+              "definition": "email"
+            }
+          ],
+          "type": "btree",
+          "isUnique": false,
+          "isPrimary": false,
+          "predicate": null
+        }
+      ],
+      "managed": true
+    }
+  ],
+  "installedModules": [
+    {
+      "id": null,
+      "module": "escuelas",
+      "version": "20240108191323453",
+      "timestamp": null
+    },
+    {
+      "id": null,
+      "module": "serverpod",
+      "version": "20231205080920260",
+      "timestamp": null
+    },
+    {
+      "id": null,
+      "module": "serverpod_auth",
+      "version": "20231205080924753",
+      "timestamp": null
+    }
+  ],
+  "migrationApiVersion": 1
+}

@@ -42,7 +42,8 @@ class OrmAsistencia extends ORM {
       session,
       where: (t) =>
           t.fecha.between(inicioDelDia, finDelDia) &
-          t.idComision.equals(idComision),
+          t.comisionId.equals(idComision),
+      include: AsistenciaDiaria.include(estudiante: Usuario.include()),
     );
 
     if (asistencias.isEmpty) {
