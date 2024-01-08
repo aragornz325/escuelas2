@@ -32,4 +32,13 @@ class CalificacionEndpoint extends Endpoint with Controller {
           etiqueta: etiqueta,
         ),
       );
+
+  Future<List<ConceptoCalificacion>> obtenerConceptosDeCalificacion(
+          Session session) =>
+      ejecutarOperacionControlador(
+        'obtenerConceptosDeCalificacion',
+        () => servicio.obtenerConceptosDeCalificacion(session),
+      );
+
+  
 }

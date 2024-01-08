@@ -55,6 +55,7 @@ class OrmConceptoCalificacion extends ORM {
       session,
       (session) => ConceptoCalificacion.db.find(
         session,
+        where: (t) => t.fechaEliminacion.equals(null),
       ),
     );
     return conceptos;

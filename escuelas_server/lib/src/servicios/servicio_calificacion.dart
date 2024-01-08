@@ -38,4 +38,10 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
       ),
     );
   }
+
+  Future<List<ConceptoCalificacion>> obtenerConceptosDeCalificacion(
+      Session session) async {
+    return await _ormConceptoCalificacion
+        .obtenerConceptosDeCalificacion(session);
+  }
 }
