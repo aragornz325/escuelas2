@@ -5,11 +5,11 @@ import 'package:serverpod/serverpod.dart';
 class OrmCalificacion extends ORM {
   Future<List<Calificacion>> crearCalificaciones(
     Session session, {
-    required List<Calificacion> nuevasCalificaciones,
+    required List<Calificacion> calificaciones,
   }) async {
     return await Calificacion.db.insert(
       session,
-      nuevasCalificaciones,
+      calificaciones,
     );
   }
 
