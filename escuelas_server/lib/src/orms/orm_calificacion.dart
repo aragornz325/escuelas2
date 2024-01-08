@@ -7,9 +7,12 @@ class OrmCalificacion extends ORM {
     Session session, {
     required List<Calificacion> calificaciones,
   }) async {
-    return await Calificacion.db.insert(
+    return await ejecutarOperacionOrm(
       session,
-      calificaciones,
+      (session) => Calificacion.db.insert(
+        session,
+        calificaciones,
+      ),
     );
   }
 
@@ -18,39 +21,45 @@ class OrmCalificacion extends ORM {
     Periodo? periodo,
     int? idConceptoDeCalificacion,
   ) async =>
-      Calificacion.db.find(
+      ejecutarOperacionOrm(
         session,
-        where: (t) {
-          if (periodo != null && idConceptoDeCalificacion != null) {
-            return t.fechaCreacion.between(
-                  periodo.fechaInicio,
-                  periodo.fechaFin,
-                ) &
-                t.idConcepto.equals(idConceptoDeCalificacion);
-          }
+        (session) => Calificacion.db.find(
+          session,
+          where: (t) {
+            if (periodo != null && idConceptoDeCalificacion != null) {
+              return t.fechaCreacion.between(
+                    periodo.fechaInicio,
+                    periodo.fechaFin,
+                  ) &
+                  t.idConcepto.equals(idConceptoDeCalificacion);
+            }
 
-          if (periodo != null) {
-            return t.fechaCreacion.between(
-              periodo.fechaInicio,
-              periodo.fechaFin,
-            );
-          }
+            if (periodo != null) {
+              return t.fechaCreacion.between(
+                periodo.fechaInicio,
+                periodo.fechaFin,
+              );
+            }
 
-          if (idConceptoDeCalificacion != null) {
-            return t.idConcepto.equals(idConceptoDeCalificacion);
-          }
+            if (idConceptoDeCalificacion != null) {
+              return t.idConcepto.equals(idConceptoDeCalificacion);
+            }
 
-          return t.id.notEquals(null);
-        },
+            return t.id.notEquals(null);
+          },
+        ),
       );
 
   Future<List<Calificacion>> actualizarCalificaciones(
     Session session, {
     required List<Calificacion> calificaciones,
   }) async {
-    return await Calificacion.db.update(
+    return await ejecutarOperacionOrm(
       session,
-      calificaciones,
+      (session) => Calificacion.db.update(
+        session,
+        calificaciones,
+      ),
     );
   }
 
@@ -58,6 +67,9 @@ class OrmCalificacion extends ORM {
     Session session, {
     required List<Calificacion> calificaciones,
   }) async {
-    return await Calificacion.db.delete(session, calificaciones);
+    return await ejecutarOperacionOrm(
+      session,
+      (session) => Calificacion.db.delete(session, calificaciones),
+    );
   }
 }
