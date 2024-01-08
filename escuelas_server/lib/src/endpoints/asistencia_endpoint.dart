@@ -34,14 +34,12 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
   /// El método `traerAsistenciaPorDia` devuelve un `Futuro<List<AsistenciaDiaria>>`.
   Future<List<AsistenciaDiaria>> traerAsistenciaPorDia(
     Session session, {
-    required int idComision,
     required DateTime fecha,
   }) async {
     return ejecutarOperacionControlador(
       'traerAsistenciaPorDia',
       () => servicio.traerAsistenciaPorDia(
         session,
-        idComision: idComision,
         fecha: fecha,
       ),
     );

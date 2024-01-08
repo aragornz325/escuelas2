@@ -41,13 +41,11 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
   ///  El método `traerAsistenciaPorDia` devuelve un `Futuro<List<AsistenciaDiaria>>`.
   Future<List<AsistenciaDiaria>> traerAsistenciaPorDia(
     Session session, {
-    required int idComision,
     required DateTime fecha,
   }) async {
     return await ejecutarOperacion(
       () => orm.traerAsistenciaPorDia(
         session,
-        idComision: idComision,
         fecha: fecha,
       ),
     );

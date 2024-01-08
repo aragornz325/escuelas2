@@ -47,7 +47,6 @@ class OrmAsistencia extends ORM {
   /// la funcion "traerAsistenciaPorDia" trae la asistencia de un dia en particular
   Future<List<AsistenciaDiaria>> traerAsistenciaPorDia(
     Session session, {
-    required int idComision,
     required DateTime fecha,
   }) async {
     DateTime inicioDelDia = DateTime(fecha.year, fecha.month, fecha.day);
