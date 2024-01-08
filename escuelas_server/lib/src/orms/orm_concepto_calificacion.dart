@@ -49,9 +49,8 @@ class OrmConceptoCalificacion extends ORM {
   }
 
   Future<List<ConceptoCalificacion>> obtenerConceptosDeCalificacion(
-    Session session, {
-    Periodo? periodo,
-  }) async {
+    Session session,
+  ) async {
     final conceptos = await ejecutarOperacionOrm(
       session,
       (session) => ConceptoCalificacion.db.find(

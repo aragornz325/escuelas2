@@ -20,4 +20,16 @@ class CalificacionEndpoint extends Endpoint with Controller {
           calificaciones: calificaciones,
         ),
       );
+
+  Future<ConceptoCalificacion> crearConceptoDeCalificacion(
+    Session session, {
+    required String etiqueta,
+  }) =>
+      ejecutarOperacionControlador(
+        'crearConceptoDeCalificacion',
+        () => servicio.crearConceptoDeCalificacion(
+          session,
+          etiqueta: etiqueta,
+        ),
+      );
 }
