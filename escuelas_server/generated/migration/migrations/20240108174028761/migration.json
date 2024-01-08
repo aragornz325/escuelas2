@@ -1,0 +1,278 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "valor_calificaciones",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "tipo_calificaciones",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "calificaciones_conceptos",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "calificacion_compensaciones",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "calificacion_asignaturas",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "calificaciones",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "calificaciones",
+        "dartName": "Calificacion",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('calificaciones_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "idEstudiante",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "idComision",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "idAsignatura",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "idConcepto",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "tipoCalificacion",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "protocol:TipoCalificacion"
+          },
+          {
+            "name": "index",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "diferencial",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "detalle",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "calificaciones_fk_0",
+            "columns": [
+              "idEstudiante"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "calificaciones_fk_1",
+            "columns": [
+              "idComision"
+            ],
+            "referenceTable": "comisiones_de_curso",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "calificaciones_fk_2",
+            "columns": [
+              "idAsignatura"
+            ],
+            "referenceTable": "asignaturas",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "calificaciones_fk_3",
+            "columns": [
+              "idConcepto"
+            ],
+            "referenceTable": "conceptos_calificacion",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "calificaciones_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "Table \"valor_calificaciones\" will be dropped.",
+      "table": "valor_calificaciones",
+      "columns": [],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "Table \"tipo_calificaciones\" will be dropped.",
+      "table": "tipo_calificaciones",
+      "columns": [],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "Table \"calificaciones_conceptos\" will be dropped.",
+      "table": "calificaciones_conceptos",
+      "columns": [],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "Table \"calificacion_compensaciones\" will be dropped.",
+      "table": "calificacion_compensaciones",
+      "columns": [],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "Table \"calificacion_asignaturas\" will be dropped.",
+      "table": "calificacion_asignaturas",
+      "columns": [],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"idTipoCalificacion\" of table \"calificaciones\" will be dropped.",
+      "table": "calificaciones",
+      "columns": [
+        "idTipoCalificacion"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"valor\" of table \"calificaciones\" will be dropped.",
+      "table": "calificaciones",
+      "columns": [
+        "valor"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"calificaciones\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "calificaciones",
+      "columns": [
+        "idEstudiante"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}
