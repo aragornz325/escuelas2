@@ -32,15 +32,33 @@ class BlocPerfilUsuarioEstado {
   final List<RolDeUsuario> listaRoles;
 
   /// Nombre del rol del usuario
-  String get nombreRol =>
+  String get nombreRolDeUsuarioPendiente =>
       listaRoles
           .firstWhereOrNull((rol) => rol.id == usuarioPendiente?.rolSolicitado)
           ?.nombre ??
       '';
+
+  /// Nombre del rol del usuario
+  String get nombreRolDeUsuario =>
+      listaRoles
+          .firstWhereOrNull((rol) => rol.id == usuario?.roles?.first.rol?.id)
+          ?.nombre ??
+      '';
+
+  /// Devuelve el [Tipo] de usuario segun su estado/rol
+  Tipo get tipoUsuario => usuarioPendiente != null
+      ? usuario?.roles?.first.rol?.nombre == 'alumno' ||
+              usuarioPendiente?.comisionSolicitada != null
+          ? Tipo.alumnoAprobado
+          : Tipo.docenteAprobado
+      : usuario?.roles?.first.rol?.nombre == 'alumno' ||
+              usuarioPendiente?.comisionSolicitada != null
+          ? Tipo.alumnoPendiente
+          : Tipo.docentePendiente;
 }
 
 /// {@template BlocPerfilUsuarioEstadoInicial}
-/// Estado inicial de los componentes de la pantalla 'Perfil de usuario'
+/// Estado inicial de los componentes de la pa ntalla 'Perfil de usuario'
 /// {@endtemplate}
 class BlocPerfilUsuarioEstadoInicial extends BlocPerfilUsuarioEstado {
   /// {@macro BlocPerfilUsuarioEstadoInicial}

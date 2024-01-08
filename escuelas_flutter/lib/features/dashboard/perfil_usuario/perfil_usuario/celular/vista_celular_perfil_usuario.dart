@@ -25,7 +25,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TarjetaPerfil(
-              nombreRol: state.nombreRol,
+              nombreRol: state.nombreRolDeUsuario,
               nombreUsuario: state.usuario?.nombre ?? '',
               apellidoUsuario: state.usuario?.apellido ?? '',
             ),
