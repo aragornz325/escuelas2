@@ -72,8 +72,8 @@ class RedemptorisMissioConfigs extends ConfigsDeInstancia {
         fechaCreacion: DateTime.now(),
       ),
       Periodo(
-        fechaInicio: DateTime(anio + 1, 2),
-        fechaFin: DateTime(anio + 1, 2, 28),
+        fechaInicio: DateTime(anio, 12),
+        fechaFin: DateTime(anio + 1),
         ultimaModificacion: DateTime.now(),
         fechaCreacion: DateTime.now(),
       ),

@@ -14,10 +14,10 @@ class OrmCalificacion extends ORM {
   }
 
   Future<List<Calificacion>> obtenerCalificaciones(
-    Session session,
+    Session session, {
     Periodo? periodo,
     int? idConceptoDeCalificacion,
-  ) async =>
+  }) async =>
       Calificacion.db.find(
         session,
         where: (t) {

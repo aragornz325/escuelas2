@@ -20,7 +20,12 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
       calificacion.idConcepto = idConcepto;
     }
 
-    return orm.crearCalificaciones(session, calificaciones: calificaciones);
+    return await ejecutarOperacion(
+      () => orm.crearCalificaciones(
+        session,
+        calificaciones: calificaciones,
+      ),
+    );
   }
 
   Future<ConceptoCalificacion> crearConceptoDeCalificacion(
@@ -29,13 +34,28 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   }) async {
     final ahora = DateTime.now();
 
-    return await _ormConceptoCalificacion.crearConceptoDeCalificacion(
-      session,
-      conceptoCalificacion: ConceptoCalificacion(
-        concepto: etiqueta,
-        ultimaModificacion: ahora,
-        fechaCreacion: ahora,
+    return await ejecutarOperacion(
+      () => _ormConceptoCalificacion.crearConceptoDeCalificacion(
+        session,
+        conceptoCalificacion: ConceptoCalificacion(
+          concepto: etiqueta,
+          ultimaModificacion: ahora,
+          fechaCreacion: ahora,
+        ),
       ),
     );
   }
+
+  Future<List<Calificacion>> obtenerCalificaciones(
+    Session session,
+    Periodo? periodo,
+    int? idConceptoDeCalificacion,
+  ) async =>
+      ejecutarOperacion(
+        () => orm.obtenerCalificaciones(
+          session,
+          periodo: periodo,
+          idConceptoDeCalificacion: idConceptoDeCalificacion,
+        ),
+      );
 }
