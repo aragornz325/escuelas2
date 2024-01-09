@@ -62,7 +62,7 @@ class ItemCurso extends StatelessWidget {
             builder: (context, state) {
               return Text(
                 '${curso.cantidadDeNoAusentes(state.asistenciasDiarias(curso.idCurso))}'
-                '/${curso.estudiantes?.length ?? 0}',
+                '/${curso.cursadas?.length ?? 0}',
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: colores.onSecondary,

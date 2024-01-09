@@ -55,7 +55,7 @@ class BlocCargaCalificaciones
           nombre: 'primero',
           idCurso: 1,
           anioLectivo: 1,
-          estudiantes: [],
+          cursadas: [],
           ultimaModificacion: DateTime.now(),
           fechaCreacion: DateTime.now(),
         );

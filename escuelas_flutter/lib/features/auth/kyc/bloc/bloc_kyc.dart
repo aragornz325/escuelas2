@@ -240,7 +240,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
                       .id ??
                   0,
               anioLectivo: 2021,
-              estudiantes: [],
+              cursadas: [],
               ultimaModificacion: DateTime.now(),
               fechaCreacion: DateTime.now(),
             ),

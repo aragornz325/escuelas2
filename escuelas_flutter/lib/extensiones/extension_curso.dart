@@ -9,7 +9,7 @@ import 'package:escuelas_client/escuelas_client.dart';
 extension ComisionDeCursoX on ComisionDeCurso {
   /// Devuelve la cantidad de no ausentes.
   int cantidadDeNoAusentes(List<AsistenciaDiaria> asistenciasDiarias) {
-    return estudiantes?.where(
+    return cursadas?.where(
           (estudiante) {
             // Filtrar las asistencias diarias asociadas a este estudiante
             final asistenciasEstudiante = asistenciasDiarias.where(
@@ -28,7 +28,7 @@ extension ComisionDeCursoX on ComisionDeCurso {
 
   /// Devuelve true si todos los alumnos tienen al menos una asistencia
   bool alumnosSinInasistencias(List<AsistenciaDiaria> asistenciasDiarias) {
-    final estudiantes = this.estudiantes ?? [];
+    final estudiantes = this.cursadas ?? [];
     return estudiantes.every((estudiante) {
       final asistenciasEstudiante = asistenciasDiarias.where(
         (asistencia) => asistencia.estudianteId == estudiante.usuarioId,
