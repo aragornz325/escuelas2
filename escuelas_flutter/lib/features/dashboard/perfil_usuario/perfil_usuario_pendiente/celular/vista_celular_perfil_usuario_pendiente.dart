@@ -33,7 +33,6 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
       builder: (_) => BlocProvider(
         create: (context) => BlocPerfilUsuario(),
         child: EscuelasDialog.confirmar(
-          context: context,
           ancho: 260.pw,
           onTapConfirmar: () => context
               .read<BlocPerfilUsuario>()

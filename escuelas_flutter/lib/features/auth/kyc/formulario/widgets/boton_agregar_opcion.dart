@@ -1,36 +1,37 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
-import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/widgets.dart';
-import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template BotonAgregarBloqueMateria}
-/// Botón para agregar un [BloqueMateria]
+/// {@template BotonAgregarOpcion}
+/// Botón para agregar una opcion al formulario
 /// {@endtemplate}
 class BotonAgregarOpcion extends StatelessWidget {
-  /// {@macro BotonAgregarBloqueMateria}
+  /// {@macro BotonAgregarOpcion}
   const BotonAgregarOpcion({
+    required this.textoBoton,
+    required this.onPressed,
     super.key,
   });
+
+  /// Funcion a ejecutar al confirmar
+  final void Function() onPressed;
+
+  /// Texto del boton
+  final String textoBoton;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    final l10n = context.l10n;
-
     return TextButton.icon(
-      onPressed: () =>
-          context.read<BlocKyc>().add(BlocKycEventoAgregarOpcion()),
+      onPressed: onPressed,
       icon: Icon(
         Icons.add_circle_outline_outlined,
         color: colores.onBackground,
         size: 18.pw,
       ),
       label: Text(
-        l10n.pageKycFormAddSubject.toUpperCase(),
+        textoBoton.toUpperCase(),
         style: TextStyle(
           color: colores.onBackground,
           decoration: TextDecoration.underline,

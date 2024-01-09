@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 
 part 'bloc_carga_calificaciones_estado.dart';
@@ -43,76 +42,20 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        ///TODO(anyone): llamar al endpoint de traer calificaciones
-        ///y borrar la lista hardcodeada.
+        // TODO(anyone): llamar al endpoint de traer calificaciones
+        // y borrar la lista hardcodeada.
         ///
-        ///TODO(anyone): ver como se traen todas las calificaciones de los
-        ///usuarios
-        // final curso = await client.comisiones.obtenercomicionporid(id: event.idCurso);
+        // TODO(anyone): ver como se traen todas las calificaciones de los
+        // usuarios
 
-        final alumnos = [
-          Usuario(
-            idUserInfo: 1,
-            nombre: 'gon',
-            apellido: 'higuain',
-            urlFotoDePerfil: '',
-            dni: '4343512',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-          Usuario(
-            idUserInfo: 2,
-            nombre: 'gon',
-            apellido: 'higuain',
-            urlFotoDePerfil: '',
-            dni: '4343512',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-          Usuario(
-            idUserInfo: 3,
-            nombre: 'gon',
-            apellido: 'higuain',
-            urlFotoDePerfil: '',
-            dni: '4343512',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-          Usuario(
-            idUserInfo: 4,
-            nombre: 'gon',
-            apellido: 'higuain',
-            urlFotoDePerfil: '',
-            dni: '4343512',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-          Usuario(
-            idUserInfo: 5,
-            nombre: 'gon',
-            apellido: 'higuain',
-            urlFotoDePerfil: '',
-            dni: '4343512',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-          Usuario(
-            idUserInfo: 6,
-            nombre: 'gon',
-            apellido: 'higuain',
-            urlFotoDePerfil: '',
-            dni: '4343512',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-          ),
-        ];
+        // final curso = await client.comisiones.obtenercomicionporid(id: event.idCurso);
 
         final curso = ComisionDeCurso(
           id: 1,
           nombre: 'primero',
           idCurso: 1,
           anioLectivo: 1,
-          estudiantes: alumnos,
+          estudiantes: [],
           ultimaModificacion: DateTime.now(),
           fechaCreacion: DateTime.now(),
         );
@@ -200,7 +143,7 @@ class BlocCargaCalificaciones
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) {
     final alumno = state.estudiantes.firstWhere(
-      (c) => c.idUserInfo == event.idAlumno,
+      (c) => c.usuarioId == event.idAlumno,
     );
 
     /// TODO(anyone): hablar con los modelos para que la calificacion pueda ser
@@ -211,7 +154,7 @@ class BlocCargaCalificaciones
             state.listaCalificacionesCompensadas
                 .firstWhere(
                   (calicompensada) =>
-                      calicompensada.idEstudiante == alumno.idUserInfo,
+                      calicompensada.idEstudiante == alumno.usuarioId,
                 )
                 .id) // TODO(ANYONE): Cambiar por el id correspondiente
         .id = event.calificacion ?? 0;

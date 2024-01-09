@@ -35,7 +35,6 @@ class BotonSolicitarRol extends StatelessWidget {
               return BlocProvider(
                 create: (context) => BlocKyc(),
                 child: EscuelasDialog.confirmar(
-                  context: context,
                   onTapConfirmar: () => context.read<BlocKyc>().add(
                         BlocKycEventoSolicitarRegistro(
                           userInfo: sessionManager.signedInUser,
@@ -56,11 +55,7 @@ class BotonSolicitarRol extends StatelessWidget {
               );
             },
           ),
-          // TODO(Gon): Revisar esto cuando se arregle lo del bloc (como se crea
-          // la primer opcion)
-          color: state.opcionesFormulario.isNotEmpty &&
-                  state.opcionesFormulario[0].curso.nombre != '' &&
-                  state.opcionesFormulario[0].asignatura.nombre != ''
+          color: state.opcionesFormulario.isNotEmpty
               ? colores.azul
               : colores.grisDeshabilitado,
           texto: l10n.commonApply,
