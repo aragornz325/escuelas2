@@ -8,6 +8,15 @@ class OrmComision extends ORM {
   ) async =>
       ejecutarOperacionOrm(
         session,
-        (session) => ComisionDeCurso.db.find(session),
+        (session) => ComisionDeCurso.db.find(
+          session,
+          include: ComisionDeCurso.include(
+            estudiantes: RelacionComisionUsuario.includeList(
+              include: RelacionComisionUsuario.include(
+                usuario: Usuario.include(),
+              ),
+            ),
+          ),
+        ),
       );
 }

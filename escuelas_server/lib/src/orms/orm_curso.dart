@@ -52,7 +52,15 @@ class OrmCurso extends ORM {
         session,
         include: Curso.include(
           asignaturas: Asignatura.includeList(),
-          comisiones: ComisionDeCurso.includeList(),
+          comisiones: ComisionDeCurso.includeList(
+            include: ComisionDeCurso.include(
+              estudiantes: RelacionComisionUsuario.includeList(
+                include: RelacionComisionUsuario.include(
+                  usuario: Usuario.include(),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -62,7 +70,7 @@ class OrmCurso extends ORM {
         'No hay cursos',
       );
     }
-    
+
     return cursos;
   }
 
