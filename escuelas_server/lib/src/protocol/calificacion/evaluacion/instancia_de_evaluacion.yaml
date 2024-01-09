@@ -5,7 +5,6 @@ fields:
   descripcion: String
   autor: int, relation(parent=conceptos_calificacion)
   idConcepto: int, relation(parent=conceptos_calificacion)
-  idAsignatura: int, relation(parent=asignaturas)
   fechaProgramada: DateTime
   fechaDeRealizacion: DateTime
   ultimaModificacion: DateTime 
