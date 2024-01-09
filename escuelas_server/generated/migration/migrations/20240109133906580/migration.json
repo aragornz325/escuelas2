@@ -329,7 +329,7 @@
             "columns": [
               "comisionId"
             ],
-            "referenceTable": "comisiones_de_curso",
+            "referenceTable": "comisiones",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -488,7 +488,7 @@
             "columns": [
               "idComision"
             ],
-            "referenceTable": "comisiones_de_curso",
+            "referenceTable": "comisiones",
             "referenceTableSchema": "public",
             "referenceColumns": [
               "id"
@@ -646,7 +646,7 @@
       "deleteTable": null,
       "alterTable": null,
       "createTable": {
-        "name": "comisiones_de_curso",
+        "name": "comisiones",
         "dartName": "ComisionDeCurso",
         "module": "escuelas",
         "schema": "public",
@@ -656,7 +656,7 @@
             "name": "id",
             "columnType": 2,
             "isNullable": false,
-            "columnDefault": "nextval('comisiones_de_curso_id_seq'::regclass)",
+            "columnDefault": "nextval('comisiones_id_seq'::regclass)",
             "dartType": "int?"
           },
           {
@@ -711,7 +711,7 @@
         ],
         "foreignKeys": [
           {
-            "constraintName": "comisiones_de_curso_fk_0",
+            "constraintName": "comisiones_fk_0",
             "columns": [
               "idCurso"
             ],
@@ -725,7 +725,7 @@
             "matchType": null
           },
           {
-            "constraintName": "comisiones_de_curso_fk_1",
+            "constraintName": "comisiones_fk_1",
             "columns": [
               "_cursosComisionesCursosId"
             ],
@@ -741,7 +741,7 @@
         ],
         "indexes": [
           {
-            "indexName": "comisiones_de_curso_pkey",
+            "indexName": "comisiones_pkey",
             "tableSpace": null,
             "elements": [
               {
@@ -819,6 +819,106 @@
             "type": "btree",
             "isUnique": true,
             "isPrimary": true,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "cursadas",
+        "dartName": "RelacionComisionUsuario",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('cursadas_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "usuarioId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "comisionId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "cursadas_fk_0",
+            "columns": [
+              "usuarioId"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "cursadas_fk_1",
+            "columns": [
+              "comisionId"
+            ],
+            "referenceTable": "comisiones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "cursadas_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          },
+          {
+            "indexName": "cursada_index_idx",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "usuarioId"
+              },
+              {
+                "type": 0,
+                "definition": "comisionId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false,
             "predicate": null
           }
         ],
@@ -1932,127 +2032,6 @@
               {
                 "type": 0,
                 "definition": "asignaturaId"
-              }
-            ],
-            "type": "btree",
-            "isUnique": true,
-            "isPrimary": false,
-            "predicate": null
-          }
-        ],
-        "managed": true
-      }
-    },
-    {
-      "type": "createTable",
-      "deleteTable": null,
-      "alterTable": null,
-      "createTable": {
-        "name": "r_comisiones_usuarios",
-        "dartName": "RelacionComisionUsuario",
-        "module": "escuelas",
-        "schema": "public",
-        "tableSpace": null,
-        "columns": [
-          {
-            "name": "id",
-            "columnType": 2,
-            "isNullable": false,
-            "columnDefault": "nextval('r_comisiones_usuarios_id_seq'::regclass)",
-            "dartType": "int?"
-          },
-          {
-            "name": "usuarioId",
-            "columnType": 2,
-            "isNullable": false,
-            "columnDefault": null,
-            "dartType": "int"
-          },
-          {
-            "name": "comisionDeCursoId",
-            "columnType": 2,
-            "isNullable": false,
-            "columnDefault": null,
-            "dartType": "int"
-          },
-          {
-            "name": "ultimaModificacion",
-            "columnType": 4,
-            "isNullable": false,
-            "columnDefault": null,
-            "dartType": "DateTime"
-          },
-          {
-            "name": "fechaCreacion",
-            "columnType": 4,
-            "isNullable": false,
-            "columnDefault": null,
-            "dartType": "DateTime"
-          },
-          {
-            "name": "fechaEliminacion",
-            "columnType": 4,
-            "isNullable": true,
-            "columnDefault": null,
-            "dartType": "DateTime?"
-          }
-        ],
-        "foreignKeys": [
-          {
-            "constraintName": "r_comisiones_usuarios_fk_0",
-            "columns": [
-              "usuarioId"
-            ],
-            "referenceTable": "usuarios",
-            "referenceTableSchema": "public",
-            "referenceColumns": [
-              "id"
-            ],
-            "onUpdate": 3,
-            "onDelete": 3,
-            "matchType": null
-          },
-          {
-            "constraintName": "r_comisiones_usuarios_fk_1",
-            "columns": [
-              "comisionDeCursoId"
-            ],
-            "referenceTable": "comisiones_de_curso",
-            "referenceTableSchema": "public",
-            "referenceColumns": [
-              "id"
-            ],
-            "onUpdate": 3,
-            "onDelete": 3,
-            "matchType": null
-          }
-        ],
-        "indexes": [
-          {
-            "indexName": "r_comisiones_usuarios_pkey",
-            "tableSpace": null,
-            "elements": [
-              {
-                "type": 0,
-                "definition": "id"
-              }
-            ],
-            "type": "btree",
-            "isUnique": true,
-            "isPrimary": true,
-            "predicate": null
-          },
-          {
-            "indexName": "r_usuario_comisiones_index_idx",
-            "tableSpace": null,
-            "elements": [
-              {
-                "type": 0,
-                "definition": "usuarioId"
-              },
-              {
-                "type": 0,
-                "definition": "comisionDeCursoId"
               }
             ],
             "type": "btree",

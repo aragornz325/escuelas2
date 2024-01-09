@@ -1,5 +1,5 @@
 class: ComisionDeCurso
-table: comisiones_de_curso
+table: comisiones
 fields:
   nombre: String
   idCurso: int, relation(parent=cursos)
@@ -7,4 +7,4 @@ fields:
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
-  estudiantes: List<RelacionComisionUsuario>?, relation(name=comision_comisiones)
+  cursadas: List<RelacionComisionUsuario>?, relation(name=comision_cursadas)
