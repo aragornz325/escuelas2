@@ -32,76 +32,14 @@ class BlocInasistencias
     emit(BlocInasistenciasEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        ///TODO(anyone): llamar al endpoint de traer cursos
-        final alumnos = [
-          Usuario(
-            idUserInfo: 1,
-            roles: [],
-            dni: '1',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-            nombre: 'gonzalo',
-            apellido: 'higuain',
-            urlFotoDePerfil: 'https://picsum.photos/200/300',
-          ),
-          Usuario(
-            idUserInfo: 2,
-            roles: [],
-            dni: '2',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-            nombre: 'gonzalo',
-            apellido: 'higuain',
-            urlFotoDePerfil: 'https://picsum.photos/200/300',
-          ),
-          Usuario(
-            idUserInfo: 3,
-            roles: [],
-            dni: '3',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-            nombre: 'gonzalo',
-            apellido: 'higuain',
-            urlFotoDePerfil: 'https://picsum.photos/200/300',
-          ),
-          Usuario(
-            idUserInfo: 4,
-            roles: [],
-            dni: '4',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-            nombre: 'gonzalo',
-            apellido: 'higuain',
-            urlFotoDePerfil: 'https://picsum.photos/200/300',
-          ),
-          Usuario(
-            idUserInfo: 5,
-            roles: [],
-            dni: '5',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-            nombre: 'gonzalo',
-            apellido: 'higuain',
-            urlFotoDePerfil: 'https://picsum.photos/200/300',
-          ),
-          Usuario(
-            idUserInfo: 6,
-            roles: [],
-            dni: '6',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
-            nombre: 'gonzalo',
-            apellido: 'higuain',
-            urlFotoDePerfil: 'https://picsum.photos/200/300',
-          ),
-        ];
+        // TODO(anyone): llamar al endpoint de traer cursos
 
         final cursos = [
           ComisionDeCurso(
             nombre: 'Primero',
             idCurso: 1,
             anioLectivo: 2023,
-            estudiantes: alumnos,
+            estudiantes: [],
             ultimaModificacion: DateTime(2024, 1, 4),
             fechaCreacion: DateTime.now(),
           ),
@@ -109,7 +47,7 @@ class BlocInasistencias
             nombre: 'Segundo',
             idCurso: 2,
             anioLectivo: 2023,
-            estudiantes: alumnos,
+            estudiantes: [],
             ultimaModificacion: DateTime(2024, 1, 4),
             fechaCreacion: DateTime.now(),
           ),
@@ -117,7 +55,7 @@ class BlocInasistencias
             nombre: 'Tercero',
             idCurso: 3,
             anioLectivo: 2023,
-            estudiantes: alumnos,
+            estudiantes: [],
             ultimaModificacion: DateTime(2024, 1, 4),
             fechaCreacion: DateTime.now(),
           ),
@@ -125,7 +63,7 @@ class BlocInasistencias
             nombre: 'Cuarto',
             idCurso: 5,
             anioLectivo: 2023,
-            estudiantes: alumnos,
+            estudiantes: [],
             ultimaModificacion: DateTime(2024, 1, 4),
             fechaCreacion: DateTime.now(),
           ),
@@ -146,7 +84,7 @@ class BlocInasistencias
           final listaAsistenciaDiaria = estudiantes.map(
             (estudiante) {
               return AsistenciaDiaria(
-                estudianteId: estudiante.idUserInfo,
+                estudianteId: estudiante.usuarioId,
                 comisionId:
                     curso.idCurso, // Usar el ID del curso como identificador
                 estadoDeAsistencia: EstadoDeAsistencia.sinEstado,

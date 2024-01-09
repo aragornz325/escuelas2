@@ -33,31 +33,36 @@ class BlocKycEventoSeleccionarRol extends BlocKycEvento {
   final bool eliminarRolSeleccionado;
 }
 
-/// {@template BlocKycEventoSeleccionarCursoYMateria}
-/// Selecciona una materia o curso de una de las opciones
+/// {@template BlocKycEventoAgregarOpcionDocente}
+/// Agrega una nueva opcion de kyc para elegir una asignatura
 /// {@endtemplate}
-class BlocKycEventoSeleccionarCursoYMateria extends BlocKycEvento {
-  /// {@macro BlocKycEventoSeleccionarCursoYMateria}
-  const BlocKycEventoSeleccionarCursoYMateria({
-    required this.idOpcion,
-    this.idCurso,
-    this.idMateria,
+class BlocKycEventoAgregarOpcionDocente extends BlocKycEvento {
+  /// {@macro BlocKycEventoAgregarOpcionDocente}
+  const BlocKycEventoAgregarOpcionDocente({
+    required this.idAsignaturaSeleccionada,
+    required this.idComisionSeleccionada,
   });
 
-  /// Id de la opcion a la cual se le va a asignar el curso/materia
-  final int idOpcion;
+  /// Id de la asignatura seleccionada
 
-  /// Id del curso seleccionado
-  final int? idCurso;
+  final int idAsignaturaSeleccionada;
 
-  /// Id de la materia seleccionada
-  final int? idMateria;
+  /// Id de la comision seleccionada
+  final int idComisionSeleccionada;
 }
 
-/// {@template BlocKycEventoAgregarOpcion}
-/// Agrega una nueva opcion de kyc para elegir una materia
+/// {@template BlocKycEventoAgregarOpcionAlumno}
+/// Agrega una nueva opcion de kyc para elegir una comision
 /// {@endtemplate}
-class BlocKycEventoAgregarOpcion extends BlocKycEvento {}
+class BlocKycEventoAgregarOpcionAlumno extends BlocKycEvento {
+  /// {@macro BlocKycEventoAgregarOpcionAlumno}
+  const BlocKycEventoAgregarOpcionAlumno({
+    required this.idComisionSeleccionada,
+  });
+
+  /// Id de la comision seleccionada
+  final int idComisionSeleccionada;
+}
 
 /// {@template BlocKycEventoEliminarOpcion}
 /// Elimina una opcion del kyc
@@ -65,6 +70,8 @@ class BlocKycEventoAgregarOpcion extends BlocKycEvento {}
 class BlocKycEventoEliminarOpcion extends BlocKycEvento {
   /// {@macro BlocKycEventoizarOpcion}
   const BlocKycEventoEliminarOpcion({required this.idOpcion});
+
+  /// Id de la opcion a eliminar
   final int idOpcion;
 }
 
