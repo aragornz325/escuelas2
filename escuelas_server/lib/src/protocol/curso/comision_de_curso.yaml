@@ -7,4 +7,4 @@ fields:
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
-  estudiantes: List<RelacionComisionUsuario>?, relation(name=comision_usuario)
+  estudiantes: List<RelacionComisionUsuario>?, relation(name=comision_comisiones)

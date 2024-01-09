@@ -241,21 +241,14 @@
           "dartType": "int?"
         },
         {
-          "name": "idEstudiante",
+          "name": "estudianteId",
           "columnType": 2,
           "isNullable": false,
           "columnDefault": null,
           "dartType": "int"
         },
         {
-          "name": "idAsignatura",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "idComision",
+          "name": "comisionId",
           "columnType": 2,
           "isNullable": false,
           "columnDefault": null,
@@ -308,7 +301,7 @@
         {
           "constraintName": "asistencias_diarias_fk_0",
           "columns": [
-            "idEstudiante"
+            "estudianteId"
           ],
           "referenceTable": "usuarios",
           "referenceTableSchema": "public",
@@ -322,21 +315,7 @@
         {
           "constraintName": "asistencias_diarias_fk_1",
           "columns": [
-            "idAsignatura"
-          ],
-          "referenceTable": "asignaturas",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 3,
-          "matchType": null
-        },
-        {
-          "constraintName": "asistencias_diarias_fk_2",
-          "columns": [
-            "idComision"
+            "comisionId"
           ],
           "referenceTable": "comisiones_de_curso",
           "referenceTableSchema": "public",
@@ -348,7 +327,7 @@
           "matchType": null
         },
         {
-          "constraintName": "asistencias_diarias_fk_3",
+          "constraintName": "asistencias_diarias_fk_2",
           "columns": [
             "idJustificacion"
           ],
@@ -381,179 +360,6 @@
       "managed": true
     },
     {
-      "name": "calificacion_asignaturas",
-      "dartName": "CalificacionAsignatura",
-      "module": "escuelas",
-      "schema": "public",
-      "tableSpace": null,
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": "nextval('calificacion_asignaturas_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "idEstudiante",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "idAsignatura",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "idComision",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "idCalificacion",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "observaciones",
-          "columnType": 0,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "String"
-        },
-        {
-          "name": "ultimaModificacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaCreacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaEliminacion",
-          "columnType": 4,
-          "isNullable": true,
-          "columnDefault": null,
-          "dartType": "DateTime?"
-        }
-      ],
-      "foreignKeys": [],
-      "indexes": [
-        {
-          "indexName": "calificacion_asignaturas_pkey",
-          "tableSpace": null,
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true,
-          "predicate": null
-        }
-      ],
-      "managed": true
-    },
-    {
-      "name": "calificacion_compensaciones",
-      "dartName": "CalificacionCompensacion",
-      "module": "escuelas",
-      "schema": "public",
-      "tableSpace": null,
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": "nextval('calificacion_compensaciones_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "idValorCalificacion",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "idEstudiante",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "idComision",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "idLlamado",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "ultimaModificacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaCreacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaEliminacion",
-          "columnType": 4,
-          "isNullable": true,
-          "columnDefault": null,
-          "dartType": "DateTime?"
-        }
-      ],
-      "foreignKeys": [],
-      "indexes": [
-        {
-          "indexName": "calificacion_compensaciones_pkey",
-          "tableSpace": null,
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true,
-          "predicate": null
-        }
-      ],
-      "managed": true
-    },
-    {
       "name": "calificaciones",
       "dartName": "Calificacion",
       "module": "escuelas",
@@ -568,18 +374,53 @@
           "dartType": "int?"
         },
         {
-          "name": "idTipoCalificacion",
+          "name": "idEstudiante",
           "columnType": 2,
           "isNullable": false,
           "columnDefault": null,
           "dartType": "int"
         },
         {
-          "name": "valor",
+          "name": "idComision",
           "columnType": 2,
           "isNullable": false,
           "columnDefault": null,
           "dartType": "int"
+        },
+        {
+          "name": "idAsignatura",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "idConcepto",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "tipoCalificacion",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "protocol:TipoCalificacion"
+        },
+        {
+          "name": "index",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "int"
+        },
+        {
+          "name": "diferencial",
+          "columnType": 0,
+          "isNullable": false,
+          "columnDefault": null,
+          "dartType": "String"
         },
         {
           "name": "detalle",
@@ -610,79 +451,67 @@
           "dartType": "DateTime?"
         }
       ],
-      "foreignKeys": [],
+      "foreignKeys": [
+        {
+          "constraintName": "calificaciones_fk_0",
+          "columns": [
+            "idEstudiante"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "calificaciones_fk_1",
+          "columns": [
+            "idComision"
+          ],
+          "referenceTable": "comisiones_de_curso",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "calificaciones_fk_2",
+          "columns": [
+            "idAsignatura"
+          ],
+          "referenceTable": "asignaturas",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "calificaciones_fk_3",
+          "columns": [
+            "idConcepto"
+          ],
+          "referenceTable": "conceptos_calificacion",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        }
+      ],
       "indexes": [
         {
           "indexName": "calificaciones_pkey",
-          "tableSpace": null,
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true,
-          "predicate": null
-        }
-      ],
-      "managed": true
-    },
-    {
-      "name": "calificaciones_conceptos",
-      "dartName": "CalificacionConcepto",
-      "module": "escuelas",
-      "schema": "public",
-      "tableSpace": null,
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": "nextval('calificaciones_conceptos_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "idConceptoCalificacion",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "idCalificacion",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "ultimaModificacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaCreacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaEliminacion",
-          "columnType": 4,
-          "isNullable": true,
-          "columnDefault": null,
-          "dartType": "DateTime?"
-        }
-      ],
-      "foreignKeys": [],
-      "indexes": [
-        {
-          "indexName": "calificaciones_conceptos_pkey",
           "tableSpace": null,
           "elements": [
             {
@@ -844,6 +673,13 @@
           "isNullable": true,
           "columnDefault": null,
           "dartType": "DateTime?"
+        },
+        {
+          "name": "_cursosComisionesCursosId",
+          "columnType": 2,
+          "isNullable": true,
+          "columnDefault": null,
+          "dartType": "int?"
         }
       ],
       "foreignKeys": [
@@ -851,6 +687,20 @@
           "constraintName": "comisiones_de_curso_fk_0",
           "columns": [
             "idCurso"
+          ],
+          "referenceTable": "cursos",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3,
+          "matchType": null
+        },
+        {
+          "constraintName": "comisiones_de_curso_fk_1",
+          "columns": [
+            "_cursosComisionesCursosId"
           ],
           "referenceTable": "cursos",
           "referenceTableSchema": "public",
@@ -2096,7 +1946,7 @@
           "predicate": null
         },
         {
-          "indexName": "r_usuario_comision_index_idx",
+          "indexName": "r_usuario_comisiones_index_idx",
           "tableSpace": null,
           "elements": [
             {
@@ -2265,68 +2115,6 @@
       "indexes": [
         {
           "indexName": "roles_de_usuario_pkey",
-          "tableSpace": null,
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true,
-          "predicate": null
-        }
-      ],
-      "managed": true
-    },
-    {
-      "name": "tipo_calificaciones",
-      "dartName": "TipoCalificacion",
-      "module": "escuelas",
-      "schema": "public",
-      "tableSpace": null,
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": "nextval('tipo_calificaciones_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "tipo",
-          "columnType": 0,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "String"
-        },
-        {
-          "name": "ultimaModificacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaCreacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaEliminacion",
-          "columnType": 4,
-          "isNullable": true,
-          "columnDefault": null,
-          "dartType": "DateTime?"
-        }
-      ],
-      "foreignKeys": [],
-      "indexes": [
-        {
-          "indexName": "tipo_calificaciones_pkey",
           "tableSpace": null,
           "elements": [
             {
@@ -2621,68 +2409,6 @@
         }
       ],
       "managed": true
-    },
-    {
-      "name": "valor_calificaciones",
-      "dartName": "ValorCalificacion",
-      "module": "escuelas",
-      "schema": "public",
-      "tableSpace": null,
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": "nextval('valor_calificaciones_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "valor",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "int"
-        },
-        {
-          "name": "ultimaModificacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaCreacion",
-          "columnType": 4,
-          "isNullable": false,
-          "columnDefault": null,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaEliminacion",
-          "columnType": 4,
-          "isNullable": true,
-          "columnDefault": null,
-          "dartType": "DateTime?"
-        }
-      ],
-      "foreignKeys": [],
-      "indexes": [
-        {
-          "indexName": "valor_calificaciones_pkey",
-          "tableSpace": null,
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true,
-          "predicate": null
-        }
-      ],
-      "managed": true
     }
   ],
   "installedModules": [
@@ -2696,12 +2422,6 @@
       "id": null,
       "module": "serverpod_auth",
       "version": "20231205080924753",
-      "timestamp": null
-    },
-    {
-      "id": null,
-      "module": "escuelas",
-      "version": "20240107205545719",
       "timestamp": null
     }
   ],

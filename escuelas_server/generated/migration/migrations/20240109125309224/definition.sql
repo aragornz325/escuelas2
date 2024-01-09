@@ -24,7 +24,8 @@ CREATE TABLE "asignaturas" (
     "idCurso" integer NOT NULL,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
+    "fechaEliminacion" timestamp without time zone,
+    "_cursosAsignaturasCursosId" integer
 );
 
 --
@@ -32,9 +33,8 @@ CREATE TABLE "asignaturas" (
 --
 CREATE TABLE "asistencias_diarias" (
     "id" serial PRIMARY KEY,
-    "idEstudiante" integer NOT NULL,
-    "idAsignatura" integer NOT NULL,
-    "idComision" integer NOT NULL,
+    "estudianteId" integer NOT NULL,
+    "comisionId" integer NOT NULL,
     "estadoDeAsistencia" integer NOT NULL,
     "fecha" timestamp without time zone NOT NULL,
     "idJustificacion" integer,
@@ -44,54 +44,18 @@ CREATE TABLE "asistencias_diarias" (
 );
 
 --
--- Class CalificacionAsignatura as table calificacion_asignaturas
---
-CREATE TABLE "calificacion_asignaturas" (
-    "id" serial PRIMARY KEY,
-    "idEstudiante" integer NOT NULL,
-    "idAsignatura" integer NOT NULL,
-    "idComision" integer NOT NULL,
-    "idCalificacion" integer NOT NULL,
-    "observaciones" text NOT NULL,
-    "ultimaModificacion" timestamp without time zone NOT NULL,
-    "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
-);
-
---
--- Class CalificacionCompensacion as table calificacion_compensaciones
---
-CREATE TABLE "calificacion_compensaciones" (
-    "id" serial PRIMARY KEY,
-    "idValorCalificacion" integer NOT NULL,
-    "idEstudiante" integer NOT NULL,
-    "idComision" integer NOT NULL,
-    "idLlamado" integer NOT NULL,
-    "ultimaModificacion" timestamp without time zone NOT NULL,
-    "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
-);
-
---
 -- Class Calificacion as table calificaciones
 --
 CREATE TABLE "calificaciones" (
     "id" serial PRIMARY KEY,
-    "idTipoCalificacion" integer NOT NULL,
-    "valor" integer NOT NULL,
+    "idEstudiante" integer NOT NULL,
+    "idComision" integer NOT NULL,
+    "idAsignatura" integer NOT NULL,
+    "idConcepto" integer NOT NULL,
+    "tipoCalificacion" integer NOT NULL,
+    "index" integer NOT NULL,
+    "diferencial" text NOT NULL,
     "detalle" text NOT NULL,
-    "ultimaModificacion" timestamp without time zone NOT NULL,
-    "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
-);
-
---
--- Class CalificacionConcepto as table calificaciones_conceptos
---
-CREATE TABLE "calificaciones_conceptos" (
-    "id" serial PRIMARY KEY,
-    "idConceptoCalificacion" integer NOT NULL,
-    "idCalificacion" integer NOT NULL,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
     "fechaEliminacion" timestamp without time zone
@@ -120,7 +84,8 @@ CREATE TABLE "comisiones_de_curso" (
     "anioLectivo" integer NOT NULL,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
+    "fechaEliminacion" timestamp without time zone,
+    "_cursosComisionesCursosId" integer
 );
 
 --
@@ -303,7 +268,7 @@ CREATE TABLE "r_comisiones_usuarios" (
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "r_usuario_comision_index_idx" ON "r_comisiones_usuarios" USING btree ("usuarioId", "comisionDeCursoId");
+CREATE UNIQUE INDEX "r_usuario_comisiones_index_idx" ON "r_comisiones_usuarios" USING btree ("usuarioId", "comisionDeCursoId");
 
 --
 -- Class RelacionUsuarioRol as table r_usuario_rol
@@ -330,17 +295,6 @@ CREATE TABLE "roles_de_usuario" (
 );
 
 --
--- Class TipoCalificacion as table tipo_calificaciones
---
-CREATE TABLE "tipo_calificaciones" (
-    "id" serial PRIMARY KEY,
-    "tipo" text NOT NULL,
-    "ultimaModificacion" timestamp without time zone NOT NULL,
-    "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
-);
-
---
 -- Class Usuario as table usuarios
 --
 CREATE TABLE "usuarios" (
@@ -349,7 +303,7 @@ CREATE TABLE "usuarios" (
     "nombre" text NOT NULL,
     "apellido" text NOT NULL,
     "urlFotoDePerfil" text NOT NULL,
-    "dni" text NOT NULL,
+    "dni" text,
     "domicilioId" integer,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
@@ -379,17 +333,6 @@ CREATE TABLE "usuarios_pendientes" (
 
 -- Indexes
 CREATE UNIQUE INDEX "comision_solicitada_unique_idx" ON "usuarios_pendientes" USING btree ("comisionSolicitadaId");
-
---
--- Class ValorCalificacion as table valor_calificaciones
---
-CREATE TABLE "valor_calificaciones" (
-    "id" serial PRIMARY KEY,
-    "valor" integer NOT NULL,
-    "ultimaModificacion" timestamp without time zone NOT NULL,
-    "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
-);
 
 --
 -- Class AuthKey as table serverpod_auth_key
@@ -726,30 +669,68 @@ ALTER TABLE ONLY "asignatura_solicitada"
     ON UPDATE NO ACTION;
 
 --
+-- Foreign relations for "asignaturas" table
+--
+ALTER TABLE ONLY "asignaturas"
+    ADD CONSTRAINT "asignaturas_fk_0"
+    FOREIGN KEY("idCurso")
+    REFERENCES "cursos"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "asignaturas"
+    ADD CONSTRAINT "asignaturas_fk_1"
+    FOREIGN KEY("_cursosAsignaturasCursosId")
+    REFERENCES "cursos"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
 -- Foreign relations for "asistencias_diarias" table
 --
 ALTER TABLE ONLY "asistencias_diarias"
     ADD CONSTRAINT "asistencias_diarias_fk_0"
-    FOREIGN KEY("idEstudiante")
+    FOREIGN KEY("estudianteId")
     REFERENCES "usuarios"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "asistencias_diarias"
     ADD CONSTRAINT "asistencias_diarias_fk_1"
-    FOREIGN KEY("idAsignatura")
-    REFERENCES "asignaturas"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE ONLY "asistencias_diarias"
-    ADD CONSTRAINT "asistencias_diarias_fk_2"
-    FOREIGN KEY("idComision")
+    FOREIGN KEY("comisionId")
     REFERENCES "comisiones_de_curso"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "asistencias_diarias"
-    ADD CONSTRAINT "asistencias_diarias_fk_3"
+    ADD CONSTRAINT "asistencias_diarias_fk_2"
     FOREIGN KEY("idJustificacion")
     REFERENCES "justificaciones_de_asistencia"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- Foreign relations for "calificaciones" table
+--
+ALTER TABLE ONLY "calificaciones"
+    ADD CONSTRAINT "calificaciones_fk_0"
+    FOREIGN KEY("idEstudiante")
+    REFERENCES "usuarios"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "calificaciones"
+    ADD CONSTRAINT "calificaciones_fk_1"
+    FOREIGN KEY("idComision")
+    REFERENCES "comisiones_de_curso"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "calificaciones"
+    ADD CONSTRAINT "calificaciones_fk_2"
+    FOREIGN KEY("idAsignatura")
+    REFERENCES "asignaturas"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "calificaciones"
+    ADD CONSTRAINT "calificaciones_fk_3"
+    FOREIGN KEY("idConcepto")
+    REFERENCES "conceptos_calificacion"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -769,6 +750,12 @@ ALTER TABLE ONLY "comision_solicitada"
 ALTER TABLE ONLY "comisiones_de_curso"
     ADD CONSTRAINT "comisiones_de_curso_fk_0"
     FOREIGN KEY("idCurso")
+    REFERENCES "cursos"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "comisiones_de_curso"
+    ADD CONSTRAINT "comisiones_de_curso_fk_1"
+    FOREIGN KEY("_cursosComisionesCursosId")
     REFERENCES "cursos"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
@@ -962,9 +949,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR escuelas
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('escuelas', '20240107195728563', now())
+    VALUES ('escuelas', '20240109125309224', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240107195728563', "timestamp" = now();
+    DO UPDATE SET "version" = '20240109125309224', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod
