@@ -54,7 +54,7 @@ class OrmCurso extends ORM {
           asignaturas: Asignatura.includeList(),
           comisiones: ComisionDeCurso.includeList(
             include: ComisionDeCurso.include(
-              cursadas: RelacionComisionUsuario.includeList(
+              estudiantes: RelacionComisionUsuario.includeList(
                 include: RelacionComisionUsuario.include(
                   usuario: Usuario.include(),
                 ),

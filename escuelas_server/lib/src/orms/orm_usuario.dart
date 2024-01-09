@@ -42,10 +42,9 @@ class OrmUsuario extends ORM {
               rol: RolDeUsuario.include(),
             ),
           ),
-          cursadas: RelacionComisionUsuario.includeList(
+          comisiones: RelacionComisionUsuario.includeList(
             include: RelacionComisionUsuario.include(
-              comision: ComisionDeCurso.include()
-            ),
+                comision: ComisionDeCurso.include()),
           ),
           asignaturas: RelacionAsignaturaUsuario.includeList(
             include: RelacionAsignaturaUsuario.include(
