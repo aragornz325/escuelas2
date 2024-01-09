@@ -35,7 +35,9 @@ class ServicioCurso extends Servicio<OrmCurso> {
   /// Returns:
   ///   un objeto `Futuro` que se resuelve en una `Lista` de objetos `Curso`.
   Future<List<Curso>> obtenerCursos(Session session) async {
-    final cursos = await ejecutarOperacion(() => orm.obtenerCursos(session));
+    final cursos = await ejecutarOperacion(
+      () => orm.obtenerCursos(session),
+    );
     return cursos;
   }
 
