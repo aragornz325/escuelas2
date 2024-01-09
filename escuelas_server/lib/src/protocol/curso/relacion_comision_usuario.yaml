@@ -1,12 +1,9 @@
 class: RelacionComisionUsuario
-table: r_comisiones_usuarios
+table: cursadas
 fields:
-  usuario: Usuario?, relation(name=usuario_comision)
-  comisionDeCurso: ComisionDeCurso?, relation(name=comision_usuario)
-  ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?
+  usuario: Usuario?, relation(name=usuario_cursadas)
+  comision: ComisionDeCurso?, relation(name=comision_cursadas)
 indexes:
-  r_usuario_comision_index_idx:
-    fields: usuarioId, comisionDeCursoId
+  cursada_index_idx:
+    fields: usuarioId, comisionId
     unique: true

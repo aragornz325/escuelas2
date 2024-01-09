@@ -9,7 +9,7 @@ asistencia:
   - crearAsistenciasEnLote:
   - traerAsistenciaPorDia:
   - actualizarAsistenciasEnLote:
-comisiones:
+comision:
   - asignarUsuarioAComision:
   - obtenerComisiones:
 curso:

@@ -13,7 +13,7 @@ fields:
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
-  comisiones: List<RelacionComisionUsuario>?, relation(name=usuario_comision)
+  cursadas: List<RelacionComisionUsuario>?, relation(name=usuario_cursadas)
   asignaturas: List<RelacionAsignaturaUsuario>?, relation(name=usuario_asignatura)
 indexes:
   usuarios_domicilios_de_usuario_unique_idx:

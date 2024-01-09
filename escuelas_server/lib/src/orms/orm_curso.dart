@@ -19,7 +19,14 @@ class OrmCurso extends ORM {
   }) async {
     final curso = await ejecutarOperacionOrm(
       session,
-      (session) => Curso.db.findById(session, id),
+      (session) => Curso.db.findById(
+        session,
+        id,
+        include: Curso.include(
+          asignaturas: Asignatura.includeList(),
+          comisiones: ComisionDeCurso.includeList(),
+        ),
+      ),
     );
     if (curso == null) {
       throw Exception(
@@ -41,13 +48,29 @@ class OrmCurso extends ORM {
   Future<List<Curso>> obtenerCursos(Session session) async {
     final cursos = await ejecutarOperacionOrm(
       session,
-      (session) => Curso.db.find(session),
+      (session) => Curso.db.find(
+        session,
+        include: Curso.include(
+          asignaturas: Asignatura.includeList(),
+          comisiones: ComisionDeCurso.includeList(
+            include: ComisionDeCurso.include(
+              cursadas: RelacionComisionUsuario.includeList(
+                include: RelacionComisionUsuario.include(
+                  usuario: Usuario.include(),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
+
     if (cursos.isEmpty) {
       throw Exception(
         'No hay cursos',
       );
     }
+
     return cursos;
   }
 

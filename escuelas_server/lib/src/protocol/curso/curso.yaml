@@ -3,6 +3,7 @@ table: cursos
 fields:
   nombre: String
   asignaturas: List<Asignatura>?, relation
+  comisiones: List<ComisionDeCurso>?, relation
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?

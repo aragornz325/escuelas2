@@ -15,9 +15,7 @@ class OrmUsuarioComision extends ORM {
         session,
         RelacionComisionUsuario(
           usuarioId: idUsuario,
-          comisionDeCursoId: idComision,
-          ultimaModificacion: ahora,
-          fechaCreacion: ahora,
+          comisionId: idComision,
         ),
       );
     });
