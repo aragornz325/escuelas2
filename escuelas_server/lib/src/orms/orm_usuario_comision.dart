@@ -32,11 +32,11 @@ class OrmUsuarioComision extends ORM {
         session,
         where: (t) {
           if (idComision != null && idUsuario != null) {
-            return t.comisionDeCursoId.equals(idComision) &
+            return t.comisionId.equals(idComision) &
                 t.usuarioId.equals(idUsuario);
           }
           if (idComision != null && idUsuario == null) {
-            return t.comisionDeCursoId.equals(idComision);
+            return t.comisionId.equals(idComision);
           }
           if (idComision == null && idUsuario != null) {
             return t.usuarioId.equals(idUsuario);
