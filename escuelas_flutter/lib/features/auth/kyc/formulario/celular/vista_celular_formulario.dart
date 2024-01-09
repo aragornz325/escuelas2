@@ -1,5 +1,3 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/widgets.dart';
@@ -55,16 +53,21 @@ class VistaCelularFormulario extends StatelessWidget {
                     child: Column(
                       children: state.opcionesFormulario
                           .map(
-                            (e) => ElementoLista.kyc(
-                              onTapWidgetLateralDerecho: () =>
-                                  context.read<BlocKyc>().add(
-                                        BlocKycEventoEliminarOpcion(
-                                          idOpcion: e.idOpcion,
+                            (e) => Padding(
+                              padding: EdgeInsets.only(bottom: 10.ph),
+                              child: ElementoLista.kyc(
+                                onTapWidgetLateralDerecho: () =>
+                                    context.read<BlocKyc>().add(
+                                          BlocKycEventoEliminarOpcion(
+                                            idOpcion: e.idOpcion,
+                                          ),
                                         ),
-                                      ),
-                              nombreAsignatura: e.nombreAsignaturaSeleccionado,
-                              nombreCurso: e.nombreCursoSeleccionado,
-                              context: context,
+                                nombreAsignatura:
+                                    e.asignaturaSeleccionada?.nombre ?? '',
+                                nombreComision:
+                                    e.comisionSeleccionada?.nombre ?? '',
+                                context: context,
+                              ),
                             ),
                           )
                           .toList(),
@@ -87,7 +90,10 @@ class VistaCelularFormulario extends StatelessWidget {
               padding: EdgeInsets.only(bottom: 40.ph),
               child: Column(
                 children: [
-                  BotonAgregarOpcion(),
+                  if (state.rolElegido?.nombre == 'docente')
+                    BotonAgregarOpcion.docente(context: context),
+                  if (state.rolElegido?.nombre == 'alumno')
+                    BotonAgregarOpcion.alumno(context: context),
                   SizedBox(height: 20.ph),
                   const BotonSolicitarRol(),
                 ],

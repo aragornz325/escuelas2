@@ -1,5 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/extensiones/asignatura.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+import 'package:escuelas_flutter/extensiones/comision_de_curso.dart';
+import 'package:escuelas_flutter/extensiones/rol_de_usuario.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -16,8 +20,8 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
   /// {@macro BlocKyc}
   BlocKyc() : super(const BlocKycEstadoInicial()) {
     on<BlocKycEventoInicializar>(_onInicializar);
-    on<BlocKycEventoSeleccionarCursoYMateria>(_seleccionarCursoYMateria);
-    on<BlocKycEventoAgregarOpcion>(_agregarOpcion);
+    on<BlocKycEventoAgregarOpcionDocente>(_agregarOpcionDocente);
+    on<BlocKycEventoAgregarOpcionAlumno>(_agregarOpcionAlumno);
     on<BlocKycEventoEliminarOpcion>(_eliminarOpcion);
     on<BlocKycEventoSeleccionarRol>(_seleccionarRol);
     on<BlocKycEventoCerrarSesion>(_cerrarSesion);
@@ -34,38 +38,19 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
       callback: (client) async {
         final asignaturas = await client.asignatura.obtenerAsignaturas();
 
-        // final cursos = await client.curso.obtenerCursos();
+        final comisiones = await client.comision.obtenerComisiones();
 
         final roles = await client.rol.obtenerRoles();
         // TODO(anyone): Ver como manejar los roles que se muestran
-        // final rolesAMostrar = roles
-        //     .where((rol) => rol.nombre == 'Mati' || rol.nombre == 'Chepibe')
-        //     .toList();
+        final rolesAMostrar = roles
+            .where((rol) => rol.nombre == 'alumno' || rol.nombre == 'docente')
+            .toList();
         emit(
           BlocKycEstadoExitoso.desde(
             state,
             listaAsignaturas: asignaturas,
-            listaCursos: [
-              Curso(
-                id: 0,
-                nombre: 'Primero A',
-                ultimaModificacion: DateTime.now(),
-                fechaCreacion: DateTime.now(),
-              ),
-              Curso(
-                id: 1,
-                nombre: 'Primero b',
-                ultimaModificacion: DateTime.now(),
-                fechaCreacion: DateTime.now(),
-              ),
-              Curso(
-                id: 2,
-                nombre: 'Primero c',
-                ultimaModificacion: DateTime.now(),
-                fechaCreacion: DateTime.now(),
-              ),
-            ],
-            listaRoles: roles,
+            listaComisiones: comisiones,
+            listaRoles: rolesAMostrar,
           ),
         );
       },
@@ -91,55 +76,64 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
-  /// Se selecciona el curso y la materia de la opcion de kyc
-  void _seleccionarCursoYMateria(
-    BlocKycEventoSeleccionarCursoYMateria event,
+  /// Agrega una nueva opcion a la lista de kyc
+  void _agregarOpcionDocente(
+    BlocKycEventoAgregarOpcionDocente event,
     Emitter<BlocKycEstado> emit,
   ) {
-    // final nuevaListaOpciones =
-    //     List<OpcionFormulario>.from(state.opcionesFormulario);
+    final nuevaListaOpciones = List<OpcionFormulario>.from(
+      state.opcionesFormulario,
+    );
 
-    // final opcionAModificar = nuevaListaOpciones
-    //     .firstWhere((opcionKyc) => opcionKyc.idOpcion == event.idOpcion);
-
-    // if (event.idCurso != null) {
-    //   opcionAModificar.curso =
-    //       state.listaCursos.firstWhere((curso) => curso.id == event.idCurso);
-    // }
-
-    // if (event.idMateria != null) {
-    //   opcionAModificar.asignatura = state.listaAsignaturas
-    //       .firstWhere((materia) => materia.id == event.idMateria);
-    // }
-
+    final opcion = nuevaListaOpciones.firstWhereOrNull(
+      (element) =>
+          element.comisionSeleccionada?.id == event.idComisionSeleccionada &&
+          element.asignaturaSeleccionada?.id == event.idAsignaturaSeleccionada,
+    );
+    if (opcion == null) {
+      nuevaListaOpciones.add(
+        OpcionFormulario(
+          idOpcion: state.opcionesFormulario.length + 1,
+          comisionSeleccionada: state.listaComisiones.firstWhere(
+            (element) => element.id == event.idComisionSeleccionada,
+          ),
+          asignaturaSeleccionada: state.listaAsignaturas.firstWhere(
+            (element) => element.id == event.idAsignaturaSeleccionada,
+          ),
+        ),
+      );
+    }
     emit(
       BlocKycEstadoExitoso.desde(
         state,
-        // opcionesFormulario: nuevaListaOpciones,
+        opcionesFormulario: nuevaListaOpciones,
       ),
     );
   }
 
   /// Agrega una nueva opcion a la lista de kyc
-  void _agregarOpcion(
-    BlocKycEventoAgregarOpcion event,
+  void _agregarOpcionAlumno(
+    BlocKycEventoAgregarOpcionAlumno event,
     Emitter<BlocKycEstado> emit,
   ) {
     final nuevaListaOpciones = List<OpcionFormulario>.from(
       state.opcionesFormulario,
-    )..add(
+    );
+    final opcion = nuevaListaOpciones.firstWhereOrNull(
+      (element) =>
+          element.comisionSeleccionada?.id == event.idComisionSeleccionada,
+    );
+    if (opcion == null) {
+      nuevaListaOpciones.add(
         OpcionFormulario(
           idOpcion: state.opcionesFormulario.length + 1,
-          nombreCursoSeleccionado: state.listaCursos
-              .firstWhere((element) => element.id == event.idCursoSeleccionado)
-              .nombre,
-          nombreAsignaturaSeleccionado: state.listaAsignaturas
-              .firstWhere(
-                (element) => element.id == event.idAsignaturaSeleccionada,
-              )
-              .nombre,
+          comisionSeleccionada: state.listaComisiones.firstWhere(
+            (element) => element.id == event.idComisionSeleccionada,
+          ),
         ),
       );
+    }
+
     emit(
       BlocKycEstadoExitoso.desde(
         state,
@@ -205,45 +199,28 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
   ) async {
     await operacionBloc(
       callback: (client) async {
+        final usuario = sessionManager.signedInUser;
         final usuarioPendiente = UsuarioPendiente(
-          idUserInfo: sessionManager.signedInUser?.id ?? 0,
-          nombre: sessionManager.signedInUser?.fullName ?? '',
-          apellido: sessionManager.signedInUser?.userName ?? '',
-          urlFotoDePerfil: sessionManager.signedInUser?.imageUrl ?? '',
+          idUserInfo: usuario?.id ?? 0,
+          nombre: usuario?.fullName ?? '',
+          apellido: usuario?.userName ?? '',
+          urlFotoDePerfil: usuario?.imageUrl ?? '',
           dni: '123',
           rolSolicitado: state.rolElegido?.id ?? 0,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
         );
         if (state.rolElegido?.nombre == 'docente') {
           await client.usuario.enviarSolicitudRegistroDocente(
-            asignaturasASolicitar: state.listaAsignaturas,
+            asignaturasASolicitar: state.opcionesFormulario
+                .map((e) => e.asignaturaSeleccionada!)
+                .toList(),
             usuarioPendiente: usuarioPendiente,
           );
         }
-        if (state.rolElegido?.nombre == 'Admin') {
+        if (state.rolElegido?.nombre == 'alumno') {
           await client.usuario.enviarSolicitudRegistroAlumno(
-            comisionDeCurso: ComisionDeCurso(
-              nombre: state.listaCursos
-                  .firstWhere(
-                    (element) =>
-                        element.nombre ==
-                        state.opcionesFormulario.first.nombreCursoSeleccionado,
-                  )
-                  .nombre,
-              idCurso: state.listaCursos
-                      .firstWhere(
-                        (element) =>
-                            element.nombre ==
-                            state.opcionesFormulario.first
-                                .nombreCursoSeleccionado,
-                      )
-                      .id ??
-                  0,
-              anioLectivo: 2021,
-              estudiantes: [],
-              ultimaModificacion: DateTime.now(),
-              fechaCreacion: DateTime.now(),
-            ),
+            comisionDeCurso:
+                state.opcionesFormulario.first.comisionSeleccionada!,
             usuarioPendiente: usuarioPendiente,
           );
         }
@@ -278,76 +255,14 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
 
 class OpcionFormulario {
   OpcionFormulario({
-    required this.nombreCursoSeleccionado,
-    required this.nombreAsignaturaSeleccionado,
     required this.idOpcion,
+    this.comisionSeleccionada,
+    this.asignaturaSeleccionada,
   });
 
-  factory OpcionFormulario.fromJson(Map<String, dynamic> json) {
-    return OpcionFormulario(
-      nombreCursoSeleccionado: json['nombreCursoSeleccionado'] as String,
-      nombreAsignaturaSeleccionado:
-          json['nombreAsignaturaSeleccionado'] as String,
-      idOpcion: json['idOpcion'] as int,
-    );
-  }
-
-  String nombreCursoSeleccionado;
-  String nombreAsignaturaSeleccionado;
+  ComisionDeCurso? comisionSeleccionada;
+  Asignatura? asignaturaSeleccionada;
   final int idOpcion;
-
-  Map<String, dynamic> toJson() {
-    return {
-      'nombreCursoSeleccionado': nombreCursoSeleccionado,
-      'nombreAsignaturaSeleccionado': nombreAsignaturaSeleccionado,
-      'idOpcion': idOpcion,
-    };
-  }
 }
 
-/// Posee un toJson mas adecuado para la clase [Curso]
-/// ya que Serverpod no deserealiza correctamente.
-extension CursoX on Curso {
-  //! TODO(anyone): Remover esto cuando se arregle el toJson() de Serverpod
-  /// toJson para evitar usar el del modelo Serverpod porque no deserializa
-  /// correctamente [DateTime] para eso agregamos un  .toIso8601String().
-  Map<String, dynamic> toJsonBloc() {
-    return {
-      'id': id,
-      'nombre': nombre,
-      'asignaturas':
-          asignaturas?.map((asignatura) => asignatura.toJsonBloc()).toList(),
-      'ultimaModificacion': ultimaModificacion.toIso8601String(),
-      'fechaCreacion': fechaCreacion.toIso8601String(),
-      'fechaEliminacion': fechaEliminacion?.toIso8601String(),
-    };
-  }
-}
-
-/// Posee un toJson mas adecuado para la clase [Asignatura]
-/// ya que Serverpod no deserealiza correctamente.
-extension AsignaturaX on Asignatura {
-  Map<String, dynamic> toJsonBloc() {
-    return {
-      'id': id,
-      'nombre': nombre,
-      'idCurso': idCurso,
-      'ultimaModificacion': ultimaModificacion.toIso8601String(),
-      'fechaCreacion': fechaCreacion.toIso8601String(),
-      'fechaEliminacion': fechaEliminacion?.toIso8601String(),
-    };
-  }
-}
-
-/// Posee un toJson mas adecuado para la clase [RolDeUsuario]
-/// ya que Serverpod no deserealiza correctamente.
-extension RolDeUsuarioX on RolDeUsuario {
-  Map<String, dynamic> toJsonBloc() {
-    return {
-      'id': id,
-      'nombre': nombre,
-      'descripcion': descripcion,
-    };
-  }
-}
 // TODO(SAM): Agregar logout event y tmb clear de localstorage de datos del user

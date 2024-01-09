@@ -334,25 +334,28 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
                       SizedBox(width: widget.icon != null ? 5.pw : 1.pw),
                       Expanded(
                         flex: 20,
-                        child: Text(
-                          widget.value != null
-                              ? widget.valueText
-                              : widget.hintText,
-                          style: widget.hintStyle ??
-                              TextStyle(
-                                color: widget.value != null
-                                    ? widget.valueColor ?? colores.secondary
-                                    : widget.enabled
-                                        ? colores.secondary
-                                        : colores.secondary.withOpacity(0.2),
-                                fontSize: 16.pf,
-                                fontWeight: widget.value != null
-                                    ? FontWeight.w600
-                                    : FontWeight.w400,
-                              ),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                          softWrap: false,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 5.pw),
+                          child: Text(
+                            widget.value != null
+                                ? widget.valueText
+                                : widget.hintText,
+                            style: widget.hintStyle ??
+                                TextStyle(
+                                  color: widget.value != null
+                                      ? widget.valueColor ?? colores.primary
+                                      : widget.enabled
+                                          ? colores.onBackground
+                                          : colores.secondary.withOpacity(0.2),
+                                  fontSize: 16.pf,
+                                  fontWeight: widget.value != null
+                                      ? FontWeight.w600
+                                      : FontWeight.w400,
+                                ),
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            softWrap: false,
+                          ),
                         ),
                       ),
                       const Spacer(),
@@ -551,7 +554,7 @@ class _PRDropdownOptionWidgetState<T>
                       style: widget.textStyle ??
                           TextStyle(
                             fontSize: 16.pf,
-                            color: colores.onPrimary,
+                            color: colores.onBackground,
                             fontWeight: FontWeight.w400,
                           ),
                       overflow: TextOverflow.ellipsis,
