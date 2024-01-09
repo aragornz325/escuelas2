@@ -28,10 +28,11 @@ extension ComisionDeCursoX on ComisionDeCurso {
 
   /// Devuelve true si todos los alumnos tienen al menos una asistencia
   bool alumnosSinInasistencias(List<AsistenciaDiaria> asistenciasDiarias) {
-    final estudiantes = this.cursadas ?? [];
+    final estudiantes = cursadas?.map((e) => e.usuario).toList() ?? [];
+
     return estudiantes.every((estudiante) {
       final asistenciasEstudiante = asistenciasDiarias.where(
-        (asistencia) => asistencia.estudianteId == estudiante.usuarioId,
+        (asistencia) => asistencia.estudianteId == estudiante?.id,
       );
 
       return asistenciasEstudiante.every(

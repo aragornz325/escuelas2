@@ -308,6 +308,46 @@ class ElementoLista extends StatelessWidget {
     );
   }
 
+  /// Elemento de lista para la lista de cursos en supervision de envio de
+  /// calificaciones
+  factory ElementoLista.kyc({
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Nombre de la materia
+    required String nombreAsignatura,
+
+    /// Nombre del profesor de la materia
+    required String nombreCurso,
+
+    /// Fecha de carga de las calificaciones de la asignatura
+    required void Function() onTapWidgetLateralDerecho,
+  }) {
+    final colores = context.colores;
+
+    return ElementoLista(
+      altura: 50.ph,
+      borderRadius: 50.sw,
+      texto: Text(
+        '$nombreAsignatura - ' '$nombreCurso',
+        style: TextStyle(
+          color: colores.onSecondary,
+          fontSize: 16.pf,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      widgetLateralDerecho: Padding(
+        padding: EdgeInsets.only(right: 10.pw),
+        child: GestureDetector(
+          onTap: onTapWidgetLateralDerecho,
+          child: const Icon(
+            Icons.delete,
+          ),
+        ),
+      ),
+    );
+  }
+
   /// Texto alineado a la izquierda
   final Text texto;
 

@@ -35,7 +35,6 @@ class BotonSolicitarRol extends StatelessWidget {
               return BlocProvider(
                 create: (context) => BlocKyc(),
                 child: EscuelasDialog.confirmar(
-                  context: context,
                   onTapConfirmar: () => context.read<BlocKyc>().add(
                         BlocKycEventoSolicitarRegistro(
                           userInfo: sessionManager.signedInUser,

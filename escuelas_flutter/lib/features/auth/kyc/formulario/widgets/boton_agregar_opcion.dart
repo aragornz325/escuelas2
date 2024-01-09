@@ -29,8 +29,9 @@ class BotonAgregarOpcion extends StatelessWidget {
         context: context,
         builder: (_) => BlocProvider(
           create: (context) => BlocKyc(),
-          child: EscuelasDialog.confirmar(
+          child: EscuelasDialog.solicitudDeAccion(
             context: context,
+            titulo: 'Elegi tu asignatura - DOCENTE',
             onTapConfirmar: () {
               context.read<BlocKyc>().add(
                     BlocKycEventoAgregarOpcion(
@@ -42,7 +43,19 @@ class BotonAgregarOpcion extends StatelessWidget {
             content: BlocBuilder<BlocKyc, BlocKycEstado>(
               builder: (context, state) {
                 return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.ph),
+                      child: Text(
+                        l10n.pageKycFormWhatYearIsYourSubject,
+                        style: TextStyle(
+                          color: colores.onBackground,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13.pf,
+                        ),
+                      ),
+                    ),
                     FormularioDropdown(
                       lista: state.listaAsignaturas
                           .map(
@@ -56,6 +69,17 @@ class BotonAgregarOpcion extends StatelessWidget {
                         final valor = value.first;
                         asignaturaSeleccionada = valor.value;
                       },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(vertical: 10.ph),
+                      child: Text(
+                        l10n.pageKycFormWhichSubjectIsIt,
+                        style: TextStyle(
+                          color: colores.onBackground,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13.pf,
+                        ),
+                      ),
                     ),
                     FormularioDropdown(
                       lista: state.listaCursos

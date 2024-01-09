@@ -24,60 +24,76 @@ class VistaCelularFormulario extends StatelessWidget {
 
     final l10n = context.l10n;
 
-    return BlocConsumer<BlocKyc, BlocKycEstado>(
-      listener: (context, state) {
-        if (state is BlocKycEstadoExitoAlSolicitarRegistro) {
-          Navigator.of(context).pop();
-          context.router.replace(const RutaEspera());
-        }
-      },
+    return BlocBuilder<BlocKyc, BlocKycEstado>(
       builder: (context, state) {
         if (state is BlocKycEstadoCargando) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
-        return Padding(
-          padding: EdgeInsets.only(bottom: 40.ph),
-          child: Column(
-            children: [
-              SizedBox(height: 20.ph),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 30.pw),
-                child: Text(
-                  l10n.pageKycFormDescription,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 14.pf,
-                  ),
-                ),
-              ),
-              if (state.opcionesFormulario.isEmpty)
-                const Text(
-                  'Agrega las asignaturas quetengas asignadas para continuar',
-                ),
-              ...state.opcionesFormulario.map(
-                (e) => ElementoLista(
-                  texto: Text('${e.nombreAsignaturaSeleccionado}'
-                      '${e.nombreCursoSeleccionado}'),
-                  widgetLateralDerecho: GestureDetector(
-                    onTap: () => context
-                        .read<BlocKyc>()
-                        .add(BlocKycEventoEliminarOpcion(idOpcion: e.idOpcion)),
-                    child: const Icon(
-                      Icons.delete,
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 30.pw)
+                      .copyWith(top: 20.ph, bottom: 40.ph),
+                  child: Text(
+                    l10n.pageKycFormDescription,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 14.pf,
                     ),
                   ),
                 ),
+                if (state.opcionesFormulario.isNotEmpty)
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30.pw),
+                    child: Column(
+                      children: state.opcionesFormulario
+                          .map(
+                            (e) => ElementoLista.kyc(
+                              onTapWidgetLateralDerecho: () =>
+                                  context.read<BlocKyc>().add(
+                                        BlocKycEventoEliminarOpcion(
+                                          idOpcion: e.idOpcion,
+                                        ),
+                                      ),
+                              nombreAsignatura: e.nombreAsignaturaSeleccionado,
+                              nombreCurso: e.nombreCursoSeleccionado,
+                              context: context,
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ),
+              ],
+            ),
+            if (state.opcionesFormulario.isEmpty)
+              Center(
+                child: Text(
+                  'Agrega las asignaturas que\ntengas asignadas para\ncontinuar',
+                  style: TextStyle(
+                    color: colores.onSecondary,
+                    fontSize: 18.pf,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
               ),
-              SizedBox(height: 20.ph),
-              BotonAgregarOpcion(),
-              SizedBox(height: 20.ph),
-              const BotonSolicitarRol(),
-            ],
-          ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 40.ph),
+              child: Column(
+                children: [
+                  BotonAgregarOpcion(),
+                  SizedBox(height: 20.ph),
+                  const BotonSolicitarRol(),
+                ],
+              ),
+            ),
+          ],
         );
       },
     );

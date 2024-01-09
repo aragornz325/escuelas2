@@ -137,6 +137,29 @@ class EscuelasDialog extends StatelessWidget {
   /// El Dialog requiere obligatoriamente la propiedad `[onTapConfirmar]`,
   /// `[titulo]` y `[context]`.
   factory EscuelasDialog.confirmar({
+    required VoidCallback onTapConfirmar,
+    required Widget content,
+    String? titulo,
+    double? altura,
+    double? ancho,
+  }) {
+    return EscuelasDialog(
+      ancho: ancho,
+      altura: altura,
+      onTapConfirmar: onTapConfirmar,
+      content: content,
+      titulo: titulo,
+    );
+  }
+
+  /// `Dialog confirmar`:
+  ///
+  /// Se usa para el procedimiento de una operación y pedirle al usuario una
+  /// confirmacion.
+  ///
+  /// El Dialog requiere obligatoriamente la propiedad `[onTapConfirmar]`,
+  /// `[titulo]` y `[context]`.
+  factory EscuelasDialog.solicitudDeAccion({
     required BuildContext context,
     required VoidCallback onTapConfirmar,
     required Widget content,
@@ -151,9 +174,10 @@ class EscuelasDialog extends StatelessWidget {
     return EscuelasDialog(
       ancho: ancho,
       altura: altura,
-      conBotonCancelar: true,
       onTapConfirmar: onTapConfirmar,
-      tituloDelBotonSecundario: l10n.commonDecline.toUpperCase(),
+      conIconoCerrar: false,
+      conBotonCancelar: true,
+      tituloDelBotonSecundario: l10n.commonCancel.toUpperCase(),
       colorDeFondoDelBotonSecundario: colores.error,
       content: content,
       titulo: titulo,
@@ -260,17 +284,14 @@ class EscuelasDialog extends StatelessWidget {
                   ),
                 if (iconoAlLadoDelTitulo != null) SizedBox(width: 5.pw),
                 if (titulo != null)
-                  SizedBox(
-                    width: 150.pw,
-                    child: Text(
-                      titulo,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 15.pf,
-                        fontWeight: FontWeight.w600,
-                        color: colores.onBackground,
-                      ),
+                  Text(
+                    titulo,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 15.pf,
+                      fontWeight: FontWeight.w600,
+                      color: colores.onBackground,
                     ),
                   ),
                 if (conIconoCerrar) const Spacer(),

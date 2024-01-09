@@ -39,7 +39,7 @@ class BlocInasistencias
             nombre: 'Primero',
             idCurso: 1,
             anioLectivo: 2023,
-            estudiantes: [],
+            cursadas: [],
             ultimaModificacion: DateTime(2024, 1, 4),
             fechaCreacion: DateTime.now(),
           ),
@@ -47,7 +47,7 @@ class BlocInasistencias
             nombre: 'Segundo',
             idCurso: 2,
             anioLectivo: 2023,
-            estudiantes: [],
+            cursadas: [],
             ultimaModificacion: DateTime(2024, 1, 4),
             fechaCreacion: DateTime.now(),
           ),
@@ -55,7 +55,7 @@ class BlocInasistencias
             nombre: 'Tercero',
             idCurso: 3,
             anioLectivo: 2023,
-            estudiantes: [],
+            cursadas: [],
             ultimaModificacion: DateTime(2024, 1, 4),
             fechaCreacion: DateTime.now(),
           ),
@@ -63,7 +63,7 @@ class BlocInasistencias
             nombre: 'Cuarto',
             idCurso: 5,
             anioLectivo: 2023,
-            estudiantes: [],
+            cursadas: [],
             ultimaModificacion: DateTime(2024, 1, 4),
             fechaCreacion: DateTime.now(),
           ),
@@ -71,7 +71,7 @@ class BlocInasistencias
             nombre: 'Quinto',
             idCurso: 5,
             anioLectivo: 2023,
-            estudiantes: [],
+            cursadas: [],
             ultimaModificacion: DateTime(2024, 1, 4),
             fechaCreacion: DateTime.now(),
           ),
@@ -80,7 +80,7 @@ class BlocInasistencias
         final listasDeAsistencia = <List<AsistenciaDiaria>>[];
 
         for (final curso in cursos) {
-          final estudiantes = curso.estudiantes ?? [];
+          final estudiantes = curso.cursadas ?? [];
           final listaAsistenciaDiaria = estudiantes.map(
             (estudiante) {
               return AsistenciaDiaria(
