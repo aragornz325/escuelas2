@@ -26,40 +26,6 @@ class ElementoLista extends StatelessWidget {
     this.widgetLateralIzquierdo,
     super.key,
   });
-  factory ElementoLista.rol({
-    /// Indica si esta presionado o no
-    required bool estaPresionado,
-
-    /// Funcion a realizarse accionando el boton.
-    required VoidCallback onTap,
-
-    /// Nombre del rol.
-    required String nombreRol,
-
-    /// Contexto para utilizar colores del tema
-    required BuildContext context,
-  }) {
-    final colores = context.colores;
-
-    return ElementoLista(
-      texto: Text(
-        nombreRol,
-        style: TextStyle(
-          fontSize: 16.pf,
-          fontWeight: FontWeight.w900,
-        ),
-      ),
-      padding: EdgeInsets.symmetric(
-        vertical: 5.ph,
-      ).copyWith(left: 20.pw),
-      altura: 85.ph,
-      borderRadius: 20.sw,
-      colorFondo:
-          estaPresionado ? colores.grisBotonPresionado : colores.tertiary,
-      onTap: onTap,
-      tieneBoxShadow: estaPresionado,
-    );
-  }
 
   factory ElementoLista.misCursos({
     /// Funcion a realizarse accionando el boton.
@@ -193,11 +159,15 @@ class ElementoLista extends StatelessWidget {
     /// Contexto para utilizar colores del tema
     required BuildContext context,
 
+    /// Indica si esta presionado o no
+    bool estaPresionado = false,
+
     /// Componente que se agrega al final del [ElementoLista] a la derecha
     Widget? widgetLateralDerecho,
   }) {
     final colores = context.colores;
     return ElementoLista(
+      tieneBoxShadow: estaPresionado,
       altura: 65.ph,
       padding: EdgeInsets.only(left: 20.pw),
       texto: Text(
@@ -302,6 +272,51 @@ class ElementoLista extends StatelessWidget {
             ),
             fontSize: 15.pf,
             fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+    );
+  }
+
+  /// Elemento de lista para la lista de cursos en supervision de envio de
+  /// calificaciones
+  factory ElementoLista.kyc({
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Nombre de la materia
+    required String? nombreAsignatura,
+
+    /// Nombre del profesor de la materia
+    required String? nombreComision,
+
+    /// Fecha de carga de las calificaciones de la asignatura
+    required void Function() onTapWidgetLateralDerecho,
+  }) {
+    final colores = context.colores;
+
+    final sinGuion = nombreAsignatura == '';
+
+    return ElementoLista(
+      altura: 50.ph,
+      borderRadius: 50.sw,
+      padding: EdgeInsets.symmetric(horizontal: 20.pw),
+      texto: Text(
+        sinGuion ? '$nombreComision' : '$nombreAsignatura - $nombreComision',
+        style: TextStyle(
+          color: colores.onSecondary,
+          fontSize: 16.pf,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      widgetLateralDerecho: Padding(
+        padding: EdgeInsets.only(right: 10.pw),
+        child: GestureDetector(
+          onTap: onTapWidgetLateralDerecho,
+          child: Icon(
+            Icons.delete_outline_outlined,
+            size: 20.pw,
+            color: colores.error,
           ),
         ),
       ),

@@ -1,8 +1,8 @@
 class: RelacionComisionUsuario
 table: cursadas
 fields:
-  usuario: Usuario?, relation(name=usuario_cursadas)
-  comision: ComisionDeCurso?, relation(name=comision_cursadas)
+  usuario: Usuario?, relation(name=usuario_comisiones)
+  comision: ComisionDeCurso?, relation(name=comision_comisiones)
 indexes:
   cursada_index_idx:
     fields: usuarioId, comisionId

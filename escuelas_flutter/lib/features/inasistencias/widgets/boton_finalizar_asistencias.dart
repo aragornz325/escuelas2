@@ -1,5 +1,5 @@
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/extensiones/extension_curso.dart';
+import 'package:escuelas_flutter/extensiones/comision_de_curso.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/features/inasistencias/widgets/dialog/dialog_asistencia_del_dia.dart';
@@ -46,7 +46,7 @@ class BotonFinalizarInasistencias extends StatelessWidget {
         value: context.read<BlocInasistencias>(),
         child: DialogInasistenciasDelDia(
           asistencias: asistencias,
-          alumnos: curso.estudiantes ?? [],
+          alumnos: curso.estudiantes!.map((e) => e.usuario!).toList(),
           idCurso: curso.idCurso,
           fecha: fecha,
         ),

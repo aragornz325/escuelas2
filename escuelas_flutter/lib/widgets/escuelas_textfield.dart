@@ -16,6 +16,7 @@ class EscuelasTextfield extends StatefulWidget {
     required this.hintText,
     required this.controller,
     required this.esPassword,
+    this.focusNode,
     super.key,
     this.width,
     this.height,
@@ -29,6 +30,9 @@ class EscuelasTextfield extends StatefulWidget {
     this.obscureText,
     this.maxLength,
     this.maxLines,
+    this.prefixIcon,
+    this.onEditingComplete,
+    this.onFieldSubmitted,
   });
 
   /// TextFormField de email con su expresion regular.
@@ -137,6 +141,18 @@ class EscuelasTextfield extends StatefulWidget {
   /// Lineas maximas a ingresar
   final int? maxLines;
 
+  /// Focus Node del textfield
+  final FocusNode? focusNode;
+
+  /// Icono de prefijo
+  final IconData? prefixIcon;
+
+  /// Al completar el textfield ejecuta esa accion.
+  final void Function()? onEditingComplete;
+
+  /// Al apretar siguiente en el teclado ejecuta esa accion.
+  final void Function(String)? onFieldSubmitted;
+
   @override
   State<EscuelasTextfield> createState() => _EscuelasTextfieldState();
 }
@@ -150,6 +166,9 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
       width: widget.width?.sw ?? 300.sw,
       height: widget.height ?? max(40.ph, 40.sh),
       child: TextFormField(
+        onEditingComplete: widget.onEditingComplete,
+        onFieldSubmitted: widget.onFieldSubmitted,
+        focusNode: widget.focusNode,
         controller: widget.controller,
         keyboardType: widget.keyboardType ?? TextInputType.text,
         inputFormatters: widget.inputFormatters,
@@ -160,6 +179,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
         style: TextStyle(color: colores.primary),
         decoration: widget.decoration ??
             InputDecoration(
+              prefixIcon: Icon(widget.prefixIcon),
               contentPadding: EdgeInsets.symmetric(horizontal: 15.sw),
               filled: true,
               fillColor: colores.background,

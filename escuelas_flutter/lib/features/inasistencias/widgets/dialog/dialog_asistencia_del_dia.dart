@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/extensiones/extension_estado_asistencia.dart';
+import 'package:escuelas_flutter/extensiones/estado_asistencia.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/features/inasistencias/widgets/dialog/widgets/widget.dart';
