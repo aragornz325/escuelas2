@@ -57,7 +57,16 @@ class BlocKycEventoSeleccionarCursoYMateria extends BlocKycEvento {
 /// {@template BlocKycEventoAgregarOpcion}
 /// Agrega una nueva opcion de kyc para elegir una materia
 /// {@endtemplate}
-class BlocKycEventoAgregarOpcion extends BlocKycEvento {}
+class BlocKycEventoAgregarOpcion extends BlocKycEvento {
+  /// {@macro BlocKycEventoAgregarOpcion}
+  const BlocKycEventoAgregarOpcion({
+    required this.idAsignaturaSeleccionada,
+    required this.idCursoSeleccionado,
+  });
+
+  final int idAsignaturaSeleccionada;
+  final int idCursoSeleccionado;
+}
 
 /// {@template BlocKycEventoEliminarOpcion}
 /// Elimina una opcion del kyc

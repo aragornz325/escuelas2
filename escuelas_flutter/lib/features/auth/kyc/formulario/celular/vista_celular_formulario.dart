@@ -4,6 +4,7 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -53,11 +54,26 @@ class VistaCelularFormulario extends StatelessWidget {
                   ),
                 ),
               ),
+              if (state.opcionesFormulario.isEmpty)
+                const Text(
+                  'Agrega las asignaturas quetengas asignadas para continuar',
+                ),
+              ...state.opcionesFormulario.map(
+                (e) => ElementoLista(
+                  texto: Text('${e.nombreAsignaturaSeleccionado}'
+                      '${e.nombreCursoSeleccionado}'),
+                  widgetLateralDerecho: GestureDetector(
+                    onTap: () => context
+                        .read<BlocKyc>()
+                        .add(BlocKycEventoEliminarOpcion(idOpcion: e.idOpcion)),
+                    child: const Icon(
+                      Icons.delete,
+                    ),
+                  ),
+                ),
+              ),
               SizedBox(height: 20.ph),
-              const ListaDeBloqueMateria(),
-              // TODO(Gon): Cambiar esta logica cuando esten los permisos/roles bien definidos
-              // if (state.rolElegido?.nombre == 'Chepibe')
-              const BotonAgregarOpcion(),
+              BotonAgregarOpcion(),
               SizedBox(height: 20.ph),
               const BotonSolicitarRol(),
             ],

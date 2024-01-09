@@ -56,4 +56,7 @@ extension EscuelasColorScheme on ColorScheme {
 
   /// Color utilizado en el drawer para hacer sombreado al background.
   Color get onSecondaryOpacidadTreinta => onSecondary.withOpacity(0.3);
+
+  /// Este color es utilizable en los items del drawer cuando son seleccionados
+  Color get primaryOpacidadVeinte => primary.withOpacity(0.2);
 }
