@@ -101,7 +101,8 @@ class SeccionCursos extends StatelessWidget {
                   color: colores.tertiary,
                 ),
                 child: Text(
-                  state.usuario?.cursadas?.first.comision?.nombre ?? '',
+                  // TODO(Seba): Checkear si la lista no esta vacia
+                  state.usuario?.comisiones?.last.comision?.nombre ?? '',
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 13.pf,

@@ -45,7 +45,7 @@ class ItemCursoConListaDeAlumnos extends StatelessWidget {
       builder: (context, state) {
         final estudiantesPorCurso = state.asistenciasDiarias(curso.idCurso);
 
-        final estudiantes = curso.cursadas ?? [];
+        final estudiantes = curso.estudiantes ?? [];
 
         return Column(
           children: [

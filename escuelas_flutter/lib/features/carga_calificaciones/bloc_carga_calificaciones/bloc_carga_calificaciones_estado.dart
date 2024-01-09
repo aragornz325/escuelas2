@@ -55,7 +55,7 @@ class BlocCargaCalificacionesEstado {
       this is BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente;
 
   /// lista de estudiantes de un curso
-  List<RelacionComisionUsuario> get estudiantes => curso?.cursadas ?? [];
+  List<RelacionComisionUsuario> get estudiantes => curso?.estudiantes ?? [];
 
   List<Object?> get props => [
         curso,
