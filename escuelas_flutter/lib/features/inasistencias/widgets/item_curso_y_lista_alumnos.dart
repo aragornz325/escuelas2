@@ -73,7 +73,7 @@ class ItemCursoConListaDeAlumnos extends StatelessWidget {
                         SizedBox(
                           width: 250.pw,
                           child: Text(
-                            estudiantes[index].dni ?? '',
+                            estudiantes[index].usuario?.nombre ?? '',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: TextStyle(
@@ -88,7 +88,7 @@ class ItemCursoConListaDeAlumnos extends StatelessWidget {
                           onTap: () => context.read<BlocInasistencias>().add(
                                 BlocAsistenciaEventoCambiarInasistenciaAlumno(
                                   idCurso: curso.idCurso,
-                                  idAlumno: estudiantes[index].idUserInfo,
+                                  idAlumno: estudiantes[index].usuarioId,
                                   fecha: DateTime.now(),
                                   asistenciaDiaria: estudiantesPorCurso[index]
                                       .estadoDeAsistencia

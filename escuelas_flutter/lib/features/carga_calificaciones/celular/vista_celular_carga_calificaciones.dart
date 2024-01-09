@@ -114,7 +114,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                     (e) {
                       return TarjetaCargaCalificacionAlumno(
                         curso: curso,
-                        usuario: e,
+                        relacionComisionUsuario: e,
                         fecha: state.fecha ?? DateTime.now(),
                         rolDelUsuario: state.rolDelUsuario,
                       );

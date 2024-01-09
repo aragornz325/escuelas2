@@ -13,7 +13,7 @@ extension ComisionDeCursoX on ComisionDeCurso {
           (estudiante) {
             // Filtrar las asistencias diarias asociadas a este estudiante
             final asistenciasEstudiante = asistenciasDiarias.where(
-              (asistencia) => asistencia.estudianteId == estudiante.idUserInfo,
+              (asistencia) => asistencia.estudianteId == estudiante.usuarioId,
             );
 
             return asistenciasEstudiante.any(
@@ -31,7 +31,7 @@ extension ComisionDeCursoX on ComisionDeCurso {
     final estudiantes = this.estudiantes ?? [];
     return estudiantes.every((estudiante) {
       final asistenciasEstudiante = asistenciasDiarias.where(
-        (asistencia) => asistencia.estudianteId == estudiante.idUserInfo,
+        (asistencia) => asistencia.estudianteId == estudiante.usuarioId,
       );
 
       return asistenciasEstudiante.every(

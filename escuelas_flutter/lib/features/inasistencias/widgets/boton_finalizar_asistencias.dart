@@ -46,7 +46,7 @@ class BotonFinalizarInasistencias extends StatelessWidget {
         value: context.read<BlocInasistencias>(),
         child: DialogInasistenciasDelDia(
           asistencias: asistencias,
-          alumnos: curso.estudiantes ?? [],
+          alumnos: curso.estudiantes!.map((e) => e.usuario!).toList(),
           idCurso: curso.idCurso,
           fecha: fecha,
         ),

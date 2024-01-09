@@ -17,7 +17,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   const TarjetaCargaCalificacionAlumno({
     required this.fecha,
     required this.curso,
-    required this.usuario,
+    required this.relacionComisionUsuario,
     this.rolDelUsuario,
     super.key,
   });
@@ -29,7 +29,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   final ComisionDeCurso curso;
 
   /// Alumno con la calificación previa.
-  final Usuario usuario;
+  final RelacionComisionUsuario relacionComisionUsuario;
 
   /// Rol del usuario.
   final RolDeUsuario? rolDelUsuario;
@@ -60,7 +60,9 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                       c.id ==
                       state.listaCalificacionesCompensadas
                           .firstWhere(
-                            (cc) => cc.idEstudiante == usuario.idUserInfo,
+                            (cc) =>
+                                cc.idEstudiante ==
+                                relacionComisionUsuario.usuarioId,
                           )
                           .id,
                   // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
@@ -68,7 +70,8 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                 .id
                 .toString(),
             // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
-            nombreAlumno: '${usuario.nombre} ${usuario.apellido}',
+            nombreAlumno:
+                '${relacionComisionUsuario.usuario?.nombre} ${relacionComisionUsuario.usuario?.apellido}',
             esEditable: rolDelUsuario?.nombre == 'docente'
                 ? fecha.mismaFecha(DateTime.now())
                 : rolDelUsuario?.nombre == 'directivo' &&
