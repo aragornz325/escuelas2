@@ -1,0 +1,4 @@
+enum: TipoSolicitud
+values:
+ - notificacion
+ - calificacion
