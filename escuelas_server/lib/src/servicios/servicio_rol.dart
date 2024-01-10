@@ -1,5 +1,4 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/orms/orm_relacion_usuario_rol.dart';
 import 'package:escuelas_server/src/orms/orm_rol.dart';
 import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
@@ -8,8 +7,6 @@ import 'package:serverpod/server.dart';
 class ServicioRol extends Servicio<OrmRol> {
   @override
   OrmRol get orm => OrmRol();
-
-  final OrmRelacionUsuarioRol _ormRelacionUsuarioRol = OrmRelacionUsuarioRol();
 
   final OrmUsuario _ormUsuario = OrmUsuario();
 
@@ -64,13 +61,7 @@ class ServicioRol extends Servicio<OrmRol> {
       case OrdenarPor.asignatura:
     }
 
-    return await ejecutarOperacion(
-      () => _ormRelacionUsuarioRol.obtenerUsuariosPorRolSorteados(
-        session,
-        idRol: idRol,
-        ordenarUsuariosPor: ordenarUsuariosPor,
-      ),
-    );
+    return usuariosListados;
   }
 
   /// La función "obtenerRoles" recupera una lista de roles de usuario utilizando un objeto de sesión.
