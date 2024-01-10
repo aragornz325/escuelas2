@@ -15,6 +15,7 @@ class BlocInicioEstado {
         );
 
   final List<RolDeUsuario> listaRoles;
+
 // TODO(SAM): VERIFICAR logica para roles
   /// Obtiene la lista de permisos del usuario y devuelve la lista iterable
   /// de [InfoDeRol] para poder mapearla en la UI.

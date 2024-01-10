@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
@@ -8,6 +9,7 @@ import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -96,6 +98,7 @@ class _VistaCelularSeleccionDeRolState
                     texto: l10n.commonContinue.toUpperCase(),
                   ),
                 ),
+                
                 if (rolPresionado != null)
                   Column(
                     children: [
