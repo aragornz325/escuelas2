@@ -60,11 +60,7 @@ class OrmAsistencia extends ORM {
     );
 
     if (asistencias.isEmpty) {
-      throw ExcepcionCustom(
-          codigoError: 404,
-          mensaje: 'No hay asistencias con ese id de comision',
-          titulo: 'No hay asistencias',
-          tipoDeError: TipoExcepcion.noEncontrado);
+      return [];
     }
     return asistencias;
   }

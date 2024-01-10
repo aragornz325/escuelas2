@@ -15,16 +15,17 @@ class FormularioDropdown extends StatefulWidget {
   });
 
   /// lista de opciones a mostrar
-  final List<PRDropdownOption<int>> lista;
+  final List<EscuelasDropdownOption<int>> lista;
 
   /// Devuelve la lista de opciones elegidas
-  final ValueChanged<List<PRDropdownOption<int>>> listaOpcionesSeleccionadas;
+  final ValueChanged<EscuelasDropdownOption<int>> listaOpcionesSeleccionadas;
 
   @override
   State<FormularioDropdown> createState() => _FormularioDropdownState();
 }
 
 class _FormularioDropdownState extends State<FormularioDropdown> {
+  /// Texto del dropdown, puede ser el valor seleccionado o el texto por defecto
   String? valueText;
 
   @override
@@ -39,7 +40,7 @@ class _FormularioDropdownState extends State<FormularioDropdown> {
       hintText: valueText ?? l10n.pageKycDropdownTitle,
       onChanged: (value) {
         widget.listaOpcionesSeleccionadas(
-          [widget.lista.firstWhere((e) => e.value == value)],
+          [widget.lista.firstWhere((e) => e.value == value)].first,
         );
         setState(
           () => valueText =

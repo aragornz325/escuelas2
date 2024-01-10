@@ -32,7 +32,7 @@ class BlocInasistencias
     emit(BlocInasistenciasEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        ///TODO(anyone): llamar al endpoint de traer cursos
+        // TODO(anyone): llamar al endpoint de traer cursos
 
         final cursos = [
           ComisionDeCurso(

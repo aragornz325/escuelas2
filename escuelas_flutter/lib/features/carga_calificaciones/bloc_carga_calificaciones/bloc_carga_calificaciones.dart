@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 
 part 'bloc_carga_calificaciones_estado.dart';
@@ -43,11 +42,12 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        ///TODO(anyone): llamar al endpoint de traer calificaciones
-        ///y borrar la lista hardcodeada.
+        // TODO(anyone): llamar al endpoint de traer calificaciones
+        // y borrar la lista hardcodeada.
         ///
-        ///TODO(anyone): ver como se traen todas las calificaciones de los
-        ///usuarios
+        // TODO(anyone): ver como se traen todas las calificaciones de los
+        // usuarios
+
         // final curso = await client.comisiones.obtenercomicionporid(id: event.idCurso);
 
         final curso = ComisionDeCurso(
@@ -70,10 +70,10 @@ class BlocCargaCalificaciones
             idEstudiante: 1,
             idComision: 1,
             idAsignatura: 1,
+            idConcepto: 1,
             tipoCalificacion: TipoCalificacion.rite,
             index: 1,
             diferencial: '',
-            idInstanciaDeEvaluacion: 1,
           ),
         ];
 
@@ -87,10 +87,10 @@ class BlocCargaCalificaciones
             idEstudiante: 1,
             idComision: 1,
             idAsignatura: 1,
+            idConcepto: 1,
             tipoCalificacion: TipoCalificacion.numericoDecimal,
             index: 1,
             diferencial: '',
-            idInstanciaDeEvaluacion: 1,
           ),
         ];
 

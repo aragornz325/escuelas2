@@ -1,3 +1,4 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -28,14 +29,15 @@ import 'package:full_responsive/full_responsive.dart';
 class EscuelasDialog extends StatelessWidget {
   /// {@macro EscuelasDialog}
   const EscuelasDialog({
-    this.altura = 300,
+    required this.onTapConfirmar,
+    this.altura,
     this.conBotonCancelar = false,
     this.conBotonOutline = false,
     this.conIconoCerrar = true,
+    this.estaHabilitado = false,
     this.ancho,
     this.titulo,
     this.content,
-    this.onTapConfirmar,
     this.iconoAlLadoDelTitulo,
     this.tituloBotonPrincipal,
     this.tituloDelBotonSecundario,
@@ -106,6 +108,7 @@ class EscuelasDialog extends StatelessWidget {
     required BuildContext context,
   }) {
     final l10n = context.l10n;
+
     final colores = context.colores;
 
     return EscuelasDialog(
@@ -235,7 +238,7 @@ class EscuelasDialog extends StatelessWidget {
 
   /// Callback para el botón de confirmar,este se ejecuta al presionar
   /// el botón de [EscuelasDialog].
-  final VoidCallback? onTapConfirmar;
+  final void Function() onTapConfirmar;
 
   /// Ancho del dialogo (sin .pw) de [EscuelasDialog].
   final double? ancho;
@@ -257,6 +260,8 @@ class EscuelasDialog extends StatelessWidget {
 
   /// Color de fondo del botón de `Cancelar` o `Rechazar` de [EscuelasDialog].
   final Color? colorDeFondoDelBotonSecundario;
+
+  final bool estaHabilitado;
 
   @override
   Widget build(BuildContext context) {
@@ -332,8 +337,8 @@ class EscuelasDialog extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 5.pw),
                 child: EscuelasBoton.outlined(
                   context: context,
-                  onTap: () => onTapConfirmar?.call(),
-                  estaHabilitado: true,
+                  onTap: estaHabilitado ? onTapConfirmar : () {},
+                  estaHabilitado: estaHabilitado,
                   color: colores
                       .verdeConfirmar, // TODO(anyone): Checkear color o q
                   // permita pasarle color del boton
@@ -345,9 +350,11 @@ class EscuelasDialog extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 5.pw),
                 child: EscuelasBoton.texto(
                   context: context,
-                  onTap: () => onTapConfirmar?.call(),
-                  estaHabilitado: true,
-                  color: colores.verdeConfirmar,
+                  onTap: estaHabilitado ? onTapConfirmar : () {},
+                  estaHabilitado: estaHabilitado,
+                  color: estaHabilitado
+                      ? colores.verdeConfirmar
+                      : colores.grisDeshabilitado,
                   texto:
                       tituloBotonPrincipal ?? l10n.commonConfirm.toUpperCase(),
                 ),

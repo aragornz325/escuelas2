@@ -33,26 +33,34 @@ class BlocKycEventoSeleccionarRol extends BlocKycEvento {
   final bool eliminarRolSeleccionado;
 }
 
-/// {@template BlocKycEventoAgregarOpcion}
-/// Agrega una nueva opcion de kyc para elegir una materia
+/// {@template BlocKycEventoAgregarOpcionDocente}
+/// Agrega una nueva opcion de kyc para elegir una asignatura
 /// {@endtemplate}
 class BlocKycEventoAgregarOpcionDocente extends BlocKycEvento {
-  /// {@macro BlocKycEventoAgregarOpcion}
+  /// {@macro BlocKycEventoAgregarOpcionDocente}
   const BlocKycEventoAgregarOpcionDocente({
     required this.idAsignaturaSeleccionada,
     required this.idComisionSeleccionada,
   });
 
+  /// Id de la asignatura seleccionada
+
   final int idAsignaturaSeleccionada;
+
+  /// Id de la comision seleccionada
   final int idComisionSeleccionada;
 }
 
+/// {@template BlocKycEventoAgregarOpcionAlumno}
+/// Agrega una nueva opcion de kyc para elegir una comision
+/// {@endtemplate}
 class BlocKycEventoAgregarOpcionAlumno extends BlocKycEvento {
-  /// {@macro BlocKycEventoAgregarOpcion}
+  /// {@macro BlocKycEventoAgregarOpcionAlumno}
   const BlocKycEventoAgregarOpcionAlumno({
     required this.idComisionSeleccionada,
   });
 
+  /// Id de la comision seleccionada
   final int idComisionSeleccionada;
 }
 
@@ -62,6 +70,8 @@ class BlocKycEventoAgregarOpcionAlumno extends BlocKycEvento {
 class BlocKycEventoEliminarOpcion extends BlocKycEvento {
   /// {@macro BlocKycEventoizarOpcion}
   const BlocKycEventoEliminarOpcion({required this.idOpcion});
+
+  /// Id de la opcion a eliminar
   final int idOpcion;
 }
 

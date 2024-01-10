@@ -102,6 +102,10 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           ),
         ),
       );
+    } else {
+      emit(
+        BlocKycEstadoErrorOpcionYaElegida.desde(state),
+      );
     }
     emit(
       BlocKycEstadoExitoso.desde(
@@ -131,6 +135,10 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             (element) => element.id == event.idComisionSeleccionada,
           ),
         ),
+      );
+    } else {
+      emit(
+        BlocKycEstadoErrorOpcionYaElegida.desde(state),
       );
     }
 
@@ -205,7 +213,8 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           nombre: usuario?.fullName ?? '',
           apellido: usuario?.userName ?? '',
           urlFotoDePerfil: usuario?.imageUrl ?? '',
-          dni: '123',
+          // TODO: Cambiar cuando usuario pendiente no requiera dni
+          dni: '',
           rolSolicitado: state.rolElegido?.id ?? 0,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
         );

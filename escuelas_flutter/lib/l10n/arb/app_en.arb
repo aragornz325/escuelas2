@@ -81,9 +81,29 @@
         "description": "Description guiding the user to answer questions for identity verification in the KYC process."
     },
 
+    "pageKycFormChooseSubject": "Choose your subject",
+    "@pageKycFormChooseSubject": {
+        "description": "Question asking the user to choose the subject in the formfield."
+    },
+    
+    "pageKycFormChooseComission": "Choose your comission",
+    "@pageKycFormChooseComission": {
+        "description": "Question asking the user to choose the comission in the formfield."
+    },
+
     "pageKycRoleSelectionTitle": "Role selection",
     "@pageKycRoleSelectionTitle": {
         "description": "Title for the page where users select their roles."
+    },
+
+    "pageKycFormNoSelectedComission": "Add your assigned commission\nto continue",
+    "@pageKycFormNoSelectedComission": {
+        "description": "Message displayed when a user needs to add their assigned commission to proceed in the KYC form."
+    },
+
+    "pageKycFormNoSelectedSubject": "Add the subjects that\nhave been assigned\n to continue",
+    "@pageKycFormNoSelectedSubject": {
+        "description": "Message displayed when a user needs to add the subjects that have been assigned to them to proceed in the KYC form."
     },
 
     "pageRoleConfirmationText": "You will register with the {roleName} role. All roles must be approved by the administrator. Once approved you will be able to use the app.",
@@ -109,6 +129,11 @@
     "pageKycDropdownTitle": "Select an option",
     "@pageKycDropdownTitle": {
         "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
+    },
+
+    "pageKycErrorOptionAlreadySelected": "This option has already been selected",
+    "@pageKycErrorOptionAlreadySelected": {
+        "description": "error message displayed when a user attempts to select an option that has already been chosen in the KYC form."
     },
  
     "pageHomeTitleAppBar":"Home",
@@ -254,6 +279,11 @@
     "dialogSuccessToSendGrades": "The grades were sent\nsuccessfully!",
     "@dialogSuccessToSendGrades": {
         "description": "Label indicating successful sending of grades."
+    },
+
+    "dropdownErrorMustCompleteField": "You must complete this field!",
+    "@dropdownErrorMustCompleteField": {
+        "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
     },
 
     "commonWelcome": "Welcome!",
@@ -429,6 +459,11 @@
     "commonName": "Name",
     "@commonName": {
         "description": "Label indicating the name of something"
+    },
+    
+    "commonSearchWithDots": "Search...",
+    "@commonSearchWithDots": {
+        "description": "Label indicating to search"
     },
 
     "commonDeleteAll": "Delete All",

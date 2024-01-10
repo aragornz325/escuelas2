@@ -41,7 +41,7 @@ abstract class Servicio<T extends ORM> {
       return operacion();
     } on ExcepcionCustom catch (e, st) {
       logger.shout('''
-ERROR DE PRLAB:
+ERROR DE ESCUELAS:
 Titulo: ${e.titulo}
 Tipo de error: ${e.tipoDeError}
 Código de error: ${e.codigoError}

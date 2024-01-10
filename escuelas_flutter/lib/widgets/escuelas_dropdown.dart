@@ -1,18 +1,20 @@
+// TODO(anyone): Ver como resolver estos ignores
 // ignore_for_file: strict_raw_type, avoid_positional_boolean_parameters
 
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template PRDropdown}
+/// {@template EscuelasDropdown}
 /// Dropdown widget used in the app.
 /// {@endtemplate}
 class EscuelasDropdown<T> extends StatefulWidget {
-  /// {@macro PRDropdown}
+  /// {@macro EscuelasDropdown}
   const EscuelasDropdown({
     required this.isValid,
     required this.items,
@@ -53,7 +55,7 @@ class EscuelasDropdown<T> extends StatefulWidget {
   final T? value;
 
   /// The items to show in the dropdown.
-  final List<PRDropdownOption<T>> items;
+  final List<EscuelasDropdownOption<T>> items;
 
   /// The hint text to show in the dropdown.
   final String hintText;
@@ -77,7 +79,7 @@ class EscuelasDropdown<T> extends StatefulWidget {
   final Widget? preffixIcon;
 
   /// Add an option extra to the dropdown.
-  final PRDropdownOption<T>? additionalOption;
+  final EscuelasDropdownOption<T>? additionalOption;
 
   /// The height of the dropdown.
   final double? height;
@@ -132,7 +134,7 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
 
   final _focusNode = FocusNode();
 
-  List<PRDropdownOption<T>> items = [];
+  List<EscuelasDropdownOption<T>> items = [];
 
   @override
   void initState() {
@@ -171,6 +173,8 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     final colores = context.colores;
 
     items = _controller.text.isEmpty ? widget.items : items;
@@ -227,7 +231,7 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
                                 padding: EdgeInsets.all(11.pw)
                                     .copyWith(bottom: 5.ph),
                                 child: EscuelasTextfield(
-                                  hintText: 'Search ..',
+                                  hintText: l10n.commonSearchWithDots,
                                   focusNode: _focusNode,
                                   controller: _controller,
                                   prefixIcon: Icons.search,
@@ -237,7 +241,7 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
                                 ),
                               ),
                             ...items.map((option) {
-                              return _PRDropdownOptionWidget<T>(
+                              return _EscuelasDropdownOptionWidget<T>(
                                 padding: widget.itemPadding,
                                 color: option.color,
                                 enabled: option.enabled,
@@ -264,7 +268,7 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
                       ),
                       if (widget.additionalOption != null) ...[
                         Divider(color: colores.onSecondary),
-                        _PRDropdownOptionWidget(
+                        _EscuelasDropdownOptionWidget(
                           title: widget.additionalOption?.title ?? '',
                           value: widget.additionalOption?.value,
                           traillingIcon: widget.additionalOption?.traillingIcon,
@@ -289,7 +293,7 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
                 Padding(
                   padding: EdgeInsets.only(top: 6.ph, left: 10.pw),
                   child: Text(
-                    'debes completar este campo',
+                    l10n.dropdownErrorMustCompleteField,
                     style: TextStyle(
                       color: colores.error,
                       fontSize: 12.pf,
@@ -384,12 +388,12 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
   }
 }
 
-/// {@template PRDropdownOption}
+/// {@template EscuelasDropdownOption}
 /// This class is used to display the options of the dropdown.
 /// {@endtemplate}
-class PRDropdownOption<T> {
-  /// {@macro PRDropdownOption}
-  const PRDropdownOption({
+class EscuelasDropdownOption<T> {
+  /// {@macro EscuelasDropdownOption}
+  const EscuelasDropdownOption({
     required this.title,
     required this.value,
     this.enabled = true,
@@ -441,8 +445,8 @@ class PRDropdownOption<T> {
   final TextStyle? textStyle;
 }
 
-class _PRDropdownOptionWidget<T> extends StatefulWidget {
-  const _PRDropdownOptionWidget({
+class _EscuelasDropdownOptionWidget<T> extends StatefulWidget {
+  const _EscuelasDropdownOptionWidget({
     required this.title,
     required this.value,
     required this.traillingIcon,
@@ -498,12 +502,12 @@ class _PRDropdownOptionWidget<T> extends StatefulWidget {
   final IconData? traillingIcon;
 
   @override
-  State<_PRDropdownOptionWidget<T>> createState() =>
-      _PRDropdownOptionWidgetState<T>();
+  State<_EscuelasDropdownOptionWidget<T>> createState() =>
+      _EscuelasDropdownOptionWidgetState<T>();
 }
 
-class _PRDropdownOptionWidgetState<T>
-    extends State<_PRDropdownOptionWidget<T>> {
+class _EscuelasDropdownOptionWidgetState<T>
+    extends State<_EscuelasDropdownOptionWidget<T>> {
   late bool? _estaSeleccionado;
 
   @override

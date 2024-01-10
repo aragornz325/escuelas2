@@ -81,9 +81,29 @@
         "description": "Description guiding the user to answer questions for identity verification in the KYC process."
     },
 
+    "pageKycFormChooseSubject": "Elegí tu asignatura",
+    "@pageKycFormChooseSubject": {
+        "description": "Question asking the user to choose the subject in the formfield."
+    },
+    
+    "pageKycFormChooseComission": "Elegí tu comisión",
+    "@pageKycFormChooseComission": {
+        "description": "Question asking the user to choose the comission in the formfield."
+    },
+
     "pageKycRoleSelectionTitle": "Selección de roles",
     "@pageKycRoleSelectionTitle": {
         "description": "Title for the page where users select their roles."
+    },
+
+    "pageKycFormNoSelectedComission": "Agregá tu comisión asignada\npara continuar",
+    "@pageKycFormNoSelectedComission": {
+        "description": "Message displayed when a user needs to add their assigned commission to proceed in the KYC form."
+    },
+
+    "pageKycFormNoSelectedSubject": "Agrega las asignaturas que\ntengas asignadas para\ncontinuar",
+    "@pageKycFormNoSelectedSubject": {
+        "description": "Message displayed when a user needs to add the subjects that have been assigned to them to proceed in the KYC form."
     },
 
     "pageRoleConfirmationText": "Te registrarás con el rol {roleName}. Todo rol tiene que ser aprobado por el administrador. Una vez aprobado podrás usar la app.",
@@ -112,12 +132,17 @@
        
     },
 
-    "pageKycDropdownTitle": "Select an option",
+    "pageKycDropdownTitle": "Selecciona una opción",
     "@pageKycDropdownTitle": {
         "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
     },
 
-    "pageHomeTitleAppBar":"Inicio",
+    "pageKycErrorOptionAlreadySelected": "Esta opción ya ha sido seleccionada",
+    "@pageKycErrorOptionAlreadySelected": {
+        "description": "Error message displayed when a user attempts to select an option that has already been chosen in the KYC form."
+    },
+
+    "pageHomeTitleAppBar": "Inicio",
     "@pageHomeTitleAppBar":{
         "description":"Title of the home page"
     },
@@ -183,6 +208,10 @@
         "description": "Label indicating successful sending of grades."
     },
 
+    "dropdownErrorMustCompleteField": "You must complete this field!",
+    "@dropdownErrorMustCompleteField": {
+        "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
+    },
 
     "commonWelcome": "¡Bienvenido!",
     "@commonWelcome": {
@@ -432,6 +461,11 @@
     "commonName": "Nombre",
     "@commonName": {
         "description": "Label indicating the name of something"
+    },
+
+    "commonSearchWithDots": "Escriba aquí...",
+    "@commonSearchWithDots": {
+        "description": "Label indicating to search"
     },
 
     "commonDeleteAll": "Borrar todos",

@@ -170,6 +170,14 @@ class BlocKycEstadoError extends BlocKycEstado {
   BlocKycEstadoError.desde(super.otro) : super.desde();
 }
 
+/// {@template BlocKycEstadoErrorOpcionYaElegida}
+/// Estado de error de los componentes de la pantalla 'Kyc'
+/// {@endtemplate}
+class BlocKycEstadoErrorOpcionYaElegida extends BlocKycEstado {
+  /// {@macro BlocKycEstadoErrorOpcionYaElegida}
+  BlocKycEstadoErrorOpcionYaElegida.desde(super.otro) : super.desde();
+}
+
 /// {@template BlocKycEstadoCerrarSesionExitoso}
 /// Estado exitoso de cierre de sesion del usuario.
 /// {@endtemplate}
