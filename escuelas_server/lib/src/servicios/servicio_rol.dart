@@ -1,6 +1,7 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_relacion_usuario_rol.dart';
 import 'package:escuelas_server/src/orms/orm_rol.dart';
+import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/server.dart';
 
@@ -9,6 +10,8 @@ class ServicioRol extends Servicio<OrmRol> {
   OrmRol get orm => OrmRol();
 
   final OrmRelacionUsuarioRol _ormRelacionUsuarioRol = OrmRelacionUsuarioRol();
+
+  final OrmUsuario _ormUsuario = OrmUsuario();
 
   /// La función "obtenerRolPorId" recupera un rol por su ID usando un ORM y lo devuelve como Future.
   ///
@@ -32,13 +35,37 @@ class ServicioRol extends Servicio<OrmRol> {
     return rol;
   }
 
-  Future<List<RelacionUsuarioRol>> obtenerUsuariosConRol(
+  Future<List<UsuariosListados>> obtenerUsuariosPorRolSorteados(
     Session session, {
     required int idRol,
     OrdenarPor ordenarUsuariosPor = OrdenarPor.apellido,
   }) async {
+    final usuarios = await ejecutarOperacion(
+      () => _ormUsuario.obtenerUsuarios(session),
+    );
+
+    final usuariosListados = <UsuariosListados>[];
+
+    switch (ordenarUsuariosPor) {
+      case OrdenarPor.apellido:
+        for (var letra in listaAlfabetica) {
+          final usuariosLetra = usuarios
+              .where((usuario) => usuario.apellido.startsWith(letra))
+              .toList();
+
+          usuariosListados.add(
+            UsuariosListados(
+              etiquetaDelIndexListado: letra,
+              usuarios: usuariosLetra,
+            ),
+          );
+        }
+      case OrdenarPor.curso:
+      case OrdenarPor.asignatura:
+    }
+
     return await ejecutarOperacion(
-      () => _ormRelacionUsuarioRol.obtenerRelacionesUsuarioRol(
+      () => _ormRelacionUsuarioRol.obtenerUsuariosPorRolSorteados(
         session,
         idRol: idRol,
         ordenarUsuariosPor: ordenarUsuariosPor,
@@ -142,3 +169,32 @@ class ServicioRol extends Servicio<OrmRol> {
     return rol;
   }
 }
+
+const List<String> listaAlfabetica = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
+];
