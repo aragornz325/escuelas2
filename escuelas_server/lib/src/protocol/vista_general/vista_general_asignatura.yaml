@@ -1,4 +1,5 @@
 class: AsignaturaOverview
 fields:
+  idAsignatura: int
   nombreDeAsignatura: String
   solicitudesDeCalificacionCompletas: bool
