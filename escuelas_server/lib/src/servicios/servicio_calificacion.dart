@@ -1,12 +1,15 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
+import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioCalificacion extends Servicio<OrmCalificacion> {
   @override
   OrmCalificacion get orm => OrmCalificacion();
+
+  final OrmSolicitudNotaMensual _ormSolicitudNotaMensual = OrmSolicitudNotaMensual();
 
   final OrmConceptoCalificacion _ormConceptoCalificacion =
       OrmConceptoCalificacion();
@@ -56,5 +59,14 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
       Session session) async {
     return await _ormConceptoCalificacion
         .obtenerConceptosDeCalificacion(session);
+  }
+
+  Future<List<ComisionOverview>> obtenerInformacionGeneralDeComisiones(
+    Session session, {
+    required int idUsuario,
+    required int numeroDeMes,
+  }) async {
+    
+    return [];
   }
 }
