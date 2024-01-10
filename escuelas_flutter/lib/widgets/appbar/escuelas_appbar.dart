@@ -42,12 +42,13 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
   /// Asigna el nombre de la ruta actual al cambiarse, para usarla en el titulo
   /// de [EscuelasAppBar]
   void _cambiarNombreRuta() {
-    // TODO(Anyone): Fix unmounted
+    // TODO(Anyone): Fix unmounted del KYC approval
     final rutas = context.router.current.name;
     final l10n = context.l10n;
     setState(() {
       /// Cada vez que se cambia de ruta, se actualiza el nombre de la ruta.
       nombreRutaActual = switch (rutas) {
+        RutaKyc.name => '',
         RutaSeleccionDeRol.name => l10n.pageKycRoleSelectionTitle,
         RutaInicio.name => l10n.pageHomeTitleAppBar,
         RutaLogin.name => l10n.loginPageTitleAppBar,
