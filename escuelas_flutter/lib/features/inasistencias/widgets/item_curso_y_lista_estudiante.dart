@@ -35,7 +35,7 @@ class ItemCursoConListaDeEstudiantes extends StatelessWidget {
       builder: (context, state) {
         // Lista de estudiantes de un curso
         final estudiantesPorCurso =
-            state.asistenciasDiarias(comisionDeCurso.idCurso);
+            state.asistenciasDiarias(comisionDeCurso.id ?? 0);
 
         return Column(
           children: [
@@ -123,7 +123,7 @@ class _ListaEstudiantesDelCurso extends StatelessWidget {
               InkWell(
                 onTap: () => context.read<BlocInasistencias>().add(
                       BlocAsistenciaEventoCambiarInasistenciaEstudiante(
-                        idCurso: comisionDeCurso.idCurso,
+                        idCurso: comisionDeCurso.id ?? 0,
                         idEstudiante: estudiante?.usuarioId ?? 0,
                         fecha: DateTime.now(),
                         estadoInasistencia:

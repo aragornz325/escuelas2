@@ -230,6 +230,11 @@
     "@absencePageTitleAppBar": {
         "description": "Title of the absences page"
     },
+    
+    "dialogAbsencesSentCorrectly": "absences sent correctly",
+    "@dialogAbsencesSentCorrectly": {
+        "description": "Text to be displayed in the title of the dialog when absences to sent correctly"
+    },
 
     "dialogAttendanceOfDay": "Attendances of the day",
     "@dialogAttendanceOfDay": {

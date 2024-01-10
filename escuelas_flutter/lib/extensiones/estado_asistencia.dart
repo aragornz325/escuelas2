@@ -78,7 +78,7 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
   }) {
     return asistenciasDiarias.any(
       (asistencia) =>
-          (asistencia.fechaCreacion?.mismaFecha(fecha) ?? false) &&
+          (asistencia.ultimaModificacion?.mismaFecha(fecha) ?? false) &&
           asistencia.estudianteId == idEstudiante,
     );
   }
@@ -92,11 +92,12 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
   }) {
     return asistenciasDiarias.any(
       (asistencia) =>
-          (asistencia.fechaCreacion?.mismaFecha(fecha) ?? false) &&
+          (asistencia.ultimaModificacion?.mismaFecha(fecha) ?? false) &&
           asistencia.estudianteId == idEstudiante &&
           asistencia.estadoDeAsistencia == estado,
     );
   }
+
   /// Verifica si existe un estudiante con el id
   bool existeMismoEstudiante(
     List<AsistenciaDiaria> asistenciasDiarias,
