@@ -3,6 +3,7 @@ table: comisiones
 fields:
   nombre: String
   idCurso: int, relation(parent=cursos)
+  curso: Curso?, relation
   anioLectivo: int
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
