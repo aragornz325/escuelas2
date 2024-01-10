@@ -10,14 +10,14 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
   @override
   bool get requireLogin => false;
 
-  /// La función `crearAsistenciasEnBatch` crea un nuevo objeto `AsistenciaDiaria` en la base de datos usando la
-  /// sesión proporcionada y devuelve el objeto creado.
-  Future<String> crearAsistenciasEnLote(
+  /// La función `crearAsistenciasEnBatch` crea un nuevo objeto `AsistenciaDiaria`
+  /// en la base de datos usando la sesión proporcionada y devuelve el objeto creado.
+  Future<List<AsistenciaDiaria>> crearAsistenciasEnLote(
     Session session, {
     required List<AsistenciaDiaria> asistencias,
   }) async {
     return ejecutarOperacionControlador(
-      'crearAsistenciaEnBatch',
+      'crearAsistenciasEnLote',
       () => servicio.crearAsistenciasEnLote(
         session,
         asistencias: asistencias,
