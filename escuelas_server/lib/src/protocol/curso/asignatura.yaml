@@ -3,7 +3,7 @@ table: asignaturas
 fields: 
   nombre: String
   idCurso: int, relation(parent=cursos)
-  ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?
-  usuarios: List<RelacionAsignaturaUsuario>?, relation(name=asignatura_asignaturas)
+  ultimaModificacion: DateTime?, scope=serverOnly
+  fechaCreacion: DateTime?, scope=serverOnly
+  fechaEliminacion: DateTime?, scope=serverOnly
+  usuarios: List<RelacionAsignaturaUsuario>?, relation(name=asignatura_asignaturas), scope=serverOnly
