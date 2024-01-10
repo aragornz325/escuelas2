@@ -42,6 +42,7 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
   /// Asigna el nombre de la ruta actual al cambiarse, para usarla en el titulo
   /// de [EscuelasAppBar]
   void _cambiarNombreRuta() {
+    // TODO(Anyone): Fix unmounted
     final rutas = context.router.current.name;
     final l10n = context.l10n;
     setState(() {
