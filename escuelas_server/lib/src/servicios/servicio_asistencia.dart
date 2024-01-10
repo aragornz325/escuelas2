@@ -12,10 +12,7 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
   /// Args:
   ///   session (Session):
   ///   asistencias (List<AsistenciaDiaria>): Una lista de objetos del tipo "AsistenciaDiaria".
-  ///
-  /// Returns:
-  ///   El método `crearAsistenciasEnLote` devuelve un `Futuro<String>`.
-  Future<String> crearAsistenciasEnLote(
+  Future<List<AsistenciaDiaria>> crearAsistenciasEnLote(
     Session session, {
     required List<AsistenciaDiaria> asistencias,
   }) async {

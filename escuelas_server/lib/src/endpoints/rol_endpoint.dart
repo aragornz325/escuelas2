@@ -31,14 +31,14 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
     );
   }
 
-  Future<List<RelacionUsuarioRol>> obtenerUsuariosConRol(
+  Future<List<UsuariosListados>> obtenerUsuariosPorRolSorteados(
     Session session, {
     required int idRol,
     OrdenarPor? ordenarUsuariosPor,
   }) async {
     return await ejecutarOperacionControlador(
-      'obtenerUsuariosConRol',
-      () => servicio.obtenerUsuariosConRol(
+      'obtenerUsuariosPorRolSorteados',
+      () => servicio.obtenerUsuariosPorRolSorteados(
         session,
         idRol: idRol,
         ordenarUsuariosPor: ordenarUsuariosPor ?? OrdenarPor.apellido,
