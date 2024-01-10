@@ -31,36 +31,24 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
           Asignatura(
             id: 1,
             nombre: 'matematica',
-            fechaCreacion: DateTime.now(),
             idCurso: 1,
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
           ),
           Asignatura(
             id: 2,
             nombre: 'ingenieria',
-            fechaCreacion: DateTime.now(),
             idCurso: 1,
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
           ),
         ];
         final asignaturas2 = [
           Asignatura(
             id: 3,
             nombre: 'inglish',
-            fechaCreacion: DateTime.now(),
             idCurso: 2,
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
           ),
           Asignatura(
             id: 4,
             nombre: 'comunicacion',
-            fechaCreacion: DateTime.now(),
             idCurso: 2,
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
           ),
         ];
 

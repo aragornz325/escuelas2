@@ -8,9 +8,6 @@ extension AsignaturaX on Asignatura {
       'id': id,
       'nombre': nombre,
       'idCurso': idCurso,
-      'ultimaModificacion': ultimaModificacion.toIso8601String(),
-      'fechaCreacion': fechaCreacion.toIso8601String(),
-      'fechaEliminacion': fechaEliminacion?.toIso8601String(),
     };
   }
 }
