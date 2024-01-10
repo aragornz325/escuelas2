@@ -1,11 +1,11 @@
 class: SolicitudNotaMensual
-table: solicitudesNotasMensuales
+table: solicitudes_notas_mensuales
 fields:
   ### La solicitud de la cual se deriva esta nota mensual
   idSolicitud: int, relation(parent=solicitudes)
   idComision: int, relation(parent=comisiones)
   idAsignatura: int, relation(parent=asignaturas)
   numeroDemes: int
-  idCalificacionMensual: int, relation(parent=calificacionesMensuales)
+  idCalificacionMensual: int, relation(parent=calificaciones_mensuales)
 
   
