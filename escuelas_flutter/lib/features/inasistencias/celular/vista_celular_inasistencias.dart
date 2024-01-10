@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/features/inasistencias/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -25,46 +26,55 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
+    final colores = context.colores;
+
     return BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
       builder: (context, state) {
-        if (state is BlocInasistenciasEstadoCargando) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
-
-        if (state.cursos.isEmpty) {
-          // TODO(anyone): hacer una vista cuando no hay cursos.
-          return Center(
-            child: Text(l10n.pageAttendanceNotAbsentStudents),
-          );
-        }
-
         return Column(
           children: [
-            // TODO(anyone): no se actualiza la fecha
-            // Center(
-            //   child: Text(
-            //     '${periodo.fechaDesde.nombreMes(context).toUpperCase()} -
-            //      ${periodo.fechaDesde.year}',
-            //     style: TextStyle(
-            //       color: colores.onBackground,
-            //       fontSize: 12.pf,
-            //       fontWeight: FontWeight.w700,
-            //     ),
-            //   ),
-            // ),
+            BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
+              builder: (context, state) {
+                return Center(
+                  child: Text(
+                    state.fechaActual?.nombreMes(context) ?? '',
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontSize: 12.pf,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                );
+              },
+            ),
             SelectorDePeriodo(
               delegate: PeriodoDiarioDelegate(
                 context,
               ),
-              onSeleccionarPeriodo: (periodo) {},
+              onSeleccionarPeriodo: (periodo) =>
+                  context.read<BlocInasistencias>().add(
+                        BlocInasistenciasEventoInicializar(
+                          fecha: periodo.fechaDesde,
+                        ),
+                      ),
             ),
             const Divider(thickness: .5),
-            Expanded(
-              child: ListaDeCursos(
-                fecha: DateTime.now(),
-              ),
+            BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
+              builder: (context, state) {
+                if (state is BlocInasistenciasEstadoCargando) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                if (state.comisiones.isEmpty) {
+                  // TODO(anyone): hacer una vista cuando no hay cursos.
+                  return Center(
+                    child: Text(l10n.pageAttendanceWithoutCourses),
+                  );
+                }
+
+                return const Expanded(child: ListaDeComisionesDeCurso());
+              },
             ),
             SizedBox(height: max(10.ph, 10.sh)),
           ],

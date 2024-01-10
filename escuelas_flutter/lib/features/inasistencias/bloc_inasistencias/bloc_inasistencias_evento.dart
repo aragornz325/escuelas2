@@ -13,7 +13,10 @@ abstract class BlocInasistenciasEvento {
 /// {@endtemplate}
 class BlocInasistenciasEventoInicializar extends BlocInasistenciasEvento {
   /// {@macro BlocInasistenciasEventoInicializar}
-  const BlocInasistenciasEventoInicializar();
+  const BlocInasistenciasEventoInicializar({required this.fecha});
+
+  /// Fecha de la fecha a tomar del calendario
+  final DateTime fecha;
 }
 
 /// {@template BlocInasistenciasEventoFinalizarInasistencias}
@@ -22,40 +25,34 @@ class BlocInasistenciasEventoInicializar extends BlocInasistenciasEvento {
 class BlocInasistenciasEventoFinalizarInasistencias
     extends BlocInasistenciasEvento {
   /// {@macro BlocInasistenciasEventoFinalizarInasistencias}
-  const BlocInasistenciasEventoFinalizarInasistencias({
-    required this.idCurso,
-    required this.fecha,
-  });
+  const BlocInasistenciasEventoFinalizarInasistencias({required this.idCurso});
 
   /// Id del curso  a modificar si se tomo asistencia.
   final int idCurso;
-
-  /// Fecha para saber su ultima modificación.
-  final DateTime fecha;
 }
 
-/// {@template BlocAsistenciaEventoCambiarInasistenciaAlumno}
-/// Evento para cambiar la inasistencia de un alumno
+/// {@template BlocAsistenciaEventoCambiarInasistenciaEstudiante}
+/// Evento para cambiar la inasistencia de un estudiante
 /// {@endtemplate}
-class BlocAsistenciaEventoCambiarInasistenciaAlumno
+class BlocAsistenciaEventoCambiarInasistenciaEstudiante
     extends BlocInasistenciasEvento {
-  /// {@macro BlocAsistenciaEventoCambiarInasistenciaAlumno}
-  const BlocAsistenciaEventoCambiarInasistenciaAlumno({
+  /// {@macro BlocAsistenciaEventoCambiarInasistenciaEstudiante}
+  const BlocAsistenciaEventoCambiarInasistenciaEstudiante({
     required this.idCurso,
-    required this.idAlumno,
+    required this.idEstudiante,
     required this.fecha,
-    required this.asistenciaDiaria,
+    required this.estadoInasistencia,
   });
 
   /// Id del curso  a modificar si se tomo asistencia.
   final int idCurso;
 
-  /// Id del alumno a modificar la inasistencia
-  final int idAlumno;
+  /// Id del estudiante a modificar la inasistencia
+  final int idEstudiante;
 
   /// Fecha para saber su ultima modificación.
   final DateTime fecha;
 
-  /// Asistencia de Alumno a modificar
-  final EstadoDeAsistencia asistenciaDiaria;
+  /// Asistencia de estudiante a modificar
+  final EstadoDeAsistencia estadoInasistencia;
 }

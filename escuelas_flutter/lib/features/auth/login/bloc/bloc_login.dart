@@ -1,6 +1,5 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -66,6 +65,8 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
     emit(BlocLoginEstadoCargando.desde(state, estaIniciandoSesion: true));
     await operacionBloc(
       callback: (client) async {
+        //? Aca tira error en Unicamente en debug mode, no sucede en produccion.
+        //? https://stackoverflow.com/questions/51914691/flutter-platform-exception-upon-cancelling-google-sign-in-flow
         final userInfo = await signInWithGoogle(
           client.modules.auth,
           clientId: dotenv.env['CLIENT_ID_GOOGLE_SIGNIN'],
@@ -74,7 +75,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
         );
 
         if (userInfo == null) {
-          emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
+          return emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
         }
 
         final usuarioPendiente =
@@ -106,7 +107,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
               BlocLoginEstadoSolicitudAceptada.desde(
                 state,
                 usuario: usuario,
-                userInfo: userInfo!,
+                userInfo: userInfo,
               ),
             );
         }

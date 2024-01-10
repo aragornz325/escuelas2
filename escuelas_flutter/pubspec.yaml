@@ -39,7 +39,8 @@ dependencies:
   meta: ^1.9.1
   collection: ^1.17.2
   serverpod_auth_client: 1.2.0-rc.1
-
+ 
+  
 
 dev_dependencies:
   # Navegaciones

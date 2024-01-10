@@ -6,24 +6,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ListaDeCursos}
-/// Lista de cursos y sus alumnos en caso de que toque algún curso se despliega
-/// la lista de alumnos
+/// Lista de cursos y sus estudiantes en caso de que toque algún curso
+/// se despliega la lista de estudiantes.
 /// {@endtemplate}
-class ListaDeCursos extends StatefulWidget {
+class ListaDeComisionesDeCurso extends StatefulWidget {
   /// {@macro ListaDeCursos}
-  const ListaDeCursos({
-    required this.fecha,
-    super.key,
-  });
-
-  /// Fecha en la que se finalizaron las asistencias
-  final DateTime fecha;
+  const ListaDeComisionesDeCurso({super.key});
 
   @override
-  State<ListaDeCursos> createState() => _ListaDeCursosState();
+  State<ListaDeComisionesDeCurso> createState() =>
+      _ListaDeComisionesDeCursoState();
 }
 
-class _ListaDeCursosState extends State<ListaDeCursos> {
+class _ListaDeComisionesDeCursoState extends State<ListaDeComisionesDeCurso> {
   /// Controlador de desplazamiento
   final _scrollController = ScrollController();
 
@@ -31,14 +26,15 @@ class _ListaDeCursosState extends State<ListaDeCursos> {
   Widget build(BuildContext context) {
     return BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
       builder: (context, state) => ListView.builder(
+        shrinkWrap: true,
         controller: _scrollController,
-        itemCount: state.cursos.length,
+        itemCount: state.comisiones.length,
         physics: const AlwaysScrollableScrollPhysics(),
-        itemBuilder: (context, index) => _ContenidoDeplegableDelCurso(
+        itemBuilder: (context, index) =>
+            _ContenidoDeplegableDeLaComisionDeCurso(
           controller: _scrollController,
-          curso: state.cursos[index],
+          comisionDeCurso: state.comisiones[index],
           index: index,
-          fecha: widget.fecha,
         ),
       ),
     );
@@ -46,59 +42,53 @@ class _ListaDeCursosState extends State<ListaDeCursos> {
 }
 
 /// {@template _ContenidoDeplegableDelCurso}
-/// Permite desplegar la lista de alumnos de un curso.
+/// Permite desplegar la lista de estudiantes de un curso.
 /// {@endtemplate}
-class _ContenidoDeplegableDelCurso extends StatefulWidget {
+class _ContenidoDeplegableDeLaComisionDeCurso extends StatefulWidget {
   /// {@macro _ContenidoDeplegableDelCurso}
-  const _ContenidoDeplegableDelCurso({
+  const _ContenidoDeplegableDeLaComisionDeCurso({
     required this.controller,
-    required this.curso,
+    required this.comisionDeCurso,
     required this.index,
-    required this.fecha,
   });
 
-  /// Controlador de desplazamiento
+  /// Controlador de desplazamiento.
   final ScrollController controller;
 
-  /// Cursos
-  final ComisionDeCurso curso;
+  /// Curso a mostrar.
+  final ComisionDeCurso comisionDeCurso;
 
-  /// Indice
+  /// Indice de la lista.
   final int index;
 
-  /// Fecha del calendario
-  final DateTime fecha;
-
   @override
-  State<_ContenidoDeplegableDelCurso> createState() =>
-      _ContenidoDeplegableDelCursoState();
+  State<_ContenidoDeplegableDeLaComisionDeCurso> createState() =>
+      _ContenidoDeplegableDeLaComisionDeCursoState();
 }
 
-class _ContenidoDeplegableDelCursoState
-    extends State<_ContenidoDeplegableDelCurso> {
+class _ContenidoDeplegableDeLaComisionDeCursoState
+    extends State<_ContenidoDeplegableDeLaComisionDeCurso> {
   /// indica si el curso esta desplegado
   bool desplegado = false;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedContainer(
-      height: desplegado ? 70.hp : null,
+      height: desplegado ? 60.hp : null,
       duration: const Duration(milliseconds: 250),
       child: desplegado
-          ? ItemCursoConListaDeAlumnos(
-              indexCurso: widget.index,
-              curso: widget.curso,
+          ? ItemCursoConListaDeEstudiantes(
+              comisionDeCurso: widget.comisionDeCurso,
               onTap: _desplegarCurso,
-              fecha: widget.fecha,
             )
           : ItemCurso(
-              curso: widget.curso,
+              comisionDeCurso: widget.comisionDeCurso,
               onTap: _desplegarCurso,
             ),
     );
   }
 
-  /// despliega el curso
+  /// Despliega el curso
   void _desplegarCurso() => setState(
         () {
           desplegado = !desplegado;
@@ -107,7 +97,7 @@ class _ContenidoDeplegableDelCursoState
             () {
               widget.controller.animateTo(
                 widget.index *
-                    8.hp, // TODO(mati): ver bien esto con el emulador
+                    8.hp, // TODO(anyone): ver bien esto con el emulador
                 duration: const Duration(seconds: 1),
                 curve: Curves.easeInOut,
               );

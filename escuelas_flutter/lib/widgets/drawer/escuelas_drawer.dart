@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/extensiones/string.dart';
+import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 
@@ -17,17 +18,15 @@ import 'package:full_responsive/full_responsive.dart';
 class EscuelasDrawer extends StatelessWidget {
   /// {@macro EscuelasDrawer}
   const EscuelasDrawer({
-    required this.nombre,
-    required this.apellido,
+    required this.nombreCompleto,
     this.urlImage,
     super.key,
   });
-  final String nombre;
-  final String apellido;
+  final String nombreCompleto;
 
   /// Imagen de appbar[EscuelasDrawer].
   final String? urlImage;
-// TODO(SAM): Checkear foto de perfil
+
 // TODO(SAM): Agregar inkwell/ highlight al presionar boton y mejorar dialog de feat not available
 
   /// Navega a la ruta del perfil del usuario y luego cierra la pantalla actual
@@ -110,22 +109,32 @@ class EscuelasDrawer extends StatelessWidget {
                       SizedBox(height: 60.ph),
                       Column(
                         children: <Widget>[
-                          CircleAvatar(
-                            radius: 45.sw,
-                            backgroundColor: colores.primaryContainer,
-                            child: CircleAvatar(
-                              radius: 45.sw,
-                              backgroundColor: colores.background,
-                              backgroundImage: urlImage != null
-                                  ? NetworkImage(urlImage!)
-                                  : null,
-                              child: urlImage == null
-                                  ? Icon(
-                                      Icons.person,
-                                      color: Colors.black,
-                                      size: 30.sw,
+                          Container(
+                            height: 80.sh,
+                            width: 80.sw,
+                            color: colores.background,
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.sw)),
+                              child: (urlImage != null && urlImage != '')
+                                  ? Image.network(
+                                      urlImage!,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (
+                                        context,
+                                        error,
+                                        stackTrace,
+                                      ) =>
+                                          Image.asset(
+                                        Assets.images.usuario.path,
+                                        color: colores.onBackground,
+                                      ),
                                     )
-                                  : null,
+                                  : Icon(
+                                      Icons.person,
+                                      color: colores.onBackground,
+                                      size: 30.sw,
+                                    ),
                             ),
                           ),
                           SizedBox(height: 5.ph),
@@ -133,22 +142,7 @@ class EscuelasDrawer extends StatelessWidget {
                             width: 200.pw,
                             child: Center(
                               child: Text(
-                                nombre.capitalize,
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: colores.primaryContainer,
-                                  fontSize: 20.pf,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
-                            ),
-                          ),
-                          SizedBox(
-                            width: 200.pw,
-                            child: Center(
-                              child: Text(
-                                apellido.capitalize,
+                                nombreCompleto.capitalize,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
