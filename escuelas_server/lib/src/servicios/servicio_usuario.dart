@@ -354,7 +354,9 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       case OrdenarPor.apellido:
         for (var letra in listaAlfabetica) {
           final usuariosLetra = usuarios
-              .where((usuario) => usuario.apellido.startsWith(letra))
+              .where((usuario) => usuario.apellido
+                  .toUpperCase()
+                  .startsWith(letra.toUpperCase()))
               .toList();
 
           usuariosListados.add(
