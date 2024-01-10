@@ -60,11 +60,17 @@ class BlocPerfilUsuarioEstado {
 
   /// Devuelve el [Tipo] de usuario segun su estado/rol
   Tipo get tipoUsuario => usuarioPendiente != null
-      ? usuario?.roles?.first.rol?.nombre == 'alumno' ||
+      ? rolesDeUsuario.first.rol?.nombre == 'alumno' ||
               usuarioPendiente?.comisionSolicitada != null
           ? Tipo.alumnoPendiente
           : Tipo.docentePendiente
-      : usuario?.roles?.first.rol?.nombre == 'alumno' ||
+      : listaRoles
+                      .firstWhere(
+                        (element) =>
+                            element.id == usuarioPendiente?.rolSolicitado,
+                      )
+                      .nombre ==
+                  'alumno' ||
               usuarioPendiente?.comisionSolicitada != null
           ? Tipo.alumnoAprobado
           : Tipo.docenteAprobado;

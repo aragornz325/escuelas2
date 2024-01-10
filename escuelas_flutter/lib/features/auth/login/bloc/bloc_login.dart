@@ -75,7 +75,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
         );
 
         if (userInfo == null) {
-          emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
+          return emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
         }
 
         final usuarioPendiente =
