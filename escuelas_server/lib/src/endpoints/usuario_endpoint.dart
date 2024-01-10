@@ -130,4 +130,16 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           usuarioPendiente: usuarioPendiente,
         ),
       );
+
+  Future<List<RelacionComisionUsuario>> obtenerListaDeEstudiantesDeComision(
+    Session session, {
+    required int idComision,
+  }) =>
+      ejecutarOperacionControlador(
+        'obtenerListaDeEstudiantesDeComision',
+        () => servicio.obtenerListaDeEstudiantesDeComision(
+          session,
+          idComision: idComision,
+        ),
+      );
 }

@@ -21,6 +21,7 @@ class BlocAsignacionDeRoles
     Emitter<BlocAsignacionDeRolesEstado> emit,
   ) async {
     emit(BlocAsignacionDeRolesEstadoCargando.desde(state));
+
     await operacionBloc(
       callback: (client) async {
         final listaUsuariosPendientes =
@@ -36,13 +37,7 @@ class BlocAsignacionDeRoles
           ),
         );
       },
-      onError: (e, st) {
-        emit(
-          BlocAsignacionDeRolesEstadoError.desde(
-            state,
-          ),
-        );
-      },
+      onError: (e, st) => emit(BlocAsignacionDeRolesEstadoError.desde(state)),
     );
   }
 }

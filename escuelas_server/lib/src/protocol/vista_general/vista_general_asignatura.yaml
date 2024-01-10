@@ -1,0 +1,4 @@
+class: AsignaturaNotaDto
+fields:
+  nombreDeAsignatura: String
+  notaMensualCargada: bool

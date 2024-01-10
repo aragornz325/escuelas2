@@ -1,5 +1,6 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_usuario.dart';
+import 'package:escuelas_server/src/orms/orm_usuario_comision.dart';
 import 'package:escuelas_server/src/orms/orm_usuario_pendiente.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
@@ -14,6 +15,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   OrmUsuario get orm => OrmUsuario();
 
   final OrmUsuarioPendiente _ormUsuarioPendiente = OrmUsuarioPendiente();
+
+  final OrmUsuarioComision _ormUsuarioComision = OrmUsuarioComision();
 
   final ServicioAsignatura _servicioAsignatura = ServicioAsignatura();
 
@@ -303,6 +306,18 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       () => _ormUsuarioPendiente.actualizarUsuarioPendiente(
         session,
         usuarioPendiente: usuarioPendiente..ultimaModificacion = ahora,
+      ),
+    );
+  }
+
+  Future<List<RelacionComisionUsuario>> obtenerListaDeEstudiantesDeComision(
+    Session session, {
+    required int idComision,
+  }) async {
+    return ejecutarOperacion(
+      () => _ormUsuarioComision.obtenerRelacionesComisionUsuario(
+        session,
+        idComision: idComision,
       ),
     );
   }
