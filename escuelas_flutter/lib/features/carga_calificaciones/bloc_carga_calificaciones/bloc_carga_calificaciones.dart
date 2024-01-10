@@ -63,8 +63,9 @@ class BlocCargaCalificaciones
 
         final listaCalificacionCompensacion = [
           Calificacion(
+            idAutor: 3,
             id: 1,
-            detalle: 'nose',
+            observacion: 'nose',
             fechaCreacion: DateTime.now(),
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
@@ -80,8 +81,9 @@ class BlocCargaCalificaciones
 
         final listaCalificaciones = [
           Calificacion(
+            idAutor: 7,
             id: 1,
-            detalle: 'nose',
+            observacion: 'nose',
             fechaCreacion: DateTime.now(),
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),

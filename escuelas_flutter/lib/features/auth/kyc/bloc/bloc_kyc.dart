@@ -208,7 +208,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
   ) async {
     await operacionBloc(
       callback: (client) async {
-        final usuario = sessionManager.signedInUser;
+        final usuario = event.userInfo;
 
         final usuarioPendiente = UsuarioPendiente(
           idUserInfo: usuario?.id ?? 0,
