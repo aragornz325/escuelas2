@@ -39,11 +39,11 @@ class EscuelasScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
-    final userInfoX = sessionManager.signedInUser;
+    final userInfo = sessionManager.signedInUser;
     return Scaffold(
       drawer: EscuelasDrawer(
-        urlImage: userInfoX?.imagePerfilUrlX ?? '',
-        nombreCompleto: userInfoX?.nombreCompletoX ?? '',
+        urlImage: userInfo?.imagePerfilUrl ?? '',
+        nombreCompleto: userInfo?.nombreCompleto ?? '',
       ),
       appBar: tieneAppBar ? const EscuelasAppBar() : null,
       backgroundColor: colorDeFondo ?? colores.background,

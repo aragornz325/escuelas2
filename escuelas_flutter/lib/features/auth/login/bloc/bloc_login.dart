@@ -107,7 +107,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
               BlocLoginEstadoSolicitudAceptada.desde(
                 state,
                 usuario: usuario,
-                userInfo: userInfo!,
+                userInfo: userInfo,
               ),
             );
         }
