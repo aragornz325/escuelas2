@@ -470,6 +470,21 @@
     "@commonRole": {
         "description": ""
     },
+    
+    "commonRoles": "Roles",
+    "@commonRoles": {
+        "description": ""
+    },
+
+    "commonComission": "Comission",
+    "@commonComission": {
+        "description": ""
+    },
+
+    "commonComissions": "Comissions",
+    "@commonComissions": {
+        "description": ""
+    },
 
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {

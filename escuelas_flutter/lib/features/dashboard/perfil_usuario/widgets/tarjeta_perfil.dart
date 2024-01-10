@@ -1,5 +1,4 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/extensiones/string.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -15,13 +14,13 @@ import 'package:full_responsive/full_responsive.dart';
 class TarjetaPerfil extends StatelessWidget {
   /// {@macro TarjetaPerfil}
   const TarjetaPerfil({
-    required this.nombreRol,
+    required this.rolesAsignados,
     required this.nombreUsuario,
     required this.apellidoUsuario,
     super.key,
   });
 
-  final String nombreRol;
+  final String rolesAsignados;
 
   final String nombreUsuario;
 
@@ -32,6 +31,8 @@ class TarjetaPerfil extends StatelessWidget {
     final colores = context.colores;
 
     final l10n = context.l10n;
+
+    final roles = '${l10n.commonRoles}: ${rolesAsignados.capitalize}';
 
     return Container(
       width: 340.pw,
@@ -76,7 +77,7 @@ class TarjetaPerfil extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 5.ph),
                   child: Text(
-                    '${l10n.commonRole}: ${nombreRol.capitalize}',
+                    roles,
                     style: TextStyle(
                       color: colores.grisSC,
                       fontSize: 14.pf,

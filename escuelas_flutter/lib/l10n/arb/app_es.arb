@@ -51,7 +51,7 @@
         "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
     },
 
-    "pageKycFormWhatGradeAreYouIn": "¿En qué curso estás?",
+    "pageKycFormWhatGradeAreYouIn": "¿En qué comision estás?",
     "@pageKycFormWhatGradeAreYouIn": {
         "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
     },
@@ -470,6 +470,21 @@
     
     "commonRole": "Rol",
     "@commonRole": {
+        "description": ""
+    },
+    
+    "commonRoles": "Roles",
+    "@commonRoles": {
+        "description": ""
+    },
+
+    "commonComission": "Comission",
+    "@commonComission": {
+        "description": ""
+    },
+
+    "commonComissions": "Comisiones",
+    "@commonComissions": {
         "description": ""
     },
 

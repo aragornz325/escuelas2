@@ -43,37 +43,32 @@ class BlocPerfilUsuarioEstado {
 
   List<RelacionUsuarioRol> get rolesDeUsuario => usuario?.roles ?? [];
 
-  /// Nombre del rol del usuario
-  String get nombreRolDeUsuarioPendiente =>
+  String nombreComisionesUsuario(BuildContext context) =>
+      usuario?.nombreComisiones == ''
+          ? context.l10n.commonNoData
+          : usuario?.nombreComisiones ?? '';
+
+  String nombreComisionesUsuarioPendiente(BuildContext context) =>
+      usuarioPendiente?.comisionSolicitada?.nombreComision ??
+      context.l10n.commonNoData;
+
+  String get nombreRolUsuarioPendiente =>
       listaRoles
-          .firstWhereOrNull((rol) => rol.id == usuarioPendiente?.rolSolicitado)
+          .firstWhereOrNull(
+            (element) => element.id == usuarioPendiente?.rolSolicitado,
+          )
           ?.nombre ??
       '';
 
-  /// Nombre del rol del usuario
-  String get nombreRolDeUsuario => rolesDeUsuario.isNotEmpty
-      ? listaRoles
-              .firstWhereOrNull((rol) => rol.id == rolesDeUsuario.first.rol?.id)
-              ?.nombre ??
-          ''
-      : '';
-
   /// Devuelve el [Tipo] de usuario segun su estado/rol
-  Tipo get tipoUsuario => usuarioPendiente != null
-      ? rolesDeUsuario.first.rol?.nombre == 'alumno' ||
-              usuarioPendiente?.comisionSolicitada != null
-          ? Tipo.alumnoPendiente
-          : Tipo.docentePendiente
-      : listaRoles
-                      .firstWhere(
-                        (element) =>
-                            element.id == usuarioPendiente?.rolSolicitado,
-                      )
-                      .nombre ==
-                  'alumno' ||
-              usuarioPendiente?.comisionSolicitada != null
+  Tipo get tipoUsuario => usuarioPendiente == null
+      ? rolesDeUsuario
+              .any((usuarioConRol) => usuarioConRol.rol?.nombre == 'alumno')
           ? Tipo.alumnoAprobado
-          : Tipo.docenteAprobado;
+          : Tipo.docenteAprobado
+      : nombreRolUsuarioPendiente == 'alumno'
+          ? Tipo.alumnoPendiente
+          : Tipo.docentePendiente;
 }
 
 /// {@template BlocPerfilUsuarioEstadoInicial}

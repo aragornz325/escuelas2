@@ -22,6 +22,8 @@ class SeccionCursos extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
       builder: (context, state) {
         return Container(
@@ -101,13 +103,22 @@ class SeccionCursos extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50.sw),
                   color: colores.tertiary,
                 ),
-                child: Text(
-                  // TODO(Seba): Checkear si la lista no esta vacia
-                  state.usuario?.comisiones?.last.comision?.nombre ?? '',
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 13.pf,
-                    fontWeight: FontWeight.w700,
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.pw),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${l10n.commonComission.toUpperCase()}: '
+                          '${state.nombreComisionesUsuario(context)}',
+                          style: TextStyle(
+                            color: colores.onBackground,
+                            fontSize: 13.pf,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -119,8 +130,8 @@ class SeccionCursos extends StatelessWidget {
                   color: colores.tertiary,
                 ),
                 child: Text(
-                  state.usuarioPendiente?.comisionSolicitada?.nombreComision ??
-                      '',
+                  '${l10n.commonComission.toUpperCase()}: '
+                  '${state.nombreComisionesUsuarioPendiente(context)}',
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 13.pf,
