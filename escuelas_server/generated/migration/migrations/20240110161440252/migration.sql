@@ -48,17 +48,27 @@ CREATE TABLE "asistencias_diarias" (
 --
 CREATE TABLE "calificaciones" (
     "id" serial PRIMARY KEY,
+    "idAutor" integer NOT NULL,
     "idEstudiante" integer NOT NULL,
     "idComision" integer NOT NULL,
     "idAsignatura" integer NOT NULL,
-    "idConcepto" integer NOT NULL,
+    "idInstanciaDeEvaluacion" integer NOT NULL,
     "tipoCalificacion" integer NOT NULL,
     "index" integer NOT NULL,
     "diferencial" text NOT NULL,
-    "detalle" text NOT NULL,
+    "observacion" text,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
     "fechaEliminacion" timestamp without time zone
+);
+
+--
+-- ACTION CREATE TABLE
+--
+CREATE TABLE "calificaciones_mensuales" (
+    "id" serial PRIMARY KEY,
+    "idCalificacion" integer NOT NULL,
+    "numeroDeMes" integer NOT NULL
 );
 
 --
@@ -98,18 +108,6 @@ CREATE TABLE "conceptos_calificacion" (
     "fechaCreacion" timestamp without time zone NOT NULL,
     "fechaEliminacion" timestamp without time zone
 );
-
---
--- ACTION CREATE TABLE
---
-CREATE TABLE "cursadas" (
-    "id" serial PRIMARY KEY,
-    "usuarioId" integer NOT NULL,
-    "comisionId" integer NOT NULL
-);
-
--- Indexes
-CREATE UNIQUE INDEX "cursada_index_idx" ON "cursadas" USING btree ("usuarioId", "comisionId");
 
 --
 -- ACTION CREATE TABLE
@@ -170,6 +168,41 @@ CREATE TABLE "domicilios_de_usuario" (
     "idCodigoPostal" integer NOT NULL,
     "idCiudad" integer NOT NULL,
     "idProvincia" integer NOT NULL
+);
+
+--
+-- ACTION CREATE TABLE
+--
+CREATE TABLE "evaluaciones_de_asignatura" (
+    "id" serial PRIMARY KEY,
+    "idInstanciaDeEvaluacion" integer NOT NULL,
+    "idComision" integer NOT NULL,
+    "idAsignatura" integer NOT NULL
+);
+
+--
+-- ACTION CREATE TABLE
+--
+CREATE TABLE "evaluaciones_de_compensacion" (
+    "id" serial PRIMARY KEY,
+    "idInstanciaDeEvaluacion" integer NOT NULL,
+    "idAsignatura" integer NOT NULL
+);
+
+--
+-- ACTION CREATE TABLE
+--
+CREATE TABLE "instancias_de_evaluacion" (
+    "id" serial PRIMARY KEY,
+    "nombre" text NOT NULL,
+    "descripcion" text NOT NULL,
+    "autor" integer NOT NULL,
+    "idConcepto" integer NOT NULL,
+    "fechaProgramada" timestamp without time zone NOT NULL,
+    "fechaDeRealizacion" timestamp without time zone NOT NULL,
+    "ultimaModificacion" timestamp without time zone NOT NULL,
+    "fechaCreacion" timestamp without time zone NOT NULL,
+    "fechaEliminacion" timestamp without time zone
 );
 
 --
@@ -242,11 +275,8 @@ CREATE TABLE "numeros_de_telefono_institucion" (
 --
 CREATE TABLE "periodos" (
     "id" serial PRIMARY KEY,
-    "nombre" text NOT NULL,
-    "diaInicio" integer NOT NULL,
-    "mesInicio" integer NOT NULL,
-    "diaFin" integer NOT NULL,
-    "mesFin" integer NOT NULL,
+    "fechaInicio" timestamp without time zone NOT NULL,
+    "fechaFin" timestamp without time zone NOT NULL,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
     "fechaEliminacion" timestamp without time zone
@@ -270,6 +300,18 @@ CREATE UNIQUE INDEX "r_usuario_asignatura_index_idx" ON "r_asignaturas_usuarios"
 --
 -- ACTION CREATE TABLE
 --
+CREATE TABLE "r_comisiones_usuarios" (
+    "id" serial PRIMARY KEY,
+    "usuarioId" integer NOT NULL,
+    "comisionId" integer NOT NULL
+);
+
+-- Indexes
+CREATE UNIQUE INDEX "r_usuario_comision_index_idx" ON "r_comisiones_usuarios" USING btree ("usuarioId", "comisionId");
+
+--
+-- ACTION CREATE TABLE
+--
 CREATE TABLE "r_usuario_rol" (
     "id" serial PRIMARY KEY,
     "usuarioId" integer NOT NULL,
@@ -289,6 +331,32 @@ CREATE TABLE "roles_de_usuario" (
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
     "fechaEliminacion" timestamp without time zone
+);
+
+--
+-- ACTION CREATE TABLE
+--
+CREATE TABLE "solicitudes" (
+    "id" serial PRIMARY KEY,
+    "tipoSolicitud" integer NOT NULL,
+    "idAutor" integer NOT NULL,
+    "idDestinatario" integer NOT NULL,
+    "fechaCreacion" timestamp without time zone NOT NULL,
+    "fechaRealizacion" timestamp without time zone NOT NULL,
+    "fechaVisto" timestamp without time zone,
+    "fechaEliminacion" timestamp without time zone
+);
+
+--
+-- ACTION CREATE TABLE
+--
+CREATE TABLE "solicitudes_notas_mensuales" (
+    "id" serial PRIMARY KEY,
+    "idSolicitud" integer NOT NULL,
+    "idComision" integer NOT NULL,
+    "idAsignatura" integer NOT NULL,
+    "numeroDemes" integer NOT NULL,
+    "idCalificacionMensual" integer NOT NULL
 );
 
 --
@@ -656,7 +724,7 @@ ALTER TABLE ONLY "asignatura_solicitada"
     ADD CONSTRAINT "asignatura_solicitada_fk_0"
     FOREIGN KEY("idUsuarioPendiente")
     REFERENCES "usuarios_pendientes"("id")
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "asignatura_solicitada"
     ADD CONSTRAINT "asignatura_solicitada_fk_1"
@@ -708,26 +776,42 @@ ALTER TABLE ONLY "asistencias_diarias"
 --
 ALTER TABLE ONLY "calificaciones"
     ADD CONSTRAINT "calificaciones_fk_0"
-    FOREIGN KEY("idEstudiante")
+    FOREIGN KEY("idAutor")
     REFERENCES "usuarios"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "calificaciones"
     ADD CONSTRAINT "calificaciones_fk_1"
+    FOREIGN KEY("idEstudiante")
+    REFERENCES "usuarios"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "calificaciones"
+    ADD CONSTRAINT "calificaciones_fk_2"
     FOREIGN KEY("idComision")
     REFERENCES "comisiones"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "calificaciones"
-    ADD CONSTRAINT "calificaciones_fk_2"
+    ADD CONSTRAINT "calificaciones_fk_3"
     FOREIGN KEY("idAsignatura")
     REFERENCES "asignaturas"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "calificaciones"
-    ADD CONSTRAINT "calificaciones_fk_3"
-    FOREIGN KEY("idConcepto")
-    REFERENCES "conceptos_calificacion"("id")
+    ADD CONSTRAINT "calificaciones_fk_4"
+    FOREIGN KEY("idInstanciaDeEvaluacion")
+    REFERENCES "instancias_de_evaluacion"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- ACTION CREATE FOREIGN KEY
+--
+ALTER TABLE ONLY "calificaciones_mensuales"
+    ADD CONSTRAINT "calificaciones_mensuales_fk_0"
+    FOREIGN KEY("idCalificacion")
+    REFERENCES "calificaciones"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -738,7 +822,7 @@ ALTER TABLE ONLY "comision_solicitada"
     ADD CONSTRAINT "comision_solicitada_fk_0"
     FOREIGN KEY("idUsuarioPendiente")
     REFERENCES "usuarios_pendientes"("id")
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION;
 
 --
@@ -754,22 +838,6 @@ ALTER TABLE ONLY "comisiones"
     ADD CONSTRAINT "comisiones_fk_1"
     FOREIGN KEY("_cursosComisionesCursosId")
     REFERENCES "cursos"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-
---
--- ACTION CREATE FOREIGN KEY
---
-ALTER TABLE ONLY "cursadas"
-    ADD CONSTRAINT "cursadas_fk_0"
-    FOREIGN KEY("usuarioId")
-    REFERENCES "usuarios"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE ONLY "cursadas"
-    ADD CONSTRAINT "cursadas_fk_1"
-    FOREIGN KEY("comisionId")
-    REFERENCES "comisiones"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -810,6 +878,60 @@ ALTER TABLE ONLY "domicilios_de_usuario"
     ADD CONSTRAINT "domicilios_de_usuario_fk_0"
     FOREIGN KEY("idUsuario")
     REFERENCES "usuarios"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- ACTION CREATE FOREIGN KEY
+--
+ALTER TABLE ONLY "evaluaciones_de_asignatura"
+    ADD CONSTRAINT "evaluaciones_de_asignatura_fk_0"
+    FOREIGN KEY("idInstanciaDeEvaluacion")
+    REFERENCES "instancias_de_evaluacion"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "evaluaciones_de_asignatura"
+    ADD CONSTRAINT "evaluaciones_de_asignatura_fk_1"
+    FOREIGN KEY("idComision")
+    REFERENCES "comisiones"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "evaluaciones_de_asignatura"
+    ADD CONSTRAINT "evaluaciones_de_asignatura_fk_2"
+    FOREIGN KEY("idAsignatura")
+    REFERENCES "asignaturas"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- ACTION CREATE FOREIGN KEY
+--
+ALTER TABLE ONLY "evaluaciones_de_compensacion"
+    ADD CONSTRAINT "evaluaciones_de_compensacion_fk_0"
+    FOREIGN KEY("idInstanciaDeEvaluacion")
+    REFERENCES "instancias_de_evaluacion"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "evaluaciones_de_compensacion"
+    ADD CONSTRAINT "evaluaciones_de_compensacion_fk_1"
+    FOREIGN KEY("idAsignatura")
+    REFERENCES "asignaturas"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- ACTION CREATE FOREIGN KEY
+--
+ALTER TABLE ONLY "instancias_de_evaluacion"
+    ADD CONSTRAINT "instancias_de_evaluacion_fk_0"
+    FOREIGN KEY("autor")
+    REFERENCES "conceptos_calificacion"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "instancias_de_evaluacion"
+    ADD CONSTRAINT "instancias_de_evaluacion_fk_1"
+    FOREIGN KEY("idConcepto")
+    REFERENCES "conceptos_calificacion"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -872,6 +994,22 @@ ALTER TABLE ONLY "r_asignaturas_usuarios"
 --
 -- ACTION CREATE FOREIGN KEY
 --
+ALTER TABLE ONLY "r_comisiones_usuarios"
+    ADD CONSTRAINT "r_comisiones_usuarios_fk_0"
+    FOREIGN KEY("usuarioId")
+    REFERENCES "usuarios"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "r_comisiones_usuarios"
+    ADD CONSTRAINT "r_comisiones_usuarios_fk_1"
+    FOREIGN KEY("comisionId")
+    REFERENCES "comisiones"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- ACTION CREATE FOREIGN KEY
+--
 ALTER TABLE ONLY "r_usuario_rol"
     ADD CONSTRAINT "r_usuario_rol_fk_0"
     FOREIGN KEY("usuarioId")
@@ -882,6 +1020,50 @@ ALTER TABLE ONLY "r_usuario_rol"
     ADD CONSTRAINT "r_usuario_rol_fk_1"
     FOREIGN KEY("rolId")
     REFERENCES "roles_de_usuario"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- ACTION CREATE FOREIGN KEY
+--
+ALTER TABLE ONLY "solicitudes"
+    ADD CONSTRAINT "solicitudes_fk_0"
+    FOREIGN KEY("idAutor")
+    REFERENCES "usuarios"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "solicitudes"
+    ADD CONSTRAINT "solicitudes_fk_1"
+    FOREIGN KEY("idDestinatario")
+    REFERENCES "usuarios"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
+-- ACTION CREATE FOREIGN KEY
+--
+ALTER TABLE ONLY "solicitudes_notas_mensuales"
+    ADD CONSTRAINT "solicitudes_notas_mensuales_fk_0"
+    FOREIGN KEY("idSolicitud")
+    REFERENCES "solicitudes"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "solicitudes_notas_mensuales"
+    ADD CONSTRAINT "solicitudes_notas_mensuales_fk_1"
+    FOREIGN KEY("idComision")
+    REFERENCES "comisiones"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "solicitudes_notas_mensuales"
+    ADD CONSTRAINT "solicitudes_notas_mensuales_fk_2"
+    FOREIGN KEY("idAsignatura")
+    REFERENCES "asignaturas"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "solicitudes_notas_mensuales"
+    ADD CONSTRAINT "solicitudes_notas_mensuales_fk_3"
+    FOREIGN KEY("idCalificacionMensual")
+    REFERENCES "calificaciones_mensuales"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -946,9 +1128,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR escuelas
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('escuelas', '20240109133906580', now())
+    VALUES ('escuelas', '20240110161440252', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240109133906580', "timestamp" = now();
+    DO UPDATE SET "version" = '20240110161440252', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod
