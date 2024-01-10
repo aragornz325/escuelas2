@@ -75,7 +75,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
         );
 
         if (userInfo == null) {
-          emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
+          return emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
         }
 
         final usuarioPendiente =
@@ -107,7 +107,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
               BlocLoginEstadoSolicitudAceptada.desde(
                 state,
                 usuario: usuario,
-                userInfo: userInfo!,
+                userInfo: userInfo,
               ),
             );
         }

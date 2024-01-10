@@ -26,7 +26,7 @@ class EscuelasDrawer extends StatelessWidget {
 
   /// Imagen de appbar[EscuelasDrawer].
   final String? urlImage;
-// TODO(SAM): Checkear foto de perfil
+
 // TODO(SAM): Agregar inkwell/ highlight al presionar boton y mejorar dialog de feat not available
 
   /// Navega a la ruta del perfil del usuario y luego cierra la pantalla actual
@@ -109,28 +109,33 @@ class EscuelasDrawer extends StatelessWidget {
                       SizedBox(height: 60.ph),
                       Column(
                         children: <Widget>[
-                          CircleAvatar(
-                            radius: 45.sw,
-                            backgroundColor: colores.background,
-                            child: (urlImage != null && urlImage != '')
-                                ? Image.network(
-                                    urlImage!,
-                                    fit: BoxFit.cover,
-                                    errorBuilder: (
-                                      context,
-                                      error,
-                                      stackTrace,
-                                    ) =>
-                                        Image.asset(
-                                      Assets.images.usuario.path,
+                          Container(
+                            height: 80.sh,
+                            width: 80.sw,
+                            color: colores.background,
+                            child: ClipRRect(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(100.sw)),
+                              child: (urlImage != null && urlImage != '')
+                                  ? Image.network(
+                                      urlImage!,
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (
+                                        context,
+                                        error,
+                                        stackTrace,
+                                      ) =>
+                                          Image.asset(
+                                        Assets.images.usuario.path,
+                                        color: colores.onBackground,
+                                      ),
+                                    )
+                                  : Icon(
+                                      Icons.person,
                                       color: colores.onBackground,
+                                      size: 30.sw,
                                     ),
-                                  )
-                                : Icon(
-                                    Icons.person,
-                                    color: colores.onBackground,
-                                    size: 30.sw,
-                                  ),
+                            ),
                           ),
                           SizedBox(height: 5.ph),
                           SizedBox(
