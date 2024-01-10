@@ -193,7 +193,7 @@ class EscuelasDialog extends StatelessWidget {
     required VoidCallback onCerrarSesion,
   }) {
     final colores = context.colores;
-
+// TODO(SAM): Checkear porque hay q apretar 2 veces el logout drawer
     final l10n = context.l10n;
     return EscuelasDialog(
       altura: 160.ph,

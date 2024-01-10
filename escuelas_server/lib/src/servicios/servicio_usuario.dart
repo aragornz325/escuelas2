@@ -5,6 +5,7 @@ import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
 import 'package:escuelas_server/src/servicios/servicio_comision.dart';
 import 'package:escuelas_server/src/servicios/servicio_curso.dart';
+import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
 
@@ -19,6 +20,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   final ServicioComision _servicioComision = ServicioComision();
 
   final ServicioCurso _servicioCurso = ServicioCurso();
+
+  final ServicioRol _servicioRol = ServicioRol();
 
   Future<Usuario> obtenerDatosDelUsuario(Session session) async {
     final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
@@ -219,60 +222,88 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     Session session, {
     required UsuarioPendiente usuarioPendiente,
   }) async {
+    switch (usuarioPendiente.estadoDeSolicitud) {
+      case EstadoDeSolicitud.aprobado:
+        await _onSolicitudAprobada(
+          session,
+          usuarioPendiente: usuarioPendiente,
+        );
+      case EstadoDeSolicitud.rechazado:
+        return ejecutarOperacion(
+          () => _ormUsuarioPendiente.eliminarUsuarioPendiente(
+            session,
+            id: usuarioPendiente.id ?? 0,
+          ),
+        );
+      case EstadoDeSolicitud.pendiente:
+        return;
+    }
+  }
+
+  Future<void> _onSolicitudAprobada(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async {
     final ahora = DateTime.now();
 
-    if (usuarioPendiente.estadoDeSolicitud == EstadoDeSolicitud.aprobado) {
-      final usuario = await ejecutarOperacion(
-        () => orm.crearUsuario(
+    final usuario = await ejecutarOperacion(
+      () => orm.crearUsuario(
+        session,
+        nuevoUsuario: Usuario(
+          idUserInfo: usuarioPendiente.idUserInfo,
+          nombre: usuarioPendiente.nombre,
+          apellido: usuarioPendiente.apellido,
+          urlFotoDePerfil: usuarioPendiente.urlFotoDePerfil,
+          fechaCreacion: ahora,
+          ultimaModificacion: ahora,
+        ),
+      ),
+    );
+
+    final idUsuario = usuario.id;
+    final asignaturasSolicitadas = usuarioPendiente.asignaturasSolicitadas;
+    final comisionSolicitada = usuarioPendiente.comisionSolicitada;
+
+    if (idUsuario == null) {
+      throw ExcepcionCustom(
+        titulo: 'Error al crear el usuario.',
+        mensaje: 'Error al crear el usuario.',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
+    }
+
+    await ejecutarOperacion(
+      () => _servicioRol.asignarRolAUsuario(
+        session,
+        idUsuario: idUsuario,
+        idRol: usuarioPendiente.rolSolicitado,
+      ),
+    );
+
+    if (asignaturasSolicitadas != null && asignaturasSolicitadas.isNotEmpty) {
+      await ejecutarOperacion(
+        () => _servicioAsignatura.asignarAsignaturasSolicitadas(
           session,
-          nuevoUsuario: Usuario(
-            idUserInfo: usuarioPendiente.idUserInfo,
-            nombre: usuarioPendiente.nombre,
-            apellido: usuarioPendiente.apellido,
-            urlFotoDePerfil: usuarioPendiente.urlFotoDePerfil,
-            fechaCreacion: ahora,
-            ultimaModificacion: ahora,
-          ),
+          asignaturasSolicitadas: asignaturasSolicitadas,
+          usuarioId: idUsuario,
         ),
       );
-
-      final idUsuario = usuario.id;
-      final asignaturasSolicitadas = usuarioPendiente.asignaturasSolicitadas;
-      final comisionSolicitada = usuarioPendiente.comisionSolicitada;
-
-      if (idUsuario == null) {
-        throw ExcepcionCustom(
-          titulo: 'Error al crear el usuario.',
-          mensaje: 'Error al crear el usuario.',
-          tipoDeError: TipoExcepcion.noEncontrado,
-          codigoError: 404,
-        );
-      }
-
-      if (asignaturasSolicitadas != null && asignaturasSolicitadas.isNotEmpty) {
-        await ejecutarOperacion(
-          () => _servicioAsignatura.asignarAsignaturasSolicitadas(
-            session,
-            asignaturasSolicitadas: asignaturasSolicitadas,
-            usuarioId: idUsuario,
-          ),
-        );
-      } else if (comisionSolicitada != null) {
-        await ejecutarOperacion(
-          () => _servicioComision.asignarUsuarioAComision(
-            session,
-            idComision: comisionSolicitada.idComision,
-            idUsuario: idUsuario,
-          ),
-        );
-      }
-
-      return ejecutarOperacion(
-        () => _ormUsuarioPendiente.actualizarUsuarioPendiente(
+    } else if (comisionSolicitada != null) {
+      await ejecutarOperacion(
+        () => _servicioComision.asignarUsuarioAComision(
           session,
-          usuarioPendiente: usuarioPendiente..ultimaModificacion = ahora,
+          idComision: comisionSolicitada.idComision,
+          idUsuario: idUsuario,
         ),
       );
     }
+
+    return ejecutarOperacion(
+      () => _ormUsuarioPendiente.actualizarUsuarioPendiente(
+        session,
+        usuarioPendiente: usuarioPendiente..ultimaModificacion = ahora,
+      ),
+    );
   }
 }

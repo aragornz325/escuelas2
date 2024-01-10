@@ -1,4 +1,3 @@
-import 'package:escuelas_flutter/extensiones/date_time.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';

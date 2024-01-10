@@ -92,4 +92,16 @@ class OrmUsuarioPendiente extends ORM {
           ],
         ),
       );
+
+  Future<void> eliminarUsuarioPendiente(
+    Session session, {
+    required int id,
+  }) async =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => UsuarioPendiente.db.deleteWhere(
+          session,
+          where: (t) => t.id.equals(id),
+        ),
+      );
 }
