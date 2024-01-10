@@ -41,6 +41,7 @@ solicitud:
   - eliminarSolicitud:
 solicitudNotaMensual:
   - crearSolicitudNotaMensual:
+  - actualizarSolicitudNotaMensual:
   - obtenerSolicitudNotaMensual:
   - obtenerSolicitudesNotaMensual:
   - eliminarSolicitudNotaMensual:

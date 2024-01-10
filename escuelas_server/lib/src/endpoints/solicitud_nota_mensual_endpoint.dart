@@ -35,7 +35,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
   /// solicitudNotaMensual (SolicitudNotaMensual): Un objeto de tipo SolicitudNotaMensual, que representa un registro de solicitud.
   /// Returns:
   /// Un `Future<SolicitudNotaMensual>`.
-  Future actualizarSolicitudNotaMensual(
+  Future<SolicitudNotaMensual> actualizarSolicitudNotaMensual(
     Session session,
     SolicitudNotaMensual solicitudNotaMensual,
   ) async {
