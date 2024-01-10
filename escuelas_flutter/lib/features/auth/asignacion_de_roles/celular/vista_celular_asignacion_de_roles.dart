@@ -23,10 +23,9 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
     return BlocBuilder<BlocAsignacionDeRoles, BlocAsignacionDeRolesEstado>(
       builder: (context, state) {
         if (state.estaCargando) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
+
         if (state.listaUsuariosPendientes.isEmpty) {
           return Center(
             child: Text(
@@ -39,6 +38,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
             ),
           );
         }
+
         return SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.pw),
@@ -58,10 +58,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                         ),
                         SizedBox(height: 10.ph),
                         ...state.listaUsuariosPendientes
-                            .where(
-                              (usuario) => usuario.rolSolicitado == rol.id,
-                            )
-                            .toList()
+                            .where((usuario) => usuario.rolSolicitado == rol.id)
                             .map(
                               (usuario) => Padding(
                                 padding: EdgeInsets.only(bottom: 10.ph),
