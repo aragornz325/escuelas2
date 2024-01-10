@@ -19,30 +19,17 @@ class OrmCalificacion extends ORM {
   Future<List<Calificacion>> obtenerCalificaciones(
     Session session, {
     Periodo? periodo,
-    int? idConceptoDeCalificacion,
   }) async =>
       ejecutarOperacionOrm(
         session,
         (session) => Calificacion.db.find(
           session,
           where: (t) {
-            if (periodo != null && idConceptoDeCalificacion != null) {
-              return t.fechaCreacion.between(
-                    periodo.fechaInicio,
-                    periodo.fechaFin,
-                  ) &
-                  t.idConcepto.equals(idConceptoDeCalificacion);
-            }
-
             if (periodo != null) {
               return t.fechaCreacion.between(
                 periodo.fechaInicio,
                 periodo.fechaFin,
               );
-            }
-
-            if (idConceptoDeCalificacion != null) {
-              return t.idConcepto.equals(idConceptoDeCalificacion);
             }
 
             return t.id.notEquals(null);

@@ -9,14 +9,12 @@ class CalificacionEndpoint extends Endpoint with Controller {
 
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {
-    required int idConcepto,
     required List<Calificacion> calificaciones,
   }) =>
       ejecutarOperacionControlador(
         'crearCalificacionesEnBloque',
         () => servicio.crearCalificacionesEnBloque(
           session,
-          idConcepto: idConcepto,
           calificaciones: calificaciones,
         ),
       );
@@ -36,14 +34,12 @@ class CalificacionEndpoint extends Endpoint with Controller {
   Future<List<Calificacion>> obtenerCalificaciones(
     Session session,
     Periodo? periodo,
-    int? idConceptoDeCalificacion,
   ) async =>
       ejecutarOperacionControlador(
         'obtenerCalificaciones',
         () => servicio.obtenerCalificaciones(
           session,
           periodo,
-          idConceptoDeCalificacion,
         ),
       );
 

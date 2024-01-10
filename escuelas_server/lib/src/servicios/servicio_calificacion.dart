@@ -13,13 +13,8 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
 
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {
-    required int idConcepto,
     required List<Calificacion> calificaciones,
   }) async {
-    for (var calificacion in calificaciones) {
-      calificacion.idConcepto = idConcepto;
-    }
-
     return await ejecutarOperacion(
       () => orm.crearCalificaciones(
         session,
@@ -49,13 +44,11 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   Future<List<Calificacion>> obtenerCalificaciones(
     Session session,
     Periodo? periodo,
-    int? idConceptoDeCalificacion,
   ) async =>
       ejecutarOperacion(
         () => orm.obtenerCalificaciones(
           session,
           periodo: periodo,
-          idConceptoDeCalificacion: idConceptoDeCalificacion,
         ),
       );
 
