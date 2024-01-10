@@ -55,18 +55,55 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
 
   /// Cantidad de alumnos que no asistieron
   int cantidadDeAlumnos(
-    List<Usuario> usuarios,
+    List<RelacionComisionUsuario> usuarios,
     List<AsistenciaDiaria> asistenciasDiarias,
     EstadoDeAsistencia estado,
   ) {
     return usuarios.where((usuario) {
       return asistenciasDiarias.any(
         (asistencia) =>
-            asistencia.estudianteId == usuario.idUserInfo &&
+            asistencia.estudianteId == usuario.usuarioId &&
             asistencia.estadoDeAsistencia != EstadoDeAsistencia.presente &&
             asistencia.estadoDeAsistencia != EstadoDeAsistencia.sinEstado &&
             asistencia.estadoDeAsistencia == estado,
       );
     }).length;
+  }
+
+  /// Verifica si existe una inasistencia de la lista
+  bool existeInasistencia({
+    required List<AsistenciaDiaria> asistenciasDiarias,
+    required int idEstudiante,
+    required DateTime fecha,
+  }) {
+    return asistenciasDiarias.any(
+      (asistencia) =>
+          (asistencia.fechaCreacion?.mismaFecha(fecha) ?? false) &&
+          asistencia.estudianteId == idEstudiante,
+    );
+  }
+
+  /// Verificar si ya existe una inasistencia exactamente igual
+  bool tieneLaMismaInasistencia({
+    required List<AsistenciaDiaria> asistenciasDiarias,
+    required int idEstudiante,
+    required DateTime fecha,
+    required EstadoDeAsistencia estado,
+  }) {
+    return asistenciasDiarias.any(
+      (asistencia) =>
+          (asistencia.fechaCreacion?.mismaFecha(fecha) ?? false) &&
+          asistencia.estudianteId == idEstudiante &&
+          asistencia.estadoDeAsistencia == estado,
+    );
+  }
+  /// Verifica si existe un estudiante con el id
+  bool existeMismoEstudiante(
+    List<AsistenciaDiaria> asistenciasDiarias,
+    int idEstudiante,
+  ) {
+    return asistenciasDiarias.any(
+      (asistencia) => asistencia.estudianteId == idEstudiante,
+    );
   }
 }

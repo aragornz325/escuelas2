@@ -9,6 +9,11 @@ asistencia:
   - crearAsistenciasEnLote:
   - traerAsistenciaPorDia:
   - actualizarAsistenciasEnLote:
+calificacion:
+  - crearCalificacionesEnBloque:
+  - crearConceptoDeCalificacion:
+  - obtenerCalificaciones:
+  - obtenerConceptosDeCalificacion:
 comision:
   - asignarUsuarioAComision:
   - obtenerComisiones:
@@ -37,3 +42,4 @@ usuario:
   - enviarSolicitudRegistroDocente:
   - enviarSolicitudRegistroAlumno:
   - responderSolicitudDeRegistro:
+  - obtenerListaDeEstudiantesDeComision:

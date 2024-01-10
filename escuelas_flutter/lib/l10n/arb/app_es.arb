@@ -367,7 +367,7 @@
         }
     },
 
-    "pageAttendanceNotAbsentStudents": "No hay alumnos ausentes",
+    "pageAttendanceNotAbsentStudents": "No hay estudiantes",
     "@pageAttendanceNotAbsentStudents": {
         "description": "Text to be displayed when there are no absent students"
     },
@@ -391,11 +391,6 @@
     "dialogSeeLess": "Ver menos",
     "@dialogSeeLess": {
         "description": "text on a button to see more"
-    },
-
-    "commonName": "Nombre",
-    "@commonName": {
-        "description": "Label for the 'Name' field or column in the interface"
     },
 
     "commonDNI": "Número de documento",

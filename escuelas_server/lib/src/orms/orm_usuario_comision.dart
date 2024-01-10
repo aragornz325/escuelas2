@@ -18,4 +18,33 @@ class OrmUsuarioComision extends ORM {
       );
     });
   }
+
+  Future<List<RelacionComisionUsuario>> obtenerRelacionesComisionUsuario(
+    Session session, {
+    int? idComision,
+    int? idUsuario,
+  }) async {
+    return await ejecutarOperacionOrm(
+      session,
+      (session) => RelacionComisionUsuario.db.find(
+        session,
+        where: (t) {
+          if (idComision != null && idUsuario != null) {
+            return t.comisionId.equals(idComision) &
+                t.usuarioId.equals(idUsuario);
+          }
+          if (idComision != null && idUsuario == null) {
+            return t.comisionId.equals(idComision);
+          }
+          if (idComision == null && idUsuario != null) {
+            return t.usuarioId.equals(idUsuario);
+          }
+          return t.id.notEquals(null);
+        },
+        include: RelacionComisionUsuario.include(
+          usuario: Usuario.include(),
+        ),
+      ),
+    );
+  }
 }

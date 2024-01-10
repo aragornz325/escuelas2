@@ -14,7 +14,7 @@ fields:
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
   comisiones: List<RelacionComisionUsuario>?, relation(name=usuario_comisiones)
-  asignaturas: List<RelacionAsignaturaUsuario>?, relation(name=usuario_asignatura)
+  asignaturas: List<RelacionAsignaturaUsuario>?, relation(name=usuario_asignaturas)
 indexes:
   usuarios_domicilios_de_usuario_unique_idx:
     fields: domicilioId

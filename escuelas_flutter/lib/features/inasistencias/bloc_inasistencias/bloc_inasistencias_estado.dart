@@ -1,53 +1,68 @@
 part of 'bloc_inasistencias.dart';
 
 /// {@template BlocInasistenciasEstado}
-/// Bloc que maneja el estado de las asistencias
+/// Bloc que maneja el estado de las inasistencias
 /// {@endtemplate}
 @immutable
 class BlocInasistenciasEstado {
   /// {@macro BlocInasistenciasEstado}
   const BlocInasistenciasEstado._({
-    this.asistencias = const [],
-    this.cursos = const [],
-    this.index = -1,
+    this.asistenciaAModificar = const [],
+    this.todasInasistencias = const [],
+    this.inasistencias = const [],
+    this.comisiones = const [],
+    this.fechaActual,
   });
 
   BlocInasistenciasEstado.desde(
     BlocInasistenciasEstado otro, {
-    List<ComisionDeCurso>? cursos,
-    int? index,
-    List<List<AsistenciaDiaria>>? asistencias,
+    List<ComisionDeCurso>? comisiones,
+    DateTime? fechaActual,
+    List<List<AsistenciaDiaria>>? inasistencias,
+    List<AsistenciaDiaria>? asistenciaAModificar,
+    List<AsistenciaDiaria>? todasInasistencias,
   }) : this._(
-          cursos: cursos ?? otro.cursos,
-          index: index ?? otro.index,
-          asistencias: asistencias ?? otro.asistencias,
+          comisiones: comisiones ?? otro.comisiones,
+          asistenciaAModificar:
+              asistenciaAModificar ?? otro.asistenciaAModificar,
+          inasistencias: inasistencias ?? otro.inasistencias,
+          fechaActual: fechaActual ?? otro.fechaActual,
+          todasInasistencias: todasInasistencias ?? otro.todasInasistencias,
         );
 
-  /// Lista de los cursos
-  final List<ComisionDeCurso> cursos;
+  /// Lista de las comisiones de los cursos
+  final List<ComisionDeCurso> comisiones;
 
-  /// Indice del curso
-  final int index;
+  /// Lista de estados de inasistencias de los alumnos
+  final List<List<AsistenciaDiaria>> inasistencias;
 
-  /// Lista de estados de asistencias de los alumnos
-  final List<List<AsistenciaDiaria>> asistencias;
+  /// Fecha en la que se finalizaron las inasistencias
+  final DateTime? fechaActual;
 
-  /// Getter para saber la lista de alumnos con sus asistencias
-  List<AsistenciaDiaria> asistenciasDiarias(int idCurso) => asistencias
+  /// Lista de todas las inasistencias
+  final List<AsistenciaDiaria> todasInasistencias;
+
+  /// Lista de alumnos con sus inasistencias a modificar.
+  final List<AsistenciaDiaria> asistenciaAModificar;
+
+  /// Getter para saber la lista de alumnos con sus inasistencias
+  List<AsistenciaDiaria> asistenciasDiarias(int idCurso) => inasistencias
       .expand(
         (lista) => lista.where((e) => e.comisionId == idCurso),
       )
       .toList();
 
-  List<Object> get props => [
-        cursos,
-        index,
-        asistencias,
+  List<Object?> get props => [
+        comisiones,
+        fechaActual,
+        inasistencias,
+        todasInasistencias,
+        asistenciaAModificar,
       ];
 }
 
 /// {@template BlocInasistenciasEstadoInicial}
-/// Estado Inicial de la pagina de 'Asistencias'
+/// Estado Inicial de la pagina de 'inasistencias'
 /// {@endtemplate}
 class BlocInasistenciasEstadoInicial extends BlocInasistenciasEstado {
   /// {@macro BlocInasistenciasEstadoInicial}
@@ -55,7 +70,7 @@ class BlocInasistenciasEstadoInicial extends BlocInasistenciasEstado {
 }
 
 /// {@template BlocInasistenciasEstadoCargando}
-/// Estado Cargando de la pagina de 'Asistencias'
+/// Estado Cargando de la pagina de 'inasistencias'
 /// {@endtemplate}
 class BlocInasistenciasEstadoCargando extends BlocInasistenciasEstado {
   /// {@macro BlocInasistenciasEstadoCargando}
@@ -63,20 +78,22 @@ class BlocInasistenciasEstadoCargando extends BlocInasistenciasEstado {
 }
 
 /// {@template BlocInasistenciasEstadoExitoso}
-/// Estado Exitoso de la pagina de 'Asistencias'
+/// Estado Exitoso de la pagina de 'inasistencias'
 /// {@endtemplate}
 class BlocInasistenciasEstadoExitoso extends BlocInasistenciasEstado {
   /// {@macro BlocInasistenciasEstadoExitoso}
   BlocInasistenciasEstadoExitoso.desde(
     super.otro, {
-    required super.cursos,
-    super.index,
-    super.asistencias,
+    required super.comisiones,
+    super.inasistencias,
+    super.fechaActual,
+    super.asistenciaAModificar,
+    super.todasInasistencias,
   }) : super.desde();
 }
 
 /// {@template BlocInasistenciasEstadoFallido}
-/// Estado Fallido de la pagina de 'Asistencias'
+/// Estado Fallido de la pagina de 'inasistencias'
 /// {@endtemplate}
 class BlocInasistenciasEstadoFallido extends BlocInasistenciasEstado {
   /// {@macro BlocInasistenciasEstadoFallido}

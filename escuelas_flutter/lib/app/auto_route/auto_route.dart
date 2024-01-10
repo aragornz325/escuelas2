@@ -110,10 +110,9 @@ class AppRouter extends $AppRouter {
                 ),
               ],
             ),
-            CustomRoute(
+            AutoRoute(
               page: RutaInasistencia.page,
               path: 'absences',
-              transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             AutoRoute(
               page: RutaSupervisionCursos.page,

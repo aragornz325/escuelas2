@@ -71,10 +71,10 @@ class BlocCargaCalificaciones
             idEstudiante: 1,
             idComision: 1,
             idAsignatura: 1,
-            idConcepto: 1,
             tipoCalificacion: TipoCalificacion.rite,
             index: 1,
             diferencial: '',
+            idInstanciaDeEvaluacion: 1,
           ),
         ];
 
@@ -88,10 +88,10 @@ class BlocCargaCalificaciones
             idEstudiante: 1,
             idComision: 1,
             idAsignatura: 1,
-            idConcepto: 1,
             tipoCalificacion: TipoCalificacion.numericoDecimal,
             index: 1,
             diferencial: '',
+            idInstanciaDeEvaluacion: 1,
           ),
         ];
 

@@ -293,7 +293,7 @@ class ElementoLista extends StatelessWidget {
     required void Function() onTapWidgetLateralDerecho,
   }) {
     final colores = context.colores;
-
+    
     final sinGuion = nombreAsignatura == '';
 
     return ElementoLista(

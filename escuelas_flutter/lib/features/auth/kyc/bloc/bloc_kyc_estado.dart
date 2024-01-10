@@ -8,8 +8,8 @@ class BlocKycEstado {
   const BlocKycEstado._({
     this.listaComisiones = const [],
     this.listaAsignaturas = const [],
-    this.opcionesFormulario = const [],
     this.listaRoles = const [],
+    this.opcionesFormulario = const [],
     this.rolElegido,
   });
 
@@ -18,15 +18,14 @@ class BlocKycEstado {
     List<ComisionDeCurso>? listaComisiones,
     List<Asignatura>? listaAsignaturas,
     List<OpcionFormulario>? opcionesFormulario,
-    RolDeUsuario? rolElegido,
     List<RolDeUsuario>? listaRoles,
-    bool eliminarRolSeleccionado = false,
+    RolDeUsuario? rolElegido,
+    bool eliminarRolElegido = false,
   }) : this._(
           listaComisiones: listaComisiones ?? otro.listaComisiones,
           listaAsignaturas: listaAsignaturas ?? otro.listaAsignaturas,
           opcionesFormulario: opcionesFormulario ?? otro.opcionesFormulario,
-          rolElegido:
-              eliminarRolSeleccionado ? null : rolElegido ?? otro.rolElegido,
+          rolElegido: eliminarRolElegido ? null : rolElegido ?? otro.rolElegido,
           listaRoles: listaRoles ?? otro.listaRoles,
         );
 
@@ -71,16 +70,6 @@ class BlocKycEstado {
     );
   }
 
-  /// Metodo toJson del [BlocKycEstado]
-  Map<String, dynamic> toJson() {
-    return {
-      'listaComisiones': listaComisiones.map((e) => e.toJsonBloc()).toList(),
-      'listaAsignaturas': listaAsignaturas.map((e) => e.toJsonBloc()).toList(),
-      'rolElegido': rolElegido?.toJsonBloc(),
-      'listaRoles': listaRoles.map((e) => e.toJsonBloc()).toList(),
-    };
-  }
-
   /// Lista de cursos de la escuela a la que pertenece el usuario
   final List<ComisionDeCurso> listaComisiones;
 
@@ -120,6 +109,16 @@ class BlocKycEstado {
         ),
       )
       .toList();
+
+  /// Metodo toJson del [BlocKycEstado]
+  Map<String, dynamic> toJson() {
+    return {
+      'listaComisiones': listaComisiones.map((e) => e.toJsonBloc()).toList(),
+      'listaAsignaturas': listaAsignaturas.map((e) => e.toJsonBloc()).toList(),
+      'rolElegido': rolElegido?.toJsonBloc(),
+      'listaRoles': listaRoles.map((e) => e.toJsonBloc()).toList(),
+    };
+  }
 }
 
 /// {@template BlocKycEstadoInicial}
@@ -150,7 +149,7 @@ class BlocKycEstadoExitoso extends BlocKycEstado {
     super.opcionesFormulario,
     super.rolElegido,
     super.listaRoles,
-    super.eliminarRolSeleccionado,
+    super.eliminarRolElegido,
   }) : super.desde();
 }
 
@@ -165,9 +164,9 @@ class BlocKycEstadoExitoAlSolicitarRol extends BlocKycEstado {
 /// {@template BlocKycEstadoFallido}
 /// Estado de error de los componentes de la pantalla 'Kyc'
 /// {@endtemplate}
-class BlocKycEstadoError extends BlocKycEstado {
+class BlocKycEstadoFallido extends BlocKycEstado {
   /// {@macro BlocKycEstadoError}
-  BlocKycEstadoError.desde(super.otro) : super.desde();
+  BlocKycEstadoFallido.desde(super.otro) : super.desde();
 }
 
 /// {@template BlocKycEstadoErrorOpcionYaElegida}

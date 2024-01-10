@@ -1,0 +1,6 @@
+class: EvaluacionDeAsignatura
+table: evaluaciones_de_asignatura
+fields: 
+  idInstanciaDeEvaluacion: int, relation(parent=instancias_de_evaluacion)
+  idComision: int, relation(parent=comisiones)
+  idAsignatura: int, relation(parent=asignaturas)

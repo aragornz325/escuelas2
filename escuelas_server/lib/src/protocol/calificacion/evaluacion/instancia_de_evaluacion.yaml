@@ -1,0 +1,12 @@
+class: InstanciaDeEvaluacion
+table: instancias_de_evaluacion
+fields:
+  nombre: String
+  descripcion: String
+  autor: int, relation(parent=conceptos_calificacion)
+  idConcepto: int, relation(parent=conceptos_calificacion)
+  fechaProgramada: DateTime
+  fechaDeRealizacion: DateTime
+  ultimaModificacion: DateTime 
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?

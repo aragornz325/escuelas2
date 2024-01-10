@@ -18,8 +18,8 @@ class PaginaInasistencia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocInasistencias>(
-      create: (context) =>
-          BlocInasistencias()..add(const BlocInasistenciasEventoInicializar()),
+      create: (context) => BlocInasistencias()
+        ..add(BlocInasistenciasEventoInicializar(fecha: DateTime.now())),
       child: const FullResponsiveScreen(
         celular: VistaCelularInasistencias(),
         escritorio: VistaEscritorioInasistencias(),
