@@ -1,6 +1,8 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/orms/orm_relacion_usuario_rol.dart';
+import 'package:escuelas_server/src/orms/orm_asignatura.dart';
+import 'package:escuelas_server/src/orms/orm_curso.dart';
 import 'package:escuelas_server/src/orms/orm_rol.dart';
+import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/server.dart';
 
@@ -8,7 +10,11 @@ class ServicioRol extends Servicio<OrmRol> {
   @override
   OrmRol get orm => OrmRol();
 
-  final OrmRelacionUsuarioRol _ormRelacionUsuarioRol = OrmRelacionUsuarioRol();
+  final OrmUsuario _ormUsuario = OrmUsuario();
+
+  final OrmAsignatura _ormAsignatura = OrmAsignatura();
+
+  final OrmCurso _ormCurso = OrmCurso();
 
   /// La función "obtenerRolPorId" recupera un rol por su ID usando un ORM y lo devuelve como Future.
   ///
@@ -32,18 +38,75 @@ class ServicioRol extends Servicio<OrmRol> {
     return rol;
   }
 
-  Future<List<RelacionUsuarioRol>> obtenerUsuariosConRol(
+  Future<List<UsuariosListados>> obtenerUsuariosPorRolSorteados(
     Session session, {
     required int idRol,
     OrdenarPor ordenarUsuariosPor = OrdenarPor.apellido,
   }) async {
-    return await ejecutarOperacion(
-      () => _ormRelacionUsuarioRol.obtenerRelacionesUsuarioRol(
-        session,
-        idRol: idRol,
-        ordenarUsuariosPor: ordenarUsuariosPor,
-      ),
+    final usuarios = await ejecutarOperacion(
+      () => _ormUsuario.obtenerUsuarios(session),
     );
+
+    final usuariosListados = <UsuariosListados>[];
+
+    switch (ordenarUsuariosPor) {
+      case OrdenarPor.apellido:
+        for (var letra in listaAlfabetica) {
+          final usuariosLetra = usuarios
+              .where((usuario) => usuario.apellido.startsWith(letra))
+              .toList();
+
+          usuariosListados.add(
+            UsuariosListados(
+              etiquetaDelIndexListado: letra,
+              usuarios: usuariosLetra,
+            ),
+          );
+        }
+      case OrdenarPor.curso:
+        final cursos = await ejecutarOperacion(
+          () => _ormCurso.obtenerCursos(session),
+        );
+
+        for (var curso in cursos) {
+          final usuariosDelCurso = usuarios
+              .where((usuario) =>
+                  usuario.asignaturas?.any((cursoUsuario) =>
+                      cursoUsuario.asignaturaId == curso.id) ??
+                  false)
+              .toList();
+
+          usuariosListados.add(
+            UsuariosListados(
+              etiquetaDelIndexListado: curso.nombre,
+              usuarios: usuariosDelCurso,
+            ),
+          );
+        }
+
+      case OrdenarPor.asignatura:
+        final asignaturas = await ejecutarOperacion(
+          () => _ormAsignatura.obtenerAsignaturas(session),
+        );
+
+        for (var asignatura in asignaturas) {
+          final usuariosAsignatura = usuarios
+              .where((usuario) =>
+                  usuario.asignaturas?.any((asignaturaUsuario) =>
+                      asignaturaUsuario.asignaturaId == asignatura.id) ??
+                  false)
+              .toList();
+
+          usuariosListados.add(
+            UsuariosListados(
+              etiquetaDelIndexListado: asignatura.nombre,
+              usuarios: usuariosAsignatura,
+            ),
+          );
+        }
+    }
+
+    return usuariosListados;
   }
 
   /// La función "obtenerRoles" recupera una lista de roles de usuario utilizando un objeto de sesión.
@@ -142,3 +205,32 @@ class ServicioRol extends Servicio<OrmRol> {
     return rol;
   }
 }
+
+const List<String> listaAlfabetica = [
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F',
+  'G',
+  'H',
+  'I',
+  'J',
+  'K',
+  'L',
+  'M',
+  'N',
+  'O',
+  'P',
+  'Q',
+  'R',
+  'S',
+  'T',
+  'U',
+  'V',
+  'W',
+  'X',
+  'Y',
+  'Z',
+];

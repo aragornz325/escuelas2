@@ -76,4 +76,29 @@ class OrmUsuario extends ORM {
       (session) async => await Usuario.db.updateRow(session, usuario),
     );
   }
+
+  Future<List<Usuario>> obtenerUsuarios(Session session) async {
+    return await ejecutarOperacionOrm(
+      session,
+      (session) async => await Usuario.db.find(
+        session,
+        include: Usuario.include(
+          roles: RelacionUsuarioRol.includeList(
+            include: RelacionUsuarioRol.include(
+              rol: RolDeUsuario.include(),
+            ),
+          ),
+          comisiones: RelacionComisionUsuario.includeList(
+            include: RelacionComisionUsuario.include(
+                comision: ComisionDeCurso.include()),
+          ),
+          asignaturas: RelacionAsignaturaUsuario.includeList(
+            include: RelacionAsignaturaUsuario.include(
+              asignatura: Asignatura.include(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

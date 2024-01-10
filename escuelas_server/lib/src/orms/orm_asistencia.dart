@@ -11,21 +11,20 @@ class OrmAsistencia extends ORM {
   /// utiliza para realizar operaciones de bases de datos.
   ///   asistencias (List<AsistenciaDiaria>): Una lista de objetos de tipo AsistenciaDiaria, que
   /// representa registros de asistencia diaria.
-  ///
-  /// Returns:
-  ///   El método devuelve un `Future<String>`.
-  Future<String> crearAsistenciasEnLote(
+  Future<List<AsistenciaDiaria>> crearAsistenciasEnLote(
     Session session, {
     required List<AsistenciaDiaria> asistencias,
   }) async {
-    final asistenciasADb =
-        await AsistenciaDiaria.db.insert(session, asistencias);
+    final asistenciasADb = await AsistenciaDiaria.db.insert(
+      session,
+      asistencias,
+    );
 
     if (asistenciasADb.length != asistencias.length) {
       throw Exception('No se pudieron crear todas las asistencias');
     }
 
-    return 'Asistencias creadas correctamente';
+    return asistenciasADb;
   }
 
   /// La función `actualizarAsistenciasEnLote` actualiza múltiples registros de asistencia diaria en una base de
@@ -64,6 +63,4 @@ class OrmAsistencia extends ORM {
     }
     return asistencias;
   }
-
- 
 }

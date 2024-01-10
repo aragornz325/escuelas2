@@ -1,0 +1,10 @@
+class: UsuariosListados
+fields:
+  ### Representa el nombre con el que se esta agrupando esta lista de usuarios
+  ###
+  ### Ej: "Usuarios que comienzan con la letra A" (En este caso la etiqueta seria "A")
+  ###
+  ### Ej: "Usuarios que se vinculan a la asignatura de Matematica" 
+  ### (En este caso la etiqueta seria "Matematica")
+  etiquetaDelIndexListado: String
+  usuarios: List<Usuario>
