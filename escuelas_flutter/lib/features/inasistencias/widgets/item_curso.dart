@@ -46,7 +46,7 @@ class ItemCurso extends StatelessWidget {
           builder: (context, state) {
             //Cantidad de estudiantes presentes.
             final estudiantesPresentes = comisionDeCurso.cantidadDeNoAusentes(
-                state.asistenciasDiarias(comisionDeCurso.idCurso));
+                state.asistenciasDiarias(comisionDeCurso.id ?? 0));
 
             return ElementoLista(
               ancho: ancho ?? 300.pw,

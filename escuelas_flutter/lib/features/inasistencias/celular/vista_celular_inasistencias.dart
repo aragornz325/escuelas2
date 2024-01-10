@@ -5,6 +5,7 @@ import 'package:escuelas_flutter/features/inasistencias/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_diario_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
+import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -28,58 +29,71 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
 
     final colores = context.colores;
 
-    return BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
-      builder: (context, state) {
-        return Column(
-          children: [
-            BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
-              builder: (context, state) {
-                return Center(
-                  child: Text(
-                    state.fechaActual?.nombreMes(context) ?? '',
-                    style: TextStyle(
-                      color: colores.onBackground,
-                      fontSize: 12.pf,
-                      fontWeight: FontWeight.w700,
+    return Column(
+      children: [
+        BlocConsumer<BlocInasistencias, BlocInasistenciasEstado>(
+          listener: (context, state) {
+            if (state is BlocInasistenciasEstadoExitosoEnvioDeInasistencias) {
+              // TODO(anyone): pedir un aviso de que se actualizaron o cargaron las
+              // inasistencias
+              showDialog<void>(
+                context: context,
+                builder: (context) => EscuelasDialog.exitoso(
+                  altura: max(80.ph, 80.sh),
+                  context: context,
+                  onTap: () => Navigator.of(context).pop(),
+                  content: Text(
+                    l10n.dialogAbsencesSentCorrectly,
+                  ),
+                ),
+              );
+            }
+          },
+          builder: (context, state) {
+            return Center(
+              child: Text(
+                state.fechaActual?.nombreMes(context) ?? '',
+                style: TextStyle(
+                  color: colores.onBackground,
+                  fontSize: 12.pf,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            );
+          },
+        ),
+        SelectorDePeriodo(
+          delegate: PeriodoDiarioDelegate(
+            context,
+          ),
+          onSeleccionarPeriodo: (periodo) =>
+              context.read<BlocInasistencias>().add(
+                    BlocInasistenciasEventoInicializar(
+                      fecha: periodo.fechaDesde,
                     ),
                   ),
-                );
-              },
-            ),
-            SelectorDePeriodo(
-              delegate: PeriodoDiarioDelegate(
-                context,
-              ),
-              onSeleccionarPeriodo: (periodo) =>
-                  context.read<BlocInasistencias>().add(
-                        BlocInasistenciasEventoInicializar(
-                          fecha: periodo.fechaDesde,
-                        ),
-                      ),
-            ),
-            const Divider(thickness: .5),
-            BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
-              builder: (context, state) {
-                if (state is BlocInasistenciasEstadoCargando) {
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
+        ),
+        const Divider(thickness: .5),
+        BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
+          builder: (context, state) {
+            if (state is BlocInasistenciasEstadoCargando) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
 
-                if (state.comisiones.isEmpty) {
-                  // TODO(anyone): hacer una vista cuando no hay cursos.
-                  return Center(
-                    child: Text(l10n.pageAttendanceWithoutCourses),
-                  );
-                }
+            if (state.comisiones.isEmpty) {
+              // TODO(anyone): hacer una vista cuando no hay cursos.
+              return Center(
+                child: Text(l10n.pageAttendanceWithoutCourses),
+              );
+            }
 
-                return const Expanded(child: ListaDeComisionesDeCurso());
-              },
-            ),
-            SizedBox(height: max(10.ph, 10.sh)),
-          ],
-        );
-      },
+            return const Expanded(child: ListaDeComisionesDeCurso());
+          },
+        ),
+        SizedBox(height: max(10.ph, 10.sh)),
+      ],
     );
   }
 }
