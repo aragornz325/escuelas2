@@ -46,7 +46,8 @@ class _VistaCelularListadoComunidadState
             children: [
               Center(
                 child: Text(
-                  // TODO(anyone): Hacer que ponga el nombre del rol seleccionado en plural
+                  // TODO(anyone): Hacer que ponga el nombre del rol
+                  // seleccionado en plural
                   'DOCENTES',
                   style: TextStyle(
                     color: colores.onBackground,

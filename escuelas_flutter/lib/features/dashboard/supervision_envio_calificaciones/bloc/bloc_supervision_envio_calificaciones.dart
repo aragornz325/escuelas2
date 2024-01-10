@@ -34,7 +34,8 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
           BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(
             state,
             fecha: event.fecha,
-            // TODO(anyone): Cambiar por la lista de asignaturas que vienen del back
+            // TODO(anyone): Cambiar por la lista de asignaturas que vienen del
+            // back
             listaAsignaturas: [
               Asignatura(
                 id: 1,

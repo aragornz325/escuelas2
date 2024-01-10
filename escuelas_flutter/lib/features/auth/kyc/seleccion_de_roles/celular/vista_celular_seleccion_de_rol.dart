@@ -85,11 +85,7 @@ class _VistaCelularSeleccionDeRolState
                   child: EscuelasBoton.texto(
                     context: context,
                     estaHabilitado: rolPresionado != null,
-                    // TODO(Gon): Esto se va a cambiar cuando cambie la
-                    // navegacion
-                    onTap: () => context.router.push(
-                      const RutaFormulario(),
-                    ),
+                    onTap: () => context.router.push(const RutaFormulario()),
                     color: rolPresionado != null
                         ? colores.azul
                         : colores.grisDeshabilitado,

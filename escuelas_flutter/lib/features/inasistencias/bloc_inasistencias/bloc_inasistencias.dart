@@ -28,7 +28,8 @@ class BlocInasistencias
     BlocInasistenciasEventoInicializar event,
     Emitter<BlocInasistenciasEstado> emit,
   ) async {
-    // TODO(mati): agregar funcion del back de traer los cursos ver que no te devuelva la lista de inasistencias
+    // TODO(mati): agregar funcion del back de traer los cursos ver que no te
+    // devuelva la lista de inasistencias
     emit(BlocInasistenciasEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
@@ -178,7 +179,7 @@ class BlocInasistencias
   }
 }
 
-// TODO(seba/gon): sacar los modelos estan super hard y reemplazar por los del back
+// TODO(seba): sacar los modelos estan super hard y reemplazar por los del back
 
 class ModeloAlumno {
   ModeloAlumno({

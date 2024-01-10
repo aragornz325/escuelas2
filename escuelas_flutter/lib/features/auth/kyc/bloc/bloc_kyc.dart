@@ -7,7 +7,8 @@ import 'package:escuelas_flutter/extensiones/rol_de_usuario.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-// TODO(anyone): Revisar si esto sirve, tenia un problema de importaciones con el userInfo y el protocol
+// TODO(anyone): Revisar si esto sirve, tenia un problema de importaciones con
+// el userInfo y el protocol
 import 'package:serverpod_auth_client/module.dart' as auth;
 
 part 'bloc_kyc_estado.dart';
@@ -214,8 +215,6 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           nombre: usuario?.fullName ?? '',
           apellido: usuario?.userName ?? '',
           urlFotoDePerfil: usuario?.imageUrl ?? '',
-          // TODO: Cambiar cuando usuario pendiente no requiera dni
-          dni: '',
           rolSolicitado: state.rolElegido?.id ?? 0,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
         );

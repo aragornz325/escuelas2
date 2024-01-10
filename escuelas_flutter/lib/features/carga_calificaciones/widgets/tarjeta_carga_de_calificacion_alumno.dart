@@ -51,9 +51,11 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                     idAlumno: curso.idCurso,
                   ),
                 ),
-            // TODO(anyone): reemplazar por las calificaciones previas ver como vienen las calificaciones previas y mostrarlas
+            // TODO(anyone): reemplazar por las calificaciones previas ver como
+            // vienen las calificaciones previas y mostrarlas
             listaCalificaciones: const [],
-            // TODO(anyone): ver si los modelos seran utilizados de esta forma para traer solamente la calificacion del alumno
+            // TODO(anyone): ver si los modelos seran utilizados de esta forma
+            // para traer solamente la calificacion del alumno
             calificacionPrevia: state.listaCalificaciones
                 .firstWhere(
                   (c) =>
@@ -65,13 +67,15 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                                 relacionComisionUsuario.usuarioId,
                           )
                           .id,
-                  // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
+                  // TODO(ANYONE): Cambiar por el id correspondiente, cuadno
+                  // este lo de back
                 )
                 .id
                 .toString(),
-            // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
-            nombreAlumno:
-                '${relacionComisionUsuario.usuario?.nombre} ${relacionComisionUsuario.usuario?.apellido}',
+            // TODO(ANYONE): Cambiar por el id correspondiente, cuando este lo
+            // de back
+            nombreAlumno: '${relacionComisionUsuario.usuario?.nombre} '
+                '${relacionComisionUsuario.usuario?.apellido}',
             esEditable: rolDelUsuario?.nombre == 'docente'
                 ? fecha.mismaFecha(DateTime.now())
                 : rolDelUsuario?.nombre == 'directivo' &&

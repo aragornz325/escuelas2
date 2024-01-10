@@ -9,7 +9,8 @@ class VistaEscritorioPerfilUsuarioPendiente extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(Gon): Hacer la vista escritorio de la pantalla 'Perfil de usuario pendiente'
+    // TODO(Gon): Hacer la vista escritorio de la pantalla 'Perfil de usuario
+    // pendiente'
     return const Placeholder();
   }
 }

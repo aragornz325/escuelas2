@@ -7,7 +7,8 @@ import 'package:escuelas_client/escuelas_client.dart';
 ///
 /// Retorna si `Todos los alumnos` tienen al menos una asistencia.
 extension ComisionDeCursoX on ComisionDeCurso {
-  //! TODO(anyone): Remover esto cuando se arregle el toJson() de Serverpod
+  // TODO(anyone): Remover esto cuando se arregle el toJson() de Serverpod
+
   /// toJson para evitar usar el del modelo Serverpod porque no deserializa
   /// correctamente [DateTime] para eso agregamos un  .toIso8601String().
   Map<String, dynamic> toJsonBloc() {

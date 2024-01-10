@@ -4,7 +4,8 @@ import 'package:escuelas_flutter/extensiones/asignatura.dart';
 /// Posee un toJson mas adecuado para la clase [Curso]
 /// ya que Serverpod no deserealiza correctamente.
 extension CursoX on Curso {
-  //! TODO(anyone): Remover esto cuando se arregle el toJson() de Serverpod
+  // TODO(anyone): Remover esto cuando se arregle el toJson() de Serverpod
+
   /// toJson para evitar usar el del modelo Serverpod porque no deserializa
   /// correctamente [DateTime] para eso agregamos un  .toIso8601String().
   Map<String, dynamic> toJsonBloc() {

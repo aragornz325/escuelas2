@@ -92,7 +92,8 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                         padding: EdgeInsets.only(bottom: 10.ph),
                         child: ElementoLista.supervisionEnvioCalificaciones(
                           context: context,
-                          // TODO(Gon): Cambiar por fecha de carga de calificaciones (cuando se implemente)
+                          // TODO(Gon): Cambiar por fecha de carga de
+                          // calificaciones (cuando se implemente)
                           fechaDeCarga: asignatura.fechaCreacion,
                           nombreProfesor: obtenerNombreAbreviado(
                             // asignatura.docentes.first.nombre,

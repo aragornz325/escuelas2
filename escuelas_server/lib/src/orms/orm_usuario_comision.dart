@@ -8,8 +8,6 @@ class OrmUsuarioComision extends ORM {
     required int idComision,
     required int idUsuario,
   }) async {
-    final ahora = DateTime.now();
-
     await ejecutarOperacionOrm(session, (session) {
       return RelacionComisionUsuario.db.insertRow(
         session,
