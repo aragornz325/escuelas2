@@ -1,4 +1,3 @@
-import 'package:escuelas_flutter/extensiones/date_time.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
@@ -294,7 +293,7 @@ class ElementoLista extends StatelessWidget {
     required void Function() onTapWidgetLateralDerecho,
   }) {
     final colores = context.colores;
-
+    
     final sinGuion = nombreAsignatura == '';
 
     return ElementoLista(

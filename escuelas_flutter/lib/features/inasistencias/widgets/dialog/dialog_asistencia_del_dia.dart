@@ -15,30 +15,30 @@ import 'package:intl/intl.dart';
 
 /// {@template DialogInasistenciasDelDia}
 /// Dialog que confirma la asistencia tomada del dia y muestra mas detalles
-/// sobre dicho dia con la cantidad de alumnos que no asistieron y que estado
-/// de asistencia tiene cada alumno.
+/// sobre dicho dia con la cantidad de estudiantes que no asistieron y que
+/// estado de asistencia tiene cada estudiante.
 /// {@endtemplate}
 class DialogInasistenciasDelDia extends StatefulWidget {
   /// {@macro DialogInasistenciasDelDia}
   const DialogInasistenciasDelDia({
-    required this.alumnos,
+    required this.estudiantes,
     required this.idCurso,
     required this.fecha,
-    required this.asistencias,
+    required this.inasistencias,
     super.key,
   });
 
-  /// Cantidad de alumnos que no asistieron esa fecha.
-  final List<Usuario> alumnos;
+  /// Cantidad de estudiantes que no asistieron esa fecha.
+  final List<RelacionComisionUsuario> estudiantes;
 
   /// ID del curso.
   final int idCurso;
 
-  /// Fecha en la cual se tomaron asistencias.
+  /// Fecha en la cual se tomaron inasistencia.
   final DateTime fecha;
 
-  /// Lista de asistencias
-  final List<AsistenciaDiaria> asistencias;
+  /// Lista de inasistencias
+  final List<AsistenciaDiaria> inasistencias;
 
   @override
   State<DialogInasistenciasDelDia> createState() =>
@@ -50,7 +50,7 @@ class _DialogInasistenciasDelDiaState extends State<DialogInasistenciasDelDia> {
   /// detallada
   bool desplegarVerMas = false;
 
-  /// Lista de Estados de los alumnos que solamente que tienen no asistieron.
+  /// Lista de Estados de los estudiantes que solamente que tienen no asistieron
   List<EstadoDeAsistencia> get alumnosAusentes => EstadoDeAsistencia.values
       .where(
         (estadoAsistencia) =>
@@ -65,7 +65,6 @@ class _DialogInasistenciasDelDiaState extends State<DialogInasistenciasDelDia> {
     context.read<BlocInasistencias>().add(
           BlocInasistenciasEventoFinalizarInasistencias(
             idCurso: widget.idCurso,
-            fecha: widget.fecha,
           ),
         );
     Navigator.of(context).pop();
@@ -80,6 +79,7 @@ class _DialogInasistenciasDelDiaState extends State<DialogInasistenciasDelDia> {
     return EscuelasDialog(
       altura: desplegarVerMas ? max(300.ph, 300.sh) : max(200.ph, 200.sh),
       conIconoCerrar: false,
+      estaHabilitado: true,
       onTapConfirmar: () => _confirmarInasistencias(context),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -106,8 +106,8 @@ class _DialogInasistenciasDelDiaState extends State<DialogInasistenciasDelDia> {
           ...alumnosAusentes.map(
             (estadoAsistencia) => _CantidadAusentes(
               cantidad: estadoAsistencia.cantidadDeAlumnos(
-                widget.alumnos,
-                widget.asistencias,
+                widget.estudiantes,
+                widget.inasistencias,
                 estadoAsistencia,
               ),
               estadoAsistencia: estadoAsistencia,
@@ -116,8 +116,8 @@ class _DialogInasistenciasDelDiaState extends State<DialogInasistenciasDelDia> {
           SizedBox(height: max(15.ph, 15.sh)),
           if (desplegarVerMas) ...[
             ListaDeAlumnosAusentes(
-              usuarios: widget.alumnos,
-              asistencias: widget.asistencias,
+              usuarios: widget.estudiantes,
+              asistencias: widget.inasistencias,
             ),
           ],
           SizedBox(height: max(10.ph, 10.sh)),

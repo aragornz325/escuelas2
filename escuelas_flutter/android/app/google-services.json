@@ -1,1 +1,121 @@
-{"installed":{"client_id":"554988659961-p3seoofsab1se4edadkvnbhs0rl1hri9.apps.googleusercontent.com","project_id":"escuelas-2","auth_uri":"https://accounts.google.com/o/oauth2/auth","token_uri":"https://oauth2.googleapis.com/token","auth_provider_x509_cert_url":"https://www.googleapis.com/oauth2/v1/certs"}}
+{
+  "project_info": {
+    "project_number": "554988659961",
+    "project_id": "escuelas-2",
+    "storage_bucket": "escuelas-2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554988659961:android:96071b343859138557ee28",
+        "android_client_info": {
+          "package_name": "com.example.verygoodcore.escuelas_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554988659961-04ne71f80epc872tu3g6c2ceep4cm3b3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.verygoodcore.escuelas_flutter",
+            "certificate_hash": "0df8743a84c0ee8134811b3f6c281dec3b21a6dc"
+          }
+        },
+        {
+          "client_id": "554988659961-sbng0uakbjm982d1vba22i2sbmu265js.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADsMAIRxNtvxzNcSAYvy9DqrFSc7UFHZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554988659961-sbng0uakbjm982d1vba22i2sbmu265js.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554988659961:android:0c859dc906a49ed857ee28",
+        "android_client_info": {
+          "package_name": "com.example.verygoodcore.escuelas_flutter.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554988659961-4h5of81hfnb8pte6qsujhb5nkrf9f605.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.verygoodcore.escuelas_flutter.dev",
+            "certificate_hash": "0df8743a84c0ee8134811b3f6c281dec3b21a6dc"
+          }
+        },
+        {
+          "client_id": "554988659961-sbng0uakbjm982d1vba22i2sbmu265js.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADsMAIRxNtvxzNcSAYvy9DqrFSc7UFHZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554988659961-sbng0uakbjm982d1vba22i2sbmu265js.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554988659961:android:0355dc263c9bb6d157ee28",
+        "android_client_info": {
+          "package_name": "com.example.verygoodcore.escuelas_flutter.stg"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554988659961-55pqc7n76t44cb1g4c53mk5qeft12i6i.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.verygoodcore.escuelas_flutter.stg",
+            "certificate_hash": "0df8743a84c0ee8134811b3f6c281dec3b21a6dc"
+          }
+        },
+        {
+          "client_id": "554988659961-sbng0uakbjm982d1vba22i2sbmu265js.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyADsMAIRxNtvxzNcSAYvy9DqrFSc7UFHZE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554988659961-sbng0uakbjm982d1vba22i2sbmu265js.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

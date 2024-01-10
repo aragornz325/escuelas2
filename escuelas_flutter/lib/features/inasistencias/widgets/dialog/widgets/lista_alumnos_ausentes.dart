@@ -19,7 +19,7 @@ class ListaDeAlumnosAusentes extends StatefulWidget {
   });
 
   /// Lista de alumnos a filtrar por ausentismo.
-  final List<Usuario> usuarios;
+  final List<RelacionComisionUsuario> usuarios;
 
   /// Lista de asistencias
   final List<AsistenciaDiaria> asistencias;
@@ -30,11 +30,12 @@ class ListaDeAlumnosAusentes extends StatefulWidget {
 
 class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
   /// Lista de alumnos filtradas por ausentismo
-  List<Usuario> get usuarioSinEstadoPresente => widget.usuarios.where(
+  List<RelacionComisionUsuario> get usuarioSinEstadoPresente =>
+      widget.usuarios.where(
         (usuario) {
           return widget.asistencias.any(
             (asistencia) =>
-                asistencia.estudianteId == usuario.idUserInfo &&
+                asistencia.estudianteId == usuario.usuarioId &&
                 !(asistencia.estadoDeAsistencia ==
                         EstadoDeAsistencia.presente ||
                     asistencia.estadoDeAsistencia ==
@@ -62,9 +63,11 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
       // Ordenar por apellido
 
       alumnosOrdenados.sort(
-        (a, b) => a.apellido.toLowerCase().compareTo(
-              b.apellido.toLowerCase(),
-            ),
+        (a, b) =>
+            a.usuario?.apellido.toLowerCase().compareTo(
+                  b.usuario?.apellido.toLowerCase() ?? '',
+                ) ??
+            0,
       );
     } else if (ordenEstado) {
       // Ordenar por estado ascendente
@@ -72,10 +75,10 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
         (a, b) {
           // Obtener las asistencias diarias asociadas a cada usuario
           final asistenciaA = widget.asistencias.firstWhere(
-            (asistencia) => asistencia.estudianteId == a.idUserInfo,
+            (asistencia) => asistencia.estudianteId == a.usuarioId,
           );
           final asistenciaB = widget.asistencias.firstWhere(
-            (asistencia) => asistencia.estudianteId == b.idUserInfo,
+            (asistencia) => asistencia.estudianteId == b.usuarioId,
           );
 
           return asistenciaA.estadoDeAsistencia.index
@@ -122,7 +125,7 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
                       //TODO(mati): cambiar esta horrible logica
                       final asistenciaDiaria = widget.asistencias.firstWhere(
                         (asistencia) =>
-                            asistencia.estudianteId == alumno.idUserInfo,
+                            asistencia.estudianteId == alumno.usuarioId,
                       );
 
                       return asistenciaDiaria.estadoDeAsistencia !=
@@ -132,7 +135,8 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
                                 SizedBox(
                                   width: 150.pw,
                                   child: Text(
-                                    '${alumno.nombre} ${alumno.apellido}',
+                                    '${alumno.usuario?.nombre}'
+                                    ' ${alumno.usuario?.apellido}',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(

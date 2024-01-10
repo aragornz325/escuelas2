@@ -2,6 +2,7 @@ import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/formularios/formulario_alumno.dart';
 import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/formularios/formulario_docente.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

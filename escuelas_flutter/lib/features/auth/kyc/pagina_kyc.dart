@@ -18,6 +18,7 @@ class PaginaKyc extends StatelessWidget {
     return BlocProvider<BlocKyc>(
       create: (context) => BlocKyc()..add(const BlocKycEventoInicializar()),
       child: EscuelasScaffold(
+        
         tieneAppBar: true,
         cuerpo: AutoRouter(
           builder: (context, content) {
