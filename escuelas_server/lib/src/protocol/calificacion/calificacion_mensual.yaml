@@ -1,0 +1,5 @@
+class: CalificacionMensual
+table: calificaciones_mensuales
+fields:
+  idCalificacion: int, relation(parent=calificaciones)
+  numeroDeMes: int
