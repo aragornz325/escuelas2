@@ -51,10 +51,11 @@ abstract class FullResponsiveScreenBase<T extends FullResponsiveAppBase>
       landscapeResolutions = [
         ...resolutions.where((resolution) => resolution.isLandscape)
       ];
-
-      var preferredOrientations = orientationsOverrides ??
-          _orientationsDeduction(portraitResolutions, landscapeResolutions);
-      SystemChrome.setPreferredOrientations(preferredOrientations);
+      //? Comentado x orden de Nico ya que esta deprecado(generaba error con algunos dispositivos)
+      //? y probablemente no se use en la version mejorada.
+      // var preferredOrientations = orientationsOverrides ??
+      //     _orientationsDeduction(portraitResolutions, landscapeResolutions);
+      // SystemChrome.setPreferredOrientations(preferredOrientations);
     } on MissingFullResponsiveApp {
       return ErrorWidget.withDetails(
           message: 'Missing FullResponsiveApp',
