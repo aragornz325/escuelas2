@@ -17,7 +17,7 @@ class ItemCurso extends StatelessWidget {
   /// {@macro ItemCurso}
   const ItemCurso({
     required this.onTap,
-    required this.curso,
+    required this.comisionDeCurso,
     this.ancho,
     super.key,
   });
@@ -26,7 +26,7 @@ class ItemCurso extends StatelessWidget {
   final VoidCallback onTap;
 
   /// Lista de cursos a mostrar
-  final ComisionDeCurso curso;
+  final ComisionDeCurso comisionDeCurso;
 
   /// ancho modificable en caso de que quiera cambiarlo
   final double? ancho;
@@ -42,36 +42,43 @@ class ItemCurso extends StatelessWidget {
       ),
       child: InkWell(
         onTap: onTap,
-        child: ElementoLista(
-          ancho: ancho ?? 300.pw,
-          borderRadius: 50,
-          texto: Text(
-            curso.nombre.toUpperCase(),
-            style: TextStyle(
-              color: curso.ultimaModificacion.mismaFecha(
-                DateTime.now(),
-              ) //TODO(anyone): cambiar por la fecha del calendario
-                  ? colores.onBackground
-                  : colores.onSecondary,
-              fontSize: 16.pf,
-              fontWeight: FontWeight.w800,
-            ),
-          ),
-          widgetLateralDerecho:
-              BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
-            builder: (context, state) {
-              return Text(
-                '${curso.cantidadDeNoAusentes(state.asistenciasDiarias(curso.idCurso))}'
-                '/${curso.estudiantes?.length ?? 0}',
-                textAlign: TextAlign.center,
+        child: BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
+          builder: (context, state) {
+            //Cantidad de estudiantes presentes.
+            final estudiantesPresentes = comisionDeCurso.cantidadDeNoAusentes(
+                state.asistenciasDiarias(comisionDeCurso.idCurso));
+
+            return ElementoLista(
+              ancho: ancho ?? 300.pw,
+              altura: max(50.ph, 50.sh),
+              borderRadius: 50,
+              texto: Text(
+                comisionDeCurso.nombre.toUpperCase(),
                 style: TextStyle(
-                  color: colores.onSecondary,
+                  color: comisionDeCurso.ultimaModificacion.mismaFecha(
+                    state.fechaActual ?? DateTime.now(),
+                  )
+                      ? colores.onBackground
+                      : colores.onSecondary,
                   fontSize: 16.pf,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.w800,
                 ),
-              );
-            },
-          ),
+              ),
+              widgetLateralDerecho: Padding(
+                padding: EdgeInsets.only(right: 10.pw),
+                child: Text(
+                  '$estudiantesPresentes'
+                  '/${comisionDeCurso.estudiantes?.length ?? 0}',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: colores.onSecondary,
+                    fontSize: 16.pf,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            );
+          },
         ),
       ),
     );

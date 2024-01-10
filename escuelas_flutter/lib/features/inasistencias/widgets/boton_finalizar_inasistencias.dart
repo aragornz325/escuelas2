@@ -11,24 +11,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template BotonFinalizarInasistencias}
-/// Botón para finalizar las asistencias
+/// Botón para finalizar las inasistencias
 /// {@endtemplate}
 class BotonFinalizarInasistencias extends StatelessWidget {
   /// {@macro BotonFinalizarInasistencias}
   const BotonFinalizarInasistencias({
-    required this.curso,
+    required this.comisionDeCurso,
     required this.fecha,
-    required this.asistencias,
+    required this.inasistencias,
     super.key,
   });
 
   /// Curso en el que se finalizaron las asistencias
-  final ComisionDeCurso curso;
+  final ComisionDeCurso comisionDeCurso;
 
   /// Fecha en la que se finalizaron las asistencias
   final DateTime fecha;
 
-  final List<AsistenciaDiaria> asistencias;
+  /// Inasistencias que se finalizaron
+  final List<AsistenciaDiaria> inasistencias;
 
   /// Función que abre un Dialog para ver las informaciones de la asistencia.
   /// Con la cual muestra la cantidad de alumnos que no asistieron.
@@ -45,8 +46,8 @@ class BotonFinalizarInasistencias extends StatelessWidget {
       builder: (_) => BlocProvider.value(
         value: context.read<BlocInasistencias>(),
         child: DialogInasistenciasDelDia(
-          asistencias: asistencias,
-          alumnos: curso.estudiantes!.map((e) => e.usuario!).toList(),
+          inasistencias: asistencias,
+          estudiantes: curso.estudiantes ?? [],
           idCurso: curso.idCurso,
           fecha: fecha,
         ),
@@ -63,28 +64,27 @@ class BotonFinalizarInasistencias extends StatelessWidget {
     return EscuelasBoton.texto(
       width: 180.pw,
       context: context,
-      estaHabilitado: true,
-      color:
-          curso.alumnosSinInasistencias(asistencias) //TODO(mati) revisar esto
-              ? colores.coralBotones
-              : colores.secondary,
-      onTap:
-          curso.alumnosSinInasistencias(asistencias) //TODO(mati) revisar esto
-              ? () => _dialogFinalizarAsistencias(
-                    context,
-                    curso,
-                    asistencias,
-                  )
-              : () {},
-      texto: curso
-              .alumnosSinInasistencias(asistencias) //TODO(mati) revisar esto
+      estaHabilitado:
+          (comisionDeCurso.alumnosSinInasistencias(inasistencias)) &&
+              (comisionDeCurso.estudiantes?.isNotEmpty ?? false),
+      color: comisionDeCurso.alumnosSinInasistencias(inasistencias)
+          ? colores.coralBotones
+          : colores.secondary,
+      onTap: comisionDeCurso.alumnosSinInasistencias(inasistencias)
+          ? () => _dialogFinalizarAsistencias(
+                context,
+                comisionDeCurso,
+                inasistencias,
+              )
+          : () {},
+      texto: comisionDeCurso.alumnosSinInasistencias(inasistencias)
           ? l10n.pageAttendanceTitleFinishButtonToEndAttendance.toUpperCase()
           : l10n
               .pageAttendanceTitleDefinedMissingAmountComplete(
-                curso.cantidadDeNoAusentes(
-                  asistencias,
-                ), //TODO(mati) revisar esto
-                curso.estudiantes?.length ?? 0,
+                comisionDeCurso.cantidadDeNoAusentes(
+                  inasistencias,
+                ),
+                comisionDeCurso.estudiantes?.length ?? 0,
               )
               .toUpperCase(),
     );
