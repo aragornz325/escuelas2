@@ -156,7 +156,7 @@ class BlocCargaCalificaciones
                   (calicompensada) =>
                       calicompensada.idEstudiante == alumno.usuarioId,
                 )
-                .id) // TODO(ANYONE): Cambiar por el id correspondiente
+                .id,) // TODO(ANYONE): Cambiar por el id correspondiente
         .id = event.calificacion ?? 0;
     // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
     emit(

@@ -12,6 +12,7 @@ class BlocCargaCalificacionesEstado {
     this.fecha,
     this.listaCalificacionesCompensadas = const [],
     this.listaCalificaciones = const [],
+    this.asignatura,
   });
 
   BlocCargaCalificacionesEstado.desde(
@@ -29,6 +30,7 @@ class BlocCargaCalificacionesEstado {
           listaCalificacionesCompensadas: listaCalificacionesCompensadas ??
               otro.listaCalificacionesCompensadas,
           listaCalificaciones: listaCalificaciones ?? otro.listaCalificaciones,
+          asignatura: asignatura ?? otro.asignatura,
         );
 
   /// Curso con los alumnos.
@@ -36,6 +38,9 @@ class BlocCargaCalificacionesEstado {
 
   /// Rol del usuario
   final RolDeUsuario? rolDelUsuario;
+
+  /// Asignatura del usuario
+  final Asignatura? asignatura;
 
   /// Periodo actual del calendaio
   final DateTime? fecha;

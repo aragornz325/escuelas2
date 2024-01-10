@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
-import 'package:escuelas_flutter/extensiones/date_time.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/supervision_cursos/bloc/bloc_supervision_cursos.dart';
 import 'package:escuelas_flutter/theming/base.dart';
