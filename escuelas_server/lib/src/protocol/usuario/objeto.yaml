@@ -1,4 +1,4 @@
-class: Objeto
+class: UsuariosListados
 fields:
-  nombre: String
+  etiquetaDelIndexListado: String
   usuarios: List<Usuario>
