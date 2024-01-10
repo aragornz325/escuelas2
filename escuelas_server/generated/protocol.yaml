@@ -27,7 +27,6 @@ example:
   - hello:
 rol:
   - obtenerRolPorId:
-  - obtenerUsuariosConRol:
   - obtenerRoles:
   - crearRol:
   - actualizarRol:
@@ -56,3 +55,4 @@ usuario:
   - enviarSolicitudRegistroAlumno:
   - responderSolicitudDeRegistro:
   - obtenerListaDeEstudiantesDeComision:
+  - obtenerUsuariosPorRolSorteados:

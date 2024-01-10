@@ -164,25 +164,28 @@ class OrmRol extends ORM {
     required int idUsuario,
     required int idRol,
   }) async {
-    final ahora = DateTime.now().toUtc();
     final usuario = await ejecutarOperacionOrm(
       session,
       (session) => Usuario.db.findById(session, idUsuario),
     );
+
     if (usuario == null) {
       throw Exception(
         'Usuario no encontrado',
       );
     }
+
     final rol = await ejecutarOperacionOrm(
       session,
       (session) => RolDeUsuario.db.findById(session, idRol),
     );
+
     if (rol == null) {
       throw Exception(
         'Rol no encontrado',
       );
     }
+
     await ejecutarOperacionOrm(
       session,
       (session) => RelacionUsuarioRol.db.insert(
