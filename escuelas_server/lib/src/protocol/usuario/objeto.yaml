@@ -1,4 +1,0 @@
-class: UsuariosListados
-fields:
-  etiquetaDelIndexListado: String
-  usuarios: List<Usuario>
