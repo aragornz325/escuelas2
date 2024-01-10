@@ -467,6 +467,11 @@
     "@commonSearchWithDots": {
         "description": "Label indicating to search"
     },
+    
+    "commonRole": "Rol",
+    "@commonRole": {
+        "description": ""
+    },
 
     "commonDeleteAll": "Borrar todos",
     "@commonDeleteAll": {

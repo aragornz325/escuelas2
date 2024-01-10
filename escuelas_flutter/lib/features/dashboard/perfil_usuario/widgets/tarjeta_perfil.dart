@@ -76,7 +76,7 @@ class TarjetaPerfil extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 5.ph),
                   child: Text(
-                    nombreRol.capitalize,
+                    '${l10n.commonRole}: ${nombreRol.capitalize}',
                     style: TextStyle(
                       color: colores.grisSC,
                       fontSize: 14.pf,

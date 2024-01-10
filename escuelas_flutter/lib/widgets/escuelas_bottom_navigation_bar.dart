@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 // TODO(anyone): Mejorar el routeo y hacerlo con switch, tambien mejorar el
@@ -50,11 +52,14 @@ class EscuelasBottomNavigationBar extends StatelessWidget {
           _ItemBottomNavigationBar(
             icono: Icons.person_2_outlined,
             estaSeleccionado: index == 2,
-            onTap: () => context.pushRoute(
-              RutaPerfilUsuario(
-                idUsuario: 5,
-              ),
-            ),
+            onTap: () {
+              final dState = context.read<BlocDashboard>().state;
+              context.pushRoute(
+                RutaPerfilUsuario(
+                  idUsuario: dState.usuario.id ?? 0,
+                ),
+              );
+            },
           ),
         ],
       ),

@@ -41,6 +41,8 @@ class BlocPerfilUsuarioEstado {
   List<DireccionDeEmail> get direccionesDeEmail =>
       usuario?.direccionesDeEmail ?? [];
 
+  List<RelacionUsuarioRol> get rolesDeUsuario => usuario?.roles ?? [];
+
   /// Nombre del rol del usuario
   String get nombreRolDeUsuarioPendiente =>
       listaRoles
@@ -49,11 +51,12 @@ class BlocPerfilUsuarioEstado {
       '';
 
   /// Nombre del rol del usuario
-  String get nombreRolDeUsuario =>
-      listaRoles
-          .firstWhereOrNull((rol) => rol.id == usuario?.roles?.first.rol?.id)
-          ?.nombre ??
-      '';
+  String get nombreRolDeUsuario => rolesDeUsuario.isNotEmpty
+      ? listaRoles
+              .firstWhereOrNull((rol) => rol.id == rolesDeUsuario.first.rol?.id)
+              ?.nombre ??
+          ''
+      : '';
 
   /// Devuelve el [Tipo] de usuario segun su estado/rol
   Tipo get tipoUsuario => usuarioPendiente != null

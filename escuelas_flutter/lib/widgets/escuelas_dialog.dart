@@ -34,7 +34,7 @@ class EscuelasDialog extends StatelessWidget {
     this.conBotonCancelar = false,
     this.conBotonOutline = false,
     this.conIconoCerrar = true,
-    this.estaHabilitado = false,
+    this.estaHabilitado = true,
     this.ancho,
     this.titulo,
     this.content,
