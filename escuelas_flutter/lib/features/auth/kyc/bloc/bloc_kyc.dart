@@ -104,7 +104,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         ),
       );
     } else {
-      emit(
+      return emit(
         BlocKycEstadoErrorOpcionYaElegida.desde(state),
       );
     }
@@ -124,11 +124,13 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     final nuevaListaOpciones = List<OpcionFormulario>.from(
       state.opcionesFormulario,
     );
-    final opcion = nuevaListaOpciones.firstWhereOrNull(
+
+    final opcion = nuevaListaOpciones.any(
       (element) =>
           element.comisionSeleccionada?.id == event.idComisionSeleccionada,
     );
-    if (opcion == null) {
+
+    if (!opcion) {
       nuevaListaOpciones.add(
         OpcionFormulario(
           idOpcion: state.opcionesFormulario.length + 1,
@@ -138,8 +140,10 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         ),
       );
     } else {
-      emit(
-        BlocKycEstadoErrorOpcionYaElegida.desde(state),
+      return emit(
+        BlocKycEstadoErrorOpcionYaElegida.desde(
+          state,
+        ),
       );
     }
 
@@ -148,35 +152,6 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         state,
         opcionesFormulario: nuevaListaOpciones,
       ),
-    );
-  }
-
-  /// Trata de cerrar la sesión de un usuario.
-  /// En caso de error, devuelve un mensaje de fallo
-  /// de cierre de sesión.
-  Future<void> _cerrarSesion(
-    BlocKycEventoCerrarSesion event,
-    Emitter<BlocKycEstado> emit,
-  ) async {
-    emit(BlocKycEstadoCargando.desde(state));
-
-    await operacionBloc(
-      callback: (client) async {
-        await sessionManager.signOut();
-
-        if (!sessionManager.isSignedIn) {
-          emit(BlocKycEstadoCerrarSesionExitoso.desde(state));
-        } else {
-          emit(
-            BlocKycEstadoFallido.desde(state),
-          );
-        }
-      },
-      onError: (e, st) {
-        emit(
-          BlocKycEstadoFallido.desde(state),
-        );
-      },
     );
   }
 
@@ -206,6 +181,8 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     BlocKycEventoSolicitarRegistro event,
     Emitter<BlocKycEstado> emit,
   ) async {
+    emit(BlocKycEstadoCargando.desde(state));
+
     await operacionBloc(
       callback: (client) async {
         final usuario = event.userInfo;
@@ -248,6 +225,35 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
+  /// Trata de cerrar la sesión de un usuario.
+  /// En caso de error, devuelve un mensaje de fallo
+  /// de cierre de sesión.
+  Future<void> _cerrarSesion(
+    BlocKycEventoCerrarSesion event,
+    Emitter<BlocKycEstado> emit,
+  ) async {
+    emit(BlocKycEstadoCargando.desde(state));
+
+    await operacionBloc(
+      callback: (client) async {
+        await sessionManager.signOut();
+
+        if (!sessionManager.isSignedIn) {
+          emit(BlocKycEstadoCerrarSesionExitoso.desde(state));
+        } else {
+          emit(
+            BlocKycEstadoFallido.desde(state),
+          );
+        }
+      },
+      onError: (e, st) {
+        emit(
+          BlocKycEstadoFallido.desde(state),
+        );
+      },
+    );
+  }
+
   /// Factory constructor fromJson para poder ser utilizado en [HydratedBloc]
   /// transforma el objeto json guardado del local storage a la clase estado
   /// del Bloc dentro contiene lo que fue previamente guardado.
@@ -272,8 +278,8 @@ class OpcionFormulario {
     this.asignaturaSeleccionada,
   });
 
-  ComisionDeCurso? comisionSeleccionada;
-  Asignatura? asignaturaSeleccionada;
+  final ComisionDeCurso? comisionSeleccionada;
+  final Asignatura? asignaturaSeleccionada;
   final int idOpcion;
 }
 

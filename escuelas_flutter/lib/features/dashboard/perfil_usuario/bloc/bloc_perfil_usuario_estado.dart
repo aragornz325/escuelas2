@@ -50,7 +50,7 @@ class BlocPerfilUsuarioEstado {
 
   String nombreComisionesUsuarioPendiente(BuildContext context) =>
       usuarioPendiente?.comisionSolicitada?.nombreComision ??
-      context.l10n.commonNoData;
+      '*${context.l10n.commonNoData}*';
 
   String get nombreRolUsuarioPendiente =>
       listaRoles

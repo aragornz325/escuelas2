@@ -129,13 +129,22 @@ class SeccionCursos extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50.sw),
                   color: colores.tertiary,
                 ),
-                child: Text(
-                  '${l10n.commonComission.toUpperCase()}: '
-                  '${state.nombreComisionesUsuarioPendiente(context)}',
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 13.pf,
-                    fontWeight: FontWeight.w700,
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.pw),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${l10n.commonComission.toUpperCase()}: '
+                          '${state.nombreComisionesUsuarioPendiente(context)}',
+                          style: TextStyle(
+                            color: colores.onBackground,
+                            fontSize: 13.pf,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )

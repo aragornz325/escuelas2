@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -18,6 +20,18 @@ class BotonSolicitarRol extends StatelessWidget {
     super.key,
   });
 
+  Future<void> _dialogSolicitarRol(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocKyc>(),
+          child: const DialogSolicitarRol(),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -29,38 +43,55 @@ class BotonSolicitarRol extends StatelessWidget {
         return EscuelasBoton.texto(
           context: context,
           estaHabilitado: state.rolElegido != null,
-          onTap: () => showDialog<void>(
-            context: context,
-            builder: (_) {
-              return BlocProvider(
-                create: (context) => BlocKyc(),
-                child: EscuelasDialog.confirmar(
-                  onTapConfirmar: () => context.read<BlocKyc>().add(
-                        BlocKycEventoSolicitarRegistro(
-                          userInfo: sessionManager.signedInUser,
-                        ),
-                      ),
-                  content: Text(
-                    l10n.pageKycFormConfirmationDialogText(
-                      state.rolElegido?.nombre ?? '',
-                    ),
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 15.pf,
-                      fontWeight: FontWeight.w600,
-                      color: colores.grisSC,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
+          onTap: () => _dialogSolicitarRol(context),
           color: state.opcionesFormulario.isNotEmpty
               ? colores.azul
               : colores.grisDeshabilitado,
           texto: l10n.commonApply,
         );
       },
+    );
+  }
+}
+
+class DialogSolicitarRol extends StatelessWidget {
+  const DialogSolicitarRol({
+    super.key,
+  });
+
+  void _enviarSolicitudRegistro(BuildContext context) {
+    context.read<BlocKyc>().add(
+          BlocKycEventoSolicitarRegistro(
+            userInfo: sessionManager.signedInUser,
+          ),
+        );
+    Navigator.pop(context);
+    context.router.push(const RutaEspera());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colores = context.colores;
+
+    final l10n = context.l10n;
+
+    return EscuelasDialog.confirmar(
+      onTapConfirmar: () => _enviarSolicitudRegistro(context),
+      content: BlocBuilder<BlocKyc, BlocKycEstado>(
+        builder: (context, state) {
+          return Text(
+            l10n.pageKycFormConfirmationDialogText(
+              state.rolElegido?.nombre ?? '',
+            ),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 15.pf,
+              fontWeight: FontWeight.w600,
+              color: colores.grisSC,
+            ),
+          );
+        },
+      ),
     );
   }
 }
