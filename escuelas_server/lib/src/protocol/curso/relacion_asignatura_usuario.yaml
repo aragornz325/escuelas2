@@ -1,8 +1,8 @@
 class: RelacionAsignaturaUsuario
 table: r_asignaturas_usuarios
 fields:
-  usuario: Usuario?, relation(name=usuario_asignatura), scope=serverOnly
-  asignatura: Asignatura?, relation(name=asignatura_usuario)
+  usuario: Usuario?, relation(name=usuario_asignaturas), scope=serverOnly
+  asignatura: Asignatura?, relation(name=asignatura_asignaturas)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
