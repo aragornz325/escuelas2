@@ -55,10 +55,10 @@ class EscuelasDrawer extends StatelessWidget {
         value: context.read<BlocDrawer>(),
         child: BlocListener<BlocDrawer, BlocDrawerEstado>(
           listener: (context, state) {
-            if (state is BlocDrawerEstadoCerrarSesionExitoso) {}
-
-            Navigator.pop(context);
-            context.replaceRoute(const RutaLogin());
+            if (state is BlocDrawerEstadoCerrarSesionExitoso) {
+              Navigator.pop(context);
+              context.replaceRoute(const RutaLogin());
+            }
           },
           child: EscuelasDialog.logOut(
             context: context,

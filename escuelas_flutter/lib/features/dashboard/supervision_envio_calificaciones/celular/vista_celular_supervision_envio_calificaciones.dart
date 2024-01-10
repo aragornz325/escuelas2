@@ -94,7 +94,7 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                           context: context,
                           // TODO(Gon): Cambiar por fecha de carga de
                           // calificaciones (cuando se implemente)
-                          fechaDeCarga: asignatura.fechaCreacion,
+                          fechaDeCarga: DateTime.now(),
                           nombreProfesor: obtenerNombreAbreviado(
                             // asignatura.docentes.first.nombre,
                             'Gonzalo Miguel Rigoni',
