@@ -32,6 +32,19 @@ rol:
   - crearRol:
   - actualizarRol:
   - eliminarRol:
+solicitud:
+  - crearSolicitud:
+  - actualizarSolicitud:
+  - obtenerSolicitudes:
+  - obtenerSolicitud:
+  - obtenerSolicitudesPorIdUsuario:
+  - eliminarSolicitud:
+solicitudNotaMensual:
+  - crearSolicitudNotaMensual:
+  - actualizarSolicitudNotaMensual:
+  - obtenerSolicitudNotaMensual:
+  - obtenerSolicitudesNotaMensual:
+  - eliminarSolicitudNotaMensual:
 usuario:
   - obtenerDatosDelUsuario:
   - obtenerUsuario:
