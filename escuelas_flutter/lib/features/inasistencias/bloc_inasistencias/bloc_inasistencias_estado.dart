@@ -92,6 +92,22 @@ class BlocInasistenciasEstadoExitoso extends BlocInasistenciasEstado {
   }) : super.desde();
 }
 
+/// {@template BlocInasistenciasEstadoExitosoEnvioDeInasistencias}
+/// Muestra un popup de que las inasistencias se enviaron.
+/// {@endtemplate}
+class BlocInasistenciasEstadoExitosoEnvioDeInasistencias
+    extends BlocInasistenciasEstado {
+  /// {@macro BlocInasistenciasEstadoExitosoEnvioDeInasistencias}
+  BlocInasistenciasEstadoExitosoEnvioDeInasistencias.desde(
+    super.otro, {
+    required super.comisiones,
+    super.inasistencias,
+    super.fechaActual,
+    super.asistenciaAModificar,
+    super.todasInasistencias,
+  }) : super.desde();
+}
+
 /// {@template BlocInasistenciasEstadoFallido}
 /// Estado Fallido de la pagina de 'inasistencias'
 /// {@endtemplate}

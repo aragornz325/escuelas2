@@ -7,6 +7,7 @@ import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
 import 'package:escuelas_server/src/servicios/servicio_comision.dart';
 import 'package:escuelas_server/src/servicios/servicio_curso.dart';
 import 'package:escuelas_server/src/servicios/servicio_rol.dart';
+import 'package:escuelas_server/src/utils/listado_alfabetico.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
 
@@ -152,6 +153,22 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     bool esDocente = false,
   }) async {
     final ahora = DateTime.now();
+
+    final usuarioExistente = await ejecutarOperacion(
+      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(
+        session,
+        idUserInfo: usuarioPendiente.idUserInfo,
+      ),
+    );
+
+    if (usuarioExistente != null) {
+      throw ExcepcionCustom(
+        titulo: 'Usuario pendiente ya existe.',
+        mensaje: 'Usuario pendiente ya existe.',
+        tipoDeError: TipoExcepcion.solicitudIncorrecta,
+        codigoError: 400,
+      );
+    }
 
     final usuarioPendienteCreado = await ejecutarOperacion(
       () => _ormUsuarioPendiente.crearUsuarioPendiente(
@@ -320,5 +337,76 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         idComision: idComision,
       ),
     );
+  }
+
+  Future<List<UsuariosListados>> obtenerUsuariosPorRolSorteados(
+    Session session, {
+    required int idRol,
+    OrdenarPor ordenarUsuariosPor = OrdenarPor.apellido,
+  }) async {
+    final usuarios = await ejecutarOperacion(
+      () => orm.obtenerUsuarios(session),
+    );
+
+    final usuariosListados = <UsuariosListados>[];
+
+    switch (ordenarUsuariosPor) {
+      case OrdenarPor.apellido:
+        for (var letra in listaAlfabetica) {
+          final usuariosLetra = usuarios
+              .where((usuario) => usuario.apellido.startsWith(letra))
+              .toList();
+
+          usuariosListados.add(
+            UsuariosListados(
+              etiquetaDelIndexListado: letra,
+              usuarios: usuariosLetra,
+            ),
+          );
+        }
+      case OrdenarPor.curso:
+        final cursos = await ejecutarOperacion(
+          () => _servicioCurso.obtenerCursos(session),
+        );
+
+        for (var curso in cursos) {
+          final usuariosDelCurso = usuarios
+              .where((usuario) =>
+                  usuario.asignaturas?.any((cursoUsuario) =>
+                      cursoUsuario.asignaturaId == curso.id) ??
+                  false)
+              .toList();
+
+          usuariosListados.add(
+            UsuariosListados(
+              etiquetaDelIndexListado: curso.nombre,
+              usuarios: usuariosDelCurso,
+            ),
+          );
+        }
+
+      case OrdenarPor.asignatura:
+        final asignaturas = await ejecutarOperacion(
+          () => _servicioAsignatura.obtenerAsignaturas(session),
+        );
+
+        for (var asignatura in asignaturas) {
+          final usuariosAsignatura = usuarios
+              .where((usuario) =>
+                  usuario.asignaturas?.any((asignaturaUsuario) =>
+                      asignaturaUsuario.asignaturaId == asignatura.id) ??
+                  false)
+              .toList();
+
+          usuariosListados.add(
+            UsuariosListados(
+              etiquetaDelIndexListado: asignatura.nombre,
+              usuarios: usuariosAsignatura,
+            ),
+          );
+        }
+    }
+
+    return usuariosListados;
   }
 }

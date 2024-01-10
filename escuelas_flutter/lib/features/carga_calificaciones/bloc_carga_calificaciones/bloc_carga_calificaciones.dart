@@ -63,7 +63,8 @@ class BlocCargaCalificaciones
         final listaCalificacionCompensacion = [
           Calificacion(
             id: 1,
-            detalle: 'nose',
+            idAutor: 2,
+            observacion: 'nose',
             fechaCreacion: DateTime.now(),
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
@@ -79,8 +80,9 @@ class BlocCargaCalificaciones
 
         final listaCalificaciones = [
           Calificacion(
+            idAutor: 3,
             id: 1,
-            detalle: 'nose',
+            observacion: 'nose',
             fechaCreacion: DateTime.now(),
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
@@ -149,14 +151,16 @@ class BlocCargaCalificaciones
     /// TODO(anyone): hablar con los modelos para que la calificacion pueda ser
     ///  nulleable
     state.listaCalificaciones
-        .firstWhere((calificacion) =>
-            calificacion.id ==
-            state.listaCalificacionesCompensadas
-                .firstWhere(
-                  (calicompensada) =>
-                      calicompensada.idEstudiante == alumno.usuarioId,
-                )
-                .id,) // TODO(ANYONE): Cambiar por el id correspondiente
+        .firstWhere(
+          (calificacion) =>
+              calificacion.id ==
+              state.listaCalificacionesCompensadas
+                  .firstWhere(
+                    (calicompensada) =>
+                        calicompensada.idEstudiante == alumno.usuarioId,
+                  )
+                  .id,
+        ) // TODO(ANYONE): Cambiar por el id correspondiente
         .id = event.calificacion ?? 0;
     // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
     emit(

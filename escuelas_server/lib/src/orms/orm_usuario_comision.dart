@@ -7,19 +7,16 @@ class OrmUsuarioComision extends ORM {
     Session session, {
     required int idComision,
     required int idUsuario,
-  }) async {
-    final ahora = DateTime.now();
-
-    await ejecutarOperacionOrm(session, (session) {
-      return RelacionComisionUsuario.db.insertRow(
-        session,
-        RelacionComisionUsuario(
-          usuarioId: idUsuario,
-          comisionId: idComision,
-        ),
-      );
-    });
-  }
+  }) async =>
+      ejecutarOperacionOrm(session, (session) {
+        return RelacionComisionUsuario.db.insertRow(
+          session,
+          RelacionComisionUsuario(
+            usuarioId: idUsuario,
+            comisionId: idComision,
+          ),
+        );
+      });
 
   Future<List<RelacionComisionUsuario>> obtenerRelacionesComisionUsuario(
     Session session, {
