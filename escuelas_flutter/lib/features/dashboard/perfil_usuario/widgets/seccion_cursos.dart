@@ -1,4 +1,6 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -18,6 +20,24 @@ class SeccionCursos extends StatelessWidget {
     super.key,
   });
 
+  /// Devuelve una un [String] con los nombres de los roles del usuario o un
+  /// [String] vacio si no tiene comisiones
+  String nombreComisionesUsuario(
+    Usuario? usuario,
+    BuildContext context,
+  ) =>
+      usuario?.nombreComisiones == ''
+          ? '*${context.l10n.commonNoData}*'
+          : usuario?.nombreComisiones ?? '';
+
+  /// Devuelve una un [String] con los nombres de los roles del
+  /// [UsuarioPendiente] o un [String] vacio si no tiene comisiones
+  String nombreComisionesUsuarioPendiente(
+    UsuarioPendiente? usuarioPendiente,
+    BuildContext context,
+  ) =>
+      usuarioPendiente?.comisionSolicitada?.nombreComision ??
+      '*${context.l10n.commonNoData}*';
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -110,7 +130,10 @@ class SeccionCursos extends StatelessWidget {
                       children: [
                         Text(
                           '${l10n.commonComission.toUpperCase()}: '
-                          '${state.nombreComisionesUsuario(context)}',
+                          '${nombreComisionesUsuario(
+                            state.usuario,
+                            context,
+                          )}',
                           style: TextStyle(
                             color: colores.onBackground,
                             fontSize: 13.pf,
@@ -136,7 +159,10 @@ class SeccionCursos extends StatelessWidget {
                       children: [
                         Text(
                           '${l10n.commonComission.toUpperCase()}: '
-                          '${state.nombreComisionesUsuarioPendiente(context)}',
+                          '${nombreComisionesUsuarioPendiente(
+                            state.usuarioPendiente,
+                            context,
+                          )}',
                           style: TextStyle(
                             color: colores.onBackground,
                             fontSize: 13.pf,

@@ -46,19 +46,6 @@ class BlocPerfilUsuarioEstado {
   List<RelacionUsuarioRol> get rolesDeUsuario => usuario?.roles ?? [];
 
   /// Devuelve una un [String] con los nombres de los roles del usuario o un
-  /// [String] vacio si no tiene comisiones
-  String nombreComisionesUsuario(BuildContext context) =>
-      usuario?.nombreComisiones == ''
-          ? '*${context.l10n.commonNoData}*'
-          : usuario?.nombreComisiones ?? '';
-
-  /// Devuelve una un [String] con los nombres de los roles del
-  /// [UsuarioPendiente] o un [String] vacio si no tiene comisiones
-  String nombreComisionesUsuarioPendiente(BuildContext context) =>
-      usuarioPendiente?.comisionSolicitada?.nombreComision ??
-      '*${context.l10n.commonNoData}*';
-
-  /// Devuelve una un [String] con los nombres de los roles del usuario o un
   /// [String] vacio si no tiene roles
   String get nombreRolUsuarioPendiente =>
       listaRoles
