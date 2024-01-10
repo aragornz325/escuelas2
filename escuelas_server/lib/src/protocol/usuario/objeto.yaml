@@ -1,0 +1,4 @@
+class: Objeto
+fields:
+  nombre: String
+  usuarios: List<Usuario>

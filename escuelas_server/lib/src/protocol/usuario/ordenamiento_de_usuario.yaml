@@ -1,0 +1,4 @@
+class: OrdenamientoDeUsuario
+fields:
+  tipoDeOrnenamiento: OrdenarPor
+  objeto: Objeto
