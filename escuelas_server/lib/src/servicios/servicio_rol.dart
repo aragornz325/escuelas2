@@ -4,6 +4,7 @@ import 'package:escuelas_server/src/orms/orm_curso.dart';
 import 'package:escuelas_server/src/orms/orm_rol.dart';
 import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
+import 'package:escuelas_server/src/utils/listado_alfabetico.dart';
 import 'package:serverpod/server.dart';
 
 class ServicioRol extends Servicio<OrmRol> {
@@ -205,32 +206,3 @@ class ServicioRol extends Servicio<OrmRol> {
     return rol;
   }
 }
-
-const List<String> listaAlfabetica = [
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F',
-  'G',
-  'H',
-  'I',
-  'J',
-  'K',
-  'L',
-  'M',
-  'N',
-  'O',
-  'P',
-  'Q',
-  'R',
-  'S',
-  'T',
-  'U',
-  'V',
-  'W',
-  'X',
-  'Y',
-  'Z',
-];
