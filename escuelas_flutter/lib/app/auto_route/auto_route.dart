@@ -39,6 +39,7 @@ class AppRouter extends $AppRouter {
         AutoRoute(
           page: RutaKyc.page,
           path: '/kyc',
+          // TODO(ANYONE): Agregar guards de kyc
           children: [
             AutoRoute(
               page: RutaSeleccionDeRol.page,
