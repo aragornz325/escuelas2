@@ -56,20 +56,26 @@ class DatosPersonales extends StatelessWidget {
                 return Column(
                   children: [
                     SizedBox(height: 10.ph),
-                    _DatoPersonal(
-                      tipoDato: '${l10n.commonPhone}: ',
-                      dato: state
-                          .usuario?.numerosDeTelefono?.first.numeroDeTelefono,
+                    ...state.numerosDeTelefono.map(
+                      (numero) => _DatoPersonal(
+                        tipoDato: '${l10n.commonPhone} -'
+                            ' ${numero.tipoDeTelefono.name}: ',
+                        dato: numero.numeroDeTelefono,
+                      ),
                     ),
                     _DatoPersonal(
                       tipoDato: '${l10n.commonMail}: ',
-                      dato: state
-                          .usuario?.direccionesDeEmail?.first.direccionDeEmail,
+                      dato: state.direccionesDeEmail
+                          .map((e) => e.direccionDeEmail)
+                          .toList()
+                          .join(', '),
                     ),
+                    // TODO(anyone): Agregar el dato cuando este implementado
                     SizedBox(height: 10.ph),
                     _DatoPersonal(
                       tipoDato: '${l10n.commonEmergencyContact}: ',
                     ),
+                    SizedBox(height: 10.ph),
                     _DatoPersonal(
                       tipoDato: '${l10n.commonBond}: ',
                     ),
@@ -127,7 +133,9 @@ class _DatoPersonal extends StatelessWidget {
           ),
         ),
         Text(
-          dato == null || dato == 'null' ? '*${l10n.commonNoData}*' : dato!,
+          dato == null || dato == 'null' || dato == ''
+              ? '*${l10n.commonNoData}*'
+              : dato!,
           style: TextStyle(
             color: colores.grisDato,
             fontSize: 14.pf,

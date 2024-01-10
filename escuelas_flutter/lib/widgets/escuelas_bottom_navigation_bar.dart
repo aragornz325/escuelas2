@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -53,7 +52,7 @@ class EscuelasBottomNavigationBar extends StatelessWidget {
             estaSeleccionado: index == 2,
             onTap: () => context.pushRoute(
               RutaPerfilUsuario(
-                idUsuario: sessionManager.signedInUser?.id ?? 0,
+                idUsuario: 5,
               ),
             ),
           ),

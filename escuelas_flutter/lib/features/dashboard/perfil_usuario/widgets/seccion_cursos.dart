@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 // TODO(anyone): HACER FACTORY
+
 /// {@template SeccionCursos}
 /// Seccion de cursos del perfil de usuario donde se puede ver a que cursos esta
 /// asignado el usuario

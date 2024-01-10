@@ -4,6 +4,7 @@ import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
+import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -86,7 +87,11 @@ class TarjetaPerfil extends StatelessWidget {
                 EscuelasBoton.texto(
                   estaHabilitado: true,
                   // TODO(Gon): Dar funcion
-                  onTap: () {},
+                  onTap: () => showDialog<void>(
+                    context: context,
+                    builder: (context) =>
+                        EscuelasDialog.featNoDisponible(context: context),
+                  ),
                   color: colores.azul,
                   texto: l10n.commonContact,
                   fontSize: 12.pf,

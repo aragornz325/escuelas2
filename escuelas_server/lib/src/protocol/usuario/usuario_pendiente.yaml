@@ -5,7 +5,7 @@ fields:
   nombre: String
   apellido: String
   urlFotoDePerfil: String
-  dni: String
+  dni: String?
   rolSolicitado: int, relation (parent=roles_de_usuario)
   estadoDeSolicitud: EstadoDeSolicitud
   ultimaModificacion: DateTime?
@@ -17,4 +17,3 @@ indexes:
   comision_solicitada_unique_idx:
     fields: comisionSolicitadaId
     unique: true
-

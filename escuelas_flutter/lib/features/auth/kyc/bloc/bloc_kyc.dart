@@ -208,6 +208,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     await operacionBloc(
       callback: (client) async {
         final usuario = sessionManager.signedInUser;
+
         final usuarioPendiente = UsuarioPendiente(
           idUserInfo: usuario?.id ?? 0,
           nombre: usuario?.fullName ?? '',
@@ -218,6 +219,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           rolSolicitado: state.rolElegido?.id ?? 0,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
         );
+
         if (state.rolElegido?.nombre == 'docente') {
           await client.usuario.enviarSolicitudRegistroDocente(
             asignaturasASolicitar: state.opcionesFormulario
@@ -226,6 +228,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             usuarioPendiente: usuarioPendiente,
           );
         }
+
         if (state.rolElegido?.nombre == 'alumno') {
           await client.usuario.enviarSolicitudRegistroAlumno(
             comisionDeCurso:
@@ -233,6 +236,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             usuarioPendiente: usuarioPendiente,
           );
         }
+
         emit(
           BlocKycEstadoExitoAlSolicitarRegistro.desde(state),
         );

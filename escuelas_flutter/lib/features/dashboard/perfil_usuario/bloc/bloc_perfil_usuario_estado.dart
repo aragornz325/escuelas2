@@ -31,6 +31,16 @@ class BlocPerfilUsuarioEstado {
   /// Lista de roles de la institucion
   final List<RolDeUsuario> listaRoles;
 
+  /// Devuelve una lista de numeros de telefono del usuario o una lista vacia
+  /// si no tiene
+  List<NumeroDeTelefono> get numerosDeTelefono =>
+      usuario?.numerosDeTelefono ?? [];
+
+  /// Devuelve una lista de direcciones de email del usuario o una lista vacia
+  /// si no tiene
+  List<DireccionDeEmail> get direccionesDeEmail =>
+      usuario?.direccionesDeEmail ?? [];
+
   /// Nombre del rol del usuario
   String get nombreRolDeUsuarioPendiente =>
       listaRoles
