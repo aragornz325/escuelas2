@@ -9,7 +9,7 @@ class VistaEscritorioInasistencias extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //TODO(anyone) agregar vista de escritorio de inasistencia
+    // TODO(anyone): agregar vista de escritorio de inasistencia
     return const Placeholder();
   }
 }

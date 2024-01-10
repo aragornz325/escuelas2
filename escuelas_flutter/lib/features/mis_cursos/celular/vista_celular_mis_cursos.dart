@@ -85,7 +85,8 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                                               !asignatura.tienePendientes,
                                           // TODO(anyone): aca hay que chequear
                                           // la fecha de la lista de materias
-                                          // actual y hacer la validacion con eso
+                                          // actual y hacer la validacion con
+                                          // eso
                                           estaHabilitado:
                                               periodo.isBefore(DateTime.now()),
                                           asignatura: asignatura,

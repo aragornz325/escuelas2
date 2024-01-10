@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/extensiones/estado_asistencia.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/features/inasistencias/widgets/dialog/widgets/widget.dart';
@@ -79,7 +78,6 @@ class _DialogInasistenciasDelDiaState extends State<DialogInasistenciasDelDia> {
     return EscuelasDialog(
       altura: desplegarVerMas ? max(300.ph, 300.sh) : max(200.ph, 200.sh),
       conIconoCerrar: false,
-      estaHabilitado: true,
       onTapConfirmar: () => _confirmarInasistencias(context),
       content: Column(
         mainAxisAlignment: MainAxisAlignment.center,

@@ -1,8 +1,6 @@
 import 'dart:math';
 
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/extensiones/date_time.dart';
-import 'package:escuelas_flutter/extensiones/comision_de_curso.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -46,7 +44,8 @@ class ItemCurso extends StatelessWidget {
           builder: (context, state) {
             //Cantidad de estudiantes presentes.
             final estudiantesPresentes = comisionDeCurso.cantidadDeNoAusentes(
-                state.asistenciasDiarias(comisionDeCurso.idCurso));
+              state.asistenciasDiarias(comisionDeCurso.idCurso),
+            );
 
             return ElementoLista(
               ancho: ancho ?? 300.pw,
