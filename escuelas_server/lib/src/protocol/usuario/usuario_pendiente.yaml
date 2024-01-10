@@ -5,7 +5,7 @@ fields:
   nombre: String
   apellido: String
   urlFotoDePerfil: String
-  dni: String
+  dni: String?
   ## ! Modificar este campo a idRolSolicitado y hacer migracion de db.
   rolSolicitado: int, relation (parent=roles_de_usuario)
   estadoDeSolicitud: EstadoDeSolicitud

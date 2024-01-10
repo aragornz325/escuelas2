@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';

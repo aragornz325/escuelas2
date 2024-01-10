@@ -56,7 +56,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
       },
       onError: (e, st) {
         emit(
-          BlocKycEstadoError.desde(state),
+          BlocKycEstadoFallido.desde(state),
         );
       },
     );
@@ -71,7 +71,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
       BlocKycEstadoExitoso.desde(
         state,
         rolElegido: event.rolElegido,
-        eliminarRolSeleccionado: event.eliminarRolSeleccionado,
+        eliminarRolElegido: event.eliminarRolSeleccionado,
       ),
     );
   }
@@ -167,13 +167,13 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           emit(BlocKycEstadoCerrarSesionExitoso.desde(state));
         } else {
           emit(
-            BlocKycEstadoError.desde(state),
+            BlocKycEstadoFallido.desde(state),
           );
         }
       },
       onError: (e, st) {
         emit(
-          BlocKycEstadoError.desde(state),
+          BlocKycEstadoFallido.desde(state),
         );
       },
     );
@@ -239,7 +239,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
       },
       onError: (e, st) {
         emit(
-          BlocKycEstadoError.desde(state),
+          BlocKycEstadoFallido.desde(state),
         );
       },
     );

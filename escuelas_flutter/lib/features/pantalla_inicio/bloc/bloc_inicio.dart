@@ -46,5 +46,4 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
   }
 }
 
-// TODO(SAM): Eliminar luego cuando venga del back
-enum Permiso { directivo, alumno, docente }
+ 

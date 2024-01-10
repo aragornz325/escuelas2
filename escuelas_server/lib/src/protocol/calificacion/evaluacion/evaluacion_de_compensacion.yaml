@@ -1,0 +1,5 @@
+class: EvaluacionDeCompensacion
+table: evaluaciones_de_compensacion
+fields: 
+  idInstanciaDeEvaluacion: int, relation(parent=instancias_de_evaluacion)
+  idAsignatura: int, relation(parent=asignaturas)

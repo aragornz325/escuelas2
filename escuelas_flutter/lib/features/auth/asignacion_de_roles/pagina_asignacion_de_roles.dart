@@ -6,12 +6,11 @@ import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-@RoutePage()
-
 /// {@template PaginaAsignacionDeRoles}
 /// Pagina de la pantalla Asignacion de Rol donde se asigna un rol a los
 /// usuarios pendientes
 /// {@endtemplate}
+@RoutePage()
 class PaginaAsignacionDeRoles extends StatelessWidget {
   /// {@macro PaginaAsignacionDeRoles}
   const PaginaAsignacionDeRoles({super.key});
