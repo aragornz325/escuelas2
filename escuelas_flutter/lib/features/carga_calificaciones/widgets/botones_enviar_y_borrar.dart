@@ -31,7 +31,7 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
                   state.listaCalificaciones.any((c) => c.id != 0),
               // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
               onTap: () => context.read<BlocCargaCalificaciones>().add(
-                  const BlocCargaCalificacionesEventoVaciarCalificaciones()),
+                  const BlocCargaCalificacionesEventoVaciarCalificaciones(),),
               color: colores.error,
               texto: l10n.commonDeleteAll,
             ),
