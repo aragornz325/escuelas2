@@ -22,6 +22,7 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
     emit(BlocMisCursosEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
+        // TODO(Gon): usar endpoint
         // final comisiones = await client.comision.getMisCursos(mes, anio);
 
         emit(

@@ -17,6 +17,7 @@ class TarjetaPerfil extends StatelessWidget {
     required this.rolesAsignados,
     required this.nombreUsuario,
     required this.apellidoUsuario,
+    this.urlImage,
     super.key,
   });
 
@@ -25,6 +26,8 @@ class TarjetaPerfil extends StatelessWidget {
   final String nombreUsuario;
 
   final String apellidoUsuario;
+
+  final String? urlImage;
 
   @override
   Widget build(BuildContext context) {
@@ -49,8 +52,28 @@ class TarjetaPerfil extends StatelessWidget {
               child: SizedBox(
                 width: 110.sw,
                 height: 110.sh,
-                // TODO(Gon): Poner imagen del user
-                child: Image.asset(Assets.images.usuario.path),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(100.sw)),
+                  child: (urlImage != null && urlImage != '')
+                      ? Image.network(
+                          urlImage!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (
+                            context,
+                            error,
+                            stackTrace,
+                          ) =>
+                              Image.asset(
+                            Assets.images.usuario.path,
+                            color: colores.onBackground,
+                          ),
+                        )
+                      : Icon(
+                          Icons.person,
+                          color: colores.onBackground,
+                          size: 30.sw,
+                        ),
+                ),
               ),
             ),
             SizedBox(width: 20.pw),

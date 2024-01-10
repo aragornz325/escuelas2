@@ -463,22 +463,22 @@
     
     "commonRole": "Role",
     "@commonRole": {
-        "description": ""
+        "description": "A singular function or position that a user can have in a system or application."
     },
     
     "commonRoles": "Roles",
     "@commonRoles": {
-        "description": ""
+        "description": "Multiple functions or positions that a user can have in a system or application."
     },
 
     "commonComission": "Comission",
     "@commonComission": {
-        "description": ""
+        "description": "A singular commission, group, or task assigned to a user in an educational or work context."
     },
 
     "commonComissions": "Comissions",
     "@commonComissions": {
-        "description": ""
+        "description": "Multiple commissions, groups, or tasks assigned to a user in an educational or work context."
     },
 
     "commonDeleteAll": "Delete All",

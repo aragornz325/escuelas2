@@ -31,27 +31,35 @@ class BlocPerfilUsuarioEstado {
   /// Lista de roles de la institucion
   final List<RolDeUsuario> listaRoles;
 
-  /// Devuelve una lista de numeros de telefono del usuario o una lista vacia
+  /// Devuelve una lista de [NumeroDeTelefono] del usuario o una lista vacia
   /// si no tiene
   List<NumeroDeTelefono> get numerosDeTelefono =>
       usuario?.numerosDeTelefono ?? [];
 
-  /// Devuelve una lista de direcciones de email del usuario o una lista vacia
-  /// si no tiene
+  /// Devuelve una lista de direcciones de [DireccionDeEmail] del usuario o una
+  /// lista vacia si no tiene
   List<DireccionDeEmail> get direccionesDeEmail =>
       usuario?.direccionesDeEmail ?? [];
 
+  /// Devuelve una lista de [RelacionUsuarioRol] del usuario o una lista vacia
+  /// si no tiene
   List<RelacionUsuarioRol> get rolesDeUsuario => usuario?.roles ?? [];
 
+  /// Devuelve una un [String] con los nombres de los roles del usuario o un
+  /// [String] vacio si no tiene comisiones
   String nombreComisionesUsuario(BuildContext context) =>
       usuario?.nombreComisiones == ''
-          ? context.l10n.commonNoData
+          ? '*${context.l10n.commonNoData}*'
           : usuario?.nombreComisiones ?? '';
 
+  /// Devuelve una un [String] con los nombres de los roles del
+  /// [UsuarioPendiente] o un [String] vacio si no tiene comisiones
   String nombreComisionesUsuarioPendiente(BuildContext context) =>
       usuarioPendiente?.comisionSolicitada?.nombreComision ??
       '*${context.l10n.commonNoData}*';
 
+  /// Devuelve una un [String] con los nombres de los roles del usuario o un
+  /// [String] vacio si no tiene roles
   String get nombreRolUsuarioPendiente =>
       listaRoles
           .firstWhereOrNull(

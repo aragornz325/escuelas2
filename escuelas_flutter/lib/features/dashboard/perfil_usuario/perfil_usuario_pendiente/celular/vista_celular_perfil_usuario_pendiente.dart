@@ -31,7 +31,10 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocPerfilUsuario>(),
-        child: DialogAsignarRol(usuario: usuario, nombreRol: nombreRol),
+        child: _DialogAsignarRol(
+          usuario: usuario,
+          nombreRol: nombreRol,
+        ),
       ),
     );
   }
@@ -56,6 +59,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
               rolesAsignados: state.nombreRolUsuarioPendiente,
               nombreUsuario: state.usuarioPendiente?.nombre ?? '',
               apellidoUsuario: state.usuarioPendiente?.apellido ?? '',
+              urlImage: state.usuarioPendiente?.urlFotoDePerfil ?? '',
             ),
             const Expanded(
               child: SingleChildScrollView(
@@ -100,11 +104,14 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
   }
 }
 
-class DialogAsignarRol extends StatelessWidget {
-  const DialogAsignarRol({
+/// {@template _DialogAsignarRol}
+/// Dialog para confirmar la asignacion de un rol al usuario
+/// {@endtemplate}
+class _DialogAsignarRol extends StatelessWidget {
+  /// {@macro _DialogAsignarRol}
+  const _DialogAsignarRol({
     required this.usuario,
     required this.nombreRol,
-    super.key,
   });
 
   void _aceptarSolicitudRegistro(BuildContext context) {

@@ -26,7 +26,7 @@ class BotonSolicitarRol extends StatelessWidget {
       builder: (_) {
         return BlocProvider.value(
           value: context.read<BlocKyc>(),
-          child: const DialogSolicitarRol(),
+          child: const _DialogSolicitarRol(),
         );
       },
     );
@@ -54,10 +54,12 @@ class BotonSolicitarRol extends StatelessWidget {
   }
 }
 
-class DialogSolicitarRol extends StatelessWidget {
-  const DialogSolicitarRol({
-    super.key,
-  });
+/// {@template _DialogSolicitarRol}
+/// Dialog para confirmar la solicitud de un rol
+/// {@endtemplate}
+class _DialogSolicitarRol extends StatelessWidget {
+  /// {@macro _DialogSolicitarRol}
+  const _DialogSolicitarRol();
 
   void _enviarSolicitudRegistro(BuildContext context) {
     context.read<BlocKyc>().add(

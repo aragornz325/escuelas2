@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/asignatura.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
@@ -86,12 +85,12 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
       state.opcionesFormulario,
     );
 
-    final opcion = nuevaListaOpciones.firstWhereOrNull(
+    final noExisteOpcionConEsaId = nuevaListaOpciones.any(
       (element) =>
           element.comisionSeleccionada?.id == event.idComisionSeleccionada &&
           element.asignaturaSeleccionada?.id == event.idAsignaturaSeleccionada,
     );
-    if (opcion == null) {
+    if (noExisteOpcionConEsaId) {
       nuevaListaOpciones.add(
         OpcionFormulario(
           idOpcion: state.opcionesFormulario.length + 1,
