@@ -2,7 +2,6 @@ class: ComisionSolicitada
 table: comision_solicitada
 fields:
   comision: ComisionDeCurso?, relation
-  idUsuarioPendiente: int, relation(parent=usuarios_pendientes, onDelete=Cascade)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?

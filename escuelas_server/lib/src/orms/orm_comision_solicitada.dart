@@ -3,20 +3,18 @@ import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
 class OrmComisionSolicitada extends ORM {
-  Future<void> crearComisionSolicitada(
+  Future<ComisionSolicitada> crearComisionSolicitada(
     Session session, {
     required int idComision,
     required int idUsuarioPendiente,
-    required String nombreComision,
   }) async {
     final ahora = DateTime.now();
 
-    await ejecutarOperacionOrm(session, (session) {
+    return await ejecutarOperacionOrm(session, (session) {
       return ComisionSolicitada.db.insertRow(
         session,
         ComisionSolicitada(
           comisionId: idComision,
-          idUsuarioPendiente: idUsuarioPendiente,
           ultimaModificacion: ahora,
           fechaCreacion: ahora,
         ),

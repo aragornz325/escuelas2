@@ -105,14 +105,14 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   Future<UsuarioPendiente> enviarSolicitudRegistroAlumno(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
-    required ComisionDeCurso comisionDeCurso,
+    required int idComisionDeCursoSolicitada,
   }) async =>
       ejecutarOperacionControlador(
         'enviarSolicitudRegistroAlumno',
         () => servicio.enviarSolicitudRegistro(
           session,
           usuarioPendiente: usuarioPendiente,
-          comisionDeCurso: comisionDeCurso,
+          idComisionDeCursoSolicitada: idComisionDeCursoSolicitada,
         ),
       );
 
