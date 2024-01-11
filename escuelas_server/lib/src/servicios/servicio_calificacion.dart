@@ -125,7 +125,7 @@ select
     from
       "comisiones" co
     where
-      co."idCurso" = c."id"
+      co."cursoId" = c."id"
   ) as "comisiones"
 from
   "cursos" c
