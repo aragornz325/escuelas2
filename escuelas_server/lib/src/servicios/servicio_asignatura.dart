@@ -172,7 +172,7 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
     required int usuarioId,
   }) async {
     final idAsignaturas =
-        asignaturasSolicitadas.map((e) => e.idAsignatura).toList();
+        asignaturasSolicitadas.map((e) => e.asignaturaId).toList();
 
     await ejecutarOperacion(
       () => _ormUsuarioAsignatura.crearRelacionUsuarioAAsignaturas(

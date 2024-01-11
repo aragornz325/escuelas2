@@ -15,7 +15,7 @@ class OrmComisionSolicitada extends ORM {
       return ComisionSolicitada.db.insertRow(
         session,
         ComisionSolicitada(
-          idComision: idComision,
+          comisionId: idComision,
           idUsuarioPendiente: idUsuarioPendiente,
           ultimaModificacion: ahora,
           fechaCreacion: ahora,

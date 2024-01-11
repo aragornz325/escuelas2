@@ -51,9 +51,9 @@ class OrmUsuarioPendiente extends ORM {
       },
       include: UsuarioPendiente.include(
         asignaturasSolicitadas: AsignaturaSolicitada.includeList(
-          include: AsignaturaSolicitada.include(),
+          include: AsignaturaSolicitada.include(asignatura: Asignatura.include(curso: Curso.include())),
         ),
-        comisionSolicitada: ComisionSolicitada.include(),
+        comisionSolicitada: ComisionSolicitada.include(comision: ComisionDeCurso.include()),
       ),
     );
 

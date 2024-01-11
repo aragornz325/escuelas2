@@ -1,7 +1,7 @@
 class: AsignaturaSolicitada
 table: asignatura_solicitada
 fields:
-  idAsignatura: int, relation(parent=asignaturas)
+  asignatura: Asignatura?, relation
   idUsuarioPendiente: int, relation(parent=usuarios_pendientes, onDelete=Cascade)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime

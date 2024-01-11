@@ -1,0 +1,289 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "asignatura_solicitada",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "asignatura_solicitada",
+        "dartName": "AsignaturaSolicitada",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('asignatura_solicitada_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "asignaturaId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "idUsuarioPendiente",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId",
+            "columnType": 2,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "int?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "asignatura_solicitada_fk_0",
+            "columns": [
+              "asignaturaId"
+            ],
+            "referenceTable": "asignaturas",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "asignatura_solicitada_fk_1",
+            "columns": [
+              "idUsuarioPendiente"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 4,
+            "matchType": null
+          },
+          {
+            "constraintName": "asignatura_solicitada_fk_2",
+            "columns": [
+              "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "asignatura_solicitada_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "asignaturas",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "asignaturas",
+        "dartName": "Asignatura",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('asignaturas_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "nombre",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "cursoId",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "_cursosAsignaturasCursosId",
+            "columnType": 2,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "int?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "asignaturas_fk_0",
+            "columns": [
+              "cursoId"
+            ],
+            "referenceTable": "cursos",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "asignaturas_fk_1",
+            "columns": [
+              "_cursosAsignaturasCursosId"
+            ],
+            "referenceTable": "cursos",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "asignaturas_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"idAsignatura\" of table \"asignatura_solicitada\" will be dropped.",
+      "table": "asignatura_solicitada",
+      "columns": [
+        "idAsignatura"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"asignatura_solicitada\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "asignatura_solicitada",
+      "columns": [
+        "asignaturaId"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"idCurso\" of table \"asignaturas\" will be dropped.",
+      "table": "asignaturas",
+      "columns": [
+        "idCurso"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"asignaturas\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "asignaturas",
+      "columns": [
+        "cursoId"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}
