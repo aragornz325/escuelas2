@@ -331,6 +331,30 @@ class ElementoLista extends StatelessWidget {
     );
   }
 
+  /// Elemento de lista para mostrar un texto y un [String] que dice 'Sin datos'
+  factory ElementoLista.sinDatos({
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Nombre del profesor de la materia
+    required String texto,
+  }) {
+    final colores = context.colores;
+
+    return ElementoLista(
+      altura: 50.ph,
+      borderRadius: 50.sw,
+      texto: Text(
+        texto,
+        style: TextStyle(
+          color: colores.onBackground,
+          fontSize: 14.pf,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+    );
+  }
+
   /// Texto alineado a la izquierda
   final Text texto;
 

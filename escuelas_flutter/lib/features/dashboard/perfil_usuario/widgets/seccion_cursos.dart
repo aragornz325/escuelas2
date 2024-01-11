@@ -1,9 +1,8 @@
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -20,24 +19,6 @@ class SeccionCursos extends StatelessWidget {
     super.key,
   });
 
-  /// Devuelve una un [String] con los nombres de los roles del usuario o un
-  /// [String] vacio si no tiene comisiones
-  String nombreComisionesUsuario(
-    Usuario? usuario,
-    BuildContext context,
-  ) =>
-      usuario?.nombreComisiones == ''
-          ? '*${context.l10n.commonNoData}*'
-          : usuario?.nombreComisiones ?? '';
-
-  /// Devuelve una un [String] con los nombres de los roles del
-  /// [UsuarioPendiente] o un [String] vacio si no tiene comisiones
-  String nombreComisionesUsuarioPendiente(
-    UsuarioPendiente? usuarioPendiente,
-    BuildContext context,
-  ) =>
-      usuarioPendiente?.comisionSolicitada?.comision?.nombre ??
-      '*${context.l10n.commonNoData}*';
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -56,10 +37,12 @@ class SeccionCursos extends StatelessWidget {
             color: colores.tertiary,
           ),
           child: switch (state.tipoUsuario) {
-            Tipo.docenteAprobado => DesplegableCurso(
-                contenido: Column(
-                  children: state.usuario?.asignaturas
-                          ?.map(
+            Tipo.docenteAprobado => state
+                    .listaAsignaturasSolicitadasUsuarioPendiente.isNotEmpty
+                ? _DesplegableCurso(
+                    contenido: Column(
+                      children: state.listaAsignaturasUsuario
+                          .map(
                             (e) => Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -82,14 +65,21 @@ class SeccionCursos extends StatelessWidget {
                               ],
                             ),
                           )
-                          .toList() ??
-                      [],
-                ),
-              ),
-            Tipo.docentePendiente => DesplegableCurso(
-                contenido: Column(
-                  children: state.usuarioPendiente?.asignaturasSolicitadas
-                          ?.map(
+                          .toList(),
+                    ),
+                  )
+                : ElementoLista.sinDatos(
+                    texto: '${l10n.commonComissions.toUpperCase()}: '
+                        '*${l10n.commonNoData}* ',
+                    context: context,
+                  ),
+            Tipo.docentePendiente => state
+                    .listaAsignaturasSolicitadasUsuarioPendiente.isNotEmpty
+                ? _DesplegableCurso(
+                    contenido: Column(
+                      children: state
+                          .listaAsignaturasSolicitadasUsuarioPendiente
+                          .map(
                             (e) => Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -112,68 +102,79 @@ class SeccionCursos extends StatelessWidget {
                               ],
                             ),
                           )
-                          .toList() ??
-                      [],
-                ),
-              ),
-            Tipo.alumnoAprobado => Container(
-                height: 45.ph,
-                width: 340.pw,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50.sw),
-                  color: colores.tertiary,
-                ),
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 10.pw),
-                    child: Row(
-                      children: [
-                        Text(
-                          '${l10n.commonComission.toUpperCase()}: '
-                          '${nombreComisionesUsuario(
-                            state.usuario,
-                            context,
-                          )}',
-                          style: TextStyle(
-                            color: colores.onBackground,
-                            fontSize: 13.pf,
-                            fontWeight: FontWeight.w700,
+                          .toList(),
+                    ),
+                  )
+                : ElementoLista.sinDatos(
+                    texto: '${l10n.commonComissions.toUpperCase()}: '
+                        '*${l10n.commonNoData}* ',
+                    context: context,
+                  ),
+            Tipo.alumnoAprobado => state.listaComisiones.isNotEmpty
+                ? Container(
+                    height: 45.ph,
+                    padding: EdgeInsets.symmetric(horizontal: 20.pw),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50.sw),
+                      color: colores.tertiary,
+                    ),
+                    child: Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(left: 10.pw),
+                        child: Row(
+                          children: [
+                            Text(
+                              '${l10n.commonComission.toUpperCase()}: '
+                              '${state.nombreComisiones}',
+                              style: TextStyle(
+                                color: colores.onBackground,
+                                fontSize: 13.pf,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  )
+                : ElementoLista.sinDatos(
+                    texto: '${l10n.commonComission.toUpperCase()}: '
+                        '*${l10n.commonNoData}* ',
+                    context: context,
+                  ),
+            Tipo.alumnoPendiente =>
+              state.usuarioPendiente?.comisionSolicitada?.comision != null
+                  ? Container(
+                      height: 45.ph,
+                      width: 340.pw,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50.sw),
+                        color: colores.tertiary,
+                      ),
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 10.pw),
+                          child: Row(
+                            children: [
+                              Text(
+                                '${l10n.commonComission.toUpperCase()}: '
+                                '${state.nombreComisionSolicitada}',
+                                style: TextStyle(
+                                  color: colores.onBackground,
+                                  fontSize: 13.pf,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            Tipo.alumnoPendiente => Container(
-                height: 45.ph,
-                width: 340.pw,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50.sw),
-                  color: colores.tertiary,
-                ),
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 10.pw),
-                    child: Row(
-                      children: [
-                        Text(
-                          '${l10n.commonComission.toUpperCase()}: '
-                          '${nombreComisionesUsuarioPendiente(
-                            state.usuarioPendiente,
-                            context,
-                          )}',
-                          style: TextStyle(
-                            color: colores.onBackground,
-                            fontSize: 13.pf,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              )
+                      ),
+                    )
+                  : ElementoLista.sinDatos(
+                      texto: '${l10n.commonComission.toUpperCase()}: '
+                          '*${l10n.commonNoData}* ',
+                      context: context,
+                    )
           },
         );
       },
@@ -184,11 +185,10 @@ class SeccionCursos extends StatelessWidget {
 /// {@template DesplegableCurso}
 /// Desplegable de informacion de cursos
 /// {@endtemplate}
-class DesplegableCurso extends StatelessWidget {
+class _DesplegableCurso extends StatelessWidget {
   /// {@macro DesplegableCurso}
-  const DesplegableCurso({
+  const _DesplegableCurso({
     required this.contenido,
-    super.key,
   });
 
   /// Contenido
