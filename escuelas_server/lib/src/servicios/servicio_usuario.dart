@@ -187,12 +187,12 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       for (final asignatura in (asignaturasASolicitar ?? <Asignatura>[])) {
         final cursoSolicitado = await _servicioCurso.obtenerCursoPorId(
           session,
-          id: asignatura.idCurso,
+          id: asignatura.cursoId,
         );
 
         asignaturasSolicitadas.add(
           AsignaturaSolicitada(
-            idAsignatura: asignatura.id ?? 0,
+            asignaturaId: asignatura.id ?? 0,
             idUsuarioPendiente: usuarioPendienteCreado.id ?? 0,
             ultimaModificacion: ahora,
             fechaCreacion: ahora,
@@ -311,7 +311,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       await ejecutarOperacion(
         () => _servicioComision.asignarUsuarioAComision(
           session,
-          idComision: comisionSolicitada.idComision,
+          idComision: comisionSolicitada.comisionId,
           idUsuario: idUsuario,
         ),
       );
