@@ -367,22 +367,22 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           );
         }
       case OrdenarPor.curso:
-        final cursos = await ejecutarOperacion(
-          () => _servicioCurso.obtenerCursos(session),
+        final comisiones = await ejecutarOperacion(
+          () => _servicioComision.obtenerComisiones(session),
         );
 
-        for (var curso in cursos) {
-          final usuariosDelCurso = usuarios
+        for (var comision in comisiones) {
+          final usuariosDeComision = usuarios
               .where((usuario) =>
-                  usuario.asignaturas?.any((cursoUsuario) =>
-                      cursoUsuario.asignaturaId == curso.id) ??
+                  usuario.asignaturas?.any((comisionUsuario) =>
+                      comisionUsuario.asignaturaId == comision.id) ??
                   false)
               .toList();
 
           usuariosListados.add(
             UsuariosListados(
-              etiquetaDelIndexListado: curso.nombre,
-              usuarios: usuariosDelCurso,
+              etiquetaDelIndexListado: comision.nombre,
+              usuarios: usuariosDeComision,
             ),
           );
         }
