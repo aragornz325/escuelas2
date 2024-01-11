@@ -50,7 +50,9 @@ class OrmUsuarioPendiente extends ORM {
         return t.id.notEquals(null);
       },
       include: UsuarioPendiente.include(
-        asignaturasSolicitadas: AsignaturaSolicitada.includeList(),
+        asignaturasSolicitadas: AsignaturaSolicitada.includeList(
+          include: AsignaturaSolicitada.include(),
+        ),
         comisionSolicitada: ComisionSolicitada.include(),
       ),
     );

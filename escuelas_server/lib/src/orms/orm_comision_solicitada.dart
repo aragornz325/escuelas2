@@ -19,7 +19,6 @@ class OrmComisionSolicitada extends ORM {
           idUsuarioPendiente: idUsuarioPendiente,
           ultimaModificacion: ahora,
           fechaCreacion: ahora,
-          nombreComision: nombreComision,
         ),
       );
     });
