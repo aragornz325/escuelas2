@@ -206,11 +206,11 @@ class ElementoLista extends StatelessWidget {
     /// Contexto para utilizar colores del tema
     required BuildContext context,
 
-    /// Indica si se paso la asistencia o no
-    required bool sePasoAsistencia,
+    /// Boton para cambiar la inasistencia entre 1/4, 1/2, presente y ausente
+    required Widget botonCambioInasistencia,
 
-    /// Cantidad de no ausentes sobre la cantidad total de alumnos
-    required String ratioCantidadDeNoAusentes,
+    /// Foto de perfil del usuario
+    required Widget fotoPerfil,
 
     /// Ancho del elemento
     double? ancho,
@@ -218,29 +218,22 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
 
     return ElementoLista(
+      colorFondo: colores.transparente,
       ancho: ancho ?? 300.pw,
       altura: 50.ph,
       borderRadius: 50.sw,
       texto: Text(
         nombre,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(
-          color: sePasoAsistencia ? colores.onBackground : colores.onSecondary,
-          fontSize: 16.pf,
-          fontWeight: FontWeight.w800,
+          color: colores.onBackground,
+          fontWeight: FontWeight.w400,
+          fontSize: 15.pf,
         ),
       ),
-      widgetLateralDerecho: Padding(
-        padding: EdgeInsets.only(right: 10.pw),
-        child: Text(
-          ratioCantidadDeNoAusentes,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: colores.onSecondary,
-            fontSize: 16.pf,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
+      widgetLateralDerecho: botonCambioInasistencia,
+      widgetLateralIzquierdo: fotoPerfil,
     );
   }
 
