@@ -67,6 +67,8 @@ class _VistaCelularListadoComunidadState
                         children: orden.lista
                             .map(
                               (usuario) => ElementoLista.usuario(
+                                // TODO: Cambiar por la imagen del usuario
+                                imagenUsuario: '',
                                 onTap: () => context.router.push(
                                   RutaPerfilUsuario(
                                     idUsuario: usuario.id,

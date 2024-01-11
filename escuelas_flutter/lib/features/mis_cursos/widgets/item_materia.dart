@@ -1,5 +1,5 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -38,7 +38,7 @@ class ItemMateria extends StatelessWidget {
       children: [
         Expanded(
           child: ElementoLista.misCursos(
-            nombreMateria: asignatura.nombre,
+            nombreMateria: asignatura.nombreDeAsignatura,
             estaCargada: estaCargada,
             estaHabilitado: estaHabilitado,
             context: context,

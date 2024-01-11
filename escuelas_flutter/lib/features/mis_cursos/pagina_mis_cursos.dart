@@ -19,7 +19,7 @@ class PaginaMisCursos extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          BlocMisCursos()..add(BlocMisCursosEventoInicializar()),
+          BlocMisCursos()..add(const BlocMisCursosEventoInicializar()),
       child: const FullResponsiveScreen(
         celular: VistaCelularMisCursos(),
         escritorio: VistaEscritorioMisCursos(),

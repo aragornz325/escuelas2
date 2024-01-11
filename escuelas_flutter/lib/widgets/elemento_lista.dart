@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
@@ -86,6 +87,9 @@ class ElementoLista extends StatelessWidget {
     /// Nombre del rol.
     required String nombreUsuario,
 
+    /// Foto de perfil del usuario
+    required String imagenUsuario,
+
     /// Contexto para utilizar colores del tema
     required BuildContext context,
   }) {
@@ -103,10 +107,21 @@ class ElementoLista extends StatelessWidget {
       borderRadius: 40.sw,
       colorFondo: colores.tertiary,
       onTap: onTap,
-      widgetLateralIzquierdo: Icon(
-        Icons.circle,
-        color: colores.grisBotonPresionado,
-        size: 35.sw,
+      widgetLateralIzquierdo: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(100.sw)),
+        child: Image.network(
+          imagenUsuario,
+          fit: BoxFit.cover,
+          errorBuilder: (
+            context,
+            error,
+            stackTrace,
+          ) =>
+              Image.asset(
+            Assets.images.usuario.path,
+            color: colores.onBackground,
+          ),
+        ),
       ),
     );
   }
@@ -191,11 +206,11 @@ class ElementoLista extends StatelessWidget {
     /// Contexto para utilizar colores del tema
     required BuildContext context,
 
-    /// Indica si se paso la asistencia o no
-    required bool sePasoAsistencia,
+    /// Boton para cambiar la inasistencia entre 1/4, 1/2, presente y ausente
+    required Widget botonCambioInasistencia,
 
-    /// Cantidad de no ausentes sobre la cantidad total de alumnos
-    required String ratioCantidadDeNoAusentes,
+    /// Foto de perfil del usuario
+    required Widget fotoPerfil,
 
     /// Ancho del elemento
     double? ancho,
@@ -203,29 +218,22 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
 
     return ElementoLista(
+      colorFondo: colores.transparente,
       ancho: ancho ?? 300.pw,
       altura: 50.ph,
       borderRadius: 50.sw,
       texto: Text(
         nombre,
+        maxLines: 1,
+        overflow: TextOverflow.ellipsis,
         style: TextStyle(
-          color: sePasoAsistencia ? colores.onBackground : colores.onSecondary,
-          fontSize: 16.pf,
-          fontWeight: FontWeight.w800,
+          color: colores.onBackground,
+          fontWeight: FontWeight.w400,
+          fontSize: 15.pf,
         ),
       ),
-      widgetLateralDerecho: Padding(
-        padding: EdgeInsets.only(right: 10.pw),
-        child: Text(
-          ratioCantidadDeNoAusentes,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            color: colores.onSecondary,
-            fontSize: 16.pf,
-            fontWeight: FontWeight.w700,
-          ),
-        ),
-      ),
+      widgetLateralDerecho: botonCambioInasistencia,
+      widgetLateralIzquierdo: fotoPerfil,
     );
   }
 
@@ -318,6 +326,30 @@ class ElementoLista extends StatelessWidget {
             size: 20.pw,
             color: colores.error,
           ),
+        ),
+      ),
+    );
+  }
+
+  /// Elemento de lista para mostrar un texto y un [String] que dice 'Sin datos'
+  factory ElementoLista.sinDatos({
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Nombre del profesor de la materia
+    required String texto,
+  }) {
+    final colores = context.colores;
+
+    return ElementoLista(
+      altura: 50.ph,
+      borderRadius: 50.sw,
+      texto: Text(
+        texto,
+        style: TextStyle(
+          color: colores.onBackground,
+          fontSize: 14.pf,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );

@@ -52,11 +52,11 @@ class BlocCargaCalificaciones
         // event.idCurso);
 
         final curso = ComisionDeCurso(
+          cursoId: 89,
           id: 1,
           nombre: 'primero',
           anioLectivo: 1,
           estudiantes: [],
-          cursoId: 1,
           ultimaModificacion: DateTime.now(),
         );
 

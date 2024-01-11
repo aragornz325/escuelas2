@@ -38,67 +38,72 @@ class TarjetaPerfil extends StatelessWidget {
     final roles = '${l10n.commonRoles}: ${rolesAsignados.capitalize}';
 
     return Container(
-      width: 340.pw,
+      height: 140.ph,
+      margin: EdgeInsets.symmetric(horizontal: 20.sw),
       padding: EdgeInsets.all(20.sw),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30.sw),
         color: colores.tertiary,
       ),
-      child: SingleChildScrollView(
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(100.sw),
-              child: SizedBox(
-                width: 110.sw,
-                height: 110.sh,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(100.sw)),
-                  child: (urlImage != null && urlImage != '')
-                      ? Image.network(
-                          urlImage!,
-                          fit: BoxFit.cover,
-                          errorBuilder: (
-                            context,
-                            error,
-                            stackTrace,
-                          ) =>
-                              Image.asset(
-                            Assets.images.usuario.path,
-                            color: colores.onBackground,
-                          ),
-                        )
-                      : Icon(
-                          Icons.person,
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(100.sw),
+            child: SizedBox(
+              width: 110.sw,
+              height: 110.sh,
+              child: ClipRRect(
+                borderRadius: BorderRadius.all(Radius.circular(100.sw)),
+                child: (urlImage != null && urlImage != '')
+                    ? Image.network(
+                        urlImage!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (
+                          context,
+                          error,
+                          stackTrace,
+                        ) =>
+                            Image.asset(
+                          Assets.images.usuario.path,
                           color: colores.onBackground,
-                          size: 30.sw,
                         ),
-                ),
+                      )
+                    : Icon(
+                        Icons.person,
+                        color: colores.onBackground,
+                        size: 30.sw,
+                      ),
               ),
             ),
-            SizedBox(width: 20.pw),
-            Column(
+          ),
+          SizedBox(width: 20.pw),
+          Expanded(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  nombreUsuario,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 20.pf,
-                    fontWeight: FontWeight.w700,
+                Flexible(
+                  child: Text(
+                    nombreUsuario,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontSize: 20.pf,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-                Text(
-                  apellidoUsuario,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 20.pf,
-                    fontWeight: FontWeight.w700,
+                Flexible(
+                  child: Text(
+                    apellidoUsuario,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontSize: 20.pf,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
                 Padding(
@@ -127,8 +132,8 @@ class TarjetaPerfil extends StatelessWidget {
                 ),
               ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

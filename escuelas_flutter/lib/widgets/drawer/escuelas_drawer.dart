@@ -18,11 +18,14 @@ import 'package:full_responsive/full_responsive.dart';
 class EscuelasDrawer extends StatelessWidget {
   /// {@macro EscuelasDrawer}
   const EscuelasDrawer({
-    required this.nombreCompleto,
+    required this.nombre,
+    required this.apellido,
     this.urlImage,
     super.key,
   });
-  final String nombreCompleto;
+  final String nombre;
+
+  final String apellido;
 
   /// Imagen de appbar[EscuelasDrawer].
   final String? urlImage;
@@ -117,25 +120,19 @@ class EscuelasDrawer extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(100.sw)),
-                              child: (urlImage != null && urlImage != '')
-                                  ? Image.network(
-                                      urlImage!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (
-                                        context,
-                                        error,
-                                        stackTrace,
-                                      ) =>
-                                          Image.asset(
-                                        Assets.images.usuario.path,
-                                        color: colores.onBackground,
-                                      ),
-                                    )
-                                  : Icon(
-                                      Icons.person,
-                                      color: colores.onBackground,
-                                      size: 30.sw,
-                                    ),
+                              child: Image.network(
+                                urlImage!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (
+                                  context,
+                                  error,
+                                  stackTrace,
+                                ) =>
+                                    Image.asset(
+                                  Assets.images.usuario.path,
+                                  color: colores.onBackground,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(height: 5.ph),
@@ -143,7 +140,22 @@ class EscuelasDrawer extends StatelessWidget {
                             width: 200.pw,
                             child: Center(
                               child: Text(
-                                nombreCompleto.capitalize,
+                                nombre.capitalize,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: colores.primaryContainer,
+                                  fontSize: 20.pf,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 200.pw,
+                            child: Center(
+                              child: Text(
+                                apellido.capitalize,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
