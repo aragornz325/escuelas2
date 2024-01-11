@@ -83,6 +83,8 @@ class TarjetaPerfil extends StatelessWidget {
               children: [
                 Text(
                   nombreUsuario,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 20.pf,
@@ -91,6 +93,8 @@ class TarjetaPerfil extends StatelessWidget {
                 ),
                 Text(
                   apellidoUsuario,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 20.pf,

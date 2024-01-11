@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -112,11 +114,14 @@ class EscuelasDialog extends StatelessWidget {
     final colores = context.colores;
 
     return EscuelasDialog(
-      altura: 120.ph,
       onTapConfirmar: () => Navigator.of(context).pop(),
       titulo: l10n.commonDialogError,
       content: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8),
+        padding: EdgeInsets.only(
+          right: 10.pw,
+          left: 10.pw,
+          top: max(10.ph, 10.sh),
+        ),
         child: Center(
           child: Text(
             l10n.commonFeatureNotAvailable,
