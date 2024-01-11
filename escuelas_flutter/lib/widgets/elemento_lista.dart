@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
@@ -86,6 +87,9 @@ class ElementoLista extends StatelessWidget {
     /// Nombre del rol.
     required String nombreUsuario,
 
+    /// Foto de perfil del usuario
+    required String imagenUsuario,
+
     /// Contexto para utilizar colores del tema
     required BuildContext context,
   }) {
@@ -103,10 +107,21 @@ class ElementoLista extends StatelessWidget {
       borderRadius: 40.sw,
       colorFondo: colores.tertiary,
       onTap: onTap,
-      widgetLateralIzquierdo: Icon(
-        Icons.circle,
-        color: colores.grisBotonPresionado,
-        size: 35.sw,
+      widgetLateralIzquierdo: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(100.sw)),
+        child: Image.network(
+          imagenUsuario,
+          fit: BoxFit.cover,
+          errorBuilder: (
+            context,
+            error,
+            stackTrace,
+          ) =>
+              Image.asset(
+            Assets.images.usuario.path,
+            color: colores.onBackground,
+          ),
+        ),
       ),
     );
   }
