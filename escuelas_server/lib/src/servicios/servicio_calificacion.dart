@@ -116,7 +116,7 @@ select
               from
                 "asignaturas" a
               where
-                a."idCurso" = c."id"
+                a."cursoId" = c."id"
             ),
             '[]'::jsonb
           )
