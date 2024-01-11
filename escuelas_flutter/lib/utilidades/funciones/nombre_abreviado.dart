@@ -7,7 +7,8 @@ String obtenerNombreAbreviado(String nombreCompleto) {
 
     return '$inicialPrimerNombre. $apellido';
   } else {
-    // TODO(anyone): Manejar el caso en el que el nombre no tenga un formato esperado
+    // TODO(anyone): Manejar el caso en el que el nombre no tenga un formato
+    // esperado
     return nombreCompleto;
   }
 }

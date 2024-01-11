@@ -48,7 +48,8 @@ class BlocCargaCalificaciones
         // TODO(anyone): ver como se traen todas las calificaciones de los
         // usuarios
 
-        // final curso = await client.comisiones.obtenercomicionporid(id: event.idCurso);
+        // final curso = await client.comisiones.obtenercomicionporid(id:
+        // event.idCurso);
 
         final curso = ComisionDeCurso(
           id: 1,
@@ -62,8 +63,8 @@ class BlocCargaCalificaciones
 
         final listaCalificacionCompensacion = [
           Calificacion(
+            idAutor: 3,
             id: 1,
-            idAutor: 2,
             observacion: 'nose',
             fechaCreacion: DateTime.now(),
             ultimaModificacion: DateTime.now(),
@@ -80,7 +81,7 @@ class BlocCargaCalificaciones
 
         final listaCalificaciones = [
           Calificacion(
-            idAutor: 3,
+            idAutor: 7,
             id: 1,
             observacion: 'nose',
             fechaCreacion: DateTime.now(),
@@ -148,8 +149,8 @@ class BlocCargaCalificaciones
       (c) => c.usuarioId == event.idAlumno,
     );
 
-    /// TODO(anyone): hablar con los modelos para que la calificacion pueda ser
-    ///  nulleable
+    // TODO(anyone): hablar con los modelos para que la calificacion pueda ser
+    // nulleable
     state.listaCalificaciones
         .firstWhere(
           (calificacion) =>
@@ -186,7 +187,7 @@ class BlocCargaCalificaciones
     final calificaciones = state.listaCalificaciones;
 
     for (final calificacion in calificaciones) {
-      /// TODO(anyone):hacer que sea nullable
+      // TODO(anyone): hacer que sea nullable
       calificacion.id = 0;
       // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
     }

@@ -10,7 +10,8 @@ class VistaEscritorioSupervisionEnvioCalificaciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO(anyone): Implementar vista escritorio supervision envio calificaciones
+    // TODO(anyone): Implementar vista escritorio supervision envio
+    // calificaciones
     return const Placeholder();
   }
 }

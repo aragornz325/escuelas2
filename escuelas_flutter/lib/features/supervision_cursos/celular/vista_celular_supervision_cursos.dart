@@ -48,7 +48,8 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                             onTap: () => context.router.push(
                               RutaSupervisionEnvioCalificaciones(
                                 idCurso: curso.id ?? 0,
-                                // TODO(anyone): Pasar fecha del periodo seleccionado
+                                // TODO(anyone): Pasar fecha del periodo
+                                // seleccionado
                                 fecha: DateTime.now()
                                     .copyWith(month: DateTime.now().month + 2)
                                     .toString(),
@@ -115,7 +116,8 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
               padding: EdgeInsets.symmetric(vertical: 20.ph),
               child: Center(
                 child: Text(
-                  'Fecha final de envio: ${state.fechaUltimaMateriaCargada.formatear}',
+                  'Fecha final de envio: '
+                  '${state.fechaUltimaMateriaCargada.formatear}',
                   style: TextStyle(
                     color: colores.grisSC,
                     fontSize: 16.pf,

@@ -1,5 +1,5 @@
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -10,7 +10,7 @@ import 'package:full_responsive/full_responsive.dart';
 class ItemMateria extends StatelessWidget {
   /// {@macro ItemMateria}
   const ItemMateria({
-    required this.materia,
+    required this.asignatura,
     required this.estaCargada,
     required this.estaHabilitado,
     required this.onTap,
@@ -18,7 +18,7 @@ class ItemMateria extends StatelessWidget {
   });
 
   /// Usuario del que se muestran los datos
-  final Asignatura materia;
+  final AsignaturaOverview asignatura;
 
   /// Indica si las calificaciones de esa materia ya fueron cargas en el mes
   /// seleccionado
@@ -38,7 +38,7 @@ class ItemMateria extends StatelessWidget {
       children: [
         Expanded(
           child: ElementoLista.misCursos(
-            nombreMateria: materia.nombre,
+            nombreMateria: asignatura.nombre,
             estaCargada: estaCargada,
             estaHabilitado: estaHabilitado,
             context: context,

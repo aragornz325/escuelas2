@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
@@ -22,70 +24,16 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
   /// Dialog para confirmar la asignacion de un rol al usuario
   void _dialogAsignarRol(
     BuildContext context,
-    Usuario? usuario,
+    UsuarioPendiente? usuario,
+    String nombreRol,
   ) {
-    final colores = context.colores;
-
-    final l10n = context.l10n;
-
     showDialog<void>(
       context: context,
-      builder: (_) => BlocProvider(
-        create: (context) => BlocPerfilUsuario(),
-        child: EscuelasDialog.confirmar(
-          ancho: 260.pw,
-          onTapConfirmar: () => context
-              .read<BlocPerfilUsuario>()
-              .add(BlocPerfilUsuarioEventoAceptarSolicitud()),
-          content: RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              style: TextStyle(
-                color: colores.grisSC,
-                fontSize: 16.pf,
-                fontWeight: FontWeight.w600,
-                fontFamily: FontFamily.nunito,
-              ),
-              children: <TextSpan>[
-                TextSpan(
-                  text: l10n.pageRoleAssigmentDialogFirstText,
-                  style: TextStyle(
-                    color: colores.grisSC,
-                    fontSize: 16.pf,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: FontFamily.nunito,
-                  ),
-                ),
-                TextSpan(
-                  text: usuario?.nombre ?? '',
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 16.pf,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: FontFamily.nunito,
-                  ),
-                ),
-                TextSpan(
-                  text: l10n.pageRoleAssigmentDialogSecondText,
-                  style: TextStyle(
-                    color: colores.grisSC,
-                    fontSize: 16.pf,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: FontFamily.nunito,
-                  ),
-                ),
-                TextSpan(
-                  text: '${usuario?.roles?.first.rol?.nombre.toUpperCase()}?',
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 16.pf,
-                    fontWeight: FontWeight.w600,
-                    fontFamily: FontFamily.nunito,
-                  ),
-                ),
-              ],
-            ),
-          ),
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocPerfilUsuario>(),
+        child: _DialogAsignarRol(
+          usuario: usuario,
+          nombreRol: nombreRol,
         ),
       ),
     );
@@ -108,9 +56,10 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TarjetaPerfil(
-              nombreRol: state.nombreRolDeUsuarioPendiente,
+              rolesAsignados: state.nombreRolUsuarioPendiente,
               nombreUsuario: state.usuarioPendiente?.nombre ?? '',
               apellidoUsuario: state.usuarioPendiente?.apellido ?? '',
+              urlImage: state.usuarioPendiente?.urlFotoDePerfil ?? '',
             ),
             const Expanded(
               child: SingleChildScrollView(
@@ -136,7 +85,11 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
                   SizedBox(width: 20.ph),
                   EscuelasBoton.texto(
                     estaHabilitado: true,
-                    onTap: () => _dialogAsignarRol(context, state.usuario),
+                    onTap: () => _dialogAsignarRol(
+                      context,
+                      state.usuarioPendiente,
+                      state.nombreRolUsuarioPendiente,
+                    ),
                     color: colores.verdeConfirmar,
                     texto: l10n.commonConfirm.toUpperCase(),
                     context: context,
@@ -147,6 +100,89 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
           ],
         );
       },
+    );
+  }
+}
+
+/// {@template _DialogAsignarRol}
+/// Dialog para confirmar la asignacion de un rol al usuario
+/// {@endtemplate}
+class _DialogAsignarRol extends StatelessWidget {
+  /// {@macro _DialogAsignarRol}
+  const _DialogAsignarRol({
+    required this.usuario,
+    required this.nombreRol,
+  });
+
+  void _aceptarSolicitudRegistro(BuildContext context) {
+    context
+        .read<BlocPerfilUsuario>()
+        .add(BlocPerfilUsuarioEventoAceptarSolicitud());
+    Navigator.of(context).pop();
+    context.router.push(const RutaInicio());
+  }
+
+  final UsuarioPendiente? usuario;
+
+  final String nombreRol;
+  @override
+  Widget build(BuildContext context) {
+    final colores = context.colores;
+
+    final l10n = context.l10n;
+
+    return EscuelasDialog.confirmar(
+      ancho: 260.pw,
+      onTapConfirmar: () => _aceptarSolicitudRegistro(context),
+      content: RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          style: TextStyle(
+            color: colores.grisSC,
+            fontSize: 16.pf,
+            fontWeight: FontWeight.w600,
+            fontFamily: FontFamily.nunito,
+          ),
+          children: <TextSpan>[
+            TextSpan(
+              text: l10n.pageRoleAssigmentDialogFirstText,
+              style: TextStyle(
+                color: colores.grisSC,
+                fontSize: 16.pf,
+                fontWeight: FontWeight.w600,
+                fontFamily: FontFamily.nunito,
+              ),
+            ),
+            TextSpan(
+              text: usuario?.nombre ?? '',
+              style: TextStyle(
+                color: colores.onBackground,
+                fontSize: 16.pf,
+                fontWeight: FontWeight.w600,
+                fontFamily: FontFamily.nunito,
+              ),
+            ),
+            TextSpan(
+              text: l10n.pageRoleAssigmentDialogSecondText,
+              style: TextStyle(
+                color: colores.grisSC,
+                fontSize: 16.pf,
+                fontWeight: FontWeight.w600,
+                fontFamily: FontFamily.nunito,
+              ),
+            ),
+            TextSpan(
+              text: '${nombreRol.toUpperCase()}?',
+              style: TextStyle(
+                color: colores.onBackground,
+                fontSize: 16.pf,
+                fontWeight: FontWeight.w600,
+                fontFamily: FontFamily.nunito,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

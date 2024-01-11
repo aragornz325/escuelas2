@@ -31,30 +31,39 @@ class BlocPerfilUsuarioEstado {
   /// Lista de roles de la institucion
   final List<RolDeUsuario> listaRoles;
 
-  /// Nombre del rol del usuario
-  String get nombreRolDeUsuarioPendiente =>
-      listaRoles
-          .firstWhereOrNull((rol) => rol.id == usuarioPendiente?.rolSolicitado)
-          ?.nombre ??
-      '';
+  /// Devuelve una lista de [NumeroDeTelefono] del usuario o una lista vacia
+  /// si no tiene
+  List<NumeroDeTelefono> get numerosDeTelefono =>
+      usuario?.numerosDeTelefono ?? [];
 
-  /// Nombre del rol del usuario
-  String get nombreRolDeUsuario =>
+  /// Devuelve una lista de direcciones de [DireccionDeEmail] del usuario o una
+  /// lista vacia si no tiene
+  List<DireccionDeEmail> get direccionesDeEmail =>
+      usuario?.direccionesDeEmail ?? [];
+
+  /// Devuelve una lista de [RelacionUsuarioRol] del usuario o una lista vacia
+  /// si no tiene
+  List<RelacionUsuarioRol> get rolesDeUsuario => usuario?.roles ?? [];
+
+  /// Devuelve una un [String] con los nombres de los roles del usuario o un
+  /// [String] vacio si no tiene roles
+  String get nombreRolUsuarioPendiente =>
       listaRoles
-          .firstWhereOrNull((rol) => rol.id == usuario?.roles?.first.rol?.id)
+          .firstWhereOrNull(
+            (element) => element.id == usuarioPendiente?.rolSolicitado,
+          )
           ?.nombre ??
       '';
 
   /// Devuelve el [Tipo] de usuario segun su estado/rol
-  Tipo get tipoUsuario => usuarioPendiente != null
-      ? usuario?.roles?.first.rol?.nombre == 'alumno' ||
-              usuarioPendiente?.comisionSolicitada != null
-          ? Tipo.alumnoPendiente
-          : Tipo.docentePendiente
-      : usuario?.roles?.first.rol?.nombre == 'alumno' ||
-              usuarioPendiente?.comisionSolicitada != null
+  Tipo get tipoUsuario => usuarioPendiente == null
+      ? rolesDeUsuario
+              .any((usuarioConRol) => usuarioConRol.rol?.nombre == 'alumno')
           ? Tipo.alumnoAprobado
-          : Tipo.docenteAprobado;
+          : Tipo.docenteAprobado
+      : nombreRolUsuarioPendiente == 'alumno'
+          ? Tipo.alumnoPendiente
+          : Tipo.docentePendiente;
 }
 
 /// {@template BlocPerfilUsuarioEstadoInicial}

@@ -1,9 +1,9 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/extensiones/string.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
+import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -14,23 +14,28 @@ import 'package:full_responsive/full_responsive.dart';
 class TarjetaPerfil extends StatelessWidget {
   /// {@macro TarjetaPerfil}
   const TarjetaPerfil({
-    required this.nombreRol,
+    required this.rolesAsignados,
     required this.nombreUsuario,
     required this.apellidoUsuario,
+    this.urlImage,
     super.key,
   });
 
-  final String nombreRol;
+  final String rolesAsignados;
 
   final String nombreUsuario;
 
   final String apellidoUsuario;
+
+  final String? urlImage;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
     final l10n = context.l10n;
+
+    final roles = '${l10n.commonRoles}: ${rolesAsignados.capitalize}';
 
     return Container(
       width: 340.pw,
@@ -47,8 +52,28 @@ class TarjetaPerfil extends StatelessWidget {
               child: SizedBox(
                 width: 110.sw,
                 height: 110.sh,
-                // TODO(Gon): Poner imagen del user
-                child: Image.asset(Assets.images.usuario.path),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(100.sw)),
+                  child: (urlImage != null && urlImage != '')
+                      ? Image.network(
+                          urlImage!,
+                          fit: BoxFit.cover,
+                          errorBuilder: (
+                            context,
+                            error,
+                            stackTrace,
+                          ) =>
+                              Image.asset(
+                            Assets.images.usuario.path,
+                            color: colores.onBackground,
+                          ),
+                        )
+                      : Icon(
+                          Icons.person,
+                          color: colores.onBackground,
+                          size: 30.sw,
+                        ),
+                ),
               ),
             ),
             SizedBox(width: 20.pw),
@@ -75,7 +100,7 @@ class TarjetaPerfil extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(vertical: 5.ph),
                   child: Text(
-                    nombreRol.capitalize,
+                    roles,
                     style: TextStyle(
                       color: colores.grisSC,
                       fontSize: 14.pf,
@@ -86,7 +111,11 @@ class TarjetaPerfil extends StatelessWidget {
                 EscuelasBoton.texto(
                   estaHabilitado: true,
                   // TODO(Gon): Dar funcion
-                  onTap: () {},
+                  onTap: () => showDialog<void>(
+                    context: context,
+                    builder: (context) =>
+                        EscuelasDialog.featNoDisponible(context: context),
+                  ),
                   color: colores.azul,
                   texto: l10n.commonContact,
                   fontSize: 12.pf,

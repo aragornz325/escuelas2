@@ -29,7 +29,8 @@ class BlocInasistencias
     emit(BlocInasistenciasEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        /// TODO: Obtener el rol de usuario y que dependa de eso para manejar las pantalla y permisos
+        // TODO(anyone): Obtener el rol de usuario y que dependa de eso para
+        // manejar las pantalla y permisos
         // final obtenerRol = await client.rol.obtenerRolPorId(
         //   id: sessionManager.signedInUser?.id ?? 0,
         // );

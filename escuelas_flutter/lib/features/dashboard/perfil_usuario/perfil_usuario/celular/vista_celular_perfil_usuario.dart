@@ -1,3 +1,4 @@
+import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_datos_personales.dart';
@@ -25,9 +26,10 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TarjetaPerfil(
-              nombreRol: state.nombreRolDeUsuario,
+              rolesAsignados: state.usuario?.nombreRoles ?? '',
               nombreUsuario: state.usuario?.nombre ?? '',
               apellidoUsuario: state.usuario?.apellido ?? '',
+              urlImage: state.usuario?.urlFotoDePerfil ?? '',
             ),
             const Expanded(
               child: SingleChildScrollView(
