@@ -67,10 +67,13 @@ class MenuOpcionesPermisos extends StatelessWidget {
                     child: ElementoLista.menu(
                       widgetLateralDerecho:
                           etiqueta.name == InfoDeRol.usuariosPendientes.name
-                              ? Icon(
-                                  Icons.circle,
-                                  color: colores.error,
-                                  size: 15.sw,
+                              ? Padding(
+                                  padding: EdgeInsets.only(right: 20.pw),
+                                  child: Icon(
+                                    Icons.circle,
+                                    color: colores.error,
+                                    size: 15.sw,
+                                  ),
                                 )
                               : null,
                       nombreOpcion: etiqueta.titulo,
