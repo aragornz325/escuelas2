@@ -1,4 +1,3 @@
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -12,6 +11,7 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
   /// {@macro BlocMisCursos}
   BlocMisCursos() : super(const BlocMisCursosEstadoInicial()) {
     on<BlocMisCursosEventoInicializar>(_inicializar);
+    on<BlocMisCursosEventoCambiarMes>(_cambiarMes);
   }
 
   /// Trae las materias asignadas al usuario y las ordena por curso
@@ -22,58 +22,91 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
     emit(BlocMisCursosEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // final materias = await client.traermaterias;
-        // TODO(Gon): Eliminar hardcodeo y usar endpoint
-        //TODO ver si son estos
-        // final cursos = await client.curso.obtenerCursos();
+        // TODO(Gon): usar endpoint
+        // final comisiones = await client.comision.getMisCursos(mes, anio);
 
-        final asignaturas = [
-          Asignatura(
-            id: 1,
-            nombre: 'matematica',
-            idCurso: 1,
-          ),
-          Asignatura(
-            id: 2,
-            nombre: 'ingenieria',
-            idCurso: 1,
-          ),
-        ];
-        final asignaturas2 = [
-          Asignatura(
-            id: 3,
-            nombre: 'inglish',
-            idCurso: 2,
-          ),
-          Asignatura(
-            id: 4,
-            nombre: 'comunicacion',
-            idCurso: 2,
-          ),
-        ];
-
-        final cursos = [
-          Curso(
-            nombre: 'Primero',
-            asignaturas: asignaturas,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
-            id: 1,
-          ),
-          Curso(
-            nombre: 'segundo',
-            asignaturas: asignaturas2,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
-            id: 2,
-          ),
-        ];
         emit(
           BlocMisCursosEstadoExitoso.desde(
             state,
-            cursos: cursos,
+            comisiones: [
+              const ComisionAsignaturaOverview(
+                nombreComision: 'Primero A',
+                asignaturas: [
+                  AsignaturaOverview(
+                    nombre: 'Matematica',
+                    tienePendientes: true,
+                  ),
+                  AsignaturaOverview(
+                    nombre: 'Lengua',
+                    tienePendientes: false,
+                  ),
+                ],
+              ),
+              const ComisionAsignaturaOverview(
+                nombreComision: 'Segundo B',
+                asignaturas: [
+                  AsignaturaOverview(
+                    nombre: 'Matematica',
+                    tienePendientes: false,
+                  ),
+                  AsignaturaOverview(
+                    nombre: 'Lengua',
+                    tienePendientes: true,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+      onError: (e, st) {
+        emit(BlocMisCursosEstadoError.desde(state));
+      },
+    );
+  }
+
+  /// Trae las materias asignadas al usuario y las ordena por curso
+  Future<void> _cambiarMes(
+    BlocMisCursosEventoCambiarMes event,
+    Emitter<BlocMisCursosEstado> emit,
+  ) async {
+    emit(BlocMisCursosEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        // final comisiones = await client.comision.getMisCursos
+        // (event.periodoSeleccionada.month, event.periodoSeleccionada.year);
+
+        emit(
+          BlocMisCursosEstadoExitoso.desde(
+            state,
+            comisiones: [
+              const ComisionAsignaturaOverview(
+                nombreComision: 'Primero A',
+                asignaturas: [
+                  AsignaturaOverview(
+                    nombre: 'Matematica',
+                    tienePendientes: false,
+                  ),
+                  AsignaturaOverview(
+                    nombre: 'Lengua',
+                    tienePendientes: false,
+                  ),
+                ],
+              ),
+              const ComisionAsignaturaOverview(
+                nombreComision: 'Segundo B',
+                asignaturas: [
+                  AsignaturaOverview(
+                    nombre: 'Matematica',
+                    tienePendientes: false,
+                  ),
+                  AsignaturaOverview(
+                    nombre: 'Lengua',
+                    tienePendientes: false,
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },

@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/asignatura.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
@@ -7,7 +6,8 @@ import 'package:escuelas_flutter/extensiones/rol_de_usuario.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-// TODO(anyone): Revisar si esto sirve, tenia un problema de importaciones con el userInfo y el protocol
+// TODO(anyone): Revisar si esto sirve, tenia un problema de importaciones con
+// el userInfo y el protocol
 import 'package:serverpod_auth_client/module.dart' as auth;
 
 part 'bloc_kyc_estado.dart';
@@ -85,12 +85,12 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
       state.opcionesFormulario,
     );
 
-    final opcion = nuevaListaOpciones.firstWhereOrNull(
+    final noExisteOpcionConEsaId = nuevaListaOpciones.any(
       (element) =>
           element.comisionSeleccionada?.id == event.idComisionSeleccionada &&
           element.asignaturaSeleccionada?.id == event.idAsignaturaSeleccionada,
     );
-    if (opcion == null) {
+    if (noExisteOpcionConEsaId) {
       nuevaListaOpciones.add(
         OpcionFormulario(
           idOpcion: state.opcionesFormulario.length + 1,
@@ -103,7 +103,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         ),
       );
     } else {
-      emit(
+      return emit(
         BlocKycEstadoErrorOpcionYaElegida.desde(state),
       );
     }
@@ -123,11 +123,13 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     final nuevaListaOpciones = List<OpcionFormulario>.from(
       state.opcionesFormulario,
     );
-    final opcion = nuevaListaOpciones.firstWhereOrNull(
+
+    final opcion = nuevaListaOpciones.any(
       (element) =>
           element.comisionSeleccionada?.id == event.idComisionSeleccionada,
     );
-    if (opcion == null) {
+
+    if (!opcion) {
       nuevaListaOpciones.add(
         OpcionFormulario(
           idOpcion: state.opcionesFormulario.length + 1,
@@ -137,8 +139,10 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         ),
       );
     } else {
-      emit(
-        BlocKycEstadoErrorOpcionYaElegida.desde(state),
+      return emit(
+        BlocKycEstadoErrorOpcionYaElegida.desde(
+          state,
+        ),
       );
     }
 
@@ -147,35 +151,6 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         state,
         opcionesFormulario: nuevaListaOpciones,
       ),
-    );
-  }
-
-  /// Trata de cerrar la sesión de un usuario.
-  /// En caso de error, devuelve un mensaje de fallo
-  /// de cierre de sesión.
-  Future<void> _cerrarSesion(
-    BlocKycEventoCerrarSesion event,
-    Emitter<BlocKycEstado> emit,
-  ) async {
-    emit(BlocKycEstadoCargando.desde(state));
-
-    await operacionBloc(
-      callback: (client) async {
-        await sessionManager.signOut();
-
-        if (!sessionManager.isSignedIn) {
-          emit(BlocKycEstadoCerrarSesionExitoso.desde(state));
-        } else {
-          emit(
-            BlocKycEstadoFallido.desde(state),
-          );
-        }
-      },
-      onError: (e, st) {
-        emit(
-          BlocKycEstadoFallido.desde(state),
-        );
-      },
     );
   }
 
@@ -205,19 +180,21 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     BlocKycEventoSolicitarRegistro event,
     Emitter<BlocKycEstado> emit,
   ) async {
+    emit(BlocKycEstadoCargando.desde(state));
+
     await operacionBloc(
       callback: (client) async {
-        final usuario = sessionManager.signedInUser;
+        final usuario = event.userInfo;
+
         final usuarioPendiente = UsuarioPendiente(
           idUserInfo: usuario?.id ?? 0,
           nombre: usuario?.fullName ?? '',
           apellido: usuario?.userName ?? '',
           urlFotoDePerfil: usuario?.imageUrl ?? '',
-          // TODO: Cambiar cuando usuario pendiente no requiera dni
-          dni: '',
           rolSolicitado: state.rolElegido?.id ?? 0,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
         );
+
         if (state.rolElegido?.nombre == 'docente') {
           await client.usuario.enviarSolicitudRegistroDocente(
             asignaturasASolicitar: state.opcionesFormulario
@@ -226,6 +203,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             usuarioPendiente: usuarioPendiente,
           );
         }
+
         if (state.rolElegido?.nombre == 'alumno') {
           await client.usuario.enviarSolicitudRegistroAlumno(
             comisionDeCurso:
@@ -233,9 +211,39 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             usuarioPendiente: usuarioPendiente,
           );
         }
+
         emit(
           BlocKycEstadoExitoAlSolicitarRegistro.desde(state),
         );
+      },
+      onError: (e, st) {
+        emit(
+          BlocKycEstadoFallido.desde(state),
+        );
+      },
+    );
+  }
+
+  /// Trata de cerrar la sesión de un usuario.
+  /// En caso de error, devuelve un mensaje de fallo
+  /// de cierre de sesión.
+  Future<void> _cerrarSesion(
+    BlocKycEventoCerrarSesion event,
+    Emitter<BlocKycEstado> emit,
+  ) async {
+    emit(BlocKycEstadoCargando.desde(state));
+
+    await operacionBloc(
+      callback: (client) async {
+        await sessionManager.signOut();
+
+        if (!sessionManager.isSignedIn) {
+          emit(BlocKycEstadoCerrarSesionExitoso.desde(state));
+        } else {
+          emit(
+            BlocKycEstadoFallido.desde(state),
+          );
+        }
       },
       onError: (e, st) {
         emit(
@@ -269,8 +277,8 @@ class OpcionFormulario {
     this.asignaturaSeleccionada,
   });
 
-  ComisionDeCurso? comisionSeleccionada;
-  Asignatura? asignaturaSeleccionada;
+  final ComisionDeCurso? comisionSeleccionada;
+  final Asignatura? asignaturaSeleccionada;
   final int idOpcion;
 }
 

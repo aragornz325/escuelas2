@@ -81,7 +81,8 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
         }
 
         if (state is BlocLoginEstadoSolicitudRechazada) {
-          // TODO(SAM): Mostrar dialog de aviso solicitud rechazada y redireccion a KYC.
+          // TODO(SAM): Mostrar dialog de aviso solicitud rechazada y
+          // redireccion a KYC.
           context.replaceRoute(const RutaKyc());
         }
       },

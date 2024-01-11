@@ -45,7 +45,7 @@ class ItemCursoConListaDeEstudiantes extends StatelessWidget {
               onTap: onTap,
             ),
             if ((comisionDeCurso.estudiantes ?? []).isEmpty)
-              //TODO(anyone): hacer una vista cuando no hay cursos.
+              // TODO(anyone): hacer una vista cuando no hay cursos.
               SizedBox(
                 height: max(150.ph, 150.sh),
                 child: Center(

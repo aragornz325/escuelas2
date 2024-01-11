@@ -52,7 +52,8 @@ class MenuOpcionesPermisos extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         } else {
-          // TODO(SAM): para saber si hay usuarios pendientes llamar al endpoint obtenerUsuariosPendientes y poner o no el puntito
+          // TODO(SAM): para saber si hay usuarios pendientes llamar al endpoint
+          // obtenerUsuariosPendientes y poner o no el puntito
           return Column(
             children: state.listaEtiquetas
                 .map(
