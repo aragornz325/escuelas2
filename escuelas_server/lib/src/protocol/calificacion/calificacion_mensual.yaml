@@ -1,5 +1,10 @@
 class: CalificacionMensual
 table: calificaciones_mensuales
 fields:
+  calificacion: Calificacion?, relation
   idCalificacion: int, relation(parent=calificaciones)
   numeroDeMes: int
+indexes:
+  calificacion_calificacion_mensual_unique_idx:
+    fields: calificacionId
+    unique: true

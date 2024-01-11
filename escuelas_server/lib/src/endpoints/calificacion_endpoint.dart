@@ -49,4 +49,18 @@ class CalificacionEndpoint extends Endpoint with Controller {
         'obtenerConceptosDeCalificacion',
         () => servicio.obtenerConceptosDeCalificacion(session),
       );
+
+  Future<List<ComisionOverview>> obtenerInformacionGeneralDeComisiones(
+    Session session, {
+    required int idUsuario,
+    required int numeroDeMes,
+  }) =>
+      ejecutarOperacionControlador(
+        'obtenerInformacionGeneralDeComisiones',
+        () => servicio.obtenerInformacionGeneralDeComisiones(
+          session,
+          idUsuario: idUsuario,
+          numeroDeMes: numeroDeMes,
+        ),
+      );
 }

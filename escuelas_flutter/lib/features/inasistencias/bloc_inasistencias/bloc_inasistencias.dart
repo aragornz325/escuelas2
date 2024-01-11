@@ -65,9 +65,9 @@ class BlocInasistencias
             (estudiante) {
               return AsistenciaDiaria(
                 estudianteId: estudiante.usuarioId,
-                comisionId: comision.idCurso,
+                comisionId: comision.id ?? 0,
                 estadoDeAsistencia: EstadoDeAsistencia.sinEstado,
-                fecha: DateTime.now(),
+                fecha: state.fechaActual ?? DateTime.now(),
               );
             },
           ).toList();
@@ -118,8 +118,25 @@ class BlocInasistencias
               .actualizarAsistenciasEnLote(asistencias: listaAModificar);
         }
         if (listaACrear.isNotEmpty) {
-          await client.asistencia
+          final nuevasInasistencias = await client.asistencia
               .crearAsistenciasEnLote(asistencias: asistenciasDiarias);
+          for (final asistencia
+              in state.inasistencias.expand((element) => element).toList()) {
+            final inasistencia = nuevasInasistencias.firstWhere(
+              (inasistencia) =>
+                  inasistencia.estudianteId == asistencia.estudianteId,
+            );
+            asistencia.id = inasistencia.id;
+          }
+        }
+
+        for (final asistencia
+            in state.inasistencias.expand((element) => element).toList()) {
+          asistencia.ultimaModificacion = state.fechaActual;
+        }
+
+        for (final asistencia in asistenciasDiarias) {
+          asistencia.ultimaModificacion = state.fechaActual;
         }
 
         final comisiones = List<ComisionDeCurso>.from(state.comisiones);
@@ -131,9 +148,11 @@ class BlocInasistencias
             .ultimaModificacion = state.fechaActual ?? DateTime.now();
 
         emit(
-          BlocInasistenciasEstadoExitoso.desde(
+          BlocInasistenciasEstadoExitosoEnvioDeInasistencias.desde(
             state,
             comisiones: comisiones,
+            inasistencias: state.inasistencias,
+            asistenciaAModificar: asistenciasDiarias,
           ),
         );
       },
@@ -153,10 +172,12 @@ class BlocInasistencias
     //actualiza el estado de un estudiante de un curso
     final asistencias = state.inasistencias
         .expand((lista) => lista.where((e) => e.comisionId == event.idCurso))
-        .toList()
-      ..firstWhere(
-        (asistencia) => asistencia.estudianteId == event.idEstudiante,
-      ).estadoDeAsistencia = event.estadoInasistencia.cambiarEstado();
+        .toList();
+    asistencias
+        .firstWhere(
+          (asistencia) => asistencia.estudianteId == event.idEstudiante,
+        )
+        .estadoDeAsistencia = event.estadoInasistencia.cambiarEstado();
 
     if (event.estadoInasistencia.existeMismoEstudiante(
       asistenciasAModificar,
@@ -211,7 +232,6 @@ class BlocInasistencias
         fecha: state.fechaActual ?? DateTime.now(),
         estado: estudiante.estadoDeAsistencia,
       );
-
       if (existeAsistencia && tieneLaMismaAsistencia) {
         listaAModificar.add(estudiante);
       } else if (!existeAsistencia) {
@@ -249,9 +269,9 @@ List<List<AsistenciaDiaria>> _obtenerInasistenciasPorComision(
             // asistencia
             return AsistenciaDiaria(
               estudianteId: estudiante.usuarioId,
-              comisionId: comision.idCurso,
+              comisionId: comision.id ?? 0,
               estadoDeAsistencia: EstadoDeAsistencia.sinEstado,
-              fecha: DateTime.now(),
+              fecha: fecha,
             );
           },
         );
