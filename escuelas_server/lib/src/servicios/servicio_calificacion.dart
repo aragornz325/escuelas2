@@ -116,7 +116,7 @@ select
               from
                 "asignaturas" a
               where
-                a."idCurso" = c."id"
+                a."cursoId" = c."id"
             ),
             '[]'::jsonb
           )
@@ -129,7 +129,7 @@ select
   ) as "comisiones"
 from
   "cursos" c
-inner join asignaturas a on a."idCurso" = c."id"
+inner join asignaturas a on a."cursoId" = c."id"
 inner join r_asignaturas_usuarios rau on rau."asignaturaId" = a."id"
 where rau."usuarioId" = $idUsuario;
 ''');
