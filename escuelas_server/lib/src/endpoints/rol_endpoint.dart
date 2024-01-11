@@ -31,21 +31,6 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
     );
   }
 
-  Future<List<UsuariosListados>> obtenerUsuariosPorRolSorteados(
-    Session session, {
-    required int idRol,
-    OrdenarPor? ordenarUsuariosPor,
-  }) async {
-    return await ejecutarOperacionControlador(
-      'obtenerUsuariosPorRolSorteados',
-      () => servicio.obtenerUsuariosPorRolSorteados(
-        session,
-        idRol: idRol,
-        ordenarUsuariosPor: ordenarUsuariosPor ?? OrdenarPor.apellido,
-      ),
-    );
-  }
-
   /// La función `obtenerRoles` recupera una lista de roles de usuario utilizando una sesión y un
   /// servicio.
   ///  args:

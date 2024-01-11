@@ -35,6 +35,7 @@ class _ListaDeComisionesDeCursoState extends State<ListaDeComisionesDeCurso> {
           controller: _scrollController,
           comisionDeCurso: state.comisiones[index],
           index: index,
+          esMesPosterior: state.fechaActual?.isBefore(DateTime.now()) ?? false,
         ),
       ),
     );
@@ -50,6 +51,7 @@ class _ContenidoDeplegableDeLaComisionDeCurso extends StatefulWidget {
     required this.controller,
     required this.comisionDeCurso,
     required this.index,
+    required this.esMesPosterior,
   });
 
   /// Controlador de desplazamiento.
@@ -60,6 +62,9 @@ class _ContenidoDeplegableDeLaComisionDeCurso extends StatefulWidget {
 
   /// Indice de la lista.
   final int index;
+
+  /// indica si el mes es posterior
+  final bool esMesPosterior;
 
   @override
   State<_ContenidoDeplegableDeLaComisionDeCurso> createState() =>
@@ -79,11 +84,11 @@ class _ContenidoDeplegableDeLaComisionDeCursoState
       child: desplegado
           ? ItemCursoConListaDeEstudiantes(
               comisionDeCurso: widget.comisionDeCurso,
-              onTap: _desplegarCurso,
+              onTap: widget.esMesPosterior ? _desplegarCurso : () {},
             )
           : ItemCurso(
               comisionDeCurso: widget.comisionDeCurso,
-              onTap: _desplegarCurso,
+              onTap: widget.esMesPosterior ? _desplegarCurso : () {},
             ),
     );
   }

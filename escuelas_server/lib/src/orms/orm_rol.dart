@@ -164,7 +164,6 @@ class OrmRol extends ORM {
     required int idUsuario,
     required int idRol,
   }) async {
-
     final usuario = await ejecutarOperacionOrm(
       session,
       (session) => Usuario.db.findById(session, idUsuario),
@@ -199,7 +198,7 @@ class OrmRol extends ORM {
         ],
       ),
     );
-    
+
     return 'Rol $rol asignado a usuario $usuario';
   }
 }

@@ -57,12 +57,14 @@ class AsignaturaEndpoint extends Endpoint with Controller {
   Future<int> eliminarAsignatura(
     Session session, {
     required int id,
-  }) async {
-    return servicio.eliminarAsignatura(
-      session,
-      id: id,
-    );
-  }
+  }) async =>
+      ejecutarOperacionControlador(
+        'eliminarAsignatura',
+        () => servicio.eliminarAsignatura(
+          session,
+          id: id,
+        ),
+      );
 
   Future<void> asignarUsuarioAAsignaturas(
     Session session, {

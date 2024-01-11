@@ -14,6 +14,7 @@ calificacion:
   - crearConceptoDeCalificacion:
   - obtenerCalificaciones:
   - obtenerConceptosDeCalificacion:
+  - obtenerInformacionGeneralDeComisiones:
 comision:
   - asignarUsuarioAComision:
   - obtenerComisiones:
@@ -27,7 +28,6 @@ example:
   - hello:
 rol:
   - obtenerRolPorId:
-  - obtenerUsuariosConRol:
   - obtenerRoles:
   - crearRol:
   - actualizarRol:
@@ -56,3 +56,4 @@ usuario:
   - enviarSolicitudRegistroAlumno:
   - responderSolicitudDeRegistro:
   - obtenerListaDeEstudiantesDeComision:
+  - obtenerUsuariosPorRolSorteados:

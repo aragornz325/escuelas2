@@ -1,4 +1,5 @@
-class: AsignaturaNotaDto
+class: AsignaturaOverview
 fields:
+  idAsignatura: int
   nombreDeAsignatura: String
-  notaMensualCargada: bool
+  solicitudesDeCalificacionCompletas: bool

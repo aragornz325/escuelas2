@@ -1,3 +1,6 @@
-class: ComisionDtoNotas
+class: ComisionOverview
 fields:
-  listaDeComisiones: List<AsignaturaNotaDto>
+  idComision: int
+  nombreDeCurso: String
+  nombreDeComision: String
+  listaDeAsignaturas: List<AsignaturaOverview>

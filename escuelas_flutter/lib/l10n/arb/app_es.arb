@@ -223,6 +223,10 @@
     "@drawerMyProfile": {
         "description": "Text of the button that indicates  that you will be redirected to profile page"
     },
+    "dialogAbsencesSentCorrectly": "Inasistencias eviadas correctamente",
+    "@dialogAbsencesSentCorrectly": {
+        "description": "Text to be displayed in the title of the dialog when absences to sent correctly"
+    },
 
     "dialogLogoutQuestion": "Está seguro que \ndesea cerrar sesión?",
     "@dialogLogoutQuestion": {
