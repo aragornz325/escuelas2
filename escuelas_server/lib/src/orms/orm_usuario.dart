@@ -77,11 +77,21 @@ class OrmUsuario extends ORM {
     );
   }
 
-  Future<List<Usuario>> obtenerUsuarios(Session session) async {
+  Future<List<Usuario>> obtenerUsuarios(
+    Session session, {
+    int? idRol,
+  }) async {
     return await ejecutarOperacionOrm(
       session,
       (session) async => await Usuario.db.find(
         session,
+        where: (t) {
+          if (idRol != null) {
+            return t.roles.any((rol) => rol.rolId.equals(idRol));
+          }
+
+          return t.id.notEquals(null);
+        },
         include: Usuario.include(
           roles: RelacionUsuarioRol.includeList(
             include: RelacionUsuarioRol.include(
