@@ -36,7 +36,7 @@ class SeccionCursos extends StatelessWidget {
     UsuarioPendiente? usuarioPendiente,
     BuildContext context,
   ) =>
-      usuarioPendiente?.comisionSolicitada?.nombreComision ??
+      usuarioPendiente?.comisionSolicitada?.comision?.nombre ??
       '*${context.l10n.commonNoData}*';
   @override
   Widget build(BuildContext context) {
@@ -72,7 +72,7 @@ class SeccionCursos extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  (e.asignatura?.idCurso ?? 0).toString(),
+                                  e.asignatura?.curso?.nombre ?? '',
                                   style: TextStyle(
                                     color: colores.grisSC,
                                     fontSize: 14.pf,
@@ -94,7 +94,7 @@ class SeccionCursos extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  e.nombreAsignatura,
+                                  e.asignatura?.nombre ?? '',
                                   style: TextStyle(
                                     color: colores.grisSC,
                                     fontSize: 14.pf,
@@ -102,7 +102,7 @@ class SeccionCursos extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  e.nombreCurso,
+                                  e.asignatura?.curso?.nombre ?? '',
                                   style: TextStyle(
                                     color: colores.grisSC,
                                     fontSize: 14.pf,
