@@ -48,7 +48,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                   BlocCargaCalificacionesEventoCambiarCalificacionAlumno(
                     calificacion: int.tryParse(v),
                     fecha: fecha,
-                    idAlumno: curso.idCurso,
+                    idAlumno: curso.cursoId,
                   ),
                 ),
             // TODO(anyone): reemplazar por las calificaciones previas ver como

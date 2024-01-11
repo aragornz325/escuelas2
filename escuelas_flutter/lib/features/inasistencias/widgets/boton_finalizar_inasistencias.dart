@@ -47,7 +47,7 @@ class BotonFinalizarInasistencias extends StatelessWidget {
         child: DialogInasistenciasDelDia(
           inasistencias: asistencias,
           estudiantes: curso.estudiantes ?? [],
-          idCurso: curso.idCurso,
+          idCurso: curso.cursoId,
           fecha: fecha,
         ),
       ),
