@@ -281,20 +281,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.2"
-  escuelas_client:
-    dependency: transitive
-    description:
-      path: "../escuelas_client"
-      relative: true
-    source: path
-    version: "0.0.0"
-  escuelas_commons:
-    dependency: "direct main"
-    description:
-      path: "../escuelas_commons"
-      relative: true
-    source: path
-    version: "0.1.0+1"
   executor:
     dependency: transitive
     description:
@@ -687,14 +673,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0-rc.1"
-  serverpod_auth_client:
-    dependency: transitive
-    description:
-      name: serverpod_auth_client
-      sha256: "21ef06e192745214db9d5e1865adc3db27a9e5df0f9b80a0f0ca69e9cf4c8a6f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0-rc.1"
   serverpod_auth_server:
     dependency: "direct main"
     description:
@@ -927,5 +905,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  yaml_writer:
+    dependency: "direct main"
+    description:
+      name: yaml_writer
+      sha256: "76740047e3d4b1687c588bc8cb3466bea55a7d915a91bb23e99ea2a8c58337b6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
 sdks:
   dart: ">=3.0.0 <4.0.0"

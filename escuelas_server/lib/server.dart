@@ -3,6 +3,7 @@
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/utils/logger.dart';
 import 'package:escuelas_server/utils/constants.dart';
+import 'package:escuelas_server/utils/rewrite_yaml.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
 import 'package:escuelas_server/src/web/routes/root.dart';
@@ -17,6 +18,9 @@ import 'src/generated/endpoints.dart';
 void run(List<String> args) async {
   final ServicioComunicaciones _servicioComunicaciones =
       ServicioComunicaciones();
+  rewriteConfigYaml(
+    args.contains('--mode') ? args[args.indexOf('--mode') + 1] : 'development',
+  );
   // Initialize Serverpod and connect it with your generated code.
   inicializarLogger(); // Initialize Serverpod and connect it with your generated code.
   final pod = Serverpod(
