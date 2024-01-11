@@ -13,8 +13,10 @@ fields:
   fechaCreacion: DateTime?, scope=serverOnly
   fechaEliminacion: DateTime?, scope=serverOnly
   asignaturasSolicitadas: List<AsignaturaSolicitada>?, relation
-  comisionSolicitada: ComisionSolicitada?, relation(optional)
+  ### TODO: Cambiar este campo por el ID de una comision de la tabla comisiones.
+  ### Borrar index para que no tenga que ser unique.
+  comisionSolicitada: ComisionSolicitada?, relation(optional, onDelete=SetNull)
 indexes:
-  comision_solicitada_unique_idx:
+  usuario_comision_unique_idx:
     fields: comisionSolicitadaId
     unique: true

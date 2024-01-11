@@ -51,9 +51,15 @@ class OrmUsuarioPendiente extends ORM {
       },
       include: UsuarioPendiente.include(
         asignaturasSolicitadas: AsignaturaSolicitada.includeList(
-          include: AsignaturaSolicitada.include(asignatura: Asignatura.include(curso: Curso.include())),
+          include: AsignaturaSolicitada.include(
+            asignatura: Asignatura.include(
+              curso: Curso.include(),
+            ),
+          ),
         ),
-        comisionSolicitada: ComisionSolicitada.include(comision: ComisionDeCurso.include()),
+        comisionSolicitada: ComisionSolicitada.include(
+          comision: ComisionDeCurso.include(),
+        ),
       ),
     );
 
@@ -68,7 +74,20 @@ class OrmUsuarioPendiente extends ORM {
       Session session) async {
     final usuarioPendientes = await UsuarioPendiente.db.find(
       session,
-      where: (t) => t.estadoDeSolicitud.equals(EstadoDeSolicitud.pendiente),
+      where: (t) => t.estadoDeSolicitud.equals(EstadoDeSolicitud.pendiente,
+      ),
+      include: UsuarioPendiente.include(
+        asignaturasSolicitadas: AsignaturaSolicitada.includeList(
+          include: AsignaturaSolicitada.include(
+            asignatura: Asignatura.include(
+              curso: Curso.include(),
+            ),
+          ),
+        ),
+        comisionSolicitada: ComisionSolicitada.include(
+          comision: ComisionDeCurso.include(),
+        ),
+      ),
     );
 
     return usuarioPendientes;
@@ -91,6 +110,7 @@ class OrmUsuarioPendiente extends ORM {
             t.rolSolicitado,
             t.estadoDeSolicitud,
             t.ultimaModificacion,
+            t.comisionSolicitadaId,
           ],
         ),
       );

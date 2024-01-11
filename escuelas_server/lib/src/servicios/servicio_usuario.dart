@@ -149,15 +149,17 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     Session session, {
     required UsuarioPendiente usuarioPendiente,
     List<Asignatura>? asignaturasASolicitar,
-    ComisionDeCurso? comisionDeCurso,
+    int? idComisionDeCursoSolicitada,
     bool esDocente = false,
   }) async {
     final ahora = DateTime.now();
 
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+
     final usuarioExistente = await ejecutarOperacion(
       () => _ormUsuarioPendiente.obtenerUsuarioPendiente(
         session,
-        idUserInfo: usuarioPendiente.idUserInfo,
+        idUserInfo: idUserInfo,
       ),
     );
 
@@ -174,26 +176,34 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       () => _ormUsuarioPendiente.crearUsuarioPendiente(
         session,
         usuarioPendiente: usuarioPendiente
+          ..idUserInfo = idUserInfo
           ..estadoDeSolicitud = EstadoDeSolicitud.pendiente
           ..fechaCreacion = ahora
           ..ultimaModificacion = ahora,
       ),
     );
 
+    if (usuarioPendienteCreado.id == null) {
+      throw ExcepcionCustom(
+        titulo: 'Error al crear solicitud.',
+        mensaje: 'Error al crear solicitud.',
+        tipoDeError: TipoExcepcion.desconocido,
+        codigoError: 500,
+      );
+    }
+
     if (esDocente) {
       List<AsignaturaSolicitada> asignaturasSolicitadas = [];
 
       // Crea  una lista de [AsignaturaSolicitada] a partir de las asignaturas a solicitar.
       for (final asignatura in (asignaturasASolicitar ?? <Asignatura>[])) {
-        final cursoSolicitado = await _servicioCurso.obtenerCursoPorId(
-          session,
-          id: asignatura.cursoId,
-        );
-
+        if (asignatura.id == null) {
+          continue;
+        }
         asignaturasSolicitadas.add(
           AsignaturaSolicitada(
-            asignaturaId: asignatura.id ?? 0,
-            idUsuarioPendiente: usuarioPendienteCreado.id ?? 0,
+            asignaturaId: asignatura.id!,
+            idUsuarioPendiente: usuarioPendienteCreado.id!,
             ultimaModificacion: ahora,
             fechaCreacion: ahora,
           ),
@@ -207,13 +217,37 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         ),
       );
     } else {
-      await ejecutarOperacion(
+      if (idComisionDeCursoSolicitada == null) {
+        throw ExcepcionCustom(
+          titulo: 'Error de solicitud.',
+          mensaje: 'Debe ingresarse un ID de comisión de curso solicitada.',
+          tipoDeError: TipoExcepcion.solicitudIncorrecta,
+          codigoError: 400,
+        );
+      }
+
+      /// TODO(anyone): BORRAR CON EL CAMBIO EN EL CAMPO `comisionSolicitada` DEL MODELO `UsuarioPendiente`.
+      final comisionSolicitadaCreada = await ejecutarOperacion(
         () => _servicioComision.crearComisionSolicitada(
           session,
-          idComision: comisionDeCurso?.id ?? 0,
-          idUsuarioPendiente: usuarioPendienteCreado.id ?? 0,
-          nombreComision: comisionDeCurso?.nombre ?? '',
+          idComision: idComisionDeCursoSolicitada,
+          idUsuarioPendiente: usuarioPendienteCreado.id!,
         ),
+      );
+
+      if (comisionSolicitadaCreada.id == null) {
+        throw ExcepcionCustom(
+          titulo: 'Error al crear comision solicitada.',
+          mensaje: 'Error al crear comision solicitada.',
+          tipoDeError: TipoExcepcion.desconocido,
+          codigoError: 500,
+        );
+      }
+      usuarioPendienteCreado.comisionSolicitadaId = comisionSolicitadaCreada.id!;
+
+      await actualizarUsuarioPendiente(
+        session,
+        usuarioPendiente: usuarioPendienteCreado,
       );
     }
 

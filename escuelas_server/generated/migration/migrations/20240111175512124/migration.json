@@ -1,0 +1,42 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "deleteTable": null,
+      "alterTable": {
+        "name": "usuarios_pendientes",
+        "dartName": null,
+        "module": null,
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "usuarios_pendientes_fk_1",
+            "columns": [
+              "comisionSolicitadaId"
+            ],
+            "referenceTable": "comision_solicitada",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 0,
+            "matchType": null
+          }
+        ],
+        "deleteForeignKeys": [
+          "usuarios_pendientes_fk_1"
+        ],
+        "warnings": []
+      },
+      "createTable": null
+    }
+  ],
+  "warnings": [],
+  "migrationApiVersion": 1
+}
