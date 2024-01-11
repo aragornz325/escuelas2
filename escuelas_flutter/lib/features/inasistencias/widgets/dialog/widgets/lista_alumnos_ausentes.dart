@@ -35,10 +35,8 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
           return widget.asistencias.any(
             (asistencia) =>
                 asistencia.estudianteId == usuario.usuarioId &&
-                !(asistencia.estadoDeAsistencia ==
-                        EstadoDeAsistencia.presente ||
-                    asistencia.estadoDeAsistencia ==
-                        EstadoDeAsistencia.sinEstado),
+                asistencia.estadoDeAsistencia != EstadoDeAsistencia.presente &&
+                asistencia.estadoDeAsistencia != EstadoDeAsistencia.sinEstado,
           );
         },
       ).toList();
@@ -86,7 +84,7 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
       );
     } else {
       // No ordenar si ambas opciones están en false
-      alumnosOrdenados = widget.usuarios;
+      alumnosOrdenados = usuarioSinEstadoPresente;
     }
 
     return Column(
@@ -118,7 +116,18 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                if (alumnosOrdenados.isNotEmpty) ...[
+                if (alumnosOrdenados.isEmpty)
+                  Center(
+                    child: Text(
+                      l10n.pageAttendanceNotAbsentStudents,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 13.pf,
+                        color: colores.onBackground,
+                      ),
+                    ),
+                  )
+                else
                   ...alumnosOrdenados.map(
                     (alumno) {
                       // TODO(mati): cambiar esta horrible logica
@@ -161,18 +170,6 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
                           : const SizedBox.shrink();
                     },
                   ),
-                ] else ...[
-                  Center(
-                    child: Text(
-                      l10n.pageAttendanceNotAbsentStudents,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w700,
-                        fontSize: 13.pf,
-                        color: colores.onBackground,
-                      ),
-                    ),
-                  ),
-                ],
               ],
             ),
           ),

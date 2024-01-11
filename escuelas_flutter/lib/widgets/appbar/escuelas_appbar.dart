@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 
 /// {@template EscuelasAppBar}
@@ -88,7 +89,11 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
             actions: <Widget>[
               iconoLateralDerecho ??
                   InkWell(
-                    onTap: () {},
+                    onTap: () => showDialog<void>(
+                      context: context,
+                      builder: (context) =>
+                          EscuelasDialog.featNoDisponible(context: context),
+                    ),
                     child: const Padding(
                       padding: EdgeInsets.all(8),
                       child: Icon(Icons.notifications_none_rounded),

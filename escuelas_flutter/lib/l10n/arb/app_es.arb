@@ -223,7 +223,7 @@
     "@drawerMyProfile": {
         "description": "Text of the button that indicates  that you will be redirected to profile page"
     },
-    "dialogAbsencesSentCorrectly": "Inasistencias eviadas correctamente",
+    "dialogAbsencesSentCorrectly": "Inasistencias enviadas correctamente",
     "@dialogAbsencesSentCorrectly": {
         "description": "Text to be displayed in the title of the dialog when absences to sent correctly"
     },
