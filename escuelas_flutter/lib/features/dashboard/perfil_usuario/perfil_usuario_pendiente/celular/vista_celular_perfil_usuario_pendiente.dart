@@ -119,7 +119,7 @@ class _DialogAsignarRol extends StatelessWidget {
         .read<BlocPerfilUsuario>()
         .add(BlocPerfilUsuarioEventoAceptarSolicitud());
     Navigator.of(context).pop();
-    context.router.push(const RutaInicio());
+    context.router.push(const RutaAsignacionDeRoles());
   }
 
   final UsuarioPendiente? usuario;

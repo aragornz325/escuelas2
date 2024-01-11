@@ -1,6 +1,5 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_mis_cursos_estado.dart';
@@ -24,8 +23,7 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
     emit(BlocMisCursosEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final usuario = await client.usuario
-            .obtenerUsuario(idUsuario: sessionManager.signedInUser?.id ?? 0);
+        final usuario = await client.usuario.obtenerDatosDelUsuario();
 
         final comisiones = await client.calificacion
             .obtenerInformacionDeVistaGeneralDeComisiones(

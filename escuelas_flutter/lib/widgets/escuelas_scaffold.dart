@@ -1,5 +1,4 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/extensiones/user_info_x.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/appbar/escuelas_appbar.dart';
 import 'package:escuelas_flutter/widgets/drawer/escuelas_drawer.dart';
@@ -39,11 +38,13 @@ class EscuelasScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     final userInfo = sessionManager.signedInUser;
+
     return Scaffold(
       drawer: EscuelasDrawer(
-        urlImage: userInfo?.imagePerfilUrl ?? '',
-        nombreCompleto: userInfo?.nombreCompleto ?? '',
+        urlImage: userInfo?.imageUrl ?? '',
+        nombreCompleto: userInfo?.fullName ?? '',
       ),
       appBar: tieneAppBar ? const EscuelasAppBar() : null,
       backgroundColor: colorDeFondo ?? colores.background,

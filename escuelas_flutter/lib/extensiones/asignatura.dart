@@ -7,7 +7,7 @@ extension AsignaturaX on Asignatura {
     return {
       'id': id,
       'nombre': nombre,
-      'idCurso': idCurso,
+      'cursoId': cursoId,
     };
   }
 }
