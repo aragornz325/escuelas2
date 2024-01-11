@@ -43,7 +43,8 @@ enum InfoDeRol {
       case InfoDeRol.usuariosPendientes:
         return [1, 2, 4];
       case InfoDeRol.supervision:
-        return [1, 2, 4];
+        // TODO(ANYONE): para la entrega del MVP no es necesario 11/1/2024
+        return [];
     }
   }
 

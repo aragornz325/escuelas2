@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
+import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -47,7 +48,11 @@ class EscuelasBottomNavigationBar extends StatelessWidget {
           _ItemBottomNavigationBar(
             icono: Icons.description_outlined,
             estaSeleccionado: index == 1,
-            onTap: () {},
+            onTap: () => showDialog<void>(
+              context: context,
+              builder: (context) =>
+                  EscuelasDialog.featNoDisponible(context: context),
+            ),
           ),
           _ItemBottomNavigationBar(
             icono: Icons.person_2_outlined,

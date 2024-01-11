@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -30,13 +31,14 @@ class EscuelasDrawer extends StatelessWidget {
 
   /// Navega a la ruta del perfil del usuario y luego cierra la pantalla actual
   void _redireccionPerfil(BuildContext context) {
+    final dState = context.read<BlocDashboard>().state;
+
     context.replaceRoute(
       RutaPerfilUsuario(
-        idUsuario: 0,
+        idUsuario: dState.usuario.id ?? 0,
       ),
     );
     Navigator.pop(context);
-    // TODO(Anyone): Agregar ID usuario del estado o de sessionMan
   }
 
   /// Navega a la ruta inicio y cierra el drawer.
@@ -186,12 +188,12 @@ class EscuelasDrawer extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 50.pw,
-            right: 0.pw,
+            bottom: 45.pw,
+            right: 10.pw,
             child: GestureDetector(
               child: Container(
                 width: 60.pw,
-                height: 60.ph,
+                height: 60.pw,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: colores.primaryContainer,
