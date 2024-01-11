@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/user_info.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/appbar/escuelas_appbar.dart';
 import 'package:escuelas_flutter/widgets/drawer/escuelas_drawer.dart';
@@ -44,7 +45,8 @@ class EscuelasScaffold extends StatelessWidget {
     return Scaffold(
       drawer: EscuelasDrawer(
         urlImage: userInfo?.imageUrl ?? '',
-        nombreCompleto: userInfo?.fullName ?? '',
+        nombre: userInfo?.userName ?? '',
+        apellido: userInfo?.apellido ?? '',
       ),
       appBar: tieneAppBar ? const EscuelasAppBar() : null,
       backgroundColor: colorDeFondo ?? colores.background,
