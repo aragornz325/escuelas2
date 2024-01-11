@@ -143,7 +143,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         ),
       );
 
-  Future<List<UsuariosListados>> obtenerUsuariosPorRolSorteados(
+  Future<UsuariosOrdenados> obtenerUsuariosPorRolSorteados(
     Session session, {
     required int idRol,
     required OrdenarPor ordenarUsuariosPor,

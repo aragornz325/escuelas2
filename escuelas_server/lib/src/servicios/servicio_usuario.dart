@@ -337,7 +337,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     );
   }
 
-  Future<List<UsuariosListados>> obtenerUsuariosPorRolSorteados(
+  Future<UsuariosOrdenados> obtenerUsuariosPorRolSorteados(
     Session session, {
     required int idRol,
     required OrdenarPor ordenarUsuariosPor,
@@ -347,6 +347,25 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     );
 
     final usuariosListados = <UsuariosListados>[];
+
+    final opcionesDeOrdenamiento = <OrdenarPor>[OrdenarPor.apellido];
+
+    final contienenAsignaturas = usuarios.any(
+      (usuario) =>
+          usuario.asignaturas != null && usuario.asignaturas!.isNotEmpty,
+    );
+
+    if (contienenAsignaturas) {
+      opcionesDeOrdenamiento.add(OrdenarPor.asignatura);
+    }
+
+    final contienenComisiones = usuarios.any(
+      (usuario) => usuario.comisiones != null && usuario.comisiones!.isNotEmpty,
+    );
+
+    if (contienenComisiones) {
+      opcionesDeOrdenamiento.add(OrdenarPor.curso);
+    }
 
     switch (ordenarUsuariosPor) {
       case OrdenarPor.apellido:
@@ -407,6 +426,9 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         }
     }
 
-    return usuariosListados;
+    return UsuariosOrdenados(
+      opcionesDeOrdenamiento: opcionesDeOrdenamiento,
+      usuariosListados: usuariosListados,
+    );
   }
 }
