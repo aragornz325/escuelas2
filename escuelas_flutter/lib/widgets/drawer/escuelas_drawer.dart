@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -17,11 +18,14 @@ import 'package:full_responsive/full_responsive.dart';
 class EscuelasDrawer extends StatelessWidget {
   /// {@macro EscuelasDrawer}
   const EscuelasDrawer({
-    required this.nombreCompleto,
+    required this.nombre,
+    required this.apellido,
     this.urlImage,
     super.key,
   });
-  final String nombreCompleto;
+  final String nombre;
+
+  final String apellido;
 
   /// Imagen de appbar[EscuelasDrawer].
   final String? urlImage;
@@ -30,13 +34,14 @@ class EscuelasDrawer extends StatelessWidget {
 
   /// Navega a la ruta del perfil del usuario y luego cierra la pantalla actual
   void _redireccionPerfil(BuildContext context) {
+    final dState = context.read<BlocDashboard>().state;
+
     context.replaceRoute(
       RutaPerfilUsuario(
-        idUsuario: 0,
+        idUsuario: dState.usuario.id ?? 0,
       ),
     );
     Navigator.pop(context);
-    // TODO(Anyone): Agregar ID usuario del estado o de sessionMan
   }
 
   /// Navega a la ruta inicio y cierra el drawer.
@@ -115,25 +120,19 @@ class EscuelasDrawer extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius:
                                   BorderRadius.all(Radius.circular(100.sw)),
-                              child: (urlImage != null && urlImage != '')
-                                  ? Image.network(
-                                      urlImage!,
-                                      fit: BoxFit.cover,
-                                      errorBuilder: (
-                                        context,
-                                        error,
-                                        stackTrace,
-                                      ) =>
-                                          Image.asset(
-                                        Assets.images.usuario.path,
-                                        color: colores.onBackground,
-                                      ),
-                                    )
-                                  : Icon(
-                                      Icons.person,
-                                      color: colores.onBackground,
-                                      size: 30.sw,
-                                    ),
+                              child: Image.network(
+                                urlImage!,
+                                fit: BoxFit.cover,
+                                errorBuilder: (
+                                  context,
+                                  error,
+                                  stackTrace,
+                                ) =>
+                                    Image.asset(
+                                  Assets.images.usuario.path,
+                                  color: colores.onBackground,
+                                ),
+                              ),
                             ),
                           ),
                           SizedBox(height: 5.ph),
@@ -141,7 +140,22 @@ class EscuelasDrawer extends StatelessWidget {
                             width: 200.pw,
                             child: Center(
                               child: Text(
-                                nombreCompleto.capitalize,
+                                nombre.capitalize,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  color: colores.primaryContainer,
+                                  fontSize: 20.pf,
+                                  fontWeight: FontWeight.w400,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 200.pw,
+                            child: Center(
+                              child: Text(
+                                apellido.capitalize,
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -186,12 +200,12 @@ class EscuelasDrawer extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 50.pw,
-            right: 0.pw,
+            bottom: 45.pw,
+            right: 10.pw,
             child: GestureDetector(
               child: Container(
                 width: 60.pw,
-                height: 60.ph,
+                height: 60.pw,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: colores.primaryContainer,

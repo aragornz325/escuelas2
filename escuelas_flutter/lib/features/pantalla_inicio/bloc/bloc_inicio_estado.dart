@@ -5,16 +5,24 @@ part of 'bloc_inicio.dart';
 /// {@endtemplate}
 class BlocInicioEstado {
   /// {@macro BlocInicioEstado}
-  const BlocInicioEstado._({this.listaRoles = const []});
+  const BlocInicioEstado._({
+    this.listaRoles = const [],
+    this.hayUsuariosPendientes = false,
+  });
 
   BlocInicioEstado.desde(
     BlocInicioEstado otro, {
     List<RolDeUsuario>? listaRoles,
+    bool? hayUsuariosPendientes,
   }) : this._(
           listaRoles: listaRoles ?? otro.listaRoles,
+          hayUsuariosPendientes:
+              hayUsuariosPendientes ?? otro.hayUsuariosPendientes,
         );
 
   final List<RolDeUsuario> listaRoles;
+
+  final bool hayUsuariosPendientes;
 
 // TODO(SAM): VERIFICAR logica para roles
   /// Obtiene la lista de permisos del usuario y devuelve la lista iterable
@@ -49,7 +57,11 @@ class BlocInicioEstadoCargando extends BlocInicioEstado {
 /// {@endtemplate}
 class BlocInicioEstadoExitoso extends BlocInicioEstado {
   /// {@macro BlocInicioEstadoExitoso}
-  BlocInicioEstadoExitoso.desde(super.otro, {super.listaRoles}) : super.desde();
+  BlocInicioEstadoExitoso.desde(
+    super.otro, {
+    super.listaRoles,
+    super.hayUsuariosPendientes,
+  }) : super.desde();
 }
 
 /// {@template BlocInicioEstadoFallido}

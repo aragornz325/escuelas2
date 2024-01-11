@@ -377,7 +377,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     required OrdenarPor ordenarUsuariosPor,
   }) async {
     final usuarios = await ejecutarOperacion(
-      () => orm.obtenerUsuarios(session),
+      () => orm.obtenerUsuarios(session, idRol: idRol),
     );
 
     final usuariosListados = <UsuariosListados>[];

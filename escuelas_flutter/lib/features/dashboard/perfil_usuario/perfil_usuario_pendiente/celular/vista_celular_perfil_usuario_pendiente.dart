@@ -76,7 +76,11 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   EscuelasBoton.texto(
-                    estaHabilitado: true,
+                    // TODO(anyone): habilitar cuando se pueda rechazar a un
+                    //usuario pendiente
+                    estaHabilitado: false,
+                    // TODO(anyone): funcion para rechazar a un usuario
+                    // pendiente
                     onTap: () => Navigator.of(context).pop,
                     color: colores.error,
                     texto: l10n.commonDecline.toUpperCase(),
@@ -119,7 +123,7 @@ class _DialogAsignarRol extends StatelessWidget {
         .read<BlocPerfilUsuario>()
         .add(BlocPerfilUsuarioEventoAceptarSolicitud());
     Navigator.of(context).pop();
-    context.router.push(const RutaInicio());
+    context.router.push(const RutaAsignacionDeRoles());
   }
 
   final UsuarioPendiente? usuario;

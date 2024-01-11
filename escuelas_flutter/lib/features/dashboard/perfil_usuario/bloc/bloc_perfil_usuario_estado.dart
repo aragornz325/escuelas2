@@ -31,6 +31,29 @@ class BlocPerfilUsuarioEstado {
   /// Lista de roles de la institucion
   final List<RolDeUsuario> listaRoles;
 
+  /// Lista de [AsignaturaSolicitada] del usuario pendiente o una lista vacia
+  /// si no tiene asignaturas solicitadas
+  List<AsignaturaSolicitada> get listaAsignaturasSolicitadasUsuarioPendiente =>
+      usuarioPendiente?.asignaturasSolicitadas ?? [];
+
+  /// Lista de [Asignatura] del usuario o una lista vacia si no tiene
+  /// asignaturas
+  List<RelacionAsignaturaUsuario> get listaAsignaturasUsuario =>
+      usuario?.asignaturas ?? [];
+
+  /// Devuelve una lista de [RelacionComisionUsuario] del usuario o una lista
+  /// vacia si no
+  List<RelacionComisionUsuario> get listaComisiones =>
+      usuario?.comisiones ?? [];
+
+  /// Devuelve un [String] de los nombres de las comisiones del usuario
+  String get nombreComisiones =>
+      listaComisiones.map((e) => e.comision?.nombre).join(', ');
+
+  /// Devuelve un [String] del nombre de la comision del [UsuarioPendiente]
+  String get nombreComisionSolicitada =>
+      usuarioPendiente?.comisionSolicitada?.comision?.nombre ?? '';
+
   /// Devuelve una lista de [NumeroDeTelefono] del usuario o una lista vacia
   /// si no tiene
   List<NumeroDeTelefono> get numerosDeTelefono =>
@@ -44,6 +67,10 @@ class BlocPerfilUsuarioEstado {
   /// Devuelve una lista de [RelacionUsuarioRol] del usuario o una lista vacia
   /// si no tiene
   List<RelacionUsuarioRol> get rolesDeUsuario => usuario?.roles ?? [];
+
+  /// Devuelve un [String] con en dni del usuario
+  // TODO(anyone): Cambiar por el dni del usuario pendiente cuando este
+  String? get dniUsuario => usuario?.dni;
 
   /// Devuelve una un [String] con los nombres de los roles del usuario o un
   /// [String] vacio si no tiene roles

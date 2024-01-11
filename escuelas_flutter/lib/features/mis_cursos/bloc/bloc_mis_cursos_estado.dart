@@ -1,43 +1,28 @@
 part of 'bloc_mis_cursos.dart';
 
-class ComisionAsignaturaOverview {
-  const ComisionAsignaturaOverview({
-    required this.nombreComision,
-    required this.asignaturas,
-  });
-  final String nombreComision;
-
-  final List<AsignaturaOverview> asignaturas;
-}
-
-class AsignaturaOverview {
-  const AsignaturaOverview({
-    required this.nombre,
-    required this.tienePendientes,
-  });
-
-  final String nombre;
-  final bool tienePendientes;
-}
-
 /// {@template BlocMisCursosEstado}
 /// Maneja los distintos estados y variables guardadas en los mismos
 /// {@endtemplate}
 class BlocMisCursosEstado {
   /// {@macro BlocMisCursosEstado}
   const BlocMisCursosEstado._({
-    this.comsiones = const [],
+    this.comisiones = const [],
+    this.usuario,
   });
 
   BlocMisCursosEstado.desde(
     BlocMisCursosEstado otro, {
-    List<ComisionAsignaturaOverview>? comisiones,
+    List<ComisionOverview>? comisiones,
+    Usuario? usuario,
   }) : this._(
-          comsiones: comisiones ?? otro.comsiones,
+          comisiones: comisiones ?? otro.comisiones,
+          usuario: usuario ?? otro.usuario,
         );
 
   /// Cursos del usuario.
-  final List<ComisionAsignaturaOverview> comsiones;
+  final List<ComisionOverview> comisiones;
+
+  final Usuario? usuario;
 }
 
 /// {@template BlocMisCursosEstadoInicial}
@@ -64,6 +49,7 @@ class BlocMisCursosEstadoExitoso extends BlocMisCursosEstado {
   BlocMisCursosEstadoExitoso.desde(
     super.otro, {
     super.comisiones,
+    super.usuario,
   }) : super.desde();
 }
 

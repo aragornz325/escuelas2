@@ -28,10 +28,14 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
       callback: (client) async {
         final listaRoles = await client.rol.obtenerRoles();
 
+        final listaUsuariosPendientes =
+            await client.usuario.obtenerUsuariosPendientes();
+
         emit(
           BlocInicioEstadoExitoso.desde(
             state,
             listaRoles: listaRoles,
+            hayUsuariosPendientes: listaUsuariosPendientes.isNotEmpty,
           ),
         );
       },
@@ -45,5 +49,3 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
     );
   }
 }
-
- 

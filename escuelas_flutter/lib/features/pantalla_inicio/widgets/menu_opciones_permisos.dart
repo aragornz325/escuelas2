@@ -1,4 +1,6 @@
+import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart';
+import 'package:escuelas_flutter/features/pantalla_inicio/utilidades/enum_info_rol.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
@@ -40,6 +42,8 @@ class MenuOpcionesPermisos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colores = context.colores;
+
     return BlocConsumer<BlocInicio, BlocInicioEstado>(
       listener: (context, state) {
         if (state is BlocInicioEstadoFallido) {
@@ -61,6 +65,17 @@ class MenuOpcionesPermisos extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: 15.ph)
                         .copyWith(bottom: 15.ph),
                     child: ElementoLista.menu(
+                      widgetLateralDerecho:
+                          etiqueta.name == InfoDeRol.usuariosPendientes.name
+                              ? Padding(
+                                  padding: EdgeInsets.only(right: 20.pw),
+                                  child: Icon(
+                                    Icons.circle,
+                                    color: colores.error,
+                                    size: 15.sw,
+                                  ),
+                                )
+                              : null,
                       nombreOpcion: etiqueta.titulo,
                       context: context,
                       onTap: () => etiqueta.redirigirAVista(context),
