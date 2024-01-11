@@ -1,0 +1,78 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "deleteTable": null,
+      "alterTable": {
+        "name": "comision_solicitada",
+        "dartName": null,
+        "module": null,
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "nombreComision"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "comision_solicitada_fk_1",
+            "columns": [
+              "idUsuarioPendiente"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 4,
+            "matchType": null
+          },
+          {
+            "constraintName": "comision_solicitada_fk_0",
+            "columns": [
+              "idComision"
+            ],
+            "referenceTable": "comisiones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          }
+        ],
+        "deleteForeignKeys": [
+          "comision_solicitada_fk_0"
+        ],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"nombreComision\" of table \"comision_solicitada\" will be dropped.",
+            "table": "comision_solicitada",
+            "columns": [
+              "nombreComision"
+            ],
+            "destrucive": true
+          }
+        ]
+      },
+      "createTable": null
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"nombreComision\" of table \"comision_solicitada\" will be dropped.",
+      "table": "comision_solicitada",
+      "columns": [
+        "nombreComision"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

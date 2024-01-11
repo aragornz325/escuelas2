@@ -1,0 +1,71 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "deleteTable": null,
+      "alterTable": {
+        "name": "asignatura_solicitada",
+        "dartName": null,
+        "module": null,
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "asignatura_solicitada_fk_2",
+            "columns": [
+              "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "asignatura_solicitada_fk_0",
+            "columns": [
+              "idAsignatura"
+            ],
+            "referenceTable": "asignaturas",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3,
+            "matchType": null
+          },
+          {
+            "constraintName": "asignatura_solicitada_fk_1",
+            "columns": [
+              "idUsuarioPendiente"
+            ],
+            "referenceTable": "usuarios_pendientes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 4,
+            "matchType": null
+          }
+        ],
+        "deleteForeignKeys": [
+          "asignatura_solicitada_fk_0",
+          "asignatura_solicitada_fk_1"
+        ],
+        "warnings": []
+      },
+      "createTable": null
+    }
+  ],
+  "warnings": [],
+  "migrationApiVersion": 1
+}

@@ -196,8 +196,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
             idUsuarioPendiente: usuarioPendienteCreado.id ?? 0,
             ultimaModificacion: ahora,
             fechaCreacion: ahora,
-            nombreAsignatura: asignatura.nombre,
-            nombreCurso: cursoSolicitado.nombre,
           ),
         );
       }

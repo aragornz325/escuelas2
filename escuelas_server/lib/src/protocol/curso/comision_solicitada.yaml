@@ -1,9 +1,8 @@
 class: ComisionSolicitada
 table: comision_solicitada
 fields:
-  idComision: int
+  idComision: int, relation(parent=comisiones)
   idUsuarioPendiente: int, relation(parent=usuarios_pendientes, onDelete=Cascade)
-  nombreComision: String
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
