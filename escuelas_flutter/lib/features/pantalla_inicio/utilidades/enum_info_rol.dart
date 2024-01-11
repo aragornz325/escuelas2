@@ -35,15 +35,15 @@ enum InfoDeRol {
   List<int> get rolesAsignados {
     switch (this) {
       case InfoDeRol.tomarInasistencia:
-        return [1, 2];
+        return [1, 2, 4];
       case InfoDeRol.listaCursos:
-        return [1, 2];
+        return [1, 2, 4];
       case InfoDeRol.comunidadAcademica:
-        return [1, 2];
+        return [1, 2, 4];
       case InfoDeRol.usuariosPendientes:
-        return [1, 2];
+        return [1, 2, 4];
       case InfoDeRol.supervision:
-        return [1, 2];
+        return [1, 2, 4];
     }
   }
 

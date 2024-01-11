@@ -22,7 +22,7 @@ class VistaCelularMisCursos extends StatefulWidget {
 }
 
 class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
-  DateTime fecha = DateTime.now();
+  DateTime periodo = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +32,15 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
       children: [
         SelectorDePeriodo(
           delegate: PeriodoMensualDelegate(context),
-          onSeleccionarPeriodo: (periodo) => setState(
-            () => fecha = periodo.fechaDesde,
+          onSeleccionarPeriodo: (periodoSeleccionado) => setState(
+            () {
+              periodo = periodoSeleccionado.fechaDesde;
+              context.read<BlocMisCursos>().add(
+                    BlocMisCursosEventoCambiarMes(
+                      periodoSeleccionada: periodo,
+                    ),
+                  );
+            },
           ),
           decoration: BoxDecoration(
             color: colores.tertiary,
@@ -52,13 +59,13 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: state.cursos
+                    children: state.comsiones
                         .map(
-                          (curso) => Column(
+                          (comision) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                curso.nombre.toUpperCase(),
+                                comision.nombreComision.toUpperCase(),
                                 style: TextStyle(
                                   color: colores.onSecondary,
                                   fontSize: 13.pf,
@@ -67,34 +74,34 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                               ),
                               SizedBox(height: 10.ph),
                               Column(
-                                // TODO(anyone): Check porq es nulleable y si hay que forzarlo
-                                children: curso.asignaturas
-                                        ?.map(
-                                          (asignatura) => Padding(
-                                            padding: EdgeInsets.only(
-                                              bottom: 10.ph,
-                                            ),
-                                            child: ItemMateria(
-                                              estaCargada: false,
-                                              // TODO(anyone): aca hay que chequear
-                                              //la fecha de la lista de materias
-                                              //actual y hacer la validacion con eso
-                                              estaHabilitado: fecha
-                                                  .isBefore(DateTime.now()),
-                                              materia: asignatura,
-                                              onTap: () => context.pushRoute(
-                                                RutaCargaDeCalificaciones(
-                                                  fecha: fecha.toString(),
-                                                  nombreAsignatura:
-                                                      asignatura.nombre,
-                                                  idCurso: asignatura.idCurso,
-                                                ),
-                                              ),
+                                children: comision.asignaturas
+                                    .map(
+                                      (asignatura) => Padding(
+                                        padding: EdgeInsets.only(
+                                          bottom: 10.ph,
+                                        ),
+                                        child: ItemMateria(
+                                          estaCargada:
+                                              !asignatura.tienePendientes,
+                                          // TODO(anyone): aca hay que chequear
+                                          // la fecha de la lista de materias
+                                          // actual y hacer la validacion con
+                                          // eso
+                                          estaHabilitado:
+                                              periodo.isBefore(DateTime.now()),
+                                          asignatura: asignatura,
+                                          onTap: () => context.pushRoute(
+                                            RutaCargaDeCalificaciones(
+                                              fecha: periodo.toString(),
+                                              nombreAsignatura:
+                                                  asignatura.nombre,
+                                              idCurso: 3,
                                             ),
                                           ),
-                                        )
-                                        .toList() ??
-                                    [],
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
                               ),
                             ],
                           ),

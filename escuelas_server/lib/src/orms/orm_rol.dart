@@ -198,6 +198,7 @@ class OrmRol extends ORM {
         ],
       ),
     );
+
     return 'Rol $rol asignado a usuario $usuario';
   }
 }

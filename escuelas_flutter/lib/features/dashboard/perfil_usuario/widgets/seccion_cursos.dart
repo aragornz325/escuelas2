@@ -1,4 +1,6 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -7,6 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 // TODO(anyone): HACER FACTORY
+
 /// {@template SeccionCursos}
 /// Seccion de cursos del perfil de usuario donde se puede ver a que cursos esta
 /// asignado el usuario
@@ -17,9 +20,29 @@ class SeccionCursos extends StatelessWidget {
     super.key,
   });
 
+  /// Devuelve una un [String] con los nombres de los roles del usuario o un
+  /// [String] vacio si no tiene comisiones
+  String nombreComisionesUsuario(
+    Usuario? usuario,
+    BuildContext context,
+  ) =>
+      usuario?.nombreComisiones == ''
+          ? '*${context.l10n.commonNoData}*'
+          : usuario?.nombreComisiones ?? '';
+
+  /// Devuelve una un [String] con los nombres de los roles del
+  /// [UsuarioPendiente] o un [String] vacio si no tiene comisiones
+  String nombreComisionesUsuarioPendiente(
+    UsuarioPendiente? usuarioPendiente,
+    BuildContext context,
+  ) =>
+      usuarioPendiente?.comisionSolicitada?.nombreComision ??
+      '*${context.l10n.commonNoData}*';
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
 
     return BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
       builder: (context, state) {
@@ -100,13 +123,25 @@ class SeccionCursos extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50.sw),
                   color: colores.tertiary,
                 ),
-                child: Text(
-                  // TODO(Seba): Checkear si la lista no esta vacia
-                  state.usuario?.comisiones?.last.comision?.nombre ?? '',
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 13.pf,
-                    fontWeight: FontWeight.w700,
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.pw),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${l10n.commonComission.toUpperCase()}: '
+                          '${nombreComisionesUsuario(
+                            state.usuario,
+                            context,
+                          )}',
+                          style: TextStyle(
+                            color: colores.onBackground,
+                            fontSize: 13.pf,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -117,13 +152,25 @@ class SeccionCursos extends StatelessWidget {
                   borderRadius: BorderRadius.circular(50.sw),
                   color: colores.tertiary,
                 ),
-                child: Text(
-                  state.usuarioPendiente?.comisionSolicitada?.nombreComision ??
-                      '',
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 13.pf,
-                    fontWeight: FontWeight.w700,
+                child: Center(
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.pw),
+                    child: Row(
+                      children: [
+                        Text(
+                          '${l10n.commonComission.toUpperCase()}: '
+                          '${nombreComisionesUsuarioPendiente(
+                            state.usuarioPendiente,
+                            context,
+                          )}',
+                          style: TextStyle(
+                            color: colores.onBackground,
+                            fontSize: 13.pf,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               )

@@ -56,7 +56,7 @@ class InitialGuard extends AutoRouteGuard {
           // TODO(SAM): Eliminar y luego agarrar de localstorage/isar/etc
           userInfo: sessionManager.signedInUser!,
           usuario: Usuario(
-            id: 1,
+            id: 10,
             idUserInfo: 2,
             nombre: 'John',
             apellido: 'Doe',

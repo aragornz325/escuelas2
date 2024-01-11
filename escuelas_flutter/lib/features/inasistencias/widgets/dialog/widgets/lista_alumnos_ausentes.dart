@@ -1,7 +1,6 @@
 import 'dart:math';
 
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/extensiones/estado_asistencia.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -122,7 +121,7 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
                 if (alumnosOrdenados.isNotEmpty) ...[
                   ...alumnosOrdenados.map(
                     (alumno) {
-                      //TODO(mati): cambiar esta horrible logica
+                      // TODO(mati): cambiar esta horrible logica
                       final asistenciaDiaria = widget.asistencias.firstWhere(
                         (asistencia) =>
                             asistencia.estudianteId == alumno.usuarioId,

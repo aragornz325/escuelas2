@@ -12,3 +12,15 @@ abstract class BlocMisCursosEvento {
 /// Inicializa la pagina, en este caso, trae las materias asignadas al usuario
 /// {@endtemplate}
 class BlocMisCursosEventoInicializar extends BlocMisCursosEvento {}
+
+/// {@template BlocMisCursosEventoCambiarMes}
+/// Cambia el mes de la pagina y trae las materias asignadas al usuario en ese
+/// mes
+/// {@endtemplate}
+class BlocMisCursosEventoCambiarMes extends BlocMisCursosEvento {
+  /// {@macro BlocMisCursosEventoCambiarMes}
+  const BlocMisCursosEventoCambiarMes({required this.periodoSeleccionada});
+
+  /// PeriodoSeleccionado
+  final DateTime periodoSeleccionada;
+}

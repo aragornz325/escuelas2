@@ -5,8 +5,8 @@ fields:
   nombre: String
   apellido: String
   urlFotoDePerfil: String
+  ##! Modificar este campo a idRolSolicitado y hacer migracion de db.
   dni: String?
-  ## ! Modificar este campo a idRolSolicitado y hacer migracion de db.
   rolSolicitado: int, relation (parent=roles_de_usuario)
   estadoDeSolicitud: EstadoDeSolicitud
   ultimaModificacion: DateTime?, scope=serverOnly
@@ -18,4 +18,3 @@ indexes:
   comision_solicitada_unique_idx:
     fields: comisionSolicitadaId
     unique: true
-

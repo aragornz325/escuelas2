@@ -76,7 +76,7 @@ class _SeleccionarComisionState extends State<SeleccionarComision> {
           );
         },
       ),
-      titulo: l10n.pageKycFormChooseSubject,
+      titulo: l10n.pageKycFormChooseComission,
     );
   }
 }
