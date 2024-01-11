@@ -68,6 +68,10 @@ class BlocPerfilUsuarioEstado {
   /// si no tiene
   List<RelacionUsuarioRol> get rolesDeUsuario => usuario?.roles ?? [];
 
+  /// Devuelve un [String] con en dni del usuario
+  // TODO(anyone): Cambiar por el dni del usuario pendiente cuando este
+  String? get dniUsuario => usuario?.dni;
+
   /// Devuelve una un [String] con los nombres de los roles del usuario o un
   /// [String] vacio si no tiene roles
   String get nombreRolUsuarioPendiente =>
