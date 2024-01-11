@@ -50,7 +50,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
         () => servicio.obtenerConceptosDeCalificacion(session),
       );
 
-  Future<List<Map<String, Map<String, dynamic>>>> obtenerInformacionDeVistaGeneralDeComisiones(
+  Future<List<ComisionOverview>> obtenerInformacionDeVistaGeneralDeComisiones(
     Session session, {
     required int idUsuario,
     required int numeroDeMes,

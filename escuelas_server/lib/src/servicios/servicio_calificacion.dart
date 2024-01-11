@@ -11,12 +11,14 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   @override
   OrmCalificacion get orm => OrmCalificacion();
 
-  final OrmSolicitudNotaMensual _ormSolicitudNotaMensual = OrmSolicitudNotaMensual();
+  final OrmSolicitudNotaMensual _ormSolicitudNotaMensual =
+      OrmSolicitudNotaMensual();
 
   final OrmConceptoCalificacion _ormConceptoCalificacion =
       OrmConceptoCalificacion();
 
-  final OrmRelacionAsignaturaUsuario _ormRelacionUsuarioAsignatura = OrmRelacionAsignaturaUsuario();
+  final OrmRelacionAsignaturaUsuario _ormRelacionUsuarioAsignatura =
+      OrmRelacionAsignaturaUsuario();
 
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {
@@ -65,12 +67,14 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
         .obtenerConceptosDeCalificacion(session);
   }
 
-  Future<List<Map<String, Map<String, dynamic>>>> obtenerInformacionDeVistaGeneralDeComisiones(
+  Future<List<ComisionOverview>>
+      obtenerInformacionDeVistaGeneralDeComisiones(
     Session session, {
     required int idUsuario,
     required int numeroDeMes,
   }) async {
-    
+    List<ComisionOverview> listaDeComisionesRespuesta = [];
+
     final query = await session.dbNext.unsafeQueryMappedResults(session, '''
 select
   c."nombre" as "nombreDeCurso",
@@ -125,14 +129,45 @@ select
   ) as "comisiones"
 from
   "cursos" c
-inner join asignaturas as on a."idCurso" = c."id"
+inner join asignaturas a on a."idCurso" = c."id"
 inner join r_asignaturas_usuarios rau on rau."asignaturaId" = a."id"
 where rau."usuarioId" = $idUsuario;
 ''');
 
-for (var cursos in query) {
-  // cursos
-}
-return [];
+    for (var curso in query) {
+      final nombreDeCurso = curso['cursos']?['nombreDeCurso'];
+      final listaDeComisiones = curso['']?['comisiones'];
+
+      for (var comision in listaDeComisiones) {
+        final idComision = comision['idComision'];
+        final nombreDeComision = comision['nombreDeComision'];
+        List<AsignaturaOverview> listaDeAsignaturas = [];
+
+        for (var asignatura in comision['listaDeAsignaturas']) {
+          final idAsignatura = asignatura['idAsignatura'];
+          final nombreDeAsignatura = asignatura['nombreDeAsignatura'];
+          final solicitudesDeCalificacionCompletas =
+              asignatura['solicitudesDeCalificacionCompletas'];
+
+          listaDeAsignaturas.add(
+            AsignaturaOverview(
+              idAsignatura: idAsignatura,
+              nombreDeAsignatura: nombreDeAsignatura,
+              solicitudesDeCalificacionCompletas:
+                  solicitudesDeCalificacionCompletas,
+            ),
+          );
+        }
+        listaDeComisionesRespuesta.add(
+          ComisionOverview(
+            idComision: idComision,
+            nombreDeCurso: nombreDeCurso,
+            nombreDeComision: nombreDeComision,
+            listaDeAsignaturas: listaDeAsignaturas,
+          ),
+        );
+      }
+    }
+    return listaDeComisionesRespuesta;
   }
 }
