@@ -59,13 +59,13 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                   ),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    children: state.comsiones
+                    children: state.comisiones
                         .map(
                           (comision) => Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                comision.nombreComision.toUpperCase(),
+                                comision.nombreDeComision.toUpperCase(),
                                 style: TextStyle(
                                   color: colores.onSecondary,
                                   fontSize: 13.pf,
@@ -74,15 +74,15 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                               ),
                               SizedBox(height: 10.ph),
                               Column(
-                                children: comision.asignaturas
+                                children: comision.listaDeAsignaturas
                                     .map(
                                       (asignatura) => Padding(
                                         padding: EdgeInsets.only(
                                           bottom: 10.ph,
                                         ),
                                         child: ItemMateria(
-                                          estaCargada:
-                                              !asignatura.tienePendientes,
+                                          estaCargada: asignatura
+                                              .solicitudesDeCalificacionCompletas,
                                           // TODO(anyone): aca hay que chequear
                                           // la fecha de la lista de materias
                                           // actual y hacer la validacion con
@@ -94,7 +94,7 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                                             RutaCargaDeCalificaciones(
                                               fecha: periodo.toString(),
                                               nombreAsignatura:
-                                                  asignatura.nombre,
+                                                  asignatura.nombreDeAsignatura,
                                               idCurso: 3,
                                             ),
                                           ),

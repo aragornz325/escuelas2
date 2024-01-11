@@ -57,7 +57,6 @@ class BlocCargaCalificaciones
           nombre: 'primero',
           anioLectivo: 1,
           estudiantes: [],
-          cursoId: 1,
           ultimaModificacion: DateTime.now(),
         );
 

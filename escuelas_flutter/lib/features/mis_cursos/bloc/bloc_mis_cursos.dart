@@ -1,4 +1,6 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_mis_cursos_estado.dart';
@@ -22,40 +24,20 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
     emit(BlocMisCursosEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(Gon): usar endpoint
-        // final comisiones = await client.comision.getMisCursos(mes, anio);
+        final usuario = await client.usuario
+            .obtenerUsuario(idUsuario: sessionManager.signedInUser?.id ?? 0);
+
+        final comisiones = await client.calificacion
+            .obtenerInformacionDeVistaGeneralDeComisiones(
+          numeroDeMes: DateTime.now().month,
+          idUsuario: usuario.id ?? 0,
+        );
 
         emit(
           BlocMisCursosEstadoExitoso.desde(
             state,
-            comisiones: [
-              const ComisionAsignaturaOverview(
-                nombreComision: 'Primero A',
-                asignaturas: [
-                  AsignaturaOverview(
-                    nombre: 'Matematica',
-                    tienePendientes: true,
-                  ),
-                  AsignaturaOverview(
-                    nombre: 'Lengua',
-                    tienePendientes: false,
-                  ),
-                ],
-              ),
-              const ComisionAsignaturaOverview(
-                nombreComision: 'Segundo B',
-                asignaturas: [
-                  AsignaturaOverview(
-                    nombre: 'Matematica',
-                    tienePendientes: false,
-                  ),
-                  AsignaturaOverview(
-                    nombre: 'Lengua',
-                    tienePendientes: true,
-                  ),
-                ],
-              ),
-            ],
+            comisiones: comisiones,
+            usuario: usuario,
           ),
         );
       },
@@ -73,40 +55,16 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
     emit(BlocMisCursosEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // final comisiones = await client.comision.getMisCursos
-        // (event.periodoSeleccionada.month, event.periodoSeleccionada.year);
+        final comisiones = await client.calificacion
+            .obtenerInformacionDeVistaGeneralDeComisiones(
+          numeroDeMes: event.periodoSeleccionada.month,
+          idUsuario: state.usuario?.id ?? 0,
+        );
 
         emit(
           BlocMisCursosEstadoExitoso.desde(
             state,
-            comisiones: [
-              const ComisionAsignaturaOverview(
-                nombreComision: 'Primero A',
-                asignaturas: [
-                  AsignaturaOverview(
-                    nombre: 'Matematica',
-                    tienePendientes: false,
-                  ),
-                  AsignaturaOverview(
-                    nombre: 'Lengua',
-                    tienePendientes: false,
-                  ),
-                ],
-              ),
-              const ComisionAsignaturaOverview(
-                nombreComision: 'Segundo B',
-                asignaturas: [
-                  AsignaturaOverview(
-                    nombre: 'Matematica',
-                    tienePendientes: false,
-                  ),
-                  AsignaturaOverview(
-                    nombre: 'Lengua',
-                    tienePendientes: false,
-                  ),
-                ],
-              ),
-            ],
+            comisiones: comisiones,
           ),
         );
       },
