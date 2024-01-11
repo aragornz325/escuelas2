@@ -6,7 +6,7 @@ fields:
   idAutor: int, relation(parent=usuarios)
   idDestinatario: int, relation(parent=usuarios)
   fechaCreacion: DateTime
-  fechaRealizacion: DateTime
+  fechaRealizacion: DateTime?
   fechaVisto: DateTime?
   fechaEliminacion: DateTime?
   

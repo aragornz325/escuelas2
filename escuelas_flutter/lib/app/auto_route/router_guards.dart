@@ -62,8 +62,6 @@ class InitialGuard extends AutoRouteGuard {
             apellido: 'Doe',
             urlFotoDePerfil: 'https://example.com/profile.jpg',
             dni: '123456789',
-            ultimaModificacion: DateTime.now(),
-            fechaCreacion: DateTime.now(),
           ),
         ),
       );

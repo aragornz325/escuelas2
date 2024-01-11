@@ -55,11 +55,10 @@ class BlocCargaCalificaciones
           cursoId: 89,
           id: 1,
           nombre: 'primero',
-          idCurso: 1,
           anioLectivo: 1,
           estudiantes: [],
+          cursoId: 1,
           ultimaModificacion: DateTime.now(),
-          fechaCreacion: DateTime.now(),
         );
 
         final listaCalificacionCompensacion = [

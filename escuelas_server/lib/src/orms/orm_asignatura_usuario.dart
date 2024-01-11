@@ -2,7 +2,7 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
-class OrmUsuarioAsignatura extends ORM {
+class OrmRelacionAsignaturaUsuario extends ORM {
   Future<void> crearRelacionUsuarioAAsignaturas(
     Session session, {
     required List<int> idAsignaturas,
@@ -29,4 +29,8 @@ class OrmUsuarioAsignatura extends ORM {
       },
     );
   }
+
+  // Future<List<RelacionAsignaturaUsuario>> obtenerRelacionesAsignaturaUsuario(Session session) async {
+  //   return RelacionAsignaturaUsuario.db.find(session, where: (t) );
+  // }
 }

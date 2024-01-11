@@ -15,11 +15,8 @@ extension ComisionDeCursoX on ComisionDeCurso {
     return {
       'id': id,
       'nombre': nombre,
-      'idCurso': idCurso,
+      'cursoId': cursoId,
       'anioLectivo': anioLectivo,
-      'ultimaModificacion': ultimaModificacion.toIso8601String(),
-      'fechaCreacion': fechaCreacion.toIso8601String(),
-      'fechaEliminacion': fechaEliminacion?.toIso8601String(),
     };
   }
 

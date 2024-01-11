@@ -10,9 +10,9 @@ fields:
   direccionesDeEmail: List<DireccionDeEmail>?, relation
   numerosDeTelefono: List<NumeroDeTelefono>?, relation
   roles: List<RelacionUsuarioRol>?, relation(name=usuarios_roles)
-  ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?
+  ultimaModificacion: DateTime, scope=serverOnly
+  fechaCreacion: DateTime, scope=serverOnly
+  fechaEliminacion: DateTime?, scope=serverOnly
   comisiones: List<RelacionComisionUsuario>?, relation(name=usuario_comisiones)
   asignaturas: List<RelacionAsignaturaUsuario>?, relation(name=usuario_asignaturas)
 indexes:

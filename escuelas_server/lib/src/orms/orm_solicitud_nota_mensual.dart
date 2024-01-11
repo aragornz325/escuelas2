@@ -70,7 +70,13 @@ class OrmSolicitudNotaMensual extends ORM {
   }) async {
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudNotaMensual.db.findById(session, id),
+      (session) => SolicitudNotaMensual.db.findById(
+        session,
+        id,
+        include: SolicitudNotaMensual.include(
+          solicitud: Solicitud.include(),
+        ),
+      ),
     );
 
     if (solicitudNotaMensualADb == null) {
@@ -96,6 +102,9 @@ class OrmSolicitudNotaMensual extends ORM {
       session,
       (session) => SolicitudNotaMensual.db.find(
         session,
+        include: SolicitudNotaMensual.include(
+          solicitud: Solicitud.include(),
+        ),
       ),
     );
 

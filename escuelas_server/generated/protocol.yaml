@@ -14,7 +14,7 @@ calificacion:
   - crearConceptoDeCalificacion:
   - obtenerCalificaciones:
   - obtenerConceptosDeCalificacion:
-  - obtenerInformacionGeneralDeComisiones:
+  - obtenerInformacionDeVistaGeneralDeComisiones:
 comision:
   - asignarUsuarioAComision:
   - obtenerComisiones:

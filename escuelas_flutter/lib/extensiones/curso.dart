@@ -14,9 +14,6 @@ extension CursoX on Curso {
       'nombre': nombre,
       'asignaturas':
           asignaturas?.map((asignatura) => asignatura.toJsonBloc()).toList(),
-      'ultimaModificacion': ultimaModificacion.toIso8601String(),
-      'fechaCreacion': fechaCreacion.toIso8601String(),
-      'fechaEliminacion': fechaEliminacion?.toIso8601String(),
     };
   }
 }

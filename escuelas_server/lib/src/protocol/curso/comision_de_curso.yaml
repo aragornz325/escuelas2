@@ -2,10 +2,9 @@ class: ComisionDeCurso
 table: comisiones
 fields:
   nombre: String
-  idCurso: int, relation(parent=cursos)
   curso: Curso?, relation
   anioLectivo: int
   ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?
+  fechaCreacion: DateTime, scope=serverOnly
+  fechaEliminacion: DateTime?, scope=serverOnly
   estudiantes: List<RelacionComisionUsuario>?, relation(name=comision_comisiones)

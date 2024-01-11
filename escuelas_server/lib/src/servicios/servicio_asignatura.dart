@@ -9,7 +9,7 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
   @override
   OrmAsignatura get orm => OrmAsignatura();
 
-  final _ormUsuarioAsignatura = OrmUsuarioAsignatura();
+  final _ormUsuarioAsignatura = OrmRelacionAsignaturaUsuario();
 
   final _ormAsignaturaSolicitada = OrmAsignaturaSolicitada();
 

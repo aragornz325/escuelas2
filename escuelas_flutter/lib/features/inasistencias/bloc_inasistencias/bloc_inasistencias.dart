@@ -144,7 +144,7 @@ class BlocInasistencias
 
         comisiones
             .firstWhere(
-              (curso) => curso.idCurso == event.idCurso,
+              (curso) => curso.cursoId == event.idCurso,
             )
             .ultimaModificacion = state.fechaActual ?? DateTime.now();
 

@@ -9,9 +9,9 @@ fields:
   dni: String?
   rolSolicitado: int, relation (parent=roles_de_usuario)
   estadoDeSolicitud: EstadoDeSolicitud
-  ultimaModificacion: DateTime?
-  fechaCreacion: DateTime?
-  fechaEliminacion: DateTime?
+  ultimaModificacion: DateTime?, scope=serverOnly
+  fechaCreacion: DateTime?, scope=serverOnly
+  fechaEliminacion: DateTime?, scope=serverOnly
   asignaturasSolicitadas: List<AsignaturaSolicitada>?, relation
   comisionSolicitada: ComisionSolicitada?, relation(optional)
 indexes:
