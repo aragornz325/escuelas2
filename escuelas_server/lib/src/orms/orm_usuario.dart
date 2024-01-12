@@ -104,9 +104,7 @@ class OrmUsuario extends ORM {
           ),
           asignaturas: RelacionAsignaturaUsuario.includeList(
             include: RelacionAsignaturaUsuario.include(
-              asignatura: Asignatura.include(
-                curso: Curso.include(),
-              ),
+              asignatura: Asignatura.include(),
             ),
           ),
         ),
