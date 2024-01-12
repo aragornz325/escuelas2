@@ -1,5 +1,5 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
@@ -80,6 +80,96 @@ class ElementoLista extends StatelessWidget {
     );
   }
 
+  /// Elemento para la lista de usuarios en Comunidad Academica
+  factory ElementoLista.usuarioCA({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Nombre del rol.
+    required String nombreUsuario,
+
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Avatar del usuario
+    required String avatar,
+
+    /// Indica por que dato se va a ordenar
+    required OrdenarPor ordenarPor,
+
+    /// Usuario al que se le va a usar la data
+    required Usuario usuario,
+  }) {
+    final colores = context.colores;
+
+    String _funcionOrdenarPor() {
+      String etiqueta = '';
+
+      switch (ordenarPor) {
+        case OrdenarPor.curso:
+          if (usuario.asignaturas?.isNotEmpty ?? false) {
+            final asignaturas = usuario.asignaturas
+                    ?.map((e) => e.asignatura?.nombre ?? '')
+                    .toList() ??
+                [];
+
+            etiqueta = asignaturas.join(', ');
+          }
+        case OrdenarPor.asignatura:
+          if (usuario.comisiones?.isNotEmpty ?? false) {
+            final cursos = usuario.asignaturas
+                    ?.map((e) => e.asignatura?.curso?.nombre ?? '')
+                    .toList() ??
+                [];
+
+            etiqueta = cursos.join(', ');
+          }
+
+        case OrdenarPor.apellido:
+      }
+      return etiqueta;
+    }
+
+    return ElementoLista(
+      altura: 55.ph,
+      texto: Text(
+        nombreUsuario,
+        style: TextStyle(
+          fontSize: 14.pf,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
+      borderRadius: 40.sw,
+      colorFondo: colores.tertiary,
+      onTap: onTap,
+      widgetLateralIzquierdo: ClipRRect(
+        borderRadius: BorderRadius.all(Radius.circular(35.sw)),
+        child: Image.network(
+          avatar,
+          fit: BoxFit.cover,
+          width: 20.pw,
+          errorBuilder: (context, error, stackTrace) {
+            return Icon(
+              Icons.person,
+              color: colores.onSecondary,
+              size: 35.sw,
+            );
+          },
+        ),
+      ),
+      widgetLateralDerecho: Padding(
+        padding: EdgeInsets.only(right: 10.pw),
+        child: Text(
+          _funcionOrdenarPor(),
+          style: TextStyle(
+            fontSize: 10.pf,
+            color: colores.onSecondary,
+          ),
+        ),
+      ),
+    );
+  }
+
   factory ElementoLista.usuario({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
@@ -87,11 +177,11 @@ class ElementoLista extends StatelessWidget {
     /// Nombre del rol.
     required String nombreUsuario,
 
-    /// Foto de perfil del usuario
-    required String imagenUsuario,
-
     /// Contexto para utilizar colores del tema
     required BuildContext context,
+
+    /// Avatar del usuario
+    required String avatar,
   }) {
     final colores = context.colores;
 
@@ -108,19 +198,18 @@ class ElementoLista extends StatelessWidget {
       colorFondo: colores.tertiary,
       onTap: onTap,
       widgetLateralIzquierdo: ClipRRect(
-        borderRadius: BorderRadius.all(Radius.circular(100.sw)),
+        borderRadius: BorderRadius.all(Radius.circular(35.sw)),
         child: Image.network(
-          imagenUsuario,
+          avatar,
           fit: BoxFit.cover,
-          errorBuilder: (
-            context,
-            error,
-            stackTrace,
-          ) =>
-              Image.asset(
-            Assets.images.usuario.path,
-            color: colores.onBackground,
-          ),
+          width: 20.pw,
+          errorBuilder: (context, error, stackTrace) {
+            return Icon(
+              Icons.person,
+              color: colores.onSecondary,
+              size: 35.sw,
+            );
+          },
         ),
       ),
     );

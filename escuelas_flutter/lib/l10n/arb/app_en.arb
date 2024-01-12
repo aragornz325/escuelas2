@@ -489,5 +489,10 @@
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+
+    "commonAcademicCommunity": "Academic community",
+    "@commonAcademicCommunity": {
+        "description": "Title of the section Academic community"
     }
 }

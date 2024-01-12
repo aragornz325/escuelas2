@@ -22,26 +22,72 @@ class BlocSupervisionCursos
   ) async {
     emit(BlocSupervisionCursosEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) {
+      callback: (client) async {
 // TODO(anyone): traer data del backend
+        // final respuesta = await client.curso.obtenerCursos();
+
+        final respuesta = [
+          ComisionDeCurso(
+            cursoId: 1,
+            anioLectivo: 2024,
+            nombre: 'primero',
+            ultimaModificacion: DateTime(2, 01, 2024),
+          ),
+          ComisionDeCurso(
+            cursoId: 1,
+            anioLectivo: 2024,
+            nombre: 'segundo',
+            ultimaModificacion: DateTime(2, 01, 2024),
+          ),
+          ComisionDeCurso(
+            cursoId: 1,
+            anioLectivo: 2024,
+            nombre: 'tercero',
+            ultimaModificacion: DateTime(2, 01, 2024),
+          ),
+          ComisionDeCurso(
+            cursoId: 1,
+            anioLectivo: 2024,
+            nombre: 'cuarto',
+            ultimaModificacion: DateTime(2, 01, 2024),
+          ),
+          ComisionDeCurso(
+            cursoId: 1,
+            anioLectivo: 2024,
+            nombre: 'quinto',
+            ultimaModificacion: DateTime(2, 01, 2024),
+          ),
+          ComisionDeCurso(
+            anioLectivo: 2024,
+            cursoId: 1,
+            nombre: 'sexto',
+            ultimaModificacion: DateTime(2, 01, 2024),
+          ),
+        ];
         emit(
           BlocSupervisionCursosEstadoExitoso.desde(
             state,
             listaCursos: [
-              Curso(
+              ComisionDeCurso(
+                cursoId: 1,
+                anioLectivo: 2024,
+                ultimaModificacion: DateTime.now(),
                 nombre: 'asd',
                 id: 1,
-                asignaturas: [],
               ),
-              Curso(
+              ComisionDeCurso(
                 nombre: '222',
                 id: 2,
-                asignaturas: [],
+                cursoId: 2,
+                anioLectivo: 2024,
+                ultimaModificacion: DateTime.now(),
               ),
-              Curso(
+              ComisionDeCurso(
                 nombre: 'a333sd',
                 id: 3,
-                asignaturas: [],
+                cursoId: 3,
+                anioLectivo: 2024,
+                ultimaModificacion: DateTime.now(),
               ),
             ],
           ),

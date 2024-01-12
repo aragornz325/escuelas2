@@ -53,6 +53,7 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
         RutaInicio.name => l10n.pageHomeTitleAppBar,
         RutaLogin.name => l10n.loginPageTitleAppBar,
         RutaInasistencia.name => l10n.absencePageTitleAppBar,
+        RutaComunidadAcademica.name => l10n.commonAcademicCommunity,
         _ => '',
       };
     });

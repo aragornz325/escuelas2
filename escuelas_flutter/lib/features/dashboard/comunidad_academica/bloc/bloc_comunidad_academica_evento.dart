@@ -20,10 +20,16 @@ class BlocComunidadAcademicaEventoInicializar
 class BlocComunidadAcademicaEventoTraerUsuariosPorRol
     extends BlocComunidadAcademicaEvento {
   /// {@macro BlocComunidadAcademicaEventoTraerUsuariosPorRol}
-  const BlocComunidadAcademicaEventoTraerUsuariosPorRol({required this.idRol});
+  const BlocComunidadAcademicaEventoTraerUsuariosPorRol({
+    required this.ordenarPor,
+    this.idRol,
+  });
 
   /// Id del rol seleccionado
-  final int idRol;
+  final int? idRol;
+
+  /// Enum para ordenar los usuarios
+  final OrdenarPor ordenarPor;
 }
 
 /// {@template BlocComunidadAcademicaEventoOrdenarAlfabeticamente}
