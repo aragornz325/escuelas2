@@ -6,30 +6,42 @@ part of 'bloc_comunidad_academica.dart';
 class BlocComunidadAcademicaEstado {
   /// {@macro BlocComunidadAcademicaEstado}
   const BlocComunidadAcademicaEstado._({
+    this.ordenarPor = OrdenarPor.apellido,
+    this.idRol = -1,
     this.listaRoles = const [],
-    this.listaUsuarios = const [],
-    this.listaOrdenada = const [],
+    this.listaUsuarios,
+    this.rolElegido,
   });
 
   BlocComunidadAcademicaEstado.desde(
     BlocComunidadAcademicaEstado otro, {
     List<RolDeUsuario>? listaRoles,
-    List<Usuario2>? listaUsuarios,
-    List<Categoria>? listaOrdenada,
+    UsuariosOrdenados? listaUsuarios,
+    int idRol = -1,
+    OrdenarPor? ordenarPor,
+    RolDeUsuario? rolElegido,
   }) : this._(
           listaRoles: listaRoles ?? otro.listaRoles,
           listaUsuarios: listaUsuarios ?? otro.listaUsuarios,
-          listaOrdenada: listaOrdenada ?? otro.listaOrdenada,
+          idRol: idRol != -1 ? idRol : otro.idRol,
+          ordenarPor: ordenarPor ?? otro.ordenarPor,
+          rolElegido: rolElegido ?? otro.rolElegido,
         );
 
   /// Lista de roles de la institucion
   final List<RolDeUsuario> listaRoles;
 
   /// Lista de usuarios de la institucion con el rol seleccionado
-  final List<Usuario2> listaUsuarios;
+  final UsuariosOrdenados? listaUsuarios;
 
-  /// Lista de usuarios de la institucion con el rol seleccionado ordenados
-  final List<Categoria> listaOrdenada;
+  /// Id del rol
+  final int idRol;
+
+  /// Orden en base al enum
+  final OrdenarPor ordenarPor;
+
+  /// Rol elegido a mostrar en la lista
+  final RolDeUsuario? rolElegido;
 }
 
 /// {@template BlocComunidadAcademicaEstadoInicial}
@@ -63,10 +75,8 @@ class BlocComunidadAcademicaEstadoExitoso extends BlocComunidadAcademicaEstado {
 class BlocComunidadAcademicaEstadoExitosoAlOrdenar
     extends BlocComunidadAcademicaEstado {
   /// {@macro BlocComunidadAcademicaEstadoExitoso}
-  BlocComunidadAcademicaEstadoExitosoAlOrdenar.desde(
-    super.otro, {
-    super.listaOrdenada,
-  }) : super.desde();
+  BlocComunidadAcademicaEstadoExitosoAlOrdenar.desde(super.otro)
+      : super.desde();
 }
 
 /// {@template BlocComunidadAcademicaEstadoExitosoAlTraerUsuarios}
@@ -78,6 +88,9 @@ class BlocComunidadAcademicaEstadoExitosoAlTraerUsuarios
   BlocComunidadAcademicaEstadoExitosoAlTraerUsuarios.desde(
     super.otro, {
     super.listaUsuarios,
+    super.idRol,
+    super.ordenarPor,
+    super.rolElegido,
   }) : super.desde();
 }
 

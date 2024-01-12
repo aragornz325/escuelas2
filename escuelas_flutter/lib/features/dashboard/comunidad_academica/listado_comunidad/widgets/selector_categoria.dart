@@ -1,6 +1,7 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/ordenar_por.dart';
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/bloc/bloc_comunidad_academica.dart';
-import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,62 +22,53 @@ class SelectorDeOrdenamiento extends StatefulWidget {
 }
 
 class _SelectorDeOrdenamientoState extends State<SelectorDeOrdenamiento> {
+  OrdenarPor _ordenarPor = OrdenarPor.apellido;
   int index = 0;
 
-  /// Actualiza el item seleccionado
-  void actualizarIndice(int nuevoIndice) {
+  ///  Cambia el ordenamiento del listado
+  void _cambiarOrdenamiento(OrdenarPor ordenarPor) {
     setState(() {
-      index = nuevoIndice;
+      _ordenarPor = ordenarPor;
     });
-    switch (nuevoIndice) {
-      case 0:
-        context.read<BlocComunidadAcademica>().add(
-              BlocComunidadAcademicaEventoOrdenarAlfabeticamente(),
-            );
-      case 1:
-      // TODO(anyone): implementar ordenamiento por curso
-      // context
-      //   .read<BlocComunidadAcademica>()
-      //   .add(BlocComunidadAcademicaEventoOrdenarPorCurso());
-      case 2:
-      // TODO(anyone): implementar ordenamiento por asignatura
-      // context.read<BlocComunidadAcademica>().add(
-      //    BlocComunidadAcademicaEventoOrdenarPorAsignatura(),
-      //   );
-    }
+    context.read<BlocComunidadAcademica>().add(
+          BlocComunidadAcademicaEventoTraerUsuariosPorRol(
+            ordenarPor: ordenarPor,
+          ),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    final l10n = context.l10n;
-
     return Container(
-      width: 240.pw,
       height: 30.ph,
       decoration: BoxDecoration(
         color: colores.tertiary,
         borderRadius: BorderRadius.circular(50.sw),
       ),
-      child: Row(
-        children: [
-          _ItemCategoria(
-            nombre: l10n.commonName,
-            estaSeleccionado: index == 0,
-            onTap: () => actualizarIndice(0),
-          ),
-          _ItemCategoria(
-            nombre: l10n.commonCourse,
-            estaSeleccionado: index == 1,
-            onTap: () => actualizarIndice(1),
-          ),
-          _ItemCategoria(
-            nombre: l10n.commonSubject,
-            estaSeleccionado: index == 2,
-            onTap: () => actualizarIndice(2),
-          ),
-        ],
+      child: BlocBuilder<BlocComunidadAcademica, BlocComunidadAcademicaEstado>(
+        builder: (context, state) {
+          final listaUsuarios = state.listaUsuarios;
+          if (listaUsuarios == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ...listaUsuarios.opcionesDeOrdenamiento.map(
+                (e) => _ItemCategoria(
+                  itemSeleccionado: _ordenarPor,
+                  onTap: _cambiarOrdenamiento,
+                  itemOrdenarPor: e,
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -88,26 +80,28 @@ class _SelectorDeOrdenamientoState extends State<SelectorDeOrdenamiento> {
 class _ItemCategoria extends StatelessWidget {
   /// {@macro _ItemCategoria}
   const _ItemCategoria({
-    required this.nombre,
-    required this.estaSeleccionado,
+    required this.itemSeleccionado,
     required this.onTap,
+    required this.itemOrdenarPor,
   });
 
-  /// Nombre de la categoria
-  final String nombre;
-
   /// Indica si esta seleccionado
-  final bool estaSeleccionado;
+  final OrdenarPor itemSeleccionado;
 
   /// Funcion que se ejecuta al hacer tap
-  final VoidCallback onTap;
+  final void Function(OrdenarPor ordenarPor) onTap;
+
+  /// Indica si cual es el item seleccionado
+  final OrdenarPor itemOrdenarPor;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final estaSeleccionado = itemOrdenarPor == itemSeleccionado;
+
     return GestureDetector(
-      onTap: onTap,
+      onTap: () => onTap.call(itemOrdenarPor),
       child: Container(
         width: 80.pw,
         height: 30.ph,
@@ -117,7 +111,7 @@ class _ItemCategoria extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            nombre,
+            itemOrdenarPor.nombreItem(context),
             style: TextStyle(
               color: estaSeleccionado
                   ? colores.grisClaroSombreado

@@ -208,8 +208,8 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
 
         if (state.rolElegido?.nombre == 'alumno') {
           await client.usuario.enviarSolicitudRegistroAlumno(
-            comisionDeCurso:
-                state.opcionesFormulario.first.comisionSeleccionada!,
+            idComisionDeCursoSolicitada:
+                state.opcionesFormulario.first.comisionSeleccionada!.id ?? 0,
             usuarioPendiente: usuarioPendiente,
           );
         }

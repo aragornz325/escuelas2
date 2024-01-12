@@ -490,6 +490,12 @@
     "commonDeleteAll": "Borrar todos",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+
+    
+    "commonAcademicCommunity": "Comunidad academica",
+    "@commonAcademicCommunity": {
+        "description": "Title of the section Academic community"
     }
     
 }

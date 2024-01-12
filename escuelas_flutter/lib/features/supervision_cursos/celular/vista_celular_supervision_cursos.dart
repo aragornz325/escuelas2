@@ -59,52 +59,44 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                             colorFondo: state.todasMateriasCargadas
                                 ? colores.primaryContainer
                                 : colores.onSecondary,
-                            widgetLateralDerecho: state
-                                    .habilitacionCargaDeCalificaciones
-                                ? Container(
-                                    width: 80.pw,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(30.sw),
-                                      ),
-                                      color: state
-                                              .habilitacionCargaDeCalificaciones
-                                          ? state.todasMateriasCargadas
-                                              ? Colores(context)
-                                                  .segunVencimientoSegunFecha(
-                                                  dia: 9,
-                                                )
-                                              : Colores(context)
-                                                  .segunProporcionDeMateriasCargadas(
-                                                  proporcion: .4,
-                                                )
-                                          : colores.background,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        state.todasMateriasCargadas
-                                            ? state.fechaUltimaMateriaCargada
-                                                .formatear(context)
-                                            : '4/12',
-                                        style: TextStyle(
-                                          color: colores.background,
-                                          fontSize: 15.pf,
-                                          fontWeight: FontWeight.w500,
+                            widgetLateralDerecho:
+                                state.habilitacionCargaDeCalificaciones
+                                    ? Container(
+                                        width: 80.pw,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(30.sw)),
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            state.todasMateriasCargadas
+                                                ? state
+                                                    .fechaUltimaMateriaCargada
+                                                    .formatear
+                                                    .toString()
+                                                : '8 de 12',
+                                            // ${state.materiasCargadasDelCurso} de
+                                            // ${state.totalDeMateriasDelCurso}',
+                                            style: TextStyle(
+                                              color: colores.background,
+                                              fontSize: 15.pf,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
+                                      )
+                                    : Padding(
+                                        padding: EdgeInsets.only(right: 10.pw),
+                                        child: Text(
+                                          'SIN HABILITAR. 4/01',
+                                          // ${state.materiasCargadasDelCurso} / ${state.totalDeMateriasDelCurso}',
+                                          style: TextStyle(
+                                            fontSize: 15.pf,
+                                            fontWeight: FontWeight.w600,
+                                            color: colores.onPrimary,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  )
-                                : Padding(
-                                    padding: EdgeInsets.only(right: 10.pw),
-                                    child: Text(
-                                      'SIN HABILITAR . 0/12',
-                                      style: TextStyle(
-                                        fontSize: 15.pf,
-                                        fontWeight: FontWeight.w600,
-                                        color: colores.onPrimary,
-                                      ),
-                                    ),
-                                  ),
                           ),
                         ),
                       )
