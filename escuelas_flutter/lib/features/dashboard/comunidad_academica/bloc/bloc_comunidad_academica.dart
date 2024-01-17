@@ -3,6 +3,7 @@ import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/pagina_comunidad_academica.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rolemissions/rolemissions.dart';
 
 part 'bloc_comunidad_academica_estado.dart';
 part 'bloc_comunidad_academica_evento.dart';
