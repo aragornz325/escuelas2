@@ -1,7 +1,6 @@
 // ignore_for_file: always_specify_types
 
 import 'dart:io';
-import 'package:escuelas_server/utils/init_env.dart';
 import 'package:yaml_writer/yaml_writer.dart';
 
 /// Funcion que re-escribe el archivo de configuracion YAML. Usado para hacer

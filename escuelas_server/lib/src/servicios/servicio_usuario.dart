@@ -5,7 +5,6 @@ import 'package:escuelas_server/src/orms/orm_usuario_pendiente.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
 import 'package:escuelas_server/src/servicios/servicio_comision.dart';
-import 'package:escuelas_server/src/servicios/servicio_curso.dart';
 import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:escuelas_server/src/utils/listado_alfabetico.dart';
 import 'package:serverpod/serverpod.dart';
@@ -23,9 +22,18 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
 
   final ServicioComision _servicioComision = ServicioComision();
 
-  final ServicioCurso _servicioCurso = ServicioCurso();
-
   final ServicioRol _servicioRol = ServicioRol();
+
+  Future<Usuario> obtenerInfoBasicaUsuario(Session session) async {
+    // final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+
+    return await ejecutarOperacion(
+      () async => orm.obtenerInfoBasicaUsuario(
+        session,
+        idUserInfo: 6,
+      ),
+    );
+  }
 
   Future<Usuario> obtenerDatosDelUsuario(Session session) async {
     final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
@@ -243,7 +251,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           codigoError: 500,
         );
       }
-      usuarioPendienteCreado.comisionSolicitadaId = comisionSolicitadaCreada.id!;
+      usuarioPendienteCreado.comisionSolicitadaId =
+          comisionSolicitadaCreada.id!;
 
       await actualizarUsuarioPendiente(
         session,
@@ -329,7 +338,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       () => _servicioRol.asignarRolAUsuario(
         session,
         idUsuario: idUsuario,
-        idRol: usuarioPendiente.rolSolicitado,
+        idRol: usuarioPendiente.idRolSolicitado,
       ),
     );
 

@@ -46,7 +46,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
               children: state.listaRoles
                   .map(
                     (rol) => state.listaUsuariosPendientes.any(
-                      (usuario) => usuario.rolSolicitado == rol.id,
+                      (usuario) => usuario.idRolSolicitado == rol.id,
                     )
                         ? Padding(
                             padding: EdgeInsets.only(bottom: 20.pw),
@@ -54,7 +54,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  rol.nombre.toUpperCase(),
+                                  rol.name.toUpperCase(),
                                   style: TextStyle(
                                     color: colores.onSecondary,
                                     fontSize: 16.pf,
@@ -64,7 +64,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                                 ...state.listaUsuariosPendientes
                                     .where(
                                       (usuario) =>
-                                          usuario.rolSolicitado == rol.id,
+                                          usuario.idRolSolicitado == rol.id,
                                     )
                                     .toList()
                                     .map(

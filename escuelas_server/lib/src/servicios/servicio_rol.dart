@@ -1,12 +1,8 @@
-import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/orms/orm_rol.dart';
 import 'package:escuelas_server/src/servicio.dart';
+import 'package:rolemissions/rolemissions.dart';
 import 'package:serverpod/server.dart';
 
-class ServicioRol extends Servicio<OrmRol> {
-  @override
-  OrmRol get orm => OrmRol();
-
+class ServicioRol extends Servicio {
   /// La función "obtenerRolPorId" recupera un rol por su ID usando un ORM y lo devuelve como Future.
   ///
   /// Args:
@@ -16,18 +12,15 @@ class ServicioRol extends Servicio<OrmRol> {
   ///
   /// Returns:
   ///   un `Futuro<RolDeUsuario>`.
-  Future<RolDeUsuario> obtenerRolPorId(
+  Future<Role> obtenerRolPorId(
     Session session, {
     required int id,
-    OrdenarPor ordenarUsuariosPor = OrdenarPor.apellido,
-  }) async {
-    final rol = await ejecutarOperacion(() => orm.obtenerRolPorId(
-          session,
-          id: id,
-          ordenarUsuariosPor: ordenarUsuariosPor,
-        ));
-    return rol;
-  }
+  }) async =>
+      ejecutarOperacion(
+        () => Rolemissions.instance.getRoleById(
+          id,
+        ),
+      );
 
   /// La función "obtenerRoles" recupera una lista de roles de usuario utilizando un objeto de sesión.
   ///
@@ -36,10 +29,9 @@ class ServicioRol extends Servicio<OrmRol> {
   ///
   /// Returns:
   ///   un objeto `Futuro` que se resuelve en una `List<RolDeUsuario>`.
-  Future<List<RolDeUsuario>> obtenerRoles(Session session) async {
-    final roles = await ejecutarOperacion(() => orm.obtenerRoles(session));
-    return roles;
-  }
+  Future<List<Role>> obtenerRoles(Session session) async => ejecutarOperacion(
+        () => Rolemissions.instance.getRoles(),
+      );
 
   /// La función crea una función en la base de datos utilizando la sesión proporcionada y el objeto de
   /// función.
@@ -50,16 +42,17 @@ class ServicioRol extends Servicio<OrmRol> {
   ///
   /// Returns:
   ///   un `Futuro<RolDeUsuario>`.
-  Future<RolDeUsuario> crearRol(
+  Future<Role> crearRol(
     Session session, {
-    required RolDeUsuario rol,
-  }) async {
-    final rolADb = await ejecutarOperacion(() => orm.crearRol(
-          session,
-          rol: rol,
-        ));
-    return rolADb;
-  }
+    required String name,
+    required String permisos,
+  }) async =>
+      ejecutarOperacion(
+        () => Rolemissions.instance.createRole(
+          name: name,
+          permissions: permisos,
+        ),
+      );
 
   /// La función `actualizarRol` actualiza el rol de un usuario en una base de datos utilizando la
   /// sesión y el rol proporcionados.
@@ -70,16 +63,13 @@ class ServicioRol extends Servicio<OrmRol> {
   ///
   /// Returns:
   ///   un `Futuro<RolDeUsuario>`.
-  Future<RolDeUsuario> actualizarRol(
+  Future<Role> actualizarRol(
     Session session, {
-    required RolDeUsuario rol,
-  }) async {
-    final rolADb = await ejecutarOperacion(() => orm.actualizarRol(
-          session,
-          rol: rol,
-        ));
-    return rolADb;
-  }
+    required Role role,
+  }) async =>
+      ejecutarOperacion(
+        () => Rolemissions.instance.updateRole(role),
+      );
 
   /// La función `eliminarRol` es una función de Dart que toma un objeto `Session` y un parámetro `id`, y
   /// devuelve un `Future<int>`.
@@ -94,12 +84,10 @@ class ServicioRol extends Servicio<OrmRol> {
   Future<int> eliminarRol(
     Session session, {
     required int id,
-  }) async {
-    return await ejecutarOperacion(() => orm.eliminarRol(
-          session,
-          id: id,
-        ));
-  }
+  }) async =>
+      ejecutarOperacion(
+        () => Rolemissions.instance.deleteRole(id),
+      );
 
   /// La función `asignarRolAUsuario` asigna un rol a un usuario en una sesión.
   ///
@@ -112,16 +100,15 @@ class ServicioRol extends Servicio<OrmRol> {
   ///
   /// Returns:
   ///   El método devuelve un `Future<String>`.
-  Future<String> asignarRolAUsuario(
+  Future<int> asignarRolAUsuario(
     Session session, {
     required int idUsuario,
     required int idRol,
-  }) async {
-    final rol = await ejecutarOperacion(() => orm.asignarRolAUsuario(
-          session,
-          idUsuario: idUsuario,
-          idRol: idRol,
-        ));
-    return rol;
-  }
+  }) async =>
+      ejecutarOperacion(
+        () => Rolemissions.instance.asignRoleToUser(
+          userId: idUsuario,
+          roleId: idRol,
+        ),
+      );
 }

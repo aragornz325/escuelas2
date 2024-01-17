@@ -20,6 +20,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
     SolicitudNotaMensual solicitudNotaMensual,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'crearSolicitudNotaMensual',
       () => servicio.crearSolicitudNotaMensual(
         session,
@@ -40,6 +41,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
     SolicitudNotaMensual solicitudNotaMensual,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'actualizarSolicitudNotaMensual',
       () => servicio.actualizarSolicitudNotaMensual(
         session,
@@ -60,6 +62,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
     int id,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'obtenerSolicitudNotaMensual',
       () => servicio.obtenerSolicitudNotaMensual(
         session,
@@ -78,6 +81,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
     Session session,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'obtenerSolicitudesNotaMensual',
       () => servicio.obtenerSolicitudesNotaMensual(
         session,
@@ -97,6 +101,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
     int id,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'eliminarSolicitudNotaMensual',
       () => servicio.eliminarSolicitudNotaMensual(
         session,

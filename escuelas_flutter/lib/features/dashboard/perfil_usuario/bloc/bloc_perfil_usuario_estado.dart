@@ -15,7 +15,7 @@ class BlocPerfilUsuarioEstado {
     BlocPerfilUsuarioEstado otro, {
     Usuario? usuario,
     UsuarioPendiente? usuarioPendiente,
-    List<RolDeUsuario>? listaRoles,
+    List<Role>? listaRoles,
   }) : this._(
           usuario: usuario ?? otro.usuario,
           usuarioPendiente: usuarioPendiente ?? otro.usuarioPendiente,
@@ -29,7 +29,7 @@ class BlocPerfilUsuarioEstado {
   final UsuarioPendiente? usuarioPendiente;
 
   /// Lista de roles de la institucion
-  final List<RolDeUsuario> listaRoles;
+  final List<Role> listaRoles;
 
   /// Lista de [AsignaturaSolicitada] del usuario pendiente o una lista vacia
   /// si no tiene asignaturas solicitadas
@@ -66,7 +66,7 @@ class BlocPerfilUsuarioEstado {
 
   /// Devuelve una lista de [RelacionUsuarioRol] del usuario o una lista vacia
   /// si no tiene
-  List<RelacionUsuarioRol> get rolesDeUsuario => usuario?.roles ?? [];
+  List<Role> get rolesDeUsuario => usuario?.roles ?? [];
 
   /// Devuelve un [String] con en dni del usuario
   // TODO(anyone): Cambiar por el dni del usuario pendiente cuando este
@@ -77,15 +77,14 @@ class BlocPerfilUsuarioEstado {
   String get nombreRolUsuarioPendiente =>
       listaRoles
           .firstWhereOrNull(
-            (element) => element.id == usuarioPendiente?.rolSolicitado,
+            (element) => element.id == usuarioPendiente?.idRolSolicitado,
           )
-          ?.nombre ??
+          ?.name ??
       '';
 
   /// Devuelve el [Tipo] de usuario segun su estado/rol
   Tipo get tipoUsuario => usuarioPendiente == null
-      ? rolesDeUsuario
-              .any((usuarioConRol) => usuarioConRol.rol?.nombre == 'alumno')
+      ? rolesDeUsuario.any((usuarioConRol) => usuarioConRol.name == 'alumno')
           ? Tipo.alumnoAprobado
           : Tipo.docenteAprobado
       : nombreRolUsuarioPendiente == 'alumno'

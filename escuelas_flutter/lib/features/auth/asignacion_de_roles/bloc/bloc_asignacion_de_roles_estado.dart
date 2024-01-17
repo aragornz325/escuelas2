@@ -13,7 +13,7 @@ class BlocAsignacionDeRolesEstado {
   BlocAsignacionDeRolesEstado.desde(
     BlocAsignacionDeRolesEstado otro, {
     List<UsuarioPendiente>? listaUsuariosPendientes,
-    List<RolDeUsuario>? listaRoles,
+    List<Role>? listaRoles,
   }) : this._(
           listaUsuariosPendientes:
               listaUsuariosPendientes ?? otro.listaUsuariosPendientes,
@@ -24,7 +24,7 @@ class BlocAsignacionDeRolesEstado {
   final List<UsuarioPendiente> listaUsuariosPendientes;
 
   /// Lista de roles de la institucion
-  final List<RolDeUsuario> listaRoles;
+  final List<Role> listaRoles;
 
   /// Indica si se encuentra cargando
   bool get estaCargando => this is BlocAsignacionDeRolesEstadoCargando;

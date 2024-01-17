@@ -17,6 +17,7 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
     required List<AsistenciaDiaria> asistencias,
   }) async {
     return ejecutarOperacionControlador(
+      session,
       'crearAsistenciasEnLote',
       () => servicio.crearAsistenciasEnLote(
         session,
@@ -37,6 +38,7 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
     required DateTime fecha,
   }) async {
     return ejecutarOperacionControlador(
+      session,
       'traerAsistenciaPorDia',
       () => servicio.traerAsistenciaPorDia(
         session,
@@ -56,6 +58,7 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
     required List<AsistenciaDiaria> asistencias,
   }) async {
     return ejecutarOperacionControlador(
+      session,
       'actualizarAsistenciasEnLote',
       () => servicio.actualizarAsistenciasEnLote(
         session,

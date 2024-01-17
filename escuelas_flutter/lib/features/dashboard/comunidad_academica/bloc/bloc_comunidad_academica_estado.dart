@@ -15,11 +15,11 @@ class BlocComunidadAcademicaEstado {
 
   BlocComunidadAcademicaEstado.desde(
     BlocComunidadAcademicaEstado otro, {
-    List<RolDeUsuario>? listaRoles,
+    List<Role>? listaRoles,
     UsuariosOrdenados? listaUsuarios,
     int idRol = -1,
     OrdenarPor? ordenarPor,
-    RolDeUsuario? rolElegido,
+    Role? rolElegido,
   }) : this._(
           listaRoles: listaRoles ?? otro.listaRoles,
           listaUsuarios: listaUsuarios ?? otro.listaUsuarios,
@@ -29,7 +29,7 @@ class BlocComunidadAcademicaEstado {
         );
 
   /// Lista de roles de la institucion
-  final List<RolDeUsuario> listaRoles;
+  final List<Role> listaRoles;
 
   /// Lista de usuarios de la institucion con el rol seleccionado
   final UsuariosOrdenados? listaUsuarios;
@@ -41,7 +41,7 @@ class BlocComunidadAcademicaEstado {
   final OrdenarPor ordenarPor;
 
   /// Rol elegido a mostrar en la lista
-  final RolDeUsuario? rolElegido;
+  final Role? rolElegido;
 }
 
 /// {@template BlocComunidadAcademicaEstadoInicial}

@@ -1,0 +1,262 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "roles_de_usuario",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "r_usuario_rol",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "alterTable",
+      "deleteTable": null,
+      "alterTable": {
+        "name": "usuarios",
+        "dartName": null,
+        "module": null,
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "privileges",
+            "columnType": 0,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "String?"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "tableDropped",
+            "message": "Table \"roles_de_usuario\" will be dropped.",
+            "table": "roles_de_usuario",
+            "columns": [],
+            "destrucive": true
+          },
+          {
+            "type": "tableDropped",
+            "message": "Table \"r_usuario_rol\" will be dropped.",
+            "table": "r_usuario_rol",
+            "columns": [],
+            "destrucive": true
+          },
+          {
+            "type": "columnDropped",
+            "message": "Column \"rolSolicitado\" of table \"usuarios_pendientes\" will be dropped.",
+            "table": "usuarios_pendientes",
+            "columns": [
+              "rolSolicitado"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "tableDropped",
+            "message": "One or more columns are added to table \"usuarios_pendientes\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+            "table": "usuarios_pendientes",
+            "columns": [
+              "idRolSolicitado"
+            ],
+            "destrucive": true
+          }
+        ]
+      },
+      "createTable": null
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "usuarios_pendientes",
+      "alterTable": null,
+      "createTable": null
+    },
+    {
+      "type": "createTable",
+      "deleteTable": null,
+      "alterTable": null,
+      "createTable": {
+        "name": "usuarios_pendientes",
+        "dartName": "UsuarioPendiente",
+        "module": "escuelas",
+        "schema": "public",
+        "tableSpace": null,
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('usuarios_pendientes_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "idUserInfo",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "nombre",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "apellido",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "urlFotoDePerfil",
+            "columnType": 0,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "String"
+          },
+          {
+            "name": "dni",
+            "columnType": 0,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "String?"
+          },
+          {
+            "name": "idRolSolicitado",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "int"
+          },
+          {
+            "name": "estadoDeSolicitud",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": null,
+            "dartType": "protocol:EstadoDeSolicitud"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "comisionSolicitadaId",
+            "columnType": 2,
+            "isNullable": true,
+            "columnDefault": null,
+            "dartType": "int?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "usuarios_pendientes_fk_0",
+            "columns": [
+              "comisionSolicitadaId"
+            ],
+            "referenceTable": "comision_solicitada",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 0,
+            "matchType": null
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "usuarios_pendientes_pkey",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true,
+            "predicate": null
+          },
+          {
+            "indexName": "usuario_comision_unique_idx",
+            "tableSpace": null,
+            "elements": [
+              {
+                "type": 0,
+                "definition": "comisionSolicitadaId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false,
+            "predicate": null
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "Table \"roles_de_usuario\" will be dropped.",
+      "table": "roles_de_usuario",
+      "columns": [],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "Table \"r_usuario_rol\" will be dropped.",
+      "table": "r_usuario_rol",
+      "columns": [],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"rolSolicitado\" of table \"usuarios_pendientes\" will be dropped.",
+      "table": "usuarios_pendientes",
+      "columns": [
+        "rolSolicitado"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"usuarios_pendientes\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "usuarios_pendientes",
+      "columns": [
+        "idRolSolicitado"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

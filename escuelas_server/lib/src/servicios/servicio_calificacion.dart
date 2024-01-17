@@ -1,5 +1,4 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/orms/orm_asignatura.dart';
 import 'package:escuelas_server/src/orms/orm_asignatura_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
@@ -67,8 +66,7 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
         .obtenerConceptosDeCalificacion(session);
   }
 
-  Future<List<ComisionOverview>>
-      obtenerInformacionDeVistaGeneralDeComisiones(
+  Future<List<ComisionOverview>> obtenerInformacionDeVistaGeneralDeComisiones(
     Session session, {
     required int idUsuario,
     required int numeroDeMes,

@@ -4,6 +4,5 @@ export 'comision_de_curso.dart';
 export 'curso.dart';
 export 'date_time.dart';
 export 'estado_asistencia.dart';
-export 'rol_de_usuario.dart';
 export 'string.dart';
 export 'tema.dart';
