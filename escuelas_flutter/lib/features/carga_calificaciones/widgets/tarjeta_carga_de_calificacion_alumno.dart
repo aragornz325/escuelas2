@@ -7,6 +7,7 @@ import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
+import 'package:rolemissions/rolemissions.dart';
 
 /// {@template TarjetaCargaCalificacionAlumno}
 /// Tarjeta de Carga de Calificación de Alumno con un campo para modificar la
@@ -32,7 +33,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   final RelacionComisionUsuario relacionComisionUsuario;
 
   /// Rol del usuario.
-  final RolDeUsuario? rolDelUsuario;
+  final Role? rolDelUsuario;
 
   @override
   Widget build(BuildContext context) {
@@ -76,9 +77,9 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
             // de back
             nombreAlumno: '${relacionComisionUsuario.usuario?.nombre} '
                 '${relacionComisionUsuario.usuario?.apellido}',
-            esEditable: rolDelUsuario?.nombre == 'docente'
+            esEditable: rolDelUsuario?.name == 'Docente'
                 ? fecha.mismaFecha(DateTime.now())
-                : rolDelUsuario?.nombre == 'directivo' &&
+                : rolDelUsuario?.name == 'directivo' &&
                     fecha.isBefore(DateTime.now()),
           ),
         );

@@ -12,6 +12,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
     required List<Calificacion> calificaciones,
   }) =>
       ejecutarOperacionControlador(
+        session,
         'crearCalificacionesEnBloque',
         () => servicio.crearCalificacionesEnBloque(
           session,
@@ -24,6 +25,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
     required String etiqueta,
   }) =>
       ejecutarOperacionControlador(
+        session,
         'crearConceptoDeCalificacion',
         () => servicio.crearConceptoDeCalificacion(
           session,
@@ -36,6 +38,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
     Periodo? periodo,
   ) async =>
       ejecutarOperacionControlador(
+        session,
         'obtenerCalificaciones',
         () => servicio.obtenerCalificaciones(
           session,
@@ -46,6 +49,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
   Future<List<ConceptoCalificacion>> obtenerConceptosDeCalificacion(
           Session session) =>
       ejecutarOperacionControlador(
+        session,
         'obtenerConceptosDeCalificacion',
         () => servicio.obtenerConceptosDeCalificacion(session),
       );
@@ -56,6 +60,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
     required int numeroDeMes,
   }) =>
       ejecutarOperacionControlador(
+        session,
         'obtenerInformacionDeVistaGeneralDeComisiones',
         () => servicio.obtenerInformacionDeVistaGeneralDeComisiones(
           session,

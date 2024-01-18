@@ -2,4 +2,5 @@
 /// de escuelas 2
 library escuelas_commons;
 
+export 'permisos/permisos.dart';
 export 'src/escuelas_commons.dart';

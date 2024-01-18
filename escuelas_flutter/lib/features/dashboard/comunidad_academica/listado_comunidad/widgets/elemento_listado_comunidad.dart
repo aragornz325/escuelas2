@@ -7,6 +7,7 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
+import 'package:rolemissions/rolemissions.dart';
 
 ///{@template ElementoListadoComunidad}
 ///Elemento del listado de la comunidad academica
@@ -31,7 +32,7 @@ class ElementoListadoComunidad extends StatelessWidget {
   final OrdenarPor ordenarPor;
 
   /// Rol de usuario elegido previamente
-  final RolDeUsuario rolElegido;
+  final Role rolElegido;
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;

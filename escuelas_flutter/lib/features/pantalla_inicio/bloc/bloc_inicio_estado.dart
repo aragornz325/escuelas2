@@ -12,7 +12,7 @@ class BlocInicioEstado {
 
   BlocInicioEstado.desde(
     BlocInicioEstado otro, {
-    List<RolDeUsuario>? listaRoles,
+    List<Role>? listaRoles,
     bool? hayUsuariosPendientes,
   }) : this._(
           listaRoles: listaRoles ?? otro.listaRoles,
@@ -20,7 +20,7 @@ class BlocInicioEstado {
               hayUsuariosPendientes ?? otro.hayUsuariosPendientes,
         );
 
-  final List<RolDeUsuario> listaRoles;
+  final List<Role> listaRoles;
 
   final bool hayUsuariosPendientes;
 

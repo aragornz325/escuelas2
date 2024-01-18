@@ -54,7 +54,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  rol.nombre.toUpperCase(),
+                                  rol.name.toUpperCase(),
                                   style: TextStyle(
                                     color: colores.onSecondary,
                                     fontSize: 16.pf,

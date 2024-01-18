@@ -20,11 +20,11 @@ class VistaCelularFormulario extends StatelessWidget {
 
     final state = context.read<BlocKyc>().state;
 
-    final rol = state.rolElegido?.nombre;
+    final rol = state.rolElegido?.name;
 
     return switch (rol) {
-      'alumno' => const FormularioAlumno(),
-      'docente' => const FormularioDocente(),
+      'Alumno' => const FormularioAlumno(),
+      'Docente' => const FormularioDocente(),
       _ => Center(
           child: Text(l10n.commonFeatureNotAvailable),
         )
