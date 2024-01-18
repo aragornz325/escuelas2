@@ -15,5 +15,3 @@ dependencies:
     path: ../escuelas_commons
   logging: ^1.2.0
   postgres: ^2.6.1
-  serverpod: ^1.2.0-rc.1
-  serverpod_serialization: ^1.2.0-rc.1

@@ -94,6 +94,10 @@ abstract class RolemissionPermissions {
     _permissions = deserialization(serialization);
   }
 
+  RolemissionPermissions.fromEnumList(List<List<Enum>> permissions) {
+    _permissions = permissions;
+  }
+
   /// {@macro rolemission_permissions}
   RolemissionPermissions.fromUser(RolemissionUser user);
 
@@ -153,30 +157,6 @@ abstract class RolemissionPermissions {
   /// Serializes the permissions into a [String] that can be stored in a
   /// database.
   String toSerialization() {
-    final buffer = StringBuffer();
-    for (final permissionEnum in permissions) {
-      final enumLength =
-          allPermissions[permissions.indexOf(permissionEnum)].length;
-      final maxBitsLengthAmount = enumLength ~/ maxBitsLength;
-      for (var i = 0; i <= maxBitsLengthAmount; i++) {
-        var number = 0;
-        permissionEnum
-            .skip(i * maxBitsLength)
-            .take((i + 1) * maxBitsLength)
-            .forEach((element) {
-          number += 1 << (element.index % maxBitsLength);
-        });
-        if (i > 0) buffer.write(serializationEnumByteSeparator);
-        buffer.write(number.toRadixString(36));
-      }
-      buffer.write(serializationNewEnumSeparator);
-    }
-    return buffer.toString().substring(0, buffer.length - 1);
-  }
-
-  /// Serializes the permissions into a [String] that can be stored in a
-  /// database.
-  String toSerializationRole(List<List<Enum>> permissions) {
     final buffer = StringBuffer();
     for (final permissionEnum in permissions) {
       final enumLength =

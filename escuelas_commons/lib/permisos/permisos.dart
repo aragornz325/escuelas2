@@ -7,6 +7,8 @@ class Permisos extends RolemissionPermissions {
 
   Permisos.fromSerialization(super.serialization) : super.fromSerialization();
 
+  Permisos.fromEnumList(super.permissions) : super.fromEnumList();
+
   @override
   List<List<Enum>> get allPermissions => [
         PermisoDeAsistencia.values,

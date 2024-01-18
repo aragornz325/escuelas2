@@ -84,10 +84,10 @@ class BlocPerfilUsuarioEstado {
 
   /// Devuelve el [Tipo] de usuario segun su estado/rol
   Tipo get tipoUsuario => usuarioPendiente == null
-      ? rolesDeUsuario.any((usuarioConRol) => usuarioConRol.name == 'alumno')
+      ? rolesDeUsuario.any((usuarioConRol) => usuarioConRol.name == 'Alumno')
           ? Tipo.alumnoAprobado
           : Tipo.docenteAprobado
-      : nombreRolUsuarioPendiente == 'alumno'
+      : nombreRolUsuarioPendiente == 'Alumno'
           ? Tipo.alumnoPendiente
           : Tipo.docentePendiente;
 }

@@ -44,7 +44,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         final roles = await client.rol.obtenerRoles();
         // TODO(anyone): Ver como manejar los roles que se muestran
         final rolesAMostrar = roles
-            .where((rol) => rol.name == 'alumno' || rol.name == 'docente')
+            .where((rol) => rol.name == 'Alumno' || rol.name == 'Docente')
             .toList();
         emit(
           BlocKycEstadoExitoso.desde(
@@ -196,7 +196,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
         );
 
-        if (state.rolElegido?.name == 'docente') {
+        if (state.rolElegido?.name == 'Docente') {
           final soliAsignaturas = state.opcionesFormulario
               .map((e) => e.asignaturaSeleccionada!)
               .toList();
@@ -206,7 +206,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           );
         }
 
-        if (state.rolElegido?.name == 'alumno') {
+        if (state.rolElegido?.name == 'Alumno') {
           await client.usuario.enviarSolicitudRegistroAlumno(
             idComisionDeCursoSolicitada:
                 state.opcionesFormulario.first.comisionSeleccionada!.id ?? 0,
