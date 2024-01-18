@@ -6,6 +6,7 @@ fields:
   apellido: String
   urlFotoDePerfil: String
   dni: String?
+  ## TODO(anyone): crear relacion con tabla de roles.
   idRolSolicitado: int
   estadoDeSolicitud: EstadoDeSolicitud
   ultimaModificacion: DateTime?, scope=serverOnly
