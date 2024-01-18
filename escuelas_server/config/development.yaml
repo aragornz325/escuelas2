@@ -18,7 +18,6 @@ database:
   port: 5432
   name: postgres
   user: postgres
-  password: 08WKsRfTZzrDv70J
 redis: 
   enabled: false
   host: redis.private-staging.examplepod.com
