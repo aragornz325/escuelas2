@@ -6,7 +6,7 @@ fields:
   apellido: String
   urlFotoDePerfil: String
   dni: String?
-  idRolSolicitado: int, relation
+  idRolSolicitado: int
   estadoDeSolicitud: EstadoDeSolicitud
   ultimaModificacion: DateTime?, scope=serverOnly
   fechaCreacion: DateTime?, scope=serverOnly
