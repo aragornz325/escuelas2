@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:rolemissions/rolemissions.dart';
 
 void main() {
+  // ! TODO(anyone): remover las credenciales de la base de datos
   final rolemission = Rolemissions(
     persistanceDelegate: PostgresStrategy(
       host: 'db.mvdsvzvejhmrnxgdfdwz.supabase.co',
