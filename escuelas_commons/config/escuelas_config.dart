@@ -1,4 +1,4 @@
-import 'package:escuelas_client/src/protocol/periodo.dart';
+import 'package:escuelas_client/escuelas_client.dart';
 
 import 'configs_de_escuelas.dart';
 

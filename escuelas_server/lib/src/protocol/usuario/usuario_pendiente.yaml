@@ -6,7 +6,7 @@ fields:
   apellido: String
   urlFotoDePerfil: String
   dni: String?
-  idRolSolicitado: int
+  idRolSolicitado: int, relation (parent=roles_de_usuario)
   estadoDeSolicitud: EstadoDeSolicitud
   ultimaModificacion: DateTime?, scope=serverOnly
   fechaCreacion: DateTime?, scope=serverOnly
