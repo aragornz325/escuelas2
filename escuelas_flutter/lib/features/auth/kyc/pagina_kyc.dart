@@ -27,6 +27,7 @@ class PaginaKyc extends StatelessWidget {
       ],
       child: EscuelasScaffold(
         tieneAppBar: true,
+        tieneDrawer: false,
         cuerpo: AutoRouter(
           builder: (context, content) {
             return switch (context.router.current.name) {

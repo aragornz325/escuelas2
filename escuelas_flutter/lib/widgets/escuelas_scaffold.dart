@@ -16,6 +16,7 @@ class EscuelasScaffold extends StatelessWidget {
     required this.cuerpo,
     this.index,
     this.colorDeFondo,
+    this.tieneDrawer = true,
     this.tieneAppBar = false,
     this.tieneBottomNavBar = false,
     super.key,
@@ -29,6 +30,9 @@ class EscuelasScaffold extends StatelessWidget {
 
   /// Determina si se muestra el AppBar o no.
   final bool tieneAppBar;
+
+  /// Determina si se muestra el drawer o no.
+  final bool tieneDrawer;
 
   /// Determina si se muestra el BottomNavBar o no.
   final bool tieneBottomNavBar;
@@ -48,7 +52,11 @@ class EscuelasScaffold extends StatelessWidget {
         nombre: userInfo?.userName ?? '',
         apellido: userInfo?.apellido ?? '',
       ),
-      appBar: tieneAppBar ? const EscuelasAppBar() : null,
+      appBar: tieneAppBar
+          ? EscuelasAppBar(
+              tieneDrawer: tieneDrawer,
+            )
+          : null,
       backgroundColor: colorDeFondo ?? colores.background,
       body: cuerpo,
       bottomNavigationBar: tieneBottomNavBar

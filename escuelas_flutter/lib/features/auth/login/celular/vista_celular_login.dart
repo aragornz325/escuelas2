@@ -33,6 +33,8 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
   /// Controller para el textfield de contraseña
   final controllerPassword = TextEditingController();
 
+// TODO(ANYONE): Agrandar UI de login
+
   @override
   void dispose() {
     controllerDNI.dispose();
