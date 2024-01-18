@@ -1,4 +1,4 @@
-import 'package:escuelas_server/src/generated/asistencia/asistencia_diaria.dart';
+import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_asistencia.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
