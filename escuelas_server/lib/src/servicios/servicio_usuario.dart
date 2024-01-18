@@ -329,7 +329,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       () => _servicioRol.asignarRolAUsuario(
         session,
         idUsuario: idUsuario,
-        idRol: usuarioPendiente.rolSolicitado,
+        idRol: usuarioPendiente.idRolSolicitado,
       ),
     );
 

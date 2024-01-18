@@ -107,7 +107,7 @@ class OrmUsuarioPendiente extends ORM {
             t.nombre,
             t.apellido,
             t.dni,
-            t.rolSolicitado,
+            t.idRolSolicitado,
             t.estadoDeSolicitud,
             t.ultimaModificacion,
             t.comisionSolicitadaId,

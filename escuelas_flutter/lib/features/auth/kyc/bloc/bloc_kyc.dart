@@ -192,7 +192,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           nombre: usuario?.fullName ?? '',
           apellido: usuario?.apellido ?? '',
           urlFotoDePerfil: usuario?.imageUrl ?? '',
-          rolSolicitado: state.rolElegido?.id ?? 0,
+          idRolSolicitado: state.rolElegido?.id ?? 0,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
         );
 

@@ -4,10 +4,8 @@
 
 CREATE TABLE "asignatura_solicitada" (
   "id" serial,
-  "idAsignatura" integer NOT NULL,
+  "asignatura" json,
   "idUsuarioPendiente" integer NOT NULL,
-  "nombreAsignatura" text NOT NULL,
-  "nombreCurso" text NOT NULL,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
   "fechaEliminacion" timestamp without time zone
@@ -24,9 +22,9 @@ ALTER TABLE ONLY "asignatura_solicitada"
 CREATE TABLE "asignaturas" (
   "id" serial,
   "nombre" text NOT NULL,
-  "idCurso" integer NOT NULL,
-  "ultimaModificacion" timestamp without time zone NOT NULL,
-  "fechaCreacion" timestamp without time zone NOT NULL,
+  "curso" json,
+  "ultimaModificacion" timestamp without time zone,
+  "fechaCreacion" timestamp without time zone,
   "fechaEliminacion" timestamp without time zone,
   "usuarios" json
 );
@@ -41,9 +39,8 @@ ALTER TABLE ONLY "asignaturas"
 
 CREATE TABLE "asistencias_diarias" (
   "id" serial,
-  "idEstudiante" integer NOT NULL,
-  "idAsignatura" integer NOT NULL,
-  "idComision" integer NOT NULL,
+  "estudiante" json,
+  "comision" json,
   "estadoDeAsistencia" integer NOT NULL,
   "fecha" timestamp without time zone NOT NULL,
   "idJustificacion" integer,
@@ -62,14 +59,15 @@ ALTER TABLE ONLY "asistencias_diarias"
 
 CREATE TABLE "calificaciones" (
   "id" serial,
+  "idAutor" integer NOT NULL,
   "idEstudiante" integer NOT NULL,
   "idComision" integer NOT NULL,
   "idAsignatura" integer NOT NULL,
-  "idConcepto" integer NOT NULL,
+  "idInstanciaDeEvaluacion" integer NOT NULL,
   "tipoCalificacion" integer NOT NULL,
   "index" integer NOT NULL,
   "diferencial" text NOT NULL,
-  "detalle" text NOT NULL,
+  "observacion" text,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
   "fechaEliminacion" timestamp without time zone
@@ -80,14 +78,28 @@ ALTER TABLE ONLY "calificaciones"
 
 
 --
+-- Class CalificacionMensual as table calificaciones_mensuales
+--
+
+CREATE TABLE "calificaciones_mensuales" (
+  "id" serial,
+  "calificacion" json,
+  "idCalificacion" integer NOT NULL,
+  "numeroDeMes" integer NOT NULL
+);
+
+ALTER TABLE ONLY "calificaciones_mensuales"
+  ADD CONSTRAINT calificaciones_mensuales_pkey PRIMARY KEY (id);
+
+
+
+--
 -- Class ComisionSolicitada as table comision_solicitada
 --
 
 CREATE TABLE "comision_solicitada" (
   "id" serial,
-  "idComision" integer NOT NULL,
-  "idUsuarioPendiente" integer NOT NULL,
-  "nombreComision" text NOT NULL,
+  "comision" json,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
   "fechaEliminacion" timestamp without time zone
@@ -98,23 +110,22 @@ ALTER TABLE ONLY "comision_solicitada"
 
 
 --
--- Class ComisionDeCurso as table comisiones_de_curso
+-- Class ComisionDeCurso as table comisiones
 --
 
-CREATE TABLE "comisiones_de_curso" (
+CREATE TABLE "comisiones" (
   "id" serial,
   "nombre" text NOT NULL,
-  "idCurso" integer NOT NULL,
+  "curso" json,
   "anioLectivo" integer NOT NULL,
-  "estudiantes" json NOT NULL,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
   "fechaEliminacion" timestamp without time zone,
-  "usuarios" json
+  "estudiantes" json
 );
 
-ALTER TABLE ONLY "comisiones_de_curso"
-  ADD CONSTRAINT comisiones_de_curso_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY "comisiones"
+  ADD CONSTRAINT comisiones_pkey PRIMARY KEY (id);
 
 
 --
@@ -141,6 +152,7 @@ CREATE TABLE "cursos" (
   "id" serial,
   "nombre" text NOT NULL,
   "asignaturas" json,
+  "comisiones" json,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
   "fechaEliminacion" timestamp without time zone
@@ -217,6 +229,56 @@ CREATE TABLE "domicilios_de_usuario" (
 
 ALTER TABLE ONLY "domicilios_de_usuario"
   ADD CONSTRAINT domicilios_de_usuario_pkey PRIMARY KEY (id);
+
+
+--
+-- Class EvaluacionDeAsignatura as table evaluaciones_de_asignatura
+--
+
+CREATE TABLE "evaluaciones_de_asignatura" (
+  "id" serial,
+  "idInstanciaDeEvaluacion" integer NOT NULL,
+  "idComision" integer NOT NULL,
+  "idAsignatura" integer NOT NULL
+);
+
+ALTER TABLE ONLY "evaluaciones_de_asignatura"
+  ADD CONSTRAINT evaluaciones_de_asignatura_pkey PRIMARY KEY (id);
+
+
+--
+-- Class EvaluacionDeCompensacion as table evaluaciones_de_compensacion
+--
+
+CREATE TABLE "evaluaciones_de_compensacion" (
+  "id" serial,
+  "idInstanciaDeEvaluacion" integer NOT NULL,
+  "idAsignatura" integer NOT NULL
+);
+
+ALTER TABLE ONLY "evaluaciones_de_compensacion"
+  ADD CONSTRAINT evaluaciones_de_compensacion_pkey PRIMARY KEY (id);
+
+
+--
+-- Class InstanciaDeEvaluacion as table instancias_de_evaluacion
+--
+
+CREATE TABLE "instancias_de_evaluacion" (
+  "id" serial,
+  "nombre" text NOT NULL,
+  "descripcion" text NOT NULL,
+  "autor" integer NOT NULL,
+  "idConcepto" integer NOT NULL,
+  "fechaProgramada" timestamp without time zone NOT NULL,
+  "fechaDeRealizacion" timestamp without time zone NOT NULL,
+  "ultimaModificacion" timestamp without time zone NOT NULL,
+  "fechaCreacion" timestamp without time zone NOT NULL,
+  "fechaEliminacion" timestamp without time zone
+);
+
+ALTER TABLE ONLY "instancias_de_evaluacion"
+  ADD CONSTRAINT instancias_de_evaluacion_pkey PRIMARY KEY (id);
 
 
 --
@@ -314,11 +376,8 @@ ALTER TABLE ONLY "numeros_de_telefono_institucion"
 
 CREATE TABLE "periodos" (
   "id" serial,
-  "nombre" text NOT NULL,
-  "diaInicio" integer NOT NULL,
-  "mesInicio" integer NOT NULL,
-  "diaFin" integer NOT NULL,
-  "mesFin" integer NOT NULL,
+  "fechaInicio" timestamp without time zone NOT NULL,
+  "fechaFin" timestamp without time zone NOT NULL,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
   "fechaEliminacion" timestamp without time zone
@@ -353,10 +412,7 @@ ALTER TABLE ONLY "r_asignaturas_usuarios"
 CREATE TABLE "r_comisiones_usuarios" (
   "id" serial,
   "usuario" json,
-  "comisionDeCurso" json,
-  "ultimaModificacion" timestamp without time zone NOT NULL,
-  "fechaCreacion" timestamp without time zone NOT NULL,
-  "fechaEliminacion" timestamp without time zone
+  "comision" json
 );
 
 ALTER TABLE ONLY "r_comisiones_usuarios"
@@ -398,6 +454,44 @@ ALTER TABLE ONLY "roles_de_usuario"
 
 
 --
+-- Class Solicitud as table solicitudes
+--
+
+CREATE TABLE "solicitudes" (
+  "id" serial,
+  "tipoSolicitud" integer NOT NULL,
+  "idAutor" integer NOT NULL,
+  "idDestinatario" integer NOT NULL,
+  "fechaCreacion" timestamp without time zone NOT NULL,
+  "fechaRealizacion" timestamp without time zone,
+  "fechaVisto" timestamp without time zone,
+  "fechaEliminacion" timestamp without time zone
+);
+
+ALTER TABLE ONLY "solicitudes"
+  ADD CONSTRAINT solicitudes_pkey PRIMARY KEY (id);
+
+
+--
+-- Class SolicitudNotaMensual as table solicitudes_notas_mensuales
+--
+
+CREATE TABLE "solicitudes_notas_mensuales" (
+  "id" serial,
+  "idSolicitud" integer NOT NULL,
+  "solicitud" json,
+  "idComision" integer NOT NULL,
+  "idAsignatura" integer NOT NULL,
+  "numeroDeMes" integer NOT NULL,
+  "calificaciones" json
+);
+
+ALTER TABLE ONLY "solicitudes_notas_mensuales"
+  ADD CONSTRAINT solicitudes_notas_mensuales_pkey PRIMARY KEY (id);
+
+
+
+--
 -- Class Usuario as table usuarios
 --
 
@@ -434,8 +528,8 @@ CREATE TABLE "usuarios_pendientes" (
   "nombre" text NOT NULL,
   "apellido" text NOT NULL,
   "urlFotoDePerfil" text NOT NULL,
-  "dni" text NOT NULL,
-  "rolSolicitado" integer NOT NULL,
+  "dni" text,
+  "idRolSolicitado" integer NOT NULL,
   "estadoDeSolicitud" integer NOT NULL,
   "ultimaModificacion" timestamp without time zone,
   "fechaCreacion" timestamp without time zone,
