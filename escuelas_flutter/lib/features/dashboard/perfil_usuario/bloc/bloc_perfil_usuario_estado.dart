@@ -64,9 +64,9 @@ class BlocPerfilUsuarioEstado {
   List<DireccionDeEmail> get direccionesDeEmail =>
       usuario?.direccionesDeEmail ?? [];
 
-  /// Devuelve una lista de [RelacionUsuarioRol] del usuario o una lista vacia
+  /// Devuelve una lista de [Role] del usuario o una lista vacia
   /// si no tiene
-  List<Role> get rolesDeUsuario => usuario?.roles ?? [];
+  List<String> get nombreRolesDeUsuario => usuario?.roles?.keys.toList() ?? [];
 
   /// Devuelve un [String] con en dni del usuario
   // TODO(anyone): Cambiar por el dni del usuario pendiente cuando este
@@ -84,7 +84,7 @@ class BlocPerfilUsuarioEstado {
 
   /// Devuelve el [Tipo] de usuario segun su estado/rol
   Tipo get tipoUsuario => usuarioPendiente == null
-      ? rolesDeUsuario.any((usuarioConRol) => usuarioConRol.name == 'Alumno')
+      ? nombreRolesDeUsuario.any((usuarioConRol) => usuarioConRol == 'Alumno')
           ? Tipo.alumnoAprobado
           : Tipo.docenteAprobado
       : nombreRolUsuarioPendiente == 'Alumno'

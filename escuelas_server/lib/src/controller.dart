@@ -34,10 +34,9 @@ mixin Controller<T extends Servicio> {
         );
       }
 
-      final permisosDeUsuario = roles
-              ?.map((e) => Permisos.fromSerialization(e.permissions))
-              .toList() ??
-          [];
+      final permisosDeUsuario =
+          roles?.values.map((e) => Permisos.fromSerialization(e)).toList() ??
+              [];
 
       if (privilegios != null) {
         permisosDeUsuario.add(Permisos.fromSerialization(privilegios));

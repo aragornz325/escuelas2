@@ -1,6 +1,5 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
-import 'package:rolemissions/rolemissions.dart';
 import 'package:serverpod/serverpod.dart';
 
 class OrmUsuario extends ORM {
@@ -44,8 +43,19 @@ class OrmUsuario extends ORM {
        '''),
     );
 
-    final roles =
-        rolesQuery.map((e) => Role.fromJson(e['roles']!, Protocol())).toList();
+    // final roles =
+    //     rolesQuery.map((e) => Role.fromJson(e['roles']!, Protocol())).toList();
+
+    /// transforma la lista en un mapa con las keys con el nombre del rol y como value el permission
+    final roles = rolesQuery.fold<Map<String, String>>(
+      {},
+      (previousValue, element) {
+        final rol = element['roles']!;
+
+        previousValue[rol['name']] = rol['permissions'];
+        return previousValue;
+      },
+    );
 
     return usuario..roles = roles;
   }
