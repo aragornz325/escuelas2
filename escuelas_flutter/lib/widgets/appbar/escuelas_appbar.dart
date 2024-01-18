@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 class EscuelasAppBar extends StatefulWidget implements PreferredSizeWidget {
   /// {@macro EscuelasAppBar}
   const EscuelasAppBar({
+    required this.tieneDrawer,
     super.key,
     this.iconoLateralDerecho,
     this.iconoLateralIzquierdo,
@@ -22,6 +23,9 @@ class EscuelasAppBar extends StatefulWidget implements PreferredSizeWidget {
   /// Componente que se agrega al principio del [EscuelasAppBar] a la izquierda
   /// del titulo.  Deberia ser un icono con cierta funcionalidad
   final Widget? iconoLateralIzquierdo;
+
+  /// Determina si tiene drawer o no
+  final bool tieneDrawer;
 
   @override
   State<EscuelasAppBar> createState() => _EscuelasAppBarState();
@@ -77,7 +81,9 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
                     IconButton(
                       icon: const Icon(Icons.menu),
                       onPressed: () {
-                        Scaffold.of(context).openDrawer();
+                        if (widget.tieneDrawer) {
+                          Scaffold.of(context).openDrawer();
+                        }
                       },
                     );
               },
