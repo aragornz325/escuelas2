@@ -2,6 +2,11 @@
 
 import 'package:rolemissions/rolemissions.dart';
 
+/// Los permisos sirven para controlar el acceso a los recursos
+///  de la aplicación.
+///
+/// Los permisos se pueden asignar a los usuarios a través de
+/// los roles o de los privilegios.
 class Permisos extends RolemissionPermissions {
   Permisos() : super();
 
