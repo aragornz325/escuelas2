@@ -77,7 +77,7 @@ class BlocPerfilUsuarioEstado {
   String get nombreRolUsuarioPendiente =>
       listaRoles
           .firstWhereOrNull(
-            (element) => element.id == usuarioPendiente?.rolSolicitado,
+            (element) => element.id == usuarioPendiente?.idRolSolicitado,
           )
           ?.nombre ??
       '';
