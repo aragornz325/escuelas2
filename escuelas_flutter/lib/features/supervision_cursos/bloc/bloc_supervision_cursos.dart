@@ -26,6 +26,7 @@ class BlocSupervisionCursos
 // TODO(anyone): traer data del backend
         // final respuesta = await client.curso.obtenerCursos();
 
+        // ignore: unused_local_variable
         final respuesta = [
           ComisionDeCurso(
             cursoId: 1,

@@ -13,6 +13,53 @@ class OrmUsuario extends ORM {
     );
   }
 
+  Future<Usuario> obtenerInfoBasicaUsuario(
+    Session session, {
+    required int idUserInfo,
+  }) async {
+    final usuario = await ejecutarOperacionOrm(
+      session,
+      (session) async => await Usuario.db.findFirstRow(session, where: (t) {
+        return t.idUserInfo.equals(idUserInfo);
+      }),
+    );
+
+    if (usuario == null) {
+      throw ExcepcionCustom(
+        titulo: 'Usuario no encontrado.',
+        mensaje: 'Usuario no encontrado.',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
+    }
+
+    final rolesQuery = await ejecutarOperacionOrm(
+      session,
+      (session) async => session.dbNext.unsafeQueryMappedResults(session, '''
+        SELECT "roles"."id", "roles"."name", "roles"."permissions", "roles"."createdAt", "roles"."updatedAt"
+        FROM "roles"
+        INNER JOIN "user_role_relation" ON "roles"."id" = "user_role_relation"."roleId"
+        WHERE "user_role_relation"."userId" = ${usuario.id}
+       '''),
+    );
+
+    // final roles =
+    //     rolesQuery.map((e) => Role.fromJson(e['roles']!, Protocol())).toList();
+
+    /// transforma la lista en un mapa con las keys con el nombre del rol y como value el permission
+    final roles = rolesQuery.fold<Map<String, String>>(
+      {},
+      (previousValue, element) {
+        final rol = element['roles']!;
+
+        previousValue[rol['name']] = rol['permissions'];
+        return previousValue;
+      },
+    );
+
+    return usuario..roles = roles;
+  }
+
   Future<Usuario> obtenerUsuario(
     Session session, {
     int? idUsuario,
@@ -37,11 +84,6 @@ class OrmUsuario extends ORM {
           ),
           domicilio: DomicilioDeUsuario.include(),
           numerosDeTelefono: NumeroDeTelefono.includeList(),
-          roles: RelacionUsuarioRol.includeList(
-            include: RelacionUsuarioRol.include(
-              rol: RolDeUsuario.include(),
-            ),
-          ),
           comisiones: RelacionComisionUsuario.includeList(
             include: RelacionComisionUsuario.include(
                 comision: ComisionDeCurso.include()),
@@ -87,17 +129,17 @@ class OrmUsuario extends ORM {
         session,
         where: (t) {
           if (idRol != null) {
-            return t.roles.any((rol) => rol.rolId.equals(idRol));
+            return Expression(
+              '''
+              "id" IN (
+                SELECT "userId" FROM "user_role_relation" WHERE "roleId" = $idRol
+              )''',
+            );
           }
 
           return t.id.notEquals(null);
         },
         include: Usuario.include(
-          roles: RelacionUsuarioRol.includeList(
-            include: RelacionUsuarioRol.include(
-              rol: RolDeUsuario.include(),
-            ),
-          ),
           comisiones: RelacionComisionUsuario.includeList(
             include: RelacionComisionUsuario.include(
                 comision: ComisionDeCurso.include()),

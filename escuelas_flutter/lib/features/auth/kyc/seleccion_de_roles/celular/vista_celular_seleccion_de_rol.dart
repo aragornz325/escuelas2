@@ -62,7 +62,7 @@ class _VistaCelularSeleccionDeRolState
                         padding: EdgeInsets.only(bottom: 20.ph),
                         child: ElementoLista.menu(
                           context: context,
-                          nombreOpcion: rol.nombre.toUpperCase(),
+                          nombreOpcion: rol.name.toUpperCase(),
                           estaPresionado: rol.id == rolPresionado?.id,
                           onTap: () => context.read<BlocKyc>().add(
                                 BlocKycEventoSeleccionarRol(
@@ -103,7 +103,7 @@ class _VistaCelularSeleccionDeRolState
                         ),
                         child: Text(
                           l10n.pageRoleConfirmationText(
-                            rolPresionado.nombre,
+                            rolPresionado.name,
                           ),
                           textAlign: TextAlign.center,
                           style: TextStyle(

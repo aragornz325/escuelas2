@@ -83,7 +83,7 @@ class _DialogSolicitarRol extends StatelessWidget {
         builder: (context, state) {
           return Text(
             l10n.pageKycFormConfirmationDialogText(
-              state.rolElegido?.nombre ?? '',
+              state.rolElegido?.name ?? '',
             ),
             textAlign: TextAlign.center,
             style: TextStyle(

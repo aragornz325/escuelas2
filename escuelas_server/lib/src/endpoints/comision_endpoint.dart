@@ -12,6 +12,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
     required int idUsuario,
   }) async =>
       ejecutarOperacionControlador(
+        session,
         'asignarUsuarioAComision',
         () => servicio.asignarUsuarioAComision(
           session,
@@ -22,6 +23,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
 
   Future<List<ComisionDeCurso>> obtenerComisiones(Session session) async =>
       ejecutarOperacionControlador(
+        session,
         'obtenerComisiones',
         () => servicio.obtenerComisiones(session),
       );

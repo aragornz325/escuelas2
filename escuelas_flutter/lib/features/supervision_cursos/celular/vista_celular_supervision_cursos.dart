@@ -3,7 +3,6 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/supervision_cursos/bloc/bloc_supervision_cursos.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -65,7 +64,8 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                                         width: 80.pw,
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.all(
-                                              Radius.circular(30.sw)),
+                                            Radius.circular(30.sw),
+                                          ),
                                         ),
                                         child: Center(
                                           child: Text(

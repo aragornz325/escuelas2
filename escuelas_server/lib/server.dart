@@ -4,6 +4,7 @@ import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/utils/logger.dart';
 import 'package:escuelas_server/utils/constants.dart';
 import 'package:escuelas_server/utils/rewrite_yaml.dart';
+import 'package:rolemissions/rolemissions.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
 import 'package:escuelas_server/src/web/routes/root.dart';
@@ -41,6 +42,18 @@ void run(List<String> args) async {
     '/*',
   );
   pod.webServer.addRoute(auth.RouteGoogleSignIn(), '/googlesignin');
+
+  final rolePermissions = Rolemissions(
+    persistanceDelegate: PostgresStrategy(
+      host: 'db.mvdsvzvejhmrnxgdfdwz.supabase.co',
+      databaseName: 'postgres',
+      userName: 'postgres',
+      dbPassword: 'L86Grm9pso3LyUdA',
+      port: 5432,
+    ),
+  );
+
+  await rolePermissions.setUp();
 
   auth.AuthConfig.set(
     auth.AuthConfig(

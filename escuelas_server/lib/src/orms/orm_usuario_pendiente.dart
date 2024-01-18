@@ -74,7 +74,8 @@ class OrmUsuarioPendiente extends ORM {
       Session session) async {
     final usuarioPendientes = await UsuarioPendiente.db.find(
       session,
-      where: (t) => t.estadoDeSolicitud.equals(EstadoDeSolicitud.pendiente,
+      where: (t) => t.estadoDeSolicitud.equals(
+        EstadoDeSolicitud.pendiente,
       ),
       include: UsuarioPendiente.include(
         asignaturasSolicitadas: AsignaturaSolicitada.includeList(

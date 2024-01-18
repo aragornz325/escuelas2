@@ -1,9 +1,0 @@
-class: RelacionUsuarioRol
-table: r_usuario_rol
-fields:
-  usuario: Usuario?, relation(name=usuarios_roles)
-  rol: RolDeUsuario?, relation(name=rol_roles)
-indexes:
-  r_usuario_rol_index_idx:
-    fields: usuarioId, rolId
-    unique: true

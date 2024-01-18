@@ -1,5 +1,3 @@
-
-
 import 'package:escuelas_client/escuelas_client.dart';
 
 import 'configs_de_escuelas.dart';
