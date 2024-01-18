@@ -1,6 +1,7 @@
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
-import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_rol.dart';
+import 'package:rolemissions/rolemissions.dart';
 import 'package:serverpod/serverpod.dart';
 
 class RolEndpoint extends Endpoint with Controller<ServicioRol> {
@@ -16,17 +17,16 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
   ///
   /// Returns:
   ///   un `Futuro<RolDeUsuario>`.
-  Future<RolDeUsuario> obtenerRolPorId(
+  Future<Role> obtenerRolPorId(
     Session session, {
     required int id,
-    OrdenarPor? ordenarUsuariosPor,
   }) async {
     return await ejecutarOperacionControlador(
+      session,
       'obtenerRolPorId',
       () => servicio.obtenerRolPorId(
         session,
         id: id,
-        ordenarUsuariosPor: ordenarUsuariosPor ?? OrdenarPor.apellido,
       ),
     );
   }
@@ -36,12 +36,14 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
   ///  args:
   ///  session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
   /// sesión actual o la conexión a una base de datos o servidor.
-  Future<List<RolDeUsuario>> obtenerRoles(
+  Future<List<Role>> obtenerRoles(
     Session session,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'obtenerRoles',
       () => servicio.obtenerRoles(session),
+      permisoRequerido: PermisoDeAsistencia.verAsistencia,
     );
   }
 
@@ -51,16 +53,20 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
   /// sesión actual o la conexión a una base de datos o servidor.
   ///  rol (RolDeUsuario): El parámetro "rol" es de tipo "RolDeUsuario" y es obligatorio.
   ///
-  Future<RolDeUsuario> crearRol(
+  Future<Role> crearRol(
     Session session, {
-    required RolDeUsuario rol,
+    required String name,
+    required String permisos,
   }) async {
     return await ejecutarOperacionControlador(
-        'crearRol',
-        () => servicio.crearRol(
-              session,
-              rol: rol,
-            ));
+      session,
+      'crearRol',
+      () => servicio.crearRol(
+        session,
+        name: name,
+        permisos: permisos,
+      ),
+    );
   }
 
   /// La función `actualizarRol` actualiza un rol de usuario utilizando una sesión y un servicio.
@@ -68,16 +74,18 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
   ///   session (Session): El parámetro de sesión es de tipo Sesión. Se utiliza para representar la
   /// sesión actual o la conexión a una base de datos o servidor.
   /// rol (RolDeUsuario): El parámetro "rol" es de tipo "RolDeUsuario" y es obligatorio.
-  Future<RolDeUsuario> actualizarRol(
+  Future<Role> actualizarRol(
     Session session, {
-    required RolDeUsuario rol,
+    required Role rol,
   }) async {
     return await ejecutarOperacionControlador(
-        'actualizarRol',
-        () => servicio.actualizarRol(
-              session,
-              rol: rol,
-            ));
+      session,
+      'actualizarRol',
+      () => servicio.actualizarRol(
+        session,
+        role: rol,
+      ),
+    );
   }
 
   /// La función `eliminarRol` elimina un rol de usuario utilizando una sesión y un servicio.
@@ -91,10 +99,12 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
     required int id,
   }) async {
     return await ejecutarOperacionControlador(
-        'eliminarRol',
-        () => servicio.eliminarRol(
-              session,
-              id: id,
-            ));
+      session,
+      'eliminarRol',
+      () => servicio.eliminarRol(
+        session,
+        id: id,
+      ),
+    );
   }
 }

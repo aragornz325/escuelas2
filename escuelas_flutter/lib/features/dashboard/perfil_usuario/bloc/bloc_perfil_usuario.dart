@@ -5,6 +5,7 @@ import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario_pendiente.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:rolemissions/rolemissions.dart';
 
 part 'bloc_perfil_usuario_estado.dart';
 part 'bloc_perfil_usuario_evento.dart';

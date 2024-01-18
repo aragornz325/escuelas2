@@ -2,11 +2,11 @@ import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/asignatura.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/extensiones/comision_de_curso.dart';
-import 'package:escuelas_flutter/extensiones/rol_de_usuario.dart';
 import 'package:escuelas_flutter/extensiones/user_info.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+import 'package:rolemissions/rolemissions.dart';
 // TODO(anyone): Revisar si esto sirve, tenia un problema de importaciones con
 // el userInfo y el protocol
 import 'package:serverpod_auth_client/module.dart' as auth;
@@ -44,7 +44,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         final roles = await client.rol.obtenerRoles();
         // TODO(anyone): Ver como manejar los roles que se muestran
         final rolesAMostrar = roles
-            .where((rol) => rol.nombre == 'alumno' || rol.nombre == 'docente')
+            .where((rol) => rol.name == 'Alumno' || rol.name == 'Docente')
             .toList();
         emit(
           BlocKycEstadoExitoso.desde(
@@ -196,7 +196,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
         );
 
-        if (state.rolElegido?.nombre == 'docente') {
+        if (state.rolElegido?.name == 'Docente') {
           final soliAsignaturas = state.opcionesFormulario
               .map((e) => e.asignaturaSeleccionada!)
               .toList();
@@ -206,7 +206,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           );
         }
 
-        if (state.rolElegido?.nombre == 'alumno') {
+        if (state.rolElegido?.name == 'Alumno') {
           await client.usuario.enviarSolicitudRegistroAlumno(
             idComisionDeCursoSolicitada:
                 state.opcionesFormulario.first.comisionSeleccionada!.id ?? 0,

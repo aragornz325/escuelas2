@@ -18,7 +18,7 @@ class BlocCargaCalificacionesEstado {
   BlocCargaCalificacionesEstado.desde(
     BlocCargaCalificacionesEstado otro, {
     ComisionDeCurso? curso,
-    RolDeUsuario? rolDelUsuario,
+    Role? rolDelUsuario,
     Asignatura? asignatura,
     List<Calificacion>? listaCalificacionesCompensadas,
     DateTime? fecha,
@@ -37,7 +37,7 @@ class BlocCargaCalificacionesEstado {
   final ComisionDeCurso? curso;
 
   /// Rol del usuario
-  final RolDeUsuario? rolDelUsuario;
+  final Role? rolDelUsuario;
 
   /// Asignatura del usuario
   final Asignatura? asignatura;

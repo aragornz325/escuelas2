@@ -18,8 +18,8 @@ class BlocKycEstado {
     List<ComisionDeCurso>? listaComisiones,
     List<Asignatura>? listaAsignaturas,
     List<OpcionFormulario>? opcionesFormulario,
-    List<RolDeUsuario>? listaRoles,
-    RolDeUsuario? rolElegido,
+    List<Role>? listaRoles,
+    Role? rolElegido,
     bool eliminarRolElegido = false,
   }) : this._(
           listaComisiones: listaComisiones ?? otro.listaComisiones,
@@ -54,13 +54,13 @@ class BlocKycEstado {
           [],
       rolElegido: json['rolElegido'] == null
           ? null
-          : RolDeUsuario.fromJson(
+          : Role.fromJson(
               json['rolElegido'] as Map<String, dynamic>,
               Protocol(),
             ),
       listaRoles: (json['listaRoles'] as List<dynamic>?)
               ?.map(
-                (e) => RolDeUsuario.fromJson(
+                (e) => Role.fromJson(
                   e as Map<String, dynamic>,
                   Protocol(),
                 ),
@@ -80,10 +80,10 @@ class BlocKycEstado {
   final List<OpcionFormulario> opcionesFormulario;
 
   /// Rol elegido por el usuario en la pantalla de seleccion de rol
-  final RolDeUsuario? rolElegido;
+  final Role? rolElegido;
 
   /// Lista de roles a mostrar en pantalla
-  final List<RolDeUsuario> listaRoles;
+  final List<Role> listaRoles;
 
   /// Indica si el state es cargando
   bool get estaEnEstadoCargando => this is BlocKycEstadoCargando;
@@ -115,8 +115,8 @@ class BlocKycEstado {
     return {
       'listaComisiones': listaComisiones.map((e) => e.toJsonBloc()).toList(),
       'listaAsignaturas': listaAsignaturas.map((e) => e.toJsonBloc()).toList(),
-      'rolElegido': rolElegido?.toJsonBloc(),
-      'listaRoles': listaRoles.map((e) => e.toJsonBloc()).toList(),
+      'rolElegido': rolElegido?.toJson(),
+      'listaRoles': listaRoles.map((e) => e.toJson()).toList(),
     };
   }
 }

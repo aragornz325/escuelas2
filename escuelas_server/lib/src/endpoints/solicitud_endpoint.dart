@@ -14,6 +14,7 @@ class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
     Solicitud solicitud,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'crearSolicitu',
       () => servicio.crearSolicitud(
         session,
@@ -29,6 +30,7 @@ class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
     Solicitud solicitud,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'actualizarSolicitud',
       () => servicio.actualizarSolicitud(
         session,
@@ -44,6 +46,7 @@ class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
     Session session,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'obtenerSolicitudes',
       () => servicio.obtenerSolicitudes(
         session,
@@ -61,6 +64,7 @@ class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
     int id,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'obtenerSolicitud',
       () => servicio.obtenerSolicitudPorId(
         session,
@@ -77,6 +81,7 @@ class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
     int idUsuario,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'obtenerSolicitudesPorIdUsuario',
       () => servicio.obtenerSolicitudes(
         session,
@@ -96,6 +101,7 @@ class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
     int id,
   ) async {
     return await ejecutarOperacionControlador(
+      session,
       'eliminarSolicitud',
       () => servicio.eliminarSolicitud(
         session,

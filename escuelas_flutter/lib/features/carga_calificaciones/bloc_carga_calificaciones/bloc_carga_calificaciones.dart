@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:rolemissions/rolemissions.dart';
 
 part 'bloc_carga_calificaciones_estado.dart';
 part 'bloc_carga_calificaciones_evento.dart';
@@ -104,10 +105,12 @@ class BlocCargaCalificaciones
             listaCalificaciones: listaCalificaciones,
             listaCalificacionesCompensadas: listaCalificacionCompensacion,
             // TODO(anyone): usar el usuario del dashboard cuando gon lo haga.
-            rolDelUsuario: RolDeUsuario(
+            rolDelUsuario: Role(
               id: 1,
-              nombre: 'docente',
-              descripcion: '',
+              name: '',
+              permissions: '',
+              createdAt: DateTime.now(),
+              updatedAt: DateTime.now(),
             ),
           ),
         );

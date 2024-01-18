@@ -9,6 +9,8 @@ environment:
 dependencies:
   escuelas_client:
     path: ../escuelas_client
+  rolemissions:
+    path: ../rolemissions
 
 dev_dependencies:
   mocktail: ^1.0.0

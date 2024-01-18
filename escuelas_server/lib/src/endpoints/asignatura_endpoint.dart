@@ -59,6 +59,7 @@ class AsignaturaEndpoint extends Endpoint with Controller {
     required int id,
   }) async =>
       ejecutarOperacionControlador(
+        session,
         'eliminarAsignatura',
         () => servicio.eliminarAsignatura(
           session,
@@ -72,6 +73,7 @@ class AsignaturaEndpoint extends Endpoint with Controller {
     required int idUsuario,
   }) async =>
       ejecutarOperacionControlador(
+        session,
         'relacionUsuarioAAsignaturas',
         () => servicio.asignarUsuarioAAsignaturas(
           session,

@@ -9,6 +9,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
 
   Future<Usuario> obtenerDatosDelUsuario(Session session) =>
       ejecutarOperacionControlador(
+        session,
         'obtenerDatosDelUsuario',
         () => servicio.obtenerDatosDelUsuario(session),
       );
@@ -31,6 +32,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   Future<UsuarioPendiente?> obtenerDatosDeSolicitudDelUsuario(
           Session session) async =>
       ejecutarOperacionControlador(
+        session,
         'obtenerDatosDeSolicitudDelUsuario',
         () => servicio.obtenerDatosDeSolicitudDelUsuario(session),
       );
@@ -41,6 +43,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   /// El usuario pendiente se obtiene a traves del id de [UserInfo] dentro del manager.
   Future<UsuarioPendiente?> obtenerUsuarioPendiente(Session session) async =>
       ejecutarOperacionControlador(
+        session,
         'obtenerUsuarioPendiente',
         () => servicio.obtenerUsuarioPendiente(session),
       );
@@ -51,6 +54,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     required int idUsuarioPendiente,
   }) async =>
       ejecutarOperacionControlador(
+        session,
         'obtenerUsuarioPendientePorId',
         () => servicio.obtenerUsuarioPendientePorId(
           session,
@@ -67,6 +71,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   Future<List<UsuarioPendiente>> obtenerUsuariosPendientes(
           Session session) async =>
       ejecutarOperacionControlador(
+        session,
         'obtenerUsuariosPendientes',
         () => servicio.obtenerUsuariosPendientes(session),
       );
@@ -85,6 +90,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     required List<Asignatura> asignaturasASolicitar,
   }) async =>
       ejecutarOperacionControlador(
+        session,
         'enviarSolicitudRegistroDocente',
         () => servicio.enviarSolicitudRegistro(
           session,
@@ -108,6 +114,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     required int idComisionDeCursoSolicitada,
   }) async =>
       ejecutarOperacionControlador(
+        session,
         'enviarSolicitudRegistroAlumno',
         () => servicio.enviarSolicitudRegistro(
           session,
@@ -124,6 +131,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     required UsuarioPendiente usuarioPendiente,
   }) =>
       ejecutarOperacionControlador(
+        session,
         'responderSolicitudDeRegistro',
         () => servicio.responderSolicitudDeRegistro(
           session,
@@ -136,6 +144,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     required int idComision,
   }) =>
       ejecutarOperacionControlador(
+        session,
         'obtenerListaDeEstudiantesDeComision',
         () => servicio.obtenerListaDeEstudiantesDeComision(
           session,
@@ -149,6 +158,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     required OrdenarPor ordenarUsuariosPor,
   }) async {
     return await ejecutarOperacionControlador(
+      session,
       'obtenerUsuariosPorRolSorteados',
       () => servicio.obtenerUsuariosPorRolSorteados(
         session,
