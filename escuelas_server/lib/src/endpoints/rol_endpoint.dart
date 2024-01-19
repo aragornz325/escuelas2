@@ -43,7 +43,6 @@ class RolEndpoint extends Endpoint with Controller<ServicioRol> {
       session,
       'obtenerRoles',
       () => servicio.obtenerRoles(session),
-      permisoRequerido: PermisoDeAsistencia.verAsistencia,
     );
   }
 

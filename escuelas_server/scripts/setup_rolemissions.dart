@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:rolemissions/rolemissions.dart';
 
-void main() {
+void main() async {
   // ! TODO(anyone): remover las credenciales de la base de datos
   final rolemission = Rolemissions(
     persistanceDelegate: PostgresStrategy(
@@ -14,7 +14,7 @@ void main() {
     ),
   );
 
-  rolemission.initialFixture(
+  await rolemission.initialFixture(
     userTable: 'usuarios',
   );
 

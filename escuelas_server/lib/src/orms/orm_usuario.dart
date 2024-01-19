@@ -43,9 +43,6 @@ class OrmUsuario extends ORM {
        '''),
     );
 
-    // final roles =
-    //     rolesQuery.map((e) => Role.fromJson(e['roles']!, Protocol())).toList();
-
     /// transforma la lista en un mapa con las keys con el nombre del rol y como value el permission
     final roles = rolesQuery.fold<Map<String, String>>(
       {},

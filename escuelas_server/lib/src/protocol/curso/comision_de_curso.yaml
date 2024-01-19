@@ -5,6 +5,6 @@ fields:
   curso: Curso?, relation
   anioLectivo: int
   ultimaModificacion: DateTime
-  fechaCreacion: DateTime, scope=serverOnly
+  fechaCreacion: DateTime?, scope=serverOnly
   fechaEliminacion: DateTime?, scope=serverOnly
   estudiantes: List<RelacionComisionUsuario>?, relation(name=comision_comisiones)

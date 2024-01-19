@@ -17,11 +17,11 @@ mixin Controller<T extends Servicio> {
     Future<K> Function() funcion, {
     Enum? permisoRequerido,
   }) async {
-    final usuario = await _servicioUsuario.obtenerInfoBasicaUsuario(
-      session,
-    );
-
     if (permisoRequerido != null) {
+      final usuario = await _servicioUsuario.obtenerInfoBasicaUsuario(
+        session,
+      );
+
       final roles = usuario.roles;
       final privilegios = usuario.privileges;
 
