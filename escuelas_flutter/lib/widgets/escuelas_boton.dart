@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -77,11 +78,11 @@ class EscuelasBoton extends StatelessWidget {
     final l10n = context.l10n;
 
     return EscuelasBoton(
-      width: 210.pw,
+      width: 212.pw,
       height: max(30.sh, 30.ph),
       estaHabilitado: true,
       onTap: onTap,
-      color: colores.primaryContainer,
+      color: colores.azul,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
