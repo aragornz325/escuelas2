@@ -6,8 +6,6 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/login/bloc/bloc_login.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
-import 'package:escuelas_flutter/theming/base.dart';
-
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -106,7 +104,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 24.pf,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: FontWeight.w800,
                   ),
                 ),
                 SizedBox(height: 20.ph),
@@ -116,13 +114,14 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 13.pf,
+                    fontWeight: FontWeight.w600,
                   ),
                 ),
                 SizedBox(height: 55.ph),
                 Container(
                   height: max(50.ph, 50.sh),
                   width: 50.pw,
-                  decoration: BoxDecoration(color: colores.grisSC),
+                  decoration: BoxDecoration(color: colores.secondary),
                 ),
                 SizedBox(height: 35.ph),
                 EscuelasTextfield.soloNumero(
