@@ -305,6 +305,13 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   }) async {
     final ahora = DateTime.now();
 
+    await ejecutarOperacion(
+      () => _ormUsuarioPendiente.actualizarUsuarioPendiente(
+        session,
+        usuarioPendiente: usuarioPendiente..ultimaModificacion = ahora,
+      ),
+    );
+
     final usuario = await ejecutarOperacion(
       () => orm.crearUsuario(
         session,
@@ -320,7 +327,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     );
 
     final idUsuario = usuario.id;
-    final asignaturasSolicitadas = usuarioPendiente.asignaturasSolicitadas;
+
     final comisionSolicitada = usuarioPendiente.comisionSolicitada;
 
     if (idUsuario == null) {
@@ -340,7 +347,15 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
 
-    if (asignaturasSolicitadas != null && asignaturasSolicitadas.isNotEmpty) {
+    final asignaturasSolicitadas = await ejecutarOperacion(
+      () => _servicioAsignatura
+          .obtenerAsignaturasSolicitadasPorIdUsuarioPendiente(
+        session,
+        idUsuarioPendiente: usuarioPendiente.id ?? 0,
+      ),
+    );
+
+    if (asignaturasSolicitadas.isNotEmpty) {
       await ejecutarOperacion(
         () => _servicioAsignatura.asignarAsignaturasSolicitadas(
           session,
@@ -357,13 +372,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         ),
       );
     }
-
-    return ejecutarOperacion(
-      () => _ormUsuarioPendiente.actualizarUsuarioPendiente(
-        session,
-        usuarioPendiente: usuarioPendiente..ultimaModificacion = ahora,
-      ),
-    );
   }
 
   Future<List<RelacionComisionUsuario>> obtenerListaDeEstudiantesDeComision(
