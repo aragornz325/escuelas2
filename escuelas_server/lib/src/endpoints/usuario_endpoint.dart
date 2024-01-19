@@ -87,7 +87,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   Future<UsuarioPendiente> enviarSolicitudRegistroDocente(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
-    required List<Asignatura> asignaturasASolicitar,
+    required List<AsignaturaSolicitada> asignaturasSolicitadas,
   }) async =>
       ejecutarOperacionControlador(
         session,
@@ -95,7 +95,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         () => servicio.enviarSolicitudRegistro(
           session,
           usuarioPendiente: usuarioPendiente,
-          asignaturasASolicitar: asignaturasASolicitar,
+          asignaturasSolicitadas: asignaturasSolicitadas,
           esDocente: true,
         ),
       );
@@ -128,14 +128,16 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   /// En caso de aprobar la solicitud, se crea un [Usuario].
   Future<void> responderSolicitudDeRegistro(
     Session session, {
-    required UsuarioPendiente usuarioPendiente,
+    required EstadoDeSolicitud estadoDeSolicitud,
+    required int idUsuarioPendiente,
   }) =>
       ejecutarOperacionControlador(
         session,
         'responderSolicitudDeRegistro',
         () => servicio.responderSolicitudDeRegistro(
           session,
-          usuarioPendiente: usuarioPendiente,
+          estadoDeSolicitud: estadoDeSolicitud,
+          idUsuarioPendiente: idUsuarioPendiente,
         ),
       );
 

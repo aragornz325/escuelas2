@@ -66,19 +66,4 @@ class AsignaturaEndpoint extends Endpoint with Controller {
           id: id,
         ),
       );
-
-  Future<void> asignarUsuarioAAsignaturas(
-    Session session, {
-    required List<Asignatura> asignaturas,
-    required int idUsuario,
-  }) async =>
-      ejecutarOperacionControlador(
-        session,
-        'relacionUsuarioAAsignaturas',
-        () => servicio.asignarUsuarioAAsignaturas(
-          session,
-          asignaturas: asignaturas,
-          usuarioId: idUsuario,
-        ),
-      );
 }

@@ -1,7 +1,0 @@
-class: ComisionSolicitada
-table: comision_solicitada
-fields:
-  comision: ComisionDeCurso?, relation
-  ultimaModificacion: DateTime
-  fechaCreacion: DateTime
-  fechaEliminacion: DateTime?

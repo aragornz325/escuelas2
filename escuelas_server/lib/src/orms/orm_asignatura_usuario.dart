@@ -5,7 +5,7 @@ import 'package:serverpod/serverpod.dart';
 class OrmRelacionAsignaturaUsuario extends ORM {
   Future<void> crearRelacionUsuarioAAsignaturas(
     Session session, {
-    required List<int> idAsignaturas,
+    required List<AsignaturaSolicitada> asignaturasSolicitadas,
     required int usuarioId,
   }) async {
     final ahora = DateTime.now();
@@ -16,12 +16,13 @@ class OrmRelacionAsignaturaUsuario extends ORM {
         await RelacionAsignaturaUsuario.db.insert(
           session,
           [
-            ...idAsignaturas.map(
-              (idAsignatura) => RelacionAsignaturaUsuario(
-                asignaturaId: idAsignatura,
+            ...asignaturasSolicitadas.map(
+              (asignatura) => RelacionAsignaturaUsuario(
+                asignaturaId: asignatura.asignaturaId,
                 usuarioId: usuarioId,
                 ultimaModificacion: ahora,
                 fechaCreacion: ahora,
+                idComision: asignatura.idComision,
               ),
             ),
           ],

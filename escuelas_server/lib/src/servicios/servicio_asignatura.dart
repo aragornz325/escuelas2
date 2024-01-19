@@ -117,30 +117,6 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
     );
   }
 
-  Future<void> asignarUsuarioAAsignaturas(
-    Session session, {
-    required List<Asignatura> asignaturas,
-    required int usuarioId,
-  }) async {
-    final idAsignaturas = asignaturas.map((asignatura) {
-      final id = asignatura.id;
-
-      if (id == null) {
-        throw Exception('La asignatura no tiene id');
-      }
-
-      return id;
-    }).toList();
-
-    await ejecutarOperacion(
-      () => _ormUsuarioAsignatura.crearRelacionUsuarioAAsignaturas(
-        session,
-        idAsignaturas: idAsignaturas,
-        usuarioId: usuarioId,
-      ),
-    );
-  }
-
   Future<List<AsignaturaSolicitada>> crearAsignaturasSolicitadas(
     Session session, {
     required List<AsignaturaSolicitada> asignaturasSolicitadas,
@@ -171,14 +147,11 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
     required List<AsignaturaSolicitada> asignaturasSolicitadas,
     required int usuarioId,
   }) async {
-    final idAsignaturas =
-        asignaturasSolicitadas.map((e) => e.asignaturaId).toList();
-
     await ejecutarOperacion(
       () => _ormUsuarioAsignatura.crearRelacionUsuarioAAsignaturas(
         session,
-        idAsignaturas: idAsignaturas,
         usuarioId: usuarioId,
+        asignaturasSolicitadas: asignaturasSolicitadas,
       ),
     );
   }
