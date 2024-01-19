@@ -1,0 +1,113 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "roles_de_usuario"
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "r_usuario_rol"
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "usuarios",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "privileges",
+            "columnType": 0,
+            "isNullable": true,
+            "dartType": "String?"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "tableDropped",
+            "message": "Table \"roles_de_usuario\" will be dropped.",
+            "table": "roles_de_usuario",
+            "columns": [],
+            "destrucive": true
+          },
+          {
+            "type": "tableDropped",
+            "message": "Table \"r_usuario_rol\" will be dropped.",
+            "table": "r_usuario_rol",
+            "columns": [],
+            "destrucive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "usuarios_pendientes",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "usuarios_pendientes_fk_0",
+            "columns": [
+              "comisionSolicitadaId"
+            ],
+            "referenceTable": "comision_solicitada",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 0
+          }
+        ],
+        "deleteForeignKeys": [
+          "usuarios_pendientes_fk_1",
+          "usuarios_pendientes_fk_0"
+        ],
+        "warnings": [
+          {
+            "type": "tableDropped",
+            "message": "Table \"roles_de_usuario\" will be dropped.",
+            "table": "roles_de_usuario",
+            "columns": [],
+            "destrucive": true
+          },
+          {
+            "type": "tableDropped",
+            "message": "Table \"r_usuario_rol\" will be dropped.",
+            "table": "r_usuario_rol",
+            "columns": [],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "Table \"roles_de_usuario\" will be dropped.",
+      "table": "roles_de_usuario",
+      "columns": [],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "Table \"r_usuario_rol\" will be dropped.",
+      "table": "r_usuario_rol",
+      "columns": [],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

@@ -281,6 +281,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.5.2"
+  escuelas_client:
+    dependency: transitive
+    description:
+      path: "../escuelas_client"
+      relative: true
+    source: path
+    version: "0.0.0"
+  escuelas_commons:
+    dependency: "direct main"
+    description:
+      path: "../escuelas_commons"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   executor:
     dependency: transitive
     description:
@@ -641,6 +655,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.2"
+  rolemissions:
+    dependency: "direct main"
+    description:
+      path: "../rolemissions"
+      relative: true
+    source: path
+    version: "0.1.0+1"
   rxdart:
     dependency: transitive
     description:
@@ -670,6 +691,14 @@ packages:
     description:
       name: serverpod
       sha256: cce2621460bbeffdddff71704be496366627dc222bc15a49cfa3c2724716e3ef
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
+  serverpod_auth_client:
+    dependency: transitive
+    description:
+      name: serverpod_auth_client
+      sha256: "9fb3f67a8b1f9e6c35a792ef64156d54c96730644379692a4d536573bc4cbc60"
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"

@@ -54,7 +54,7 @@ class _VistaCelularListadoComunidadState
             children: [
               Center(
                 child: Text(
-                  '${rolElegido.nombre.toUpperCase()}S',
+                  '${rolElegido.name.toUpperCase()}S',
                   style: TextStyle(
                     color: colores.onBackground,
                     fontSize: 16.pf,

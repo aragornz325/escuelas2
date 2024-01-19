@@ -27,8 +27,8 @@ class VistaCelularMenuComunidadAcademica extends StatelessWidget {
                     padding: EdgeInsets.only(bottom: 15.ph),
                     child: ElementoLista.menu(
                       onTap: () => context.router
-                          .push(RutaListadoComunidad(idRol: e.id ?? 0)),
-                      nombreOpcion: e.nombre,
+                          .push(RutaListadoComunidad(idRol: e.id)),
+                      nombreOpcion: e.name,
                       context: context,
                     ),
                   ),

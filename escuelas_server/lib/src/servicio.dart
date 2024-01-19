@@ -1,4 +1,4 @@
-// ignore_for_file: avoid_shadowing_type_parameters
+import 'dart:async';
 
 import 'package:cloudinary/cloudinary.dart';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
@@ -36,7 +36,7 @@ abstract class Servicio<T extends ORM> {
   // final similarWeb = SimilarWeb('API-KEY');
 
   /// Metodo para ejecutar las operaciones y manejar errores.
-  Future<T> ejecutarOperacion<T>(Future<T> Function() operacion) async {
+  Future<T> ejecutarOperacion<T>(FutureOr<T> Function() operacion) async {
     try {
       return operacion();
     } on ExcepcionCustom catch (e, st) {
