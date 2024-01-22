@@ -59,4 +59,40 @@ class OrmCalificacion extends ORM {
       (session) => Calificacion.db.delete(session, calificaciones),
     );
   }
+
+  /// La función `obtenerCalificacionesPorAsignaturaPorPeriodo` recupera una lista de calificaciones
+  /// para una materia y periodo específico.
+  ///
+  /// Args:
+  ///   session (Session): El parámetro de sesión es una instancia de la clase Session, que se utiliza
+  /// para interactuar con la base de datos.
+  ///   idAsignatura (int): El ID de la asignatura de la que quieres obtener las calificaciones.
+  ///   periodo (Periodo): El parámetro "periodo" es un objeto de tipo "Periodo" que representa un
+  /// período de tiempo específico. Tiene dos propiedades: "fechaInicio" (fecha de inicio del período)
+  /// y "fechaFin" (fecha de finalización del período).
+  ///
+  /// Returns:
+  ///   a `Future<List<Calificacion>>`.
+  Future<List<Calificacion>> obtenerCalificacionesPorAsignaturaPorPeriodo(
+    Session session, {
+    required int idAsignatura,
+    required Periodo periodo,
+  }) async {
+    return await ejecutarOperacionOrm(
+      session,
+      (session) => Calificacion.db.find(
+        session,
+        where: (t) {
+          return t.idAsignatura.equals(idAsignatura) &
+              t.fechaCreacion.between(
+                periodo.fechaInicio,
+                periodo.fechaFin,
+              );
+        },
+        include: Calificacion.include(
+          estudiante: Usuario.include(),
+        ),
+      ),
+    );
+  }
 }

@@ -68,4 +68,21 @@ class CalificacionEndpoint extends Endpoint with Controller {
           numeroDeMes: numeroDeMes,
         ),
       );
+
+  /// El método `obtenerCalificacionesPorAsignaturaPorPeriodo` es una función que recupera una lista de
+  /// calificaciones para una materia y periodo específico.
+  Future<List> obtenerCalificacionesPorAsignaturaPorPeriodo(
+    Session session, {
+    required int idAsignatura,
+    required Periodo periodo,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'obtenerCalificacionesPorAsignaturaPorPeriodo',
+        () async => await servicio.obtenerCalificacionesPorAsignaturaPorPeriodo(
+          session,
+          idAsignatura: idAsignatura,
+          periodo: periodo,
+        ),
+      );
 }

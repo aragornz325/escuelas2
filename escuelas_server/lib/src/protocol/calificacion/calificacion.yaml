@@ -2,7 +2,7 @@ class: Calificacion
 table: calificaciones
 fields:
   idAutor: int, relation(parent=usuarios)
-  idEstudiante: int, relation(parent=usuarios)
+  estudiante: Usuario?, relation
   idComision: int, relation(parent=comisiones)
   idAsignatura: int, relation(parent=asignaturas)
   idInstanciaDeEvaluacion: int, relation(parent=instancias_de_evaluacion)
