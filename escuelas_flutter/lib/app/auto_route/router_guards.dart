@@ -2,7 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
+import 'package:escuelas_flutter/isar/isar_servicio.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
+import 'package:escuelas_flutter/utilidades/funciones/cerrar_sesion_usuario.dart';
 
 import 'package:serverpod_auth_shared_flutter/serverpod_auth_shared_flutter.dart';
 
@@ -51,20 +53,36 @@ class InitialGuard extends AutoRouteGuard {
     final isSignedIn = _sessionManager.isSignedIn;
 
     if (isSignedIn) {
-      return router.push<void>(
-        RutaDashboard(
-          // TODO(SAM): Eliminar y luego agarrar de localstorage/isar/etc
-          userInfo: sessionManager.signedInUser!,
-          usuario: Usuario(
-            id: 10,
-            idUserInfo: 2,
-            nombre: 'John',
-            apellido: 'Doe',
-            urlFotoDePerfil: 'https://example.com/profile.jpg',
-            dni: '123456789',
+      final usuarioLocal = await IsarServicio.traerUsuarioActual();
+
+      if (usuarioLocal != null) {
+        return router.push<void>(
+          RutaDashboard(
+            userInfo: sessionManager.signedInUser!,
+            usuario: usuarioLocal,
           ),
-        ),
-      );
+        );
+      }
+
+      final usuarioPendiente = await IsarServicio.traerUsuariosPendientes();
+
+      switch (usuarioPendiente.estadoDeSolicitud) {
+        case EstadoDeSolicitud.aprobado:
+          return router.push<void>(
+            const RutaLogin(),
+          );
+
+        case EstadoDeSolicitud.pendiente:
+          return router.push<void>(
+            const RutaEspera(),
+          );
+        case EstadoDeSolicitud.rechazado:
+          await cerrarSesionUsuario();
+
+          return router.push<void>(
+            const RutaLogin(),
+          );
+      }
     }
 
     return resolver.next();

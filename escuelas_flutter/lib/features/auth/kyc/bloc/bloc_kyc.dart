@@ -3,12 +3,11 @@ import 'package:escuelas_flutter/extensiones/asignatura.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/extensiones/comision_de_curso.dart';
 import 'package:escuelas_flutter/extensiones/user_info.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
+import 'package:escuelas_flutter/isar/isar_servicio.dart';
+import 'package:escuelas_flutter/utilidades/funciones/cerrar_sesion_usuario.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:rolemissions/rolemissions.dart';
-// TODO(anyone): Revisar si esto sirve, tenia un problema de importaciones con
-// el userInfo y el protocol
 import 'package:serverpod_auth_client/module.dart' as auth;
 
 part 'bloc_kyc_estado.dart';
@@ -37,15 +36,34 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     emit(BlocKycEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
+        final usuarioPendiente = await client.usuario.obtenerUsuarioPendiente();
+
+        if (usuarioPendiente?.estadoDeSolicitud == EstadoDeSolicitud.aprobado) {
+          await IsarServicio.eliminarUsuariosPendientes();
+
+          final usuario = await client.usuario.obtenerDatosDelUsuario();
+
+          await IsarServicio.guardarUsuario(usuario);
+
+          return emit(
+            BlocKycEstadoExitoSolicitudAprobada.desde(
+              state,
+              usuario: usuario,
+            ),
+          );
+        }
         final asignaturas = await client.asignatura.obtenerAsignaturas();
 
         final comisiones = await client.comision.obtenerComisiones();
 
         final roles = await client.rol.obtenerRoles();
+
         // TODO(anyone): Ver como manejar los roles que se muestran
+
         final rolesAMostrar = roles
             .where((rol) => rol.name == 'Alumno' || rol.name == 'Docente')
             .toList();
+
         emit(
           BlocKycEstadoExitoso.desde(
             state,
@@ -176,7 +194,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
-  /// Elimina una opcion de la lista de kyc
+  /// Solicita el registro del usuario con las opciones del formulario
   Future<void> _onSolicitarRegistro(
     BlocKycEventoSolicitarRegistro event,
     Emitter<BlocKycEstado> emit,
@@ -197,21 +215,37 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         );
 
         if (state.rolElegido?.name == 'Docente') {
-          final soliAsignaturas = state.opcionesFormulario
-              .map((e) => e.asignaturaSeleccionada!)
-              .toList();
-          await client.usuario.enviarSolicitudRegistroDocente(
-            asignaturasASolicitar: soliAsignaturas,
+          final solicitudAsignaturas = state.opcionesFormulario.map((opcion) {
+            final asignatura = opcion.asignaturaSeleccionada!;
+            final comision = opcion.comisionSeleccionada!;
+
+            // Creacion del objeto a partir de las opciones de formulario
+            return AsignaturaSolicitada(
+              asignaturaId: asignatura.id ?? 0,
+              asignatura: asignatura,
+              idComision: comision.id ?? 0,
+              idUsuarioPendiente: usuarioPendiente.id ?? 0,
+              ultimaModificacion: DateTime.now(),
+              fechaCreacion: DateTime.now(),
+            );
+          }).toList();
+
+          final usuarioPendienteDocente =
+              await client.usuario.enviarSolicitudRegistroDocente(
             usuarioPendiente: usuarioPendiente,
+            asignaturasSolicitadas: solicitudAsignaturas,
           );
+          await IsarServicio.guardarUsuarioPendiente(usuarioPendienteDocente);
         }
 
         if (state.rolElegido?.name == 'Alumno') {
-          await client.usuario.enviarSolicitudRegistroAlumno(
+          final usuarioPendienteAlumno =
+              await client.usuario.enviarSolicitudRegistroAlumno(
             idComisionDeCursoSolicitada:
                 state.opcionesFormulario.first.comisionSeleccionada!.id ?? 0,
             usuarioPendiente: usuarioPendiente,
           );
+          await IsarServicio.guardarUsuarioPendiente(usuarioPendienteAlumno);
         }
 
         emit(
@@ -237,15 +271,8 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
 
     await operacionBloc(
       callback: (client) async {
-        await sessionManager.signOut();
-
-        if (!sessionManager.isSignedIn) {
-          emit(BlocKycEstadoCerrarSesionExitoso.desde(state));
-        } else {
-          emit(
-            BlocKycEstadoFallido.desde(state),
-          );
-        }
+        await cerrarSesionUsuario();
+        emit(BlocKycEstadoCerrarSesionExitoso.desde(state));
       },
       onError: (e, st) {
         emit(
@@ -281,7 +308,6 @@ class OpcionFormulario {
 
   final ComisionDeCurso? comisionSeleccionada;
   final Asignatura? asignaturaSeleccionada;
+
   final int idOpcion;
 }
-
-// TODO(SAM): Agregar logout event y tmb clear de localstorage de datos del user

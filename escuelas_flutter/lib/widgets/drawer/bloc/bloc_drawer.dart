@@ -1,5 +1,5 @@
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
+import 'package:escuelas_flutter/utilidades/funciones/cerrar_sesion_usuario.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_drawer_estado.dart';
@@ -31,15 +31,10 @@ class BlocDrawer extends Bloc<BlocDrawerEvento, BlocDrawerEstado> {
 
     await operacionBloc(
       callback: (client) async {
-        await sessionManager.signOut();
-
-        if (!sessionManager.isSignedIn) {
-          emit(BlocDrawerEstadoCerrarSesionExitoso.desde(state));
-        } else {
-          emit(
-            BlocDrawerEstadoError.desde(state),
-          );
-        }
+        await cerrarSesionUsuario();
+        emit(
+          BlocDrawerEstadoCerrarSesionExitoso.desde(state),
+        );
       },
       onError: (e, st) {
         emit(

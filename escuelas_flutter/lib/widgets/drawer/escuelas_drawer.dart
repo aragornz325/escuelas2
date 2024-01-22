@@ -30,8 +30,6 @@ class EscuelasDrawer extends StatelessWidget {
   /// Imagen de appbar[EscuelasDrawer].
   final String? urlImage;
 
-// TODO(SAM): Agregar inkwell/ highlight al presionar boton y mejorar dialog de feat not available
-
   /// Navega a la ruta del perfil del usuario y luego cierra la pantalla actual
   void _redireccionPerfil(BuildContext context) {
     final dState = context.read<BlocDashboard>().state;

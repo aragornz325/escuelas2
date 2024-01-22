@@ -23,7 +23,7 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
     Emitter<BlocInicioEstado> emit,
   ) async {
     emit(BlocInicioEstadoCargando.desde(state));
-// TODO(SAM): En algun momento si se requiere info inicial agregar func
+
     await operacionBloc(
       callback: (client) async {
         final listaRoles = await client.rol.obtenerRoles();
