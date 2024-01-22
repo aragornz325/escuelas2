@@ -169,4 +169,31 @@ WHERE rau."usuarioId" = $idUsuario;
     }
     return listaDeComisionesRespuesta;
   }
+
+  /// La función `obtenerCalificacionesPorAsignaturaPorPeriodo` recupera las calificaciones de una
+  /// materia y periodo específico.
+  ///
+  /// Args:
+  ///   session (Session): Un objeto de sesión que representa la sesión o conexión actual a la base de
+  /// datos. Se utiliza para ejecutar operaciones de bases de datos.
+  ///   idAsignatura (int): El parámetro "idAsignatura" representa el ID de la asignatura de la que se
+  /// quieren obtener las calificaciones.
+  ///   periodo (Periodo): El parámetro "periodo" es de tipo "Periodo" y es obligatorio.
+  ///
+  /// Returns:
+  ///   el resultado de la función `ejecutarOperacion`, que es el resultado de la función
+  /// `orm.obtenerCalificacionesPorAsignaturaPorPeriodo`.
+  Future obtenerCalificacionesPorAsignaturaPorPeriodo(
+    Session session, {
+    required int idAsignatura,
+    required Periodo periodo,
+  }) async {
+    return await ejecutarOperacion(
+      () => orm.obtenerCalificacionesPorAsignaturaPorPeriodo(
+        session,
+        idAsignatura: idAsignatura,
+        periodo: periodo,
+      ),
+    );
+  }
 }
