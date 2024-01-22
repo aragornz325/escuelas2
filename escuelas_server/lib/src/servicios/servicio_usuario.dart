@@ -276,6 +276,15 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       );
     }
 
+    if (usuarioPendiente.estadoDeSolicitud != EstadoDeSolicitud.pendiente) {
+      throw ExcepcionCustom(
+        titulo: 'La solicitud de registro ya fue respondida.',
+        mensaje: 'La solicitud de registro ya fue respondida.',
+        tipoDeError: TipoExcepcion.solicitudIncorrecta,
+        codigoError: 404,
+      );
+    }
+
     final usuario = await ejecutarOperacion(
       () => orm.crearUsuario(
         session,
@@ -330,6 +339,15 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         ),
       );
     }
+
+    await ejecutarOperacion(
+      () => _ormUsuarioPendiente.actualizarUsuarioPendiente(
+        session,
+        usuarioPendiente: usuarioPendiente
+          ..estadoDeSolicitud = EstadoDeSolicitud.aprobado
+          ..ultimaModificacion = ahora,
+      ),
+    );
   }
 
   Future<List<RelacionComisionUsuario>> obtenerListaDeEstudiantesDeComision(

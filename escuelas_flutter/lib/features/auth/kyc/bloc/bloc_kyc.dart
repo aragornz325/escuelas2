@@ -230,18 +230,22 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             );
           }).toList();
 
-          await client.usuario.enviarSolicitudRegistroDocente(
+          final usuarioPendienteDocente =
+              await client.usuario.enviarSolicitudRegistroDocente(
             usuarioPendiente: usuarioPendiente,
             asignaturasSolicitadas: solicitudAsignaturas,
           );
+          await IsarServicio.guardarUsuarioPendiente(usuarioPendienteDocente);
         }
 
         if (state.rolElegido?.name == 'Alumno') {
-          await client.usuario.enviarSolicitudRegistroAlumno(
+          final usuarioPendienteAlumno =
+              await client.usuario.enviarSolicitudRegistroAlumno(
             idComisionDeCursoSolicitada:
                 state.opcionesFormulario.first.comisionSeleccionada!.id ?? 0,
             usuarioPendiente: usuarioPendiente,
           );
+          await IsarServicio.guardarUsuarioPendiente(usuarioPendienteAlumno);
         }
 
         emit(
