@@ -196,3 +196,17 @@ class BlocKycEstadoExitoAlSolicitarRegistro extends BlocKycEstado {
     super.otro,
   ) : super.desde();
 }
+
+/// {@template BlocKycEstadoExitoSolicitudAprobada}
+/// Estado exitoso de aprobación de solicitud de un usuario.
+/// Redirige al Dashboard luego de eliminar el usuario pendiente de
+/// la base de datos local.
+/// {@endtemplate}
+class BlocKycEstadoExitoSolicitudAprobada extends BlocKycEstado {
+  /// {@macro BlocKycEstadoExitoSolicitudAprobada}
+  BlocKycEstadoExitoSolicitudAprobada.desde(
+    super.otro, {
+    required this.usuario,
+  }) : super.desde();
+  final Usuario usuario;
+}

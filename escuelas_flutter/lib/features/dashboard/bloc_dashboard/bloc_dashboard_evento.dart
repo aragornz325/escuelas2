@@ -8,14 +8,11 @@ abstract class BlocDashboardEvento {
   const BlocDashboardEvento();
 }
 
-/// {@template BlocDashboardEventoTraerInformacion}
-/// Evento que verifica si el usuario esta logueado.
+/// {@template BlocDashboardEventoInicializar}
+/// Al inicializarse bloc dashboard se dispara este evento que va a refrescar
+/// los datos del usuario en el caso de que haya cambiado algo.
 /// {@endtemplate}
-
-class BlocDashboardEventoTraerInformacion extends BlocDashboardEvento {
-  /// {@macro BlocDashboardEventoTraerInformacion}
-  BlocDashboardEventoTraerInformacion({
-    required this.idUsuario,
-  });
-  final int? idUsuario;
+class BlocDashboardEventoInicializar extends BlocDashboardEvento {
+  /// {@macro BlocDashboardEventoInicializar}
+  const BlocDashboardEventoInicializar();
 }

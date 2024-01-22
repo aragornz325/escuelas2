@@ -98,8 +98,8 @@ class BlocPerfilUsuario
           emit(BlocPerfilUsuarioEstadoError.desde(state));
         } else {
           await client.usuario.responderSolicitudDeRegistro(
-            usuarioPendiente: usuarioPendiente
-              ..estadoDeSolicitud = EstadoDeSolicitud.aprobado,
+            estadoDeSolicitud: EstadoDeSolicitud.aprobado,
+            idUsuarioPendiente: usuarioPendiente.id ?? 0,
           );
         }
 

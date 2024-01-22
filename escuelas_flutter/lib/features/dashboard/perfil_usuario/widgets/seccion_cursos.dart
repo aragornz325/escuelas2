@@ -143,7 +143,7 @@ class SeccionCursos extends StatelessWidget {
                     context: context,
                   ),
             Tipo.alumnoPendiente =>
-              state.usuarioPendiente?.comisionSolicitada?.comision != null
+              state.usuarioPendiente?.comisionSolicitada != null
                   ? Container(
                       height: 45.ph,
                       width: 340.pw,

@@ -31,8 +31,6 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
   /// Controller para el textfield de contraseña
   final controllerPassword = TextEditingController();
 
-// TODO(ANYONE): Agrandar UI de login
-
   @override
   void dispose() {
     controllerDNI.dispose();
@@ -81,7 +79,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
         }
 
         if (state is BlocLoginEstadoSolicitudRechazada) {
-          // TODO(SAM): Mostrar dialog de aviso solicitud rechazada y
+          // TODO(Anyone): Mostrar dialog de aviso solicitud rechazada y
           // redireccion a KYC.
           context.replaceRoute(const RutaKyc());
         }
