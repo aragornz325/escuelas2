@@ -2,6 +2,8 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:flutter/material.dart';
 
+// TODO(ANYONE): Reemplazar por el nuevo sistema de roles
+
 /// Distintas etiquetas que tienen un titulo, permisos asignados
 /// y una funcion de redireccion. Que se usan para dibujar en la UI y que el
 /// usuario pueda seleccionar entre ellas para navegar.
@@ -44,7 +46,7 @@ enum InfoDeRol {
         return [1, 2, 8];
       case InfoDeRol.supervision:
         // TODO(ANYONE): para la entrega del MVP no es necesario 11/1/2024
-        return [];
+        return [1, 2, 8];
     }
   }
 
