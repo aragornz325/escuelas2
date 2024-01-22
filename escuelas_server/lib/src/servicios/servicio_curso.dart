@@ -96,4 +96,27 @@ class ServicioCurso extends Servicio<OrmCurso> {
           id: id,
         ));
   }
+
+  /// La función `obtenerAsignaturasPorCurso` recupera una lista de cursos por su ID.
+  /// 
+  /// Args:
+  ///   session (Session): Un objeto de sesión que representa una conexión a una base de datos o una
+  /// sesión de usuario específica. Se utiliza para ejecutar operaciones de bases de datos y gestionar
+  /// transacciones.
+  ///   idCurso (int): El parámetro "idCurso" es un número entero que representa el ID de un curso.
+  /// 
+  /// Returns:
+  ///   a `Futuro<Curso>`.
+  Future<Curso> obtenerAsignaturasPorCurso(
+    Session session, {
+    required int idCurso,
+  }) async {
+    final cursos = await ejecutarOperacion(
+      () => orm.obtenerAsignaturasPorCurso(
+        session,
+        idCurso: idCurso,
+      ),
+    );
+    return cursos;
+  }
 }
