@@ -199,10 +199,15 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     }
 
     if (esDocente) {
+      // Inserta id de usuario pendiente en asignaturas solicitadas
+      final asignaturas = asignaturasSolicitadas
+          ?.map((a) => a..idUsuarioPendiente = usuarioPendienteCreado.id ?? 0)
+          .toList();
+
       await ejecutarOperacion(
         () => _servicioAsignatura.crearAsignaturasSolicitadas(
           session,
-          asignaturasSolicitadas: asignaturasSolicitadas ?? [],
+          asignaturasSolicitadas: asignaturas ?? [],
         ),
       );
     }
