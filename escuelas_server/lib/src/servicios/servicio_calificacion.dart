@@ -73,48 +73,81 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   }) async {
     List<ComisionOverview> listaDeComisionesRespuesta = [];
 
-    final query = await session.dbNext.unsafeQueryMappedResults(session, '''
-SELECT
-  c."nombre" AS "nombreDeCurso"
-  
-FROM
-  "cursos" c
+    final queryAsignaturas = '''
+    (
+    SELECT
+      JSONB_AGG(
+        JSON_BUILD_OBJECT(
+          'idAsignatura',
+          a."id",
+          'nombreDeAsignatura',
+          a."nombre",
+          'solicitudesDeCalificacionCompletas',
+          CASE
+            WHEN (
+              SELECT
+                s."fechaRealizacion"
+              FROM
+                solicitudes_notas_mensuales snm
+                INNER JOIN solicitudes s ON s."id" = snm."idSolicitud"
+              WHERE
+                snm."idAsignatura" = a."id"
+                AND snm."idComision" = c."id"
+                AND snm."numeroDeMes" = $numeroDeMes
+            ) IS NOT NULL THEN TRUE
+            ELSE FALSE
+          END
+        )
+      )
+    FROM
+      "asignaturas" a
+      INNER JOIN r_asignatura_curso rac ON rac."idAsignatura" = a."id"
+                  WHERE
+                    rac."idCurso" = c."id"
+    
+    )
+    ''';
 
-''');
+    final query = await session.dbNext.unsafeQueryMappedResults(session, '''
+     SELECT DISTINCT ON (c."id")
+          c."id",
+          c."nombre",
+          c."cursoId",
+          COALESCE( $queryAsignaturas, '[]'::jsonb) AS "listaDeAsignaturas"
+    FROM "comisiones" c
+    INNER JOIN r_asignaturas_usuarios rau ON        rau."idComision" = c."id"
+    WHERE rau."usuarioId" = $idUsuario
+    ''');
 
     for (var curso in query) {
-      final nombreDeCurso = curso['cursos']?['nombreDeCurso'];
-      final listaDeComisiones = curso['']?['comisiones'];
+      final nombreComision = curso['comisiones']?['nombre'];
+      final idComision = curso['comisiones']?['id'];
 
-      for (var comision in listaDeComisiones) {
-        final idComision = comision['idComision'];
-        final nombreDeComision = comision['nombreDeComision'];
-        List<AsignaturaOverview> listaDeAsignaturas = [];
+      List<AsignaturaOverview> listaDeAsignaturas = [];
 
-        for (var asignatura in comision['listaDeAsignaturas']) {
-          final idAsignatura = asignatura['idAsignatura'];
-          final nombreDeAsignatura = asignatura['nombreDeAsignatura'];
-          final solicitudesDeCalificacionCompletas =
-              asignatura['solicitudesDeCalificacionCompletas'];
+      for (var asignatura in curso['']!['listaDeAsignaturas']) {
+        final idAsignatura = asignatura['idAsignatura'];
+        final nombreDeAsignatura = asignatura['nombreDeAsignatura'];
+        final solicitudesDeCalificacionCompletas =
+            asignatura['solicitudesDeCalificacionCompletas'];
 
-          listaDeAsignaturas.add(
-            AsignaturaOverview(
-              idAsignatura: idAsignatura,
-              nombreDeAsignatura: nombreDeAsignatura,
-              solicitudesDeCalificacionCompletas:
-                  solicitudesDeCalificacionCompletas,
-            ),
-          );
-        }
-        listaDeComisionesRespuesta.add(
-          ComisionOverview(
-            idComision: idComision,
-            nombreDeCurso: nombreDeCurso,
-            nombreDeComision: nombreDeComision,
-            listaDeAsignaturas: listaDeAsignaturas,
+        listaDeAsignaturas.add(
+          AsignaturaOverview(
+            idAsignatura: idAsignatura,
+            nombreDeAsignatura: nombreDeAsignatura,
+            solicitudesDeCalificacionCompletas:
+                solicitudesDeCalificacionCompletas,
           ),
         );
       }
+
+      listaDeComisionesRespuesta.add(
+        ComisionOverview(
+          idComision: idComision,
+          nombreDeComision: nombreComision,
+          listaDeAsignaturas: listaDeAsignaturas,
+        ),
+      );
     }
     return listaDeComisionesRespuesta;
   }
