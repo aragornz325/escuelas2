@@ -223,7 +223,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             return AsignaturaSolicitada(
               asignaturaId: asignatura.id ?? 0,
               asignatura: asignatura,
-              idComision: comision.id ?? 0,
+              comisionId: comision.id ?? 0,
               idUsuarioPendiente: usuarioPendiente.id ?? 0,
               ultimaModificacion: DateTime.now(),
               fechaCreacion: DateTime.now(),
