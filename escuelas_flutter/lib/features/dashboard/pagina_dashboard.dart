@@ -29,7 +29,7 @@ class PaginaDashboard extends StatefulWidget {
 
   /// Usuario de la sesion del cliente.
   final UserInfo userInfo;
-// TODO(SAM): Agregar a localstorage luego? o no ;) *Lo obligan*
+
   @override
   State<PaginaDashboard> createState() => _PaginaDashboardState();
 }
@@ -62,10 +62,7 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
           create: (context) => BlocKyc()..add(const BlocKycEventoInicializar()),
         ),
       ],
-      child: BlocConsumer<BlocDashboard, BlocDashboardEstado>(
-        listener: (context, state) {
-          // TODO(SAM): Ver que agregar luego
-        },
+      child: BlocBuilder<BlocDashboard, BlocDashboardEstado>(
         builder: (context, state) {
           return AutoRouter(
             builder: (context, content) => EscuelasScaffold(

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 
+import 'package:escuelas_flutter/isar/isar_servicio.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
@@ -35,6 +36,11 @@ Future<void> bootstrap(
   Bloc.observer = const AppBlocObserver();
 
   WidgetsFlutterBinding.ensureInitialized();
+
+  /// Se instancia el objeto de la base de datos local Isar
+  if (!kIsWeb) {
+    await IsarServicio.abrirDB();
+  }
 
   HydratedBloc.storage = await HydratedStorage.build(
     storageDirectory: kIsWeb

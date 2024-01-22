@@ -13,7 +13,7 @@ enum InfoDeRol {
   supervision;
 
 // TODO(Anyone): Ver si es inasistencias o asistencias.
-  // TODO(SAM): add funcion y pasarle context
+  // TODO(Anyone): add funcion y pasarle context
   String get titulo {
     switch (this) {
       // TODO(Anyone): Cuando esten definidos los roles decidir si va Mis Cursos

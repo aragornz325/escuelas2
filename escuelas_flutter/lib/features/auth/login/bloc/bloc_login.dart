@@ -1,5 +1,6 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+import 'package:escuelas_flutter/isar/isar_servicio.dart';
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -89,12 +90,14 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
 
         switch (usuarioPendiente.estadoDeSolicitud) {
           case EstadoDeSolicitud.rechazado:
+            await IsarServicio.guardarUsuarioPendiente(usuarioPendiente);
             emit(
               BlocLoginEstadoSolicitudRechazada.desde(
                 state,
               ),
             );
           case EstadoDeSolicitud.pendiente:
+            await IsarServicio.guardarUsuarioPendiente(usuarioPendiente);
             emit(
               BlocLoginEstadoSolicitudPendiente.desde(
                 state,
@@ -103,6 +106,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
             );
           case EstadoDeSolicitud.aprobado:
             final usuario = await client.usuario.obtenerDatosDelUsuario();
+            await IsarServicio.guardarUsuario(usuario);
             emit(
               BlocLoginEstadoSolicitudAceptada.desde(
                 state,

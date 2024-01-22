@@ -52,7 +52,7 @@ class BlocPerfilUsuarioEstado {
 
   /// Devuelve un [String] del nombre de la comision del [UsuarioPendiente]
   String get nombreComisionSolicitada =>
-      usuarioPendiente?.comisionSolicitada?.comision?.nombre ?? '';
+      usuarioPendiente?.comisionSolicitada?.nombre ?? '';
 
   /// Devuelve una lista de [NumeroDeTelefono] del usuario o una lista vacia
   /// si no tiene
@@ -69,8 +69,7 @@ class BlocPerfilUsuarioEstado {
   List<String> get nombreRolesDeUsuario => usuario?.roles?.keys.toList() ?? [];
 
   /// Devuelve un [String] con en dni del usuario
-  // TODO(anyone): Cambiar por el dni del usuario pendiente cuando este
-  String? get dniUsuario => usuario?.dni;
+  String? get dniUsuario => usuario?.dni ?? usuarioPendiente?.dni;
 
   /// Devuelve una un [String] con los nombres de los roles del usuario o un
   /// [String] vacio si no tiene roles

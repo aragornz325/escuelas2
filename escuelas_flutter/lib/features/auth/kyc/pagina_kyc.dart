@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/drawer/bloc/bloc_drawer.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -28,15 +29,27 @@ class PaginaKyc extends StatelessWidget {
       child: EscuelasScaffold(
         tieneAppBar: true,
         tieneDrawer: false,
-        cuerpo: AutoRouter(
-          builder: (context, content) {
-            return switch (context.router.current.name) {
-              RutaSeleccionDeRol.name => content,
-              RutaFormulario.name => content,
-              RutaEspera.name => content,
-              _ => const SizedBox.shrink()
-            };
+        cuerpo: BlocListener<BlocKyc, BlocKycEstado>(
+          listener: (context, state) {
+            if (state is BlocKycEstadoExitoSolicitudAprobada) {
+              context.replaceRoute(
+                RutaDashboard(
+                  usuario: state.usuario,
+                  userInfo: sessionManager.signedInUser!,
+                ),
+              );
+            }
           },
+          child: AutoRouter(
+            builder: (context, content) {
+              return switch (context.router.current.name) {
+                RutaSeleccionDeRol.name => content,
+                RutaFormulario.name => content,
+                RutaEspera.name => content,
+                _ => const SizedBox.shrink()
+              };
+            },
+          ),
         ),
       ),
     );
