@@ -182,7 +182,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
               prefixIcon: Icon(widget.prefixIcon),
               contentPadding: EdgeInsets.symmetric(horizontal: 15.sw),
               filled: true,
-              fillColor: colores.background,
+              fillColor: colores.tertiary,
               hintText: widget.hintText,
               hintStyle: TextStyle(
                 fontSize: 16.pf,

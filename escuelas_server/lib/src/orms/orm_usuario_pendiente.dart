@@ -57,9 +57,7 @@ class OrmUsuarioPendiente extends ORM {
             ),
           ),
         ),
-        comisionSolicitada: ComisionSolicitada.include(
-          comision: ComisionDeCurso.include(),
-        ),
+        comisionSolicitada: ComisionDeCurso.include(),
       ),
     );
 
@@ -85,9 +83,7 @@ class OrmUsuarioPendiente extends ORM {
             ),
           ),
         ),
-        comisionSolicitada: ComisionSolicitada.include(
-          comision: ComisionDeCurso.include(),
-        ),
+        comisionSolicitada: ComisionDeCurso.include(),
       ),
     );
 

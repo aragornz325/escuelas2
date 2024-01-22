@@ -74,62 +74,63 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
     List<ComisionOverview> listaDeComisionesRespuesta = [];
 
     final query = await session.dbNext.unsafeQueryMappedResults(session, '''
-select
-  c."nombre" as "nombreDeCurso",
+SELECT
+  c."nombre" AS "nombreDeCurso",
   (
-    select
-      jsonb_agg(
-        json_build_object(
+    SELECT
+      JSONB_AGG(
+        JSON_BUILD_OBJECT(
           'idComision',
           co."id",
           'nombreDeComision',
           co."nombre",
           'listaDeAsignaturas',
-          coalesce(
+          COALESCE(
             (
-              select
-                jsonb_agg(
-                  json_build_object(
+              SELECT
+                JSONB_AGG(
+                  JSON_BUILD_OBJECT(
                     'idAsignatura',
                     a."id",
                     'nombreDeAsignatura',
                     a."nombre",
                     'solicitudesDeCalificacionCompletas',
-                    case
-                      when (
-                        select
+                    CASE
+                      WHEN (
+                        SELECT
                           s."fechaRealizacion"
-                        from
+                        FROM
                           solicitudes_notas_mensuales snm
-                          inner join solicitudes s on s."id" = snm."idSolicitud"
-                        where
+                          INNER JOIN solicitudes s ON s."id" = snm."idSolicitud"
+                        WHERE
                           snm."idAsignatura" = a."id"
-                          and snm."idComision" = co."id"
-                          and snm."numeroDeMes" = $numeroDeMes
-                      ) is not null then true
-                      else false
-                    end
+                          AND snm."idComision" = co."id"
+                          AND snm."numeroDeMes" = $numeroDeMes
+                      ) IS NOT NULL THEN TRUE
+                      ELSE FALSE
+                    END
                   )
                 )
-              from
+              FROM
                 "asignaturas" a
-              where
+              WHERE
                 a."cursoId" = c."id"
             ),
-            '[]'::jsonb
+            '[]'::JSONB
           )
         )
       )
-    from
+    FROM
       "comisiones" co
-    where
+    WHERE
       co."cursoId" = c."id"
-  ) as "comisiones"
-from
+  ) AS "comisiones"
+FROM
   "cursos" c
-inner join asignaturas a on a."cursoId" = c."id"
-inner join r_asignaturas_usuarios rau on rau."asignaturaId" = a."id"
-where rau."usuarioId" = $idUsuario;
+INNER JOIN asignaturas a ON a."cursoId" = c."id"
+INNER JOIN r_asignaturas_usuarios rau ON rau."asignaturaId" = a."id"
+WHERE rau."usuarioId" = $idUsuario;
+
 ''');
 
     for (var curso in query) {

@@ -26,6 +26,7 @@ class OrmAsignaturaSolicitada extends ORM {
               return AsignaturaSolicitada.db.find(
                 session,
                 where: (t) => t.idUsuarioPendiente.equals(idUsuarioPendiente),
+                include: AsignaturaSolicitada.include(),
               );
             },
           );

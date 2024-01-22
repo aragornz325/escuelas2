@@ -3,10 +3,11 @@ table: r_asignaturas_usuarios
 fields:
   usuario: Usuario?, relation(name=usuario_asignaturas)
   asignatura: Asignatura?, relation(name=asignatura_asignaturas)
+  idComision: int, relation(parent=comisiones)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
 indexes:
   r_usuario_asignatura_index_idx:
     fields: usuarioId, asignaturaId
-    unique: true
+    unique: false

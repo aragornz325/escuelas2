@@ -154,7 +154,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   Future<UsuarioPendiente> enviarSolicitudRegistro(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
-    List<Asignatura>? asignaturasASolicitar,
+    List<AsignaturaSolicitada>? asignaturasSolicitadas,
     int? idComisionDeCursoSolicitada,
     bool esDocente = false,
   }) async {
@@ -199,62 +199,11 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     }
 
     if (esDocente) {
-      List<AsignaturaSolicitada> asignaturasSolicitadas = [];
-
-      // Crea  una lista de [AsignaturaSolicitada] a partir de las asignaturas a solicitar.
-      for (final asignatura in (asignaturasASolicitar ?? <Asignatura>[])) {
-        if (asignatura.id == null) {
-          continue;
-        }
-        asignaturasSolicitadas.add(
-          AsignaturaSolicitada(
-            asignaturaId: asignatura.id!,
-            idUsuarioPendiente: usuarioPendienteCreado.id!,
-            ultimaModificacion: ahora,
-            fechaCreacion: ahora,
-          ),
-        );
-      }
-
       await ejecutarOperacion(
         () => _servicioAsignatura.crearAsignaturasSolicitadas(
           session,
-          asignaturasSolicitadas: asignaturasSolicitadas,
+          asignaturasSolicitadas: asignaturasSolicitadas ?? [],
         ),
-      );
-    } else {
-      if (idComisionDeCursoSolicitada == null) {
-        throw ExcepcionCustom(
-          titulo: 'Error de solicitud.',
-          mensaje: 'Debe ingresarse un ID de comisión de curso solicitada.',
-          tipoDeError: TipoExcepcion.solicitudIncorrecta,
-          codigoError: 400,
-        );
-      }
-
-      /// TODO(anyone): BORRAR CON EL CAMBIO EN EL CAMPO `comisionSolicitada` DEL MODELO `UsuarioPendiente`.
-      final comisionSolicitadaCreada = await ejecutarOperacion(
-        () => _servicioComision.crearComisionSolicitada(
-          session,
-          idComision: idComisionDeCursoSolicitada,
-          idUsuarioPendiente: usuarioPendienteCreado.id!,
-        ),
-      );
-
-      if (comisionSolicitadaCreada.id == null) {
-        throw ExcepcionCustom(
-          titulo: 'Error al crear comision solicitada.',
-          mensaje: 'Error al crear comision solicitada.',
-          tipoDeError: TipoExcepcion.desconocido,
-          codigoError: 500,
-        );
-      }
-      usuarioPendienteCreado.comisionSolicitadaId =
-          comisionSolicitadaCreada.id!;
-
-      await actualizarUsuarioPendiente(
-        session,
-        usuarioPendiente: usuarioPendienteCreado,
       );
     }
 
@@ -279,19 +228,20 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
   Future<void> responderSolicitudDeRegistro(
     Session session, {
-    required UsuarioPendiente usuarioPendiente,
+    required EstadoDeSolicitud estadoDeSolicitud,
+    required int idUsuarioPendiente,
   }) async {
-    switch (usuarioPendiente.estadoDeSolicitud) {
+    switch (estadoDeSolicitud) {
       case EstadoDeSolicitud.aprobado:
         await _onSolicitudAprobada(
           session,
-          usuarioPendiente: usuarioPendiente,
+          idUsuarioPendiente: idUsuarioPendiente,
         );
       case EstadoDeSolicitud.rechazado:
         return ejecutarOperacion(
           () => _ormUsuarioPendiente.eliminarUsuarioPendiente(
             session,
-            id: usuarioPendiente.id ?? 0,
+            id: idUsuarioPendiente,
           ),
         );
       case EstadoDeSolicitud.pendiente:
@@ -301,9 +251,25 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
 
   Future<void> _onSolicitudAprobada(
     Session session, {
-    required UsuarioPendiente usuarioPendiente,
+    required int idUsuarioPendiente,
   }) async {
     final ahora = DateTime.now();
+
+    final usuarioPendiente = await ejecutarOperacion(
+      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(
+        session,
+        idUsuarioPendiente: idUsuarioPendiente,
+      ),
+    );
+
+    if (usuarioPendiente == null) {
+      throw ExcepcionCustom(
+        titulo: 'Usuario pendiente no encontrado.',
+        mensaje: 'Usuario pendiente no encontrado.',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
+    }
 
     final usuario = await ejecutarOperacion(
       () => orm.crearUsuario(
@@ -320,7 +286,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     );
 
     final idUsuario = usuario.id;
-    final asignaturasSolicitadas = usuarioPendiente.asignaturasSolicitadas;
+
     final comisionSolicitada = usuarioPendiente.comisionSolicitada;
 
     if (idUsuario == null) {
@@ -340,7 +306,9 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
 
-    if (asignaturasSolicitadas != null && asignaturasSolicitadas.isNotEmpty) {
+    final asignaturasSolicitadas = usuarioPendiente.asignaturasSolicitadas;
+
+    if (asignaturasSolicitadas != null) {
       await ejecutarOperacion(
         () => _servicioAsignatura.asignarAsignaturasSolicitadas(
           session,
@@ -352,18 +320,11 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       await ejecutarOperacion(
         () => _servicioComision.asignarUsuarioAComision(
           session,
-          idComision: comisionSolicitada.comisionId,
+          idComision: comisionSolicitada.id ?? 0,
           idUsuario: idUsuario,
         ),
       );
     }
-
-    return ejecutarOperacion(
-      () => _ormUsuarioPendiente.actualizarUsuarioPendiente(
-        session,
-        usuarioPendiente: usuarioPendiente..ultimaModificacion = ahora,
-      ),
-    );
   }
 
   Future<List<RelacionComisionUsuario>> obtenerListaDeEstudiantesDeComision(
