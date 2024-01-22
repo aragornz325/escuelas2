@@ -129,4 +129,5 @@ class OrmAsignatura extends ORM {
     );
     return eliminado.first;
   }
+
 }

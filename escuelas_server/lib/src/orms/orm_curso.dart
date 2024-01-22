@@ -135,4 +135,26 @@ class OrmCurso extends ORM {
       (session) => Curso.db.delete(session, [curso]),
     );
   }
+
+  Future<Curso> obtenerAsignaturasPorCurso(
+    Session session, {
+    required idCurso,
+  }) async {
+    var cursoConAsignaturas = await Curso.db.findById(
+      session,
+      idCurso,
+      include: Curso.include(
+        asignaturas: Asignatura.includeList(),
+      ),
+    );
+    if (cursoConAsignaturas == null) {
+      throw ExcepcionCustom(
+        titulo: 'no se encontro el curso.',
+        mensaje: 'no se encontro el curso.',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
+    }
+    return cursoConAsignaturas;
+  }
 }

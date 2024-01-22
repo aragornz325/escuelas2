@@ -60,4 +60,30 @@ class CursoEndpoint extends Endpoint with Controller<ServicioCurso> {
       id: id,
     );
   }
+
+  /// La función "obtenerAsignaturasPorCurso" recupera una lista de materias de un curso determinado.
+  /// 
+  /// Args:
+  ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual. Se utiliza
+  /// para autenticar y autorizar las acciones del usuario.
+  ///   idCurso (int): El parámetro "idCurso" es un número entero que representa el ID de un curso.
+  /// 
+  /// Returns:
+  ///   Se devuelve un objeto `Future<Curso>`.
+  Future<Curso> obtenerAsignaturasPorCurso(
+    Session session,
+    int idCurso,
+  ) async {
+    return await ejecutarOperacionControlador(
+      session,
+      'obtenerAsignaturasPorCurso',
+      () async {
+        final respuesta = await servicio.obtenerAsignaturasPorCurso(
+          session,
+          idCurso: idCurso,
+        );
+        return respuesta;
+      },
+    );
+  }
 }
