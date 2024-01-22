@@ -64,7 +64,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                       state.listaCalificacionesCompensadas
                           .firstWhere(
                             (cc) =>
-                                cc.idEstudiante ==
+                                cc.estudianteId ==
                                 relacionComisionUsuario.usuarioId,
                           )
                           .id,

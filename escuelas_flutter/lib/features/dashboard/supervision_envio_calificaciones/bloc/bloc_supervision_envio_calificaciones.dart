@@ -40,22 +40,18 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
               Asignatura(
                 id: 1,
                 nombre: 'Matematicas',
-                cursoId: 1,
               ),
               Asignatura(
                 id: 1,
                 nombre: 'Matematicas',
-                cursoId: 1,
               ),
               Asignatura(
                 id: 1,
                 nombre: 'Matematicas',
-                cursoId: 1,
               ),
               Asignatura(
                 id: 1,
                 nombre: 'Matematicas',
-                cursoId: 1,
               ),
             ],
           ),
