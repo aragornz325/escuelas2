@@ -2,7 +2,6 @@ class: Asignatura
 table: asignaturas
 fields: 
   nombre: String
-  curso: Curso?, relation
   ultimaModificacion: DateTime?, scope=serverOnly
   fechaCreacion: DateTime?, scope=serverOnly
   fechaEliminacion: DateTime?, scope=serverOnly

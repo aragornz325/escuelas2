@@ -1,0 +1,7 @@
+class: RelacionAsignaturaCurso
+table: r_asignatura_curso
+fields:
+  idAsignatura: int, relation(parent=asignaturas)
+  idCurso: int, relation(parent=cursos)
+  fechaCreacion: DateTime?, scope=serverOnly
+  fechaEliminacion: DateTime?, scope=serverOnly

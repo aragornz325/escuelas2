@@ -22,7 +22,7 @@ class OrmRelacionAsignaturaUsuario extends ORM {
                 usuarioId: usuarioId,
                 ultimaModificacion: ahora,
                 fechaCreacion: ahora,
-                idComision: asignatura.idComision,
+                idComision: asignatura.comisionId,
               ),
             ),
           ],
