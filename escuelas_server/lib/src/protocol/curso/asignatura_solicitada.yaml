@@ -2,7 +2,7 @@ class: AsignaturaSolicitada
 table: asignatura_solicitada
 fields:
   asignatura: Asignatura?, relation
-  idComision: int, relation(parent=comisiones)
+  comision: ComisionDeCurso?, relation
   idUsuarioPendiente: int, relation(parent=usuarios_pendientes, onDelete=Cascade)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime

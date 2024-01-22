@@ -75,61 +75,10 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
 
     final query = await session.dbNext.unsafeQueryMappedResults(session, '''
 SELECT
-  c."nombre" AS "nombreDeCurso",
-  (
-    SELECT
-      JSONB_AGG(
-        JSON_BUILD_OBJECT(
-          'idComision',
-          co."id",
-          'nombreDeComision',
-          co."nombre",
-          'listaDeAsignaturas',
-          COALESCE(
-            (
-              SELECT
-                JSONB_AGG(
-                  JSON_BUILD_OBJECT(
-                    'idAsignatura',
-                    a."id",
-                    'nombreDeAsignatura',
-                    a."nombre",
-                    'solicitudesDeCalificacionCompletas',
-                    CASE
-                      WHEN (
-                        SELECT
-                          s."fechaRealizacion"
-                        FROM
-                          solicitudes_notas_mensuales snm
-                          INNER JOIN solicitudes s ON s."id" = snm."idSolicitud"
-                        WHERE
-                          snm."idAsignatura" = a."id"
-                          AND snm."idComision" = co."id"
-                          AND snm."numeroDeMes" = $numeroDeMes
-                      ) IS NOT NULL THEN TRUE
-                      ELSE FALSE
-                    END
-                  )
-                )
-              FROM
-                "asignaturas" a
-              WHERE
-                a."cursoId" = c."id"
-            ),
-            '[]'::JSONB
-          )
-        )
-      )
-    FROM
-      "comisiones" co
-    WHERE
-      co."cursoId" = c."id"
-  ) AS "comisiones"
+  c."nombre" AS "nombreDeCurso"
+  
 FROM
   "cursos" c
-INNER JOIN asignaturas a ON a."cursoId" = c."id"
-INNER JOIN r_asignaturas_usuarios rau ON rau."asignaturaId" = a."id"
-WHERE rau."usuarioId" = $idUsuario;
 
 ''');
 
