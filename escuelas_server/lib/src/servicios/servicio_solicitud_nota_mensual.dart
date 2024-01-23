@@ -125,20 +125,23 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
   ///   session (Session): El parámetro de sesión es un objeto que representa la sesión o conexión
   /// actual a la base de datos. Se utiliza para realizar operaciones de bases de datos, como consultar
   /// y guardar datos.
-  Future enviarSolicitudADocentes(Session session) async {
+  Future<void> enviarSolicitudADocentes(
+    Session session,
+  ) async {
     final ahora = DateTime.now();
-    final listaUsuarios = await ormUsuario.obtenerUsuariosConAsignaturas(
+    final listaUsuariosId = await ormUsuario.obtenerUsuariosConAsignaturas(
       session,
     );
 
     final idDirectivo = await session.auth.authenticatedUserId;
     final usuarios = await ormUsuario.obtenerUsuariosEnLote(
       session,
-      ids: listaUsuarios,
+      ids: listaUsuariosId,
     );
 
     for (final usuario in usuarios) {
       List<SolicitudNotaMensual> solicitudesMensualesAdb = [];
+
       for (final asignatura in usuario.asignaturas!) {
         final solicitud = Solicitud(
           tipoSolicitud: TipoSolicitud.calificacion,
@@ -146,10 +149,12 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           idDestinatario: usuario.id!,
           fechaCreacion: ahora,
         );
+
         final solicitudCreada = await ormSolicitud.crearSolicitud(
           session,
           solicitud: solicitud,
         );
+
         final solicitudNotaMensual = SolicitudNotaMensual(
           idSolicitud: solicitudCreada.id!,
           idAsignatura: asignatura.asignaturaId,
@@ -157,13 +162,15 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           numeroDeMes: DateTime.now().month,
           solicitudId: solicitudCreada.id!,
         );
+
         solicitudesMensualesAdb.add(solicitudNotaMensual);
 
         final contenidoHtml = Plantillas().pedidoDeNotas(
-            nombre: usuario.nombre,
-            apellido: usuario.apellido,
-            nombreMateria: asignatura.asignatura!.nombre,
-            nombreDeLaComision: asignatura.comision!.nombre);
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          nombreMateria: asignatura.asignatura!.nombre,
+          nombreDeLaComision: asignatura.comision!.nombre,
+        );
 
         await servicioComunicacion.enviarEmail(
           session,
@@ -173,6 +180,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           contenidoHtmlDelCorreo: contenidoHtml,
         );
       }
+
       await crearSolicitudesMensualesEnLote(
         session,
         solicitudesMensuales: solicitudesMensualesAdb,
