@@ -3,7 +3,7 @@ table: r_asignaturas_usuarios
 fields:
   usuario: Usuario?, relation(name=usuario_asignaturas)
   asignatura: Asignatura?, relation(name=asignatura_asignaturas)
-  idComision: int, relation(parent=comisiones)
+  comision: ComisionDeCurso?, relation
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?

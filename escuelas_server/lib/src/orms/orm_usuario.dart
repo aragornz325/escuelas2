@@ -1,3 +1,4 @@
+import 'package:escuelas_server/src/extensiones/expresiones_en_columnas.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
@@ -57,6 +58,49 @@ class OrmUsuario extends ORM {
     return usuario..roles = roles;
   }
 
+  /// La función `obtenerUsuariosEnLote` recupera una lista de usuarios con ID específicas, incluidas
+  /// sus direcciones de correo electrónico asociadas, direcciones, números de teléfono, comisiones y
+  /// asuntos.
+  ///
+  /// Args:
+  ///   session (Session): Un objeto de sesión utilizado para operaciones de bases de datos.
+  ///   ids (List<int>): Una lista de números enteros que representan los ID de los usuarios que se van
+  /// a recuperar.
+  Future<List<Usuario>> obtenerUsuariosEnLote(
+    Session session, {
+    required List<int> ids,
+  }) async {
+    return await ejecutarOperacionOrm(
+      session,
+      (session) async => await Usuario.db.find(
+        session,
+        where: (t) {
+          return t.id.contains(
+            ids,
+            Usuario.t.tableName,
+          );
+        },
+        include: Usuario.include(
+          direccionesDeEmail: DireccionDeEmail.includeList(
+            include: DireccionDeEmail.include(),
+          ),
+          domicilio: DomicilioDeUsuario.include(),
+          numerosDeTelefono: NumeroDeTelefono.includeList(),
+          comisiones: RelacionComisionUsuario.includeList(
+            include: RelacionComisionUsuario.include(
+                comision: ComisionDeCurso.include()),
+          ),
+          asignaturas: RelacionAsignaturaUsuario.includeList(
+            include: RelacionAsignaturaUsuario.include(
+              asignatura: Asignatura.include(),
+              comision: ComisionDeCurso.include(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Future<Usuario> obtenerUsuario(
     Session session, {
     int? idUsuario,
@@ -88,6 +132,7 @@ class OrmUsuario extends ORM {
           asignaturas: RelacionAsignaturaUsuario.includeList(
             include: RelacionAsignaturaUsuario.include(
               asignatura: Asignatura.include(),
+              comision: ComisionDeCurso.include(),
             ),
           ),
         ),
@@ -150,5 +195,15 @@ class OrmUsuario extends ORM {
         ),
       ),
     );
+  }
+
+  Future<List<int>> obtenerIdsDeUsuariosDocentes(
+    Session session,
+  ) async {
+    final usuarios = await RelacionAsignaturaUsuario.db
+        .find(session, orderBy: (t) => t.usuarioId);
+    final ids = usuarios.map((e) => e.usuarioId).toList();
+
+    return ids;
   }
 }
