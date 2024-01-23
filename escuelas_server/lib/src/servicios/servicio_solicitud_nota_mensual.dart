@@ -120,7 +120,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
 
   /// La función `enviarSolicitudADocentes` envía una solicitud de calificaciones mensuales a los
   /// profesores para cada usuario con materias asignadas.
-  /// 
+  ///
   /// Args:
   ///   session (Session): El parámetro de sesión es un objeto que representa la sesión o conexión
   /// actual a la base de datos. Se utiliza para realizar operaciones de bases de datos, como consultar
@@ -136,8 +136,6 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
       session,
       ids: listaUsuarios,
     );
-
-    print('usuarios: $usuarios');
 
     for (final usuario in usuarios) {
       List<SolicitudNotaMensual> solicitudesMensualesAdb = [];
