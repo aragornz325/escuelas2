@@ -26,31 +26,31 @@ class PaginaKyc extends StatelessWidget {
           create: (context) => BlocKyc()..add(const BlocKycEventoInicializar()),
         ),
       ],
-      child: EscuelasScaffold(
-        tieneAppBar: true,
-        tieneDrawer: false,
-        cuerpo: BlocListener<BlocKyc, BlocKycEstado>(
-          listener: (context, state) {
-            if (state is BlocKycEstadoExitoSolicitudAprobada) {
-              context.replaceRoute(
-                RutaDashboard(
-                  usuario: state.usuario,
-                  userInfo: sessionManager.signedInUser!,
-                ),
-              );
-            }
-          },
-          child: AutoRouter(
-            builder: (context, content) {
-              return switch (context.router.current.name) {
+      child: AutoRouter(
+        builder: (context, content) {
+          return EscuelasScaffold(
+            tieneAppBar: context.router.current.name != RutaEspera.name,
+            tieneDrawer: false,
+            cuerpo: BlocListener<BlocKyc, BlocKycEstado>(
+              listener: (context, state) {
+                if (state is BlocKycEstadoExitoSolicitudAprobada) {
+                  context.replaceRoute(
+                    RutaDashboard(
+                      usuario: state.usuario,
+                      userInfo: sessionManager.signedInUser!,
+                    ),
+                  );
+                }
+              },
+              child: switch (context.router.current.name) {
                 RutaSeleccionDeRol.name => content,
                 RutaFormulario.name => content,
                 RutaEspera.name => content,
                 _ => const SizedBox.shrink()
-              };
-            },
-          ),
-        ),
+              },
+            ),
+          );
+        },
       ),
     );
   }

@@ -49,13 +49,13 @@ class ItemUsuarioPendiente extends StatelessWidget {
               borderRadius: BorderRadius.circular(100.sw),
               color: colores.primaryContainer,
             ),
-            width: 35.sw,
-            height: 35.sh,
+            width: 45.sw,
+            height: 45.sh,
             child: Center(
               child: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: colores.background,
-                size: 10.pw,
+                size: 15.pw,
               ),
             ),
           ),

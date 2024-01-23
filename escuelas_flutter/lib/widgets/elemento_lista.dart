@@ -1,5 +1,6 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
@@ -148,14 +149,17 @@ class ElementoLista extends StatelessWidget {
         child: Image.network(
           avatar,
           fit: BoxFit.cover,
-          width: 20.pw,
-          errorBuilder: (context, error, stackTrace) {
-            return Icon(
-              Icons.person,
-              color: colores.onSecondary,
-              size: 35.sw,
-            );
-          },
+          height: 35.sh,
+          width: 35.sw,
+          errorBuilder: (
+            context,
+            error,
+            stackTrace,
+          ) =>
+              Image.asset(
+            Assets.images.usuario.path,
+            color: colores.onBackground,
+          ),
         ),
       ),
       widgetLateralDerecho: Padding(
@@ -203,14 +207,17 @@ class ElementoLista extends StatelessWidget {
         child: Image.network(
           avatar,
           fit: BoxFit.cover,
-          width: 20.pw,
-          errorBuilder: (context, error, stackTrace) {
-            return Icon(
-              Icons.person,
-              color: colores.onSecondary,
-              size: 35.sw,
-            );
-          },
+          height: 35.sh,
+          width: 35.sw,
+          errorBuilder: (
+            context,
+            error,
+            stackTrace,
+          ) =>
+              Image.asset(
+            Assets.images.usuario.path,
+            color: colores.onBackground,
+          ),
         ),
       ),
     );
@@ -413,7 +420,7 @@ class ElementoLista extends StatelessWidget {
           onTap: onTapWidgetLateralDerecho,
           child: Icon(
             Icons.delete_outline_outlined,
-            size: 20.pw,
+            size: 25.pw,
             color: colores.error,
           ),
         ),

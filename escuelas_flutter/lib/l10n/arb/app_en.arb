@@ -57,12 +57,12 @@
     },
 
     "pageKycFormWhichSubjectIsIt": "Which subject is it?",
-    "@pageKycFormWhichSubjectIs": {
+    "@pageKycFormWhichSubjectIsIt": {
         "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
     },
 
-    "pageKycFormWhatYearIsYourSubject": "What year is your subject?",
-    "@pageKycFormWhatYearIsYourSubject": {
+    "pageKycFormWhichGradeIsYourSubject": "Which grade is your subject?",
+    "@pageKycFormWhichGradeIsYourSubject": {
         "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
     },
 
