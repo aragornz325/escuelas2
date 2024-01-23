@@ -110,10 +110,11 @@ class OrmSolicitudNotaMensual extends ORM {
 
     if (solicitudNotaMensualADb.isEmpty) {
       throw ExcepcionCustom(
-          titulo: 'no se pudo obtener',
-          mensaje: 'no se pudieron obtener registros',
-          tipoDeError: TipoExcepcion.desconocido,
-          codigoError: 404);
+        titulo: 'no se pudo obtener',
+        mensaje: 'no se pudieron obtener registros',
+        tipoDeError: TipoExcepcion.desconocido,
+        codigoError: 560,
+      );
     }
     return solicitudNotaMensualADb;
   }
