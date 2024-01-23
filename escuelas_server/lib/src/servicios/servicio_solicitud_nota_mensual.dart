@@ -118,26 +118,24 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
     return idSolicitudNotaMensual;
   }
 
+  /// La función `enviarSolicitudADocentes` envía una solicitud de calificaciones mensuales a los
+  /// profesores para cada usuario con materias asignadas.
+  /// 
+  /// Args:
+  ///   session (Session): El parámetro de sesión es un objeto que representa la sesión o conexión
+  /// actual a la base de datos. Se utiliza para realizar operaciones de bases de datos, como consultar
+  /// y guardar datos.
   Future enviarSolicitudADocentes(Session session) async {
     final ahora = DateTime.now();
     final listaUsuarios = await ormUsuario.obtenerUsuariosConAsignaturas(
       session,
     );
 
-    List<Usuario> usuarios = [];
-
-    /// id del usuario logueado
     final idDirectivo = await session.auth.authenticatedUserId;
-
-    for (final usuarioId in listaUsuarios) {
-      final usuario = await ormUsuario.obtenerUsuario(
-        session,
-        idUsuario: usuarioId,
-      );
-      usuarios.add(
-        usuario,
-      );
-    }
+    final usuarios = await ormUsuario.obtenerUsuariosEnLote(
+      session,
+      ids: listaUsuarios,
+    );
 
     print('usuarios: $usuarios');
 
@@ -146,7 +144,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
       for (final asignatura in usuario.asignaturas!) {
         final solicitud = Solicitud(
           tipoSolicitud: TipoSolicitud.calificacion,
-          idAutor: 7,
+          idAutor: idDirectivo!,
           idDestinatario: usuario.id!,
           fechaCreacion: ahora,
         );
