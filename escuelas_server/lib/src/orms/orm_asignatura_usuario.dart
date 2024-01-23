@@ -22,7 +22,7 @@ class OrmRelacionAsignaturaUsuario extends ORM {
                 usuarioId: usuarioId,
                 ultimaModificacion: ahora,
                 fechaCreacion: ahora,
-                idComision: asignatura.comisionId,
+                comisionId: asignatura.comisionId,
               ),
             ),
           ],
@@ -30,8 +30,4 @@ class OrmRelacionAsignaturaUsuario extends ORM {
       },
     );
   }
-
-  // Future<List<RelacionAsignaturaUsuario>> obtenerRelacionesAsignaturaUsuario(Session session) async {
-  //   return RelacionAsignaturaUsuario.db.find(session, where: (t) );
-  // }
 }

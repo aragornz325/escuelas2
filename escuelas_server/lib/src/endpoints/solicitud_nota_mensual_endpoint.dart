@@ -109,4 +109,15 @@ class SolicitudNotaMensualEndpoint extends Endpoint
       ),
     );
   }
+
+  Future<bool> enviarSolicitudADocentes(Session session) async {
+    await ejecutarOperacionControlador(
+      session,
+      'enviarSolicitudADocentes',
+      () => servicio.enviarSolicitudADocentes(
+        session,
+      ),
+    );
+    return true;
+  }
 }

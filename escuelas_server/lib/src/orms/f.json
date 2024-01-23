@@ -1,0 +1,31 @@
+[
+    {
+        "id": 54,
+        "idUserInfo": 2,
+        "nombre": "Sebastian Montero",
+        "apellido": "Montero",
+        "urlFotoDePerfil": "http://0.0.0.0:8080/serverpod_cloud_storage?method=file&path=serverpod%2Fuser_images%2F2-1.jpg",
+        "direccionesDeEmail": [
+            {
+                "id": 1,
+                "direccionDeEmail": "rodrigo.m.quintero@gmail.com"
+            }
+        ],
+        "numerosDeTelefono": [],
+        "comisiones": [],
+        "asignaturas": [
+            {
+                "id": 1,
+                "usuarioId": 54,
+                "asignaturaId": 1,
+                "asignatura": {
+                    "id": 1,
+                    "nombre": "MATEMATICA"
+                },
+                "comisionId": 1,
+                "ultimaModificacion": "2024-01-23T13:55:58.000Z",
+                "fechaCreacion": "2024-01-23T13:56:02.000Z"
+            }
+        ]
+    }
+]

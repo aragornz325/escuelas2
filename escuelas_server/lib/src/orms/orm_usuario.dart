@@ -88,6 +88,7 @@ class OrmUsuario extends ORM {
           asignaturas: RelacionAsignaturaUsuario.includeList(
             include: RelacionAsignaturaUsuario.include(
               asignatura: Asignatura.include(),
+              comision: ComisionDeCurso.include(),
             ),
           ),
         ),
@@ -149,5 +150,29 @@ class OrmUsuario extends ORM {
         ),
       ),
     );
+  }
+
+  Future<List<int>> obtenerUsuariosConAsignaturas(
+    Session session,
+  ) async {
+    final resultados = await session.dbNext.unsafeQueryMappedResults(
+      session,
+      '''SELECT DISTINCT "usuarioId"
+FROM r_asignaturas_usuarios;
+''',
+    );
+    final usuarios = resultados.map((
+      resultado,
+    ) {
+      final usuarioId = resultado['r_asignaturas_usuarios']?['usuarioId'];
+      if (usuarioId == null) {
+        throw Exception(
+          'usuarioId es null para el resultado: $resultado',
+        );
+      }
+      return usuarioId as int;
+    }).toList();
+
+    return usuarios;
   }
 }
