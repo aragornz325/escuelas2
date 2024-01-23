@@ -147,4 +147,26 @@ class OrmSolicitudNotaMensual extends ORM {
     }
     return solicitudNotaMensualADb.first;
   }
+
+  Future<List<SolicitudNotaMensual>> crearSolicitudesMensualesEnLote(
+    Session session, {
+    required List<SolicitudNotaMensual> solicitudNotaMensual,
+  }) async {
+    final solicitudNotaMensualADb = await ejecutarOperacionOrm(
+      session,
+      (session) => SolicitudNotaMensual.db.insert(
+        session,
+        solicitudNotaMensual,
+      ),
+    );
+
+    if (solicitudNotaMensualADb.isEmpty) {
+      throw ExcepcionCustom(
+          titulo: 'no se pudo crear',
+          mensaje: 'error al crear registro',
+          tipoDeError: TipoExcepcion.desconocido,
+          codigoError: 422);
+    }
+    return solicitudNotaMensualADb;
+  }
 }

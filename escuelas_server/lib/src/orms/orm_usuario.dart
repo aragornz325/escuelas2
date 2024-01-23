@@ -1,3 +1,4 @@
+import 'package:escuelas_server/src/extensiones/expresiones_en_columnas.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
@@ -57,6 +58,49 @@ class OrmUsuario extends ORM {
     return usuario..roles = roles;
   }
 
+  /// La función `obtenerUsuariosEnLote` recupera una lista de usuarios con ID específicas, incluidas
+  /// sus direcciones de correo electrónico asociadas, direcciones, números de teléfono, comisiones y
+  /// asuntos.
+  ///
+  /// Args:
+  ///   session (Session): Un objeto de sesión utilizado para operaciones de bases de datos.
+  ///   ids (List<int>): Una lista de números enteros que representan los ID de los usuarios que se van
+  /// a recuperar.
+  ///
+  /// Returns:
+  ///   un `Futuro` que se resuelve en una `Lista` de objetos `Usuario`.
+  Future<List<Usuario>> obtenerUsuariosEnLote(
+    Session session, {
+    required List<int> ids,
+  }) async {
+    return await ejecutarOperacionOrm(
+      session,
+      (session) async => await Usuario.db.find(
+        session,
+        where: (t) {
+          return t.id.contains(ids, 'usuarios');
+        },
+        include: Usuario.include(
+          direccionesDeEmail: DireccionDeEmail.includeList(
+            include: DireccionDeEmail.include(),
+          ),
+          domicilio: DomicilioDeUsuario.include(),
+          numerosDeTelefono: NumeroDeTelefono.includeList(),
+          comisiones: RelacionComisionUsuario.includeList(
+            include: RelacionComisionUsuario.include(
+                comision: ComisionDeCurso.include()),
+          ),
+          asignaturas: RelacionAsignaturaUsuario.includeList(
+            include: RelacionAsignaturaUsuario.include(
+              asignatura: Asignatura.include(),
+              comision: ComisionDeCurso.include(),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   Future<Usuario> obtenerUsuario(
     Session session, {
     int? idUsuario,
@@ -88,6 +132,7 @@ class OrmUsuario extends ORM {
           asignaturas: RelacionAsignaturaUsuario.includeList(
             include: RelacionAsignaturaUsuario.include(
               asignatura: Asignatura.include(),
+              comision: ComisionDeCurso.include(),
             ),
           ),
         ),
@@ -149,5 +194,31 @@ class OrmUsuario extends ORM {
         ),
       ),
     );
+  }
+
+  /// La función `obtenerUsuariosConAsignaturas` recupera una lista de ID de usuarios asociados con
+  /// asignaciones.
+  Future<List<int>> obtenerUsuariosConAsignaturas(
+    Session session,
+  ) async {
+    final resultados = await session.dbNext.unsafeQueryMappedResults(
+      session,
+      '''SELECT DISTINCT "usuarioId"
+FROM r_asignaturas_usuarios;
+''',
+    );
+    final usuarios = resultados.map((
+      resultado,
+    ) {
+      final usuarioId = resultado['r_asignaturas_usuarios']?['usuarioId'];
+      if (usuarioId == null) {
+        throw Exception(
+          'usuarioId es null para el resultado: $resultado',
+        );
+      }
+      return usuarioId as int;
+    }).toList();
+
+    return usuarios;
   }
 }
