@@ -139,7 +139,8 @@ class OrmUsuario extends ORM {
         include: Usuario.include(
           comisiones: RelacionComisionUsuario.includeList(
             include: RelacionComisionUsuario.include(
-                comision: ComisionDeCurso.include()),
+              comision: ComisionDeCurso.include(),
+            ),
           ),
           asignaturas: RelacionAsignaturaUsuario.includeList(
             include: RelacionAsignaturaUsuario.include(

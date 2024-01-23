@@ -89,6 +89,33 @@ class OrmSolicitudNotaMensual extends ORM {
     return solicitudNotaMensualADb;
   }
 
+  Future<SolicitudNotaMensual> obtenerSolicitudNotaMensualPorIdSolicitud(
+    Session session, {
+    required int idSolicitud,
+  }) async {
+    final solicitudNotaMensualADb = await ejecutarOperacionOrm(
+      session,
+      (session) => SolicitudNotaMensual.db.findFirstRow(
+        session,
+        where: (t) => t.solicitudId.equals(idSolicitud),
+        include: SolicitudNotaMensual.include(
+          solicitud: Solicitud.include(),
+        ),
+      ),
+    );
+
+    if (solicitudNotaMensualADb == null) {
+      throw ExcepcionCustom(
+        titulo: 'no se pudo obtener',
+        mensaje: 'no se pudo obtener el registro',
+        tipoDeError: TipoExcepcion.desconocido,
+        codigoError: 404,
+      );
+    }
+
+    return solicitudNotaMensualADb;
+  }
+
   /// La función `obtenerSolicitudesNotaMensual` obtiene todos los registros de solicitud en una base de datos y
   /// devuelve los registros.
   /// Args:
@@ -147,4 +174,19 @@ class OrmSolicitudNotaMensual extends ORM {
     }
     return solicitudNotaMensualADb.first;
   }
+
+  Future<List<SolicitudNotaMensual>> obtenerSolicitudesCalificacionMensual(
+    Session session, {
+    required int numeroDeMes,
+  }) async =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => SolicitudNotaMensual.db.find(
+          session,
+          where: (t) => t.numeroDeMes.equals(numeroDeMes),
+          include: SolicitudNotaMensual.include(
+            solicitud: Solicitud.include(),
+          ),
+        ),
+      );
 }

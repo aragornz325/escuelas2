@@ -1,9 +1,11 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_asignatura_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
+import 'package:escuelas_server/src/orms/orm_calificacion_mensual.dart';
 import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
+import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioCalificacion extends Servicio<OrmCalificacion> {
@@ -16,8 +18,13 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   final OrmConceptoCalificacion _ormConceptoCalificacion =
       OrmConceptoCalificacion();
 
+  final OrmCalificacionMensual _ormCalificacionMensual =
+      OrmCalificacionMensual();
+
   final OrmRelacionAsignaturaUsuario _ormRelacionUsuarioAsignatura =
       OrmRelacionAsignaturaUsuario();
+
+  final ServicioSolicitud _servicioSolicitud = ServicioSolicitud();
 
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {
@@ -178,4 +185,97 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
       ),
     );
   }
+
+  Future<void> cargarCalificacionesMensualesPorSolicitud(
+    Session session, {
+    required int idSolicitud,
+    required List<CalificacionMensual> calificacionesMensuales,
+  }) async {
+    final solicitudMensual = await _ormSolicitudNotaMensual
+        .obtenerSolicitudNotaMensualPorIdSolicitud(
+      session,
+      idSolicitud: idSolicitud,
+    );
+
+    final solicitud = solicitudMensual.solicitud;
+
+    if (solicitud == null) {
+      throw ExcepcionCustom(
+        titulo: 'Solicitud no encontrada',
+        mensaje: 'la solicitud no fue encontrada',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
+    }
+
+    if (solicitud.fechaRealizacion != null) {
+      throw ExcepcionCustom(
+        titulo: 'Solicitud ya realizada',
+        mensaje: 'la solicitud ya fue realizada',
+        tipoDeError: TipoExcepcion.solicitudIncorrecta,
+        codigoError: 400,
+      );
+    }
+
+    await ejecutarOperacion(
+      () => _servicioSolicitud.actualizarSolicitud(
+        session,
+        solicitud: solicitud.copyWith(
+          fechaRealizacion: DateTime.now(),
+        ),
+      ),
+    );
+
+    final calificaciones = calificacionesMensuales.map((e) {
+      final calificacion = e.calificacion;
+
+      if (calificacion == null) {
+        throw ExcepcionCustom(
+          titulo: 'Calificacion no encontrada',
+          mensaje: 'la calificacion no fue encontrada',
+          tipoDeError: TipoExcepcion.desconocido,
+          codigoError: 560,
+        );
+      }
+
+      return calificacion;
+    }).toList();
+
+    final calificacionesCreadas = await orm.crearCalificaciones(
+      session,
+      calificaciones: calificaciones,
+    );
+
+    final calificacionesMensualesActualizadas = calificacionesMensuales.map(
+      (c) {
+        // Insertamos el id de la calificacion creada en la calificacion mensual
+        final calificacion = c
+          ..calificacionId = calificacionesCreadas
+                  .firstWhere((element) => element.id == c.calificacion?.id)
+                  .id ??
+              0;
+
+        return calificacion;
+      },
+    ).toList();
+
+    await _ormCalificacionMensual.crearCalificacionesMensuales(
+      session,
+      calificaciones: calificacionesMensualesActualizadas,
+    );
+  }
+
+  Future<List<CalificacionMensual>> obtenerCalificacionesMensuales(
+    Session session, {
+    required int idAsignatura,
+    required int idComision,
+    int? numeroDeMes,
+  }) async =>
+      await ejecutarOperacion(
+        () => _ormCalificacionMensual.obtenerCalificacionesMensuales(
+          session,
+          idAsignatura: idAsignatura,
+          idComision: idComision,
+        ),
+      );
 }

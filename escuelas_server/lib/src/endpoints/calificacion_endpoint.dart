@@ -85,4 +85,36 @@ class CalificacionEndpoint extends Endpoint with Controller {
           periodo: periodo,
         ),
       );
+
+  Future<void> cargarCalificacionesMensualesPorSolicitud(
+    Session session, {
+    required List<CalificacionMensual> calificacionesMensuales,
+    required int idSolicitud,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'cargarCalificacionesMensuales',
+        () async => await servicio.cargarCalificacionesMensualesPorSolicitud(
+          session,
+          calificacionesMensuales: calificacionesMensuales,
+          idSolicitud: idSolicitud,
+        ),
+      );
+
+  Future<List<CalificacionMensual>> obtenerCalificacionesMensuales(
+    Session session, {
+    int? numeroDeMes,
+    required int idAsignatura,
+    required int idComision,
+  }) async =>
+      ejecutarOperacionControlador(
+        session,
+        'obtenerCalificacionesMensuales',
+        () async => await servicio.obtenerCalificacionesMensuales(
+          session,
+          numeroDeMes: numeroDeMes,
+          idAsignatura: idAsignatura,
+          idComision: idComision,
+        ),
+      );
 }
