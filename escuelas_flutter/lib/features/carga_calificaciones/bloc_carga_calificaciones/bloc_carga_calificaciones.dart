@@ -69,7 +69,7 @@ class BlocCargaCalificaciones
             fechaCreacion: DateTime.now(),
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
-            idEstudiante: 1,
+            estudianteId: 1,
             idComision: 1,
             idAsignatura: 1,
             tipoCalificacion: TipoCalificacion.rite,
@@ -87,7 +87,7 @@ class BlocCargaCalificaciones
             fechaCreacion: DateTime.now(),
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
-            idEstudiante: 1,
+            estudianteId: 1,
             idComision: 1,
             idAsignatura: 1,
             tipoCalificacion: TipoCalificacion.numericoDecimal,
@@ -160,7 +160,7 @@ class BlocCargaCalificaciones
               state.listaCalificacionesCompensadas
                   .firstWhere(
                     (calicompensada) =>
-                        calicompensada.idEstudiante == alumno.usuarioId,
+                        calicompensada.estudianteId == alumno.usuarioId,
                   )
                   .id,
         ) // TODO(ANYONE): Cambiar por el id correspondiente

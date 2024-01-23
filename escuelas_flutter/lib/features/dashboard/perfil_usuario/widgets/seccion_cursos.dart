@@ -55,7 +55,7 @@ class SeccionCursos extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  e.asignatura?.curso?.nombre ?? '',
+                                  e.asignatura?.nombre ?? '',
                                   style: TextStyle(
                                     color: colores.grisSC,
                                     fontSize: 14.pf,
@@ -92,7 +92,7 @@ class SeccionCursos extends StatelessWidget {
                                   ),
                                 ),
                                 Text(
-                                  e.asignatura?.curso?.nombre ?? '',
+                                  e.asignatura?.nombre ?? '',
                                   style: TextStyle(
                                     color: colores.grisSC,
                                     fontSize: 14.pf,

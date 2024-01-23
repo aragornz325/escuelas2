@@ -1,6 +1,5 @@
 class: ComisionOverview
 fields:
   idComision: int
-  nombreDeCurso: String
   nombreDeComision: String
   listaDeAsignaturas: List<AsignaturaOverview>

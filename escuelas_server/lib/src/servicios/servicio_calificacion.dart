@@ -73,100 +73,109 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   }) async {
     List<ComisionOverview> listaDeComisionesRespuesta = [];
 
-    final query = await session.dbNext.unsafeQueryMappedResults(session, '''
-SELECT
-  c."nombre" AS "nombreDeCurso",
-  (
+    final queryAsignaturas = '''
+    (
     SELECT
       JSONB_AGG(
         JSON_BUILD_OBJECT(
-          'idComision',
-          co."id",
-          'nombreDeComision',
-          co."nombre",
-          'listaDeAsignaturas',
-          COALESCE(
-            (
+          'idAsignatura',
+          a."id",
+          'nombreDeAsignatura',
+          a."nombre",
+          'solicitudesDeCalificacionCompletas',
+          CASE
+            WHEN (
               SELECT
-                JSONB_AGG(
-                  JSON_BUILD_OBJECT(
-                    'idAsignatura',
-                    a."id",
-                    'nombreDeAsignatura',
-                    a."nombre",
-                    'solicitudesDeCalificacionCompletas',
-                    CASE
-                      WHEN (
-                        SELECT
-                          s."fechaRealizacion"
-                        FROM
-                          solicitudes_notas_mensuales snm
-                          INNER JOIN solicitudes s ON s."id" = snm."idSolicitud"
-                        WHERE
-                          snm."idAsignatura" = a."id"
-                          AND snm."idComision" = co."id"
-                          AND snm."numeroDeMes" = $numeroDeMes
-                      ) IS NOT NULL THEN TRUE
-                      ELSE FALSE
-                    END
-                  )
-                )
+                s."fechaRealizacion"
               FROM
-                "asignaturas" a
+                solicitudes_notas_mensuales snm
+                INNER JOIN solicitudes s ON s."id" = snm."idSolicitud"
               WHERE
-                a."cursoId" = c."id"
-            ),
-            '[]'::JSONB
-          )
+                snm."idAsignatura" = a."id"
+                AND snm."idComision" = c."id"
+                AND snm."numeroDeMes" = $numeroDeMes
+            ) IS NOT NULL THEN TRUE
+            ELSE FALSE
+          END
         )
       )
     FROM
-      "comisiones" co
-    WHERE
-      co."cursoId" = c."id"
-  ) AS "comisiones"
-FROM
-  "cursos" c
-INNER JOIN asignaturas a ON a."cursoId" = c."id"
-INNER JOIN r_asignaturas_usuarios rau ON rau."asignaturaId" = a."id"
-WHERE rau."usuarioId" = $idUsuario;
+      "asignaturas" a
+      INNER JOIN r_asignatura_curso rac ON rac."idAsignatura" = a."id"
+                  WHERE
+                    rac."idCurso" = c."id"
+    
+    )
+    ''';
 
-''');
+    final query = await session.dbNext.unsafeQueryMappedResults(session, '''
+     SELECT DISTINCT ON (c."id")
+          c."id",
+          c."nombre",
+          c."cursoId",
+          COALESCE( $queryAsignaturas, '[]'::jsonb) AS "listaDeAsignaturas"
+    FROM "comisiones" c
+    INNER JOIN r_asignaturas_usuarios rau ON        rau."idComision" = c."id"
+    WHERE rau."usuarioId" = $idUsuario
+    ''');
 
     for (var curso in query) {
-      final nombreDeCurso = curso['cursos']?['nombreDeCurso'];
-      final listaDeComisiones = curso['']?['comisiones'];
+      final nombreComision = curso['comisiones']?['nombre'];
+      final idComision = curso['comisiones']?['id'];
 
-      for (var comision in listaDeComisiones) {
-        final idComision = comision['idComision'];
-        final nombreDeComision = comision['nombreDeComision'];
-        List<AsignaturaOverview> listaDeAsignaturas = [];
+      List<AsignaturaOverview> listaDeAsignaturas = [];
 
-        for (var asignatura in comision['listaDeAsignaturas']) {
-          final idAsignatura = asignatura['idAsignatura'];
-          final nombreDeAsignatura = asignatura['nombreDeAsignatura'];
-          final solicitudesDeCalificacionCompletas =
-              asignatura['solicitudesDeCalificacionCompletas'];
+      for (var asignatura in curso['']!['listaDeAsignaturas']) {
+        final idAsignatura = asignatura['idAsignatura'];
+        final nombreDeAsignatura = asignatura['nombreDeAsignatura'];
+        final solicitudesDeCalificacionCompletas =
+            asignatura['solicitudesDeCalificacionCompletas'];
 
-          listaDeAsignaturas.add(
-            AsignaturaOverview(
-              idAsignatura: idAsignatura,
-              nombreDeAsignatura: nombreDeAsignatura,
-              solicitudesDeCalificacionCompletas:
-                  solicitudesDeCalificacionCompletas,
-            ),
-          );
-        }
-        listaDeComisionesRespuesta.add(
-          ComisionOverview(
-            idComision: idComision,
-            nombreDeCurso: nombreDeCurso,
-            nombreDeComision: nombreDeComision,
-            listaDeAsignaturas: listaDeAsignaturas,
+        listaDeAsignaturas.add(
+          AsignaturaOverview(
+            idAsignatura: idAsignatura,
+            nombreDeAsignatura: nombreDeAsignatura,
+            solicitudesDeCalificacionCompletas:
+                solicitudesDeCalificacionCompletas,
           ),
         );
       }
+
+      listaDeComisionesRespuesta.add(
+        ComisionOverview(
+          idComision: idComision,
+          nombreDeComision: nombreComision,
+          listaDeAsignaturas: listaDeAsignaturas,
+        ),
+      );
     }
     return listaDeComisionesRespuesta;
+  }
+
+  /// La función `obtenerCalificacionesPorAsignaturaPorPeriodo` recupera las calificaciones de una
+  /// materia y periodo específico.
+  ///
+  /// Args:
+  ///   session (Session): Un objeto de sesión que representa la sesión o conexión actual a la base de
+  /// datos. Se utiliza para ejecutar operaciones de bases de datos.
+  ///   idAsignatura (int): El parámetro "idAsignatura" representa el ID de la asignatura de la que se
+  /// quieren obtener las calificaciones.
+  ///   periodo (Periodo): El parámetro "periodo" es de tipo "Periodo" y es obligatorio.
+  ///
+  /// Returns:
+  ///   el resultado de la función `ejecutarOperacion`, que es el resultado de la función
+  /// `orm.obtenerCalificacionesPorAsignaturaPorPeriodo`.
+  Future obtenerCalificacionesPorAsignaturaPorPeriodo(
+    Session session, {
+    required int idAsignatura,
+    required Periodo periodo,
+  }) async {
+    return await ejecutarOperacion(
+      () => orm.obtenerCalificacionesPorAsignaturaPorPeriodo(
+        session,
+        idAsignatura: idAsignatura,
+        periodo: periodo,
+      ),
+    );
   }
 }

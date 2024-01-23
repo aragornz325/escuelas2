@@ -102,8 +102,9 @@ class ElementoLista extends StatelessWidget {
   }) {
     final colores = context.colores;
 
-    String _funcionOrdenarPor() {
-      String etiqueta = '';
+    /// Ordena por curso, asignatura
+    String funcionOrdenarPor() {
+      var etiqueta = '';
 
       switch (ordenarPor) {
         case OrdenarPor.curso:
@@ -118,7 +119,7 @@ class ElementoLista extends StatelessWidget {
         case OrdenarPor.asignatura:
           if (usuario.comisiones?.isNotEmpty ?? false) {
             final cursos = usuario.asignaturas
-                    ?.map((e) => e.asignatura?.curso?.nombre ?? '')
+                    ?.map((e) => e.asignatura?.nombre ?? '')
                     .toList() ??
                 [];
 
@@ -160,7 +161,7 @@ class ElementoLista extends StatelessWidget {
       widgetLateralDerecho: Padding(
         padding: EdgeInsets.only(right: 10.pw),
         child: Text(
-          _funcionOrdenarPor(),
+          funcionOrdenarPor(),
           style: TextStyle(
             fontSize: 10.pf,
             color: colores.onSecondary,
