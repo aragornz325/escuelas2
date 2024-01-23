@@ -110,10 +110,11 @@ class OrmSolicitudNotaMensual extends ORM {
 
     if (solicitudNotaMensualADb.isEmpty) {
       throw ExcepcionCustom(
-          titulo: 'no se pudo obtener',
-          mensaje: 'no se pudieron obtener registros',
-          tipoDeError: TipoExcepcion.desconocido,
-          codigoError: 404);
+        titulo: 'no se pudo obtener',
+        mensaje: 'no se pudieron obtener registros',
+        tipoDeError: TipoExcepcion.desconocido,
+        codigoError: 560,
+      );
     }
     return solicitudNotaMensualADb;
   }
@@ -121,7 +122,6 @@ class OrmSolicitudNotaMensual extends ORM {
   /// La función `eliminarSolicitudNotaMensual` elimina un registro de solicitud en una base de datos y
   /// devuelve el id del registro eliminado.
   /// Args:
-  /// Session: Un objeto de sesión que representa una conexión a una base de datos. Se utiliza para
   /// realizar operaciones de bases de datos.
   /// id (int): Un entero que representa el id del registro de solicitud.
   /// Returns:
@@ -146,5 +146,28 @@ class OrmSolicitudNotaMensual extends ORM {
           codigoError: 500);
     }
     return solicitudNotaMensualADb.first;
+  }
+
+  Future<List<SolicitudNotaMensual>> crearSolicitudesMensualesEnLote(
+    Session session, {
+    required List<SolicitudNotaMensual> solicitudNotaMensual,
+  }) async {
+    final solicitudNotaMensualADb = await ejecutarOperacionOrm(
+      session,
+      (session) => SolicitudNotaMensual.db.insert(
+        session,
+        solicitudNotaMensual,
+      ),
+    );
+
+    if (solicitudNotaMensualADb.isEmpty) {
+      throw ExcepcionCustom(
+        titulo: 'no se pudo crear',
+        mensaje: 'error al crear registro',
+        tipoDeError: TipoExcepcion.desconocido,
+        codigoError: 560,
+      );
+    }
+    return solicitudNotaMensualADb;
   }
 }
