@@ -33,6 +33,17 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
             child: CircularProgressIndicator(),
           );
         }
+
+        final etiqueta = state.fecha?.nombreMes(context).toUpperCase() ?? '';
+
+        final fechaDesde =
+            state.fecha?.copyWith(day: 1) ?? DateTime.now().copyWith(day: 1);
+
+        final fechaHasta = DateTime(
+          DateTime.now().year,
+          DateTime.now().month + 1,
+        ).subtract(const Duration(days: 1));
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.pw),
           child: Column(
@@ -41,14 +52,9 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                 delegate: PeriodoMensualDelegate(
                   context,
                   periodo: PeriodoDelSelector(
-                    etiqueta:
-                        state.fecha?.nombreMes(context).toUpperCase() ?? '',
-                    fechaDesde: state.fecha?.copyWith(day: 1) ??
-                        DateTime.now().copyWith(day: 1),
-                    fechaHasta: DateTime(
-                      DateTime.now().year,
-                      DateTime.now().month + 1,
-                    ).subtract(const Duration(days: 1)),
+                    etiqueta: etiqueta,
+                    fechaDesde: fechaDesde,
+                    fechaHasta: fechaHasta,
                   ),
                 ),
                 // TODO(anyone): Manejar seleccion de periodo

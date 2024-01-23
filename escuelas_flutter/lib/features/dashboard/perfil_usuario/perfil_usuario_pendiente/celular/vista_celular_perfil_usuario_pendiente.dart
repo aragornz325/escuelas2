@@ -118,13 +118,13 @@ class _DialogAsignarRol extends StatelessWidget {
     required this.nombreRol,
   });
 
-/// Acepta la solicitud de registro de un usuario, aprobandole el rol.
+  /// Acepta la solicitud de registro de un usuario, aprobandole el rol.
   void _aceptarSolicitudRegistro(BuildContext context) {
     context
         .read<BlocPerfilUsuario>()
         .add(BlocPerfilUsuarioEventoAceptarSolicitud());
     Navigator.of(context).pop();
-    context.router.push(const RutaAsignacionDeRoles());
+    context.router.push(const RutaUsuariosPendientes());
   }
 
   final UsuarioPendiente? usuario;

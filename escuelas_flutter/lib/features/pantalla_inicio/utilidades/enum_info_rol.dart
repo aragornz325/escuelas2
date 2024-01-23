@@ -61,7 +61,7 @@ enum InfoDeRol {
       case InfoDeRol.tomarInasistencia:
         context.router.push(const RutaInasistencia());
       case InfoDeRol.usuariosPendientes:
-        context.router.push(const RutaAsignacionDeRoles());
+        context.router.push(const RutaUsuariosPendientes());
       case InfoDeRol.supervision:
         context.router.push(const RutaSupervisionCursos());
     }
