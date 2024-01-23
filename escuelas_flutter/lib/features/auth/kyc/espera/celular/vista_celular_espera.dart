@@ -44,6 +44,7 @@ class VistaCelularEspera extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     final l10n = context.l10n;
 
     return Center(

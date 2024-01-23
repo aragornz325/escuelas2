@@ -64,7 +64,8 @@ class MenuOpcionesPermisos extends StatelessWidget {
                         .copyWith(bottom: 15.ph),
                     child: ElementoLista.menu(
                       widgetLateralDerecho:
-                          etiqueta.name == InfoDeRol.usuariosPendientes.name
+                          etiqueta.name == InfoDeRol.usuariosPendientes.name &&
+                                  state.hayUsuariosPendientes
                               ? Padding(
                                   padding: EdgeInsets.only(right: 20.pw),
                                   child: Icon(
