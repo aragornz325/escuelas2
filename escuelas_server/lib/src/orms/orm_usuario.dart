@@ -196,7 +196,9 @@ class OrmUsuario extends ORM {
     );
   }
 
-  Future<List<int>> obtenerUsuariosConAsignaturas(Session session) async {
+  Future<List<int>> obtenerIdsDeUsuariosDocentes(
+    Session session,
+  ) async {
     final usuarios = await RelacionAsignaturaUsuario.db
         .find(session, orderBy: (t) => t.usuarioId);
     final ids = usuarios.map((e) => e.usuarioId).toList();

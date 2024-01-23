@@ -1,5 +1,5 @@
 class Plantillas {
-  pedidoDeNotas({
+  static String pedidoDeNotas({
     required String nombre,
     required String apellido,
     required String nombreMateria,

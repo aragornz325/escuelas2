@@ -129,23 +129,23 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
     Session session,
   ) async {
     final ahora = DateTime.now();
-    final listaUsuariosId = await ormUsuario.obtenerUsuariosConAsignaturas(
+    final listaIdDocentes = await ormUsuario.obtenerIdsDeUsuariosDocentes(
       session,
     );
 
-    final idDirectivo = await session.auth.authenticatedUserId;
+    final idAutor = await obtenerIdDeUsuarioLogueado(session);
     final usuarios = await ormUsuario.obtenerUsuariosEnLote(
       session,
-      ids: listaUsuariosId,
+      ids: listaIdDocentes,
     );
 
     for (final usuario in usuarios) {
       List<SolicitudNotaMensual> solicitudesMensualesAdb = [];
 
-      for (final asignatura in usuario.asignaturas!) {
+      for (final asignatura in usuario.asignaturas ?? []) {
         final solicitud = Solicitud(
           tipoSolicitud: TipoSolicitud.calificacion,
-          idAutor: idDirectivo!,
+          idAutor: idAutor,
           idDestinatario: usuario.id!,
           fechaCreacion: ahora,
         );
@@ -159,13 +159,13 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           idSolicitud: solicitudCreada.id!,
           idAsignatura: asignatura.asignaturaId,
           idComision: asignatura.comisionId,
-          numeroDeMes: DateTime.now().month,
+          numeroDeMes: ahora.month,
           solicitudId: solicitudCreada.id!,
         );
 
         solicitudesMensualesAdb.add(solicitudNotaMensual);
 
-        final contenidoHtml = Plantillas().pedidoDeNotas(
+        final contenidoHtml = Plantillas.pedidoDeNotas(
           nombre: usuario.nombre,
           apellido: usuario.apellido,
           nombreMateria: asignatura.asignatura!.nombre,
