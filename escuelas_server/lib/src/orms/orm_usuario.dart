@@ -66,9 +66,6 @@ class OrmUsuario extends ORM {
   ///   session (Session): Un objeto de sesión utilizado para operaciones de bases de datos.
   ///   ids (List<int>): Una lista de números enteros que representan los ID de los usuarios que se van
   /// a recuperar.
-  ///
-  /// Returns:
-  ///   un `Futuro` que se resuelve en una `Lista` de objetos `Usuario`.
   Future<List<Usuario>> obtenerUsuariosEnLote(
     Session session, {
     required List<int> ids,
@@ -78,7 +75,10 @@ class OrmUsuario extends ORM {
       (session) async => await Usuario.db.find(
         session,
         where: (t) {
-          return t.id.contains(ids, 'usuarios');
+          return t.id.contains(
+            ids,
+            Usuario.t.tableName,
+          );
         },
         include: Usuario.include(
           direccionesDeEmail: DireccionDeEmail.includeList(
@@ -196,29 +196,11 @@ class OrmUsuario extends ORM {
     );
   }
 
-  /// La función `obtenerUsuariosConAsignaturas` recupera una lista de ID de usuarios asociados con
-  /// asignaciones.
-  Future<List<int>> obtenerUsuariosConAsignaturas(
-    Session session,
-  ) async {
-    final resultados = await session.dbNext.unsafeQueryMappedResults(
-      session,
-      '''SELECT DISTINCT "usuarioId"
-FROM r_asignaturas_usuarios;
-''',
-    );
-    final usuarios = resultados.map((
-      resultado,
-    ) {
-      final usuarioId = resultado['r_asignaturas_usuarios']?['usuarioId'];
-      if (usuarioId == null) {
-        throw Exception(
-          'usuarioId es null para el resultado: $resultado',
-        );
-      }
-      return usuarioId as int;
-    }).toList();
+  Future<List<int>> obtenerUsuariosConAsignaturas(Session session) async {
+    final usuarios = await RelacionAsignaturaUsuario.db
+        .find(session, orderBy: (t) => t.usuarioId);
+    final ids = usuarios.map((e) => e.usuarioId).toList();
 
-    return usuarios;
+    return ids;
   }
 }
