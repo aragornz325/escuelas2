@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -75,11 +73,10 @@ class EscuelasBoton extends StatelessWidget {
     required BuildContext context,
   }) {
     final colores = context.colores;
+
     final l10n = context.l10n;
 
     return EscuelasBoton(
-      width: 212.pw,
-      height: max(30.sh, 30.ph),
       estaHabilitado: true,
       onTap: onTap,
       color: colores.azul,
@@ -94,7 +91,7 @@ class EscuelasBoton extends StatelessWidget {
           Text(
             l10n.pageLoginLoginWithGoogle,
             style: TextStyle(
-              fontSize: 12.pf,
+              fontSize: 15.pf,
               color: colores.background,
             ),
           ),

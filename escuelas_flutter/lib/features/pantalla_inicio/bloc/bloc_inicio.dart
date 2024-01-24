@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-
 part 'bloc_inicio_estado.dart';
 part 'bloc_inicio_evento.dart';
 
@@ -23,13 +22,13 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
 
     await operacionBloc(
       callback: (client) async {
-        final listaUsuariosPendientes =
+        final usuariosPendientes =
             await client.usuario.obtenerUsuariosPendientes();
 
         emit(
           BlocInicioEstadoExitoso.desde(
             state,
-            hayUsuariosPendientes: listaUsuariosPendientes.isNotEmpty,
+            hayUsuariosPendientes: usuariosPendientes.isNotEmpty,
           ),
         );
       },

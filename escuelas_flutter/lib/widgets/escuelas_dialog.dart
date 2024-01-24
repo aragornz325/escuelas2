@@ -202,15 +202,11 @@ class EscuelasDialog extends StatelessWidget {
     final l10n = context.l10n;
 
     return EscuelasDialog(
-      altura: 160.ph,
       onTapConfirmar: onCerrarSesion,
       iconoAlLadoDelTitulo: Icons.logout_outlined,
       titulo: l10n.drawerLogOut,
       content: Padding(
-        padding: EdgeInsets.only(
-          top: 30.ph,
-          bottom: 5.ph,
-        ),
+        padding: EdgeInsets.only(top: 10.ph),
         child: Center(
           child: Text(
             l10n.dialogLogoutQuestion,
@@ -334,7 +330,8 @@ class EscuelasDialog extends StatelessWidget {
                   onTap: () => Navigator.of(context).pop(),
                   estaHabilitado: true,
                   context: context,
-                  texto: tituloDelBotonSecundario ?? l10n.commonCancel,
+                  texto: tituloDelBotonSecundario ??
+                      l10n.commonCancel.toUpperCase(),
                   color: colorDeFondoDelBotonSecundario ?? colores.onSecondary,
                 ),
               ),

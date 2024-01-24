@@ -5,7 +5,7 @@ import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.da
 import 'package:flutter/material.dart';
 
 /// {@template PaginaSeleccionDeRol}
-/// Pagina de la pantalla Asignación de Roles donde el usuario elige que rol
+/// Pagina de la pantalla Pagina Seleccion De Rol donde el usuario elige que rol
 /// quiere solicitar.
 /// {@endtemplate}
 @RoutePage()
