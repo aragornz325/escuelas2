@@ -34,26 +34,7 @@ class OrmUsuario extends ORM {
       );
     }
 
-    final rolesQuery = await ejecutarOperacionOrm(
-      session,
-      (session) async => session.dbNext.unsafeQueryMappedResults(session, '''
-        SELECT "roles"."id", "roles"."name", "roles"."permissions", "roles"."createdAt", "roles"."updatedAt"
-        FROM "roles"
-        INNER JOIN "user_role_relation" ON "roles"."id" = "user_role_relation"."roleId"
-        WHERE "user_role_relation"."userId" = ${usuario.id}
-       '''),
-    );
-
-    /// transforma la lista en un mapa con las keys con el nombre del rol y como value el permission
-    final roles = rolesQuery.fold<Map<String, String>>(
-      {},
-      (previousValue, element) {
-        final rol = element['roles']!;
-
-        previousValue[rol['name']] = rol['permissions'];
-        return previousValue;
-      },
-    );
+    final roles = await _obtenerRolesDeUsuario(session, usuario);
 
     return usuario..roles = roles;
   }
@@ -148,7 +129,38 @@ class OrmUsuario extends ORM {
       );
     }
 
-    return usuario;
+    final roles = await _obtenerRolesDeUsuario(session, usuario);
+
+    return usuario..roles = roles;
+  }
+
+  // ? En algun momento debería cambiar el lugar donde se obtienen los roles de un usuario
+  /// Obtiene los roles de un usuario y devuelve un mapa con el nombre del rol
+  /// como key y el permission como value
+  Future<Map<String, String>> _obtenerRolesDeUsuario(
+      Session session, Usuario usuario) async {
+    final rolesQuery = await ejecutarOperacionOrm(
+      session,
+      (session) async => session.dbNext.unsafeQueryMappedResults(session, '''
+        SELECT "roles"."id", "roles"."name", "roles"."permissions", "roles"."createdAt", "roles"."updatedAt"
+        FROM "roles"
+        INNER JOIN "user_role_relation" ON "roles"."id" = "user_role_relation"."roleId"
+        WHERE "user_role_relation"."userId" = ${usuario.id}
+       '''),
+    );
+
+    /// transforma la lista en un mapa con las keys con el nombre del rol y como value el permission
+    final roles = rolesQuery.fold<Map<String, String>>(
+      {},
+      (previousValue, element) {
+        final rol = element['roles']!;
+
+        previousValue[rol['name']] = rol['permissions'];
+        return previousValue;
+      },
+    );
+
+    return roles;
   }
 
   Future<Usuario> actualizarUsuario(

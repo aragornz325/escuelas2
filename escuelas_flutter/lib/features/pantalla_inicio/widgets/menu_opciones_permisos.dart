@@ -1,6 +1,8 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/pantalla_inicio/bloc/bloc_inicio.dart';
-import 'package:escuelas_flutter/features/pantalla_inicio/utilidades/enum_info_rol.dart';
+import 'package:escuelas_flutter/features/pantalla_inicio/utilidades/enum_menu_opciones_de_inicio.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
@@ -16,6 +18,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
   /// {@macro MenuOpcionesPermisos}
   const MenuOpcionesPermisos({super.key});
 
+  /// Muestra dialog de error
   Future<void> _showDialogError(BuildContext context) {
     final l10n = context.l10n;
     return showDialog<void>(
@@ -40,9 +43,23 @@ class MenuOpcionesPermisos extends StatelessWidget {
     );
   }
 
+  /// Devuelve de acuerdo al usuario su lista de vistas permitidas.
+  List<MenuOpcionesDeInicio> _menuesPermitidos(BuildContext context) {
+    final usuario = context.read<BlocDashboard>().state.usuario;
+
+    return MenuOpcionesDeInicio.values
+        .where(
+          (e) => e.permisosRequeridos.every(
+            usuario.tienePermisos,
+          ),
+        )
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+    final menues = _menuesPermitidos(context);
 
     return BlocConsumer<BlocInicio, BlocInicioEstado>(
       listener: (context, state) {
@@ -57,26 +74,26 @@ class MenuOpcionesPermisos extends StatelessWidget {
           );
         } else {
           return Column(
-            children: state.listaEtiquetas
+            children: menues
                 .map(
-                  (etiqueta) => Padding(
+                  (menu) => Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15.ph)
                         .copyWith(bottom: 15.ph),
                     child: ElementoLista.menu(
-                      widgetLateralDerecho:
-                          etiqueta.name == InfoDeRol.usuariosPendientes.name
-                              ? Padding(
-                                  padding: EdgeInsets.only(right: 20.pw),
-                                  child: Icon(
-                                    Icons.circle,
-                                    color: colores.error,
-                                    size: 15.sw,
-                                  ),
-                                )
-                              : null,
-                      nombreOpcion: etiqueta.titulo,
+                      widgetLateralDerecho: menu.name ==
+                              MenuOpcionesDeInicio.usuariosPendientes.name
+                          ? Padding(
+                              padding: EdgeInsets.only(right: 20.pw),
+                              child: Icon(
+                                Icons.circle,
+                                color: colores.error,
+                                size: 15.sw,
+                              ),
+                            )
+                          : null,
+                      nombreOpcion: menu.getTitulo(context),
                       context: context,
-                      onTap: () => etiqueta.redirigirAVista(context),
+                      onTap: () => menu.redirigirAVista(context),
                     ),
                   ),
                 )

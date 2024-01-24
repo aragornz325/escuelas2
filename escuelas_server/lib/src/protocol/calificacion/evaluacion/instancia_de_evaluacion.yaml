@@ -6,7 +6,7 @@ fields:
   autor: int, relation(parent=conceptos_calificacion)
   idConcepto: int, relation(parent=conceptos_calificacion)
   fechaProgramada: DateTime
-  fechaDeRealizacion: DateTime
+  fechaDeRealizacion: DateTime?
   ultimaModificacion: DateTime 
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
