@@ -184,6 +184,8 @@ class _EscuelasCargaCalificacionAlumnoState
                 : colores.azul,
             borderRadius: BorderRadius.circular(100.sw),
           ),
+
+          // TODO(ANYONE): Debe ser un dropdown y consumir ENUM (recibe index) de commons.
           child: TextFormField(
             readOnly: !widget.esEditable,
             cursorColor: Colors.white,

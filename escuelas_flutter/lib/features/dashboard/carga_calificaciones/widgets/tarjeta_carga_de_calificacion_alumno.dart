@@ -39,6 +39,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
       builder: (context, state) {
+     
         return Padding(
           padding: EdgeInsets.symmetric(
             vertical: max(5.ph, 5.sh),
