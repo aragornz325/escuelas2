@@ -33,6 +33,11 @@ class OrmCalificacionMensual extends ORM {
                 t.calificacion.idAsignatura.equals(idAsignatura) &
                 expresionMes;
           },
+          include: CalificacionMensual.include(
+            calificacion: Calificacion.include(
+              estudiante: Usuario.include(),
+            ),
+          ),
         ),
       );
 

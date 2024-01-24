@@ -1,0 +1,8 @@
+class: CalificacionesMensuales
+fields:
+  calificacioesnMensuales: List<CalificacionMensual>
+  solicitudNotaMensual: SolicitudNotaMensual
+
+
+
+ 

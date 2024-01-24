@@ -161,29 +161,34 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
 
   /// La función `obtenerCalificacionesPorAsignaturaPorPeriodo` recupera las calificaciones de una
   /// materia y periodo específico.
-  ///
-  /// Args:
-  ///   session (Session): Un objeto de sesión que representa la sesión o conexión actual a la base de
-  /// datos. Se utiliza para ejecutar operaciones de bases de datos.
-  ///   idAsignatura (int): El parámetro "idAsignatura" representa el ID de la asignatura de la que se
-  /// quieren obtener las calificaciones.
-  ///   periodo (Periodo): El parámetro "periodo" es de tipo "Periodo" y es obligatorio.
-  ///
-  /// Returns:
-  ///   el resultado de la función `ejecutarOperacion`, que es el resultado de la función
-  /// `orm.obtenerCalificacionesPorAsignaturaPorPeriodo`.
-  Future obtenerCalificacionesPorAsignaturaPorPeriodo(
+  Future<CalificacionesMensuales> obtenerCalificacionesPorAsignaturaPorPeriodo(
     Session session, {
+    required int numeroDeMes,
+    required int numeroDeAnio,
     required int idAsignatura,
-    required Periodo periodo,
+    required int idComision,
   }) async {
-    return await ejecutarOperacion(
-      () => orm.obtenerCalificacionesPorAsignaturaPorPeriodo(
+    final calificacionesMensuales = await ejecutarOperacion(
+      () => _ormCalificacionMensual.obtenerCalificacionesMensuales(
         session,
         idAsignatura: idAsignatura,
-        periodo: periodo,
+        idComision: idComision,
+        numeroDeMes: numeroDeMes,
       ),
     );
+
+    final solicitudNotaMensual = await _ormSolicitudNotaMensual
+        .obtenerSolicitudNotaMensualPorIdSolicitud(
+      session,
+      idSolicitud: 1,
+    );
+
+    final respuesta = CalificacionesMensuales(
+      calificacioesnMensuales: calificacionesMensuales,
+      solicitudNotaMensual: solicitudNotaMensual,
+    );
+
+    return respuesta;
   }
 
   Future<void> cargarCalificacionesMensualesPorSolicitud(
