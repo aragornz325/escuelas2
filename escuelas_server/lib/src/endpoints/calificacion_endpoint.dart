@@ -71,7 +71,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
 
   /// El método `obtenerCalificacionesPorAsignaturaPorPeriodo` es una función que recupera una lista de
   /// calificaciones para una materia y periodo específico.
-  Future<List> obtenerCalificacionesPorAsignaturaPorPeriodo(
+  Future<ModeloAVerDos> obtenerCalificacionesPorAsignaturaPorPeriodo(
     Session session, {
     required int idAsignatura,
     required Periodo periodo,
