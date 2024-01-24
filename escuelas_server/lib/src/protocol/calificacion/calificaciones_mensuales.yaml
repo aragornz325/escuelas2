@@ -1,6 +1,6 @@
 class: CalificacionesMensuales
 fields:
-  calificacioesnMensuales: List<CalificacionMensual>
+  calificacionesMensuales: List<CalificacionMensual>
   solicitudNotaMensual: SolicitudNotaMensual
 
 
