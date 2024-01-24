@@ -56,7 +56,7 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
           create: (context) => BlocDashboard(
             infoUsuario: widget.userInfo,
             usuario: widget.usuario,
-          ),
+          )..add(const BlocDashboardEventoInicializar()),
         ),
         BlocProvider<BlocKyc>(
           create: (context) => BlocKyc()..add(const BlocKycEventoInicializar()),
