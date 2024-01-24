@@ -1,0 +1,11 @@
+class: ModeloAVer
+fields:
+  nombreCompletoAlumno: String
+  imagenAlumno: String
+  descripcionDeCalificacion: String
+  promedio: double
+  calificacionMensual: CalificacionMensual
+
+
+
+ 

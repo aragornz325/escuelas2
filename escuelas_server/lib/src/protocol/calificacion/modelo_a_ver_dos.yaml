@@ -1,0 +1,4 @@
+class: ModeloAVerDos
+fields:
+  modeloAVerLista: List<ModeloAVer>
+  solicitud: Solicitud
