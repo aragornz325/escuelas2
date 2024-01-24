@@ -43,81 +43,22 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // final hola = await client.calificacion
-        //     .obtenerCalificacionesPorAsignaturaPorPeriodo(
-        //         idAsignatura: state.asignatura?.id ?? 0, periodo: periodo);
-
-        final curso = ComisionDeCurso(
-          cursoId: 89,
-          id: 1,
-          nombre: 'primero',
-          anioLectivo: 1,
-          estudiantes: [
-            RelacionComisionUsuario(
-              comisionId: 1,
-              usuarioId: 1,
-              usuario: Usuario(
-                idUserInfo: 1,
-                nombre: 'pepe',
-                apellido: 'murra',
-                urlFotoDePerfil: '',
-              ),
-            ),
-          ],
-          ultimaModificacion: DateTime.now(),
+        final calificacionesMensuales = await client.calificacion
+            .obtenerCalificacionesPorAsignaturaPorPeriodo(
+          idAsignatura: 1,
+          idComision: 1,
+          numeroDeAnio: DateTime.now().year,
+          numeroDeMes: 2,
         );
-
-        final listaCalificacionCompensacion = [
-          Calificacion(
-            idAutor: 3,
-            id: 1,
-            observacion: 'nose',
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
-            estudianteId: 1,
-            idComision: 1,
-            idAsignatura: 1,
-            tipoCalificacion: TipoCalificacion.rite,
-            index: 1,
-            diferencial: '',
-            idInstanciaDeEvaluacion: 1,
-          ),
-        ];
-
-        final listaCalificaciones = [
-          Calificacion(
-            idAutor: 7,
-            id: 1,
-            observacion: 'nose',
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
-            estudianteId: 1,
-            idComision: 1,
-            idAsignatura: 1,
-            tipoCalificacion: TipoCalificacion.numericoDecimal,
-            index: 1,
-            diferencial: '',
-            idInstanciaDeEvaluacion: 1,
-          ),
-        ];
 
         emit(
           BlocCargaCalificacionesEstadoExitoso.desde(
             state,
-            curso: curso,
+            comision: state.comision,
             fecha: event.fecha,
-            listaCalificaciones: listaCalificaciones,
-            listaCalificacionesCompensadas: listaCalificacionCompensacion,
-            // TODO(anyone): usar el usuario del dashboard cuando gon lo haga.
-            rolDelUsuario: Role(
-              id: 1,
-              name: '',
-              permissions: '',
-              createdAt: DateTime.now(),
-              updatedAt: DateTime.now(),
-            ),
+            listaCalificacionesCompensadas: [],
+            calificacionesMensuales: calificacionesMensuales,
+            rolDelUsuario: state.rolDelUsuario,
           ),
         );
       },
@@ -143,7 +84,7 @@ class BlocCargaCalificaciones
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        listaCalificaciones: state.listaCalificaciones,
+        calificacionesMensuales: state.calificacionesMensuales,
       ),
     );
   }
@@ -175,7 +116,7 @@ class BlocCargaCalificaciones
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        listaCalificaciones: state.listaCalificaciones,
+        calificacionesMensuales: state.calificacionesMensuales,
         listaCalificacionesCompensadas: state.listaCalificacionesCompensadas,
       ),
     );
@@ -203,7 +144,7 @@ class BlocCargaCalificaciones
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        listaCalificaciones: calificaciones,
+        calificacionesMensuales: state.calificacionesMensuales,
       ),
     );
   }

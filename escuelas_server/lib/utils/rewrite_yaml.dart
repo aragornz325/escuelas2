@@ -10,7 +10,7 @@ void rewriteConfigYaml(String mode) {
   String yamlDoc = yamlWriter.write({
     'apiServer': {
       'port': Platform.environment['PORT'] ?? 8080,
-      'publicHost': '0.0.0.0',
+      'publicHost': 'localhost',
       'publicPort': Platform.environment['PORT'] ?? 8080,
       'publicScheme': 'http',
     },

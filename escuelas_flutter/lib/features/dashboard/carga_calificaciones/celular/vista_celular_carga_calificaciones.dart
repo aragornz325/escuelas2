@@ -51,7 +51,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
         SizedBox(height: max(20.ph, 20.sh)),
         BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
           builder: (context, state) {
-            final curso = state.curso;
+            final curso = state.comision;
 
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.pw),
@@ -93,7 +93,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            final curso = state.curso;
+            final curso = state.comision;
 
             if (curso == null) {
               return Center(

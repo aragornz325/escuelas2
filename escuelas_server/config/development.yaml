@@ -1,6 +1,6 @@
 apiServer: 
   port: 8080
-  publicHost: 0.0.0.0
+  publicHost: localhost
   publicPort: 8080
   publicScheme: http
 insightsServer: 

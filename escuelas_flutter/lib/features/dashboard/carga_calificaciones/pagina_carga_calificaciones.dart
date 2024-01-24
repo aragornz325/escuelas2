@@ -17,8 +17,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PaginaCargaDeCalificaciones extends StatelessWidget {
   /// {@macro PaginaCargaDeCalificaciones}
   PaginaCargaDeCalificaciones({
-    @PathParam('nombreAsignatura') required this.nombreAsignatura,
-    @PathParam('idCurso') required this.idCurso,
+    @PathParam('nombreAsignatura')
+    required this.nombreAsignatura, // TODO(SAM): Cambiar a idasignatura
+    @PathParam('idCurso') required this.idCurso, // ID comision
     @PathParam('fecha') required String fecha,
     super.key,
   }) : fecha = DateTime.parse(fecha);

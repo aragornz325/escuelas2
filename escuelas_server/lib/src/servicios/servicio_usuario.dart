@@ -300,9 +300,12 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
 
+    //crear relacion usuario - comision
+
     final idUsuario = usuario.id;
 
     final comisionSolicitada = usuarioPendiente.comisionSolicitada;
+    final asignaturasSolicitadas = usuarioPendiente.asignaturasSolicitadas;
 
     if (idUsuario == null) {
       throw ExcepcionCustom(
@@ -321,9 +324,10 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
 
-    final asignaturasSolicitadas = usuarioPendiente.asignaturasSolicitadas;
+    
 
-    if (asignaturasSolicitadas != null) {
+    if (asignaturasSolicitadas!.isNotEmpty) {
+      
       await ejecutarOperacion(
         () => _servicioAsignatura.asignarAsignaturasSolicitadas(
           session,
@@ -332,10 +336,11 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         ),
       );
     } else if (comisionSolicitada != null) {
+     
       await ejecutarOperacion(
         () => _servicioComision.asignarUsuarioAComision(
           session,
-          idComision: comisionSolicitada.id ?? 0,
+          idComision: comisionSolicitada.id!,
           idUsuario: idUsuario,
         ),
       );
