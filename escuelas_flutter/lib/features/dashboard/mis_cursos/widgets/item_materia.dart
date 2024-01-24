@@ -48,7 +48,7 @@ class ItemMateria extends StatelessWidget {
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          onTap: () => estaHabilitado ? onTap : null,
+          onTap: estaHabilitado ? onTap : null,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),

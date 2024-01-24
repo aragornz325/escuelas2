@@ -63,16 +63,16 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 15.pf,
-                      color: colores.onSecondary,
+                      color: colores.onBackground,
                     ),
                   ),
                   if (curso != null)
                     Text(
-                      curso.nombre,
+                      curso.nombre.toUpperCase(),
                       style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 15.pf,
-                        color: colores.onBackground,
+                        color: colores.onSecondary,
                       ),
                     )
                   else
