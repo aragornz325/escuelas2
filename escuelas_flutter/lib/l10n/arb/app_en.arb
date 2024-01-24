@@ -494,5 +494,27 @@
     "commonAcademicCommunity": "Academic community",
     "@commonAcademicCommunity": {
         "description": "Title of the section Academic community"
+    },
+    
+    "commonPendingUsers": "Pending users",
+    "@commonPendingUsers": {
+        "description": "Title of the section Pending users"
+    },
+    
+     "commonCoursesList": "Courses list",
+    "@commonCoursesList": {
+        "description": "Title of the section Courses list"
+    },
+
+    "commonRecordAbsences": "Record absences",
+    "@commonRecordAbsences": {
+        "description": "Title of the section Record absences"
+    },
+
+    "commonCoursesSupervision": "Courses supervision",
+    "@commonCoursesSupervision": {
+        "description": "Title of the section Courses supervision"
     }
+
+
 }

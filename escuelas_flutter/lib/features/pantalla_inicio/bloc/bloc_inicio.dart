@@ -1,9 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 
-import 'package:escuelas_flutter/features/pantalla_inicio/utilidades/enum_info_rol.dart';
-import 'package:rolemissions/rolemissions.dart';
-
 part 'bloc_inicio_estado.dart';
 part 'bloc_inicio_evento.dart';
 
@@ -26,15 +23,12 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
 
     await operacionBloc(
       callback: (client) async {
-        final listaRoles = await client.rol.obtenerRoles();
-
         final listaUsuariosPendientes =
             await client.usuario.obtenerUsuariosPendientes();
 
         emit(
           BlocInicioEstadoExitoso.desde(
             state,
-            listaRoles: listaRoles,
             hayUsuariosPendientes: listaUsuariosPendientes.isNotEmpty,
           ),
         );
