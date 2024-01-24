@@ -253,7 +253,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           final usuarioPendienteAlumno =
               await client.usuario.enviarSolicitudRegistroAlumno(
             idComisionDeCursoSolicitada:
-                state.opcionesFormulario.first.comisionSeleccionada!.id ?? 0,
+                state.opcionesFormulario.first.comisionSeleccionada?.id ?? 0,
             usuarioPendiente: usuarioPendiente,
           );
           await IsarServicio.guardarUsuarioPendiente(usuarioPendienteAlumno);
