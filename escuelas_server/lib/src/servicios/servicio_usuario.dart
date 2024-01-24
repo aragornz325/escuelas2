@@ -186,9 +186,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           ..estadoDeSolicitud = EstadoDeSolicitud.pendiente
           ..fechaCreacion = ahora
           ..ultimaModificacion = ahora
-          ..comisionSolicitada = usuarioPendiente.comisionSolicitada?.copyWith(
-            id: idComisionDeCursoSolicitada,
-          ),
+          ..comisionSolicitadaId = idComisionDeCursoSolicitada,
       ),
     );
 
