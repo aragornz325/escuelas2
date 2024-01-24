@@ -116,13 +116,13 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
     ''';
 
     final query = await session.dbNext.unsafeQueryMappedResults(session, '''
-     SELECT DISTINCT ON (c."id")
+    SELECT DISTINCT ON (c."id")
           c."id",
-          c."nombre",
-          c."cursoId",
-          COALESCE( $queryAsignaturas, '[]'::jsonb) AS "listaDeAsignaturas"
+        c."nombre",
+        c."cursoId",
+        COALESCE( $queryAsignaturas, '[]'::jsonb) AS "listaDeAsignaturas"
     FROM "comisiones" c
-    INNER JOIN r_asignaturas_usuarios rau ON        rau."idComision" = c."id"
+    INNER JOIN r_asignaturas_usuarios rau ON rau."comisionId" = c."id"
     WHERE rau."usuarioId" = $idUsuario
     ''');
 
