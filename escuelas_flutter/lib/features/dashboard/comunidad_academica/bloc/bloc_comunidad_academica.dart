@@ -29,6 +29,7 @@ class BlocComunidadAcademica
     await operacionBloc(
       callback: (client) async {
         final listadoRoles = await client.rol.obtenerRoles();
+
         emit(
           BlocComunidadAcademicaEstadoExitoso.desde(
             state,
@@ -48,6 +49,7 @@ class BlocComunidadAcademica
     Emitter<BlocComunidadAcademicaEstado> emit,
   ) async {
     emit(BlocComunidadAcademicaEstadoCargando.desde(state));
+
     await operacionBloc(
       callback: (client) async {
         final listaUsuarios =

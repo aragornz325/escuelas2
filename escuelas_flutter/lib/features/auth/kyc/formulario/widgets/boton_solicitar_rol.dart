@@ -42,7 +42,7 @@ class BotonSolicitarRol extends StatelessWidget {
       builder: (context, state) {
         return EscuelasBoton.texto(
           context: context,
-          estaHabilitado: state.rolElegido != null,
+          estaHabilitado: state.opcionesFormulario.isNotEmpty,
           onTap: () => _dialogSolicitarRol(context),
           color: state.opcionesFormulario.isNotEmpty
               ? colores.azul

@@ -163,7 +163,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
     final colores = context.colores;
 
     return SizedBox(
-      width: widget.width?.sw ?? 300.sw,
+      width: widget.width,
       height: widget.height ?? max(40.ph, 40.sh),
       child: TextFormField(
         onEditingComplete: widget.onEditingComplete,
@@ -199,11 +199,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
               suffixIcon: widget.esPassword ? widget.suffixIcon : null,
             ),
         validator: widget.validator,
-        onChanged: (value) {
-          setState(() {
-            widget.onChanged?.call(value);
-          });
-        },
+        onChanged: (value) => setState(() => widget.onChanged?.call(value)),
       ),
     );
   }
@@ -264,18 +260,14 @@ class _EscuelasTextFieldPasswordState extends State<EscuelasTextFieldPassword> {
               ? Icon(
                   Icons.visibility_off_outlined,
                   color: colores.onSecondary,
-                  size: 18.sw,
+                  size: 25.pw,
                 )
               : Icon(
                   Icons.visibility_outlined,
                   color: colores.onSecondary,
-                  size: 18.sw,
+                  size: 25.pw,
                 ),
-          onPressed: () {
-            setState(() {
-              _obscureText = !_obscureText;
-            });
-          },
+          onPressed: () => setState(() => _obscureText = !_obscureText),
         ),
       ),
       validator: (value) {

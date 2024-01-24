@@ -169,7 +169,7 @@ class EscuelasDrawer extends StatelessWidget {
                       SizedBox(height: 50.ph),
                       _EscuelasListTile(
                         icon: Icons.cottage_outlined,
-                        title: l10n.pageHomeTitleAppBar,
+                        title: l10n.routeNameHome,
                         onTap: () => _redireccionHome(context),
                       ),
                       _EscuelasListTile(
@@ -198,12 +198,12 @@ class EscuelasDrawer extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 45.pw,
-            right: 10.pw,
+            bottom: 50.pw,
+            right: 0.pw,
             child: GestureDetector(
               child: Container(
-                width: 60.pw,
-                height: 60.pw,
+                width: 50.sw,
+                height: 50.sh,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: colores.primaryContainer,
@@ -211,9 +211,7 @@ class EscuelasDrawer extends StatelessWidget {
                 child: IconButton(
                   icon: const Icon(Icons.arrow_back_ios_new),
                   color: colores.background,
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
             ),
@@ -223,9 +221,6 @@ class EscuelasDrawer extends StatelessWidget {
     );
   }
 }
-
-// TODO(ANYONE): Agregar enum para opciones de navegacion en el caso de que
-// haya mas?
 
 /// {@template  EscuelasDrawer}
 /// List tile del drawer custom, permite pasarle icono, texto y funcion.

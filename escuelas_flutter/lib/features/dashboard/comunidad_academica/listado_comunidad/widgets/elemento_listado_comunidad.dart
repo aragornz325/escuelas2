@@ -61,7 +61,7 @@ class ElementoListadoComunidad extends StatelessWidget {
                     ordenarPor: ordenarPor,
                     onTap: () => context.router.push(
                       RutaPerfilUsuario(
-                        idUsuario: usuario.idUserInfo,
+                        idUsuario: usuario.id ?? 0,
                       ),
                     ),
                     avatar: usuario.urlFotoDePerfil,

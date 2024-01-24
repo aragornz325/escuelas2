@@ -30,7 +30,7 @@ class ItemUsuarioPendiente extends StatelessWidget {
             avatar: usuario.urlFotoDePerfil,
             nombreUsuario: usuario.nombre,
             context: context,
-            onTap: () => context.router.push(
+            onTap: () => context.router.replace(
               RutaPerfilUsuarioPendiente(
                 idUsuarioPendiente: usuario.id ?? 0,
               ),
@@ -49,13 +49,13 @@ class ItemUsuarioPendiente extends StatelessWidget {
               borderRadius: BorderRadius.circular(100.sw),
               color: colores.primaryContainer,
             ),
-            width: 35.sw,
-            height: 35.sh,
+            width: 45.sw,
+            height: 45.sh,
             child: Center(
               child: Icon(
                 Icons.arrow_forward_ios_rounded,
                 color: colores.background,
-                size: 10.sw,
+                size: 15.pw,
               ),
             ),
           ),

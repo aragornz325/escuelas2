@@ -54,25 +54,19 @@ class TarjetaPerfil extends StatelessWidget {
               height: 110.sh,
               child: ClipRRect(
                 borderRadius: BorderRadius.all(Radius.circular(100.sw)),
-                child: (urlImage != null && urlImage != '')
-                    ? Image.network(
-                        urlImage!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (
-                          context,
-                          error,
-                          stackTrace,
-                        ) =>
-                            Image.asset(
-                          Assets.images.usuario.path,
-                          color: colores.onBackground,
-                        ),
-                      )
-                    : Icon(
-                        Icons.person,
-                        color: colores.onBackground,
-                        size: 30.sw,
-                      ),
+                child: Image.network(
+                  urlImage!,
+                  fit: BoxFit.cover,
+                  errorBuilder: (
+                    context,
+                    error,
+                    stackTrace,
+                  ) =>
+                      Image.asset(
+                    Assets.images.usuario.path,
+                    color: colores.onBackground,
+                  ),
+                ),
               ),
             ),
           ),
