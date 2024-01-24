@@ -324,11 +324,10 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
 
-    print(comisionSolicitada);
-    print(asignaturasSolicitadas);
+    
 
     if (asignaturasSolicitadas!.isNotEmpty) {
-      print('condicion1');
+      
       await ejecutarOperacion(
         () => _servicioAsignatura.asignarAsignaturasSolicitadas(
           session,
@@ -337,7 +336,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         ),
       );
     } else if (comisionSolicitada != null) {
-      print('condicion2');
+     
       await ejecutarOperacion(
         () => _servicioComision.asignarUsuarioAComision(
           session,
