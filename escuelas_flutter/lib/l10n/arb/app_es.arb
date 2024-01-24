@@ -566,5 +566,4 @@
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
     }
-    
 }

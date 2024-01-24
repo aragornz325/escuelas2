@@ -1,8 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/pantalla_inicio/utilidades/enum_info_rol.dart';
-import 'package:rolemissions/rolemissions.dart';
 part 'bloc_inicio_estado.dart';
 part 'bloc_inicio_evento.dart';
 
@@ -25,20 +22,13 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
 
     await operacionBloc(
       callback: (client) async {
-        final rolesYUsuariosPendientes = await Future.wait([
-          client.rol.obtenerRoles(),
-          client.usuario.obtenerUsuariosPendientes(),
-        ]);
-        final listaRoles = List<Role>.from(rolesYUsuariosPendientes[0]);
-
-        final listaUsuariosPendientes =
-            List<UsuarioPendiente>.from(rolesYUsuariosPendientes[1]);
+        final usuariosPendientes =
+            await client.usuario.obtenerUsuariosPendientes();
 
         emit(
           BlocInicioEstadoExitoso.desde(
             state,
-            listaRoles: listaRoles,
-            hayUsuariosPendientes: listaUsuariosPendientes.isNotEmpty,
+            hayUsuariosPendientes: usuariosPendientes.isNotEmpty,
           ),
         );
       },
