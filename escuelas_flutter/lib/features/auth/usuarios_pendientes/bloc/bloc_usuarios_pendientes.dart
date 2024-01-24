@@ -26,10 +26,16 @@ class BlocUsuariosPendientes
 
     await operacionBloc(
       callback: (client) async {
+        final usuariosPendientesYRoles = await Future.wait(
+          [
+            client.usuario.obtenerUsuariosPendientes(),
+            client.rol.obtenerRoles(),
+          ],
+        );
         final listaUsuariosPendientes =
-            await client.usuario.obtenerUsuariosPendientes();
+            List<UsuarioPendiente>.from(usuariosPendientesYRoles[0]);
 
-        final listaRoles = await client.rol.obtenerRoles();
+        final listaRoles = List<Role>.from(usuariosPendientesYRoles[1]);
 
         emit(
           BlocUsuariosPendientesEstadoExitoso.desde(
