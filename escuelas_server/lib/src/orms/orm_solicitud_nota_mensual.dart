@@ -220,7 +220,8 @@ class OrmSolicitudNotaMensual extends ORM {
   ///
   /// Returns:
   ///   a Futuro de tipo SolicitudNotaMensual.
-  Future<List<SolicitudNotaMensual>> obtenerSoliciturPorAsignaturaComisionyMes(
+  Future<List<SolicitudNotaMensual>>
+      obtenerSolicitudesPorAsignaturaComisionyMes(
     Session session, {
     required int idAsignatura,
     required idComision,
@@ -241,28 +242,5 @@ class OrmSolicitudNotaMensual extends ORM {
     }
 
     return solicitud;
-  }
-
-  Future<SolicitudNotaMensual?> obtenerSolicitudNotaMensualPorPeriodoYComision(
-    Session session, {
-    required int idComision,
-    required int idAsignatura,
-    required int numeroDeMes,
-  }) async {
-    final solicitudNotaMensualADb = await ejecutarOperacionOrm(
-      session,
-      (session) => SolicitudNotaMensual.db.findFirstRow(
-        session,
-        where: (t) =>
-            t.idAsignatura.equals(idAsignatura) &
-            t.idComision.equals(idComision) &
-            t.numeroDeMes.equals(numeroDeMes),
-        include: SolicitudNotaMensual.include(
-          solicitud: Solicitud.include(),
-        ),
-      ),
-    );
-
-    return solicitudNotaMensualADb;
   }
 }
