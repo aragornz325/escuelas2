@@ -14,6 +14,7 @@ enum MenuOpcionesDeInicio {
   supervision([PermisoDeComision.verComision]);
 
   const MenuOpcionesDeInicio(this.permisosRequeridos);
+  
   final List<Enum> permisosRequeridos;
 
   /// Redirige al usuario a esa vista
