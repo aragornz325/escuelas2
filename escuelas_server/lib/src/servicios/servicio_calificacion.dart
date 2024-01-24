@@ -177,15 +177,20 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
       ),
     );
 
-    final solicitudNotaMensual = await _ormSolicitudNotaMensual
-        .obtenerSolicitudNotaMensualPorIdSolicitud(
-      session,
-      idSolicitud: 1,
+    final solicitudesNotaMensual = await ejecutarOperacion(
+      () =>
+          _ormSolicitudNotaMensual.obtenerSolicitudesPorAsignaturaComisionyMes(
+        session,
+        idAsignatura: idAsignatura,
+        idComision: idComision,
+        numeroDeMes: numeroDeMes,
+      ),
     );
 
     final respuesta = CalificacionesMensuales(
-      calificacioesnMensuales: calificacionesMensuales,
-      solicitudNotaMensual: solicitudNotaMensual,
+      calificacionesMensuales: calificacionesMensuales,
+      solicitudNotaMensual:
+          solicitudesNotaMensual.isEmpty ? null : solicitudesNotaMensual.first,
     );
 
     return respuesta;

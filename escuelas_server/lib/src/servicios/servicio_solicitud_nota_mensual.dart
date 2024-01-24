@@ -143,7 +143,8 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
     for (final usuario in usuarios) {
       List<SolicitudNotaMensual> solicitudesMensualesAdb = [];
 
-      for (final asignatura in usuario.asignaturas ?? []) {
+      for (final asignatura
+          in usuario.asignaturas ?? <RelacionAsignaturaUsuario>[]) {
         final solicitud = Solicitud(
           tipoSolicitud: TipoSolicitud.calificacion,
           idAutor: idAutor,
@@ -157,10 +158,12 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
         );
 
         final chequearSolicitudMensual =
-            await orm.obtenerSoliciturPorAsignaturaComisionyMes(session,
-                idAsignatura: asignatura.asignaturaId,
-                idComision: asignatura.comisionId,
-                numeroDeMes: ahora.month);
+            await orm.obtenerSolicitudesPorAsignaturaComisionyMes(
+          session,
+          idAsignatura: asignatura.asignaturaId,
+          idComision: asignatura.comisionId,
+          numeroDeMes: ahora.month,
+        );
 
         if (chequearSolicitudMensual.isNotEmpty) {
           logger.warning("ya existe una solicitud para este mes");
@@ -192,7 +195,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           contenidoHtmlDelCorreo: contenidoHtml,
         );
       }
-      
+
       await crearSolicitudesMensualesEnLote(
         session,
         solicitudesMensuales: solicitudesMensualesAdb,

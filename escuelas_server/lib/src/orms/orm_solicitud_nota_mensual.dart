@@ -242,4 +242,27 @@ class OrmSolicitudNotaMensual extends ORM {
 
     return solicitud;
   }
+
+  Future<SolicitudNotaMensual?> obtenerSolicitudNotaMensualPorPeriodoYComision(
+    Session session, {
+    required int idComision,
+    required int idAsignatura,
+    required int numeroDeMes,
+  }) async {
+    final solicitudNotaMensualADb = await ejecutarOperacionOrm(
+      session,
+      (session) => SolicitudNotaMensual.db.findFirstRow(
+        session,
+        where: (t) =>
+            t.idAsignatura.equals(idAsignatura) &
+            t.idComision.equals(idComision) &
+            t.numeroDeMes.equals(numeroDeMes),
+        include: SolicitudNotaMensual.include(
+          solicitud: Solicitud.include(),
+        ),
+      ),
+    );
+
+    return solicitudNotaMensualADb;
+  }
 }
