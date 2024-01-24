@@ -23,10 +23,11 @@ class OrmSolicitud extends ORM {
 
     if (solicitudADb.isEmpty) {
       throw ExcepcionCustom(
-          titulo: 'no se pudo crear',
-          mensaje: 'error al crear registro',
-          tipoDeError: TipoExcepcion.desconocido,
-          codigoError: 422);
+        titulo: 'no se pudo crear',
+        mensaje: 'error al crear registro',
+        tipoDeError: TipoExcepcion.desconocido,
+        codigoError: 422,
+      );
     }
     return solicitudADb.first;
   }
@@ -53,10 +54,11 @@ class OrmSolicitud extends ORM {
 
     if (solicitudADb.isEmpty) {
       throw ExcepcionCustom(
-          titulo: 'fallo al actualizar',
-          mensaje: 'no se pudo actualizar el registro',
-          tipoDeError: TipoExcepcion.desconocido,
-          codigoError: 500);
+        titulo: 'fallo al actualizar',
+        mensaje: 'no se pudo actualizar el registro',
+        tipoDeError: TipoExcepcion.desconocido,
+        codigoError: 500,
+      );
     }
     return solicitudADb.first;
   }
@@ -79,10 +81,11 @@ class OrmSolicitud extends ORM {
 
     if (solicitud.isEmpty) {
       throw ExcepcionCustom(
-          titulo: 'no hay solicitudes',
-          mensaje: 'no hay solicitudes',
-          tipoDeError: TipoExcepcion.noEncontrado,
-          codigoError: 404);
+        titulo: 'no hay solicitudes',
+        mensaje: 'no hay solicitudes',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
     }
     return solicitud;
   }
@@ -108,10 +111,11 @@ class OrmSolicitud extends ORM {
 
     if (solicitud == null) {
       throw ExcepcionCustom(
-          titulo: 'no encontrado',
-          mensaje: 'no se encontro la solicitud',
-          tipoDeError: TipoExcepcion.noEncontrado,
-          codigoError: 404);
+        titulo: 'no encontrado',
+        mensaje: 'no se encontro la solicitud',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
     }
     return solicitud;
   }
@@ -137,10 +141,11 @@ class OrmSolicitud extends ORM {
     );
     if (solicitud.isEmpty) {
       throw ExcepcionCustom(
-          titulo: 'no encontrado',
-          mensaje: 'no se encontro la solicitud',
-          tipoDeError: TipoExcepcion.noEncontrado,
-          codigoError: 404);
+        titulo: 'no encontrado',
+        mensaje: 'no se encontro la solicitud',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
     }
     return solicitud.first;
   }
