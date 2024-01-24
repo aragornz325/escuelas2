@@ -1,5 +1,4 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/orms/orm_asignatura_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion_mensual.dart';
 import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
@@ -12,19 +11,13 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   @override
   OrmCalificacion get orm => OrmCalificacion();
 
-  final OrmSolicitudNotaMensual _ormSolicitudNotaMensual =
-      OrmSolicitudNotaMensual();
+  final _ormSolicitudNotaMensual = OrmSolicitudNotaMensual();
 
-  final OrmConceptoCalificacion _ormConceptoCalificacion =
-      OrmConceptoCalificacion();
+  final _ormConceptoCalificacion = OrmConceptoCalificacion();
 
-  final OrmCalificacionMensual _ormCalificacionMensual =
-      OrmCalificacionMensual();
+  final _ormCalificacionMensual = OrmCalificacionMensual();
 
-  final OrmRelacionAsignaturaUsuario _ormRelacionUsuarioAsignatura =
-      OrmRelacionAsignaturaUsuario();
-
-  final ServicioSolicitud _servicioSolicitud = ServicioSolicitud();
+  final _servicioSolicitud = ServicioSolicitud();
 
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {
