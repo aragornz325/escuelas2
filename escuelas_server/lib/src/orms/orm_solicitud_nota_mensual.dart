@@ -220,7 +220,8 @@ class OrmSolicitudNotaMensual extends ORM {
   ///
   /// Returns:
   ///   a Futuro de tipo SolicitudNotaMensual.
-  Future<List<SolicitudNotaMensual>> obtenerSoliciturPorAsignaturaComisionyMes(
+  Future<List<SolicitudNotaMensual>>
+      obtenerSolicitudesPorAsignaturaComisionyMes(
     Session session, {
     required int idAsignatura,
     required idComision,
@@ -234,6 +235,9 @@ class OrmSolicitudNotaMensual extends ORM {
             t.idAsignatura.equals(idAsignatura) &
             t.idComision.equals(idComision) &
             t.numeroDeMes.equals(numeroDeMes),
+        include: SolicitudNotaMensual.include(
+          solicitud: Solicitud.include(),
+        ),
       ),
     );
     if (solicitud.isEmpty) {

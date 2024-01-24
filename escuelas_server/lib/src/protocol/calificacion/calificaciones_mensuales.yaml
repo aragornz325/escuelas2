@@ -1,0 +1,13 @@
+### ! Mejorar naming
+class: CalificacionesMensuales
+fields:
+  calificacionesMensuales: List<CalificacionMensual>
+  ### En caso de que la solicitud de nota mensual sea nulla
+  ### no corresponde aun pasar las notas mensuales, ya que
+  ### no se ha creado la solicitud de nota mensual por parte
+  ### de un directivo o un administrador
+  solicitudNotaMensual: SolicitudNotaMensual?
+
+
+
+ 

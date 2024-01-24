@@ -1,5 +1,4 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/orms/orm_asignatura_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion_mensual.dart';
 import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
@@ -12,19 +11,13 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   @override
   OrmCalificacion get orm => OrmCalificacion();
 
-  final OrmSolicitudNotaMensual _ormSolicitudNotaMensual =
-      OrmSolicitudNotaMensual();
+  final _ormSolicitudNotaMensual = OrmSolicitudNotaMensual();
 
-  final OrmConceptoCalificacion _ormConceptoCalificacion =
-      OrmConceptoCalificacion();
+  final _ormConceptoCalificacion = OrmConceptoCalificacion();
 
-  final OrmCalificacionMensual _ormCalificacionMensual =
-      OrmCalificacionMensual();
+  final _ormCalificacionMensual = OrmCalificacionMensual();
 
-  final OrmRelacionAsignaturaUsuario _ormRelacionUsuarioAsignatura =
-      OrmRelacionAsignaturaUsuario();
-
-  final ServicioSolicitud _servicioSolicitud = ServicioSolicitud();
+  final _servicioSolicitud = ServicioSolicitud();
 
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {
@@ -161,29 +154,39 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
 
   /// La función `obtenerCalificacionesPorAsignaturaPorPeriodo` recupera las calificaciones de una
   /// materia y periodo específico.
-  ///
-  /// Args:
-  ///   session (Session): Un objeto de sesión que representa la sesión o conexión actual a la base de
-  /// datos. Se utiliza para ejecutar operaciones de bases de datos.
-  ///   idAsignatura (int): El parámetro "idAsignatura" representa el ID de la asignatura de la que se
-  /// quieren obtener las calificaciones.
-  ///   periodo (Periodo): El parámetro "periodo" es de tipo "Periodo" y es obligatorio.
-  ///
-  /// Returns:
-  ///   el resultado de la función `ejecutarOperacion`, que es el resultado de la función
-  /// `orm.obtenerCalificacionesPorAsignaturaPorPeriodo`.
-  Future obtenerCalificacionesPorAsignaturaPorPeriodo(
+  Future<CalificacionesMensuales> obtenerCalificacionesPorAsignaturaPorPeriodo(
     Session session, {
+    required int numeroDeMes,
+    required int numeroDeAnio,
     required int idAsignatura,
-    required Periodo periodo,
+    required int idComision,
   }) async {
-    return await ejecutarOperacion(
-      () => orm.obtenerCalificacionesPorAsignaturaPorPeriodo(
+    final calificacionesMensuales = await ejecutarOperacion(
+      () => _ormCalificacionMensual.obtenerCalificacionesMensuales(
         session,
         idAsignatura: idAsignatura,
-        periodo: periodo,
+        idComision: idComision,
+        numeroDeMes: numeroDeMes,
       ),
     );
+
+    final solicitudesNotaMensual = await ejecutarOperacion(
+      () =>
+          _ormSolicitudNotaMensual.obtenerSolicitudesPorAsignaturaComisionyMes(
+        session,
+        idAsignatura: idAsignatura,
+        idComision: idComision,
+        numeroDeMes: numeroDeMes,
+      ),
+    );
+
+    final respuesta = CalificacionesMensuales(
+      calificacionesMensuales: calificacionesMensuales,
+      solicitudNotaMensual:
+          solicitudesNotaMensual.isEmpty ? null : solicitudesNotaMensual.first,
+    );
+
+    return respuesta;
   }
 
   Future<void> cargarCalificacionesMensualesPorSolicitud(
