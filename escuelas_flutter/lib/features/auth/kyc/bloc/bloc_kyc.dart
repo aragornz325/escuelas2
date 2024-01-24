@@ -52,11 +52,22 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             ),
           );
         }
-        final asignaturas = await client.asignatura.obtenerAsignaturas();
 
-        final comisiones = await client.comision.obtenerComisiones();
+        // Crea una lista de objetos y espera a que todas las llamadas
+        // que se hacen el mismo tiempo y cuando se terminan todas continua.
+        final listaObjetos = await Future.wait([
+          client.asignatura.obtenerAsignaturas(),
+          client.comision.obtenerComisiones(),
+          client.rol.obtenerRoles(),
+        ]);
 
-        final roles = await client.rol.obtenerRoles();
+        // Luego para acceder a cada item de la lista como ya se que me va a
+        // devolver el endpoint lo casteo.
+        final asignaturas = List<Asignatura>.from(listaObjetos[0]);
+
+        final comisiones = List<ComisionDeCurso>.from(listaObjetos[1]);
+
+        final roles = List<Role>.from(listaObjetos[2]);
 
         // TODO(anyone): Ver como manejar los roles que se muestran
 
