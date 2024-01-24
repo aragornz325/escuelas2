@@ -11,9 +11,9 @@ class EscuelasAppBar extends StatefulWidget implements PreferredSizeWidget {
   /// {@macro EscuelasAppBar}
   const EscuelasAppBar({
     required this.tieneDrawer,
-    super.key,
     this.iconoLateralDerecho,
     this.iconoLateralIzquierdo,
+    super.key,
   });
 
   /// Componente que se agrega al final del [EscuelasAppBar]
@@ -53,22 +53,36 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
 
     final l10n = context.l10n;
 
-    setState(() {
-      /// Cada vez que se cambia de ruta, se actualiza el nombre de la ruta.
-      nombreRutaActual = switch (rutas) {
-        // TODO(ANYONE): Arreglar nombre de ruta para KYC
-        RutaInicio.name => l10n.pageHomeTitleAppBar,
-        RutaLogin.name => l10n.loginPageTitleAppBar,
-        RutaInasistencia.name => l10n.absencePageTitleAppBar,
-        RutaComunidadAcademica.name => l10n.commonAcademicCommunity,
+    setState(
+      () => nombreRutaActual = switch (rutas) {
+        RutaInicio.name => l10n.routeNameHome,
+        RutaLogin.name => l10n.routeNameLogin,
+        RutaInasistencia.name => l10n.routeNameAbsences,
+        RutaComunidadAcademica.name => l10n.routeNameAcademicCommunity,
+        RutaKyc.name => l10n.routeNameKyc,
+        RutaSeleccionDeRol.name => l10n.routeRoleSelection,
+        RutaFormulario.name => l10n.routeNameForm,
+        RutaEspera.name => l10n.routeNameAwaitApproval,
+        RutaDashboard.name => l10n.routeNameDashboard,
+        RutaPerfilUsuario.name => l10n.routeNameUserProfile,
+        RutaPerfilUsuarioPendiente.name => l10n.routeNamePendingUserProfile,
+        RutaListaCursos.name => l10n.routeNameCourses,
+        RutaCargaDeCalificaciones.name => l10n.routeUploadGrades,
+        RutaUsuariosPendientes.name => l10n.routeNamePendingUsers,
+        RutaMenuComunidadAcademica.name => l10n.routeAcademicCommunityMenu,
+        RutaListadoComunidad.name => l10n.routeAcademicCommunityList,
+        RutaSupervisionCursos.name => l10n.routeNameCourseSupervision,
+        RutaSupervisionEnvioCalificaciones.name =>
+          l10n.routeNameGradeSubmissionSupervision,
         _ => '',
-      };
-    });
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     final iconoLateralIzquierdo = widget.iconoLateralIzquierdo;
+
     final iconoLateralDerecho = widget.iconoLateralDerecho;
 
     return Padding(

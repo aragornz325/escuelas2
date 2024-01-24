@@ -142,11 +142,6 @@
         "description": "Error message displayed when a user attempts to select an option that has already been chosen in the KYC form."
     },
 
-    "pageHomeTitleAppBar": "Inicio",
-    "@pageHomeTitleAppBar":{
-        "description":"Title of the home page"
-    },
-
     "pageLoginCredentialsIndicativeText": "Ingrese sus credenciales de ingreso brindadas\npreviamente por el colegio o directivo",
     "@pageLoginCredentialsIndicativeText": {
         "description": "Text to indicate that you must enter your credentials"
@@ -157,11 +152,6 @@
         "description": "Text to indicate the log in with google system"
     },
 
-       "loginPageTitleAppBar": "Inicio de sesión",
-    "@loginPageTitleAppBar": {
-        "description": "Title of the login page"
-    },
-
     "pageGradeSubmissionSupervisionButton": "Request missing grades({numberOfGrades})",
     "@pageGradeSubmissionSupervisionButton": {
         "description": "Represents the text for a button that is used to request missing grades. The {numberOfGrades} placeholder is used to dynamically indicate the number of missing grades.",
@@ -170,11 +160,6 @@
                 "type": "int"
             }
         }
-    },
-
-    "absencePageTitleAppBar": "Inasistencias",
-    "@absencePageTitleAppBar": {
-        "description": "Title of the absences page"
     },
 
     "pageLoginTextAllRightsReserved": "Desarrollado por © Nidus Development - Argentina\nTodos los derechos reservados",
@@ -241,6 +226,96 @@
     "drawerLogOut": "Cerrar sesión",
     "@drawerLogOut":{
         "description":"Text of the button in the logout item"
+    },
+
+    "routeNameHome": "Inicio",
+    "@routeNameHome": {
+        "description": ""
+    },
+
+    "routeNameLogin": "Ingresar",
+    "@routeNameLogin": {
+        "description": ""
+    },
+
+    "routeNameAbsences": "Inasistencias",
+    "@routeNameAbsences": {
+        "description": ""
+    },
+
+    "routeNameAcademicCommunity": "Comunidad academica",
+    "@routeNameAcademicCommunity": {
+        "description": ""
+    },
+
+    "routeNameKyc": "Formulario de registro",
+    "@routeNameKyc": {
+        "description": ""
+    },
+
+    "routeRoleSelection": "Selección de rol",
+    "@routeRoleSelection": {
+        "description": ""
+    },
+
+    "routeNameForm": "Formulario",
+    "@routeNameForm": {
+        "description": ""
+    },
+
+    "routeNameAwaitApproval": "En espera de aprobación",
+    "@routeNameAwaitApproval": {
+        "description": ""
+    },
+
+    "routeNameDashboard": "Dashboard",
+    "@routeNameDashboard": {
+        "description": ""
+    },
+
+    "routeNameUserProfile": "Perfil de usuario",
+    "@routeNameUserProfile": {
+        "description": ""
+    },
+
+    "routeNamePendingUserProfile": "Perfil de usuario pendiente",
+    "@routeNamePendingUserProfile": {
+        "description": ""
+    },
+
+    "routeNameCourses": "Cursos",
+    "@routeNameCourses": {
+        "description": ""
+    },
+
+    "routeUploadGrades": "Carga de calificaciones",
+    "@routeUploadGrades": {
+        "description": ""
+    },
+
+    "routeNamePendingUsers": "Usuarios pendientes",
+    "@routeNamePendingUsers": {
+        "description": ""
+    },
+
+    "routeAcademicCommunityMenu": "Menú",
+    "@routeAcademicCommunityMenu": {
+        "description": ""
+    },
+
+    "routeAcademicCommunityList": "Lista",
+    "@routeAcademicCommunityList": {
+        "description": ""
+    },
+
+    "routeNameCourseSupervision": "Supervisión de cursos",
+    "@routeNameCourseSupervision": {
+        "description": ""
+    },
+
+    "routeNameGradeSubmissionSupervision": "Supervisión de envío de calificaciones",
+    "@routeNameGradeSubmissionSupervision": {
+        "description": ""
     },
 
     "commonMail": "Mail",
@@ -490,12 +565,6 @@
     "commonDeleteAll": "Borrar todos",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
-    },
-
-    
-    "commonAcademicCommunity": "Comunidad academica",
-    "@commonAcademicCommunity": {
-        "description": "Title of the section Academic community"
     }
     
 }

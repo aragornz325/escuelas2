@@ -95,7 +95,7 @@ class AppRouter extends $AppRouter {
             ),
             CustomRoute(
               page: RutaUsuariosPendientes.page,
-              path: 'role-assignment',
+              path: 'pending-users',
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             AutoRoute(

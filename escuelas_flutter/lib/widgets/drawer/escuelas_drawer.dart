@@ -169,7 +169,7 @@ class EscuelasDrawer extends StatelessWidget {
                       SizedBox(height: 50.ph),
                       _EscuelasListTile(
                         icon: Icons.cottage_outlined,
-                        title: l10n.pageHomeTitleAppBar,
+                        title: l10n.routeNameHome,
                         onTap: () => _redireccionHome(context),
                       ),
                       _EscuelasListTile(
