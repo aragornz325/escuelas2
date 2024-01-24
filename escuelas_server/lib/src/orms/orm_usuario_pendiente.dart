@@ -49,6 +49,15 @@ class OrmUsuarioPendiente extends ORM {
         }
         return t.id.notEquals(null);
       },
+      include: UsuarioPendiente.include(
+        asignaturasSolicitadas: AsignaturaSolicitada.includeList(
+          include: AsignaturaSolicitada.include(
+            asignatura: Asignatura.include(),
+            comision: ComisionDeCurso.include(),
+          ),
+        ),
+        comisionSolicitada: ComisionDeCurso.include(),
+      ),
     );
 
     final asignaturasSolicitadas = await AsignaturaSolicitada.db.find(
