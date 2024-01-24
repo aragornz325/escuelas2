@@ -43,21 +43,27 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): llamar al endpoint de traer calificaciones
-        // y borrar la lista hardcodeada.
-        ///
-        // TODO(anyone): ver como se traen todas las calificaciones de los
-        // usuarios
-
-        // final curso = await client.comisiones.obtenercomicionporid(id:
-        // event.idCurso);
+        // final hola = await client.calificacion
+        //     .obtenerCalificacionesPorAsignaturaPorPeriodo(
+        //         idAsignatura: state.asignatura?.id ?? 0, periodo: periodo);
 
         final curso = ComisionDeCurso(
           cursoId: 89,
           id: 1,
           nombre: 'primero',
           anioLectivo: 1,
-          estudiantes: [],
+          estudiantes: [
+            RelacionComisionUsuario(
+              comisionId: 1,
+              usuarioId: 1,
+              usuario: Usuario(
+                idUserInfo: 1,
+                nombre: 'pepe',
+                apellido: 'murra',
+                urlFotoDePerfil: '',
+              ),
+            ),
+          ],
           ultimaModificacion: DateTime.now(),
         );
 
