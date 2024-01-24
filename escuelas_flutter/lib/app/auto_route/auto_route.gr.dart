@@ -18,9 +18,7 @@ import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i8;
 import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
     as _i16;
 import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i11;
-import 'package:escuelas_flutter/features/auth/usuarios_pendientes/pagina_usuarios%20pendientes.dart'
-    as _i19;
-import 'package:escuelas_flutter/features/carga_calificaciones/pagina_carga_calificaciones.dart'
+import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/pagina_carga_calificaciones.dart'
     as _i1;
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/listado_comunidad/pagina_listado_comunidad.dart'
     as _i10;
@@ -28,24 +26,26 @@ import 'package:escuelas_flutter/features/dashboard/comunidad_academica/menu/pag
     as _i12;
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/pagina_comunidad_academica.dart'
     as _i2;
+import 'package:escuelas_flutter/features/dashboard/inasistencias/pagina_inasistencias.dart'
+    as _i6;
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/lista_cursos.dart'
+    as _i9;
+import 'package:escuelas_flutter/features/dashboard/mis_cursos/pagina_mis_cursos.dart'
+    as _i13;
 import 'package:escuelas_flutter/features/dashboard/pagina_dashboard.dart'
     as _i3;
+import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/pagina_inicio.dart'
+    as _i7;
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario.dart'
     as _i14;
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario_pendiente.dart'
     as _i15;
+import 'package:escuelas_flutter/features/dashboard/supervision_cursos/pagina_supervision_cursos.dart'
+    as _i17;
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/pagina_supervision_envio_calificaciones.dart'
     as _i18;
-import 'package:escuelas_flutter/features/inasistencias/pagina_inasistencias.dart'
-    as _i6;
-import 'package:escuelas_flutter/features/lista_cursos/lista_cursos.dart'
-    as _i9;
-import 'package:escuelas_flutter/features/mis_cursos/pagina_mis_cursos.dart'
-    as _i13;
-import 'package:escuelas_flutter/features/pantalla_inicio/pagina_inicio.dart'
-    as _i7;
-import 'package:escuelas_flutter/features/supervision_cursos/pagina_supervision_cursos.dart'
-    as _i17;
+import 'package:escuelas_flutter/features/dashboard/usuarios_pendientes/pagina_usuarios_pendientes.dart'
+    as _i19;
 import 'package:flutter/material.dart' as _i21;
 import 'package:serverpod_auth_client/module.dart' as _i23;
 
