@@ -161,13 +161,43 @@ class OrmSolicitudNotaMensual extends ORM {
     );
 
     if (solicitudNotaMensualADb.isEmpty) {
-      throw ExcepcionCustom(
-        titulo: 'no se pudo crear',
-        mensaje: 'error al crear registro',
-        tipoDeError: TipoExcepcion.desconocido,
-        codigoError: 560,
-      );
+      return [];
     }
     return solicitudNotaMensualADb;
+  }
+
+  /// La función `obtenerSoliciturPorAsignaturaComisionyMes` recupera una solicitud de nota mensual por
+  /// tema, comisión y mes dados.
+  ///
+  /// Args:
+  ///   session (Session):
+  ///   idAsignatura (int): El parámetro "ID del sujeto" representa el ID del sujeto.
+  ///   idComision: El parámetro "idComision" se utiliza para especificar el ID de una comisión.
+  ///   numeroDeMes (int): El parámetro "numeroDeMes" representa el número del mes para el cual se
+  /// realiza la solicitud de nota mensual.
+  ///
+  /// Returns:
+  ///   a Futuro de tipo SolicitudNotaMensual.
+  Future<List<SolicitudNotaMensual>> obtenerSoliciturPorAsignaturaComisionyMes(
+    Session session, {
+    required int idAsignatura,
+    required idComision,
+    required int numeroDeMes,
+  }) async {
+    final solicitud = await ejecutarOperacionOrm(
+      session,
+      (session) => SolicitudNotaMensual.db.find(
+        session,
+        where: (t) =>
+            t.idAsignatura.equals(idAsignatura) &
+            t.idComision.equals(idComision) &
+            t.numeroDeMes.equals(numeroDeMes),
+      ),
+    );
+    if (solicitud.isEmpty) {
+      return [];
+    }
+
+    return solicitud;
   }
 }
