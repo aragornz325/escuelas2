@@ -1,18 +1,18 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/auth/asignacion_de_roles/bloc/bloc_asignacion_de_roles.dart';
-import 'package:escuelas_flutter/features/auth/asignacion_de_roles/widgets/widget.dart';
+import 'package:escuelas_flutter/features/auth/usuarios_pendientes/bloc/bloc_usuarios_pendientes.dart';
+import 'package:escuelas_flutter/features/auth/usuarios_pendientes/widgets/item_usuario_pendiente.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template VistaCelularAsignacionDeRoles}
-/// Vista Celular de la pantalla Asignacion de Rol donde el admin revisa los
+/// {@template VistaCelularUsuariosPendientes}
+/// Vista Celular de la pantalla Usuarios Pendientes donde el admin revisa los
 /// roles solcitados
 /// {@endtemplate}
-class VistaCelularAsignacionDeRoles extends StatelessWidget {
-  /// {@macro VistaCelularAsignacionDeRoles}
-  const VistaCelularAsignacionDeRoles({super.key});
+class VistaCelularUsuariosPendientes extends StatelessWidget {
+  /// {@macro VistaCelularUsuariosPendientes}
+  const VistaCelularUsuariosPendientes({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class VistaCelularAsignacionDeRoles extends StatelessWidget {
 
     final l10n = context.l10n;
 
-    return BlocBuilder<BlocAsignacionDeRoles, BlocAsignacionDeRolesEstado>(
+    return BlocBuilder<BlocUsuariosPendientes, BlocUsuariosPendientesEstado>(
       builder: (context, state) {
         if (state.estaCargando) {
           return const Center(child: CircularProgressIndicator());

@@ -10,42 +10,42 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i20;
 import 'package:escuelas_client/escuelas_client.dart' as _i22;
-import 'package:escuelas_flutter/features/auth/asignacion_de_roles/pagina_asignacion_de_roles.dart'
-    as _i1;
 import 'package:escuelas_flutter/features/auth/kyc/espera/pagina_espera.dart'
-    as _i5;
-import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.dart'
-    as _i6;
-import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i9;
-import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
-    as _i17;
-import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i12;
-import 'package:escuelas_flutter/features/carga_calificaciones/pagina_carga_calificaciones.dart'
-    as _i2;
-import 'package:escuelas_flutter/features/dashboard/comunidad_academica/listado_comunidad/pagina_listado_comunidad.dart'
-    as _i11;
-import 'package:escuelas_flutter/features/dashboard/comunidad_academica/menu/pagina_menu_comunidad_academica.dart'
-    as _i13;
-import 'package:escuelas_flutter/features/dashboard/comunidad_academica/pagina_comunidad_academica.dart'
-    as _i3;
-import 'package:escuelas_flutter/features/dashboard/pagina_dashboard.dart'
     as _i4;
-import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario.dart'
-    as _i15;
-import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario_pendiente.dart'
+import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.dart'
+    as _i5;
+import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i8;
+import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
     as _i16;
-import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/pagina_supervision_envio_calificaciones.dart'
+import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i11;
+import 'package:escuelas_flutter/features/auth/usuarios_pendientes/pagina_usuarios%20pendientes.dart'
     as _i19;
-import 'package:escuelas_flutter/features/inasistencias/pagina_inasistencias.dart'
-    as _i7;
-import 'package:escuelas_flutter/features/lista_cursos/lista_cursos.dart'
+import 'package:escuelas_flutter/features/carga_calificaciones/pagina_carga_calificaciones.dart'
+    as _i1;
+import 'package:escuelas_flutter/features/dashboard/comunidad_academica/listado_comunidad/pagina_listado_comunidad.dart'
     as _i10;
-import 'package:escuelas_flutter/features/mis_cursos/pagina_mis_cursos.dart'
+import 'package:escuelas_flutter/features/dashboard/comunidad_academica/menu/pagina_menu_comunidad_academica.dart'
+    as _i12;
+import 'package:escuelas_flutter/features/dashboard/comunidad_academica/pagina_comunidad_academica.dart'
+    as _i2;
+import 'package:escuelas_flutter/features/dashboard/pagina_dashboard.dart'
+    as _i3;
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario.dart'
     as _i14;
-import 'package:escuelas_flutter/features/pantalla_inicio/pagina_inicio.dart'
-    as _i8;
-import 'package:escuelas_flutter/features/supervision_cursos/pagina_supervision_cursos.dart'
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario_pendiente.dart'
+    as _i15;
+import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/pagina_supervision_envio_calificaciones.dart'
     as _i18;
+import 'package:escuelas_flutter/features/inasistencias/pagina_inasistencias.dart'
+    as _i6;
+import 'package:escuelas_flutter/features/lista_cursos/lista_cursos.dart'
+    as _i9;
+import 'package:escuelas_flutter/features/mis_cursos/pagina_mis_cursos.dart'
+    as _i13;
+import 'package:escuelas_flutter/features/pantalla_inicio/pagina_inicio.dart'
+    as _i7;
+import 'package:escuelas_flutter/features/supervision_cursos/pagina_supervision_cursos.dart'
+    as _i17;
 import 'package:flutter/material.dart' as _i21;
 import 'package:serverpod_auth_client/module.dart' as _i23;
 
@@ -54,12 +54,6 @@ abstract class $AppRouter extends _i20.RootStackRouter {
 
   @override
   final Map<String, _i20.PageFactory> pagesMap = {
-    RutaAsignacionDeRoles.name: (routeData) {
-      return _i20.AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const _i1.PaginaAsignacionDeRoles(),
-      );
-    },
     RutaCargaDeCalificaciones.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<RutaCargaDeCalificacionesArgs>(
@@ -70,7 +64,7 @@ abstract class $AppRouter extends _i20.RootStackRouter {
               ));
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i2.PaginaCargaDeCalificaciones(
+        child: _i1.PaginaCargaDeCalificaciones(
           nombreAsignatura: args.nombreAsignatura,
           idCurso: args.idCurso,
           fecha: args.fecha,
@@ -81,14 +75,14 @@ abstract class $AppRouter extends _i20.RootStackRouter {
     RutaComunidadAcademica.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i3.PaginaComunidadAcademica(),
+        child: const _i2.PaginaComunidadAcademica(),
       );
     },
     RutaDashboard.name: (routeData) {
       final args = routeData.argsAs<RutaDashboardArgs>();
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i4.PaginaDashboard(
+        child: _i3.PaginaDashboard(
           usuario: args.usuario,
           userInfo: args.userInfo,
           key: args.key,
@@ -98,37 +92,37 @@ abstract class $AppRouter extends _i20.RootStackRouter {
     RutaEspera.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i5.PaginaEspera(),
+        child: const _i4.PaginaEspera(),
       );
     },
     RutaFormulario.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.PaginaFormulario(),
+        child: const _i5.PaginaFormulario(),
       );
     },
     RutaInasistencia.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i7.PaginaInasistencia(),
+        child: const _i6.PaginaInasistencia(),
       );
     },
     RutaInicio.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i8.PaginaInicio(),
+        child: const _i7.PaginaInicio(),
       );
     },
     RutaKyc.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i9.PaginaKyc(),
+        child: const _i8.PaginaKyc(),
       );
     },
     RutaListaCursos.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i10.PaginaListaCursos(),
+        child: const _i9.PaginaListaCursos(),
       );
     },
     RutaListadoComunidad.name: (routeData) {
@@ -138,7 +132,7 @@ abstract class $AppRouter extends _i20.RootStackRouter {
               RutaListadoComunidadArgs(idRol: pathParams.getInt('idRol')));
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i11.PaginaListadoComunidad(
+        child: _i10.PaginaListadoComunidad(
           idRol: args.idRol,
           key: args.key,
         ),
@@ -147,19 +141,19 @@ abstract class $AppRouter extends _i20.RootStackRouter {
     RutaLogin.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.PaginaLogin(),
+        child: const _i11.PaginaLogin(),
       );
     },
     RutaMenuComunidadAcademica.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i13.PaginaMenuComunidadAcademica(),
+        child: const _i12.PaginaMenuComunidadAcademica(),
       );
     },
     RutaMisCursos.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i14.PaginaMisCursos(),
+        child: const _i13.PaginaMisCursos(),
       );
     },
     RutaPerfilUsuario.name: (routeData) {
@@ -169,7 +163,7 @@ abstract class $AppRouter extends _i20.RootStackRouter {
               RutaPerfilUsuarioArgs(idUsuario: pathParams.getInt('userId')));
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i15.PaginaPerfilUsuario(
+        child: _i14.PaginaPerfilUsuario(
           idUsuario: args.idUsuario,
           key: args.key,
         ),
@@ -182,7 +176,7 @@ abstract class $AppRouter extends _i20.RootStackRouter {
               idUsuarioPendiente: pathParams.getInt('pendingUserId')));
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i16.PaginaPerfilUsuarioPendiente(
+        child: _i15.PaginaPerfilUsuarioPendiente(
           idUsuarioPendiente: args.idUsuarioPendiente,
           key: args.key,
         ),
@@ -191,13 +185,13 @@ abstract class $AppRouter extends _i20.RootStackRouter {
     RutaSeleccionDeRol.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i17.PaginaSeleccionDeRol(),
+        child: const _i16.PaginaSeleccionDeRol(),
       );
     },
     RutaSupervisionCursos.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i18.PaginaSupervisionCursos(),
+        child: const _i17.PaginaSupervisionCursos(),
       );
     },
     RutaSupervisionEnvioCalificaciones.name: (routeData) {
@@ -209,32 +203,24 @@ abstract class $AppRouter extends _i20.RootStackRouter {
               ));
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i19.PaginaSupervisionEnvioCalificaciones(
+        child: _i18.PaginaSupervisionEnvioCalificaciones(
           idCurso: args.idCurso,
           fecha: args.fecha,
           key: args.key,
         ),
       );
     },
+    RutaUsuariosPendientes.name: (routeData) {
+      return _i20.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i19.PaginaUsuariosPendientes(),
+      );
+    },
   };
 }
 
 /// generated route for
-/// [_i1.PaginaAsignacionDeRoles]
-class RutaAsignacionDeRoles extends _i20.PageRouteInfo<void> {
-  const RutaAsignacionDeRoles({List<_i20.PageRouteInfo>? children})
-      : super(
-          RutaAsignacionDeRoles.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'RutaAsignacionDeRoles';
-
-  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
-}
-
-/// generated route for
-/// [_i2.PaginaCargaDeCalificaciones]
+/// [_i1.PaginaCargaDeCalificaciones]
 class RutaCargaDeCalificaciones
     extends _i20.PageRouteInfo<RutaCargaDeCalificacionesArgs> {
   RutaCargaDeCalificaciones({
@@ -288,7 +274,7 @@ class RutaCargaDeCalificacionesArgs {
 }
 
 /// generated route for
-/// [_i3.PaginaComunidadAcademica]
+/// [_i2.PaginaComunidadAcademica]
 class RutaComunidadAcademica extends _i20.PageRouteInfo<void> {
   const RutaComunidadAcademica({List<_i20.PageRouteInfo>? children})
       : super(
@@ -302,7 +288,7 @@ class RutaComunidadAcademica extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i4.PaginaDashboard]
+/// [_i3.PaginaDashboard]
 class RutaDashboard extends _i20.PageRouteInfo<RutaDashboardArgs> {
   RutaDashboard({
     required _i22.Usuario usuario,
@@ -345,7 +331,7 @@ class RutaDashboardArgs {
 }
 
 /// generated route for
-/// [_i5.PaginaEspera]
+/// [_i4.PaginaEspera]
 class RutaEspera extends _i20.PageRouteInfo<void> {
   const RutaEspera({List<_i20.PageRouteInfo>? children})
       : super(
@@ -359,7 +345,7 @@ class RutaEspera extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i6.PaginaFormulario]
+/// [_i5.PaginaFormulario]
 class RutaFormulario extends _i20.PageRouteInfo<void> {
   const RutaFormulario({List<_i20.PageRouteInfo>? children})
       : super(
@@ -373,7 +359,7 @@ class RutaFormulario extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i7.PaginaInasistencia]
+/// [_i6.PaginaInasistencia]
 class RutaInasistencia extends _i20.PageRouteInfo<void> {
   const RutaInasistencia({List<_i20.PageRouteInfo>? children})
       : super(
@@ -387,7 +373,7 @@ class RutaInasistencia extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.PaginaInicio]
+/// [_i7.PaginaInicio]
 class RutaInicio extends _i20.PageRouteInfo<void> {
   const RutaInicio({List<_i20.PageRouteInfo>? children})
       : super(
@@ -401,7 +387,7 @@ class RutaInicio extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.PaginaKyc]
+/// [_i8.PaginaKyc]
 class RutaKyc extends _i20.PageRouteInfo<void> {
   const RutaKyc({List<_i20.PageRouteInfo>? children})
       : super(
@@ -415,7 +401,7 @@ class RutaKyc extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.PaginaListaCursos]
+/// [_i9.PaginaListaCursos]
 class RutaListaCursos extends _i20.PageRouteInfo<void> {
   const RutaListaCursos({List<_i20.PageRouteInfo>? children})
       : super(
@@ -429,7 +415,7 @@ class RutaListaCursos extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i11.PaginaListadoComunidad]
+/// [_i10.PaginaListadoComunidad]
 class RutaListadoComunidad
     extends _i20.PageRouteInfo<RutaListadoComunidadArgs> {
   RutaListadoComunidad({
@@ -469,7 +455,7 @@ class RutaListadoComunidadArgs {
 }
 
 /// generated route for
-/// [_i12.PaginaLogin]
+/// [_i11.PaginaLogin]
 class RutaLogin extends _i20.PageRouteInfo<void> {
   const RutaLogin({List<_i20.PageRouteInfo>? children})
       : super(
@@ -483,7 +469,7 @@ class RutaLogin extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i13.PaginaMenuComunidadAcademica]
+/// [_i12.PaginaMenuComunidadAcademica]
 class RutaMenuComunidadAcademica extends _i20.PageRouteInfo<void> {
   const RutaMenuComunidadAcademica({List<_i20.PageRouteInfo>? children})
       : super(
@@ -497,7 +483,7 @@ class RutaMenuComunidadAcademica extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i14.PaginaMisCursos]
+/// [_i13.PaginaMisCursos]
 class RutaMisCursos extends _i20.PageRouteInfo<void> {
   const RutaMisCursos({List<_i20.PageRouteInfo>? children})
       : super(
@@ -511,7 +497,7 @@ class RutaMisCursos extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i15.PaginaPerfilUsuario]
+/// [_i14.PaginaPerfilUsuario]
 class RutaPerfilUsuario extends _i20.PageRouteInfo<RutaPerfilUsuarioArgs> {
   RutaPerfilUsuario({
     required int idUsuario,
@@ -550,7 +536,7 @@ class RutaPerfilUsuarioArgs {
 }
 
 /// generated route for
-/// [_i16.PaginaPerfilUsuarioPendiente]
+/// [_i15.PaginaPerfilUsuarioPendiente]
 class RutaPerfilUsuarioPendiente
     extends _i20.PageRouteInfo<RutaPerfilUsuarioPendienteArgs> {
   RutaPerfilUsuarioPendiente({
@@ -590,7 +576,7 @@ class RutaPerfilUsuarioPendienteArgs {
 }
 
 /// generated route for
-/// [_i17.PaginaSeleccionDeRol]
+/// [_i16.PaginaSeleccionDeRol]
 class RutaSeleccionDeRol extends _i20.PageRouteInfo<void> {
   const RutaSeleccionDeRol({List<_i20.PageRouteInfo>? children})
       : super(
@@ -604,7 +590,7 @@ class RutaSeleccionDeRol extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.PaginaSupervisionCursos]
+/// [_i17.PaginaSupervisionCursos]
 class RutaSupervisionCursos extends _i20.PageRouteInfo<void> {
   const RutaSupervisionCursos({List<_i20.PageRouteInfo>? children})
       : super(
@@ -618,7 +604,7 @@ class RutaSupervisionCursos extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i19.PaginaSupervisionEnvioCalificaciones]
+/// [_i18.PaginaSupervisionEnvioCalificaciones]
 class RutaSupervisionEnvioCalificaciones
     extends _i20.PageRouteInfo<RutaSupervisionEnvioCalificacionesArgs> {
   RutaSupervisionEnvioCalificaciones({
@@ -663,4 +649,18 @@ class RutaSupervisionEnvioCalificacionesArgs {
   String toString() {
     return 'RutaSupervisionEnvioCalificacionesArgs{idCurso: $idCurso, fecha: $fecha, key: $key}';
   }
+}
+
+/// generated route for
+/// [_i19.PaginaUsuariosPendientes]
+class RutaUsuariosPendientes extends _i20.PageRouteInfo<void> {
+  const RutaUsuariosPendientes({List<_i20.PageRouteInfo>? children})
+      : super(
+          RutaUsuariosPendientes.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'RutaUsuariosPendientes';
+
+  static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }

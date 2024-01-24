@@ -28,93 +28,106 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
     return BlocBuilder<BlocSupervisionEnvioCalificaciones,
         BlocSupervisionEnvioCalificacionesEstado>(
       builder: (context, state) {
+        if (state is BlocSupervisionEnvioCalificacionesEstadoCargando) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+
+        final etiqueta = state.fecha?.nombreMes(context).toUpperCase() ?? '';
+
+        final fechaDesde =
+            state.fecha?.copyWith(day: 1) ?? DateTime.now().copyWith(day: 1);
+
+        final fechaHasta = DateTime(
+          DateTime.now().year,
+          DateTime.now().month + 1,
+        ).subtract(const Duration(days: 1));
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.pw),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              SingleChildScrollView(
-                child: Column(
+              SelectorDePeriodo(
+                delegate: PeriodoMensualDelegate(
+                  context,
+                  periodo: PeriodoDelSelector(
+                    etiqueta: etiqueta,
+                    fechaDesde: fechaDesde,
+                    fechaHasta: fechaHasta,
+                  ),
+                ),
+                // TODO(anyone): Manejar seleccion de periodo
+                onSeleccionarPeriodo: (periodo) {},
+                decoration: BoxDecoration(
+                  color: colores.tertiary,
+                  borderRadius: BorderRadius.circular(40.sw),
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 20.pw),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(
+                  vertical: 10.ph,
+                  horizontal: 10.pw,
+                ),
+                child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SelectorDePeriodo(
-                      delegate: PeriodoMensualDelegate(
-                        context,
-                        periodo: PeriodoDelSelector(
-                          etiqueta:
-                              state.fecha?.nombreMes(context).toUpperCase() ??
-                                  '',
-                          fechaDesde: state.fecha?.copyWith(day: 1) ??
-                              DateTime.now().copyWith(day: 1),
-                          fechaHasta: DateTime(
-                            DateTime.now().year,
-                            DateTime.now().month + 1,
-                          ).subtract(const Duration(days: 1)),
-                        ),
-                      ),
-                      // TODO(anyone): Manejar seleccion de periodo
-                      onSeleccionarPeriodo: (periodo) {},
-                      decoration: BoxDecoration(
-                        color: colores.tertiary,
-                        borderRadius: BorderRadius.circular(40.sw),
-                      ),
-                      margin: EdgeInsets.symmetric(horizontal: 20.pw),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 10.ph,
-                        horizontal: 10.pw,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            l10n.commonSubject,
-                            style: TextStyle(
-                              color: colores.onSecondary,
-                              fontSize: 12.pf,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          Text(
-                            l10n.commonState,
-                            style: TextStyle(
-                              color: colores.onSecondary,
-                              fontSize: 12.pf,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
+                    Text(
+                      l10n.commonSubject,
+                      style: TextStyle(
+                        color: colores.onSecondary,
+                        fontSize: 12.pf,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
-                    ...state.listaAsignaturas.map(
-                      (asignatura) => Padding(
-                        padding: EdgeInsets.only(bottom: 10.ph),
-                        child: ElementoLista.supervisionEnvioCalificaciones(
-                          context: context,
-                          // TODO(Gon): Cambiar por fecha de carga de
-                          // calificaciones (cuando se implemente)
-                          fechaDeCarga: DateTime.now(),
-                          nombreProfesor: obtenerNombreAbreviado(
-                            // asignatura.docentes.first.nombre,
-                            'Gonzalo Miguel Rigoni',
-                          ),
-                          nombreAsignatura: asignatura.nombre,
-                        ),
+                    Text(
+                      l10n.commonState,
+                      style: TextStyle(
+                        color: colores.onSecondary,
+                        fontSize: 12.pf,
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ],
                 ),
               ),
-              EscuelasBoton.texto(
-                estaHabilitado: true,
-                // TODO(anyone): Implementar funcion
-                onTap: () {},
-                color: colores.azul,
-                texto: l10n.pageGradeSubmissionSupervisionButton(
-                  state.asignaturasFaltantes.length,
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: state.listaAsignaturas
+                        .map(
+                          (asignatura) => Padding(
+                            padding: EdgeInsets.only(bottom: 10.ph),
+                            child: ElementoLista.supervisionEnvioCalificaciones(
+                              context: context,
+                              // TODO(Gon): Cambiar por fecha de carga de
+                              // calificaciones (cuando se implemente)
+                              fechaDeCarga: DateTime.now(),
+                              nombreProfesor: obtenerNombreAbreviado(
+                                // asignatura.docentes.first.nombre,
+                                'Gonzalo Miguel Rigoni',
+                              ),
+                              nombreAsignatura: asignatura.nombre,
+                            ),
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
-                context: context,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 15.ph),
+                child: EscuelasBoton.texto(
+                  estaHabilitado: true,
+                  // TODO(anyone): Implementar funcion
+                  onTap: () {},
+                  color: colores.azul,
+                  texto: l10n.pageGradeSubmissionSupervisionButton(
+                    state.asignaturasFaltantes.length,
+                  ),
+                  context: context,
+                ),
               ),
             ],
           ),
