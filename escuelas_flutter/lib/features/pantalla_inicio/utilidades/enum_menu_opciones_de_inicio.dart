@@ -14,7 +14,7 @@ enum MenuOpcionesDeInicio {
   supervision([PermisoDeComision.verComision]);
 
   const MenuOpcionesDeInicio(this.permisosRequeridos);
-  
+
   final List<Enum> permisosRequeridos;
 
   /// Redirige al usuario a esa vista
@@ -27,7 +27,7 @@ enum MenuOpcionesDeInicio {
       case tomarInasistencia:
         context.router.push(const RutaInasistencia());
       case usuariosPendientes:
-        context.router.push(const RutaAsignacionDeRoles());
+        context.router.push(const RutaUsuariosPendientes());
       case supervision:
         context.router.push(const RutaSupervisionCursos());
     }
@@ -40,15 +40,15 @@ enum MenuOpcionesDeInicio {
     switch (this) {
       // TODO(Anyone): Ver si falta alguno
       case listaCursos:
-        return l10n.commonCoursesList.toUpperCase();
+        return l10n.routeNameCourses.toUpperCase();
       case comunidadAcademica:
-        return l10n.commonAcademicCommunity.toUpperCase();
+        return l10n.routeNameAcademicCommunity.toUpperCase();
       case tomarInasistencia:
-        return l10n.commonRecordAbsences.toUpperCase();
+        return l10n.routeNameAbsences.toUpperCase();
       case usuariosPendientes:
-        return l10n.commonPendingUsers.toUpperCase();
+        return l10n.routeNamePendingUsers.toUpperCase();
       case supervision:
-        return l10n.commonCoursesSupervision.toUpperCase();
+        return l10n.routeNameCourseSupervision.toUpperCase();
     }
   }
 }

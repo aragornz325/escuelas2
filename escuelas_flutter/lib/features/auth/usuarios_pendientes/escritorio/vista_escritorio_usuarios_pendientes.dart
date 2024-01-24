@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioUsuariosPendientes}
 /// Vista Escritorio de la pantalla Usuarios Pendientes donde el admin revisa
-/// los roles solcitados
+/// los roles solicitados
 /// {@endtemplate}
 class VistaEscritorioUsuariosPendientes extends StatelessWidget {
   /// {@macro VistaEscritorioUsuariosPendientes}
