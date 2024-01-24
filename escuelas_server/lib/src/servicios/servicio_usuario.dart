@@ -179,17 +179,13 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     }
 
     final usuarioPendienteCreado = await ejecutarOperacion(
-      () => _ormUsuarioPendiente.crearUsuarioPendiente(
-        session,
-        usuarioPendiente: usuarioPendiente
-          ..idUserInfo = idUserInfo
-          ..estadoDeSolicitud = EstadoDeSolicitud.pendiente
-          ..fechaCreacion = ahora
-          ..ultimaModificacion = ahora
-          ..comisionSolicitada = usuarioPendiente.comisionSolicitada?.copyWith(
-            id: idComisionDeCursoSolicitada,
-          ),
-      ),
+      () => _ormUsuarioPendiente.crearUsuarioPendiente(session,
+          usuarioPendiente: usuarioPendiente
+            ..idUserInfo = idUserInfo
+            ..estadoDeSolicitud = EstadoDeSolicitud.pendiente
+            ..fechaCreacion = ahora
+            ..ultimaModificacion = ahora
+            ..comisionSolicitadaId = usuarioPendiente.comisionSolicitadaId),
     );
 
     if (usuarioPendienteCreado.id == null) {
