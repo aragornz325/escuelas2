@@ -68,18 +68,18 @@ class InitialGuard extends AutoRouteGuard {
 
       switch (usuarioPendiente.estadoDeSolicitud) {
         case EstadoDeSolicitud.aprobado:
-          return router.push<void>(
+          return router.replace<void>(
             const RutaLogin(),
           );
 
         case EstadoDeSolicitud.pendiente:
-          return router.push<void>(
+          return router.replace<void>(
             const RutaEspera(),
           );
         case EstadoDeSolicitud.rechazado:
           await cerrarSesionUsuario();
 
-          return router.push<void>(
+          return router.replace<void>(
             const RutaLogin(),
           );
       }

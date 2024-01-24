@@ -58,30 +58,7 @@ class _SeleccionarAsignaturaPorComisionState
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.ph),
                 child: Text(
-                  l10n.pageKycFormWhatYearIsYourSubject,
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 13.pf,
-                  ),
-                ),
-              ),
-              FormularioDropdown(
-                lista: state.listaAsignaturas
-                    .map(
-                      (e) => EscuelasDropdownOption(
-                        value: e.id ?? 0,
-                        title: e.nombre,
-                      ),
-                    )
-                    .toList(),
-                listaOpcionesSeleccionadas: (opcion) =>
-                    setState(() => idAsignaturaSeleccionada = opcion.value),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.ph),
-                child: Text(
-                  l10n.pageKycFormWhichSubjectIsIt,
+                  l10n.pageKycFormWhichGradeIsYourSubject,
                   style: TextStyle(
                     color: colores.onBackground,
                     fontWeight: FontWeight.w600,
@@ -100,6 +77,29 @@ class _SeleccionarAsignaturaPorComisionState
                     .toList(),
                 listaOpcionesSeleccionadas: (opcion) =>
                     setState(() => idComisionSeleccionada = opcion.value),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.ph),
+                child: Text(
+                  l10n.pageKycFormWhichSubjectIsIt,
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 13.pf,
+                  ),
+                ),
+              ),
+              FormularioDropdown(
+                lista: state.listaAsignaturas
+                    .map(
+                      (e) => EscuelasDropdownOption(
+                        value: e.id ?? 0,
+                        title: e.nombre,
+                      ),
+                    )
+                    .toList(),
+                listaOpcionesSeleccionadas: (opcion) =>
+                    setState(() => idAsignaturaSeleccionada = opcion.value),
               ),
             ],
           );

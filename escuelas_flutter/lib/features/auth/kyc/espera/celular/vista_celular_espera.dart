@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,9 +33,8 @@ class VistaCelularEspera extends StatelessWidget {
           },
           child: EscuelasDialog.logOut(
             context: context,
-            onCerrarSesion: () {
-              context.read<BlocKyc>().add(BlocKycEventoCerrarSesion());
-            },
+            onCerrarSesion: () =>
+                context.read<BlocKyc>().add(BlocKycEventoCerrarSesion()),
           ),
         ),
       ),
@@ -47,6 +44,7 @@ class VistaCelularEspera extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     final l10n = context.l10n;
 
     return Center(

@@ -57,12 +57,12 @@
     },
 
     "pageKycFormWhichSubjectIsIt": "Which subject is it?",
-    "@pageKycFormWhichSubjectIs": {
+    "@pageKycFormWhichSubjectIsIt": {
         "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
     },
 
-    "pageKycFormWhatYearIsYourSubject": "What year is your subject?",
-    "@pageKycFormWhatYearIsYourSubject": {
+    "pageKycFormWhichGradeIsYourSubject": "Which grade is your subject?",
+    "@pageKycFormWhichGradeIsYourSubject": {
         "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
     },
 
@@ -136,15 +136,6 @@
         "description": "error message displayed when a user attempts to select an option that has already been chosen in the KYC form."
     },
  
-    "pageHomeTitleAppBar":"Home",
-    "@pageHomeTitleAppBar":{
-        "description":"Title of the home page"
-    },
-     "loginPageTitleAppBar": "Login",
-    "@loginPageTitleAppBar": {
-        "description": "Title of the login page"
-    },
-
     "pageLoginCredentialsIndicativeText": "Enter your login credentials previously\nprovided by the school or director",
     "@pageLoginCredentialsIndicativeText": {
         "description": "Text to indicate that you must enter your credentials"
@@ -225,11 +216,6 @@
             }
         }
     },
-
-    "absencePageTitleAppBar": "Absences",
-    "@absencePageTitleAppBar": {
-        "description": "Title of the absences page"
-    },
     
     "dialogAbsencesSentCorrectly": "absences sent correctly",
     "@dialogAbsencesSentCorrectly": {
@@ -289,6 +275,96 @@
     "dropdownErrorMustCompleteField": "You must complete this field!",
     "@dropdownErrorMustCompleteField": {
         "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
+    },
+
+    "routeNameHome": "Home",
+    "@routeNameHome": {
+        "description": ""
+    },
+
+    "routeNameLogin": "Login",
+    "@routeNameLogin": {
+        "description": ""
+    },
+
+    "routeNameAbsences": "Absences",
+    "@routeNameAbsences": {
+        "description": ""
+    },
+
+    "routeNameAcademicCommunity": "Academic community",
+    "@routeNameAcademicCommunity": {
+        "description": ""
+    },
+
+    "routeNameKyc": "KYC",
+    "@routeNameKyc": {
+        "description": ""
+    },
+
+    "routeRoleSelection": "Role selection",
+    "@routeRoleSelection": {
+        "description": ""
+    },
+
+    "routeNameForm": "Form",
+    "@routeNameForm": {
+        "description": ""
+    },
+
+    "routeNameAwaitApproval": "Await approval",
+    "@routeNameAwaitApproval": {
+        "description": ""
+    },
+
+    "routeNameDashboard": "Dashboard",
+    "@routeNameDashboard": {
+        "description": ""
+    },
+
+    "routeNameUserProfile": "User profile",
+    "@routeNameUserProfile": {
+        "description": ""
+    },
+
+    "routeNamePendingUserProfile": "Pending user profile",
+    "@routeNamePendingUserProfile": {
+        "description": ""
+    },
+
+    "routeNameCourses": "Courses",
+    "@routeNameCourses": {
+        "description": ""
+    },
+
+    "routeUploadGrades": "Upload grades",
+    "@routeUploadGrades": {
+        "description": ""
+    },
+
+    "routeNamePendingUsers": "Pending users",
+    "@routeNamePendingUsers": {
+        "description": ""
+    },
+
+    "routeAcademicCommunityMenu": "Menu",
+    "@routeAcademicCommunityMenu": {
+        "description": ""
+    },
+
+    "routeAcademicCommunityList": "List",
+    "@routeAcademicCommunityList": {
+        "description": ""
+    },
+
+    "routeNameCourseSupervision": "Course supervision",
+    "@routeNameCourseSupervision": {
+        "description": ""
+    },
+
+    "routeNameGradeSubmissionSupervision": "Grade submission supervision",
+    "@routeNameGradeSubmissionSupervision": {
+        "description": ""
     },
 
     "commonWelcome": "Welcome!",
@@ -489,31 +565,6 @@
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
-    },
-
-    "commonAcademicCommunity": "Academic community",
-    "@commonAcademicCommunity": {
-        "description": "Title of the section Academic community"
-    },
-    
-    "commonPendingUsers": "Pending users",
-    "@commonPendingUsers": {
-        "description": "Title of the section Pending users"
-    },
-    
-     "commonCoursesList": "Courses list",
-    "@commonCoursesList": {
-        "description": "Title of the section Courses list"
-    },
-
-    "commonRecordAbsences": "Record absences",
-    "@commonRecordAbsences": {
-        "description": "Title of the section Record absences"
-    },
-
-    "commonCoursesSupervision": "Courses supervision",
-    "@commonCoursesSupervision": {
-        "description": "Title of the section Courses supervision"
     }
 
 

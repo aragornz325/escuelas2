@@ -35,7 +35,9 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
     await operacionBloc(
       callback: (client) async {
         final usuario = await client.usuario.obtenerDatosDelUsuario();
+
         await IsarServicio.guardarUsuario(usuario);
+
         emit(
           BlocDashboardEstadoExitoso.desde(
             state,
