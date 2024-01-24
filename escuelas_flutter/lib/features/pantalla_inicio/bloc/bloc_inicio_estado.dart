@@ -6,33 +6,18 @@ part of 'bloc_inicio.dart';
 class BlocInicioEstado {
   /// {@macro BlocInicioEstado}
   const BlocInicioEstado._({
-    this.listaRoles = const [],
     this.hayUsuariosPendientes = false,
   });
 
   BlocInicioEstado.desde(
     BlocInicioEstado otro, {
-    List<Role>? listaRoles,
     bool? hayUsuariosPendientes,
   }) : this._(
-          listaRoles: listaRoles ?? otro.listaRoles,
           hayUsuariosPendientes:
               hayUsuariosPendientes ?? otro.hayUsuariosPendientes,
         );
 
-  final List<Role> listaRoles;
-
   final bool hayUsuariosPendientes;
-
-  /// Obtiene la lista de permisos del usuario y devuelve la lista iterable
-  /// de [InfoDeRol] para poder mapearla en la UI.
-  List<InfoDeRol> get listaEtiquetas => InfoDeRol.values
-      .where(
-        (etiqueta) => listaRoles.any(
-          (rol) => etiqueta.rolesAsignados.contains(rol.id),
-        ),
-      )
-      .toList();
 }
 
 /// {@template BlocInicioEstadoInicial}
@@ -58,7 +43,6 @@ class BlocInicioEstadoExitoso extends BlocInicioEstado {
   /// {@macro BlocInicioEstadoExitoso}
   BlocInicioEstadoExitoso.desde(
     super.otro, {
-    super.listaRoles,
     super.hayUsuariosPendientes,
   }) : super.desde();
 }
