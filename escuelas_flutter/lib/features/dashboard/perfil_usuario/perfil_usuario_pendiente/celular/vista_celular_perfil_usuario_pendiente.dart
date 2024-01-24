@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
@@ -24,7 +23,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
   /// Dialog para confirmar la asignacion de un rol al usuario
   void _dialogAsignarRol(
     BuildContext context,
-    UsuarioPendiente? usuario,
+    String? nombreUsuario,
     String nombreRol,
   ) {
     showDialog<void>(
@@ -32,7 +31,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
       builder: (_) => BlocProvider.value(
         value: context.read<BlocPerfilUsuario>(),
         child: _DialogAsignarRol(
-          usuario: usuario,
+          nombreUsuario: nombreUsuario,
           nombreRol: nombreRol,
         ),
       ),
@@ -91,7 +90,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
                     estaHabilitado: true,
                     onTap: () => _dialogAsignarRol(
                       context,
-                      state.usuarioPendiente,
+                      state.usuarioPendiente?.nombre,
                       state.nombreRolUsuarioPendiente,
                     ),
                     color: colores.verdeConfirmar,
@@ -114,7 +113,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
 class _DialogAsignarRol extends StatelessWidget {
   /// {@macro _DialogAsignarRol}
   const _DialogAsignarRol({
-    required this.usuario,
+    required this.nombreUsuario,
     required this.nombreRol,
   });
 
@@ -127,7 +126,7 @@ class _DialogAsignarRol extends StatelessWidget {
     context.router.push(const RutaUsuariosPendientes());
   }
 
-  final UsuarioPendiente? usuario;
+  final String? nombreUsuario;
 
   final String nombreRol;
   @override
@@ -159,7 +158,7 @@ class _DialogAsignarRol extends StatelessWidget {
               ),
             ),
             TextSpan(
-              text: usuario?.nombre ?? '',
+              text: nombreUsuario ?? '',
               style: TextStyle(
                 color: colores.onBackground,
                 fontSize: 16.pf,
