@@ -70,12 +70,15 @@ class BlocCargaCalificacionesEstado {
   /// lista de estudiantes de una comision
   List<RelacionComisionUsuario> get estudiantes => comision?.estudiantes ?? [];
 
+  
+
   List<Object?> get props => [
         comision,
         fecha,
         rolDelUsuario,
         listaCalificaciones,
         listaCalificacionesCompensadas,
+        calificacionesMensuales,
       ];
 }
 

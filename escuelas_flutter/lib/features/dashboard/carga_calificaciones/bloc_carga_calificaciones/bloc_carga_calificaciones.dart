@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:rolemissions/rolemissions.dart';
 
@@ -50,7 +51,18 @@ class BlocCargaCalificaciones
           numeroDeAnio: DateTime.now().year,
           numeroDeMes: DateTime.now().month,
         );
-// TODO(SAM): Agregar Future.wait
+
+        // Para obtener el valor visible de la calificacion
+        // ( getter en la clase calificacionX extension)
+        final calificacion =
+            ManejadorDeCalificaciones.obtenerValorDeCalificacion(
+          calificacionesMensuales
+              .calificacionesMensuales[0].calificacion!.tipoCalificacion,
+          calificacionesMensuales
+              .calificacionesMensuales[0].calificacion!.index,
+        );
+
+        // TODO(SAM): Agregar Future.wait
         final comision = await client.comision
             .obtenerComisionesDeCursoPorId(idComision: event.idComision);
 

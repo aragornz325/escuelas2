@@ -1,3 +1,4 @@
+import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/constantes/textos_valorativos.dart';
@@ -187,6 +188,12 @@ class _EscuelasCargaCalificacionAlumnoState
 
           // TODO(ANYONE): Debe ser un dropdown y consumir ENUM (recibe index) de commons.
           child: TextFormField(
+            //     initialValue:      ManejadorDeCalificaciones.obtenerValorDeCalificacion(
+            //   state.calificacionesMensuales
+            //       .calificacionesMensuales[0].calificacion!.tipoCalificacion,
+            //   state.calificacionesMensuales
+            //       .calificacionesMensuales[0].calificacion!.index,
+            // ),
             readOnly: !widget.esEditable,
             cursorColor: Colors.white,
             inputFormatters: [
