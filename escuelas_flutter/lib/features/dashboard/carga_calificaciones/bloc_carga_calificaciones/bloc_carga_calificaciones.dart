@@ -45,10 +45,10 @@ class BlocCargaCalificaciones
       callback: (client) async {
         final calificacionesMensuales = await client.calificacion
             .obtenerCalificacionesPorAsignaturaPorPeriodo(
-          idAsignatura: 1,
-          idComision: 1,
+          idAsignatura: 1, // TODO(SAM): ADD
+          idComision: event.idComision,
           numeroDeAnio: DateTime.now().year,
-          numeroDeMes: 1,
+          numeroDeMes: 1, // TODO(SAM): ADD
         );
 
         emit(

@@ -92,10 +92,10 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
                 s."fechaRealizacion"
               FROM
                 solicitudes_notas_mensuales snm
-                INNER JOIN solicitudes s ON s."id" = snm."idSolicitud"
+                INNER JOIN solicitudes s ON s."id" = snm."solicitudId"
               WHERE
                 snm."idAsignatura" = a."id"
-                AND snm."idComision" = c."id"
+                AND snm."comisionId" = c."id"
                 AND snm."numeroDeMes" = $numeroDeMes
             ) IS NOT NULL THEN TRUE
             ELSE FALSE
