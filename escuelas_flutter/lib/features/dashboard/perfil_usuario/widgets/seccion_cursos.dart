@@ -37,8 +37,7 @@ class SeccionCursos extends StatelessWidget {
             color: colores.tertiary,
           ),
           child: switch (state.tipoUsuario) {
-            Tipo.docenteAprobado => state
-                    .listaAsignaturasSolicitadasUsuarioPendiente.isNotEmpty
+            Tipo.docenteAprobado => state.listaAsignaturasUsuario.isNotEmpty
                 ? _DesplegableCurso(
                     contenido: Column(
                       children: state.listaAsignaturasUsuario
