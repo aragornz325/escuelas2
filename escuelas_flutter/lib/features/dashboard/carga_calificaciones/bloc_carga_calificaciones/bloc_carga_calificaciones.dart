@@ -51,8 +51,8 @@ class BlocCargaCalificaciones
           numeroDeMes: DateTime.now().month,
         );
 
-        final comision =
-            await client.curso.obtenerCursoPorId(id: event.idComision);
+        final comision = await client.comision
+            .obtenerComisionesDeCursoPorId(idCurso: event.idComision);
 
 //  confirmo solicitud si esta aprobada y con calificaciones.
 // si la soli no aprobada o pendiente,
@@ -61,7 +61,7 @@ class BlocCargaCalificaciones
         emit(
           BlocCargaCalificacionesEstadoExitoso.desde(
             state,
-            comision: comision.comisiones?.first,
+            comision: comision,
             fecha: event.fecha,
             listaCalificacionesCompensadas: [],
             calificacionesMensuales: calificacionesMensuales,
