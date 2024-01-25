@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/widgets/menu_opciones_permisos.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioInicio}
@@ -12,6 +13,15 @@ class VistaEscritorioInicio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MenuOpcionesPermisos();
+    return Column(
+      children: [
+        const MenuOpcionesPermisos(),
+        ElevatedButton(
+            onPressed: () => {
+                  // client.solicitudNotaMensual.
+                },
+            child: Text('Press')),
+      ],
+    );
   }
 }
