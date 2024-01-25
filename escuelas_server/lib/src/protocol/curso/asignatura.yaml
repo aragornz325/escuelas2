@@ -2,7 +2,7 @@ class: Asignatura
 table: asignaturas
 fields: 
   nombre: String
-  idCurso: int?, !persist 
+  idCurso: List<int>?, !persist 
   ultimaModificacion: DateTime?, scope=serverOnly
   fechaCreacion: DateTime?, scope=serverOnly
   fechaEliminacion: DateTime?, scope=serverOnly
