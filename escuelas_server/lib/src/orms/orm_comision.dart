@@ -29,7 +29,7 @@ class OrmComision extends ORM {
         session,
         (session) => ComisionDeCurso.db.find(
           session,
-          where: (comision) => comision.curso!.id.equals(idCurso),
+          where: (comision) => comision.curso.id.equals(idCurso),
           include: ComisionDeCurso.include(
             curso: Curso.include(),
             estudiantes: RelacionComisionUsuario.includeList(
