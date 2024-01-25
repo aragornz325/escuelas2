@@ -77,6 +77,23 @@ class OrmAsignatura extends ORM {
         'Asignatura no encontrada',
       );
     }
+
+    final relacion = await ejecutarOperacionOrm(
+      session,
+      (session) => RelacionAsignaturaCurso.db.find(
+        session,
+        where: (t) => t.idAsignatura.equals(
+          asignatura.id,
+        ),
+      ),
+    );
+    asignatura.idCurso = <int>[];
+    if (relacion.isNotEmpty) {
+      for (var relacionAsignaturaCurso in relacion) {
+        asignatura.idCurso!.add(relacionAsignaturaCurso.idCurso);
+      }
+    }
+
     return asignatura;
   }
 
@@ -94,24 +111,29 @@ class OrmAsignatura extends ORM {
     // Primero, obtenemos todas las asignaturas.
     final asignaturas = await ejecutarOperacionOrm(
       session,
-      (session) => Asignatura.db.find(session),
+      (session) => Asignatura.db.find(
+        session,
+      ),
     );
 
     // Para cada asignatura, buscamos su idCurso correspondiente.
     for (var asignatura in asignaturas) {
-      var relaciones = await ejecutarOperacionOrm(
+      final relaciones = await ejecutarOperacionOrm(
         session,
         (session) => RelacionAsignaturaCurso.db.find(
           session,
-          where: (t) => t.idAsignatura.equals(asignatura.id),
+          where: (t) => t.idAsignatura.equals(
+            asignatura.id,
+          ),
         ),
       );
 
-      // Asume que cada asignatura tiene un solo curso asociado.
-      // Si una asignatura puede tener múltiples cursos, necesitarás ajustar esto.
+      asignatura.idCurso = <int>[];
       if (relaciones.isNotEmpty) {
-        asignatura.idCurso = relaciones.first
-            .idCurso; // Asegúrate de que Asignatura tenga un campo idCurso.
+        print('relaciones: $relaciones');
+        for (var relacionAsignaturaCurso in relaciones ?? []) {
+          asignatura.idCurso!.add(relacionAsignaturaCurso.idCurso);
+        }
       }
     }
 
