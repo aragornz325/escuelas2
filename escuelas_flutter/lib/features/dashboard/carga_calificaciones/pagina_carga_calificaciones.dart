@@ -19,7 +19,7 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
   PaginaCargaDeCalificaciones({
     @PathParam('nombreAsignatura')
     required this.nombreAsignatura, // TODO(SAM): Cambiar a idasignatura
-    @PathParam('idComision') required this.idComision, // ID comision
+    @PathParam('idComision') required this.idComision,
     @PathParam('fecha') required String fecha,
     super.key,
   }) : fecha = DateTime.parse(fecha);
