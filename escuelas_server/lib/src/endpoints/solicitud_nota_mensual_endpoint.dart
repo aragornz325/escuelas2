@@ -120,4 +120,19 @@ class SolicitudNotaMensualEndpoint extends Endpoint
     );
     return true;
   }
+
+  Future<List<SolicitudesComisionMensual>> obtenerSolicitudesPorComisionMensual(
+    Session session, {
+    required int numeroDeMes,
+    required int numeroDeAnio,
+  }) async =>
+      ejecutarOperacionControlador(
+        session,
+        'obtenerSolicitudesPorComisionMensual',
+        () => servicio.obtenerSolicitudesPorComisionMensual(
+          session,
+          numeroDeMes: numeroDeMes,
+          numeroDeAnio: numeroDeAnio,
+        ),
+      );
 }

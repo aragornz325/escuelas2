@@ -171,9 +171,8 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
         }
 
         final solicitudNotaMensual = SolicitudNotaMensual(
-          idSolicitud: solicitudCreada.id!,
           idAsignatura: asignatura.asignaturaId,
-          idComision: asignatura.comisionId,
+          comisionId: asignatura.comisionId,
           numeroDeMes: ahora.month,
           solicitudId: solicitudCreada.id!,
         );
@@ -201,5 +200,31 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
         solicitudesMensuales: solicitudesMensualesAdb,
       );
     }
+  }
+
+  Future<List<SolicitudesComisionMensual>> obtenerSolicitudesPorComisionMensual(
+    Session session, {
+    required int numeroDeMes,
+    required int numeroDeAnio,
+  }) async {
+    final solicitudesMensuales = await obtenerSolicitudesNotaMensual(session);
+
+    final comisiones = solicitudesMensuales
+        .map((e) => e.comision != null ? e.comision! : throw Exception())
+        .toSet()
+        .toList();
+
+    final solicitudesComisionMensual = comisiones.map((comision) {
+      final solicitudes = solicitudesMensuales
+          .where((solicitud) => solicitud.comisionId == comision.id)
+          .toList();
+
+      return SolicitudesComisionMensual(
+        comision: comision,
+        solicitudes: solicitudes,
+      );
+    }).toList();
+
+    return solicitudesComisionMensual;
   }
 }
