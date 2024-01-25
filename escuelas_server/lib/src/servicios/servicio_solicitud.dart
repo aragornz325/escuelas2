@@ -111,14 +111,16 @@ class ServicioSolicitud extends Servicio<OrmSolicitud> {
         () => orm.obtenerSolicitudesPendientes(session),
       );
 
-  Future<List<SolicitudNotaMensual>> obtenerSolicitudesCalificacionMensual(
+  Future<List<SolicitudCalificacionMensual>>
+      obtenerSolicitudesCalificacionMensual(
     Session session, {
     required int numeroDeMes,
   }) async =>
-      ejecutarOperacion(
-        () => _ormSolicitudNotaMensual.obtenerSolicitudesCalificacionMensual(
-          session,
-          numeroDeMes: numeroDeMes,
-        ),
-      );
+          ejecutarOperacion(
+            () =>
+                _ormSolicitudNotaMensual.obtenerSolicitudesCalificacionMensual(
+              session,
+              numeroDeMes: numeroDeMes,
+            ),
+          );
 }

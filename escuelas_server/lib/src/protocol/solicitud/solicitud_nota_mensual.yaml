@@ -1,5 +1,6 @@
-class: SolicitudNotaMensual
-table: solicitudes_notas_mensuales
+## ! Modificar "nota" por "calificacion"
+class: SolicitudCalificacionMensual
+table: solicitudes_calificaciones_mensuales
 fields:
   ### La solicitud de la cual se deriva esta nota mensual
   solicitud: Solicitud?, relation

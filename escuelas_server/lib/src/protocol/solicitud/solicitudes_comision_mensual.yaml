@@ -1,8 +1,7 @@
 ### Representa las solicitudes que se realizaron en un mes para una comision
 class: SolicitudesComisionMensual
 fields:
-  solicitudes: List<SolicitudNotaMensual>
-  comision: ComisionDeCurso
-  
+  solicitudes: List<SolicitudCalificacionMensual>
+  comision: ComisionDeCurso  
 
   

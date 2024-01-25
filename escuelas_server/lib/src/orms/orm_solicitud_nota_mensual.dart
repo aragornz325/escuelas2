@@ -5,18 +5,13 @@ import 'package:serverpod/server.dart';
 class OrmSolicitudNotaMensual extends ORM {
   /// La función `crearSolicitudNotaMensual` crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.
-  /// Args:
-  /// Session: Un objeto de sesión que representa una conexión a una base de datos. Se utiliza para
-  /// SolicitudNotaMensual (SolicitudNotaMensual): Un objeto de tipo SolicitudNotaMensual, que representa un registro de solicitud.
-  /// Returns:
-  /// Un `Future<SolicitudNotaMensual>`.
-  Future<SolicitudNotaMensual> crearSolicitudNotaMensual(
+  Future<SolicitudCalificacionMensual> crearSolicitudNotaMensual(
     Session session, {
-    required SolicitudNotaMensual solicitudNotaMensual,
+    required SolicitudCalificacionMensual solicitudNotaMensual,
   }) async {
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudNotaMensual.db.insert(
+      (session) => SolicitudCalificacionMensual.db.insert(
         session,
         [solicitudNotaMensual],
       ),
@@ -34,13 +29,13 @@ class OrmSolicitudNotaMensual extends ORM {
 
   /// La función `actualizarSolicitudNotaMensual` actualiza un registro de solicitud en una base de datos y
   /// devuelve el registro actualizado.
-  Future<SolicitudNotaMensual> actualizarSolicitudNotaMensual(
+  Future<SolicitudCalificacionMensual> actualizarSolicitudNotaMensual(
     Session session, {
-    required SolicitudNotaMensual solicitudNotaMensual,
+    required SolicitudCalificacionMensual solicitudNotaMensual,
   }) async {
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudNotaMensual.db.update(
+      (session) => SolicitudCalificacionMensual.db.update(
         session,
         [solicitudNotaMensual],
       ),
@@ -57,23 +52,16 @@ class OrmSolicitudNotaMensual extends ORM {
 
   /// La función `obtenerSolicitudNotaMensual` obtiene un registro de solicitud en una base de datos y
   /// devuelve el registro.
-  /// Args:
-  /// Session: Un objeto de sesión que representa una conexión a una base de datos. Se utiliza para
-  /// realizar operaciones de bases de datos.
-  /// id (int): Un entero que representa el id del registro de solicitud.
-  /// Returns:
-  /// Un `Future<SolicitudNotaMensual>`.
-
-  Future<SolicitudNotaMensual> obtenerSolicitudNotaMensual(
+  Future<SolicitudCalificacionMensual> obtenerSolicitudNotaMensual(
     Session session, {
     required int id,
   }) async {
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudNotaMensual.db.findById(
+      (session) => SolicitudCalificacionMensual.db.findById(
         session,
         id,
-        include: SolicitudNotaMensual.include(
+        include: SolicitudCalificacionMensual.include(
           solicitud: Solicitud.include(),
         ),
       ),
@@ -89,16 +77,17 @@ class OrmSolicitudNotaMensual extends ORM {
     return solicitudNotaMensualADb;
   }
 
-  Future<SolicitudNotaMensual> obtenerSolicitudNotaMensualPorIdSolicitud(
+  Future<SolicitudCalificacionMensual>
+      obtenerSolicitudNotaMensualPorIdSolicitud(
     Session session, {
     required int idSolicitud,
   }) async {
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudNotaMensual.db.findFirstRow(
+      (session) => SolicitudCalificacionMensual.db.findFirstRow(
         session,
         where: (t) => t.solicitudId.equals(idSolicitud),
-        include: SolicitudNotaMensual.include(
+        include: SolicitudCalificacionMensual.include(
           solicitud: Solicitud.include(),
         ),
       ),
@@ -118,18 +107,14 @@ class OrmSolicitudNotaMensual extends ORM {
 
   /// La función `obtenerSolicitudesNotaMensual` obtiene todos los registros de solicitud en una base de datos y
   /// devuelve los registros.
-  /// Args:
-  /// Session: Un objeto de sesión que representa una conexión a una base de datos. Se utiliza para
-  /// realizar operaciones de bases de datos.
-  ///
-  Future<List<SolicitudNotaMensual>> obtenerSolicitudesNotaMensual(
+  Future<List<SolicitudCalificacionMensual>> obtenerSolicitudesNotaMensual(
     Session session,
   ) async {
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudNotaMensual.db.find(
+      (session) => SolicitudCalificacionMensual.db.find(
         session,
-        include: SolicitudNotaMensual.include(
+        include: SolicitudCalificacionMensual.include(
           solicitud: Solicitud.include(),
           comision: ComisionDeCurso.include(),
         ),
@@ -149,18 +134,13 @@ class OrmSolicitudNotaMensual extends ORM {
 
   /// La función `eliminarSolicitudNotaMensual` elimina un registro de solicitud en una base de datos y
   /// devuelve el id del registro eliminado.
-  /// Args:
-  /// realizar operaciones de bases de datos.
-  /// id (int): Un entero que representa el id del registro de solicitud.
-  /// Returns:
-  /// Un `Future<int>`.
   Future<int> eliminarSolicitudNotaMensual(
     Session session, {
     required int id,
   }) async {
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudNotaMensual.db.deleteWhere(
+      (session) => SolicitudCalificacionMensual.db.deleteWhere(
         session,
         where: (t) => t.id.equals(id),
       ),
@@ -176,28 +156,29 @@ class OrmSolicitudNotaMensual extends ORM {
     return solicitudNotaMensualADb.first;
   }
 
-  Future<List<SolicitudNotaMensual>> obtenerSolicitudesCalificacionMensual(
+  Future<List<SolicitudCalificacionMensual>>
+      obtenerSolicitudesCalificacionMensual(
     Session session, {
     required int numeroDeMes,
   }) async =>
-      ejecutarOperacionOrm(
-        session,
-        (session) => SolicitudNotaMensual.db.find(
-          session,
-          where: (t) => t.numeroDeMes.equals(numeroDeMes),
-          include: SolicitudNotaMensual.include(
-            solicitud: Solicitud.include(),
-          ),
-        ),
-      );
+          ejecutarOperacionOrm(
+            session,
+            (session) => SolicitudCalificacionMensual.db.find(
+              session,
+              where: (t) => t.numeroDeMes.equals(numeroDeMes),
+              include: SolicitudCalificacionMensual.include(
+                solicitud: Solicitud.include(),
+              ),
+            ),
+          );
 
-  Future<List<SolicitudNotaMensual>> crearSolicitudesMensualesEnLote(
+  Future<List<SolicitudCalificacionMensual>> crearSolicitudesMensualesEnLote(
     Session session, {
-    required List<SolicitudNotaMensual> solicitudNotaMensual,
+    required List<SolicitudCalificacionMensual> solicitudNotaMensual,
   }) async {
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudNotaMensual.db.insert(
+      (session) => SolicitudCalificacionMensual.db.insert(
         session,
         solicitudNotaMensual,
       ),
@@ -221,7 +202,7 @@ class OrmSolicitudNotaMensual extends ORM {
   ///
   /// Returns:
   ///   a Futuro de tipo SolicitudNotaMensual.
-  Future<List<SolicitudNotaMensual>>
+  Future<List<SolicitudCalificacionMensual>>
       obtenerSolicitudesPorAsignaturaComisionyMes(
     Session session, {
     required int idAsignatura,
@@ -230,13 +211,13 @@ class OrmSolicitudNotaMensual extends ORM {
   }) async {
     final solicitud = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudNotaMensual.db.find(
+      (session) => SolicitudCalificacionMensual.db.find(
         session,
         where: (t) =>
             t.idAsignatura.equals(idAsignatura) &
             t.comisionId.equals(idComision) &
             t.numeroDeMes.equals(numeroDeMes),
-        include: SolicitudNotaMensual.include(
+        include: SolicitudCalificacionMensual.include(
           solicitud: Solicitud.include(),
         ),
       ),

@@ -10,14 +10,9 @@ class SolicitudNotaMensualEndpoint extends Endpoint
 
   /// La función `crearSolicitudNotaMensual` crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.
-  /// Args:
-  /// Session:
-  /// solicitudNotaMensual (SolicitudNotaMensual): Un objeto de tipo SolicitudNotaMensual, que representa un registro de solicitud.
-  /// Returns:
-  /// Un `Future<SolicitudNotaMensual>`.
-  Future<SolicitudNotaMensual> crearSolicitudNotaMensual(
+  Future<SolicitudCalificacionMensual> crearSolicitudNotaMensual(
     Session session,
-    SolicitudNotaMensual solicitudNotaMensual,
+    SolicitudCalificacionMensual solicitudNotaMensual,
   ) async {
     return await ejecutarOperacionControlador(
       session,
@@ -34,11 +29,9 @@ class SolicitudNotaMensualEndpoint extends Endpoint
   /// Args:
   /// Session:
   /// solicitudNotaMensual (SolicitudNotaMensual): Un objeto de tipo SolicitudNotaMensual, que representa un registro de solicitud.
-  /// Returns:
-  /// Un `Future<SolicitudNotaMensual>`.
-  Future<SolicitudNotaMensual> actualizarSolicitudNotaMensual(
+  Future<SolicitudCalificacionMensual> actualizarSolicitudNotaMensual(
     Session session,
-    SolicitudNotaMensual solicitudNotaMensual,
+    SolicitudCalificacionMensual solicitudNotaMensual,
   ) async {
     return await ejecutarOperacionControlador(
       session,
@@ -52,12 +45,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
 
   /// La función `obtenerSolicitudNotaMensual` obtiene un registro de solicitud en una base de datos y
   /// devuelve el registro.
-  /// Args:
-  /// Session:
-  /// id (int): El id del registro de solicitud.
-  /// Returns:
-  /// Un `Future<SolicitudNotaMensual>`.
-  Future<SolicitudNotaMensual> obtenerSolicitudNotaMensual(
+  Future<SolicitudCalificacionMensual> obtenerSolicitudNotaMensual(
     Session session,
     int id,
   ) async {
@@ -73,11 +61,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
 
   /// La función `obtenerSolicitudesNotaMensual` obtiene una lista de solicitudes en una base de datos y
   /// devuelve la lista.
-  /// Args:
-  /// Session:
-  /// Returns:
-  /// Un `Future<List<SolicitudNotaMensual>>`.
-  Future<List<SolicitudNotaMensual>> obtenerSolicitudesNotaMensual(
+  Future<List<SolicitudCalificacionMensual>> obtenerSolicitudesNotaMensual(
     Session session,
   ) async {
     return await ejecutarOperacionControlador(
@@ -91,11 +75,6 @@ class SolicitudNotaMensualEndpoint extends Endpoint
 
   /// La función `eliminarSolicitudNotaMensual` elimina un registro de solicitud en una base de datos y
   /// devuelve el id del registro eliminado.
-  /// Args:
-  /// Session:
-  /// id (int): El id del registro de solicitud.
-  /// Returns:
-  /// Un `Future<int>`.
   Future<int> eliminarSolicitudNotaMensual(
     Session session,
     int id,
