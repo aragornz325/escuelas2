@@ -39,7 +39,6 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
       builder: (context, state) {
-     
         return Padding(
           padding: EdgeInsets.symmetric(
             vertical: max(5.ph, 5.sh),
@@ -58,22 +57,23 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
             listaCalificaciones: const [],
             // TODO(anyone): ver si los modelos seran utilizados de esta forma
             // para traer solamente la calificacion del alumno
-            calificacionPrevia: state.listaCalificaciones
-                .firstWhere(
-                  (c) =>
-                      c.id ==
-                      state.listaCalificacionesCompensadas
-                          .firstWhere(
-                            (cc) =>
-                                cc.estudianteId ==
-                                relacionComisionUsuario.usuarioId,
-                          )
-                          .id,
-                  // TODO(ANYONE): Cambiar por el id correspondiente, cuadno
-                  // este lo de back
-                )
-                .id
-                .toString(),
+            calificacionPrevia:
+                state.calificacionesMensuales?.calificacionesMensuales
+                    .firstWhere(
+                      (c) =>
+                          c.id ==
+                          state.listaCalificacionesCompensadas
+                              .firstWhere(
+                                (cc) =>
+                                    cc.estudianteId ==
+                                    relacionComisionUsuario.usuarioId,
+                              )
+                              .id,
+                      // TODO(ANYONE): Cambiar por el id correspondiente, cuadno
+                      // este lo de back
+                    )
+                    .id
+                    .toString(),
             // TODO(ANYONE): Cambiar por el id correspondiente, cuando este lo
             // de back
             nombreAlumno: '${relacionComisionUsuario.usuario?.nombre} '

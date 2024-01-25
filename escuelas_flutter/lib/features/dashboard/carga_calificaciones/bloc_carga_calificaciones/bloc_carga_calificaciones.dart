@@ -50,9 +50,9 @@ class BlocCargaCalificaciones
           numeroDeAnio: DateTime.now().year,
           numeroDeMes: DateTime.now().month,
         );
-
+// TODO(SAM): Agregar Future.wait
         final comision = await client.comision
-            .obtenerComisionesDeCursoPorId(idCurso: event.idComision);
+            .obtenerComisionesDeCursoPorId(idComision: event.idComision);
 
 //  confirmo solicitud si esta aprobada y con calificaciones.
 // si la soli no aprobada o pendiente,
