@@ -119,16 +119,17 @@ class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
         () => servicio.obtenerSolicitudesPendientes(session),
       );
 
-  Future<List<SolicitudNotaMensual>> obtenerSolicitudesCalificacionMensual(
+  Future<List<SolicitudCalificacionMensual>>
+      obtenerSolicitudesCalificacionMensual(
     Session session, {
     required int numeroDeMes,
   }) async =>
-      ejecutarOperacionControlador(
-        session,
-        'obtenerSolicitudesCalificacionMensual',
-        () => servicio.obtenerSolicitudesCalificacionMensual(
-          session,
-          numeroDeMes: numeroDeMes,
-        ),
-      );
+          ejecutarOperacionControlador(
+            session,
+            'obtenerSolicitudesCalificacionMensual',
+            () => servicio.obtenerSolicitudesCalificacionMensual(
+              session,
+              numeroDeMes: numeroDeMes,
+            ),
+          );
 }
