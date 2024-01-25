@@ -1,3 +1,4 @@
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
@@ -15,9 +16,14 @@ class AsignaturaEndpoint extends Endpoint with Controller {
     Session session, {
     required int id,
   }) async {
-    return servicio.obtenerAsignaturaPorId(
+    return ejecutarOperacionControlador(
       session,
-      id: id,
+      'obtenerAsignaturaPorId',
+      () => servicio.obtenerAsignaturaPorId(
+        session,
+        id: id,
+      ),
+      permisoRequerido: PermisoDeAsignatura.verAsignatura,
     );
   }
 
@@ -25,7 +31,12 @@ class AsignaturaEndpoint extends Endpoint with Controller {
   Future<List<Asignatura>> obtenerAsignaturas(
     Session session,
   ) async {
-    return servicio.obtenerAsignaturas(session);
+    return ejecutarOperacionControlador(
+      session,
+      'obtenerAsignaturas',
+      () => servicio.obtenerAsignaturas(session),
+      permisoRequerido: PermisoDeAsignatura.verAsignatura,
+    );
   }
 
   /// La función `crearAsignatura` crea un nuevo objeto `Asignatura` en la base de datos usando la
@@ -34,9 +45,13 @@ class AsignaturaEndpoint extends Endpoint with Controller {
     Session session, {
     required Asignatura asignatura,
   }) async {
-    return servicio.crearAsignatura(
+    return ejecutarOperacionControlador(
       session,
-      asignatura: asignatura,
+      'crearAsignatura',
+      () => servicio.crearAsignatura(
+        session,
+        asignatura: asignatura,
+      ),
     );
   }
 
@@ -46,9 +61,14 @@ class AsignaturaEndpoint extends Endpoint with Controller {
     Session session, {
     required Asignatura asignatura,
   }) async {
-    return servicio.actualizarAsignatura(
+    return ejecutarOperacionControlador(
       session,
-      asignatura: asignatura,
+      'actualizarAsignatura',
+      () => servicio.actualizarAsignatura(
+        session,
+        asignatura: asignatura,
+      ),
+      permisoRequerido: PermisoDeAsistencia.editarAsistencia,
     );
   }
 
@@ -65,5 +85,6 @@ class AsignaturaEndpoint extends Endpoint with Controller {
           session,
           id: id,
         ),
+        permisoRequerido: PermisoDeAsistencia.eliminarAsistencia,
       );
 }
