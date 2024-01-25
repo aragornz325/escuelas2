@@ -131,6 +131,7 @@ class OrmSolicitudNotaMensual extends ORM {
         session,
         include: SolicitudNotaMensual.include(
           solicitud: Solicitud.include(),
+          comision: ComisionDeCurso.include(),
         ),
       ),
     );
@@ -233,7 +234,7 @@ class OrmSolicitudNotaMensual extends ORM {
         session,
         where: (t) =>
             t.idAsignatura.equals(idAsignatura) &
-            t.idComision.equals(idComision) &
+            t.comisionId.equals(idComision) &
             t.numeroDeMes.equals(numeroDeMes),
         include: SolicitudNotaMensual.include(
           solicitud: Solicitud.include(),

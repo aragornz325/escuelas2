@@ -5,6 +5,7 @@ import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
+import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioCalificacion extends Servicio<OrmCalificacion> {
@@ -18,6 +19,8 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   final _ormCalificacionMensual = OrmCalificacionMensual();
 
   final _servicioSolicitud = ServicioSolicitud();
+
+  final _servicioUsuario = ServicioUsuario();
 
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {
@@ -161,13 +164,12 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
     required int idAsignatura,
     required int idComision,
   }) async {
-    final calificacionesMensuales = await ejecutarOperacion(
-      () => _ormCalificacionMensual.obtenerCalificacionesMensuales(
-        session,
-        idAsignatura: idAsignatura,
-        idComision: idComision,
-        numeroDeMes: numeroDeMes,
-      ),
+    List<CalificacionMensual> calificacionesMensuales =
+        await obtenerCalificacionesMensuales(
+      session,
+      idAsignatura: idAsignatura,
+      idComision: idComision,
+      numeroDeMes: numeroDeMes,
     );
 
     final solicitudesNotaMensual = await ejecutarOperacion(
@@ -179,6 +181,41 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
         numeroDeMes: numeroDeMes,
       ),
     );
+
+    // TODO(anyone):
+    // Analizar si es lo mejor esto de mandar las calificaciones
+    // vacias en caso de una instancia en la que se haya hecho una solicitud
+    // pero no se hayan creado las calificaciones mensuales
+    if (solicitudesNotaMensual.isNotEmpty && calificacionesMensuales.isEmpty) {
+      final estudiantes = await ejecutarOperacion(
+        () => _servicioUsuario.obtenerListaDeEstudiantesDeComision(
+          session,
+          idComision: idComision,
+        ),
+      );
+
+      final idAutor = await obtenerIdDeUsuarioLogueado(session);
+
+      // Creamos una calificacion mensual vacia para cada estudiante
+      calificacionesMensuales = estudiantes.map((e) {
+        return CalificacionMensual(
+          calificacion: Calificacion(
+            idAsignatura: idAsignatura,
+            idComision: idComision,
+            estudianteId: e.id ?? 0,
+            fechaCreacion: DateTime.now(),
+            ultimaModificacion: DateTime.now(),
+            idAutor: idAutor,
+            idInstanciaDeEvaluacion: 0,
+            tipoCalificacion: TipoCalificacion.numericoDecimal,
+            index: 0,
+            diferencial: '0',
+          ),
+          numeroDeMes: numeroDeMes,
+          calificacionId: 0,
+        );
+      }).toList();
+    }
 
     final respuesta = CalificacionesMensuales(
       calificacionesMensuales: calificacionesMensuales,
