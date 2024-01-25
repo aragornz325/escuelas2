@@ -23,13 +23,13 @@ class OrmComision extends ORM {
 
   Future<List<ComisionDeCurso>> obtenerComisionesDeCursoPorId(
     Session session, {
-    required int idCurso,
+    required int idComision,
   }) async =>
       ejecutarOperacionOrm(
         session,
         (session) => ComisionDeCurso.db.find(
           session,
-          where: (comision) => comision.curso.id.equals(idCurso),
+          where: (comision) => comision.curso.id.equals(idComision),
           include: ComisionDeCurso.include(
             curso: Curso.include(),
             estudiantes: RelacionComisionUsuario.includeList(

@@ -30,17 +30,17 @@ class ServicioComision extends Servicio<OrmComision> {
         () => orm.obtenerComisiones(session),
       );
 
-
-  Future<List<ComisionDeCurso>> obtenerComisionesDeCursoPorId(
+  Future<ComisionDeCurso> obtenerComisionesDeCursoPorId(
     Session session, {
-    required int idCurso,
-  }) async =>
-      ejecutarOperacion(
-        () => orm.obtenerComisionesDeCursoPorId(
-          session,
-          idCurso: idCurso,
-        ),
-      );
+    required int idComision,
+  }) async {
+    final comisiones = await ejecutarOperacion(
+      () => orm.obtenerComisionesDeCursoPorId(
+        session,
+        idComision: idComision,
+      ),
+    );
 
-
+    return comisiones.first;
+  }
 }
