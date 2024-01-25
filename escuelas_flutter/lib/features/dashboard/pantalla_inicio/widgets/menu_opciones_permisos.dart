@@ -61,16 +61,9 @@ class MenuOpcionesPermisos extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
     final menues = _menuesPermitidos(context);
-    bool? respuesta;
+
     return Column(
       children: [
-        GestureDetector(
-            // TODO(SAM): eLIMINAR LUEGO
-            onTap: () async => {
-                  respuesta = await client.solicitudNotaMensual
-                      .enviarSolicitudADocentes(),
-                },
-            child: SizedBox(child: Text('Press'))),
         BlocConsumer<BlocInicio, BlocInicioEstado>(
           listener: (context, state) {
             if (state is BlocInicioEstadoFallido) {
@@ -111,6 +104,33 @@ class MenuOpcionesPermisos extends StatelessWidget {
               );
             }
           },
+        ),
+        GestureDetector(
+          // TODO(SAM): eLIMINAR LUEGO
+          onTap: () async => {
+            await client.solicitudNotaMensual.enviarSolicitudADocentes(),
+          },
+          child: Container(
+            height: 70.ph,
+            width: 200.pw,
+            decoration: BoxDecoration(
+              color: Colors.amber,
+              borderRadius: BorderRadius.circular(10.0),
+              border: Border.all(
+                width: 2,
+              ),
+            ),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Press (solo para enviar solicitud notas)',
+                  style:
+                      TextStyle(fontWeight: FontWeight.w800, fontSize: 16.pf),
+                ),
+              ),
+            ),
+          ),
         ),
       ],
     );
