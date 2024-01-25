@@ -1,3 +1,4 @@
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
@@ -12,6 +13,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerDatosDelUsuario',
         () => servicio.obtenerDatosDelUsuario(session),
+        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   Future<Usuario> obtenerUsuario(
@@ -35,6 +37,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerDatosDeSolicitudDelUsuario',
         () => servicio.obtenerDatosDeSolicitudDelUsuario(session),
+        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   /// Obtiene un usuario pendiente a traves de la relacion de [UsuarioPendiente]
@@ -46,6 +49,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerUsuarioPendiente',
         () => servicio.obtenerUsuarioPendiente(session),
+        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   /// Obtiene un usuario pendiente a través del id de [UsuarioPendiente]
@@ -60,6 +64,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           session,
           idUsuarioPendiente: idUsuarioPendiente,
         ),
+        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   /// La función "obtenerUsuariosPendientes" devuelve un objeto Futuro que recupera los
@@ -74,6 +79,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerUsuariosPendientes',
         () => servicio.obtenerUsuariosPendientes(session),
+        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   /// La función `enviarSolicitudRegistroDocente` envía una solicitud de registro para
@@ -139,6 +145,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           estadoDeSolicitud: estadoDeSolicitud,
           idUsuarioPendiente: idUsuarioPendiente,
         ),
+        permisoRequerido: PermisoDeUsuario.aceptarSolicitudDeRegistro,
       );
 
   Future<List<RelacionComisionUsuario>> obtenerListaDeEstudiantesDeComision(
@@ -152,6 +159,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           session,
           idComision: idComision,
         ),
+        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   Future<UsuariosOrdenados> obtenerUsuariosPorRolSorteados(
@@ -167,6 +175,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         idRol: idRol,
         ordenarUsuariosPor: ordenarUsuariosPor,
       ),
+      permisoRequerido: PermisoDeUsuario.verUsuario,
     );
   }
 }

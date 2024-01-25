@@ -90,15 +90,31 @@ class OrmAsignatura extends ORM {
   ///
   /// Returns:
   ///   un `Futuro` que se resuelve en una `Lista` de objetos `Asignatura`.
-  Future<List<Asignatura>> obtenerAsignaturas(
-    Session session,
-  ) async {
+  Future<List<Asignatura>> obtenerAsignaturas(Session session) async {
+    // Primero, obtenemos todas las asignaturas.
     final asignaturas = await ejecutarOperacionOrm(
       session,
-      (session) => Asignatura.db.find(
-        session,
-      ),
+      (session) => Asignatura.db.find(session),
     );
+
+    // Para cada asignatura, buscamos su idCurso correspondiente.
+    for (var asignatura in asignaturas) {
+      var relaciones = await ejecutarOperacionOrm(
+        session,
+        (session) => RelacionAsignaturaCurso.db.find(
+          session,
+          where: (t) => t.idAsignatura.equals(asignatura.id),
+        ),
+      );
+
+      // Asume que cada asignatura tiene un solo curso asociado.
+      // Si una asignatura puede tener múltiples cursos, necesitarás ajustar esto.
+      if (relaciones.isNotEmpty) {
+        asignatura.idCurso = relaciones.first
+            .idCurso; // Asegúrate de que Asignatura tenga un campo idCurso.
+      }
+    }
+
     return asignaturas;
   }
 
@@ -129,5 +145,4 @@ class OrmAsignatura extends ORM {
     );
     return eliminado.first;
   }
-
 }
