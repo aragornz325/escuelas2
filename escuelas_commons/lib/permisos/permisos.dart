@@ -60,6 +60,7 @@ enum PermisoDeUsuario {
   editarUsuario,
   eliminarUsuario,
   crearUsuario,
+  aceptarSolicitudDeRegistro,
 }
 
 enum PermisoDeComision {
