@@ -109,8 +109,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
       session,
     );
 
-    final idAutor = 7;
-    //final idAutor = await obtenerIdDeUsuarioLogueado(session);
+    final idAutor = await obtenerIdDeUsuarioLogueado(session);
     final usuarios = await ormUsuario.obtenerUsuariosEnLote(
       session,
       ids: listaIdDocentes,
