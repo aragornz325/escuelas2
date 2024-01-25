@@ -118,7 +118,7 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
         c."cursoId",
         COALESCE( $queryAsignaturas, '[]'::jsonb) AS "listaDeAsignaturas"
     FROM "comisiones" c
-    INNER JOIN r_asignaturas_usuarios rau ON rau."comisionId" = c."id"
+    INNER JOIN r_asignaturas_usuarios rau ON        rau."comisionId" = c."id"
     WHERE rau."usuarioId" = $idUsuario
     ''');
 
