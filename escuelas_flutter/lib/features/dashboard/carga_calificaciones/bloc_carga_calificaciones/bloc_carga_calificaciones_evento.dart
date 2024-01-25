@@ -19,6 +19,7 @@ class BlocCargaCalificacionesEventoInicializar
   const BlocCargaCalificacionesEventoInicializar({
     required this.idCurso,
     required this.fecha,
+ 
   });
 
   /// Fecha utilizada para iniciar la pantalla de carga de calificaciones

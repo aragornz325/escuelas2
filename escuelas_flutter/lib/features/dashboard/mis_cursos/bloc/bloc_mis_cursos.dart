@@ -24,7 +24,7 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
     await operacionBloc(
       callback: (client) async {
         final usuario = await client.usuario.obtenerDatosDelUsuario();
-
+// TODO(SAM): No traer usuario ni guardar en el estado, losaca del dashboard.
         final comisiones = await client.calificacion
             .obtenerInformacionDeVistaGeneralDeComisiones(
           numeroDeMes: DateTime.now().month,
