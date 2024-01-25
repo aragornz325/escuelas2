@@ -316,6 +316,7 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
           session,
           idAsignatura: idAsignatura,
           idComision: idComision,
+          numeroDeMes: numeroDeMes,
         ),
       );
 }

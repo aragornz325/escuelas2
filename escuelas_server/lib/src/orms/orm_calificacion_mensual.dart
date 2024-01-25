@@ -26,12 +26,14 @@ class OrmCalificacionMensual extends ORM {
         (session) => CalificacionMensual.db.find(
           session,
           where: (t) {
-            final expresionMes =
-                numeroDeMes != null ? t.numeroDeMes.equals(numeroDeMes) : null;
+            if (numeroDeMes != null) {
+              return t.calificacion.idComision.equals(idComision) &
+                  t.calificacion.idAsignatura.equals(idAsignatura) &
+                  t.numeroDeMes.equals(numeroDeMes);
+            }
 
             return t.calificacion.idComision.equals(idComision) &
-                t.calificacion.idAsignatura.equals(idAsignatura) &
-                expresionMes;
+                t.calificacion.idAsignatura.equals(idAsignatura);
           },
           include: CalificacionMensual.include(
             calificacion: Calificacion.include(
