@@ -48,7 +48,7 @@ class BlocCargaCalificaciones
           idAsignatura: 1,
           idComision: 1,
           numeroDeAnio: DateTime.now().year,
-          numeroDeMes: 2,
+          numeroDeMes: 1,
         );
 
         emit(

@@ -63,7 +63,7 @@ class _DialogInasistenciasDelDiaState extends State<DialogInasistenciasDelDia> {
   void _confirmarInasistencias(BuildContext context) {
     context.read<BlocInasistencias>().add(
           BlocInasistenciasEventoFinalizarInasistencias(
-            idCurso: widget.idCurso,
+            idComision: widget.idCurso,
           ),
         );
     Navigator.of(context).pop();

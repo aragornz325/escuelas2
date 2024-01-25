@@ -19,7 +19,7 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
   PaginaCargaDeCalificaciones({
     @PathParam('nombreAsignatura')
     required this.nombreAsignatura, // TODO(SAM): Cambiar a idasignatura
-    @PathParam('idCurso') required this.idCurso, // ID comision
+    @PathParam('idComision') required this.idComision, // ID comision
     @PathParam('fecha') required String fecha,
     super.key,
   }) : fecha = DateTime.parse(fecha);
@@ -28,7 +28,7 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
   final DateTime fecha;
 
   /// Id del curso.
-  final int idCurso;
+  final int idComision;
 
   /// Nombre del curso
   final String nombreAsignatura;
@@ -40,7 +40,7 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
         ..add(
           BlocCargaCalificacionesEventoInicializar(
             fecha: fecha,
-            idCurso: idCurso,
+            idComision: idComision,
           ),
         ),
       child: FullResponsiveScreen(

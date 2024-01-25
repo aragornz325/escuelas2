@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/mis_cursos/celular/vista_celular_mis_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/mis_cursos/escritorio/vista_escritorio_mis_cursos.dart';
@@ -17,9 +18,11 @@ class PaginaMisCursos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final usuarioId = context.read<BlocDashboard>().state.usuario.id ?? 0;
+
     return BlocProvider(
-      create: (context) =>
-          BlocMisCursos()..add(const BlocMisCursosEventoInicializar()),
+      create: (context) => BlocMisCursos()
+        ..add(BlocMisCursosEventoInicializar(usuarioId: usuarioId)),
       child: const FullResponsiveScreen(
         celular: VistaCelularMisCursos(),
         escritorio: VistaEscritorioMisCursos(),

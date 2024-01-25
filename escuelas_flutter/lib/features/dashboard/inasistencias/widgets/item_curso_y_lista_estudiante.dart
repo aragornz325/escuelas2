@@ -133,7 +133,7 @@ class _ListaEstudiantesDelCurso extends StatelessWidget {
             botonCambioInasistencia: InkWell(
               onTap: () => context.read<BlocInasistencias>().add(
                     BlocAsistenciaEventoCambiarInasistenciaEstudiante(
-                      idCurso: comisionDeCurso.id ?? 0,
+                      idComision: comisionDeCurso.id ?? 0,
                       idEstudiante: estudiante?.usuarioId ?? 0,
                       fecha: DateTime.now(),
                       estadoInasistencia:

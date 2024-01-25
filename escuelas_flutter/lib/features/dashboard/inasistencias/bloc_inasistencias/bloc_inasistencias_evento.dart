@@ -25,10 +25,12 @@ class BlocInasistenciasEventoInicializar extends BlocInasistenciasEvento {
 class BlocInasistenciasEventoFinalizarInasistencias
     extends BlocInasistenciasEvento {
   /// {@macro BlocInasistenciasEventoFinalizarInasistencias}
-  const BlocInasistenciasEventoFinalizarInasistencias({required this.idCurso});
+  const BlocInasistenciasEventoFinalizarInasistencias({
+    required this.idComision,
+  });
 
   /// Id del curso  a modificar si se tomo asistencia.
-  final int idCurso;
+  final int idComision;
 }
 
 /// {@template BlocAsistenciaEventoCambiarInasistenciaEstudiante}
@@ -38,14 +40,14 @@ class BlocAsistenciaEventoCambiarInasistenciaEstudiante
     extends BlocInasistenciasEvento {
   /// {@macro BlocAsistenciaEventoCambiarInasistenciaEstudiante}
   const BlocAsistenciaEventoCambiarInasistenciaEstudiante({
-    required this.idCurso,
+    required this.idComision,
     required this.idEstudiante,
     required this.fecha,
     required this.estadoInasistencia,
   });
 
   /// Id del curso  a modificar si se tomo asistencia.
-  final int idCurso;
+  final int idComision;
 
   /// Id del estudiante a modificar la inasistencia
   final int idEstudiante;

@@ -66,7 +66,7 @@ abstract class $AppRouter extends _i20.RootStackRouter {
         routeData: routeData,
         child: _i1.PaginaCargaDeCalificaciones(
           nombreAsignatura: args.nombreAsignatura,
-          idCurso: args.idCurso,
+          idComision: args.idCurso,
           fecha: args.fecha,
           key: args.key,
         ),

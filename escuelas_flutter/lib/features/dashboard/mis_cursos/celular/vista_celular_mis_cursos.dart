@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/mis_cursos/widgets/item_materia.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
@@ -27,6 +28,7 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+    final usuarioId = context.read<BlocDashboard>().state.usuario.id ?? 0;
 
     return Column(
       children: [
@@ -38,6 +40,7 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
               context.read<BlocMisCursos>().add(
                     BlocMisCursosEventoCambiarMes(
                       periodoSeleccionada: periodo,
+                      usuarioId: usuarioId,
                     ),
                   );
             },
@@ -95,7 +98,7 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                                               fecha: periodo.toString(),
                                               nombreAsignatura:
                                                   asignatura.nombreDeAsignatura,
-                                              idCurso:
+                                              idComision:
                                                   3, // TODO(SAM): Pasar id asignatura
                                             ),
                                           ),

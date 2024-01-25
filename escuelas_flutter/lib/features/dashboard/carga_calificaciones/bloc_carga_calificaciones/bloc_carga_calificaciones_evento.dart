@@ -17,7 +17,7 @@ class BlocCargaCalificacionesEventoInicializar
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoInicializar}
   const BlocCargaCalificacionesEventoInicializar({
-    required this.idCurso,
+    required this.idComision,
     required this.fecha,
  
   });
@@ -26,7 +26,7 @@ class BlocCargaCalificacionesEventoInicializar
   final DateTime fecha;
 
   /// Id de la asignatura.
-  final int idCurso;
+  final int idComision;
 }
 
 /// {@template BlocCargaCalificacionesEventoFiltrarListaPorFecha}

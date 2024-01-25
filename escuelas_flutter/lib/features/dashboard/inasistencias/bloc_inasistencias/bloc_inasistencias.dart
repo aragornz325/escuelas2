@@ -144,7 +144,7 @@ class BlocInasistencias
 
         comisiones
             .firstWhere(
-              (curso) => curso.cursoId == event.idCurso,
+              (curso) => curso.cursoId == event.idComision,
             )
             .ultimaModificacion = state.fechaActual ?? DateTime.now();
 
@@ -172,7 +172,7 @@ class BlocInasistencias
 
     //actualiza el estado de un estudiante de un curso
     final asistencias = state.inasistencias
-        .expand((lista) => lista.where((e) => e.comisionId == event.idCurso))
+        .expand((lista) => lista.where((e) => e.comisionId == event.idComision))
         .toList();
     asistencias
         .firstWhere(
