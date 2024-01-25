@@ -13,15 +13,6 @@ class VistaEscritorioInicio extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const MenuOpcionesPermisos(),
-        ElevatedButton(
-            onPressed: () => {
-                  // client.solicitudNotaMensual.
-                },
-            child: Text('Press')),
-      ],
-    );
+    return const MenuOpcionesPermisos();
   }
 }

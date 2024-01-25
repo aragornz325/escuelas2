@@ -4,6 +4,7 @@ import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboar
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/utilidades/enum_menu_opciones_de_inicio.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
@@ -60,47 +61,58 @@ class MenuOpcionesPermisos extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
     final menues = _menuesPermitidos(context);
-
-    return BlocConsumer<BlocInicio, BlocInicioEstado>(
-      listener: (context, state) {
-        if (state is BlocInicioEstadoFallido) {
-          _showDialogError(context);
-        }
-      },
-      builder: (context, state) {
-        if (state is BlocInicioEstadoCargando) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return Column(
-            children: menues
-                .map(
-                  (menu) => Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.ph)
-                        .copyWith(bottom: 15.ph),
-                    child: ElementoLista.menu(
-                      widgetLateralDerecho: menu.name ==
-                              MenuOpcionesDeInicio.usuariosPendientes.name
-                          ? Padding(
-                              padding: EdgeInsets.only(right: 20.pw),
-                              child: Icon(
-                                Icons.circle,
-                                color: colores.error,
-                                size: 15.sw,
-                              ),
-                            )
-                          : null,
-                      nombreOpcion: menu.getTitulo(context),
-                      context: context,
-                      onTap: () => menu.redirigirAVista(context),
-                    ),
-                  ),
-                )
-                .toList(),
-          );
-        }
-      },
+    bool? respuesta;
+    return Column(
+      children: [
+        GestureDetector(
+            // TODO(SAM): eLIMINAR LUEGO
+            onTap: () async => {
+                  respuesta = await client.solicitudNotaMensual
+                      .enviarSolicitudADocentes(),
+                },
+            child: SizedBox(child: Text('Press'))),
+        BlocConsumer<BlocInicio, BlocInicioEstado>(
+          listener: (context, state) {
+            if (state is BlocInicioEstadoFallido) {
+              _showDialogError(context);
+            }
+          },
+          builder: (context, state) {
+            if (state is BlocInicioEstadoCargando) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              return Column(
+                children: menues
+                    .map(
+                      (menu) => Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 15.ph)
+                            .copyWith(bottom: 15.ph),
+                        child: ElementoLista.menu(
+                          widgetLateralDerecho: menu.name ==
+                                  MenuOpcionesDeInicio.usuariosPendientes.name
+                              ? Padding(
+                                  padding: EdgeInsets.only(right: 20.pw),
+                                  child: Icon(
+                                    Icons.circle,
+                                    color: colores.error,
+                                    size: 15.sw,
+                                  ),
+                                )
+                              : null,
+                          nombreOpcion: menu.getTitulo(context),
+                          context: context,
+                          onTap: () => menu.redirigirAVista(context),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              );
+            }
+          },
+        ),
+      ],
     );
   }
 }
