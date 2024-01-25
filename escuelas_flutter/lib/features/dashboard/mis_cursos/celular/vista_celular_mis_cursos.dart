@@ -98,8 +98,9 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                                               fecha: periodo.toString(),
                                               nombreAsignatura:
                                                   asignatura.nombreDeAsignatura,
-                                              idComision: comision
-                                                  .idComision, // TODO(SAM): Pasar id asignatura
+                                              idComision: comision.idComision,
+                                              idAsignatura:
+                                                  asignatura.idAsignatura,
                                             ),
                                           ),
                                         ),
