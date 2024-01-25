@@ -183,6 +183,11 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           nombreDeLaComision: asignatura.comision!.nombre,
         );
 
+        if (usuario.direccionesDeEmail!.isEmpty) {
+          logger.warning("el usuario no tiene email");
+          continue;
+        }
+
         await servicioComunicacion.enviarEmail(
           session,
           direccionEmailDestinatario:
