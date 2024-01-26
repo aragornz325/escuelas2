@@ -11,6 +11,8 @@ class FormularioDropdown extends StatefulWidget {
   const FormularioDropdown({
     required this.lista,
     required this.listaOpcionesSeleccionadas,
+    this.enabled = true,
+    this.hintText,
     super.key,
   });
 
@@ -19,6 +21,12 @@ class FormularioDropdown extends StatefulWidget {
 
   /// Devuelve la lista de opciones elegidas
   final ValueChanged<EscuelasDropdownOption<int>> listaOpcionesSeleccionadas;
+
+  /// Si esta habilitado o no
+  final bool enabled;
+
+  /// Texto a mostrar cuando el dropdown esta deshabilitado
+  final String? hintText;
 
   @override
   State<FormularioDropdown> createState() => _FormularioDropdownState();
@@ -34,10 +42,11 @@ class _FormularioDropdownState extends State<FormularioDropdown> {
 
     return EscuelasDropdown(
       width: 285.pw,
+      enabled: widget.enabled,
       isValid: true,
       items: widget.lista,
       valueText: valueText ?? '',
-      hintText: valueText ?? l10n.pageKycDropdownTitle,
+      hintText: widget.hintText ?? valueText ?? l10n.pageKycDropdownTitle,
       onChanged: (value) {
         widget.listaOpcionesSeleccionadas(
           [widget.lista.firstWhere((e) => e.value == value)].first,

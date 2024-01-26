@@ -1,10 +1,9 @@
-import 'dart:math';
-
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/bloc/bloc_comunidad_academica.dart';
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/listado_comunidad/widgets/elemento_listado_comunidad.dart';
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/listado_comunidad/widgets/selector_categoria.dart';
 import 'package:escuelas_flutter/gen/fonts.gen.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -29,67 +28,72 @@ class _VistaCelularListadoComunidadState
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+    final l10n = context.l10n;
 
-    return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: 20.pw,
-        vertical: 20.ph,
-      ),
-      child: BlocBuilder<BlocComunidadAcademica, BlocComunidadAcademicaEstado>(
-        builder: (context, state) {
-          final listaUsuarios = state.listaUsuarios;
-          if (listaUsuarios == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-          final rolElegido = state.rolElegido;
-          if (rolElegido == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          return Column(
-            children: [
-              Center(
-                child: Text(
-                  '${rolElegido.name.toUpperCase()}S',
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    fontSize: 16.pf,
-                    fontWeight: FontWeight.w900,
-                    fontFamily: FontFamily.nunito,
-                  ),
-                ),
-              ),
-              SizedBox(height: max(15.ph, 15.sh)),
-              const SelectorDeOrdenamiento(),
-              SizedBox(height: max(15.ph, 15.sh)),
-              Expanded(
-                child: ListView.builder(
-                  itemCount: listaUsuarios.usuariosListados.length,
-                  itemBuilder: (context, index) {
-                    if (listaUsuarios
-                        .usuariosListados[index].usuarios.isEmpty) {
-                      return Container();
-                    }
-
-                    return ElementoListadoComunidad(
-                      rolElegido: rolElegido,
-                      ordenarPor: state.ordenarPor,
-                      titulo: listaUsuarios
-                          .usuariosListados[index].etiquetaDelIndexListado
-                          .toUpperCase(),
-                      usuariosListados: listaUsuarios.usuariosListados[index],
-                    );
-                  },
-                ),
-              ),
-            ],
+    return BlocBuilder<BlocComunidadAcademica, BlocComunidadAcademicaEstado>(
+      builder: (context, state) {
+        if (state.listaUsuarios == null ||
+            state is BlocComunidadAcademicaEstadoCargando) {
+          return const Center(
+            child: CircularProgressIndicator(),
           );
-        },
-      ),
+        }
+
+        return Column(
+          children: [
+            Center(
+              child: Text(
+                '${state.rolElegido?.name.toUpperCase()}',
+                style: TextStyle(
+                  color: colores.onBackground,
+                  fontSize: 16.pf,
+                  fontWeight: FontWeight.w900,
+                  fontFamily: FontFamily.nunito,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 15.ph),
+              child: const SelectorDeOrdenamiento(),
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20.pw),
+                  child: state.estaVacio
+                      ? Center(
+                          child: Text(
+                            l10n.pageAcademicCommunityNoUsersToShow,
+                            style: TextStyle(
+                              color: colores.onBackground,
+                              fontSize: 16.pf,
+                              fontWeight: FontWeight.w500,
+                              fontFamily: FontFamily.nunito,
+                            ),
+                          ),
+                        )
+                      : Column(
+                          children: state.listaUsuarios?.usuariosListados
+                                  .map(
+                                    (e) => e.usuarios.isEmpty
+                                        ? Container()
+                                        : ElementoListadoComunidad(
+                                            rolElegido: state.rolElegido,
+                                            ordenarPor: state.ordenarPor,
+                                            titulo: e.etiquetaDelIndexListado
+                                                .toUpperCase(),
+                                            usuariosListados: e,
+                                          ),
+                                  )
+                                  .toList() ??
+                              [],
+                        ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

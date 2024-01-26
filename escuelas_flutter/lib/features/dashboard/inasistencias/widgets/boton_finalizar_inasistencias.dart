@@ -37,7 +37,7 @@ class BotonFinalizarInasistencias extends StatelessWidget {
   /// y el estado y un botón para finalizar la asistencias del dia.
   void _dialogFinalizarAsistencias(
     BuildContext context,
-    ComisionDeCurso curso,
+    ComisionDeCurso comision,
     List<AsistenciaDiaria> asistencias,
   ) {
     showDialog<void>(
@@ -46,8 +46,8 @@ class BotonFinalizarInasistencias extends StatelessWidget {
         value: context.read<BlocInasistencias>(),
         child: DialogInasistenciasDelDia(
           inasistencias: asistencias,
-          estudiantes: curso.estudiantes ?? [],
-          idCurso: curso.cursoId,
+          estudiantes: comision.estudiantes ?? [],
+          idCurso: comision.curso?.id ?? 0,
           fecha: fecha,
         ),
       ),

@@ -15,7 +15,7 @@ extension ComisionDeCursoX on ComisionDeCurso {
     return {
       'id': id,
       'nombre': nombre,
-      'cursoId': cursoId,
+      'curso': curso,
       'anioLectivo': anioLectivo,
     };
   }
@@ -26,7 +26,8 @@ extension ComisionDeCursoX on ComisionDeCurso {
           (estudiante) {
             // Filtrar las asistencias diarias asociadas a este estudiante
             final asistenciasEstudiante = asistenciasDiarias.where(
-              (asistencia) => asistencia.estudianteId == estudiante.usuarioId,
+              (asistencia) =>
+                  asistencia.estudiante?.id == estudiante.usuario?.id,
             );
 
             return asistenciasEstudiante.any(
@@ -45,7 +46,7 @@ extension ComisionDeCursoX on ComisionDeCurso {
 
     return estudiantes.every((estudiante) {
       final asistenciasEstudiante = asistenciasDiarias.where(
-        (asistencia) => asistencia.estudianteId == estudiante.id,
+        (asistencia) => asistencia.estudiante?.id == estudiante.id,
       );
 
       return asistenciasEstudiante.every(

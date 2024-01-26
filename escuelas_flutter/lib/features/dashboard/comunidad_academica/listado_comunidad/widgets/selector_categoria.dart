@@ -22,20 +22,9 @@ class SelectorDeOrdenamiento extends StatefulWidget {
 }
 
 class _SelectorDeOrdenamientoState extends State<SelectorDeOrdenamiento> {
-  OrdenarPor _ordenarPor = OrdenarPor.apellido;
   int index = 0;
 
   ///  Cambia el ordenamiento del listado
-  void _cambiarOrdenamiento(OrdenarPor ordenarPor) {
-    setState(() {
-      _ordenarPor = ordenarPor;
-    });
-    context.read<BlocComunidadAcademica>().add(
-          BlocComunidadAcademicaEventoTraerUsuariosPorRol(
-            ordenarPor: ordenarPor,
-          ),
-        );
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,23 +38,16 @@ class _SelectorDeOrdenamientoState extends State<SelectorDeOrdenamiento> {
       ),
       child: BlocBuilder<BlocComunidadAcademica, BlocComunidadAcademicaEstado>(
         builder: (context, state) {
-          final listaUsuarios = state.listaUsuarios;
-          if (listaUsuarios == null) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
           return Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              ...listaUsuarios.opcionesDeOrdenamiento.map(
-                (e) => _ItemCategoria(
-                  itemSeleccionado: _ordenarPor,
-                  onTap: _cambiarOrdenamiento,
-                  itemOrdenarPor: e,
-                ),
-              ),
+              ...state.listaUsuarios?.opcionesDeOrdenamiento.map(
+                    (e) => _ItemCategoria(
+                      itemSeleccionado: state.ordenarPor,
+                      enumOrdenar: e,
+                    ),
+                  ) ??
+                  [],
             ],
           );
         },
@@ -81,27 +63,30 @@ class _ItemCategoria extends StatelessWidget {
   /// {@macro _ItemCategoria}
   const _ItemCategoria({
     required this.itemSeleccionado,
-    required this.onTap,
-    required this.itemOrdenarPor,
+    required this.enumOrdenar,
   });
 
   /// Indica si esta seleccionado
   final OrdenarPor itemSeleccionado;
 
-  /// Funcion que se ejecuta al hacer tap
-  final void Function(OrdenarPor ordenarPor) onTap;
-
   /// Indica si cual es el item seleccionado
-  final OrdenarPor itemOrdenarPor;
+  final OrdenarPor enumOrdenar;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    final estaSeleccionado = itemOrdenarPor == itemSeleccionado;
+    final estaSeleccionado = enumOrdenar == itemSeleccionado;
+
+    final idRol = context.read<BlocComunidadAcademica>().state.idRol;
 
     return GestureDetector(
-      onTap: () => onTap.call(itemOrdenarPor),
+      onTap: () => context.read<BlocComunidadAcademica>().add(
+            BlocComunidadAcademicaEventoTraerUsuariosPorRol(
+              ordenarPor: enumOrdenar,
+              idRol: idRol,
+            ),
+          ),
       child: Container(
         width: 80.pw,
         height: 30.ph,
@@ -111,7 +96,7 @@ class _ItemCategoria extends StatelessWidget {
         ),
         child: Center(
           child: Text(
-            itemOrdenarPor.nombreItem(context),
+            enumOrdenar.nombreItem(context),
             style: TextStyle(
               color: estaSeleccionado
                   ? colores.grisClaroSombreado

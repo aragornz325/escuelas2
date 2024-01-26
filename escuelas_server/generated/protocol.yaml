@@ -4,7 +4,6 @@ asignatura:
   - crearAsignatura:
   - actualizarAsignatura:
   - eliminarAsignatura:
-  - asignarUsuarioAAsignaturas:
 asistencia:
   - crearAsistenciasEnLote:
   - traerAsistenciaPorDia:
@@ -15,15 +14,18 @@ calificacion:
   - obtenerCalificaciones:
   - obtenerConceptosDeCalificacion:
   - obtenerInformacionDeVistaGeneralDeComisiones:
+  - obtenerCalificacionesPorAsignaturaPorPeriodo:
 comision:
   - asignarUsuarioAComision:
   - obtenerComisiones:
+  - obtenerComisionesDeCursoPorId:
 curso:
   - obtenerCursoPorId:
   - obtenerCursos:
   - crearCurso:
   - actualizarCurso:
   - eliminarCurso:
+  - obtenerAsignaturasPorCurso:
 example:
   - hello:
 rol:
@@ -45,6 +47,7 @@ solicitudNotaMensual:
   - obtenerSolicitudNotaMensual:
   - obtenerSolicitudesNotaMensual:
   - eliminarSolicitudNotaMensual:
+  - enviarSolicitudADocentes:
 usuario:
   - obtenerDatosDelUsuario:
   - obtenerUsuario:
