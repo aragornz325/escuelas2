@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/popups/popups.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/widgets.dart';
@@ -33,6 +35,8 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
     final colores = context.colores;
 
     final l10n = context.l10n;
+
+    final rolUsuario = context.read<BlocDashboard>().state.usuario.nombreRoles;
 
     return Column(
       children: [
@@ -116,7 +120,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                         curso: curso,
                         relacionComisionUsuario: e,
                         fecha: state.fecha ?? DateTime.now(),
-                        rolDelUsuario: state.rolDelUsuario,
+                        rolDelUsuario: rolUsuario,
                       );
                     },
                   ).toList(),

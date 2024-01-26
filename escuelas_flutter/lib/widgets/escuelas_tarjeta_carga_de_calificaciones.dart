@@ -1,5 +1,5 @@
-import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/constantes/textos_valorativos.dart';
 import 'package:escuelas_flutter/utilidades/funciones/calcular_promedio.dart';
@@ -85,6 +85,8 @@ class _EscuelasCargaCalificacionAlumnoState
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -117,7 +119,7 @@ class _EscuelasCargaCalificacionAlumnoState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Promedio: ',
+                    l10n.pageGradesStudentCardAverage,
                     style: TextStyle(
                       color: colores.onBackground,
                       fontSize: 13.pf,
