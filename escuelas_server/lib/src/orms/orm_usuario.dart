@@ -29,11 +29,15 @@ class OrmUsuario extends ORM {
     );
 
     if (usuario == null) {
-      throw ExcepcionCustom(
-        titulo: 'Usuario no encontrado.',
-        mensaje: 'Usuario no encontrado.',
-        tipoDeError: TipoExcepcion.noEncontrado,
-        codigoError: 404,
+      return Usuario(
+        apellido: '',
+        nombre: '',
+        id: 0,
+        idUserInfo: 0,
+        roles: {},
+        fechaCreacion: DateTime.now(),
+        ultimaModificacion: DateTime.now(),
+        urlFotoDePerfil: '',
       );
     }
 

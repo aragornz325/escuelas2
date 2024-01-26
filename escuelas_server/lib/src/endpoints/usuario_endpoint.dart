@@ -13,7 +13,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerDatosDelUsuario',
         () => servicio.obtenerDatosDelUsuario(session),
-        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   Future<Usuario> obtenerUsuario(

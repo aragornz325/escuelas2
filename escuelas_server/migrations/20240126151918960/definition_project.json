@@ -21,6 +21,12 @@
           "dartType": "int"
         },
         {
+          "name": "comisionId",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
           "name": "idUsuarioPendiente",
           "columnType": 2,
           "isNullable": false,
@@ -68,6 +74,19 @@
         {
           "constraintName": "asignatura_solicitada_fk_1",
           "columns": [
+            "comisionId"
+          ],
+          "referenceTable": "comisiones",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3
+        },
+        {
+          "constraintName": "asignatura_solicitada_fk_2",
+          "columns": [
             "idUsuarioPendiente"
           ],
           "referenceTable": "usuarios_pendientes",
@@ -79,7 +98,7 @@
           "onDelete": 4
         },
         {
-          "constraintName": "asignatura_solicitada_fk_2",
+          "constraintName": "asignatura_solicitada_fk_3",
           "columns": [
             "_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId"
           ],
@@ -128,12 +147,6 @@
           "dartType": "String"
         },
         {
-          "name": "cursoId",
-          "columnType": 2,
-          "isNullable": false,
-          "dartType": "int"
-        },
-        {
           "name": "ultimaModificacion",
           "columnType": 4,
           "isNullable": true,
@@ -161,19 +174,6 @@
       "foreignKeys": [
         {
           "constraintName": "asignaturas_fk_0",
-          "columns": [
-            "cursoId"
-          ],
-          "referenceTable": "cursos",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 3
-        },
-        {
-          "constraintName": "asignaturas_fk_1",
           "columns": [
             "_cursosAsignaturasCursosId"
           ],
@@ -341,7 +341,7 @@
           "dartType": "int"
         },
         {
-          "name": "idEstudiante",
+          "name": "estudianteId",
           "columnType": 2,
           "isNullable": false,
           "dartType": "int"
@@ -424,7 +424,7 @@
         {
           "constraintName": "calificaciones_fk_1",
           "columns": [
-            "idEstudiante"
+            "estudianteId"
           ],
           "referenceTable": "usuarios",
           "referenceTableSchema": "public",
@@ -510,12 +510,6 @@
           "dartType": "int"
         },
         {
-          "name": "idCalificacion",
-          "columnType": 2,
-          "isNullable": false,
-          "dartType": "int"
-        },
-        {
           "name": "numeroDeMes",
           "columnType": 2,
           "isNullable": false,
@@ -540,23 +534,10 @@
             "id"
           ],
           "onUpdate": 3,
-          "onDelete": 3
+          "onDelete": 4
         },
         {
           "constraintName": "calificaciones_mensuales_fk_1",
-          "columns": [
-            "idCalificacion"
-          ],
-          "referenceTable": "calificaciones",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 3
-        },
-        {
-          "constraintName": "calificaciones_mensuales_fk_2",
           "columns": [
             "_solicitudesNotasMensualesCalificacionesSolicitudesNotasMabd6Id"
           ],
@@ -572,87 +553,6 @@
       "indexes": [
         {
           "indexName": "calificaciones_mensuales_pkey",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true
-        },
-        {
-          "indexName": "calificacion_calificacion_mensual_unique_idx",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "calificacionId"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": false
-        }
-      ],
-      "managed": true
-    },
-    {
-      "name": "comision_solicitada",
-      "dartName": "ComisionSolicitada",
-      "module": "escuelas",
-      "schema": "public",
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": "nextval('comision_solicitada_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "comisionId",
-          "columnType": 2,
-          "isNullable": false,
-          "dartType": "int"
-        },
-        {
-          "name": "ultimaModificacion",
-          "columnType": 4,
-          "isNullable": false,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaCreacion",
-          "columnType": 4,
-          "isNullable": false,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaEliminacion",
-          "columnType": 4,
-          "isNullable": true,
-          "dartType": "DateTime?"
-        }
-      ],
-      "foreignKeys": [
-        {
-          "constraintName": "comision_solicitada_fk_0",
-          "columns": [
-            "comisionId"
-          ],
-          "referenceTable": "comisiones",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 3
-        }
-      ],
-      "indexes": [
-        {
-          "indexName": "comision_solicitada_pkey",
           "elements": [
             {
               "type": 0,
@@ -706,8 +606,8 @@
         {
           "name": "fechaCreacion",
           "columnType": 4,
-          "isNullable": false,
-          "dartType": "DateTime"
+          "isNullable": true,
+          "dartType": "DateTime?"
         },
         {
           "name": "fechaEliminacion",
@@ -890,6 +790,12 @@
           "dartType": "int?"
         },
         {
+          "name": "idUsuario",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
           "name": "direccionDeEmail",
           "columnType": 0,
           "isNullable": false,
@@ -923,6 +829,19 @@
       "foreignKeys": [
         {
           "constraintName": "direcciones_de_email_fk_0",
+          "columns": [
+            "idUsuario"
+          ],
+          "referenceTable": "usuarios",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3
+        },
+        {
+          "constraintName": "direcciones_de_email_fk_1",
           "columns": [
             "_usuariosDireccionesdeemailUsuariosId"
           ],
@@ -1393,8 +1312,8 @@
         {
           "name": "fechaDeRealizacion",
           "columnType": 4,
-          "isNullable": false,
-          "dartType": "DateTime"
+          "isNullable": true,
+          "dartType": "DateTime?"
         },
         {
           "name": "ultimaModificacion",
@@ -1912,6 +1831,88 @@
       "managed": true
     },
     {
+      "name": "r_asignatura_curso",
+      "dartName": "RelacionAsignaturaCurso",
+      "module": "escuelas",
+      "schema": "public",
+      "columns": [
+        {
+          "name": "id",
+          "columnType": 2,
+          "isNullable": false,
+          "columnDefault": "nextval('r_asignatura_curso_id_seq'::regclass)",
+          "dartType": "int?"
+        },
+        {
+          "name": "idAsignatura",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
+          "name": "idCurso",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
+          "name": "fechaCreacion",
+          "columnType": 4,
+          "isNullable": true,
+          "dartType": "DateTime?"
+        },
+        {
+          "name": "fechaEliminacion",
+          "columnType": 4,
+          "isNullable": true,
+          "dartType": "DateTime?"
+        }
+      ],
+      "foreignKeys": [
+        {
+          "constraintName": "r_asignatura_curso_fk_0",
+          "columns": [
+            "idAsignatura"
+          ],
+          "referenceTable": "asignaturas",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3
+        },
+        {
+          "constraintName": "r_asignatura_curso_fk_1",
+          "columns": [
+            "idCurso"
+          ],
+          "referenceTable": "cursos",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3
+        }
+      ],
+      "indexes": [
+        {
+          "indexName": "r_asignatura_curso_pkey",
+          "elements": [
+            {
+              "type": 0,
+              "definition": "id"
+            }
+          ],
+          "type": "btree",
+          "isUnique": true,
+          "isPrimary": true
+        }
+      ],
+      "managed": true
+    },
+    {
       "name": "r_asignaturas_usuarios",
       "dartName": "RelacionAsignaturaUsuario",
       "module": "escuelas",
@@ -1932,6 +1933,12 @@
         },
         {
           "name": "asignaturaId",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
+          "name": "comisionId",
           "columnType": 2,
           "isNullable": false,
           "dartType": "int"
@@ -1981,6 +1988,19 @@
           ],
           "onUpdate": 3,
           "onDelete": 3
+        },
+        {
+          "constraintName": "r_asignaturas_usuarios_fk_2",
+          "columns": [
+            "comisionId"
+          ],
+          "referenceTable": "comisiones",
+          "referenceTableSchema": "public",
+          "referenceColumns": [
+            "id"
+          ],
+          "onUpdate": 3,
+          "onDelete": 3
         }
       ],
       "indexes": [
@@ -2009,7 +2029,7 @@
             }
           ],
           "type": "btree",
-          "isUnique": true,
+          "isUnique": false,
           "isPrimary": false
         }
       ],
@@ -2097,153 +2117,6 @@
           "type": "btree",
           "isUnique": true,
           "isPrimary": false
-        }
-      ],
-      "managed": true
-    },
-    {
-      "name": "r_usuario_rol",
-      "dartName": "RelacionUsuarioRol",
-      "module": "escuelas",
-      "schema": "public",
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": "nextval('r_usuario_rol_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "usuarioId",
-          "columnType": 2,
-          "isNullable": false,
-          "dartType": "int"
-        },
-        {
-          "name": "rolId",
-          "columnType": 2,
-          "isNullable": false,
-          "dartType": "int"
-        }
-      ],
-      "foreignKeys": [
-        {
-          "constraintName": "r_usuario_rol_fk_0",
-          "columns": [
-            "usuarioId"
-          ],
-          "referenceTable": "usuarios",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 3
-        },
-        {
-          "constraintName": "r_usuario_rol_fk_1",
-          "columns": [
-            "rolId"
-          ],
-          "referenceTable": "roles_de_usuario",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 3
-        }
-      ],
-      "indexes": [
-        {
-          "indexName": "r_usuario_rol_pkey",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true
-        },
-        {
-          "indexName": "r_usuario_rol_index_idx",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "usuarioId"
-            },
-            {
-              "type": 0,
-              "definition": "rolId"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": false
-        }
-      ],
-      "managed": true
-    },
-    {
-      "name": "roles_de_usuario",
-      "dartName": "RolDeUsuario",
-      "module": "escuelas",
-      "schema": "public",
-      "columns": [
-        {
-          "name": "id",
-          "columnType": 2,
-          "isNullable": false,
-          "columnDefault": "nextval('roles_de_usuario_id_seq'::regclass)",
-          "dartType": "int?"
-        },
-        {
-          "name": "nombre",
-          "columnType": 0,
-          "isNullable": false,
-          "dartType": "String"
-        },
-        {
-          "name": "descripcion",
-          "columnType": 0,
-          "isNullable": false,
-          "dartType": "String"
-        },
-        {
-          "name": "ultimaModificacion",
-          "columnType": 4,
-          "isNullable": false,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaCreacion",
-          "columnType": 4,
-          "isNullable": false,
-          "dartType": "DateTime"
-        },
-        {
-          "name": "fechaEliminacion",
-          "columnType": 4,
-          "isNullable": true,
-          "dartType": "DateTime?"
-        }
-      ],
-      "foreignKeys": [],
-      "indexes": [
-        {
-          "indexName": "roles_de_usuario_pkey",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "id"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": true
         }
       ],
       "managed": true
@@ -2540,6 +2413,12 @@
           "columnType": 4,
           "isNullable": true,
           "dartType": "DateTime?"
+        },
+        {
+          "name": "privileges",
+          "columnType": 0,
+          "isNullable": true,
+          "dartType": "String?"
         }
       ],
       "foreignKeys": [
@@ -2669,22 +2548,9 @@
         {
           "constraintName": "usuarios_pendientes_fk_0",
           "columns": [
-            "idRolSolicitado"
-          ],
-          "referenceTable": "roles_de_usuario",
-          "referenceTableSchema": "public",
-          "referenceColumns": [
-            "id"
-          ],
-          "onUpdate": 3,
-          "onDelete": 3
-        },
-        {
-          "constraintName": "usuarios_pendientes_fk_1",
-          "columns": [
             "comisionSolicitadaId"
           ],
-          "referenceTable": "comision_solicitada",
+          "referenceTable": "comisiones",
           "referenceTableSchema": "public",
           "referenceColumns": [
             "id"
@@ -2705,18 +2571,6 @@
           "type": "btree",
           "isUnique": true,
           "isPrimary": true
-        },
-        {
-          "indexName": "usuario_comision_unique_idx",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "comisionSolicitadaId"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": false
         }
       ],
       "managed": true
@@ -2730,10 +2584,6 @@
     {
       "module": "serverpod_auth",
       "version": "20240115074239642"
-    },
-    {
-      "module": "escuelas",
-      "version": "20240118161739350"
     }
   ],
   "migrationApiVersion": 1

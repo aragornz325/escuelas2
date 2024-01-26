@@ -6,6 +6,7 @@ BEGIN;
 CREATE TABLE "asignatura_solicitada" (
     "id" serial PRIMARY KEY,
     "asignaturaId" integer NOT NULL,
+    "comisionId" integer NOT NULL,
     "idUsuarioPendiente" integer NOT NULL,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
@@ -19,7 +20,6 @@ CREATE TABLE "asignatura_solicitada" (
 CREATE TABLE "asignaturas" (
     "id" serial PRIMARY KEY,
     "nombre" text NOT NULL,
-    "cursoId" integer NOT NULL,
     "ultimaModificacion" timestamp without time zone,
     "fechaCreacion" timestamp without time zone,
     "fechaEliminacion" timestamp without time zone,
@@ -47,7 +47,7 @@ CREATE TABLE "asistencias_diarias" (
 CREATE TABLE "calificaciones" (
     "id" serial PRIMARY KEY,
     "idAutor" integer NOT NULL,
-    "idEstudiante" integer NOT NULL,
+    "estudianteId" integer NOT NULL,
     "idComision" integer NOT NULL,
     "idAsignatura" integer NOT NULL,
     "idInstanciaDeEvaluacion" integer NOT NULL,
@@ -66,23 +66,8 @@ CREATE TABLE "calificaciones" (
 CREATE TABLE "calificaciones_mensuales" (
     "id" serial PRIMARY KEY,
     "calificacionId" integer NOT NULL,
-    "idCalificacion" integer NOT NULL,
     "numeroDeMes" integer NOT NULL,
     "_solicitudesNotasMensualesCalificacionesSolicitudesNotasMabd6Id" integer
-);
-
--- Indexes
-CREATE UNIQUE INDEX "calificacion_calificacion_mensual_unique_idx" ON "calificaciones_mensuales" USING btree ("calificacionId");
-
---
--- Class ComisionSolicitada as table comision_solicitada
---
-CREATE TABLE "comision_solicitada" (
-    "id" serial PRIMARY KEY,
-    "comisionId" integer NOT NULL,
-    "ultimaModificacion" timestamp without time zone NOT NULL,
-    "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
 );
 
 --
@@ -94,7 +79,7 @@ CREATE TABLE "comisiones" (
     "cursoId" integer NOT NULL,
     "anioLectivo" integer NOT NULL,
     "ultimaModificacion" timestamp without time zone NOT NULL,
-    "fechaCreacion" timestamp without time zone NOT NULL,
+    "fechaCreacion" timestamp without time zone,
     "fechaEliminacion" timestamp without time zone,
     "_cursosComisionesCursosId" integer
 );
@@ -126,6 +111,7 @@ CREATE TABLE "cursos" (
 --
 CREATE TABLE "direcciones_de_email" (
     "id" serial PRIMARY KEY,
+    "idUsuario" integer NOT NULL,
     "direccionDeEmail" text NOT NULL,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
@@ -200,7 +186,7 @@ CREATE TABLE "instancias_de_evaluacion" (
     "autor" integer NOT NULL,
     "idConcepto" integer NOT NULL,
     "fechaProgramada" timestamp without time zone NOT NULL,
-    "fechaDeRealizacion" timestamp without time zone NOT NULL,
+    "fechaDeRealizacion" timestamp without time zone,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
     "fechaEliminacion" timestamp without time zone
@@ -284,19 +270,31 @@ CREATE TABLE "periodos" (
 );
 
 --
+-- Class RelacionAsignaturaCurso as table r_asignatura_curso
+--
+CREATE TABLE "r_asignatura_curso" (
+    "id" serial PRIMARY KEY,
+    "idAsignatura" integer NOT NULL,
+    "idCurso" integer NOT NULL,
+    "fechaCreacion" timestamp without time zone,
+    "fechaEliminacion" timestamp without time zone
+);
+
+--
 -- Class RelacionAsignaturaUsuario as table r_asignaturas_usuarios
 --
 CREATE TABLE "r_asignaturas_usuarios" (
     "id" serial PRIMARY KEY,
     "usuarioId" integer NOT NULL,
     "asignaturaId" integer NOT NULL,
+    "comisionId" integer NOT NULL,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
     "fechaEliminacion" timestamp without time zone
 );
 
 -- Indexes
-CREATE UNIQUE INDEX "r_usuario_asignatura_index_idx" ON "r_asignaturas_usuarios" USING btree ("usuarioId", "asignaturaId");
+CREATE INDEX "r_usuario_asignatura_index_idx" ON "r_asignaturas_usuarios" USING btree ("usuarioId", "asignaturaId");
 
 --
 -- Class RelacionComisionUsuario as table r_comisiones_usuarios
@@ -309,30 +307,6 @@ CREATE TABLE "r_comisiones_usuarios" (
 
 -- Indexes
 CREATE UNIQUE INDEX "r_usuario_comision_index_idx" ON "r_comisiones_usuarios" USING btree ("usuarioId", "comisionId");
-
---
--- Class RelacionUsuarioRol as table r_usuario_rol
---
-CREATE TABLE "r_usuario_rol" (
-    "id" serial PRIMARY KEY,
-    "usuarioId" integer NOT NULL,
-    "rolId" integer NOT NULL
-);
-
--- Indexes
-CREATE UNIQUE INDEX "r_usuario_rol_index_idx" ON "r_usuario_rol" USING btree ("usuarioId", "rolId");
-
---
--- Class RolDeUsuario as table roles_de_usuario
---
-CREATE TABLE "roles_de_usuario" (
-    "id" serial PRIMARY KEY,
-    "nombre" text NOT NULL,
-    "descripcion" text NOT NULL,
-    "ultimaModificacion" timestamp without time zone NOT NULL,
-    "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
-);
 
 --
 -- Class Solicitud as table solicitudes
@@ -376,7 +350,8 @@ CREATE TABLE "usuarios" (
     "domicilioId" integer,
     "ultimaModificacion" timestamp without time zone NOT NULL,
     "fechaCreacion" timestamp without time zone NOT NULL,
-    "fechaEliminacion" timestamp without time zone
+    "fechaEliminacion" timestamp without time zone,
+    "privileges" text
 );
 
 -- Indexes
@@ -399,9 +374,6 @@ CREATE TABLE "usuarios_pendientes" (
     "fechaEliminacion" timestamp without time zone,
     "comisionSolicitadaId" integer
 );
-
--- Indexes
-CREATE UNIQUE INDEX "usuario_comision_unique_idx" ON "usuarios_pendientes" USING btree ("comisionSolicitadaId");
 
 --
 -- Class AuthKey as table serverpod_auth_key
@@ -732,12 +704,18 @@ ALTER TABLE ONLY "asignatura_solicitada"
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "asignatura_solicitada"
     ADD CONSTRAINT "asignatura_solicitada_fk_1"
+    FOREIGN KEY("comisionId")
+    REFERENCES "comisiones"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "asignatura_solicitada"
+    ADD CONSTRAINT "asignatura_solicitada_fk_2"
     FOREIGN KEY("idUsuarioPendiente")
     REFERENCES "usuarios_pendientes"("id")
     ON DELETE CASCADE
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "asignatura_solicitada"
-    ADD CONSTRAINT "asignatura_solicitada_fk_2"
+    ADD CONSTRAINT "asignatura_solicitada_fk_3"
     FOREIGN KEY("_usuariosPendientesAsignaturassolicitadasUsuariosPendientesId")
     REFERENCES "usuarios_pendientes"("id")
     ON DELETE NO ACTION
@@ -748,12 +726,6 @@ ALTER TABLE ONLY "asignatura_solicitada"
 --
 ALTER TABLE ONLY "asignaturas"
     ADD CONSTRAINT "asignaturas_fk_0"
-    FOREIGN KEY("cursoId")
-    REFERENCES "cursos"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE ONLY "asignaturas"
-    ADD CONSTRAINT "asignaturas_fk_1"
     FOREIGN KEY("_cursosAsignaturasCursosId")
     REFERENCES "cursos"("id")
     ON DELETE NO ACTION
@@ -792,7 +764,7 @@ ALTER TABLE ONLY "calificaciones"
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "calificaciones"
     ADD CONSTRAINT "calificaciones_fk_1"
-    FOREIGN KEY("idEstudiante")
+    FOREIGN KEY("estudianteId")
     REFERENCES "usuarios"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
@@ -822,28 +794,12 @@ ALTER TABLE ONLY "calificaciones_mensuales"
     ADD CONSTRAINT "calificaciones_mensuales_fk_0"
     FOREIGN KEY("calificacionId")
     REFERENCES "calificaciones"("id")
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "calificaciones_mensuales"
     ADD CONSTRAINT "calificaciones_mensuales_fk_1"
-    FOREIGN KEY("idCalificacion")
-    REFERENCES "calificaciones"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE ONLY "calificaciones_mensuales"
-    ADD CONSTRAINT "calificaciones_mensuales_fk_2"
     FOREIGN KEY("_solicitudesNotasMensualesCalificacionesSolicitudesNotasMabd6Id")
     REFERENCES "solicitudes_notas_mensuales"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-
---
--- Foreign relations for "comision_solicitada" table
---
-ALTER TABLE ONLY "comision_solicitada"
-    ADD CONSTRAINT "comision_solicitada_fk_0"
-    FOREIGN KEY("comisionId")
-    REFERENCES "comisiones"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -868,6 +824,12 @@ ALTER TABLE ONLY "comisiones"
 --
 ALTER TABLE ONLY "direcciones_de_email"
     ADD CONSTRAINT "direcciones_de_email_fk_0"
+    FOREIGN KEY("idUsuario")
+    REFERENCES "usuarios"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "direcciones_de_email"
+    ADD CONSTRAINT "direcciones_de_email_fk_1"
     FOREIGN KEY("_usuariosDireccionesdeemailUsuariosId")
     REFERENCES "usuarios"("id")
     ON DELETE NO ACTION
@@ -998,6 +960,22 @@ ALTER TABLE ONLY "numeros_de_telefono_institucion"
     ON UPDATE NO ACTION;
 
 --
+-- Foreign relations for "r_asignatura_curso" table
+--
+ALTER TABLE ONLY "r_asignatura_curso"
+    ADD CONSTRAINT "r_asignatura_curso_fk_0"
+    FOREIGN KEY("idAsignatura")
+    REFERENCES "asignaturas"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "r_asignatura_curso"
+    ADD CONSTRAINT "r_asignatura_curso_fk_1"
+    FOREIGN KEY("idCurso")
+    REFERENCES "cursos"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+
+--
 -- Foreign relations for "r_asignaturas_usuarios" table
 --
 ALTER TABLE ONLY "r_asignaturas_usuarios"
@@ -1010,6 +988,12 @@ ALTER TABLE ONLY "r_asignaturas_usuarios"
     ADD CONSTRAINT "r_asignaturas_usuarios_fk_1"
     FOREIGN KEY("asignaturaId")
     REFERENCES "asignaturas"("id")
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION;
+ALTER TABLE ONLY "r_asignaturas_usuarios"
+    ADD CONSTRAINT "r_asignaturas_usuarios_fk_2"
+    FOREIGN KEY("comisionId")
+    REFERENCES "comisiones"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -1026,22 +1010,6 @@ ALTER TABLE ONLY "r_comisiones_usuarios"
     ADD CONSTRAINT "r_comisiones_usuarios_fk_1"
     FOREIGN KEY("comisionId")
     REFERENCES "comisiones"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-
---
--- Foreign relations for "r_usuario_rol" table
---
-ALTER TABLE ONLY "r_usuario_rol"
-    ADD CONSTRAINT "r_usuario_rol_fk_0"
-    FOREIGN KEY("usuarioId")
-    REFERENCES "usuarios"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE ONLY "r_usuario_rol"
-    ADD CONSTRAINT "r_usuario_rol_fk_1"
-    FOREIGN KEY("rolId")
-    REFERENCES "roles_de_usuario"("id")
     ON DELETE NO ACTION
     ON UPDATE NO ACTION;
 
@@ -1104,14 +1072,8 @@ ALTER TABLE ONLY "usuarios"
 --
 ALTER TABLE ONLY "usuarios_pendientes"
     ADD CONSTRAINT "usuarios_pendientes_fk_0"
-    FOREIGN KEY("idRolSolicitado")
-    REFERENCES "roles_de_usuario"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
-ALTER TABLE ONLY "usuarios_pendientes"
-    ADD CONSTRAINT "usuarios_pendientes_fk_1"
     FOREIGN KEY("comisionSolicitadaId")
-    REFERENCES "comision_solicitada"("id")
+    REFERENCES "comisiones"("id")
     ON DELETE SET NULL
     ON UPDATE NO ACTION;
 
@@ -1150,9 +1112,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR escuelas
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('escuelas', '20240118165446078', now())
+    VALUES ('escuelas', '20240126151918960', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240118165446078', "timestamp" = now();
+    DO UPDATE SET "version" = '20240126151918960', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod
