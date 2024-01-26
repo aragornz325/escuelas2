@@ -5,6 +5,7 @@ import 'package:escuelas_server/src/orms/orm_usuario_pendiente.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
 import 'package:escuelas_server/src/servicios/servicio_comision.dart';
+import 'package:escuelas_server/src/servicios/servicio_dirreccionDeMail.dart';
 import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:escuelas_server/src/servicios/servicio_userInfo.dart';
 import 'package:escuelas_server/src/utils/listado_alfabetico.dart';
@@ -15,6 +16,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   @override
   OrmUsuario get orm => OrmUsuario();
   ServicioUserInfo get userInfo => ServicioUserInfo();
+  ServicioDireccionDeMail get servicioDeEmail => ServicioDireccionDeMail();
 
   final OrmUsuarioPendiente _ormUsuarioPendiente = OrmUsuarioPendiente();
 
@@ -33,6 +35,31 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         idUserInfo: 6,
       ),
     );
+  }
+
+  Future<Usuario> crearUsuario(
+    Session session, {
+    required Usuario nuevoUsuario,
+  }) async {
+    final ahora = DateTime.now();
+
+    final usuario = await ejecutarOperacion(
+      () => orm.crearUsuario(
+        session,
+        nuevoUsuario: nuevoUsuario
+          ..fechaCreacion = ahora
+          ..ultimaModificacion = ahora,
+      ),
+    );
+    await ejecutarOperacion(
+      () => servicioDeEmail.crearDireccionDeEmail(
+        session,
+        idUserInfo: usuario.idUserInfo,
+        idUsuario: usuario.id!,
+      ),
+    );
+
+    return usuario;
   }
 
   Future<Usuario> obtenerDatosDelUsuario(Session session) async {
@@ -288,17 +315,9 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       );
     }
 
-    final usernfo = await userInfo.traerInformacionDeUsuario(session,
-        idUserInfo: usuarioPendiente.idUserInfo);
-
     final usuario = await ejecutarOperacion(
-      () => orm.crearUsuario(
+      () => crearUsuario(
         session,
-        direccionDeMail: DireccionDeEmail(
-          direccionDeEmail: usernfo.email!,
-          ultimaModificacion: ahora,
-          fechaCreacion: ahora,
-        ),
         nuevoUsuario: Usuario(
           idUserInfo: usuarioPendiente.idUserInfo,
           nombre: usuarioPendiente.nombre,
@@ -309,8 +328,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         ),
       ),
     );
-
-    //TODO: agregar las relacion de los mails
 
     //crear relacion usuario - comision
 
