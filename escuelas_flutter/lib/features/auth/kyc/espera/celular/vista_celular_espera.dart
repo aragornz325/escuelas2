@@ -99,7 +99,8 @@ class VistaCelularEspera extends StatelessWidget {
                 await client.usuario.responderSolicitudDeRegistro(
                   estadoDeSolicitud: EstadoDeSolicitud.aprobado,
                   idUsuarioPendiente:
-                      33, // TODO(ANYONE): Agregar ID usuario pendiente
+                      3, // TODO(ANYONE): Eliminar luego el boton de autoaceptar
+                      
                 );
               },
               child: Container(
