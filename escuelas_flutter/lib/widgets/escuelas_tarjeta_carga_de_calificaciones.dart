@@ -218,6 +218,7 @@ class _EscuelasCargaCalificacionAlumnoState
             ),
             decoration: InputDecoration(
               hintText: 'S/C',
+              // TODO(ANYONE): Ver que poner en el l10n
               hintStyle: TextStyle(
                 fontSize: 18.pf,
                 color: colores.grisSC,

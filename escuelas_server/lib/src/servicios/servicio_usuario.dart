@@ -6,6 +6,7 @@ import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
 import 'package:escuelas_server/src/servicios/servicio_comision.dart';
 import 'package:escuelas_server/src/servicios/servicio_rol.dart';
+import 'package:escuelas_server/src/servicios/servicio_userInfo.dart';
 import 'package:escuelas_server/src/utils/listado_alfabetico.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
@@ -13,6 +14,7 @@ import 'package:serverpod_auth_server/module.dart' as auth;
 class ServicioUsuario extends Servicio<OrmUsuario> {
   @override
   OrmUsuario get orm => OrmUsuario();
+  ServicioUserInfo get userInfo => ServicioUserInfo();
 
   final OrmUsuarioPendiente _ormUsuarioPendiente = OrmUsuarioPendiente();
 
@@ -286,9 +288,17 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       );
     }
 
+    final usernfo = await userInfo.traerInformacionDeUsuario(session,
+        idUserInfo: usuarioPendiente.idUserInfo);
+
     final usuario = await ejecutarOperacion(
       () => orm.crearUsuario(
         session,
+        direccionDeMail: DireccionDeEmail(
+          direccionDeEmail: usernfo.email!,
+          ultimaModificacion: ahora,
+          fechaCreacion: ahora,
+        ),
         nuevoUsuario: Usuario(
           idUserInfo: usuarioPendiente.idUserInfo,
           nombre: usuarioPendiente.nombre,
@@ -299,6 +309,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         ),
       ),
     );
+
+    //TODO: agregar las relacion de los mails
 
     //crear relacion usuario - comision
 
@@ -324,10 +336,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
 
-    
-
     if (asignaturasSolicitadas!.isNotEmpty) {
-      
       await ejecutarOperacion(
         () => _servicioAsignatura.asignarAsignaturasSolicitadas(
           session,
@@ -336,7 +345,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         ),
       );
     } else if (comisionSolicitada != null) {
-     
       await ejecutarOperacion(
         () => _servicioComision.asignarUsuarioAComision(
           session,
