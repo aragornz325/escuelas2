@@ -5,20 +5,13 @@ import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
 class OrmUsuario extends ORM {
-  Future<Usuario> crearUsuario(Session session,
-      {required Usuario nuevoUsuario,
-      required DireccionDeEmail direccionDeMail}) async {
+  Future<Usuario> crearUsuario(
+    Session session, {
+    required Usuario nuevoUsuario,
+  }) async {
     final usuario = await ejecutarOperacionOrm(
       session,
       (session) async => await Usuario.db.insertRow(session, nuevoUsuario),
-    );
-
-    await ejecutarOperacionOrm(
-      session,
-      (session) => DireccionDeEmail.db.insert(
-        session,
-        [direccionDeMail],
-      ),
     );
 
     return usuario;
@@ -36,11 +29,15 @@ class OrmUsuario extends ORM {
     );
 
     if (usuario == null) {
-      throw ExcepcionCustom(
-        titulo: 'Usuario no encontrado.',
-        mensaje: 'Usuario no encontrado.',
-        tipoDeError: TipoExcepcion.noEncontrado,
-        codigoError: 404,
+      return Usuario(
+        apellido: '',
+        nombre: '',
+        id: 0,
+        idUserInfo: 0,
+        roles: {},
+        fechaCreacion: DateTime.now(),
+        ultimaModificacion: DateTime.now(),
+        urlFotoDePerfil: '',
       );
     }
 
