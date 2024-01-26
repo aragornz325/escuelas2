@@ -33,6 +33,7 @@ class _PaginaKycState extends State<PaginaKyc> with WidgetsBindingObserver {
     super.dispose();
   }
 
+  // TODO(ANYONE): Cambiar luego a mejorar la arquitectura del KYC guard
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
