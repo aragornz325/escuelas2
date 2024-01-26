@@ -76,7 +76,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
 
             nombreAlumno: '${relacionComisionUsuario.usuario?.nombre} '
                 '${relacionComisionUsuario.usuario?.apellido}',
-            esEditable: rolDelUsuario == 'Docente'
+            esEditable: rolDelUsuario == 'docente'
                 ? fecha.mismaFecha(DateTime.now())
                 : rolDelUsuario == 'directivo' &&
                     fecha.isBefore(DateTime.now()),

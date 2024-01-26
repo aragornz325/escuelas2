@@ -23,7 +23,7 @@ class AsignaturaEndpoint extends Endpoint with Controller {
         session,
         id: id,
       ),
-      permisoRequerido: PermisoDeAsignatura.verAsignatura,
+     
     );
   }
 
@@ -35,7 +35,6 @@ class AsignaturaEndpoint extends Endpoint with Controller {
       session,
       'obtenerAsignaturas',
       () => servicio.obtenerAsignaturas(session),
-      permisoRequerido: PermisoDeAsignatura.verAsignatura,
     );
   }
 
