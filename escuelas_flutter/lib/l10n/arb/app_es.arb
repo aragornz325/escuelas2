@@ -36,9 +36,14 @@
         }
     },
 
-    "pageAwaitApprovalDescription": "Tu cuenta y rol están pendientes a aprobar por los directivos.\n Te informaremos mediante un mail.",
-    "@pageAwaitApprovalDescription": {
+    "pageKycAwaitApprovalDescription": "Tu cuenta y rol están pendientes a aprobar por los directivos.\n Te informaremos mediante un mail.",
+    "@pageKycAwaitApprovalDescription": {
         "description": "Text of the page Await Approval where it informs the user that his role and account are pending for approval and will contact him with a mail."
+    },
+
+    "pageKycAwaitApprovalAcceptUser": "Aceptar usuario",
+    "@pageKycAwaitApprovalAcceptUser": {
+        "description": "Text of the button of the page Await Approval to accept the user."
     },
 
     "pageKycFormAddSubject": "Agregar asignatura",
@@ -106,16 +111,6 @@
         "description": "Message displayed when a user needs to add the subjects that have been assigned to them to proceed in the KYC form."
     },
 
-    "pageRoleConfirmationText": "Te registrarás con el rol {roleName}. Todo rol tiene que ser aprobado por el administrador. Una vez aprobado podrás usar la app.",
-    "@pageRoleConfirmationText": {
-        "description": "Text displayed to confirm the selected role during the registration process.",
-        "placeholders" :{
-            "roleName" : {
-                "type": "String"
-            }
-        }
-    },
-
     "pageKycRoleSelectionWelcome": "¡Hola, {firstnameAndLastName}, decinos cual es tu rol!",
     "@pageKycRoleSelectionWelcome": {
         "description": "Welcome message prompting the user to specify their role.",
@@ -140,6 +135,21 @@
     "pageKycErrorOptionAlreadySelected": "Esta opción ya ha sido seleccionada",
     "@pageKycErrorOptionAlreadySelected": {
         "description": "Error message displayed when a user attempts to select an option that has already been chosen in the KYC form."
+    },
+
+    "pageKycNoSubjectsRelated": "There are no subjects from this commission",
+    "@pageKycNoSubjectsRelated": {
+        "description": ""
+    },
+
+    "pageRoleConfirmationText": "Te registrarás con el rol {roleName}. Todo rol tiene que ser aprobado por el administrador. Una vez aprobado podrás usar la app.",
+    "@pageRoleConfirmationText": {
+        "description": "Text displayed to confirm the selected role during the registration process.",
+        "placeholders" :{
+            "roleName" : {
+                "type": "String"
+            }
+        }
     },
 
     "pageLoginCredentialsIndicativeText": "Ingrese sus credenciales de ingreso brindadas\npreviamente por el colegio o directivo",
@@ -182,6 +192,12 @@
     "@pageGradesNotGrades": {
         "description": "Text to be displayed if there are no grades"
     },
+
+    "pageAcademicCommunityNoUsersToShow": "No hay usuarios para mostrar",
+    "@pageAcademicCommunityNoUsersToShow": {
+        "description": "There are no users to show text"
+    },
+
 
     "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
     "@dialogErrorToSendGrades": {

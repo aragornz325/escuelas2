@@ -31,21 +31,3 @@ class BlocComunidadAcademicaEventoTraerUsuariosPorRol
   /// Enum para ordenar los usuarios
   final OrdenarPor ordenarPor;
 }
-
-/// {@template BlocComunidadAcademicaEventoOrdenarAlfabeticamente}
-/// Ordena los usuarios alfabeticamente
-/// {@endtemplate}
-class BlocComunidadAcademicaEventoOrdenarAlfabeticamente
-    extends BlocComunidadAcademicaEvento {}
-
-/// {@template BlocComunidadAcademicaEventoOrdenarPorCurso}
-/// Ordena los usuarios por curso
-/// {@endtemplate}
-class BlocComunidadAcademicaEventoOrdenarPorCurso
-    extends BlocComunidadAcademicaEvento {}
-
-/// {@template BlocComunidadAcademicaEventoOrdenarPorAsignatura}
-/// Ordena los usuarios por asignatura
-/// {@endtemplate}
-class BlocComunidadAcademicaEventoOrdenarPorAsignatura
-    extends BlocComunidadAcademicaEvento {}

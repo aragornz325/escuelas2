@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
@@ -26,53 +24,57 @@ class ElementoListadoComunidad extends StatelessWidget {
   final String titulo;
 
   /// Lista de usuarios
-  final UsuariosListados usuariosListados;
+  final UsuariosListados? usuariosListados;
 
   /// Verifica si es del listado nombre para enviar o no widget derecho
   final OrdenarPor ordenarPor;
 
   /// Rol de usuario elegido previamente
-  final Role rolElegido;
+  final Role? rolElegido;
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: EdgeInsets.only(left: 20.pw, top: max(10.ph, 10.sh)),
-          child: Text(
-            titulo,
-            style: TextStyle(
-              color: colores.onSecondary,
-              fontSize: 13.pf,
-              fontWeight: FontWeight.w900,
+    return Padding(
+      padding: EdgeInsets.only(bottom: 10.ph),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: EdgeInsets.only(left: 20.pw),
+            child: Text(
+              titulo,
+              style: TextStyle(
+                color: colores.onSecondary,
+                fontSize: 13.pf,
+                fontWeight: FontWeight.w900,
+              ),
             ),
           ),
-        ),
-        Column(
-          children: usuariosListados.usuarios
-              .map(
-                (usuario) => Padding(
-                  padding: EdgeInsets.symmetric(vertical: max(10.ph, 10.sh)),
-                  child: ElementoLista.usuarioCA(
-                    usuario: usuario,
-                    ordenarPor: ordenarPor,
-                    onTap: () => context.router.push(
-                      RutaPerfilUsuario(
-                        idUsuario: usuario.id ?? 0,
+          Column(
+            children: usuariosListados?.usuarios
+                    .map(
+                      (usuario) => Padding(
+                        padding: EdgeInsets.symmetric(vertical: 5.ph),
+                        child: ElementoLista.usuarioComunidadAcademica(
+                          usuario: usuario,
+                          ordenarPor: ordenarPor,
+                          onTap: () => context.router.push(
+                            RutaPerfilUsuario(
+                              idUsuario: usuario.id ?? 0,
+                            ),
+                          ),
+                          avatar: usuario.urlFotoDePerfil,
+                          nombreUsuario: usuario.apellido,
+                          context: context,
+                        ),
                       ),
-                    ),
-                    avatar: usuario.urlFotoDePerfil,
-                    nombreUsuario: usuario.apellido,
-                    context: context,
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-      ],
+                    )
+                    .toList() ??
+                [],
+          ),
+        ],
+      ),
     );
   }
 }

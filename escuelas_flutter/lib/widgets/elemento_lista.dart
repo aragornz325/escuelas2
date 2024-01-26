@@ -82,7 +82,7 @@ class ElementoLista extends StatelessWidget {
   }
 
   /// Elemento para la lista de usuarios en Comunidad Academica
-  factory ElementoLista.usuarioCA({
+  factory ElementoLista.usuarioComunidadAcademica({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
 
@@ -159,6 +159,9 @@ class ElementoLista extends StatelessWidget {
               Image.asset(
             Assets.images.usuario.path,
             color: colores.onBackground,
+            fit: BoxFit.cover,
+            height: 35.sh,
+            width: 35.sw,
           ),
         ),
       ),

@@ -53,7 +53,10 @@ class BlocCargaCalificaciones
         // event.idCurso);
 
         final curso = ComisionDeCurso(
-          cursoId: 89,
+          cursoId: 2,
+          curso: Curso(
+            nombre: 'nombre',
+          ),
           id: 1,
           nombre: 'primero',
           anioLectivo: 1,
@@ -70,6 +73,13 @@ class BlocCargaCalificaciones
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
             estudianteId: 1,
+            estudiante: Usuario(
+              idUserInfo: 42,
+              urlFotoDePerfil: '',
+              id: 1,
+              nombre: 'nombre',
+              apellido: 'apellido',
+            ),
             idComision: 1,
             idAsignatura: 1,
             tipoCalificacion: TipoCalificacion.rite,
@@ -88,6 +98,13 @@ class BlocCargaCalificaciones
             ultimaModificacion: DateTime.now(),
             fechaEliminacion: DateTime.now(),
             estudianteId: 1,
+            estudiante: Usuario(
+              idUserInfo: 42,
+              urlFotoDePerfil: '',
+              id: 1,
+              nombre: 'nombre',
+              apellido: 'apellido',
+            ),
             idComision: 1,
             idAsignatura: 1,
             tipoCalificacion: TipoCalificacion.numericoDecimal,
@@ -148,7 +165,7 @@ class BlocCargaCalificaciones
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) {
     final alumno = state.estudiantes.firstWhere(
-      (c) => c.usuarioId == event.idAlumno,
+      (c) => c.usuario?.id == event.idAlumno,
     );
 
     // TODO(anyone): hablar con los modelos para que la calificacion pueda ser
@@ -160,7 +177,7 @@ class BlocCargaCalificaciones
               state.listaCalificacionesCompensadas
                   .firstWhere(
                     (calicompensada) =>
-                        calicompensada.estudianteId == alumno.usuarioId,
+                        calicompensada.estudiante?.id == alumno.usuario?.id,
                   )
                   .id,
         ) // TODO(ANYONE): Cambiar por el id correspondiente

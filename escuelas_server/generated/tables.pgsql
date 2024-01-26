@@ -5,6 +5,7 @@
 CREATE TABLE "asignatura_solicitada" (
   "id" serial,
   "asignatura" json,
+  "comision" json,
   "idUsuarioPendiente" integer NOT NULL,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
@@ -22,7 +23,7 @@ ALTER TABLE ONLY "asignatura_solicitada"
 CREATE TABLE "asignaturas" (
   "id" serial,
   "nombre" text NOT NULL,
-  "curso" json,
+  "idCurso" json,
   "ultimaModificacion" timestamp without time zone,
   "fechaCreacion" timestamp without time zone,
   "fechaEliminacion" timestamp without time zone,
@@ -60,7 +61,7 @@ ALTER TABLE ONLY "asistencias_diarias"
 CREATE TABLE "calificaciones" (
   "id" serial,
   "idAutor" integer NOT NULL,
-  "idEstudiante" integer NOT NULL,
+  "estudiante" json,
   "idComision" integer NOT NULL,
   "idAsignatura" integer NOT NULL,
   "idInstanciaDeEvaluacion" integer NOT NULL,
@@ -84,29 +85,11 @@ ALTER TABLE ONLY "calificaciones"
 CREATE TABLE "calificaciones_mensuales" (
   "id" serial,
   "calificacion" json,
-  "idCalificacion" integer NOT NULL,
   "numeroDeMes" integer NOT NULL
 );
 
 ALTER TABLE ONLY "calificaciones_mensuales"
   ADD CONSTRAINT calificaciones_mensuales_pkey PRIMARY KEY (id);
-
-
-
---
--- Class ComisionSolicitada as table comision_solicitada
---
-
-CREATE TABLE "comision_solicitada" (
-  "id" serial,
-  "comision" json,
-  "ultimaModificacion" timestamp without time zone NOT NULL,
-  "fechaCreacion" timestamp without time zone NOT NULL,
-  "fechaEliminacion" timestamp without time zone
-);
-
-ALTER TABLE ONLY "comision_solicitada"
-  ADD CONSTRAINT comision_solicitada_pkey PRIMARY KEY (id);
 
 
 --
@@ -119,7 +102,7 @@ CREATE TABLE "comisiones" (
   "curso" json,
   "anioLectivo" integer NOT NULL,
   "ultimaModificacion" timestamp without time zone NOT NULL,
-  "fechaCreacion" timestamp without time zone NOT NULL,
+  "fechaCreacion" timestamp without time zone,
   "fechaEliminacion" timestamp without time zone,
   "estudiantes" json
 );
@@ -271,7 +254,7 @@ CREATE TABLE "instancias_de_evaluacion" (
   "autor" integer NOT NULL,
   "idConcepto" integer NOT NULL,
   "fechaProgramada" timestamp without time zone NOT NULL,
-  "fechaDeRealizacion" timestamp without time zone NOT NULL,
+  "fechaDeRealizacion" timestamp without time zone,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
   "fechaEliminacion" timestamp without time zone
@@ -388,6 +371,22 @@ ALTER TABLE ONLY "periodos"
 
 
 --
+-- Class RelacionAsignaturaCurso as table r_asignatura_curso
+--
+
+CREATE TABLE "r_asignatura_curso" (
+  "id" serial,
+  "idAsignatura" integer NOT NULL,
+  "idCurso" integer NOT NULL,
+  "fechaCreacion" timestamp without time zone,
+  "fechaEliminacion" timestamp without time zone
+);
+
+ALTER TABLE ONLY "r_asignatura_curso"
+  ADD CONSTRAINT r_asignatura_curso_pkey PRIMARY KEY (id);
+
+
+--
 -- Class RelacionAsignaturaUsuario as table r_asignaturas_usuarios
 --
 
@@ -395,6 +394,7 @@ CREATE TABLE "r_asignaturas_usuarios" (
   "id" serial,
   "usuario" json,
   "asignatura" json,
+  "comision" json,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
   "fechaEliminacion" timestamp without time zone
@@ -418,39 +418,6 @@ CREATE TABLE "r_comisiones_usuarios" (
 ALTER TABLE ONLY "r_comisiones_usuarios"
   ADD CONSTRAINT r_comisiones_usuarios_pkey PRIMARY KEY (id);
 
-
-
---
--- Class RelacionUsuarioRol as table r_usuario_rol
---
-
-CREATE TABLE "r_usuario_rol" (
-  "id" serial,
-  "usuario" json,
-  "rol" json
-);
-
-ALTER TABLE ONLY "r_usuario_rol"
-  ADD CONSTRAINT r_usuario_rol_pkey PRIMARY KEY (id);
-
-
-
---
--- Class RolDeUsuario as table roles_de_usuario
---
-
-CREATE TABLE "roles_de_usuario" (
-  "id" serial,
-  "nombre" text NOT NULL,
-  "descripcion" text NOT NULL,
-  "relacionesUsuarioRol" json,
-  "ultimaModificacion" timestamp without time zone NOT NULL,
-  "fechaCreacion" timestamp without time zone NOT NULL,
-  "fechaEliminacion" timestamp without time zone
-);
-
-ALTER TABLE ONLY "roles_de_usuario"
-  ADD CONSTRAINT roles_de_usuario_pkey PRIMARY KEY (id);
 
 
 --
@@ -510,7 +477,8 @@ CREATE TABLE "usuarios" (
   "fechaCreacion" timestamp without time zone NOT NULL,
   "fechaEliminacion" timestamp without time zone,
   "comisiones" json,
-  "asignaturas" json
+  "asignaturas" json,
+  "privileges" text
 );
 
 ALTER TABLE ONLY "usuarios"
@@ -540,6 +508,5 @@ CREATE TABLE "usuarios_pendientes" (
 
 ALTER TABLE ONLY "usuarios_pendientes"
   ADD CONSTRAINT usuarios_pendientes_pkey PRIMARY KEY (id);
-
 
 
