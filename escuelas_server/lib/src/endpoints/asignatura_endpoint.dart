@@ -23,7 +23,6 @@ class AsignaturaEndpoint extends Endpoint with Controller {
         session,
         id: id,
       ),
-      permisoRequerido: PermisoDeAsignatura.verAsignatura,
     );
   }
 

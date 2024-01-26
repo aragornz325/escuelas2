@@ -4,6 +4,6 @@ fields:
   nombre: String
   asignaturas: List<Asignatura>?, relation
   comisiones: List<ComisionDeCurso>?, relation
-  ultimaModificacion: DateTime, scope=serverOnly
-  fechaCreacion: DateTime, scope=serverOnly
+  ultimaModificacion: DateTime?, scope=serverOnly
+  fechaCreacion: DateTime?, scope=serverOnly
   fechaEliminacion: DateTime?, scope=serverOnly

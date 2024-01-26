@@ -36,7 +36,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerDatosDeSolicitudDelUsuario',
         () => servicio.obtenerDatosDeSolicitudDelUsuario(session),
-        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   /// Obtiene un usuario pendiente a traves de la relacion de [UsuarioPendiente]
@@ -48,7 +47,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerUsuarioPendiente',
         () => servicio.obtenerUsuarioPendiente(session),
-        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   /// Obtiene un usuario pendiente a través del id de [UsuarioPendiente]
@@ -63,7 +61,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           session,
           idUsuarioPendiente: idUsuarioPendiente,
         ),
-        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   /// La función "obtenerUsuariosPendientes" devuelve un objeto Futuro que recupera los
@@ -78,7 +75,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerUsuariosPendientes',
         () => servicio.obtenerUsuariosPendientes(session),
-        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   /// La función `enviarSolicitudRegistroDocente` envía una solicitud de registro para
@@ -93,17 +89,20 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     Session session, {
     required UsuarioPendiente usuarioPendiente,
     required List<AsignaturaSolicitada> asignaturasSolicitadas,
-  }) async =>
-      ejecutarOperacionControlador(
+  }) async {
+    print('entrando');
+    final usuario = ejecutarOperacionControlador(
+      session,
+      'enviarSolicitudRegistroDocente',
+      () => servicio.enviarSolicitudRegistro(
         session,
-        'enviarSolicitudRegistroDocente',
-        () => servicio.enviarSolicitudRegistro(
-          session,
-          usuarioPendiente: usuarioPendiente,
-          asignaturasSolicitadas: asignaturasSolicitadas,
-          esDocente: true,
-        ),
-      );
+        usuarioPendiente: usuarioPendiente,
+        asignaturasSolicitadas: asignaturasSolicitadas,
+        esDocente: true,
+      ),
+    );
+    return usuario;
+  }
 
   /// La función `enviarSoliciturRegistroAlumno` envía una solicitud de registro
   /// para un usuario pendiente.
