@@ -31,10 +31,11 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
   /// Lista de alumnos filtradas por ausentismo
   List<RelacionComisionUsuario> get usuarioSinEstadoPresente =>
       widget.usuarios.where(
-        (usuario) {
+        (relacionComisionUsuario) {
           return widget.asistencias.any(
             (asistencia) =>
-                asistencia.estudianteId == usuario.usuarioId &&
+                asistencia.estudiante?.id ==
+                    relacionComisionUsuario.usuario?.id &&
                 asistencia.estadoDeAsistencia != EstadoDeAsistencia.presente &&
                 asistencia.estadoDeAsistencia != EstadoDeAsistencia.sinEstado,
           );
@@ -69,13 +70,17 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
     } else if (ordenEstado) {
       // Ordenar por estado ascendente
       alumnosOrdenados.sort(
-        (a, b) {
+        (relacionComisionUsuarioA, relacionComisionUsuarioB) {
           // Obtener las asistencias diarias asociadas a cada usuario
           final asistenciaA = widget.asistencias.firstWhere(
-            (asistencia) => asistencia.estudianteId == a.usuarioId,
+            (asistencia) =>
+                asistencia.estudiante?.id ==
+                relacionComisionUsuarioA.usuario?.id,
           );
           final asistenciaB = widget.asistencias.firstWhere(
-            (asistencia) => asistencia.estudianteId == b.usuarioId,
+            (asistencia) =>
+                asistencia.estudiante?.id ==
+                relacionComisionUsuarioB.usuario?.id,
           );
 
           return asistenciaA.estadoDeAsistencia.index
@@ -133,7 +138,7 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
                       // TODO(mati): cambiar esta horrible logica
                       final asistenciaDiaria = widget.asistencias.firstWhere(
                         (asistencia) =>
-                            asistencia.estudianteId == alumno.usuarioId,
+                            asistencia.estudiante?.id == alumno.usuario?.id,
                       );
 
                       return asistenciaDiaria.estadoDeAsistencia !=

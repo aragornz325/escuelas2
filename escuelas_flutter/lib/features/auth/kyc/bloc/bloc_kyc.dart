@@ -5,7 +5,7 @@ import 'package:escuelas_flutter/extensiones/comision_de_curso.dart';
 import 'package:escuelas_flutter/extensiones/user_info.dart';
 import 'package:escuelas_flutter/isar/isar_servicio.dart';
 import 'package:escuelas_flutter/utilidades/funciones/cerrar_sesion_usuario.dart';
-import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
+import 'package:escuelas_flutter/widgets/escuelas_dropdown.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:rolemissions/rolemissions.dart';
 import 'package:serverpod_auth_client/module.dart' as auth;
@@ -26,6 +26,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     on<BlocKycEventoSeleccionarRol>(_seleccionarRol);
     on<BlocKycEventoCerrarSesion>(_cerrarSesion);
     on<BlocKycEventoSolicitarRegistro>(_onSolicitarRegistro);
+    on<BlocKycEventoVaciarLista>(_onVaciarLista);
   }
 
   /// Evento inicial donde trae todos los cursos del usuario.
@@ -235,6 +236,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
               asignaturaId: asignatura.id ?? 0,
               asignatura: asignatura,
               comisionId: comision.id ?? 0,
+              comision: comision,
               idUsuarioPendiente: usuarioPendiente.id ?? 0,
               ultimaModificacion: DateTime.now(),
               fechaCreacion: DateTime.now(),
@@ -293,6 +295,18 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
     );
   }
 
+  void _onVaciarLista(
+    BlocKycEventoVaciarLista event,
+    Emitter<BlocKycEstado> emit,
+  ) {
+    emit(
+      BlocKycEstadoExitoso.desde(
+        state,
+        opcionesFormulario: [],
+      ),
+    );
+  }
+
   /// Factory constructor fromJson para poder ser utilizado en [HydratedBloc]
   /// transforma el objeto json guardado del local storage a la clase estado
   /// del Bloc dentro contiene lo que fue previamente guardado.
@@ -318,6 +332,7 @@ class OpcionFormulario {
   });
 
   final ComisionDeCurso? comisionSeleccionada;
+
   final Asignatura? asignaturaSeleccionada;
 
   final int idOpcion;

@@ -63,10 +63,12 @@ class BlocInasistencias
 
         for (final comision in comisiones) {
           final listaAsistenciaDiaria = comision.estudiantes?.map(
-            (estudiante) {
+            (relacionComisionUsuario) {
               return AsistenciaDiaria(
-                estudianteId: estudiante.usuarioId,
+                estudianteId: relacionComisionUsuario.usuario?.id ?? 0,
+                estudiante: relacionComisionUsuario.usuario,
                 comisionId: comision.id ?? 0,
+                comision: comision,
                 estadoDeAsistencia: EstadoDeAsistencia.sinEstado,
                 fecha: state.fechaActual ?? DateTime.now(),
               );
@@ -125,7 +127,7 @@ class BlocInasistencias
               in state.inasistencias.expand((element) => element).toList()) {
             final inasistencia = nuevasInasistencias.firstWhere(
               (inasistencia) =>
-                  inasistencia.estudianteId == asistencia.estudianteId,
+                  inasistencia.estudiante?.id == asistencia.estudiante?.id,
             );
             asistencia.id = inasistencia.id;
           }
@@ -144,7 +146,7 @@ class BlocInasistencias
 
         comisiones
             .firstWhere(
-              (curso) => curso.cursoId == event.idComision,
+              (comision) => comision.curso?.id == event.idComision,
             )
             .ultimaModificacion = state.fechaActual ?? DateTime.now();
 
@@ -172,11 +174,16 @@ class BlocInasistencias
 
     //actualiza el estado de un estudiante de un curso
     final asistencias = state.inasistencias
-        .expand((lista) => lista.where((e) => e.comisionId == event.idComision))
+        .expand(
+          (lista) => lista.where(
+            (asistenciaDiaria) =>
+                asistenciaDiaria.comision?.id == event.idComision,
+          ),
+        )
         .toList();
     asistencias
         .firstWhere(
-          (asistencia) => asistencia.estudianteId == event.idEstudiante,
+          (asistencia) => asistencia.estudiante?.id == event.idEstudiante,
         )
         .estadoDeAsistencia = event.estadoInasistencia.cambiarEstado();
 
@@ -187,14 +194,14 @@ class BlocInasistencias
       // si ya existe en la lista modifica el estado
       asistenciasAModificar
           .firstWhere(
-            (asistencia) => asistencia.estudianteId == event.idEstudiante,
+            (asistencia) => asistencia.estudiante?.id == event.idEstudiante,
           )
           .estadoDeAsistencia = event.estadoInasistencia.cambiarEstado();
     } else {
       // agrega la inasistencia a una lista a crear
       asistenciasAModificar.add(
         asistencias.firstWhere(
-          (asistencia) => asistencia.estudianteId == event.idEstudiante,
+          (asistencia) => asistencia.estudiante?.id == event.idEstudiante,
         ),
       );
     }
@@ -221,7 +228,7 @@ class BlocInasistencias
     for (final estudiante in asistenciasDiarias) {
       final existeAsistencia = estudiante.estadoDeAsistencia.existeInasistencia(
         asistenciasDiarias: asistenciasDiarias,
-        idEstudiante: estudiante.estudianteId,
+        idEstudiante: estudiante.estudiante?.id ?? 0,
         fecha: state.fechaActual ?? DateTime.now(),
       );
 
@@ -229,7 +236,7 @@ class BlocInasistencias
       final tieneLaMismaAsistencia =
           estudiante.estadoDeAsistencia.tieneLaMismaInasistencia(
         asistenciasDiarias: asistenciasDiarias,
-        idEstudiante: estudiante.estudianteId,
+        idEstudiante: estudiante.estudiante?.id ?? 0,
         fecha: state.fechaActual ?? DateTime.now(),
         estado: estudiante.estadoDeAsistencia,
       );
@@ -258,19 +265,21 @@ List<List<AsistenciaDiaria>> _obtenerInasistenciasPorComision(
     if (estudiantes != null) {
       final asistenciasComision = <AsistenciaDiaria>[];
 
-      for (final estudiante in estudiantes) {
+      for (final relacionComisionUsuario in estudiantes) {
         final asistenciaEnFecha = inasistencias.firstWhere(
           (asistencia) =>
               asistencia.fecha.year == fecha.year &&
               asistencia.fecha.month == fecha.month &&
               asistencia.fecha.day == fecha.day &&
-              asistencia.estudianteId == estudiante.usuarioId,
+              asistencia.estudiante?.id == relacionComisionUsuario.usuario?.id,
           orElse: () {
             // Crear una asistencia predeterminada si no se encuentra una
             // asistencia
             return AsistenciaDiaria(
-              estudianteId: estudiante.usuarioId,
+              estudianteId: relacionComisionUsuario.usuario?.id ?? 0,
+              estudiante: relacionComisionUsuario.usuario,
               comisionId: comision.id ?? 0,
+              comision: comision,
               estadoDeAsistencia: EstadoDeAsistencia.sinEstado,
               fecha: fecha,
             );

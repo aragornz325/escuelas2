@@ -59,10 +59,10 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
     List<AsistenciaDiaria> asistenciasDiarias,
     EstadoDeAsistencia estado,
   ) {
-    return usuarios.where((usuario) {
+    return usuarios.where((relacionComisionUsuario) {
       return asistenciasDiarias.any(
         (asistencia) =>
-            asistencia.estudianteId == usuario.usuarioId &&
+            asistencia.estudiante?.id == relacionComisionUsuario.usuario?.id &&
             asistencia.estadoDeAsistencia != EstadoDeAsistencia.presente &&
             asistencia.estadoDeAsistencia != EstadoDeAsistencia.sinEstado &&
             asistencia.estadoDeAsistencia == estado,
@@ -79,7 +79,7 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
     return asistenciasDiarias.any(
       (asistencia) =>
           (asistencia.ultimaModificacion?.mismaFecha(fecha) ?? false) &&
-          asistencia.estudianteId == idEstudiante,
+          asistencia.estudiante?.id == idEstudiante,
     );
   }
 
@@ -93,7 +93,7 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
     return asistenciasDiarias.any(
       (asistencia) =>
           (asistencia.ultimaModificacion?.mismaFecha(fecha) ?? false) &&
-          asistencia.estudianteId == idEstudiante &&
+          asistencia.estudiante?.id == idEstudiante &&
           asistencia.estadoDeAsistencia == estado,
     );
   }
@@ -104,7 +104,7 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
     int idEstudiante,
   ) {
     return asistenciasDiarias.any(
-      (asistencia) => asistencia.estudianteId == idEstudiante,
+      (asistencia) => asistencia.estudiante?.id == idEstudiante,
     );
   }
 }

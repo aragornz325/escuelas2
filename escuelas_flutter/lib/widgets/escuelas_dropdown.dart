@@ -350,7 +350,7 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
                                       ? widget.valueColor ?? colores.primary
                                       : widget.enabled
                                           ? colores.onBackground
-                                          : colores.secondary.withOpacity(0.2),
+                                          : colores.grisDeshabilitado,
                                   fontSize: 16.pf,
                                   fontWeight: widget.value != null
                                       ? FontWeight.w600

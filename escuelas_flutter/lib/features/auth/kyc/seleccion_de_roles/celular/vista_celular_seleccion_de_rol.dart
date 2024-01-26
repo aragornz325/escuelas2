@@ -86,7 +86,14 @@ class _VistaCelularSeleccionDeRolState
                   child: EscuelasBoton.texto(
                     context: context,
                     estaHabilitado: rolPresionado != null,
-                    onTap: () => context.router.push(const RutaFormulario()),
+                    onTap: () {
+                      if (rolPresionado != null) {
+                        context.read<BlocKyc>().add(
+                              BlocKycEventoVaciarLista(),
+                            );
+                      }
+                      context.router.push(const RutaFormulario());
+                    },
                     color: rolPresionado != null
                         ? colores.azul
                         : colores.grisDeshabilitado,

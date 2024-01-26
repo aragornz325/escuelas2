@@ -89,17 +89,20 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     Session session, {
     required UsuarioPendiente usuarioPendiente,
     required List<AsignaturaSolicitada> asignaturasSolicitadas,
-  }) async =>
-      ejecutarOperacionControlador(
+  }) async {
+    print('entrando');
+    final usuario = ejecutarOperacionControlador(
+      session,
+      'enviarSolicitudRegistroDocente',
+      () => servicio.enviarSolicitudRegistro(
         session,
-        'enviarSolicitudRegistroDocente',
-        () => servicio.enviarSolicitudRegistro(
-          session,
-          usuarioPendiente: usuarioPendiente,
-          asignaturasSolicitadas: asignaturasSolicitadas,
-          esDocente: true,
-        ),
-      );
+        usuarioPendiente: usuarioPendiente,
+        asignaturasSolicitadas: asignaturasSolicitadas,
+        esDocente: true,
+      ),
+    );
+    return usuario;
+  }
 
   /// La función `enviarSoliciturRegistroAlumno` envía una solicitud de registro
   /// para un usuario pendiente.
@@ -140,7 +143,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           estadoDeSolicitud: estadoDeSolicitud,
           idUsuarioPendiente: idUsuarioPendiente,
         ),
-        permisoRequerido: PermisoDeUsuario.aceptarSolicitudDeRegistro,
       );
 
   Future<List<RelacionComisionUsuario>> obtenerListaDeEstudiantesDeComision(

@@ -114,7 +114,7 @@ class BlocCargaCalificaciones
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) {
     final alumno = state.estudiantes.firstWhere(
-      (c) => c.usuarioId == event.idAlumno,
+      (c) => c.usuario?.id == event.idAlumno,
     );
 
     // TODO(anyone): hablar con los modelos para que la calificacion pueda ser
@@ -126,7 +126,7 @@ class BlocCargaCalificaciones
               state.listaCalificacionesCompensadas
                   .firstWhere(
                     (calicompensada) =>
-                        calicompensada.estudianteId == alumno.usuarioId,
+                        calicompensada.estudiante?.id == alumno.usuario?.id,
                   )
                   .id,
         ) // TODO(ANYONE): Cambiar por el id correspondiente

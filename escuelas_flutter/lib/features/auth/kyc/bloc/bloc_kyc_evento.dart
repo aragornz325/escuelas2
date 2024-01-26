@@ -75,6 +75,8 @@ class BlocKycEventoEliminarOpcion extends BlocKycEvento {
   final int idOpcion;
 }
 
+class BlocKycEventoVaciarLista extends BlocKycEvento {}
+
 /// {@template BlocKycEventoCerrarSesion}
 /// Cierra sesion del usuario.
 /// {@endtemplate}

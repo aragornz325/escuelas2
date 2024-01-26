@@ -16,7 +16,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   /// {@macro TarjetaCargaCalificacionAlumno}
   const TarjetaCargaCalificacionAlumno({
     required this.fecha,
-    required this.curso,
+    required this.comision,
     required this.relacionComisionUsuario,
     this.rolDelUsuario,
     super.key,
@@ -26,7 +26,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   final DateTime fecha;
 
   ///
-  final ComisionDeCurso curso;
+  final ComisionDeCurso comision;
 
   /// Alumno con la calificación previa.
   final RelacionComisionUsuario relacionComisionUsuario;
@@ -48,7 +48,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                   BlocCargaCalificacionesEventoCambiarCalificacionAlumno(
                     calificacion: int.tryParse(v),
                     fecha: fecha,
-                    idAlumno: curso.cursoId,
+                    idAlumno: comision.curso?.id ?? 0,
                   ),
                 ),
             // TODO(anyone): reemplazar por las calificaciones previas ver como

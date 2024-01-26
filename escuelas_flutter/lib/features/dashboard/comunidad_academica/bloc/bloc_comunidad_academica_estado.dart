@@ -42,6 +42,9 @@ class BlocComunidadAcademicaEstado {
 
   /// Rol elegido a mostrar en la lista
   final Role? rolElegido;
+
+  bool get estaVacio =>
+      listaUsuarios?.usuariosListados.every((e) => e.usuarios.isEmpty) ?? false;
 }
 
 /// {@template BlocComunidadAcademicaEstadoInicial}
