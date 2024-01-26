@@ -2,16 +2,26 @@ import 'package:escuelas_server/src/extensiones/expresiones_en_columnas.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
+import 'package:serverpod_auth_server/module.dart';
 
 class OrmUsuario extends ORM {
-  Future<Usuario> crearUsuario(
-    Session session, {
-    required Usuario nuevoUsuario,
-  }) async {
-    return await ejecutarOperacionOrm(
+  Future<Usuario> crearUsuario(Session session,
+      {required Usuario nuevoUsuario,
+      required DireccionDeEmail direccionDeMail}) async {
+    final usuario = await ejecutarOperacionOrm(
       session,
       (session) async => await Usuario.db.insertRow(session, nuevoUsuario),
     );
+
+    await ejecutarOperacionOrm(
+      session,
+      (session) => DireccionDeEmail.db.insert(
+        session,
+        [direccionDeMail],
+      ),
+    );
+
+    return usuario;
   }
 
   Future<Usuario> obtenerInfoBasicaUsuario(
