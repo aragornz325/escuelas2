@@ -28,6 +28,7 @@ class _VistaCelularListadoComunidadState
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     final l10n = context.l10n;
 
     return BlocBuilder<BlocComunidadAcademica, BlocComunidadAcademicaEstado>(

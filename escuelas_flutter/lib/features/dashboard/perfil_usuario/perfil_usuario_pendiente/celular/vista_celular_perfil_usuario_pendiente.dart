@@ -47,7 +47,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
     final l10n = context.l10n;
 
     final tienePermiso =
-        context.tienePermiso(PermisoDeUsuario.aceptarSolicitudDeRegistro);
+        context.tienePermiso(PermisoDeUsuario.responderSolicitudDeRegistro);
 
     return BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
       builder: (context, state) {

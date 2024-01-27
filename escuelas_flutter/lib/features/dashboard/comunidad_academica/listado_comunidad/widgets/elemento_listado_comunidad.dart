@@ -65,7 +65,7 @@ class ElementoListadoComunidad extends StatelessWidget {
                             ),
                           ),
                           avatar: usuario.urlFotoDePerfil,
-                          nombreUsuario: usuario.apellido,
+                          nombreUsuario: usuario.nombre,
                           context: context,
                         ),
                       ),

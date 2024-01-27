@@ -1,11 +1,9 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -87,30 +85,6 @@ class VistaCelularEspera extends StatelessWidget {
                 ),
                 child: Text(
                   l10n.drawerLogOut.toUpperCase(),
-                  style: TextStyle(
-                    color: colores.onPrimaryContainer,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-            ),
-            InkWell(
-              onTap: () async {
-                await client.usuario.responderSolicitudDeRegistro(
-                  estadoDeSolicitud: EstadoDeSolicitud.aprobado,
-                  idUsuarioPendiente:
-                      3, // TODO(ANYONE): Eliminar luego el boton de autoaceptar
-                      
-                );
-              },
-              child: Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: colores.azul,
-                  borderRadius: BorderRadius.circular(50.sw),
-                ),
-                child: Text(
-                  l10n.pageKycAwaitApprovalAcceptUser,
                   style: TextStyle(
                     color: colores.onPrimaryContainer,
                     fontWeight: FontWeight.bold,
