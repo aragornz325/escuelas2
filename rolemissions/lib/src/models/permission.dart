@@ -8,9 +8,9 @@
 /// ```
 @Deprecated('Use a simple enum value instead')
 abstract class Permission {
-  final Enum enumValue;
 
   Permission(this.enumValue);
+  final Enum enumValue;
 
   /// The bitmask of the permission. Used for persistance and checking.
   int get bitMask => 1 << enumValue.index;

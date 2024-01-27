@@ -129,14 +129,14 @@ class MenuOpcionesPermisos extends StatelessWidget {
             width: 200.pw,
             decoration: BoxDecoration(
               color: Colors.amber,
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(10),
               border: Border.all(
                 width: 2,
               ),
             ),
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8),
                 child: Text(
                   'Press (solo para enviar solicitud notas)',
                   style:

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:rolemissions/src/interfaces/user.dart';
 import 'package:rolemissions/src/models/models.dart';
 import 'package:rolemissions/src/persistance_delegate/persistance_delegate.dart';
 
@@ -99,7 +98,7 @@ abstract class RolemissionPermissions {
   }
 
   /// {@macro rolemission_permissions}
-  RolemissionPermissions.fromUser(RolemissionUser user);
+  RolemissionPermissions.fromUser();
 
   /// The permissions your app is made with. Every enum should be included here
   /// as a list like follows: (e.g.)
@@ -134,7 +133,7 @@ abstract class RolemissionPermissions {
     final serializedPermissions =
         serialization.split(serializationNewEnumSeparator);
     assert(serializedPermissions.length == allPermissions.length,
-        'The amount of serialized permissions is not the same as the amount of permissions in the app');
+        'The amount of serialized permissions is not the same as the amount of permissions in the app',);
     for (var e = 0; e < serializedPermissions.length; e++) {
       final serializedPermission = serializedPermissions[e];
       final enumPermission = <Enum>[];
