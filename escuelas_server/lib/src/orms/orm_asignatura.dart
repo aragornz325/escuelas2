@@ -67,10 +67,8 @@ class OrmAsignatura extends ORM {
   }) async {
     final asignatura = await ejecutarOperacionOrm(
       session,
-      (session) => Asignatura.db.findById(
-        session,
-        id,
-      ),
+      (session) =>
+          Asignatura.db.findById(session, id, include: Asignatura.include()),
     );
     if (asignatura == null) {
       throw Exception(
@@ -88,9 +86,11 @@ class OrmAsignatura extends ORM {
       ),
     );
 
+    asignatura.idCurso = <int>[];
+
     if (relacion.isNotEmpty) {
       for (var relacionAsignaturaCurso in relacion) {
-        asignatura.idCurso!.add(relacionAsignaturaCurso.idCurso);
+        asignatura.idCurso?.add(relacionAsignaturaCurso.idCurso);
       }
     }
 
