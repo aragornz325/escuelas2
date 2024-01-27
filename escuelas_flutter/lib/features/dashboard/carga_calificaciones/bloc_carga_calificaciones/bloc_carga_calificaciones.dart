@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:rolemissions/rolemissions.dart';
 
