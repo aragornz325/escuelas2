@@ -166,21 +166,11 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           continue;
         }
 
-        if (usuario.direccionesDeEmail!.length > 1) {
-          for (final direccionEmail in usuario.direccionesDeEmail!) {
-            await servicioComunicacion.enviarEmail(
-              session,
-              direccionEmailDestinatario:
-                  direccionEmail.direccionDeEmail.trim(),
-              asuntoDelCorreo: "tienes un pedido de calificacion",
-              contenidoHtmlDelCorreo: contenidoHtml,
-            );
-          }
-        } else {
+        for (final direccionEmail
+            in usuario.direccionesDeEmail ?? <DireccionDeEmail>[]) {
           await servicioComunicacion.enviarEmail(
             session,
-            direccionEmailDestinatario:
-                usuario.direccionesDeEmail!.first.direccionDeEmail.trim(),
+            direccionEmailDestinatario: direccionEmail.direccionDeEmail.trim(),
             asuntoDelCorreo: "tienes un pedido de calificacion",
             contenidoHtmlDelCorreo: contenidoHtml,
           );
