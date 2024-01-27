@@ -44,12 +44,12 @@ class MenuOpcionesPermisos extends StatelessWidget {
   }
 
   /// Devuelve de acuerdo al usuario su lista de vistas permitidas.
-  List<MenuOpcionesDeInicio> _menuesPermitidos(BuildContext context) {
+  List<MenuOpcionesDeInicio> _menusPermitidos(BuildContext context) {
     final usuario = context.read<BlocDashboard>().state.usuario;
 
     return MenuOpcionesDeInicio.values
         .where(
-          (e) => e.permisosRequeridos.every(
+          (opcion) => opcion.permisosRequeridos.every(
             usuario.tienePermisos,
           ),
         )
@@ -59,7 +59,8 @@ class MenuOpcionesPermisos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
-    final menues = _menuesPermitidos(context);
+
+    final menus = _menusPermitidos(context);
 
     return BlocConsumer<BlocInicio, BlocInicioEstado>(
       listener: (context, state) {
@@ -72,34 +73,47 @@ class MenuOpcionesPermisos extends StatelessWidget {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else {
-          return Column(
-            children: menues
-                .map(
-                  (menu) => Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 15.ph)
-                        .copyWith(bottom: 15.ph),
-                    child: ElementoLista.menu(
-                      widgetLateralDerecho: menu.name ==
-                              MenuOpcionesDeInicio.usuariosPendientes.name
-                          ? Padding(
-                              padding: EdgeInsets.only(right: 20.pw),
-                              child: Icon(
-                                Icons.circle,
-                                color: colores.error,
-                                size: 15.sw,
-                              ),
-                            )
-                          : null,
-                      nombreOpcion: menu.getTitulo(context),
-                      context: context,
-                      onTap: () => menu.redirigirAVista(context),
-                    ),
-                  ),
-                )
-                .toList(),
+        }
+        if (state is BlocInicioEstadoExitoso && menus.isEmpty) {
+          return Center(
+            child: Text(
+              // TODO(anyone): l10n
+              'No hay menus disponibles',
+              style: TextStyle(
+                color: colores.onBackground,
+                fontWeight: FontWeight.w600,
+                fontSize: 14.pf,
+              ),
+            ),
           );
         }
+        return Column(
+          children: menus
+              .map(
+                (menu) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.ph)
+                      .copyWith(bottom: 15.ph),
+                  child: ElementoLista.menu(
+                    widgetLateralDerecho: menu.name ==
+                                MenuOpcionesDeInicio.usuariosPendientes.name &&
+                            state.hayUsuariosPendientes
+                        ? Padding(
+                            padding: EdgeInsets.only(right: 20.pw),
+                            child: Icon(
+                              Icons.circle,
+                              color: colores.error,
+                              size: 15.sw,
+                            ),
+                          )
+                        : null,
+                    nombreOpcion: menu.getTitulo(context),
+                    context: context,
+                    onTap: () => menu.redirigirAVista(context),
+                  ),
+                ),
+              )
+              .toList(),
+        );
       },
     );
   }
