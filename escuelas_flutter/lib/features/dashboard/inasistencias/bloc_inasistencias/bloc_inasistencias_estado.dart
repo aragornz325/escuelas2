@@ -46,10 +46,10 @@ class BlocInasistenciasEstado {
   final List<AsistenciaDiaria> asistenciaAModificar;
 
   /// Getter para saber la lista de alumnos con sus inasistencias
-  List<AsistenciaDiaria> asistenciasDiarias(int idCurso) => inasistencias
+  List<AsistenciaDiaria> asistenciasDiarias(int idComision) => inasistencias
       .expand(
         (lista) => lista.where(
-          (asistenciaDiaria) => asistenciaDiaria.comision?.id == idCurso,
+          (asistenciaDiaria) => asistenciaDiaria.comisionId == idComision,
         ),
       )
       .toList();

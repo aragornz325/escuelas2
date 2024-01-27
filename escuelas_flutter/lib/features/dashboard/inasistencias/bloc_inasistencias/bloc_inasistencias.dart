@@ -29,12 +29,6 @@ class BlocInasistencias
     emit(BlocInasistenciasEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): Obtener el rol de usuario y que dependa de eso para
-        // manejar las pantalla y permisos
-        // final obtenerRol = await client.rol.obtenerRolPorId(
-        //   id: sessionManager.signedInUser?.id ?? 0,
-        // );
-
         final comisiones = await client.comision.obtenerComisiones();
 
         final inasistencias = await client.asistencia.traerAsistenciaPorDia(
@@ -117,12 +111,29 @@ class BlocInasistencias
         );
 
         if (listaAModificar.isNotEmpty) {
+          // TODO(anyone): HOT FIX, EL ENDPOINT ROMPE SI LE PASAS COMISION O ESTUDIANTE(O AMBAS), POR ESO SE HACE ESTO
+          asistenciasDiarias
+              .map(
+                (e) => e
+                  ..comision = null
+                  ..estudiante = null,
+              )
+              .toList();
           await client.asistencia
               .actualizarAsistenciasEnLote(asistencias: listaAModificar);
         }
+
         if (listaACrear.isNotEmpty) {
+          // TODO(anyone): HOT FIX, EL ENDPOINT ROMPE SI LE PASAS COMISION O ESTUDIANTE(O AMBAS), POR ESO SE HACE ESTO
+          final lista = asistenciasDiarias
+              .map(
+                (e) => e
+                  ..comision = null
+                  ..estudiante = null,
+              )
+              .toList();
           final nuevasInasistencias = await client.asistencia
-              .crearAsistenciasEnLote(asistencias: asistenciasDiarias);
+              .crearAsistenciasEnLote(asistencias: lista);
           for (final asistencia
               in state.inasistencias.expand((element) => element).toList()) {
             final inasistencia = nuevasInasistencias.firstWhere(
@@ -177,7 +188,7 @@ class BlocInasistencias
         .expand(
           (lista) => lista.where(
             (asistenciaDiaria) =>
-                asistenciaDiaria.comision?.id == event.idCurso,
+                asistenciaDiaria.comisionId == event.idComision,
           ),
         )
         .toList();
@@ -225,25 +236,26 @@ class BlocInasistencias
     List<AsistenciaDiaria> listaAModificar,
     List<AsistenciaDiaria> listaACrear,
   ) {
-    for (final estudiante in asistenciasDiarias) {
-      final existeAsistencia = estudiante.estadoDeAsistencia.existeInasistencia(
+    for (final asistenciaDiaria in asistenciasDiarias) {
+      final existeAsistencia =
+          asistenciaDiaria.estadoDeAsistencia.existeInasistencia(
         asistenciasDiarias: asistenciasDiarias,
-        idEstudiante: estudiante.estudiante?.id ?? 0,
+        idEstudiante: asistenciaDiaria.estudiante?.id ?? 0,
         fecha: state.fechaActual ?? DateTime.now(),
       );
 
       // Verificar si ya existe una asistencia exactamente igual
       final tieneLaMismaAsistencia =
-          estudiante.estadoDeAsistencia.tieneLaMismaInasistencia(
+          asistenciaDiaria.estadoDeAsistencia.tieneLaMismaInasistencia(
         asistenciasDiarias: asistenciasDiarias,
-        idEstudiante: estudiante.estudiante?.id ?? 0,
+        idEstudiante: asistenciaDiaria.estudiante?.id ?? 0,
         fecha: state.fechaActual ?? DateTime.now(),
-        estado: estudiante.estadoDeAsistencia,
+        estado: asistenciaDiaria.estadoDeAsistencia,
       );
       if (existeAsistencia && tieneLaMismaAsistencia) {
-        listaAModificar.add(estudiante);
+        listaAModificar.add(asistenciaDiaria);
       } else if (!existeAsistencia) {
-        listaACrear.add(estudiante);
+        listaACrear.add(asistenciaDiaria);
       }
     }
   }

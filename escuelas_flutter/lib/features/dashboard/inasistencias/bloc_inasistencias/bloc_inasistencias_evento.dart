@@ -38,14 +38,14 @@ class BlocAsistenciaEventoCambiarInasistenciaEstudiante
     extends BlocInasistenciasEvento {
   /// {@macro BlocAsistenciaEventoCambiarInasistenciaEstudiante}
   const BlocAsistenciaEventoCambiarInasistenciaEstudiante({
-    required this.idCurso,
+    required this.idComision,
     required this.idEstudiante,
     required this.fecha,
     required this.estadoInasistencia,
   });
 
-  /// Id del curso  a modificar si se tomo asistencia.
-  final int idCurso;
+  /// Id del comision  a modificar si se tomo asistencia.
+  final int idComision;
 
   /// Id del estudiante a modificar la inasistencia
   final int idEstudiante;
