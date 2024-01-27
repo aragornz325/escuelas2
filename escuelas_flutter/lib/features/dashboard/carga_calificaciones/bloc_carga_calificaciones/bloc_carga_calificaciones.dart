@@ -55,16 +55,6 @@ class BlocCargaCalificaciones
         final asignatura = await client.asignatura
             .obtenerAsignaturaPorId(id: event.idAsignatura);
 
-        // Para obtener el valor visible de la calificacion
-        // ( getter en la clase calificacionX extension)
-        final calificacion =
-            ManejadorDeCalificaciones.obtenerValorDeCalificacion(
-          calificacionesMensuales
-              .calificacionesMensuales[0].calificacion!.tipoCalificacion,
-          calificacionesMensuales
-              .calificacionesMensuales[0].calificacion!.index,
-        );
-
         // TODO(SAM): Agregar Future.wait
         final comision = await client.comision
             .obtenerComisionesDeCursoPorId(idComision: event.idComision);
@@ -180,7 +170,16 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): llamar al endpoint de envio de calificacion/notas
+        // TODO(SAM): Hacer IF si id solicitd es null no deberia poder ver el BOTON en la UI
+        // TODO(SAM): Front asegurarse de q la lista de calificaciones fueron modificadas por el profesor
+        // TODO(SAM): el valor index etc de CADA UNA.
+        await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
+          calificacionesMensuales:
+              state.calificacionesMensuales?.calificacionesMensuales ?? [],
+          idSolicitud: state
+                  .calificacionesMensuales?.solicitudNotaMensual?.solicitudId ??
+              0,
+        );
         emit(
           BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
               .desde(state),
