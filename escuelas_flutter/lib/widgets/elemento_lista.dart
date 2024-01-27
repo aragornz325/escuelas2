@@ -280,6 +280,7 @@ class ElementoLista extends StatelessWidget {
     Widget? widgetLateralDerecho,
   }) {
     final colores = context.colores;
+
     return ElementoLista(
       tieneBoxShadow: estaPresionado,
       altura: 65.ph,
