@@ -55,7 +55,7 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
     return asignaturaDB;
   }
 
-  /// La función `otenerAsignaturaPorId` recupera un objeto `Asignatura` por su ID usando una `Session`
+  /// La función `obtenerAsignaturaPorId` recupera un objeto `Asignatura` por su ID usando una `Session`
   /// proporcionada y una operación ORM.
   ///
   /// Args:

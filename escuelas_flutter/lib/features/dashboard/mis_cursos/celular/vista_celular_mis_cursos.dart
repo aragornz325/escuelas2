@@ -96,8 +96,6 @@ class _VistaCelularMisCursosState extends State<VistaCelularMisCursos> {
                                           onTap: () => context.pushRoute(
                                             RutaCargaDeCalificaciones(
                                               fecha: periodo.toString(),
-                                              nombreAsignatura:
-                                                  asignatura.nombreDeAsignatura,
                                               idComision: comision.idComision,
                                               idAsignatura:
                                                   asignatura.idAsignatura,

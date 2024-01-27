@@ -58,7 +58,6 @@ abstract class $AppRouter extends _i20.RootStackRouter {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<RutaCargaDeCalificacionesArgs>(
           orElse: () => RutaCargaDeCalificacionesArgs(
-                nombreAsignatura: pathParams.getString('nombreAsignatura'),
                 idAsignatura: pathParams.getInt('idAsignatura'),
                 idComision: pathParams.getInt('idComision'),
                 fecha: pathParams.getString('fecha'),
@@ -66,7 +65,6 @@ abstract class $AppRouter extends _i20.RootStackRouter {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i1.PaginaCargaDeCalificaciones(
-          nombreAsignatura: args.nombreAsignatura,
           idAsignatura: args.idAsignatura,
           idComision: args.idComision,
           fecha: args.fecha,
@@ -226,7 +224,6 @@ abstract class $AppRouter extends _i20.RootStackRouter {
 class RutaCargaDeCalificaciones
     extends _i20.PageRouteInfo<RutaCargaDeCalificacionesArgs> {
   RutaCargaDeCalificaciones({
-    required String nombreAsignatura,
     required int idAsignatura,
     required int idComision,
     required String fecha,
@@ -235,14 +232,12 @@ class RutaCargaDeCalificaciones
   }) : super(
           RutaCargaDeCalificaciones.name,
           args: RutaCargaDeCalificacionesArgs(
-            nombreAsignatura: nombreAsignatura,
             idAsignatura: idAsignatura,
             idComision: idComision,
             fecha: fecha,
             key: key,
           ),
           rawPathParams: {
-            'nombreAsignatura': nombreAsignatura,
             'idAsignatura': idAsignatura,
             'idComision': idComision,
             'fecha': fecha,
@@ -258,14 +253,11 @@ class RutaCargaDeCalificaciones
 
 class RutaCargaDeCalificacionesArgs {
   const RutaCargaDeCalificacionesArgs({
-    required this.nombreAsignatura,
     required this.idAsignatura,
     required this.idComision,
     required this.fecha,
     this.key,
   });
-
-  final String nombreAsignatura;
 
   final int idAsignatura;
 
@@ -277,7 +269,7 @@ class RutaCargaDeCalificacionesArgs {
 
   @override
   String toString() {
-    return 'RutaCargaDeCalificacionesArgs{nombreAsignatura: $nombreAsignatura, idAsignatura: $idAsignatura, idComision: $idComision, fecha: $fecha, key: $key}';
+    return 'RutaCargaDeCalificacionesArgs{idAsignatura: $idAsignatura, idComision: $idComision, fecha: $fecha, key: $key}';
   }
 }
 

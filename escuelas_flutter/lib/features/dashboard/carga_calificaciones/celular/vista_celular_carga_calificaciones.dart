@@ -19,16 +19,12 @@ import 'package:full_responsive/full_responsive.dart';
 class VistaCelularCargaDeCalificaciones extends StatelessWidget {
   /// {@macro VistaCelularCargaDeCalificaciones}
   const VistaCelularCargaDeCalificaciones({
-    required this.nombreAsignatura,
     required this.fecha,
     super.key,
   });
 
   /// Fecha actual de la calificación del alumno.
   final DateTime fecha;
-
-  /// Nombre del curso
-  final String nombreAsignatura;
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +59,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    nombreAsignatura,
+                    state.asignatura?.nombre ?? '',
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 15.pf,

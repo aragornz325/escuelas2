@@ -45,12 +45,15 @@ class BlocCargaCalificaciones
     await operacionBloc(
       callback: (client) async {
         final calificacionesMensuales = await client.calificacion
-            .obtenerCalificacionesPorAsignaturaPorPeriodo(
+            .obtenerCalificacionesPorAsignaturaPorPeriodoPorComision(
           idAsignatura: event.idAsignatura,
           idComision: event.idComision,
           numeroDeAnio: DateTime.now().year,
           numeroDeMes: DateTime.now().month,
         );
+
+        final asignatura = await client.asignatura
+            .obtenerAsignaturaPorId(id: event.idAsignatura);
 
         // Para obtener el valor visible de la calificacion
         // ( getter en la clase calificacionX extension)
@@ -73,6 +76,7 @@ class BlocCargaCalificaciones
         emit(
           BlocCargaCalificacionesEstadoExitoso.desde(
             state,
+            asignatura: asignatura,
             comision: comision,
             fecha: event.fecha,
             listaCalificacionesCompensadas: [],

@@ -17,7 +17,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PaginaCargaDeCalificaciones extends StatelessWidget {
   /// {@macro PaginaCargaDeCalificaciones}
   PaginaCargaDeCalificaciones({
-    @PathParam('nombreAsignatura') required this.nombreAsignatura,
     @PathParam('idAsignatura') required this.idAsignatura,
     @PathParam('idComision') required this.idComision,
     @PathParam('fecha') required String fecha,
@@ -29,9 +28,6 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
 
   /// Id de la comision
   final int idComision;
-
-  /// Nombre de la asignatura
-  final String nombreAsignatura;
 
   /// id de la asignatura
   final int idAsignatura;
@@ -50,7 +46,6 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
       child: FullResponsiveScreen(
         celular: VistaCelularCargaDeCalificaciones(
           fecha: fecha,
-          nombreAsignatura: nombreAsignatura,
         ),
         escritorio: const VistaEscritorioCargaDeCalificaciones(),
       ),
