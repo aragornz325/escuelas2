@@ -156,7 +156,8 @@ WHERE rau."usuarioId" = $idUsuario
 
   /// La función `obtenerCalificacionesPorAsignaturaPorPeriodo` recupera las calificaciones de una
   /// materia y periodo específico.
-  Future<CalificacionesMensuales> obtenerCalificacionesPorAsignaturaPorPeriodo(
+  Future<CalificacionesMensuales>
+      obtenerCalificacionesPorAsignaturaPorPeriodoPorComision(
     Session session, {
     required int numeroDeMes,
     required int numeroDeAnio,

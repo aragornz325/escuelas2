@@ -87,7 +87,7 @@ class OrmAsignatura extends ORM {
         ),
       ),
     );
-    asignatura.idCurso = <int>[];
+
     if (relacion.isNotEmpty) {
       for (var relacionAsignaturaCurso in relacion) {
         asignatura.idCurso!.add(relacionAsignaturaCurso.idCurso);
