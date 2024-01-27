@@ -173,7 +173,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         idRol: idRol,
         ordenarUsuariosPor: ordenarUsuariosPor,
       ),
-      permisoRequerido: PermisoDeUsuario.verUsuario,
+      
     );
   }
 }
