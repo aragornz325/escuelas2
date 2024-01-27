@@ -143,7 +143,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           estadoDeSolicitud: estadoDeSolicitud,
           idUsuarioPendiente: idUsuarioPendiente,
         ),
-        permisoRequerido: PermisoDeUsuario.aceptarSolicitudDeRegistro,
       );
 
   Future<List<RelacionComisionUsuario>> obtenerListaDeEstudiantesDeComision(

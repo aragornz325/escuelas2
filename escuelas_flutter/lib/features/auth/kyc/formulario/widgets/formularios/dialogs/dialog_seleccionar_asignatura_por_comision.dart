@@ -28,6 +28,7 @@ class _SeleccionarAsignaturaPorComisionState
   /// Id de la comision seleccionada
   int? idComisionSeleccionada;
 
+  bool eligioOpcion = false;
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -52,6 +53,37 @@ class _SeleccionarAsignaturaPorComisionState
       colorDeFondoDelBotonSecundario: colores.error,
       content: BlocBuilder<BlocKyc, BlocKycEstado>(
         builder: (context, state) {
+          int idCursoSegunComision(int idComision) {
+            return state.listaComisiones
+                    .firstWhere((comision) => comision.id == idComision)
+                    .curso
+                    ?.id ??
+                0;
+          }
+
+          /// Lista de asignaturas que pertenecen al curso elegido que son
+          /// convertidas en [EscuelasDropdownOption].
+          final listaAsignaturasAsociadasAlCursoElegido =
+              idComisionSeleccionada != null
+                  ? state.listaAsignaturas
+                      .where(
+                        (asignatura) =>
+                            asignatura.idCurso?.contains(
+                              idCursoSegunComision(
+                                idComisionSeleccionada!,
+                              ),
+                            ) ??
+                            false,
+                      )
+                      .map(
+                        (asignatura) => EscuelasDropdownOption(
+                          value: asignatura.id ?? 0,
+                          title: asignatura.nombre,
+                        ),
+                      )
+                      .toList()
+                  : <EscuelasDropdownOption<int>>[];
+
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -67,16 +99,11 @@ class _SeleccionarAsignaturaPorComisionState
                 ),
               ),
               FormularioDropdown(
-                lista: state.listaComisiones
-                    .map(
-                      (e) => EscuelasDropdownOption(
-                        value: e.id ?? 0,
-                        title: e.nombre,
-                      ),
-                    )
-                    .toList(),
-                listaOpcionesSeleccionadas: (opcion) =>
-                    setState(() => idComisionSeleccionada = opcion.value),
+                lista: state.opcionesComisiones,
+                listaOpcionesSeleccionadas: (opcion) => setState(() {
+                  idComisionSeleccionada = opcion.value;
+                  eligioOpcion = true;
+                }),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.ph),
@@ -90,14 +117,14 @@ class _SeleccionarAsignaturaPorComisionState
                 ),
               ),
               FormularioDropdown(
-                lista: state.listaAsignaturas
-                    .map(
-                      (e) => EscuelasDropdownOption(
-                        value: e.id ?? 0,
-                        title: e.nombre,
-                      ),
-                    )
-                    .toList(),
+                hintText: eligioOpcion &&
+                        listaAsignaturasAsociadasAlCursoElegido.isEmpty
+                    ? l10n.pageKycNoSubjectsRelated
+                    : null,
+                enabled: eligioOpcion &&
+                    listaAsignaturasAsociadasAlCursoElegido.isNotEmpty,
+                lista:
+                    eligioOpcion ? listaAsignaturasAsociadasAlCursoElegido : [],
                 listaOpcionesSeleccionadas: (opcion) =>
                     setState(() => idAsignaturaSeleccionada = opcion.value),
               ),

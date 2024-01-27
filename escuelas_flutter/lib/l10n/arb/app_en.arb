@@ -106,16 +106,6 @@
         "description": "Message displayed when a user needs to add the subjects that have been assigned to them to proceed in the KYC form."
     },
 
-    "pageRoleConfirmationText": "You will register with the {roleName} role. All roles must be approved by the administrator. Once approved you will be able to use the app.",
-    "@pageRoleConfirmationText": {
-        "description": "Text displayed to confirm the selected role during the registration process.",
-        "placeholders" :{
-            "roleName" : {
-                "type": "String"
-            }
-        }
-    },
-
     "pageKycRoleSelectionWelcome": "Hello {firstnameAndLastName}, tell us what your role is!",
     "@pageKycRoleSelectionWelcome": {
         "description": "Welcome message prompting the user to specify their role.",
@@ -134,6 +124,21 @@
     "pageKycErrorOptionAlreadySelected": "This option has already been selected",
     "@pageKycErrorOptionAlreadySelected": {
         "description": "error message displayed when a user attempts to select an option that has already been chosen in the KYC form."
+    },
+    
+    "pageKycNoSubjectsRelated": "There are no subjects from this commission",
+    "@pageKycNoSubjectsRelated": {
+        "description": ""
+    },
+
+    "pageRoleConfirmationText": "You will register with the {roleName} role. All roles must be approved by the administrator. Once approved you will be able to use the app.",
+    "@pageRoleConfirmationText": {
+        "description": "Text displayed to confirm the selected role during the registration process.",
+        "placeholders" :{
+            "roleName" : {
+                "type": "String"
+            }
+        }
     },
  
     "pageLoginCredentialsIndicativeText": "Enter your login credentials previously\nprovided by the school or director",
@@ -174,9 +179,14 @@
         "description":"text in alertdialog title, Error"
     },
 
-    "pageAwaitApprovalDescription": "Your account and role are pending for approval by the administrators.\n We will inform you via email.",
-    "@pageAwaitApprovalDescription": {
+    "pageKycAwaitApprovalDescription": "Your account and role are pending for approval by the administrators.\n We will inform you via email.",
+    "@pageKycAwaitApprovalDescription": {
         "description": "Text of the page Await Approval where it informs the user that his role and account are pending for approval and will contact him with a mail."
+    },
+
+    "pageKycAwaitApprovalAcceptUser": "Accept user",
+    "@pageKycAwaitApprovalAcceptUser": {
+        "description": "Text of the button of the page Await Approval to accept the user."
     },
 
     "pageAttendanceWithoutCourses": "There are no courses",
@@ -216,7 +226,12 @@
             }
         }
     },
-    
+
+    "pageAcademicCommunityNoUsersToShow": "There are no users to show",
+    "@pageAcademicCommunityNoUsersToShow": {
+        "description": "There are no users to show text"
+    },
+
     "dialogAbsencesSentCorrectly": "absences sent correctly",
     "@dialogAbsencesSentCorrectly": {
         "description": "Text to be displayed in the title of the dialog when absences to sent correctly"
@@ -566,6 +581,5 @@
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
     }
-
 
 }

@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
+import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
@@ -21,16 +23,16 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
   const VistaCelularPerfilUsuarioPendiente({super.key});
 
   /// Dialog para confirmar la asignacion de un rol al usuario
-  void _dialogAsignarRol(
-    BuildContext context,
-    String? nombreUsuario,
-    String nombreRol,
-  ) {
+  void _dialogAceptarSolicitudRegitro({
+    required BuildContext context,
+    required String? nombreUsuario,
+    required String nombreRol,
+  }) {
     showDialog<void>(
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocPerfilUsuario>(),
-        child: _DialogAsignarRol(
+        child: _DialogAceptarSolicitudRegistro(
           nombreUsuario: nombreUsuario,
           nombreRol: nombreRol,
         ),
@@ -43,6 +45,9 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
     final colores = context.colores;
 
     final l10n = context.l10n;
+
+    final tienePermiso =
+        context.tienePermiso(PermisoDeUsuario.aceptarSolicitudDeRegistro);
 
     return BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
       builder: (context, state) {
@@ -69,37 +74,38 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
                 ),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(bottom: 20.ph),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  EscuelasBoton.texto(
-                    // TODO(anyone): habilitar cuando se pueda rechazar a un
-                    //usuario pendiente
-                    estaHabilitado: false,
-                    // TODO(anyone): funcion para rechazar a un usuario
-                    // pendiente
-                    onTap: () => Navigator.of(context).pop,
-                    color: colores.error,
-                    texto: l10n.commonDecline.toUpperCase(),
-                    context: context,
-                  ),
-                  SizedBox(width: 20.ph),
-                  EscuelasBoton.texto(
-                    estaHabilitado: true,
-                    onTap: () => _dialogAsignarRol(
-                      context,
-                      state.usuarioPendiente?.nombre,
-                      state.nombreRolUsuarioPendiente,
+            if (tienePermiso)
+              Padding(
+                padding: EdgeInsets.only(bottom: 20.ph),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    EscuelasBoton.texto(
+                      // TODO(anyone): habilitar cuando se pueda rechazar a un
+                      //usuario pendiente
+                      estaHabilitado: false,
+                      // TODO(anyone): funcion para rechazar a un usuario
+                      // pendiente
+                      onTap: () => Navigator.of(context).pop,
+                      color: colores.error,
+                      texto: l10n.commonDecline.toUpperCase(),
+                      context: context,
                     ),
-                    color: colores.verdeConfirmar,
-                    texto: l10n.commonConfirm.toUpperCase(),
-                    context: context,
-                  ),
-                ],
+                    SizedBox(width: 20.ph),
+                    EscuelasBoton.texto(
+                      estaHabilitado: true,
+                      onTap: () => _dialogAceptarSolicitudRegitro(
+                        context: context,
+                        nombreUsuario: state.usuarioPendiente?.nombre,
+                        nombreRol: state.nombreRolUsuarioPendiente,
+                      ),
+                      color: colores.verdeConfirmar,
+                      texto: l10n.commonConfirm.toUpperCase(),
+                      context: context,
+                    ),
+                  ],
+                ),
               ),
-            ),
           ],
         );
       },
@@ -110,9 +116,9 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
 /// {@template _DialogAsignarRol}
 /// Dialog para confirmar la asignacion de un rol al usuario
 /// {@endtemplate}
-class _DialogAsignarRol extends StatelessWidget {
+class _DialogAceptarSolicitudRegistro extends StatelessWidget {
   /// {@macro _DialogAsignarRol}
-  const _DialogAsignarRol({
+  const _DialogAceptarSolicitudRegistro({
     required this.nombreUsuario,
     required this.nombreRol,
   });
@@ -122,7 +128,9 @@ class _DialogAsignarRol extends StatelessWidget {
     context
         .read<BlocPerfilUsuario>()
         .add(BlocPerfilUsuarioEventoAceptarSolicitud());
+
     Navigator.of(context).pop();
+
     context.router.push(const RutaUsuariosPendientes());
   }
 

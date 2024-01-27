@@ -29,37 +29,55 @@ class BlocSupervisionCursos
         final respuesta = [
           ComisionDeCurso(
             cursoId: 1,
+            curso: Curso(
+              nombre: 'nombre',
+            ),
             anioLectivo: 2024,
             nombre: 'primero',
             ultimaModificacion: DateTime(2, 01, 2024),
           ),
           ComisionDeCurso(
             cursoId: 1,
+            curso: Curso(
+              nombre: 'nombre',
+            ),
             anioLectivo: 2024,
             nombre: 'segundo',
             ultimaModificacion: DateTime(2, 01, 2024),
           ),
           ComisionDeCurso(
             cursoId: 1,
+            curso: Curso(
+              nombre: 'nombre',
+            ),
             anioLectivo: 2024,
             nombre: 'tercero',
             ultimaModificacion: DateTime(2, 01, 2024),
           ),
           ComisionDeCurso(
             cursoId: 1,
+            curso: Curso(
+              nombre: 'nombre',
+            ),
             anioLectivo: 2024,
             nombre: 'cuarto',
             ultimaModificacion: DateTime(2, 01, 2024),
           ),
           ComisionDeCurso(
             cursoId: 1,
+            curso: Curso(
+              nombre: 'nombre',
+            ),
             anioLectivo: 2024,
             nombre: 'quinto',
             ultimaModificacion: DateTime(2, 01, 2024),
           ),
           ComisionDeCurso(
-            anioLectivo: 2024,
             cursoId: 1,
+            anioLectivo: 2024,
+            curso: Curso(
+              nombre: 'nombre',
+            ),
             nombre: 'sexto',
             ultimaModificacion: DateTime(2, 01, 2024),
           ),
@@ -70,22 +88,31 @@ class BlocSupervisionCursos
             listaCursos: [
               ComisionDeCurso(
                 cursoId: 1,
+                curso: Curso(
+                  nombre: 'nombre',
+                ),
                 anioLectivo: 2024,
                 ultimaModificacion: DateTime.now(),
                 nombre: 'asd',
                 id: 1,
               ),
               ComisionDeCurso(
+                cursoId: 1,
                 nombre: '222',
                 id: 2,
-                cursoId: 2,
+                curso: Curso(
+                  nombre: 'nombre',
+                ),
                 anioLectivo: 2024,
                 ultimaModificacion: DateTime.now(),
               ),
               ComisionDeCurso(
+                cursoId: 1,
                 nombre: 'a333sd',
                 id: 3,
-                cursoId: 3,
+                curso: Curso(
+                  nombre: 'nombre',
+                ),
                 anioLectivo: 2024,
                 ultimaModificacion: DateTime.now(),
               ),

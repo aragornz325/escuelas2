@@ -88,24 +88,11 @@ class BlocKycEstado {
   /// Indica si el state es cargando
   bool get estaEnEstadoCargando => this is BlocKycEstadoCargando;
 
-  /// Retorna la lista de cursos de la escuela a la que pertenece el usuario en
-  /// forma de [PopupOption]
-  List<PopupOption> get listaOpcionesComisiones => listaComisiones
+  List<EscuelasDropdownOption<int>> get opcionesComisiones => listaComisiones
       .map(
-        (curso) => PopupOption(
-          id: curso.id ?? 0,
-          name: curso.nombre,
-        ),
-      )
-      .toList();
-
-  /// Retorna la lista de materias de la escuela a la que pertenece el usuario
-  /// en forma de [PopupOption]
-  List<PopupOption> get listaOpcionesAsignaturas => listaAsignaturas
-      .map(
-        (asignatura) => PopupOption(
-          id: asignatura.id ?? 0,
-          name: asignatura.nombre,
+        (comision) => EscuelasDropdownOption(
+          value: comision.id ?? 0,
+          title: comision.nombre,
         ),
       )
       .toList();

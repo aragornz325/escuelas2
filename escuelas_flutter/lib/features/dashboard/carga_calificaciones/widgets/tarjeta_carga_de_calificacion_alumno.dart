@@ -17,7 +17,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   /// {@macro TarjetaCargaCalificacionAlumno}
   const TarjetaCargaCalificacionAlumno({
     required this.fecha,
-    required this.curso,
+    required this.comision,
     required this.relacionComisionUsuario,
     this.rolDelUsuario,
     super.key,
@@ -27,7 +27,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   final DateTime fecha;
 
   ///
-  final ComisionDeCurso curso;
+  final ComisionDeCurso comision;
 
   /// Alumno con la calificación previa.
   final RelacionComisionUsuario relacionComisionUsuario;
@@ -49,7 +49,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                   BlocCargaCalificacionesEventoCambiarCalificacionAlumno(
                     calificacion: int.tryParse(v),
                     fecha: fecha,
-                    idAlumno: curso.cursoId,
+                    idAlumno: comision.curso?.id ?? 0,
                   ),
                 ),
             // TODO(anyone): reemplazar por las calificaciones previas ver como
@@ -64,8 +64,8 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                       state.listaCalificacionesCompensadas
                           .firstWhere(
                             (cc) =>
-                                cc.estudianteId ==
-                                relacionComisionUsuario.usuarioId,
+                                cc.estudiante?.id ==
+                                relacionComisionUsuario.usuario?.id,
                           )
                           .id,
                   // TODO(ANYONE): Cambiar por el id correspondiente, cuadno
@@ -77,7 +77,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
             // de back
             nombreAlumno: '${relacionComisionUsuario.usuario?.nombre} '
                 '${relacionComisionUsuario.usuario?.apellido}',
-            esEditable: rolDelUsuario?.name == 'Docente'
+            esEditable: rolDelUsuario?.name == 'docente'
                 ? fecha.mismaFecha(DateTime.now())
                 : rolDelUsuario?.name == 'directivo' &&
                     fecha.isBefore(DateTime.now()),
