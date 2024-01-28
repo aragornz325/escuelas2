@@ -23,17 +23,23 @@ class _ListaDeComisionesDeCursoState extends State<ListaDeComisionesDeCurso> {
   final _scrollController = ScrollController();
 
   @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
       builder: (context, state) => ListView.builder(
         shrinkWrap: true,
         controller: _scrollController,
-        itemCount: state.comisiones.length,
+        itemCount: state.comisionesConAsistencias.length,
         physics: const AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, index) =>
             _ContenidoDeplegableDeLaComisionDeCurso(
           controller: _scrollController,
-          comisionDeCurso: state.comisiones[index],
+          asistenciasPorComision: state.comisionesConAsistencias[index],
           index: index,
           esMesPosterior: state.fechaActual?.isBefore(DateTime.now()) ?? false,
         ),
@@ -49,7 +55,7 @@ class _ContenidoDeplegableDeLaComisionDeCurso extends StatefulWidget {
   /// {@macro _ContenidoDeplegableDelCurso}
   const _ContenidoDeplegableDeLaComisionDeCurso({
     required this.controller,
-    required this.comisionDeCurso,
+    required this.asistenciasPorComision,
     required this.index,
     required this.esMesPosterior,
   });
@@ -58,7 +64,7 @@ class _ContenidoDeplegableDeLaComisionDeCurso extends StatefulWidget {
   final ScrollController controller;
 
   /// Curso a mostrar.
-  final ComisionDeCurso comisionDeCurso;
+  final ComisionConAsistencias asistenciasPorComision;
 
   /// Indice de la lista.
   final int index;
@@ -83,18 +89,18 @@ class _ContenidoDeplegableDeLaComisionDeCursoState
       duration: const Duration(milliseconds: 250),
       child: desplegado
           ? ItemCursoConListaDeEstudiantes(
-              comisionDeCurso: widget.comisionDeCurso,
-              onTap: widget.esMesPosterior ? _desplegarCurso : () {},
+              comisionConAsistencias: widget.asistenciasPorComision,
+              onTap: widget.esMesPosterior ? _alternarDespliegue : () {},
             )
           : ItemCurso(
-              comisionDeCurso: widget.comisionDeCurso,
-              onTap: widget.esMesPosterior ? _desplegarCurso : () {},
+              comisionConAsistencias: widget.asistenciasPorComision,
+              onTap: widget.esMesPosterior ? _alternarDespliegue : () {},
             ),
     );
   }
 
-  /// Despliega el curso
-  void _desplegarCurso() => setState(
+  /// Alterna el despliegue del curso
+  void _alternarDespliegue() => setState(
         () {
           desplegado = !desplegado;
           Future.delayed(
@@ -110,4 +116,26 @@ class _ContenidoDeplegableDeLaComisionDeCursoState
           );
         },
       );
+}
+
+class ComisionConAsistencias {
+  const ComisionConAsistencias({
+    required this.comisionDeCurso,
+    required this.inasistenciasDelCurso,
+  });
+
+  final ComisionDeCurso comisionDeCurso;
+
+  final List<AsistenciaDiaria> inasistenciasDelCurso;
+
+  ComisionConAsistencias copyWith({
+    ComisionDeCurso? comisionDeCurso,
+    List<AsistenciaDiaria>? inasistenciasDelCurso,
+  }) {
+    return ComisionConAsistencias(
+      comisionDeCurso: comisionDeCurso ?? this.comisionDeCurso,
+      inasistenciasDelCurso:
+          inasistenciasDelCurso ?? this.inasistenciasDelCurso,
+    );
+  }
 }

@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
+import 'package:escuelas_flutter/features/dashboard/inasistencias/widgets/widgets.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,7 +16,7 @@ class ItemCurso extends StatelessWidget {
   /// {@macro ItemCurso}
   const ItemCurso({
     required this.onTap,
-    required this.comisionDeCurso,
+    required this.comisionConAsistencias,
     this.ancho,
     super.key,
   });
@@ -24,7 +25,7 @@ class ItemCurso extends StatelessWidget {
   final VoidCallback onTap;
 
   /// Lista de cursos a mostrar
-  final ComisionDeCurso comisionDeCurso;
+  final ComisionConAsistencias comisionConAsistencias;
 
   /// ancho modificable en caso de que quiera cambiarlo
   final double? ancho;
@@ -43,8 +44,10 @@ class ItemCurso extends StatelessWidget {
         child: BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
           builder: (context, state) {
             //Cantidad de estudiantes presentes.
-            final estudiantesPresentes = comisionDeCurso.cantidadDeNoAusentes(
-              state.asistenciasDiarias(comisionDeCurso.id ?? 0),
+            final comision = comisionConAsistencias.comisionDeCurso;
+
+            final estudiantesPresentes = comision.cantidadDeNoAusentes(
+              comisionConAsistencias.inasistenciasDelCurso,
             );
 
             return ElementoLista(
@@ -52,9 +55,9 @@ class ItemCurso extends StatelessWidget {
               altura: max(50.ph, 50.sh),
               borderRadius: 50,
               texto: Text(
-                comisionDeCurso.nombre.toUpperCase(),
+                comision.nombre.toUpperCase(),
                 style: TextStyle(
-                  color: comisionDeCurso.ultimaModificacion.mismaFecha(
+                  color: comision.ultimaModificacion.mismaFecha(
                     state.fechaActual ?? DateTime.now(),
                   )
                       ? colores.onBackground
@@ -67,7 +70,7 @@ class ItemCurso extends StatelessWidget {
                 padding: EdgeInsets.only(right: 10.pw),
                 child: Text(
                   '$estudiantesPresentes'
-                  '/${comisionDeCurso.estudiantes?.length ?? 0}',
+                  '/${comision.estudiantes?.length ?? 0}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: colores.onSecondary,

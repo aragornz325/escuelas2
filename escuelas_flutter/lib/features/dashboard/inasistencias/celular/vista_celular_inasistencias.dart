@@ -82,7 +82,7 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
               );
             }
 
-            if (state.comisiones.isEmpty) {
+            if (state.comisionesConAsistencias.isEmpty) {
               // TODO(anyone): hacer una vista cuando no hay cursos.
               return Center(
                 child: Text(l10n.pageAttendanceWithoutCourses),

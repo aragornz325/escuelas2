@@ -19,42 +19,40 @@ class BlocInasistenciasEventoInicializar extends BlocInasistenciasEvento {
   final DateTime fecha;
 }
 
-/// {@template BlocInasistenciasEventoFinalizarInasistencias}
-/// Evento que finaliza la asistencia del dia de dicho curso
+/// {@template BlocInasistenciasEventoCrearInasistencias}
+/// Evento para crear las inasistencias de los estudiantes de una
+/// comision en particular.
 /// {@endtemplate}
-class BlocInasistenciasEventoFinalizarInasistencias
+class BlocInasistenciasEventoCrearInasistencias
     extends BlocInasistenciasEvento {
-  /// {@macro BlocInasistenciasEventoFinalizarInasistencias}
-  const BlocInasistenciasEventoFinalizarInasistencias({
+  /// {@macro BlocInasistenciasEventoCrearInasistencias}
+  const BlocInasistenciasEventoCrearInasistencias({
     required this.idComision,
+    required this.inasistencias,
   });
 
-  /// Id del curso  a modificar si se tomo asistencia.
+  /// Id de la comision a modificar si se tomo asistencia.
   final int idComision;
+
+  /// Lista de inasistencias a crear
+  final List<AsistenciaDiaria> inasistencias;
 }
 
-/// {@template BlocAsistenciaEventoCambiarInasistenciaEstudiante}
-/// Evento para cambiar la inasistencia de un estudiante
+/// {@template BlocInasistenciasEventoEditarInasistencias}
+/// Evento para crear las inasistencias de los estudiantes de una
+/// comision en particular.
 /// {@endtemplate}
-class BlocAsistenciaEventoCambiarInasistenciaEstudiante
+class BlocInasistenciasEventoEditarInasistencias
     extends BlocInasistenciasEvento {
-  /// {@macro BlocAsistenciaEventoCambiarInasistenciaEstudiante}
-  const BlocAsistenciaEventoCambiarInasistenciaEstudiante({
+  /// {@macro BlocInasistenciasEventoEditarInasistencias}
+  const BlocInasistenciasEventoEditarInasistencias({
     required this.idComision,
-    required this.idEstudiante,
-    required this.fecha,
-    required this.estadoInasistencia,
+    required this.inasistencias,
   });
 
-  /// Id del curso  a modificar si se tomo asistencia.
+  /// Id de la comision a modificar si se tomo asistencia.
   final int idComision;
 
-  /// Id del estudiante a modificar la inasistencia
-  final int idEstudiante;
-
-  /// Fecha para saber su ultima modificación.
-  final DateTime fecha;
-
-  /// Asistencia de estudiante a modificar
-  final EstadoDeAsistencia estadoInasistencia;
+  /// Lista de inasistencias a modificar
+  final List<AsistenciaDiaria> inasistencias;
 }
