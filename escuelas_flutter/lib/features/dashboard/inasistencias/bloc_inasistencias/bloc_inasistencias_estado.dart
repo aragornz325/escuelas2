@@ -14,10 +14,10 @@ class BlocInasistenciasEstado {
   BlocInasistenciasEstado.desde(
     BlocInasistenciasEstado otro, {
     DateTime? fechaActual,
-    List<ComisionConAsistencias>? inasistenciasPorComision,
+    List<ComisionConAsistencias>? comisionesConAsistencias,
   }) : this._(
           comisionesConAsistencias:
-              inasistenciasPorComision ?? otro.comisionesConAsistencias,
+              comisionesConAsistencias ?? otro.comisionesConAsistencias,
           fechaActual: fechaActual ?? otro.fechaActual,
         );
 
@@ -55,7 +55,7 @@ class BlocInasistenciasEstadoExitoso extends BlocInasistenciasEstado {
   /// {@macro BlocInasistenciasEstadoExitoso}
   BlocInasistenciasEstadoExitoso.desde(
     super.otro, {
-    super.inasistenciasPorComision,
+    super.comisionesConAsistencias,
     super.fechaActual,
   }) : super.desde();
 }
@@ -68,7 +68,7 @@ class BlocInasistenciasEstadoExitosoEnvioDeInasistencias
   /// {@macro BlocInasistenciasEstadoExitosoEnvioDeInasistencias}
   BlocInasistenciasEstadoExitosoEnvioDeInasistencias.desde(
     super.otro, {
-    super.inasistenciasPorComision,
+    super.comisionesConAsistencias,
     super.fechaActual,
   }) : super.desde();
 }

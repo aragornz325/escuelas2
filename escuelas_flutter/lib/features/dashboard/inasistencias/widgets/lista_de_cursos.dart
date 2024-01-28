@@ -1,5 +1,5 @@
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
+import 'package:escuelas_flutter/features/dashboard/inasistencias/modelos/modelos.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -39,7 +39,7 @@ class _ListaDeComisionesDeCursoState extends State<ListaDeComisionesDeCurso> {
         itemBuilder: (context, index) =>
             _ContenidoDeplegableDeLaComisionDeCurso(
           controller: _scrollController,
-          asistenciasPorComision: state.comisionesConAsistencias[index],
+          comisionConAsistencias: state.comisionesConAsistencias[index],
           index: index,
           esMesPosterior: state.fechaActual?.isBefore(DateTime.now()) ?? false,
         ),
@@ -55,7 +55,7 @@ class _ContenidoDeplegableDeLaComisionDeCurso extends StatefulWidget {
   /// {@macro _ContenidoDeplegableDelCurso}
   const _ContenidoDeplegableDeLaComisionDeCurso({
     required this.controller,
-    required this.asistenciasPorComision,
+    required this.comisionConAsistencias,
     required this.index,
     required this.esMesPosterior,
   });
@@ -64,7 +64,7 @@ class _ContenidoDeplegableDeLaComisionDeCurso extends StatefulWidget {
   final ScrollController controller;
 
   /// Curso a mostrar.
-  final ComisionConAsistencias asistenciasPorComision;
+  final ComisionConAsistencias comisionConAsistencias;
 
   /// Indice de la lista.
   final int index;
@@ -89,11 +89,11 @@ class _ContenidoDeplegableDeLaComisionDeCursoState
       duration: const Duration(milliseconds: 250),
       child: desplegado
           ? ItemCursoConListaDeEstudiantes(
-              comisionConAsistencias: widget.asistenciasPorComision,
+              comisionConAsistencias: widget.comisionConAsistencias,
               onTap: widget.esMesPosterior ? _alternarDespliegue : () {},
             )
           : ItemCurso(
-              comisionConAsistencias: widget.asistenciasPorComision,
+              comisionConAsistencias: widget.comisionConAsistencias,
               onTap: widget.esMesPosterior ? _alternarDespliegue : () {},
             ),
     );
@@ -116,26 +116,4 @@ class _ContenidoDeplegableDeLaComisionDeCursoState
           );
         },
       );
-}
-
-class ComisionConAsistencias {
-  const ComisionConAsistencias({
-    required this.comisionDeCurso,
-    required this.inasistenciasDelCurso,
-  });
-
-  final ComisionDeCurso comisionDeCurso;
-
-  final List<AsistenciaDiaria> inasistenciasDelCurso;
-
-  ComisionConAsistencias copyWith({
-    ComisionDeCurso? comisionDeCurso,
-    List<AsistenciaDiaria>? inasistenciasDelCurso,
-  }) {
-    return ComisionConAsistencias(
-      comisionDeCurso: comisionDeCurso ?? this.comisionDeCurso,
-      inasistenciasDelCurso:
-          inasistenciasDelCurso ?? this.inasistenciasDelCurso,
-    );
-  }
 }

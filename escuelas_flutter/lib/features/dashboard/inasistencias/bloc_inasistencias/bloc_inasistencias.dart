@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/inasistencias/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/inasistencias/modelos/comision_con_asistencias.dart';
 import 'package:flutter/material.dart';
 
 part 'bloc_inasistencias_evento.dart';
@@ -45,12 +45,12 @@ class BlocInasistencias
             BlocInasistenciasEstadoExitoso.desde(
               state,
               fechaActual: event.fecha,
-              inasistenciasPorComision: listaDeInasistencias,
+              comisionesConAsistencias: listaDeInasistencias,
             ),
           );
         }
 
-        final asistenciasPorComision = <ComisionConAsistencias>[];
+        final comisionesConAsistencias = <ComisionConAsistencias>[];
 
         for (final comision in comisiones) {
           final listaAsistenciaDiaria = comision.estudiantes?.map(
@@ -66,7 +66,7 @@ class BlocInasistencias
             },
           ).toList();
 
-          asistenciasPorComision.add(
+          comisionesConAsistencias.add(
             ComisionConAsistencias(
               comisionDeCurso: comision,
               inasistenciasDelCurso: listaAsistenciaDiaria ?? [],
@@ -78,7 +78,7 @@ class BlocInasistencias
           BlocInasistenciasEstadoExitoso.desde(
             state,
             fechaActual: event.fecha,
-            inasistenciasPorComision: asistenciasPorComision,
+            comisionesConAsistencias: comisionesConAsistencias,
           ),
         );
       },
@@ -132,7 +132,7 @@ class BlocInasistencias
         return emit(
           BlocInasistenciasEstadoExitoso.desde(
             state,
-            inasistenciasPorComision: comisionesConAsistencias,
+            comisionesConAsistencias: comisionesConAsistencias,
           ),
         );
       },
@@ -182,7 +182,7 @@ class BlocInasistencias
         return emit(
           BlocInasistenciasEstadoExitoso.desde(
             state,
-            inasistenciasPorComision: comisionesConAsistencias,
+            comisionesConAsistencias: comisionesConAsistencias,
           ),
         );
       },

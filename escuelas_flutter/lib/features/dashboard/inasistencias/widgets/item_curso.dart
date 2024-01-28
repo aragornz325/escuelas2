@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
-import 'package:escuelas_flutter/features/dashboard/inasistencias/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/inasistencias/modelos/modelos.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
