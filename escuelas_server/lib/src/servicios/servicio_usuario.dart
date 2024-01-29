@@ -444,13 +444,17 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           () => _servicioComision.obtenerComisiones(session),
         );
 
+        print(comisiones);
+
         for (var comision in comisiones) {
           final usuariosDeComision = usuarios
               .where((usuario) =>
-                  usuario.asignaturas?.any((comisionUsuario) =>
-                      comisionUsuario.asignaturaId == comision.id) ??
+                  usuario.comisiones?.any((comisionUsuario) =>
+                      comisionUsuario.comisionId == comision.id) ??
                   false)
               .toList();
+
+          print(usuariosDeComision);
 
           usuariosListados.add(
             UsuariosListados(
