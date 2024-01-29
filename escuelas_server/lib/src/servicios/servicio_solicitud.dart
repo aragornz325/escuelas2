@@ -1,11 +1,14 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud.dart';
+import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/server.dart';
 
 class ServicioSolicitud extends Servicio<OrmSolicitud> {
   @override
   OrmSolicitud get orm => OrmSolicitud();
+
+  final _ormSolicitudNotaMensual = OrmSolicitudNotaMensual();
 
   /// La función `crearSolicitud` crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.
@@ -100,4 +103,24 @@ class ServicioSolicitud extends Servicio<OrmSolicitud> {
     );
     return solicitud;
   }
+
+  Future<List<Solicitud>> obtenerSolicitudesPendientes(
+    Session session,
+  ) async =>
+      ejecutarOperacion(
+        () => orm.obtenerSolicitudesPendientes(session),
+      );
+
+  Future<List<SolicitudCalificacionMensual>>
+      obtenerSolicitudesCalificacionMensual(
+    Session session, {
+    required int numeroDeMes,
+  }) async =>
+          ejecutarOperacion(
+            () =>
+                _ormSolicitudNotaMensual.obtenerSolicitudesCalificacionMensual(
+              session,
+              numeroDeMes: numeroDeMes,
+            ),
+          );
 }

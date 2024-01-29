@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:rolemissions/rolemissions.dart';
+import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/modelos/modelos.dart';
 
 part 'bloc_carga_calificaciones_estado.dart';
 part 'bloc_carga_calificaciones_evento.dart';
@@ -18,21 +18,16 @@ class BlocCargaCalificaciones
   BlocCargaCalificaciones()
       : super(const BlocCargaCalificacionesEstadoInicial()) {
     on<BlocCargaCalificacionesEventoInicializar>(_onInicializar);
-    on<BlocCargaCalificacionesEventoCambiarCalificacionAlumno>(
-      _onCambiarCalificacionAlumno,
-    );
     on<BlocCargaCalificacionesEventoVaciarCalificaciones>(
       _onVaciarCalificaciones,
     );
     on<BlocCargaCalificacionesEventoEnviarCalificaciones>(
       _onEnviarCalificaciones,
     );
-
-    on<BlocCargaCalificacionesEventoFiltrarListaPorFecha>(
-      _onFiltrarListaPorFecha,
-    );
-
     on<BlocCargaCalificacionesEventoGuardarFecha>(_onGuardarFecha);
+    on<BlocCargaCalificacionesEventoAgregarCalificacion>(
+      _onAgregarCalificacion,
+    );
   }
 
   /// Al iniciar la pantalla trae todos los alumnos de una fecha.
@@ -43,152 +38,35 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): llamar al endpoint de traer calificaciones
-        // y borrar la lista hardcodeada.
-        ///
-        // TODO(anyone): ver como se traen todas las calificaciones de los
-        // usuarios
-
-        // final curso = await client.comisiones.obtenercomicionporid(id:
-        // event.idCurso);
-
-        final curso = ComisionDeCurso(
-          cursoId: 2,
-          curso: Curso(
-            nombre: 'nombre',
-          ),
-          id: 1,
-          nombre: 'primero',
-          anioLectivo: 1,
-          estudiantes: [],
-          ultimaModificacion: DateTime.now(),
+        final calificacionesMensuales = await client.calificacion
+            .obtenerCalificacionesPorAsignaturaPorPeriodoPorComision(
+          idAsignatura: event.idAsignatura,
+          idComision: event.idComision,
+          numeroDeAnio: DateTime.now().year,
+          numeroDeMes: DateTime.now().month,
         );
 
-        final listaCalificacionCompensacion = [
-          Calificacion(
-            idAutor: 3,
-            id: 1,
-            observacion: 'nose',
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
-            estudianteId: 1,
-            estudiante: Usuario(
-              idUserInfo: 42,
-              urlFotoDePerfil: '',
-              id: 1,
-              nombre: 'nombre',
-              apellido: 'apellido',
-            ),
-            idComision: 1,
-            idAsignatura: 1,
-            tipoCalificacion: TipoCalificacion.rite,
-            index: 1,
-            diferencial: '',
-            idInstanciaDeEvaluacion: 1,
-          ),
-        ];
+        final asignatura = await client.asignatura
+            .obtenerAsignaturaPorId(id: event.idAsignatura);
 
-        final listaCalificaciones = [
-          Calificacion(
-            idAutor: 7,
-            id: 1,
-            observacion: 'nose',
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
-            estudianteId: 1,
-            estudiante: Usuario(
-              idUserInfo: 42,
-              urlFotoDePerfil: '',
-              id: 1,
-              nombre: 'nombre',
-              apellido: 'apellido',
-            ),
-            idComision: 1,
-            idAsignatura: 1,
-            tipoCalificacion: TipoCalificacion.numericoDecimal,
-            index: 1,
-            diferencial: '',
-            idInstanciaDeEvaluacion: 1,
-          ),
-        ];
+        final comision = await client.comision
+            .obtenerComisionesDeCursoPorId(idComision: event.idComision);
 
+        //  confirmo solicitud si esta aprobada y con calificaciones.
+        // si la soli no aprobada o pendiente,
+        // Solicitud null
+        // si fecha realizacion no es nula, ya completo la solicitud
         emit(
           BlocCargaCalificacionesEstadoExitoso.desde(
             state,
-            curso: curso,
+            asignatura: asignatura,
+            comision: comision,
             fecha: event.fecha,
-            listaCalificaciones: listaCalificaciones,
-            listaCalificacionesCompensadas: listaCalificacionCompensacion,
-            // TODO(anyone): usar el usuario del dashboard cuando gon lo haga.
-            rolDelUsuario: Role(
-              id: 1,
-              name: '',
-              permissions: '',
-              createdAt: DateTime.now(),
-              updatedAt: DateTime.now(),
-            ),
+            calificacionesMensuales: calificacionesMensuales,
           ),
         );
       },
       onError: (e, st) => BlocCargaCalificacionesEstadoFallido.desde(state),
-    );
-  }
-
-  /// Filtra la lista de calificaciones por fecha que le pases
-  Future<void> _onFiltrarListaPorFecha(
-    BlocCargaCalificacionesEventoFiltrarListaPorFecha event,
-    Emitter<BlocCargaCalificacionesEstado> emit,
-  ) async {
-    emit(BlocCargaCalificacionesEstadoCargando.desde(state));
-    // TODO(anyone): ver por que pingo no anda esto sin un delay
-    // sin el delay no funciona no se rebuild-eah la screen
-
-    await Future<void>.delayed(const Duration(microseconds: 1));
-
-    state.listaCalificaciones.firstWhere(
-      (c) => c.fechaCreacion.mismaFecha(event.fecha),
-    );
-
-    emit(
-      BlocCargaCalificacionesEstadoExitoso.desde(
-        state,
-        listaCalificaciones: state.listaCalificaciones,
-      ),
-    );
-  }
-
-  /// Cambia la calificacion de un alumno.
-  void _onCambiarCalificacionAlumno(
-    BlocCargaCalificacionesEventoCambiarCalificacionAlumno event,
-    Emitter<BlocCargaCalificacionesEstado> emit,
-  ) {
-    final alumno = state.estudiantes.firstWhere(
-      (c) => c.usuario?.id == event.idAlumno,
-    );
-
-    // TODO(anyone): hablar con los modelos para que la calificacion pueda ser
-    // nulleable
-    state.listaCalificaciones
-        .firstWhere(
-          (calificacion) =>
-              calificacion.id ==
-              state.listaCalificacionesCompensadas
-                  .firstWhere(
-                    (calicompensada) =>
-                        calicompensada.estudiante?.id == alumno.usuario?.id,
-                  )
-                  .id,
-        ) // TODO(ANYONE): Cambiar por el id correspondiente
-        .id = event.calificacion ?? 0;
-    // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
-    emit(
-      BlocCargaCalificacionesEstadoExitoso.desde(
-        state,
-        listaCalificaciones: state.listaCalificaciones,
-        listaCalificacionesCompensadas: state.listaCalificacionesCompensadas,
-      ),
     );
   }
 
@@ -198,23 +76,11 @@ class BlocCargaCalificaciones
     Emitter<BlocCargaCalificacionesEstado> emit,
   ) async {
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
-    // TODO(anyone): ver por que pingo no anda esto sin un delay
-    // sin el delay no funciona no se rebuild-eah la screen
-
-    await Future<void>.delayed(const Duration(microseconds: 00001));
-
-    final calificaciones = state.listaCalificaciones;
-
-    for (final calificacion in calificaciones) {
-      // TODO(anyone): hacer que sea nullable
-      calificacion.id = 0;
-      // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
-    }
 
     emit(
-      BlocCargaCalificacionesEstadoExitoso.desde(
+      BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas.desde(
         state,
-        listaCalificaciones: calificaciones,
+        listaCalificaciones: [],
       ),
     );
   }
@@ -227,7 +93,16 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): llamar al endpoint de envio de calificacion/notas
+        // TODO(SAM): Hacer IF si id solicitd es null no deberia poder ver el BOTON en la UI
+        // TODO(SAM): Front asegurarse de q la lista de calificaciones fueron modificadas por el profesor
+        // TODO(SAM): el valor index etc de CADA UNA.
+        await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
+          calificacionesMensuales:
+              state.calificacionesMensuales?.calificacionesMensuales ?? [],
+          idSolicitud: state
+                  .calificacionesMensuales?.solicitudNotaMensual?.solicitudId ??
+              0,
+        );
         emit(
           BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
               .desde(state),
@@ -250,6 +125,44 @@ class BlocCargaCalificaciones
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
         fecha: event.fecha,
+      ),
+    );
+  }
+
+  /// Guarda el periodo seleccionado del calendario
+  void _onAgregarCalificacion(
+    BlocCargaCalificacionesEventoAgregarCalificacion event,
+    Emitter<BlocCargaCalificacionesEstado> emit,
+  ) {
+    final lista = List<CalificacionDeAlumno>.from(state.listaCalificaciones);
+
+    final estaCargada = state.listaCalificaciones.any(
+      (calificacion) => calificacion.idAlumno == event.idAlumno,
+    );
+
+    if (estaCargada) {
+      lista
+        ..removeWhere(
+          (calificacion) => calificacion.idAlumno == event.idAlumno,
+        )
+        ..add(
+          CalificacionDeAlumno(
+            idAlumno: event.idAlumno,
+            calificacion: event.calificacion,
+          ),
+        );
+    } else {
+      lista.add(
+        CalificacionDeAlumno(
+          idAlumno: event.idAlumno,
+          calificacion: event.calificacion,
+        ),
+      );
+    }
+    emit(
+      BlocCargaCalificacionesEstadoExitoso.desde(
+        state,
+        listaCalificaciones: lista,
       ),
     );
   }

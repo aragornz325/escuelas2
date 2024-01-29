@@ -18,9 +18,9 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
 
   /// La función `crearSolicitudNotaMensual` crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.
-  Future<SolicitudNotaMensual> crearSolicitudNotaMensual(
+  Future<SolicitudCalificacionMensual> crearSolicitudNotaMensual(
     Session session, {
-    required SolicitudNotaMensual solicitudNotaMensual,
+    required SolicitudCalificacionMensual solicitudNotaMensual,
   }) async {
     final solicitudNotaMensualADb = await ejecutarOperacion(
       () => orm.crearSolicitudNotaMensual(
@@ -31,9 +31,9 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
     return solicitudNotaMensualADb;
   }
 
-  Future<List<SolicitudNotaMensual>> crearSolicitudesMensualesEnLote(
+  Future<List<SolicitudCalificacionMensual>> crearSolicitudesMensualesEnLote(
     Session session, {
-    required List<SolicitudNotaMensual> solicitudesMensuales,
+    required List<SolicitudCalificacionMensual> solicitudesMensuales,
   }) async {
     final solicitudesMensualesAdb = await ejecutarOperacion(
       () => orm.crearSolicitudesMensualesEnLote(
@@ -46,14 +46,9 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
 
   /// La función `actualizarSolicitudNotaMensual` actualiza un registro de solicitud en una base de datos y
   /// devuelve el registro actualizado.
-  /// Args:
-  /// Session:
-  /// solicitudNotaMensual (SolicitudNotaMensual): Un objeto de tipo SolicitudNotaMensual, que representa un registro de solicitud.
-  /// Returns:
-  /// Un `Future<SolicitudNotaMensual>`.
-  Future<SolicitudNotaMensual> actualizarSolicitudNotaMensual(
+  Future<SolicitudCalificacionMensual> actualizarSolicitudNotaMensual(
     Session session, {
-    required SolicitudNotaMensual solicitudNotaMensual,
+    required SolicitudCalificacionMensual solicitudNotaMensual,
   }) async {
     final solicitudNotaMensualADb = await ejecutarOperacion(
       () => orm.actualizarSolicitudNotaMensual(
@@ -66,12 +61,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
 
   /// La función `obtenerSolicitudNotaMensual` obtiene un registro de solicitud en una base de datos y
   /// devuelve el registro.
-  /// Args:
-  /// Session:
-  /// id (int): El id del registro de solicitud.
-  /// Returns:
-  /// Un `Future<SolicitudNotaMensual>`.
-  Future<SolicitudNotaMensual> obtenerSolicitudNotaMensual(
+  Future<SolicitudCalificacionMensual> obtenerSolicitudNotaMensual(
     Session session, {
     required int id,
   }) async {
@@ -85,11 +75,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
   }
 
   /// La función `obtenerSolicitudesNotaMensual` recupera una lista de solicitudes utilizando un objeto de sesión.
-  /// Args:
-  /// Session:
-  /// Returns:
-  /// un `Future<List<SolicitudNotaMensual>>`.
-  Future<List<SolicitudNotaMensual>> obtenerSolicitudesNotaMensual(
+  Future<List<SolicitudCalificacionMensual>> obtenerSolicitudesNotaMensual(
     Session session,
   ) async {
     final solicitudesNotaMensual = await ejecutarOperacion(
@@ -100,11 +86,6 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
 
   /// La función `eliminarSolicitudNotaMensual` elimina un registro de solicitud en una base de datos y
   /// devuelve el registro eliminado.
-  /// Args:
-  /// Session:
-  /// id (int): El id del registro de solicitud.
-  /// Returns:
-  /// Un `Future<int>`.
   Future<int> eliminarSolicitudNotaMensual(
     Session session, {
     required int id,
@@ -120,11 +101,6 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
 
   /// La función `enviarSolicitudADocentes` envía una solicitud de calificaciones mensuales a los
   /// profesores para cada usuario con materias asignadas.
-  ///
-  /// Args:
-  ///   session (Session): El parámetro de sesión es un objeto que representa la sesión o conexión
-  /// actual a la base de datos. Se utiliza para realizar operaciones de bases de datos, como consultar
-  /// y guardar datos.
   Future<void> enviarSolicitudADocentes(
     Session session,
   ) async {
@@ -140,9 +116,10 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
     );
 
     for (final usuario in usuarios) {
-      List<SolicitudNotaMensual> solicitudesMensualesAdb = [];
+      List<SolicitudCalificacionMensual> solicitudesMensualesAdb = [];
 
-      for (final asignatura in usuario.asignaturas ?? []) {
+      for (final asignatura
+          in usuario.asignaturas ?? <RelacionAsignaturaUsuario>[]) {
         final solicitud = Solicitud(
           tipoSolicitud: TipoSolicitud.calificacion,
           idAutor: idAutor,
@@ -156,20 +133,21 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
         );
 
         final chequearSolicitudMensual =
-            await orm.obtenerSoliciturPorAsignaturaComisionyMes(session,
-                idAsignatura: asignatura.asignaturaId,
-                idComision: asignatura.comisionId,
-                numeroDeMes: ahora.month);
+            await orm.obtenerSolicitudesPorAsignaturaComisionyMes(
+          session,
+          idAsignatura: asignatura.asignaturaId,
+          idComision: asignatura.comisionId,
+          numeroDeMes: ahora.month,
+        );
 
         if (chequearSolicitudMensual.isNotEmpty) {
           logger.warning("ya existe una solicitud para este mes");
           continue;
         }
 
-        final solicitudNotaMensual = SolicitudNotaMensual(
-          idSolicitud: solicitudCreada.id!,
+        final solicitudNotaMensual = SolicitudCalificacionMensual(
           idAsignatura: asignatura.asignaturaId,
-          idComision: asignatura.comisionId,
+          comisionId: asignatura.comisionId,
           numeroDeMes: ahora.month,
           solicitudId: solicitudCreada.id!,
         );
@@ -188,21 +166,11 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           continue;
         }
 
-        if (usuario.direccionesDeEmail!.length > 1) {
-          for (final direccionEmail in usuario.direccionesDeEmail!) {
-            await servicioComunicacion.enviarEmail(
-              session,
-              direccionEmailDestinatario:
-                  direccionEmail.direccionDeEmail.trim(),
-              asuntoDelCorreo: "tienes un pedido de calificacion",
-              contenidoHtmlDelCorreo: contenidoHtml,
-            );
-          }
-        } else {
+        for (final direccionEmail
+            in usuario.direccionesDeEmail ?? <DireccionDeEmail>[]) {
           await servicioComunicacion.enviarEmail(
             session,
-            direccionEmailDestinatario:
-                usuario.direccionesDeEmail!.first.direccionDeEmail.trim(),
+            direccionEmailDestinatario: direccionEmail.direccionDeEmail.trim(),
             asuntoDelCorreo: "tienes un pedido de calificacion",
             contenidoHtmlDelCorreo: contenidoHtml,
           );
@@ -214,5 +182,31 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
         solicitudesMensuales: solicitudesMensualesAdb,
       );
     }
+  }
+
+  Future<List<SolicitudesComisionMensual>> obtenerSolicitudesPorComisionMensual(
+    Session session, {
+    required int numeroDeMes,
+    required int numeroDeAnio,
+  }) async {
+    final solicitudesMensuales = await obtenerSolicitudesNotaMensual(session);
+
+    final comisiones = solicitudesMensuales
+        .map((e) => e.comision != null ? e.comision! : throw Exception())
+        .toSet()
+        .toList();
+
+    final solicitudesComisionMensual = comisiones.map((comision) {
+      final solicitudes = solicitudesMensuales
+          .where((solicitud) => solicitud.comisionId == comision.id)
+          .toList();
+
+      return SolicitudesComisionMensual(
+        comision: comision,
+        solicitudes: solicitudes,
+      );
+    }).toList();
+
+    return solicitudesComisionMensual;
   }
 }

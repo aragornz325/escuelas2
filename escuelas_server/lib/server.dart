@@ -43,6 +43,7 @@ void run(List<String> args) async {
   );
   pod.webServer.addRoute(auth.RouteGoogleSignIn(), '/googlesignin');
 
+  // TODO(anyone): Obtener esta data de las configs (Las que estan aca son las de dev)
   final rolePermissions = Rolemissions(
     persistanceDelegate: PostgresStrategy(
       host: 'db.mvdsvzvejhmrnxgdfdwz.supabase.co',

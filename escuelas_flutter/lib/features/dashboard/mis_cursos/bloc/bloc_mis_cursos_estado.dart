@@ -7,22 +7,17 @@ class BlocMisCursosEstado {
   /// {@macro BlocMisCursosEstado}
   const BlocMisCursosEstado._({
     this.comisiones = const [],
-    this.usuario,
   });
 
   BlocMisCursosEstado.desde(
     BlocMisCursosEstado otro, {
     List<ComisionOverview>? comisiones,
-    Usuario? usuario,
   }) : this._(
           comisiones: comisiones ?? otro.comisiones,
-          usuario: usuario ?? otro.usuario,
         );
 
   /// Cursos del usuario.
   final List<ComisionOverview> comisiones;
-
-  final Usuario? usuario;
 }
 
 /// {@template BlocMisCursosEstadoInicial}
@@ -49,7 +44,6 @@ class BlocMisCursosEstadoExitoso extends BlocMisCursosEstado {
   BlocMisCursosEstadoExitoso.desde(
     super.otro, {
     super.comisiones,
-    super.usuario,
   }) : super.desde();
 }
 

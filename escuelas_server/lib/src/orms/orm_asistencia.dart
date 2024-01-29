@@ -1,3 +1,4 @@
+import 'package:escuelas_server/src/extensiones/expresiones_en_columnas.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
@@ -20,27 +21,53 @@ class OrmAsistencia extends ORM {
       asistencias,
     );
 
+    // TODO(anyone):
+    // Mejorar esto, se hizo para no perder las relaciones que
+    // tiene la lista de asistencias que necesita el front
+    final respuesta = await AsistenciaDiaria.db.find(
+      session,
+      where: (t) => t.id.contains(
+        asistenciasADb.map((e) => e.id!).toList(),
+        AsistenciaDiaria.t.tableName,
+      ),
+      include: AsistenciaDiaria.include(estudiante: Usuario.include()),
+    );
+
     if (asistenciasADb.length != asistencias.length) {
       throw Exception('No se pudieron crear todas las asistencias');
     }
 
-    return asistenciasADb;
+    return respuesta;
   }
 
   /// La función `actualizarAsistenciasEnLote` actualiza múltiples registros de asistencia diaria en una base de
   /// datos y devuelve un mensaje de éxito si todos los registros se actualizaron exitosamente.
-  Future<String> actualizarAsistenciasEnLote(
+  Future<List<AsistenciaDiaria>> actualizarAsistenciasEnLote(
     Session session, {
     required List<AsistenciaDiaria> asistencias,
   }) async {
-    final asistenciasADb =
-        await AsistenciaDiaria.db.update(session, asistencias);
+    final asistenciasADb = await AsistenciaDiaria.db.update(
+      session,
+      asistencias,
+    );
+
+    // TODO(anyone):
+    // Mejorar esto, se hizo para no perder las relaciones que
+    // tiene la lista de asistencias que necesita el front
+    final respuesta = await AsistenciaDiaria.db.find(
+      session,
+      where: (t) => t.id.contains(
+        asistenciasADb.map((e) => e.id!).toList(),
+        AsistenciaDiaria.t.tableName,
+      ),
+      include: AsistenciaDiaria.include(estudiante: Usuario.include()),
+    );
 
     if (asistenciasADb.length != asistencias.length) {
       throw Exception('No se pudieron actualizar todas las asistencias');
     }
 
-    return 'Asistencias actualizadas correctamente';
+    return respuesta;
   }
 
   /// la funcion "traerAsistenciaPorDia" trae la asistencia de un dia en particular

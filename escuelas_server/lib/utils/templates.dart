@@ -185,7 +185,7 @@ class Plantillas {
 															<td class="pad" style="padding-left:30px;padding-right:30px;padding-top:10px;">
 																<div style="font-family: 'Trebuchet MS', Tahoma, sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Montserrat', 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #555555; line-height: 1.2;">
-																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;"><strong><span style="font-size:46px;">Hola, <span style="color:#3d3bee;font-size:46px;">${nombre} ${apellido}</span>!</span></strong></p>
+																		<p style="margin: 0; font-size: 14px; text-align: center; mso-line-height-alt: 16.8px;"><strong><span style="font-size:46px;">Hola, <span style="color:#3d3bee;font-size:46px;">$nombre $apellido</span>!</span></strong></p>
 																	</div>
 																</div>
 															</td>
@@ -197,8 +197,8 @@ class Plantillas {
 																<div style="font-family: sans-serif">
 																	<div class style="font-size: 12px; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; mso-line-height-alt: 18px; color: #555555; line-height: 1.5;">
 																		<p style="margin: 0; font-size: 12px; text-align: center; mso-line-height-alt: 18px;"><strong><span style="font-size:20px;">tienes un nuevo pedido de calificaciones</span></strong></p>
-																		<p style="margin: 0; font-size: 12px; text-align: center; mso-line-height-alt: 18px;"><strong><span style="font-size:20px;">para la materia: ${nombreMateria}</span></strong></p>
-																		<p style="margin: 0; font-size: 12px; text-align: center; mso-line-height-alt: 18px;"><strong><span style="font-size:20px;">del curso: ${nombreDeLaComision}</span></strong></p>
+																		<p style="margin: 0; font-size: 12px; text-align: center; mso-line-height-alt: 18px;"><strong><span style="font-size:20px;">para la materia: $nombreMateria</span></strong></p>
+																		<p style="margin: 0; font-size: 12px; text-align: center; mso-line-height-alt: 18px;"><strong><span style="font-size:20px;">del curso: $nombreDeLaComision</span></strong></p>
 																	</div>
 																</div>
 															</td>

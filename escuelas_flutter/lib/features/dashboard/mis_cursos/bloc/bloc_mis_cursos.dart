@@ -23,19 +23,16 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
     emit(BlocMisCursosEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final usuario = await client.usuario.obtenerDatosDelUsuario();
-
         final comisiones = await client.calificacion
             .obtenerInformacionDeVistaGeneralDeComisiones(
           numeroDeMes: DateTime.now().month,
-          idUsuario: usuario.id ?? 0,
+          idUsuario: event.usuarioId,
         );
 
         emit(
           BlocMisCursosEstadoExitoso.desde(
             state,
             comisiones: comisiones,
-            usuario: usuario,
           ),
         );
       },
@@ -56,7 +53,7 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
         final comisiones = await client.calificacion
             .obtenerInformacionDeVistaGeneralDeComisiones(
           numeroDeMes: event.periodoSeleccionada.month,
-          idUsuario: state.usuario?.id ?? 0,
+          idUsuario: event.usuarioId,
         );
 
         emit(

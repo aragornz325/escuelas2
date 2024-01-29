@@ -17,15 +17,19 @@ class BlocCargaCalificacionesEventoInicializar
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoInicializar}
   const BlocCargaCalificacionesEventoInicializar({
-    required this.idCurso,
+    required this.idComision,
     required this.fecha,
+    required this.idAsignatura,
   });
 
   /// Fecha utilizada para iniciar la pantalla de carga de calificaciones
   final DateTime fecha;
 
+  /// Id de la comision.
+  final int idComision;
+
   /// Id de la asignatura.
-  final int idCurso;
+  final int idAsignatura;
 }
 
 /// {@template BlocCargaCalificacionesEventoFiltrarListaPorFecha}
@@ -94,4 +98,19 @@ class BlocCargaCalificacionesEventoGuardarFecha
 
   /// Fecha actual del calendario
   final DateTime fecha;
+}
+
+/// {@template BlocCargaCalificacionesEventoAgregarCalificacion}
+/// Evento para agregar una calificación a un alumno
+/// {@endtemplate}
+class BlocCargaCalificacionesEventoAgregarCalificacion
+    extends BlocCargaCalificacionesEvento {
+  /// {@macro BlocCargaCalificacionesEventoAgregarCalificacion}
+  const BlocCargaCalificacionesEventoAgregarCalificacion({
+    required this.calificacion,
+    required this.idAlumno,
+  });
+
+  final String calificacion;
+  final int idAlumno;
 }

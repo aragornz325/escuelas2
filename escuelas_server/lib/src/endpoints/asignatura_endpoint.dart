@@ -11,7 +11,6 @@ class AsignaturaEndpoint extends Endpoint with Controller {
   @override
   bool get requireLogin => false;
 
-  /// La función `otenerAsignaturaPorId` recupera un objeto `Asignatura` por su ID usando una `Session`
   Future<Asignatura> obtenerAsignaturaPorId(
     Session session, {
     required int id,

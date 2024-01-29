@@ -7,37 +7,31 @@ part of 'bloc_carga_calificaciones.dart';
 class BlocCargaCalificacionesEstado {
   /// {@macro BlocCargaCalificacionesEstado}
   const BlocCargaCalificacionesEstado._({
-    this.rolDelUsuario,
-    this.curso,
+    this.comision,
+    this.calificacionesMensuales,
     this.fecha,
-    this.listaCalificacionesCompensadas = const [],
     this.listaCalificaciones = const [],
     this.asignatura,
   });
 
   BlocCargaCalificacionesEstado.desde(
     BlocCargaCalificacionesEstado otro, {
-    ComisionDeCurso? curso,
-    Role? rolDelUsuario,
+    CalificacionesMensuales? calificacionesMensuales,
+    ComisionDeCurso? comision,
     Asignatura? asignatura,
-    List<Calificacion>? listaCalificacionesCompensadas,
     DateTime? fecha,
-    List<Calificacion>? listaCalificaciones,
+    List<CalificacionDeAlumno>? listaCalificaciones,
   }) : this._(
           fecha: fecha ?? otro.fecha,
-          curso: curso ?? otro.curso,
-          rolDelUsuario: rolDelUsuario ?? otro.rolDelUsuario,
-          listaCalificacionesCompensadas: listaCalificacionesCompensadas ??
-              otro.listaCalificacionesCompensadas,
+          comision: comision ?? otro.comision,
           listaCalificaciones: listaCalificaciones ?? otro.listaCalificaciones,
           asignatura: asignatura ?? otro.asignatura,
+          calificacionesMensuales:
+              calificacionesMensuales ?? otro.calificacionesMensuales,
         );
 
-  /// Curso con los alumnos.
-  final ComisionDeCurso? curso;
-
-  /// Rol del usuario
-  final Role? rolDelUsuario;
+  /// Comision con los alumnos.
+  final ComisionDeCurso? comision;
 
   /// Asignatura del usuario
   final Asignatura? asignatura;
@@ -45,9 +39,11 @@ class BlocCargaCalificacionesEstado {
   /// Periodo actual del calendaio
   final DateTime? fecha;
 
-  final List<Calificacion> listaCalificacionesCompensadas;
+  /// Contiene una lista de calificaciones mensuales y
+  /// la solicitud de envio de notas si fue aprobada o no por el admin.
+  final CalificacionesMensuales? calificacionesMensuales;
 
-  final List<Calificacion> listaCalificaciones;
+  final List<CalificacionDeAlumno> listaCalificaciones;
 
   /// Indica si el estado es
   /// [BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones]
@@ -59,15 +55,15 @@ class BlocCargaCalificacionesEstado {
   bool get exitoAlEnviarCalificaciones =>
       this is BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente;
 
-  /// lista de estudiantes de un curso
-  List<RelacionComisionUsuario> get estudiantes => curso?.estudiantes ?? [];
+  /// lista de estudiantes de una comision
+  List<RelacionComisionUsuario> get estudiantes => comision?.estudiantes ?? [];
 
   List<Object?> get props => [
-        curso,
+        comision,
         fecha,
-        rolDelUsuario,
         listaCalificaciones,
-        listaCalificacionesCompensadas,
+        calificacionesMensuales,
+        asignatura,
       ];
 }
 
@@ -99,12 +95,11 @@ class BlocCargaCalificacionesEstadoExitoso
   /// {@macro BlocCargaCalificacionesEstadoExitoso}
   BlocCargaCalificacionesEstadoExitoso.desde(
     super.otro, {
-    super.curso,
+    super.comision,
     super.fecha,
     super.asignatura,
-    super.rolDelUsuario,
+    super.calificacionesMensuales,
     super.listaCalificaciones,
-    super.listaCalificacionesCompensadas,
   }) : super.desde();
 }
 
@@ -141,4 +136,17 @@ class BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones
   /// {@macro BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones}
   BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones.desde(super.otro)
       : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas}
+/// Sirve para que muestre un popup indicando que las calificaciones fueron
+/// borradas.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas}
+  BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas.desde(
+    super.otro, {
+    super.listaCalificaciones,
+  }) : super.desde();
 }

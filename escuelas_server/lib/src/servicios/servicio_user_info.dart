@@ -1,5 +1,3 @@
-import 'package:escuelas_server/src/generated/protocol.dart';
-
 import 'package:escuelas_server/src/orms/orm_userInfo.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
@@ -17,15 +15,16 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
   /// que desea recuperar.
   /// Returns:
   ///  a `Futuro<UserInfo>`.
-  
+
   Future<UserInfo> traerInformacionDeUsuario(
     Session session, {
     required int idUserInfo,
   }) async {
-    final userInfo = await ejecutarOperacion(() => orm.traerInformacionDeUsuario(
-          session,
-          idUserInfo: idUserInfo,
-        ));
+    final userInfo =
+        await ejecutarOperacion(() => orm.traerInformacionDeUsuario(
+              session,
+              idUserInfo: idUserInfo,
+            ));
     return userInfo;
   }
 }

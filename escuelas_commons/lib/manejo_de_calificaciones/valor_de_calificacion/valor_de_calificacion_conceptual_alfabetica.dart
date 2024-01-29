@@ -2,7 +2,7 @@
 
 enum ValorDeCalificacionConceptualAlfabetica {
   aMas('A+'),
-  a('A'),
+  a('A'), // TODO(ANYONE): Agregar a-, f+?
   bMas('B+'),
   b('B'),
   bMenos('B-'),

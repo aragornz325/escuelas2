@@ -13,19 +13,13 @@ class DialogNotasEnviadasCorrectamente extends StatelessWidget {
   /// {@macro DialogNotasEnviadasCorrectamente}
   const DialogNotasEnviadasCorrectamente({super.key});
 
-  // TODO(anyone): charlar con todos para ponerse de acuerdo en usar los .show()
-  Future<void> show(BuildContext context) => showDialog(
-        context: context,
-        builder: (_) => this,
-      );
-
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
     final l10n = context.l10n;
 
     return EscuelasDialog.exitoso(
-      altura: 80.ph,
       context: context,
       onTap: () => Navigator.pop(context),
       content: Text(

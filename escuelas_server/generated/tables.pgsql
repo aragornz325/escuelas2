@@ -136,8 +136,8 @@ CREATE TABLE "cursos" (
   "nombre" text NOT NULL,
   "asignaturas" json,
   "comisiones" json,
-  "ultimaModificacion" timestamp without time zone NOT NULL,
-  "fechaCreacion" timestamp without time zone NOT NULL,
+  "ultimaModificacion" timestamp without time zone,
+  "fechaCreacion" timestamp without time zone,
   "fechaEliminacion" timestamp without time zone
 );
 
@@ -151,6 +151,7 @@ ALTER TABLE ONLY "cursos"
 
 CREATE TABLE "direcciones_de_email" (
   "id" serial,
+  "idUsuario" integer NOT NULL,
   "direccionDeEmail" text NOT NULL,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
@@ -440,22 +441,20 @@ ALTER TABLE ONLY "solicitudes"
 
 
 --
--- Class SolicitudNotaMensual as table solicitudes_notas_mensuales
+-- Class SolicitudCalificacionMensual as table solicitudes_calificaciones_mensuales
 --
 
-CREATE TABLE "solicitudes_notas_mensuales" (
+CREATE TABLE "solicitudes_calificaciones_mensuales" (
   "id" serial,
-  "idSolicitud" integer NOT NULL,
   "solicitud" json,
-  "idComision" integer NOT NULL,
+  "comision" json,
   "idAsignatura" integer NOT NULL,
   "numeroDeMes" integer NOT NULL,
   "calificaciones" json
 );
 
-ALTER TABLE ONLY "solicitudes_notas_mensuales"
-  ADD CONSTRAINT solicitudes_notas_mensuales_pkey PRIMARY KEY (id);
-
+ALTER TABLE ONLY "solicitudes_calificaciones_mensuales"
+  ADD CONSTRAINT solicitudes_calificaciones_mensuales_pkey PRIMARY KEY (id);
 
 
 --

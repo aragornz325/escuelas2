@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/inasistencias/modelos/comision_con_asistencias.dart';
 import 'package:flutter/material.dart';
 
 part 'bloc_inasistencias_evento.dart';
@@ -14,11 +15,8 @@ class BlocInasistencias
   /// {@macro BlocInasistencias}
   BlocInasistencias() : super(const BlocInasistenciasEstadoInicial()) {
     on<BlocInasistenciasEventoInicializar>(_onInicializar);
-    on<BlocAsistenciaEventoCambiarInasistenciaEstudiante>(
-      _onCambiarInasistenciaEstudiante,
-    );
-
-    on<BlocInasistenciasEventoFinalizarInasistencias>(_onFinalizarAsistencia);
+    on<BlocInasistenciasEventoCrearInasistencias>(_onCrearInasistencias);
+    on<BlocInasistenciasEventoEditarInasistencias>(_onEditarInasistencias);
   }
 
   /// Al inicializar trae los cursos para tomar inasistencias.
@@ -27,14 +25,9 @@ class BlocInasistencias
     Emitter<BlocInasistenciasEstado> emit,
   ) async {
     emit(BlocInasistenciasEstadoCargando.desde(state));
+
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): Obtener el rol de usuario y que dependa de eso para
-        // manejar las pantalla y permisos
-        // final obtenerRol = await client.rol.obtenerRolPorId(
-        //   id: sessionManager.signedInUser?.id ?? 0,
-        // );
-
         final comisiones = await client.comision.obtenerComisiones();
 
         final inasistencias = await client.asistencia.traerAsistenciaPorDia(
@@ -51,15 +44,13 @@ class BlocInasistencias
           return emit(
             BlocInasistenciasEstadoExitoso.desde(
               state,
-              comisiones: comisiones,
               fechaActual: event.fecha,
-              inasistencias: listaDeInasistencias,
-              todasInasistencias: inasistencias,
+              comisionesConAsistencias: listaDeInasistencias,
             ),
           );
         }
 
-        final listasDeAsistencia = <List<AsistenciaDiaria>>[];
+        final comisionesConAsistencias = <ComisionConAsistencias>[];
 
         for (final comision in comisiones) {
           final listaAsistenciaDiaria = comision.estudiantes?.map(
@@ -70,21 +61,24 @@ class BlocInasistencias
                 comisionId: comision.id ?? 0,
                 comision: comision,
                 estadoDeAsistencia: EstadoDeAsistencia.sinEstado,
-                fecha: state.fechaActual ?? DateTime.now(),
+                fecha: event.fecha,
               );
             },
           ).toList();
 
-          listasDeAsistencia.add(listaAsistenciaDiaria!);
+          comisionesConAsistencias.add(
+            ComisionConAsistencias(
+              comisionDeCurso: comision,
+              inasistenciasDelCurso: listaAsistenciaDiaria ?? [],
+            ),
+          );
         }
 
         emit(
           BlocInasistenciasEstadoExitoso.desde(
             state,
-            comisiones: comisiones,
             fechaActual: event.fecha,
-            inasistencias: listasDeAsistencia,
-            todasInasistencias: inasistencias,
+            comisionesConAsistencias: comisionesConAsistencias,
           ),
         );
       },
@@ -94,68 +88,51 @@ class BlocInasistencias
 
   /// Cuando se pasa inasistencia en dicho curso cambia el estado si se paso
   /// asistencia
-  Future<void> _onFinalizarAsistencia(
-    BlocInasistenciasEventoFinalizarInasistencias event,
+  Future<void> _onCrearInasistencias(
+    BlocInasistenciasEventoCrearInasistencias event,
     Emitter<BlocInasistenciasEstado> emit,
   ) async {
     emit(BlocInasistenciasEstadoCargando.desde(state));
+
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): hacer una validacion que dependa del rol pueda o no
-        // actualizar la lista
-        final asistenciasDiarias = List<AsistenciaDiaria>.from(
-          state.asistenciaAModificar,
-        );
-
-        final listaAModificar = <AsistenciaDiaria>[];
-        final listaACrear = <AsistenciaDiaria>[];
-
-        _agregaListaInasistencia(
-          asistenciasDiarias,
-          listaAModificar,
-          listaACrear,
-        );
-
-        if (listaAModificar.isNotEmpty) {
-          await client.asistencia
-              .actualizarAsistenciasEnLote(asistencias: listaAModificar);
-        }
-        if (listaACrear.isNotEmpty) {
-          final nuevasInasistencias = await client.asistencia
-              .crearAsistenciasEnLote(asistencias: asistenciasDiarias);
-          for (final asistencia
-              in state.inasistencias.expand((element) => element).toList()) {
-            final inasistencia = nuevasInasistencias.firstWhere(
-              (inasistencia) =>
-                  inasistencia.estudiante?.id == asistencia.estudiante?.id,
-            );
-            asistencia.id = inasistencia.id;
-          }
+        if (event.inasistencias.isEmpty) {
+          return emit(BlocInasistenciasEstadoExitoso.desde(state));
         }
 
-        for (final asistencia
-            in state.inasistencias.expand((element) => element).toList()) {
-          asistencia.ultimaModificacion = state.fechaActual;
-        }
-
-        for (final asistencia in asistenciasDiarias) {
-          asistencia.ultimaModificacion = state.fechaActual;
-        }
-
-        final comisiones = List<ComisionDeCurso>.from(state.comisiones);
-
-        comisiones
-            .firstWhere(
-              (comision) => comision.curso?.id == event.idCurso,
+        // Elimina las entidades porque serverpod no soporta la
+        // serialización de entidades con relaciones
+        final inasistencias = event.inasistencias
+            .map(
+              (e) => e
+                ..comision = null
+                ..estudiante = null,
             )
-            .ultimaModificacion = state.fechaActual ?? DateTime.now();
+            .toList();
 
-        emit(
-          BlocInasistenciasEstadoExitosoEnvioDeInasistencias.desde(
+        final asistenciasCreadas =
+            await client.asistencia.crearAsistenciasEnLote(
+          asistencias: inasistencias,
+        );
+
+        final comisionesConAsistencias = List<ComisionConAsistencias>.from(
+          state.comisionesConAsistencias.map(
+            (comisionConAsistencias) {
+              return comisionConAsistencias.comisionDeCurso.id ==
+                      event.idComision
+                  ? ComisionConAsistencias(
+                      comisionDeCurso: comisionConAsistencias.comisionDeCurso,
+                      inasistenciasDelCurso: asistenciasCreadas,
+                    )
+                  : comisionConAsistencias;
+            },
+          ),
+        );
+
+        return emit(
+          BlocInasistenciasEstadoExitoso.desde(
             state,
-            comisiones: comisiones,
-            inasistencias: state.inasistencias,
-            asistenciaAModificar: asistenciasDiarias,
+            comisionesConAsistencias: comisionesConAsistencias,
           ),
         );
       },
@@ -163,100 +140,65 @@ class BlocInasistencias
     );
   }
 
-  /// Cambia la inasistencia de un estudiante
-  void _onCambiarInasistenciaEstudiante(
-    BlocAsistenciaEventoCambiarInasistenciaEstudiante event,
+  Future<void> _onEditarInasistencias(
+    BlocInasistenciasEventoEditarInasistencias event,
     Emitter<BlocInasistenciasEstado> emit,
-  ) {
-    final comisiones = List<ComisionDeCurso>.from(state.comisiones);
-    final asistenciasAModificar =
-        List<AsistenciaDiaria>.from(state.asistenciaAModificar);
+  ) async {
+    emit(BlocInasistenciasEstadoCargando.desde(state));
 
-    //actualiza el estado de un estudiante de un curso
-    final asistencias = state.inasistencias
-        .expand(
-          (lista) => lista.where(
-            (asistenciaDiaria) =>
-                asistenciaDiaria.comision?.id == event.idCurso,
+    await operacionBloc(
+      callback: (client) async {
+        if (event.inasistencias.isEmpty) {
+          return emit(BlocInasistenciasEstadoExitoso.desde(state));
+        }
+
+        // Elimina las entidades porque serverpod no soporta la
+        // serialización de entidades con relaciones
+        final inasistenciasActualizadas = event.inasistencias
+            .map(
+              (e) => e
+                ..comision = null
+                ..estudiante = null,
+            )
+            .toList();
+
+        final asistencias = await client.asistencia.actualizarAsistenciasEnLote(
+          asistencias: inasistenciasActualizadas,
+        );
+
+        final comisionesConAsistencias = List<ComisionConAsistencias>.from(
+          state.comisionesConAsistencias.map(
+            (e) {
+              return e.comisionDeCurso.id == event.idComision
+                  ? ComisionConAsistencias(
+                      comisionDeCurso: e.comisionDeCurso,
+                      inasistenciasDelCurso: asistencias,
+                    )
+                  : e;
+            },
           ),
-        )
-        .toList();
-    asistencias
-        .firstWhere(
-          (asistencia) => asistencia.estudiante?.id == event.idEstudiante,
-        )
-        .estadoDeAsistencia = event.estadoInasistencia.cambiarEstado();
+        );
 
-    if (event.estadoInasistencia.existeMismoEstudiante(
-      asistenciasAModificar,
-      event.idEstudiante,
-    )) {
-      // si ya existe en la lista modifica el estado
-      asistenciasAModificar
-          .firstWhere(
-            (asistencia) => asistencia.estudiante?.id == event.idEstudiante,
-          )
-          .estadoDeAsistencia = event.estadoInasistencia.cambiarEstado();
-    } else {
-      // agrega la inasistencia a una lista a crear
-      asistenciasAModificar.add(
-        asistencias.firstWhere(
-          (asistencia) => asistencia.estudiante?.id == event.idEstudiante,
-        ),
-      );
-    }
-
-    emit(
-      BlocInasistenciasEstadoExitoso.desde(
-        state,
-        comisiones: comisiones,
-        inasistencias: state.inasistencias,
-        asistenciaAModificar: asistenciasAModificar,
-      ),
+        return emit(
+          BlocInasistenciasEstadoExitoso.desde(
+            state,
+            comisionesConAsistencias: comisionesConAsistencias,
+          ),
+        );
+      },
+      onError: (e, st) => emit(BlocInasistenciasEstadoFallido.desde(state)),
     );
-  }
-
-  /// agrega un estudiante a una lista de inasistencia
-  ///
-  /// si ya existe la inasistencia la agrega a una lista a modificar
-  /// si no existe la inasistencia la agrega a una lista a crear
-  void _agregaListaInasistencia(
-    List<AsistenciaDiaria> asistenciasDiarias,
-    List<AsistenciaDiaria> listaAModificar,
-    List<AsistenciaDiaria> listaACrear,
-  ) {
-    for (final estudiante in asistenciasDiarias) {
-      final existeAsistencia = estudiante.estadoDeAsistencia.existeInasistencia(
-        asistenciasDiarias: asistenciasDiarias,
-        idEstudiante: estudiante.estudiante?.id ?? 0,
-        fecha: state.fechaActual ?? DateTime.now(),
-      );
-
-      // Verificar si ya existe una asistencia exactamente igual
-      final tieneLaMismaAsistencia =
-          estudiante.estadoDeAsistencia.tieneLaMismaInasistencia(
-        asistenciasDiarias: asistenciasDiarias,
-        idEstudiante: estudiante.estudiante?.id ?? 0,
-        fecha: state.fechaActual ?? DateTime.now(),
-        estado: estudiante.estadoDeAsistencia,
-      );
-      if (existeAsistencia && tieneLaMismaAsistencia) {
-        listaAModificar.add(estudiante);
-      } else if (!existeAsistencia) {
-        listaACrear.add(estudiante);
-      }
-    }
   }
 }
 
 /// Obtiene las inasistencias de cada comision para la fecha dada
-List<List<AsistenciaDiaria>> _obtenerInasistenciasPorComision(
+List<ComisionConAsistencias> _obtenerInasistenciasPorComision(
   List<ComisionDeCurso> comisiones,
   List<AsistenciaDiaria> inasistencias,
   DateTime fecha,
 ) {
   // Crear una lista para almacenar las asistencias por comisión
-  final asistenciasPorComision = <List<AsistenciaDiaria>>[];
+  final asistenciasPorComision = <ComisionConAsistencias>[];
 
   // Iterar a través de cada comisión
   for (final comision in comisiones) {
@@ -291,7 +233,12 @@ List<List<AsistenciaDiaria>> _obtenerInasistenciasPorComision(
       }
 
       // Agregar las asistencias a la lista
-      asistenciasPorComision.add(asistenciasComision);
+      asistenciasPorComision.add(
+        ComisionConAsistencias(
+          comisionDeCurso: comision,
+          inasistenciasDelCurso: asistenciasComision,
+        ),
+      );
     }
   }
 

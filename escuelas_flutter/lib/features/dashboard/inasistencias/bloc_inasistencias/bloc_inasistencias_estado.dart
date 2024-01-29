@@ -7,59 +7,28 @@ part of 'bloc_inasistencias.dart';
 class BlocInasistenciasEstado {
   /// {@macro BlocInasistenciasEstado}
   const BlocInasistenciasEstado._({
-    this.asistenciaAModificar = const [],
-    this.todasInasistencias = const [],
-    this.inasistencias = const [],
-    this.comisiones = const [],
+    this.comisionesConAsistencias = const [],
     this.fechaActual,
   });
 
   BlocInasistenciasEstado.desde(
     BlocInasistenciasEstado otro, {
-    List<ComisionDeCurso>? comisiones,
     DateTime? fechaActual,
-    List<List<AsistenciaDiaria>>? inasistencias,
-    List<AsistenciaDiaria>? asistenciaAModificar,
-    List<AsistenciaDiaria>? todasInasistencias,
+    List<ComisionConAsistencias>? comisionesConAsistencias,
   }) : this._(
-          comisiones: comisiones ?? otro.comisiones,
-          asistenciaAModificar:
-              asistenciaAModificar ?? otro.asistenciaAModificar,
-          inasistencias: inasistencias ?? otro.inasistencias,
+          comisionesConAsistencias:
+              comisionesConAsistencias ?? otro.comisionesConAsistencias,
           fechaActual: fechaActual ?? otro.fechaActual,
-          todasInasistencias: todasInasistencias ?? otro.todasInasistencias,
         );
-
-  /// Lista de las comisiones de los cursos
-  final List<ComisionDeCurso> comisiones;
-
-  /// Lista de estados de inasistencias de los alumnos
-  final List<List<AsistenciaDiaria>> inasistencias;
 
   /// Fecha en la que se finalizaron las inasistencias
   final DateTime? fechaActual;
 
-  /// Lista de todas las inasistencias
-  final List<AsistenciaDiaria> todasInasistencias;
-
-  /// Lista de alumnos con sus inasistencias a modificar.
-  final List<AsistenciaDiaria> asistenciaAModificar;
-
-  /// Getter para saber la lista de alumnos con sus inasistencias
-  List<AsistenciaDiaria> asistenciasDiarias(int idCurso) => inasistencias
-      .expand(
-        (lista) => lista.where(
-          (asistenciaDiaria) => asistenciaDiaria.comision?.id == idCurso,
-        ),
-      )
-      .toList();
+  final List<ComisionConAsistencias> comisionesConAsistencias;
 
   List<Object?> get props => [
-        comisiones,
         fechaActual,
-        inasistencias,
-        todasInasistencias,
-        asistenciaAModificar,
+        comisionesConAsistencias,
       ];
 }
 
@@ -86,11 +55,8 @@ class BlocInasistenciasEstadoExitoso extends BlocInasistenciasEstado {
   /// {@macro BlocInasistenciasEstadoExitoso}
   BlocInasistenciasEstadoExitoso.desde(
     super.otro, {
-    required super.comisiones,
-    super.inasistencias,
+    super.comisionesConAsistencias,
     super.fechaActual,
-    super.asistenciaAModificar,
-    super.todasInasistencias,
   }) : super.desde();
 }
 
@@ -102,11 +68,8 @@ class BlocInasistenciasEstadoExitosoEnvioDeInasistencias
   /// {@macro BlocInasistenciasEstadoExitosoEnvioDeInasistencias}
   BlocInasistenciasEstadoExitosoEnvioDeInasistencias.desde(
     super.otro, {
-    required super.comisiones,
-    super.inasistencias,
+    super.comisionesConAsistencias,
     super.fechaActual,
-    super.asistenciaAModificar,
-    super.todasInasistencias,
   }) : super.desde();
 }
 

@@ -10,9 +10,8 @@ extension OrdenarPorX on OrdenarPor {
 
     return switch (this) {
       OrdenarPor.apellido => l10n.commonName,
-      OrdenarPor.curso => l10n.commonCourse,
+      OrdenarPor.curso => l10n.commonComission,
       OrdenarPor.asignatura => l10n.commonSubject,
-      _ => l10n.commonName,
     };
   }
 }
