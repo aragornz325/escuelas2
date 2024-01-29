@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/modelos/modelos.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 
 part 'bloc_carga_calificaciones_estado.dart';
 part 'bloc_carga_calificaciones_evento.dart';
@@ -52,17 +53,34 @@ class BlocCargaCalificaciones
         final comision = await client.comision
             .obtenerComisionesDeCursoPorId(idComision: event.idComision);
 
-        //  confirmo solicitud si esta aprobada y con calificaciones.
-        // si la soli no aprobada o pendiente,
-        // Solicitud null
-        // si fecha realizacion no es nula, ya completo la solicitud
+        final listaCalificacionesMensualesPorEstudiante =
+            state.comision?.estudiantes?.map((e) {
+                  return CalificacionMensual(
+                    calificacion: Calificacion(
+                      idAsignatura: event.idAsignatura,
+                      idComision: event.idComision,
+                      estudianteId: e.id ?? 0,
+                      fechaCreacion: DateTime.now(),
+                      ultimaModificacion: DateTime.now(),
+                      idAutor: sessionManager.signedInUser?.id ?? 0,
+                      idInstanciaDeEvaluacion: 0,
+                      tipoCalificacion: TipoCalificacion.numericoDecimal,
+                      index: 0,
+                      diferencial: '0',
+                    ),
+                    numeroDeMes: event.fecha.month,
+                    calificacionId: 0,
+                  );
+                }).toList() ??
+                [];
+
         emit(
           BlocCargaCalificacionesEstadoExitoso.desde(
             state,
             asignatura: asignatura,
             comision: comision,
             fecha: event.fecha,
-            calificacionesMensuales: calificacionesMensuales,
+            // calificacionesMensuales: ,
           ),
         );
       },
@@ -94,15 +112,13 @@ class BlocCargaCalificaciones
     await operacionBloc(
       callback: (client) async {
         // TODO(SAM): Hacer IF si id solicitd es null no deberia poder ver el BOTON en la UI
-        // TODO(SAM): Front asegurarse de q la lista de calificaciones fueron modificadas por el profesor
-        // TODO(SAM): el valor index etc de CADA UNA.
-        await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
-          calificacionesMensuales:
-              state.calificacionesMensuales?.calificacionesMensuales ?? [],
-          idSolicitud: state
-                  .calificacionesMensuales?.solicitudNotaMensual?.solicitudId ??
-              0,
-        );
+        // await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
+        //   calificacionesMensuales:
+        //       state.calificacionesMensuales?.calificacionesMensualesPorPeriodo ?? [],
+        //   idSolicitud: state
+        //           .calificacionesMensuales?.solicitudNotaMensual?.solicitudId ??
+        //       0,
+        // );
         emit(
           BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
               .desde(state),
