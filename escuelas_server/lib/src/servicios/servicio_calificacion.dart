@@ -1,3 +1,4 @@
+import 'package:escuelas_server/constants/config.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion_mensual.dart';
@@ -164,13 +165,22 @@ WHERE rau."usuarioId" = $idUsuario
     required int idAsignatura,
     required int idComision,
   }) async {
-    List<CalificacionMensual> calificacionesMensuales =
-        await obtenerCalificacionesMensuales(
-      session,
-      idAsignatura: idAsignatura,
-      idComision: idComision,
-      numeroDeMes: numeroDeMes,
+    final mesesDePeriodo = config.obtenerListaDeMesesPorPeriodo(
+      DateTime(numeroDeAnio, numeroDeMes),
     );
+
+    final calificacionesMensualesPorPeriodo = <List<CalificacionMensual>>[];
+    for (var mes in mesesDePeriodo) {
+      List<CalificacionMensual> calificacionesMensuales =
+          await obtenerCalificacionesMensuales(
+        session,
+        idAsignatura: idAsignatura,
+        idComision: idComision,
+        numeroDeMes: mes,
+      );
+
+      calificacionesMensualesPorPeriodo.add(calificacionesMensuales);
+    }
 
     final solicitudesNotaMensual = await ejecutarOperacion(
       () =>
@@ -182,43 +192,8 @@ WHERE rau."usuarioId" = $idUsuario
       ),
     );
 
-    // TODO(anyone):
-    // Analizar si es lo mejor esto de mandar las calificaciones
-    // vacias en caso de una instancia en la que se haya hecho una solicitud
-    // pero no se hayan creado las calificaciones mensuales
-    if (solicitudesNotaMensual.isNotEmpty && calificacionesMensuales.isEmpty) {
-      final estudiantes = await ejecutarOperacion(
-        () => _servicioUsuario.obtenerListaDeEstudiantesDeComision(
-          session,
-          idComision: idComision,
-        ),
-      );
-
-      final idAutor = await obtenerIdDeUsuarioLogueado(session);
-
-      // Creamos una calificacion mensual vacia para cada estudiante
-      calificacionesMensuales = estudiantes.map((e) {
-        return CalificacionMensual(
-          calificacion: Calificacion(
-            idAsignatura: idAsignatura,
-            idComision: idComision,
-            estudianteId: e.id ?? 0,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            idAutor: idAutor,
-            idInstanciaDeEvaluacion: 0,
-            tipoCalificacion: TipoCalificacion.numericoDecimal,
-            index: 0,
-            diferencial: '0',
-          ),
-          numeroDeMes: numeroDeMes,
-          calificacionId: 0,
-        );
-      }).toList();
-    }
-
     final respuesta = CalificacionesMensuales(
-      calificacionesMensuales: calificacionesMensuales,
+      calificacionesMensualesPorPeriodo: calificacionesMensualesPorPeriodo,
       solicitudNotaMensual:
           solicitudesNotaMensual.isEmpty ? null : solicitudesNotaMensual.first,
     );
