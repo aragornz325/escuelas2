@@ -23,7 +23,8 @@ sealed class ConfigsDeInstancia {
 
     final periodoActual = periodos.firstWhere(
       (periodo) =>
-          fecha.isAfter(periodo.fechaInicio) &&
+          (fecha.isAfter(periodo.fechaInicio) ||
+              fecha.isAtSameMomentAs(fecha)) &&
           fecha.isBefore(periodo.fechaFin),
       orElse: () => throw Exception('No se encontro el periodo'),
     );
