@@ -77,19 +77,32 @@ class MenuOpcionesPermisos extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-        if (state is BlocInicioEstadoExitoso && menus.isEmpty) {
-          return Center(
-            child: Text(
-              // TODO(anyone): l10n
-              'No hay menus disponibles',
-              style: TextStyle(
-                color: colores.onBackground,
-                fontWeight: FontWeight.w600,
-                fontSize: 14.pf,
-              ),
-            ),
-          );
-        }
+            if (state is BlocInicioEstadoExitoso && menus.isEmpty) {
+              return Center(
+                child: Text(
+                  // TODO(anyone): l10n
+                  'No hay menus disponibles',
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.pf,
+                  ),
+                ),
+              );
+            }
+            if (state is BlocInicioEstadoExitoso && menus.isEmpty) {
+              return Center(
+                child: Text(
+                  // TODO(anyone): l10n
+                  'No hay menus disponibles',
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.pf,
+                  ),
+                ),
+              );
+            }
             return Column(
               children: menus
                   .map(
@@ -98,8 +111,9 @@ class MenuOpcionesPermisos extends StatelessWidget {
                           .copyWith(bottom: 15.ph),
                       child: ElementoLista.menu(
                         widgetLateralDerecho: menu.name ==
-                                    MenuOpcionesDeInicio.usuariosPendientes.name &&
-                            state.hayUsuariosPendientes
+                                    MenuOpcionesDeInicio
+                                        .usuariosPendientes.name &&
+                                state.hayUsuariosPendientes
                             ? Padding(
                                 padding: EdgeInsets.only(right: 20.pw),
                                 child: Icon(
@@ -117,7 +131,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
                   )
                   .toList(),
             );
-              },
+          },
         ),
         GestureDetector(
           // TODO(SAM): eLIMINAR LUEGO

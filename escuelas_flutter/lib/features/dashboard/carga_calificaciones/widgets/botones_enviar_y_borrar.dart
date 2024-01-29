@@ -28,8 +28,7 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
               context: context,
               // TODO(anyone): reemplazar por las calificaciones previas ver
               // como vienen las calificaciones previas y mostrarlas
-              estaHabilitado: // TODO(anyone): reemplazar por nulleable
-                  state.listaCalificaciones.any((c) => c.id != 0),
+              estaHabilitado: state.listaCalificaciones.isNotEmpty,
               // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este
               // lo de back
               onTap: () => context.read<BlocCargaCalificaciones>().add(
@@ -41,9 +40,7 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
             EscuelasBoton.texto(
               context: context,
               estaHabilitado:
-
-                  // TODO(anyone): reemplazar por nulleable
-                  state.listaCalificaciones.every((e) => e.id != 0),
+                  state.listaCalificaciones.length == state.estudiantes.length,
               // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este
               // lo de back
               onTap: () => context.read<BlocCargaCalificaciones>().add(
