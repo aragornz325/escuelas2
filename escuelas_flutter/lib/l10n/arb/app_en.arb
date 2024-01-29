@@ -236,6 +236,11 @@
         "description": "There are no users to show text"
     },
 
+    "pageHomeNoOptionsMenu": "No menus available",
+    "@pageHomeNoOptionsMenu": {
+        "description": "There are no options available in the menu"
+    },
+
     "dialogAbsencesSentCorrectly": "absences sent correctly",
     "@dialogAbsencesSentCorrectly": {
         "description": "Text to be displayed in the title of the dialog when absences to sent correctly"

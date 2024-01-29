@@ -187,6 +187,10 @@
         "description": "Text in the dialog to indicate that an error ocurred" 
     },    
 
+   "pageHomeNoOptionsMenu": "No hay menús disponibles",
+    "@pageHomeNoOptionsMenu": {
+        "description": "There are no options available in the menu"
+    },
 
     "pageGradesNotGrades": "No hay calificaciones",
     "@pageGradesNotGrades": {

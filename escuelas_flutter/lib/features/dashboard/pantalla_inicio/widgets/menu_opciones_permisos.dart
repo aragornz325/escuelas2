@@ -62,6 +62,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
     final colores = context.colores;
 
     final menus = _menusPermitidos(context);
+ final l10n = context.l10n;
 
     return Column(
       children: [
@@ -80,8 +81,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
             if (state is BlocInicioEstadoExitoso && menus.isEmpty) {
               return Center(
                 child: Text(
-                  // TODO(anyone): l10n
-                  'No hay menus disponibles',
+                 l10n.pageHomeNoOptionsMenu,
                   style: TextStyle(
                     color: colores.onBackground,
                     fontWeight: FontWeight.w600,
@@ -93,8 +93,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
             if (state is BlocInicioEstadoExitoso && menus.isEmpty) {
               return Center(
                 child: Text(
-                  // TODO(anyone): l10n
-                  'No hay menus disponibles',
+                  l10n.pageHomeNoOptionsMenu,
                   style: TextStyle(
                     color: colores.onBackground,
                     fontWeight: FontWeight.w600,
