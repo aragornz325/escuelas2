@@ -43,11 +43,9 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
             idAsignatura: idAsignatura,
           ),
         ),
-      child: FullResponsiveScreen(
-        celular: VistaCelularCargaDeCalificaciones(
-          fecha: fecha,
-        ),
-        escritorio: const VistaEscritorioCargaDeCalificaciones(),
+      child: const FullResponsiveScreen(
+        celular: VistaCelularCargaDeCalificaciones(),
+        escritorio: VistaEscritorioCargaDeCalificaciones(),
       ),
     );
   }

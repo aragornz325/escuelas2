@@ -21,12 +21,12 @@ abstract class ManejadorDeCalificaciones {
     switch (tipoCalificacion) {
       case TipoCalificacion.numericoDecimal:
         return ValorDeCalificacionNumericaDecimal
-            .values[indexCalificacion].name;
+            .values[indexCalificacion].valor;
       case TipoCalificacion.rite:
         return ValorDeCalificacionConceptualRite.values[indexCalificacion].name;
       case TipoCalificacion.alfabetico:
         return ValorDeCalificacionNumericaDecimal
-            .values[indexCalificacion].name;
+            .values[indexCalificacion].valor;
     }
   }
 }
