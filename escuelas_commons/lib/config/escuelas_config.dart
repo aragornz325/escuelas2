@@ -55,18 +55,23 @@ final class RedemptorisMissioConfigs extends ConfigsDeInstancia {
   @override
   List<Periodo> periodosDelAnioLectivo(int anio) {
     return [
+      // ! TODO(anyone): REMOVER ANTES DE PRODUCCION
+      Periodo(
+        fechaInicio: DateTime(anio),
+        fechaFin: DateTime(anio, 3).subtract(const Duration(days: 1)),
+      ),
       Periodo(
         fechaInicio: DateTime(anio, 3),
-        fechaFin: DateTime(anio, 6).subtract(const Duration(days: 1)),
+        fechaFin: DateTime(anio, 7).subtract(const Duration(days: 1)),
       ),
       Periodo(
-        fechaInicio: DateTime(anio, 6),
-        fechaFin: DateTime(anio, 9).subtract(const Duration(days: 1)),
+        fechaInicio: DateTime(anio, 7),
+        fechaFin: DateTime(anio, 10).subtract(const Duration(days: 1)),
       ),
       Periodo(
-        fechaInicio: DateTime(anio, 9),
-        fechaFin: DateTime(anio, 12).subtract(const Duration(days: 1)),
-      ),
+        fechaInicio: DateTime(anio, 10),
+        fechaFin: DateTime(anio + 1).subtract(const Duration(days: 1)),
+      )
     ];
   }
 }
