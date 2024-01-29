@@ -48,8 +48,10 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
               delegate: PeriodoMensualDelegate(context),
               onSeleccionarPeriodo: (periodo) =>
                   context.read<BlocCargaCalificaciones>().add(
-                        BlocCargaCalificacionesEventoGuardarFecha(
+                        BlocCargaCalificacionesEventoInicializar(
                           fecha: periodo.fechaDesde,
+                          idAsignatura: state.asignatura?.id ?? 0,
+                          idComision: state.comision?.id ?? 0,
                         ),
                       ),
               decoration: BoxDecoration(
@@ -63,7 +65,9 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
               nombreComision: state.comision?.nombre ?? '',
             ),
             ListaTarjetaCargaCalificacion(
-              listaCalificaciones: state.listaCalificaciones,
+              listaCalificacionesMesActual: state.listaCalificacionesMesActual,
+              listaCalificacionesMesesRestantes:
+                  state.listaCalificacionesMesesRestantes,
               listaEstudiantes: state.estudiantes,
             ),
             Padding(

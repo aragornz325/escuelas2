@@ -26,7 +26,8 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
           children: [
             EscuelasBoton.texto(
               context: context,
-              estaHabilitado: state.listaCalificaciones.isNotEmpty,
+              estaHabilitado: state.listaCalificacionesMesActual
+                  .any((element) => element.calificacion?.index != 0),
               onTap: () => context.read<BlocCargaCalificaciones>().add(
                     const BlocCargaCalificacionesEventoVaciarCalificaciones(),
                   ),
@@ -35,8 +36,8 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
             ),
             EscuelasBoton.texto(
               context: context,
-              estaHabilitado:
-                  state.listaCalificaciones.length == state.estudiantes.length,
+              estaHabilitado: state.listaCalificacionesMesActual
+                  .every((element) => element.calificacion?.index != 0),
               onTap: () => context.read<BlocCargaCalificaciones>().add(
                     const BlocCargaCalificacionesEventoEnviarCalificaciones(),
                   ),

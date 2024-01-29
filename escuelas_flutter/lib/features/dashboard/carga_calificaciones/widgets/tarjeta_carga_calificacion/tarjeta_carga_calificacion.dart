@@ -1,14 +1,17 @@
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/tarjeta_carga_calificacion/widgets/widgets.dart';
+import 'package:escuelas_flutter/utilidades/funciones/funciones.dart';
 import 'package:flutter/material.dart';
 
 /// {@template TarjetaCargaCalificacion}
 /// Componente con un sector donde se puede ver el nombre, promedio y texto
 /// valorativo del alumno. Con un boton para agregar/modificar la calificacion
 /// {@endtemplate}
-class TarjetaCargaCalificacion extends StatefulWidget {
+class TarjetaCargaCalificacion extends StatelessWidget {
   /// {@macro TarjetaCargaCalificacion}
   const TarjetaCargaCalificacion({
+    required this.listaCalificacionesMesesRestantes,
     required this.alumno,
     this.esEditable = true,
     this.calificacion,
@@ -24,30 +27,45 @@ class TarjetaCargaCalificacion extends StatefulWidget {
   /// Calificacion del alumno
   final String? calificacion;
 
-  @override
-  State<TarjetaCargaCalificacion> createState() =>
-      _TarjetaCargaCalificacionState();
-}
+  final List<List<CalificacionMensual>> listaCalificacionesMesesRestantes;
 
-class _TarjetaCargaCalificacionState extends State<TarjetaCargaCalificacion> {
   @override
   Widget build(BuildContext context) {
-    final calificacion =
-        widget.calificacion == 'S/C' || widget.calificacion == null
-            ? '0'
-            : widget.calificacion!;
+    final lista = listaCalificacionesMesesRestantes
+        .expand(
+          (listaCalificacionesPorMes) => listaCalificacionesPorMes
+              .where(
+                (calMensual) =>
+                    calMensual.calificacion?.estudianteId == alumno?.id,
+              )
+              .toList(),
+        )
+        .toList();
+
+    final lista2 = lista
+        .map(
+          (e) => ManejadorDeCalificaciones.obtenerValorDeCalificacion(
+            e.calificacion?.tipoCalificacion ??
+                TipoCalificacion.numericoDecimal,
+            e.calificacion?.index ?? 0,
+          ),
+        )
+        .toList()
+      ..add(calificacion ?? 'S/C');
+
+    final lista3 = lista2.map(double.parse).toList();
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InformacionAlumno(
-          calificacion: calificacion,
-          nombreAlumno: widget.alumno?.nombre ?? '',
+          promedio: calcularPromedio(lista3),
+          nombreAlumno: alumno?.nombre ?? '',
         ),
         BotonCargaCalificacion(
-          calificacion: calificacion,
-          esEditable: widget.esEditable,
-          idAlumno: widget.alumno?.id ?? 0,
+          calificacion: calificacion ?? 'S/C',
+          esEditable: esEditable,
+          idAlumno: alumno?.id ?? 0,
         ),
       ],
     );

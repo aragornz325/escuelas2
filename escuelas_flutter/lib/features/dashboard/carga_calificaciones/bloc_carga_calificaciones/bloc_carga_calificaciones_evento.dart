@@ -87,19 +87,6 @@ class BlocCargaCalificacionesEventoEnviarCalificaciones
   const BlocCargaCalificacionesEventoEnviarCalificaciones();
 }
 
-/// {@template BlocCargaCalificacionesEventoGuardarPeriodo}
-/// Evento para guardar el periodo del calendario
-/// {@endtemplate}
-
-class BlocCargaCalificacionesEventoGuardarFecha
-    extends BlocCargaCalificacionesEvento {
-  /// {@macro BlocCargaCalificacionesEventoGuardarPeriodo}
-  const BlocCargaCalificacionesEventoGuardarFecha({required this.fecha});
-
-  /// Fecha actual del calendario
-  final DateTime fecha;
-}
-
 /// {@template BlocCargaCalificacionesEventoAgregarCalificacion}
 /// Evento para agregar una calificación a un alumno
 /// {@endtemplate}

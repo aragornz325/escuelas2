@@ -11,14 +11,14 @@ import 'package:full_responsive/full_responsive.dart';
 class InformacionAlumno extends StatefulWidget {
   /// {@macro InformacionAlumno}
   const InformacionAlumno({
-    required this.calificacion,
     required this.nombreAlumno,
+    required this.promedio,
     super.key,
   });
 
-  final String calificacion;
-
   final String nombreAlumno;
+
+  final double promedio;
 
   @override
   State<InformacionAlumno> createState() => _InformacionAlumnoState();
@@ -34,7 +34,7 @@ class _InformacionAlumnoState extends State<InformacionAlumno> {
 
     final l10n = context.l10n;
 
-    final rite = devolverRITE(double.parse(widget.calificacion));
+    final rite = devolverRITE(widget.promedio);
 
     return Expanded(
       child: Container(
@@ -73,7 +73,7 @@ class _InformacionAlumnoState extends State<InformacionAlumno> {
                 ),
               ),
               Text(
-                double.parse(widget.calificacion).toStringAsFixed(2),
+                widget.promedio.toStringAsFixed(2),
                 style: TextStyle(
                   color: colores.onBackground,
                   fontSize: 13.pf,

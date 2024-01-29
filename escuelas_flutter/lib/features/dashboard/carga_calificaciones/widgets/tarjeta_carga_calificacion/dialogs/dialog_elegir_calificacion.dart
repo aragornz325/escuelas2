@@ -28,8 +28,8 @@ class DialogElegirCalificacion extends StatelessWidget {
           (index) {
             final calificacion =
                 ManejadorDeCalificaciones.obtenerValorDeCalificacion(
-              TipoCalificacion.alfabetico,
-              index,
+              TipoCalificacion.numericoDecimal,
+              1 + index,
             );
 
             return GestureDetector(
@@ -52,7 +52,7 @@ class DialogElegirCalificacion extends StatelessWidget {
               ),
             );
           },
-        ).reversed.toList(),
+        ).toList(),
       ),
     );
   }

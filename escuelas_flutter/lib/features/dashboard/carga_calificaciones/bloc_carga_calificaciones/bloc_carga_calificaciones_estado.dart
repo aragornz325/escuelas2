@@ -8,24 +8,30 @@ class BlocCargaCalificacionesEstado {
   /// {@macro BlocCargaCalificacionesEstado}
   const BlocCargaCalificacionesEstado._({
     this.comision,
-    this.calificacionesMensuales,
+    this.listaCalificacionesMesActual = const [],
     this.fecha,
-    this.listaCalificaciones = const [],
+    this.listaCalificacionesMesesRestantes = const [],
     this.asignatura,
+    this.calificacionesMensuales,
   });
 
   BlocCargaCalificacionesEstado.desde(
     BlocCargaCalificacionesEstado otro, {
-    CalificacionesMensuales? calificacionesMensuales,
+    List<CalificacionMensual>? listaCalificacionesMesActual,
     ComisionDeCurso? comision,
     Asignatura? asignatura,
     DateTime? fecha,
-    List<CalificacionDeAlumno>? listaCalificaciones,
+    List<List<CalificacionMensual>>? listaCalificacionesMesesRestantes,
+    CalificacionesMensuales? calificacionesMensuales,
   }) : this._(
           fecha: fecha ?? otro.fecha,
           comision: comision ?? otro.comision,
-          listaCalificaciones: listaCalificaciones ?? otro.listaCalificaciones,
+          listaCalificacionesMesesRestantes:
+              listaCalificacionesMesesRestantes ??
+                  otro.listaCalificacionesMesesRestantes,
           asignatura: asignatura ?? otro.asignatura,
+          listaCalificacionesMesActual:
+              listaCalificacionesMesActual ?? otro.listaCalificacionesMesActual,
           calificacionesMensuales:
               calificacionesMensuales ?? otro.calificacionesMensuales,
         );
@@ -39,11 +45,13 @@ class BlocCargaCalificacionesEstado {
   /// Periodo actual del calendaio
   final DateTime? fecha;
 
-  /// Contiene una lista de calificaciones mensuales y
-  /// la solicitud de envio de notas si fue aprobada o no por el admin.
   final CalificacionesMensuales? calificacionesMensuales;
 
-  final List<CalificacionDeAlumno> listaCalificaciones;
+  /// Contiene una lista de calificaciones mensuales y
+  /// la solicitud de envio de notas si fue aprobada o no por el admin.
+  final List<CalificacionMensual> listaCalificacionesMesActual;
+
+  final List<List<CalificacionMensual>> listaCalificacionesMesesRestantes;
 
   /// Indica si el estado es
   /// [BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones]
@@ -61,9 +69,10 @@ class BlocCargaCalificacionesEstado {
   List<Object?> get props => [
         comision,
         fecha,
-        listaCalificaciones,
-        calificacionesMensuales,
+        listaCalificacionesMesesRestantes,
+        listaCalificacionesMesActual,
         asignatura,
+        calificacionesMensuales,
       ];
 }
 
@@ -98,8 +107,9 @@ class BlocCargaCalificacionesEstadoExitoso
     super.comision,
     super.fecha,
     super.asignatura,
+    super.listaCalificacionesMesActual,
+    super.listaCalificacionesMesesRestantes,
     super.calificacionesMensuales,
-    super.listaCalificaciones,
   }) : super.desde();
 }
 
@@ -147,6 +157,6 @@ class BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas
   /// {@macro BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas}
   BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas.desde(
     super.otro, {
-    super.listaCalificaciones,
+    super.listaCalificacionesMesActual,
   }) : super.desde();
 }

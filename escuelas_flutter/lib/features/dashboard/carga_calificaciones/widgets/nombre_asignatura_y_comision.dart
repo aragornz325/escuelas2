@@ -14,9 +14,12 @@ class NombreAsignaturaYComision extends StatelessWidget {
     super.key,
   });
 
+  /// Nombre de la Asignatura
   final String nombreAsignatura;
 
+  /// Nombre de la Comision
   final String nombreComision;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;

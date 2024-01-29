@@ -1,6 +1,6 @@
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/modelos/modelos.dart';
+import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -12,13 +12,20 @@ class ListaTarjetaCargaCalificacion extends StatelessWidget {
   /// {@macro ListaTarjetaCargaCalificacion}
   const ListaTarjetaCargaCalificacion({
     required this.listaEstudiantes,
-    required this.listaCalificaciones,
+    required this.listaCalificacionesMesActual,
+    required this.listaCalificacionesMesesRestantes,
     super.key,
   });
 
+  /// Lista de Estudiantes
   final List<RelacionComisionUsuario> listaEstudiantes;
 
-  final List<CalificacionDeAlumno> listaCalificaciones;
+  /// Lista de Calificaciones del mes actual
+  final List<CalificacionMensual> listaCalificacionesMesActual;
+
+  /// Lista de Calificaciones de meses anteriores al actual
+  final List<List<CalificacionMensual>> listaCalificacionesMesesRestantes;
+
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -26,21 +33,29 @@ class ListaTarjetaCargaCalificacion extends StatelessWidget {
         child: Column(
           children: listaEstudiantes.map(
             (relacionComisionUsuario) {
+              final calificacion = listaCalificacionesMesActual
+                  .firstWhereOrNull(
+                    (calificacionMensual) =>
+                        calificacionMensual.calificacion?.estudianteId ==
+                        relacionComisionUsuario.usuario?.id,
+                  )
+                  ?.calificacion;
+
               return Padding(
                 padding: EdgeInsets.symmetric(
                   vertical: 5.ph,
                   horizontal: 15.pw,
                 ),
                 child: TarjetaCargaCalificacion(
+                  listaCalificacionesMesesRestantes:
+                      listaCalificacionesMesesRestantes,
                   alumno: relacionComisionUsuario.usuario,
-                  calificacion: listaCalificaciones
-                          .firstWhereOrNull(
-                            (calificacionDeAlumno) =>
-                                calificacionDeAlumno.idAlumno ==
-                                relacionComisionUsuario.usuario?.id,
-                          )
-                          ?.calificacion ??
-                      'S/C',
+                  calificacion: calificacion == null
+                      ? 'S/C' //TODO l10n
+                      : ManejadorDeCalificaciones.obtenerValorDeCalificacion(
+                          calificacion.tipoCalificacion,
+                          calificacion.index,
+                        ),
                 ),
               );
             },
