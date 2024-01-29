@@ -27,6 +27,7 @@ class TarjetaCargaCalificacion extends StatelessWidget {
   /// Calificacion del alumno
   final String? calificacion;
 
+  /// Lista de Calificaciones de meses anteriores al actual
   final List<List<CalificacionMensual>> listaCalificacionesMesesRestantes;
 
   @override
@@ -40,9 +41,6 @@ class TarjetaCargaCalificacion extends StatelessWidget {
               )
               .toList(),
         )
-        .toList();
-
-    final lista2 = lista
         .map(
           (e) => ManejadorDeCalificaciones.obtenerValorDeCalificacion(
             e.calificacion?.tipoCalificacion ??
@@ -53,13 +51,16 @@ class TarjetaCargaCalificacion extends StatelessWidget {
         .toList()
       ..add(calificacion ?? 'S/C');
 
-    final lista3 = lista2.map(double.parse).toList();
+    // TODO(anyone): Revisar el calculo de promedio
+    final lista2 = lista
+        .map((e) => e == 'S/C' ? double.parse('0') : double.parse(e))
+        .toList();
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InformacionAlumno(
-          promedio: calcularPromedio(lista3),
+          promedio: calcularPromedio(lista2),
           nombreAlumno: alumno?.nombre ?? '',
         ),
         BotonCargaCalificacion(
