@@ -53,11 +53,11 @@ enum RITE {
 
 /// Devuelve el RITE correspondiente
 RITE devolverRITE(double promedio) {
-  if (promedio >= 1 && promedio < 5) {
+  if (promedio <= 4.0) {
     return RITE.ted;
-  } else if (promedio >= 5 && promedio < 7) {
+  } else if (promedio >= 5.0 && promedio <= 6.0) {
     return RITE.tep;
-  } else if (promedio >= 7 && promedio <= 10) {
+  } else if (promedio >= 7.0 && promedio <= 10.0) {
     return RITE.tea;
   } else {
     return RITE.sinCalificaciones;

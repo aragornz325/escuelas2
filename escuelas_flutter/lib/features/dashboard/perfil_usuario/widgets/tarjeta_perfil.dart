@@ -37,97 +37,98 @@ class TarjetaPerfil extends StatelessWidget {
 
     final roles = '${l10n.commonRoles}: ${rolesAsignados.capitalize}';
 
-    return Container(
-      height: 140.ph,
-      margin: EdgeInsets.symmetric(horizontal: 20.sw),
-      padding: EdgeInsets.all(20.sw),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(30.sw),
-        color: colores.tertiary,
-      ),
-      child: Row(
-        children: [
-          ClipRRect(
-            borderRadius: BorderRadius.circular(100.sw),
-            child: SizedBox(
-              width: 110.sw,
-              height: 110.sh,
-              child: ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(100.sw)),
-                child: Image.network(
-                  urlImage!,
-                  fit: BoxFit.cover,
-                  errorBuilder: (
-                    context,
-                    error,
-                    stackTrace,
-                  ) =>
-                      Image.asset(
-                    Assets.images.usuario.path,
-                    color: colores.onBackground,
+    return IntrinsicHeight(
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 20.sw),
+        padding: EdgeInsets.all(20.sw),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(30.sw),
+          color: colores.tertiary,
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(100.sw),
+              child: SizedBox(
+                width: 110.sw,
+                height: 110.sh,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(100.sw)),
+                  child: Image.network(
+                    urlImage!,
+                    fit: BoxFit.cover,
+                    errorBuilder: (
+                      context,
+                      error,
+                      stackTrace,
+                    ) =>
+                        Image.asset(
+                      Assets.images.usuario.path,
+                      color: colores.onBackground,
+                    ),
                   ),
                 ),
               ),
             ),
-          ),
-          SizedBox(width: 20.pw),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Flexible(
-                  child: Text(
-                    nombreUsuario,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(
-                      color: colores.onBackground,
-                      fontSize: 20.pf,
-                      fontWeight: FontWeight.w700,
+            SizedBox(width: 20.pw),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Flexible(
+                    child: Text(
+                      nombreUsuario,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: colores.onBackground,
+                        fontSize: 20.pf,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
-                ),
-                Flexible(
-                  child: Text(
-                    apellidoUsuario,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                    style: TextStyle(
-                      color: colores.onBackground,
-                      fontSize: 20.pf,
-                      fontWeight: FontWeight.w700,
+                  Flexible(
+                    child: Text(
+                      apellidoUsuario,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: TextStyle(
+                        color: colores.onBackground,
+                        fontSize: 20.pf,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 5.ph),
-                  child: Text(
-                    roles,
-                    style: TextStyle(
-                      color: colores.grisSC,
-                      fontSize: 14.pf,
-                      fontWeight: FontWeight.w600,
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 5.ph),
+                    child: Text(
+                      roles,
+                      style: TextStyle(
+                        color: colores.grisSC,
+                        fontSize: 14.pf,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
-                ),
-                EscuelasBoton.texto(
-                  estaHabilitado: true,
-                  // TODO(Gon): Dar funcion
-                  onTap: () => showDialog<void>(
+                  EscuelasBoton.texto(
+                    estaHabilitado: true,
+                    // TODO(Gon): Dar funcion
+                    onTap: () => showDialog<void>(
+                      context: context,
+                      builder: (context) =>
+                          EscuelasDialog.featNoDisponible(context: context),
+                    ),
+                    color: colores.azul,
+                    texto: l10n.commonContact,
+                    fontSize: 12.pf,
                     context: context,
-                    builder: (context) =>
-                        EscuelasDialog.featNoDisponible(context: context),
                   ),
-                  color: colores.azul,
-                  texto: l10n.commonContact,
-                  fontSize: 12.pf,
-                  context: context,
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

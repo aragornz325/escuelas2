@@ -1,12 +1,7 @@
-import 'dart:math';
-
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/extensiones/usuario.dart';
-import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/popups/popups.dart';
+import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/popups/dialogs.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/widgets.dart';
-import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
 import 'package:flutter/material.dart';
@@ -19,116 +14,65 @@ import 'package:full_responsive/full_responsive.dart';
 class VistaCelularCargaDeCalificaciones extends StatelessWidget {
   /// {@macro VistaCelularCargaDeCalificaciones}
   const VistaCelularCargaDeCalificaciones({
-    required this.fecha,
     super.key,
   });
-
-  /// Fecha actual de la calificación del alumno.
-  final DateTime fecha;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    final l10n = context.l10n;
-
-    final rolUsuario = context.read<BlocDashboard>().state.usuario.nombreRoles;
-
-    return Column(
-      children: [
-        SelectorDePeriodo(
-          delegate: PeriodoMensualDelegate(context),
-          onSeleccionarPeriodo: (periodo) =>
-              context.read<BlocCargaCalificaciones>().add(
-                    BlocCargaCalificacionesEventoGuardarFecha(fecha: fecha),
-                  ),
-          decoration: BoxDecoration(
-            color: colores.tertiary,
-            borderRadius: BorderRadius.circular(40.sw),
-          ),
-          margin: EdgeInsets.symmetric(horizontal: 20.pw),
-        ),
-        SizedBox(height: max(20.ph, 20.sh)),
-        BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
-          builder: (context, state) {
-            final curso = state.comision;
-
-            return Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.pw),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    state.asignatura?.nombre ?? '',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w800,
-                      fontSize: 15.pf,
-                      color: colores.onBackground,
-                    ),
-                  ),
-                  if (curso != null)
-                    Text(
-                      curso.nombre.toUpperCase(),
-                      style: TextStyle(
-                        fontWeight: FontWeight.w800,
-                        fontSize: 15.pf,
-                        color: colores.onSecondary,
+    return BlocConsumer<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
+      listener: (context, state) {
+        if (state.falloAlEnviarCalificaciones) {
+          showDialog<void>(
+            context: context,
+            builder: (context) => const DialogErrorAlEnviarCalificaciones(),
+          );
+        }
+        if (state.exitoAlEnviarCalificaciones) {
+          showDialog<void>(
+            context: context,
+            builder: (context) => const DialogNotasEnviadasCorrectamente(),
+          );
+        }
+      },
+      builder: (context, state) {
+        if (state is BlocCargaCalificacionesEstadoCargando) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        return Column(
+          children: [
+            SelectorDePeriodo(
+              delegate: PeriodoMensualDelegate(context),
+              onSeleccionarPeriodo: (periodo) =>
+                  context.read<BlocCargaCalificaciones>().add(
+                        BlocCargaCalificacionesEventoGuardarFecha(
+                          fecha: periodo.fechaDesde,
+                        ),
                       ),
-                    )
-                  else
-                    const CircularProgressIndicator(),
-                ],
+              decoration: BoxDecoration(
+                color: colores.tertiary,
+                borderRadius: BorderRadius.circular(40.sw),
               ),
-            );
-          },
-        ),
-        SizedBox(height: max(10.ph, 10.sh)),
-        BlocConsumer<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
-          listener: (context, state) {
-            if (state.falloAlEnviarCalificaciones) {
-              const DialogErrorAlEnviarCalificaciones().show(context);
-            }
-            if (state.exitoAlEnviarCalificaciones) {
-              const DialogNotasEnviadasCorrectamente().show(context);
-            }
-          },
-          builder: (context, state) {
-            final curso = state.comision;
-
-            if (curso == null) {
-              return Center(
-                child: Text(l10n.pageGradesNoGrades),
-              );
-            }
-
-            if (state is BlocCargaCalificacionesEstadoCargando) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
-
-            return Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: curso.estudiantes!.map(
-                    (e) {
-                      return TarjetaCargaCalificacionAlumno(
-                        comision: curso,
-                        relacionComisionUsuario: e,
-                        fecha: state.fecha ?? DateTime.now(),
-                        rolDelUsuario: rolUsuario,
-                      );
-                    },
-                  ).toList(),
-                ),
-              ),
-            );
-          },
-        ),
-        SizedBox(height: max(10.ph, 10.sh)),
-        const BotonesEnviarNotasYLimpiarNotas(),
-        SizedBox(height: max(20.ph, 20.sh)),
-      ],
+              margin: EdgeInsets.symmetric(horizontal: 20.pw),
+            ),
+            NombreAsignaturaYComision(
+              nombreAsignatura: state.asignatura?.nombre ?? '',
+              nombreComision: state.comision?.nombre ?? '',
+            ),
+            ListaTarjetaCargaCalificacion(
+              listaCalificaciones: state.listaCalificaciones,
+              listaEstudiantes: state.estudiantes,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10.ph),
+              child: const BotonesEnviarNotasYLimpiarNotas(),
+            ),
+          ],
+        );
+      },
     );
   }
 }

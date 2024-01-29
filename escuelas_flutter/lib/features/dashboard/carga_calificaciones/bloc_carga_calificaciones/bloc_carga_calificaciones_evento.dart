@@ -99,3 +99,18 @@ class BlocCargaCalificacionesEventoGuardarFecha
   /// Fecha actual del calendario
   final DateTime fecha;
 }
+
+/// {@template BlocCargaCalificacionesEventoAgregarCalificacion}
+/// Evento para agregar una calificación a un alumno
+/// {@endtemplate}
+class BlocCargaCalificacionesEventoAgregarCalificacion
+    extends BlocCargaCalificacionesEvento {
+  /// {@macro BlocCargaCalificacionesEventoAgregarCalificacion}
+  const BlocCargaCalificacionesEventoAgregarCalificacion({
+    required this.calificacion,
+    required this.idAlumno,
+  });
+
+  final String calificacion;
+  final int idAlumno;
+}

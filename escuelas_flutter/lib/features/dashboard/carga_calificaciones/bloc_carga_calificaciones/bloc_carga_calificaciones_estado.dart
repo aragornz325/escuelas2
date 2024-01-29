@@ -7,11 +7,9 @@ part of 'bloc_carga_calificaciones.dart';
 class BlocCargaCalificacionesEstado {
   /// {@macro BlocCargaCalificacionesEstado}
   const BlocCargaCalificacionesEstado._({
-    this.rolDelUsuario,
     this.comision,
     this.calificacionesMensuales,
     this.fecha,
-    this.listaCalificacionesCompensadas = const [],
     this.listaCalificaciones = const [],
     this.asignatura,
   });
@@ -20,17 +18,12 @@ class BlocCargaCalificacionesEstado {
     BlocCargaCalificacionesEstado otro, {
     CalificacionesMensuales? calificacionesMensuales,
     ComisionDeCurso? comision,
-    Role? rolDelUsuario,
     Asignatura? asignatura,
-    List<Calificacion>? listaCalificacionesCompensadas,
     DateTime? fecha,
-    List<Calificacion>? listaCalificaciones,
+    List<CalificacionDeAlumno>? listaCalificaciones,
   }) : this._(
           fecha: fecha ?? otro.fecha,
           comision: comision ?? otro.comision,
-          rolDelUsuario: rolDelUsuario ?? otro.rolDelUsuario,
-          listaCalificacionesCompensadas: listaCalificacionesCompensadas ??
-              otro.listaCalificacionesCompensadas,
           listaCalificaciones: listaCalificaciones ?? otro.listaCalificaciones,
           asignatura: asignatura ?? otro.asignatura,
           calificacionesMensuales:
@@ -40,24 +33,17 @@ class BlocCargaCalificacionesEstado {
   /// Comision con los alumnos.
   final ComisionDeCurso? comision;
 
-  /// Rol del usuario
-  final Role? rolDelUsuario;
-
   /// Asignatura del usuario
   final Asignatura? asignatura;
 
   /// Periodo actual del calendaio
   final DateTime? fecha;
 
-  // TODO(ANYONE): add docu
-  final List<Calificacion> listaCalificacionesCompensadas;
-
   /// Contiene una lista de calificaciones mensuales y
   /// la solicitud de envio de notas si fue aprobada o no por el admin.
   final CalificacionesMensuales? calificacionesMensuales;
 
-  /// Contiene la lista de calificaciones de alumnos para mostrar en la vista
-  final List<Calificacion> listaCalificaciones; 
+  final List<CalificacionDeAlumno> listaCalificaciones;
 
   /// Indica si el estado es
   /// [BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones]
@@ -75,10 +61,9 @@ class BlocCargaCalificacionesEstado {
   List<Object?> get props => [
         comision,
         fecha,
-        rolDelUsuario,
         listaCalificaciones,
-        listaCalificacionesCompensadas,
         calificacionesMensuales,
+        asignatura,
       ];
 }
 
@@ -113,9 +98,8 @@ class BlocCargaCalificacionesEstadoExitoso
     super.comision,
     super.fecha,
     super.asignatura,
-    super.rolDelUsuario,
-    super.listaCalificacionesCompensadas,
     super.calificacionesMensuales,
+    super.listaCalificaciones,
   }) : super.desde();
 }
 
@@ -152,4 +136,17 @@ class BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones
   /// {@macro BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones}
   BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones.desde(super.otro)
       : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas}
+/// Sirve para que muestre un popup indicando que las calificaciones fueron
+/// borradas.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas}
+  BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas.desde(
+    super.otro, {
+    super.listaCalificaciones,
+  }) : super.desde();
 }
