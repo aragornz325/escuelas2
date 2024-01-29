@@ -68,7 +68,7 @@ class BlocCargaCalificaciones
             asignatura: asignatura,
             comision: comision,
             fecha: event.fecha,
-            listaCalificacionesCompensadas: [],
+            listaCalificacionesCompensadas: [], // TODO(ANYONE): No entra en este MVP, luego completar con la lista que va.
             calificacionesMensuales: calificacionesMensuales,
             rolDelUsuario: state.rolDelUsuario,
           ),

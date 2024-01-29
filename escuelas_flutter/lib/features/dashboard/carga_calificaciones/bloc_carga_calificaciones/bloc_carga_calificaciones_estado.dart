@@ -49,13 +49,15 @@ class BlocCargaCalificacionesEstado {
   /// Periodo actual del calendaio
   final DateTime? fecha;
 
+  // TODO(ANYONE): add docu
   final List<Calificacion> listaCalificacionesCompensadas;
 
   /// Contiene una lista de calificaciones mensuales y
   /// la solicitud de envio de notas si fue aprobada o no por el admin.
   final CalificacionesMensuales? calificacionesMensuales;
 
-  final List<Calificacion> listaCalificaciones;
+  /// Contiene la lista de calificaciones de alumnos para mostrar en la vista
+  final List<Calificacion> listaCalificaciones; 
 
   /// Indica si el estado es
   /// [BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones]
@@ -69,8 +71,6 @@ class BlocCargaCalificacionesEstado {
 
   /// lista de estudiantes de una comision
   List<RelacionComisionUsuario> get estudiantes => comision?.estudiantes ?? [];
-
-  
 
   List<Object?> get props => [
         comision,
