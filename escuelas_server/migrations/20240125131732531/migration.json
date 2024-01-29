@@ -1,0 +1,136 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "solicitudes_notas_mensuales"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "solicitudes_notas_mensuales",
+        "dartName": "SolicitudNotaMensual",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('solicitudes_notas_mensuales_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "solicitudId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "comisionId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "idAsignatura",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "numeroDeMes",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "solicitudes_notas_mensuales_fk_0",
+            "columns": [
+              "solicitudId"
+            ],
+            "referenceTable": "solicitudes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "solicitudes_notas_mensuales_fk_1",
+            "columns": [
+              "comisionId"
+            ],
+            "referenceTable": "comisiones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "solicitudes_notas_mensuales_fk_2",
+            "columns": [
+              "idAsignatura"
+            ],
+            "referenceTable": "asignaturas",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "solicitudes_notas_mensuales_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"idSolicitud\" of table \"solicitudes_notas_mensuales\" will be dropped.",
+      "table": "solicitudes_notas_mensuales",
+      "columns": [
+        "idSolicitud"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"idComision\" of table \"solicitudes_notas_mensuales\" will be dropped.",
+      "table": "solicitudes_notas_mensuales",
+      "columns": [
+        "idComision"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"solicitudes_notas_mensuales\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "solicitudes_notas_mensuales",
+      "columns": [
+        "comisionId"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

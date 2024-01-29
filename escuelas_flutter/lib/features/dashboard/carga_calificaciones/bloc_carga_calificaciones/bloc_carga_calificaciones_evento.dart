@@ -17,15 +17,19 @@ class BlocCargaCalificacionesEventoInicializar
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoInicializar}
   const BlocCargaCalificacionesEventoInicializar({
-    required this.idCurso,
+    required this.idComision,
     required this.fecha,
+    required this.idAsignatura,
   });
 
   /// Fecha utilizada para iniciar la pantalla de carga de calificaciones
   final DateTime fecha;
 
+  /// Id de la comision.
+  final int idComision;
+
   /// Id de la asignatura.
-  final int idCurso;
+  final int idAsignatura;
 }
 
 /// {@template BlocCargaCalificacionesEventoFiltrarListaPorFecha}

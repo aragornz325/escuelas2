@@ -43,92 +43,34 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): llamar al endpoint de traer calificaciones
-        // y borrar la lista hardcodeada.
-        ///
-        // TODO(anyone): ver como se traen todas las calificaciones de los
-        // usuarios
-
-        // final curso = await client.comisiones.obtenercomicionporid(id:
-        // event.idCurso);
-
-        final curso = ComisionDeCurso(
-          cursoId: 2,
-          curso: Curso(
-            nombre: 'nombre',
-          ),
-          id: 1,
-          nombre: 'primero',
-          anioLectivo: 1,
-          estudiantes: [],
-          ultimaModificacion: DateTime.now(),
+        final calificacionesMensuales = await client.calificacion
+            .obtenerCalificacionesPorAsignaturaPorPeriodoPorComision(
+          idAsignatura: event.idAsignatura,
+          idComision: event.idComision,
+          numeroDeAnio: DateTime.now().year,
+          numeroDeMes: DateTime.now().month,
         );
 
-        final listaCalificacionCompensacion = [
-          Calificacion(
-            idAutor: 3,
-            id: 1,
-            observacion: 'nose',
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
-            estudianteId: 1,
-            estudiante: Usuario(
-              idUserInfo: 42,
-              urlFotoDePerfil: '',
-              id: 1,
-              nombre: 'nombre',
-              apellido: 'apellido',
-            ),
-            idComision: 1,
-            idAsignatura: 1,
-            tipoCalificacion: TipoCalificacion.rite,
-            index: 1,
-            diferencial: '',
-            idInstanciaDeEvaluacion: 1,
-          ),
-        ];
+        final asignatura = await client.asignatura
+            .obtenerAsignaturaPorId(id: event.idAsignatura);
 
-        final listaCalificaciones = [
-          Calificacion(
-            idAutor: 7,
-            id: 1,
-            observacion: 'nose',
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            fechaEliminacion: DateTime.now(),
-            estudianteId: 1,
-            estudiante: Usuario(
-              idUserInfo: 42,
-              urlFotoDePerfil: '',
-              id: 1,
-              nombre: 'nombre',
-              apellido: 'apellido',
-            ),
-            idComision: 1,
-            idAsignatura: 1,
-            tipoCalificacion: TipoCalificacion.numericoDecimal,
-            index: 1,
-            diferencial: '',
-            idInstanciaDeEvaluacion: 1,
-          ),
-        ];
+        // TODO(SAM): Agregar Future.wait
+        final comision = await client.comision
+            .obtenerComisionesDeCursoPorId(idComision: event.idComision);
 
+//  confirmo solicitud si esta aprobada y con calificaciones.
+// si la soli no aprobada o pendiente,
+// Solicitud null
+// si fecha realizacion no es nula, ya completo la solicitud
         emit(
           BlocCargaCalificacionesEstadoExitoso.desde(
             state,
-            curso: curso,
+            asignatura: asignatura,
+            comision: comision,
             fecha: event.fecha,
-            listaCalificaciones: listaCalificaciones,
-            listaCalificacionesCompensadas: listaCalificacionCompensacion,
-            // TODO(anyone): usar el usuario del dashboard cuando gon lo haga.
-            rolDelUsuario: Role(
-              id: 1,
-              name: '',
-              permissions: '',
-              createdAt: DateTime.now(),
-              updatedAt: DateTime.now(),
-            ),
+            listaCalificacionesCompensadas: [], // TODO(ANYONE): No entra en este MVP, luego completar con la lista que va.
+            calificacionesMensuales: calificacionesMensuales,
+            rolDelUsuario: state.rolDelUsuario,
           ),
         );
       },
@@ -154,7 +96,7 @@ class BlocCargaCalificaciones
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        listaCalificaciones: state.listaCalificaciones,
+        calificacionesMensuales: state.calificacionesMensuales,
       ),
     );
   }
@@ -186,7 +128,7 @@ class BlocCargaCalificaciones
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        listaCalificaciones: state.listaCalificaciones,
+        calificacionesMensuales: state.calificacionesMensuales,
         listaCalificacionesCompensadas: state.listaCalificacionesCompensadas,
       ),
     );
@@ -214,7 +156,7 @@ class BlocCargaCalificaciones
     emit(
       BlocCargaCalificacionesEstadoExitoso.desde(
         state,
-        listaCalificaciones: calificaciones,
+        calificacionesMensuales: state.calificacionesMensuales,
       ),
     );
   }
@@ -227,7 +169,16 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): llamar al endpoint de envio de calificacion/notas
+        // TODO(SAM): Hacer IF si id solicitd es null no deberia poder ver el BOTON en la UI
+        // TODO(SAM): Front asegurarse de q la lista de calificaciones fueron modificadas por el profesor
+        // TODO(SAM): el valor index etc de CADA UNA.
+        await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
+          calificacionesMensuales:
+              state.calificacionesMensuales?.calificacionesMensuales ?? [],
+          idSolicitud: state
+                  .calificacionesMensuales?.solicitudNotaMensual?.solicitudId ??
+              0,
+        );
         emit(
           BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
               .desde(state),

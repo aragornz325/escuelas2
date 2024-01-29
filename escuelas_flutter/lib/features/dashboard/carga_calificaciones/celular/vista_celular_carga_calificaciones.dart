@@ -1,6 +1,8 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/popups/popups.dart';
 import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/widgets.dart';
@@ -17,7 +19,6 @@ import 'package:full_responsive/full_responsive.dart';
 class VistaCelularCargaDeCalificaciones extends StatelessWidget {
   /// {@macro VistaCelularCargaDeCalificaciones}
   const VistaCelularCargaDeCalificaciones({
-    required this.nombreAsignatura,
     required this.fecha,
     super.key,
   });
@@ -25,14 +26,13 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
   /// Fecha actual de la calificación del alumno.
   final DateTime fecha;
 
-  /// Nombre del curso
-  final String nombreAsignatura;
-
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
     final l10n = context.l10n;
+
+    final rolUsuario = context.read<BlocDashboard>().state.usuario.nombreRoles;
 
     return Column(
       children: [
@@ -51,7 +51,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
         SizedBox(height: max(20.ph, 20.sh)),
         BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
           builder: (context, state) {
-            final curso = state.curso;
+            final curso = state.comision;
 
             return Padding(
               padding: EdgeInsets.symmetric(horizontal: 15.pw),
@@ -59,20 +59,20 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    nombreAsignatura,
+                    state.asignatura?.nombre ?? '',
                     style: TextStyle(
                       fontWeight: FontWeight.w800,
                       fontSize: 15.pf,
-                      color: colores.onSecondary,
+                      color: colores.onBackground,
                     ),
                   ),
                   if (curso != null)
                     Text(
-                      curso.nombre,
+                      curso.nombre.toUpperCase(),
                       style: TextStyle(
                         fontWeight: FontWeight.w800,
                         fontSize: 15.pf,
-                        color: colores.onBackground,
+                        color: colores.onSecondary,
                       ),
                     )
                   else
@@ -93,7 +93,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
             }
           },
           builder: (context, state) {
-            final curso = state.curso;
+            final curso = state.comision;
 
             if (curso == null) {
               return Center(
@@ -116,7 +116,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                         comision: curso,
                         relacionComisionUsuario: e,
                         fecha: state.fecha ?? DateTime.now(),
-                        rolDelUsuario: state.rolDelUsuario,
+                        rolDelUsuario: rolUsuario,
                       );
                     },
                   ).toList(),

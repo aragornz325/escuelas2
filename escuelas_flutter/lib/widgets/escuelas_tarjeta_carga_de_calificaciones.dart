@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/constantes/textos_valorativos.dart';
 import 'package:escuelas_flutter/utilidades/funciones/calcular_promedio.dart';
@@ -84,6 +85,8 @@ class _EscuelasCargaCalificacionAlumnoState
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -116,7 +119,7 @@ class _EscuelasCargaCalificacionAlumnoState
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    'Promedio: ',
+                    l10n.pageGradesStudentCardAverage,
                     style: TextStyle(
                       color: colores.onBackground,
                       fontSize: 13.pf,
@@ -184,7 +187,15 @@ class _EscuelasCargaCalificacionAlumnoState
                 : colores.azul,
             borderRadius: BorderRadius.circular(100.sw),
           ),
+
+          // TODO(ANYONE): Debe ser un dropdown y consumir ENUM (recibe index) de commons.
           child: TextFormField(
+            //     initialValue:      ManejadorDeCalificaciones.obtenerValorDeCalificacion(
+            //   state.calificacionesMensuales
+            //       .calificacionesMensuales[0].calificacion!.tipoCalificacion,
+            //   state.calificacionesMensuales
+            //       .calificacionesMensuales[0].calificacion!.index,
+            // ),
             readOnly: !widget.esEditable,
             cursorColor: Colors.white,
             inputFormatters: [
@@ -207,6 +218,7 @@ class _EscuelasCargaCalificacionAlumnoState
             ),
             decoration: InputDecoration(
               hintText: 'S/C',
+              // TODO(ANYONE): Ver que poner en el l10n
               hintStyle: TextStyle(
                 fontSize: 18.pf,
                 color: colores.grisSC,

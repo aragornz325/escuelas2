@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs
 
+// TODO(SAM): Crear  1 clase sealed padre y estos enums extienden d ella 
+// https://dart.dev/language/class-modifiers
 enum ValorDeCalificacionNumericaDecimal {
   diez('10'),
   nueve('9'),

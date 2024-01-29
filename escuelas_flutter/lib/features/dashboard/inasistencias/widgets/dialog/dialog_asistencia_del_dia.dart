@@ -21,9 +21,10 @@ class DialogInasistenciasDelDia extends StatefulWidget {
   /// {@macro DialogInasistenciasDelDia}
   const DialogInasistenciasDelDia({
     required this.estudiantes,
-    required this.idCurso,
+    required this.idComision,
     required this.fecha,
     required this.inasistencias,
+    required this.esEditar,
     super.key,
   });
 
@@ -31,13 +32,16 @@ class DialogInasistenciasDelDia extends StatefulWidget {
   final List<RelacionComisionUsuario> estudiantes;
 
   /// ID del curso.
-  final int idCurso;
+  final int idComision;
 
   /// Fecha en la cual se tomaron inasistencia.
   final DateTime fecha;
 
   /// Lista de inasistencias
   final List<AsistenciaDiaria> inasistencias;
+
+  /// Indica si se intenta editar o crear un listado de inasistencias.
+  final bool esEditar;
 
   @override
   State<DialogInasistenciasDelDia> createState() =>
@@ -61,11 +65,21 @@ class _DialogInasistenciasDelDiaState extends State<DialogInasistenciasDelDia> {
 
   /// Confirmar las asistencia
   void _confirmarInasistencias(BuildContext context) {
-    context.read<BlocInasistencias>().add(
-          BlocInasistenciasEventoFinalizarInasistencias(
-            idCurso: widget.idCurso,
-          ),
-        );
+    if (widget.esEditar) {
+      context.read<BlocInasistencias>().add(
+            BlocInasistenciasEventoEditarInasistencias(
+              idComision: widget.idComision,
+              inasistencias: widget.inasistencias,
+            ),
+          );
+    } else {
+      context.read<BlocInasistencias>().add(
+            BlocInasistenciasEventoCrearInasistencias(
+              idComision: widget.idComision,
+              inasistencias: widget.inasistencias,
+            ),
+          );
+    }
     Navigator.of(context).pop();
   }
 

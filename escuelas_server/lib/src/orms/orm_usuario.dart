@@ -2,7 +2,6 @@ import 'package:escuelas_server/src/extensiones/expresiones_en_columnas.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
-import 'package:serverpod_auth_server/module.dart';
 
 class OrmUsuario extends ORM {
   Future<Usuario> crearUsuario(
@@ -204,7 +203,8 @@ class OrmUsuario extends ORM {
         include: Usuario.include(
           comisiones: RelacionComisionUsuario.includeList(
             include: RelacionComisionUsuario.include(
-                comision: ComisionDeCurso.include()),
+              comision: ComisionDeCurso.include(),
+            ),
           ),
           asignaturas: RelacionAsignaturaUsuario.includeList(
             include: RelacionAsignaturaUsuario.include(

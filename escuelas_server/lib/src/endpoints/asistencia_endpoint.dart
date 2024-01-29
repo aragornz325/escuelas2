@@ -53,7 +53,7 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
   /// asistencias (List<AsistenciaDiaria>): Una lista de objetos del tipo "AsistenciaDiaria".
   /// Returns:
   /// El método `actualizarAsistenciasEnLote` devuelve un `Futuro<String>`.
-  Future<String> actualizarAsistenciasEnLote(
+  Future<List<AsistenciaDiaria>> actualizarAsistenciasEnLote(
     Session session, {
     required List<AsistenciaDiaria> asistencias,
   }) async {

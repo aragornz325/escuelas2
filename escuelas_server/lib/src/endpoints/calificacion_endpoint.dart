@@ -71,18 +71,57 @@ class CalificacionEndpoint extends Endpoint with Controller {
 
   /// El método `obtenerCalificacionesPorAsignaturaPorPeriodo` es una función que recupera una lista de
   /// calificaciones para una materia y periodo específico.
-  Future<List> obtenerCalificacionesPorAsignaturaPorPeriodo(
+  // ! Mejorar naming
+  Future<CalificacionesMensuales>
+      obtenerCalificacionesPorAsignaturaPorPeriodoPorComision(
     Session session, {
     required int idAsignatura,
-    required Periodo periodo,
+    required int idComision,
+    required int numeroDeAnio,
+    required int numeroDeMes,
+  }) =>
+          ejecutarOperacionControlador(
+            session,
+            'obtenerCalificacionesPorAsignaturaPorPeriodoPorComision',
+            () async => await servicio
+                .obtenerCalificacionesPorAsignaturaPorPeriodoPorComision(
+              session,
+              idAsignatura: idAsignatura,
+              numeroDeAnio: numeroDeAnio,
+              numeroDeMes: numeroDeMes,
+              idComision: idComision,
+            ),
+          );
+
+  Future<void> cargarCalificacionesMensualesPorSolicitud(
+    Session session, {
+    required List<CalificacionMensual> calificacionesMensuales,
+    required int idSolicitud,
   }) =>
       ejecutarOperacionControlador(
         session,
-        'obtenerCalificacionesPorAsignaturaPorPeriodo',
-        () async => await servicio.obtenerCalificacionesPorAsignaturaPorPeriodo(
+        'cargarCalificacionesMensuales',
+        () async => await servicio.cargarCalificacionesMensualesPorSolicitud(
           session,
+          calificacionesMensuales: calificacionesMensuales,
+          idSolicitud: idSolicitud,
+        ),
+      );
+
+  Future<List<CalificacionMensual>> obtenerCalificacionesMensuales(
+    Session session, {
+    int? numeroDeMes,
+    required int idAsignatura,
+    required int idComision,
+  }) async =>
+      ejecutarOperacionControlador(
+        session,
+        'obtenerCalificacionesMensuales',
+        () async => await servicio.obtenerCalificacionesMensuales(
+          session,
+          numeroDeMes: numeroDeMes,
           idAsignatura: idAsignatura,
-          periodo: periodo,
+          idComision: idComision,
         ),
       );
 }

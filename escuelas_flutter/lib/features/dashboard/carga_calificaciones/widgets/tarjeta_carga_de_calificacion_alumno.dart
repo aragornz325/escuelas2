@@ -7,7 +7,6 @@ import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
-import 'package:rolemissions/rolemissions.dart';
 
 /// {@template TarjetaCargaCalificacionAlumno}
 /// Tarjeta de Carga de Calificación de Alumno con un campo para modificar la
@@ -33,7 +32,7 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
   final RelacionComisionUsuario relacionComisionUsuario;
 
   /// Rol del usuario.
-  final Role? rolDelUsuario;
+  final String? rolDelUsuario;
 
   @override
   Widget build(BuildContext context) {
@@ -54,32 +53,32 @@ class TarjetaCargaCalificacionAlumno extends StatelessWidget {
                 ),
             // TODO(anyone): reemplazar por las calificaciones previas ver como
             // vienen las calificaciones previas y mostrarlas
-            listaCalificaciones: const [],
+            listaCalificaciones: const [9, 9, 9],
             // TODO(anyone): ver si los modelos seran utilizados de esta forma
             // para traer solamente la calificacion del alumno
-            calificacionPrevia: state.listaCalificaciones
-                .firstWhere(
-                  (c) =>
-                      c.id ==
-                      state.listaCalificacionesCompensadas
-                          .firstWhere(
-                            (cc) =>
-                                cc.estudiante?.id ==
-                                relacionComisionUsuario.usuario?.id,
-                          )
-                          .id,
-                  // TODO(ANYONE): Cambiar por el id correspondiente, cuadno
-                  // este lo de back
-                )
-                .id
-                .toString(),
-            // TODO(ANYONE): Cambiar por el id correspondiente, cuando este lo
-            // de back
+            calificacionPrevia: '1',
+            // state.calificacionesMensuales?.calificacionesMensuales
+            //     .firstWhere(
+            //       (c) =>
+            //           c.id ==
+            //           state.listaCalificacionesCompensadas
+            //               .firstWhere(
+            //                 (cc) =>
+            //                     cc.estudianteId ==
+            //                     relacionComisionUsuario.usuarioId,
+            //               )
+            //               .id,
+            //       // TODO(ANYONE): Cambiar por el id correspondiente, cuadno
+            //       // este lo de back
+            //     )
+            //     .id
+            //     .toString(),
+
             nombreAlumno: '${relacionComisionUsuario.usuario?.nombre} '
                 '${relacionComisionUsuario.usuario?.apellido}',
-            esEditable: rolDelUsuario?.name == 'docente'
+            esEditable: rolDelUsuario == 'docente'
                 ? fecha.mismaFecha(DateTime.now())
-                : rolDelUsuario?.name == 'directivo' &&
+                : rolDelUsuario == 'directivo' &&
                     fecha.isBefore(DateTime.now()),
           ),
         );

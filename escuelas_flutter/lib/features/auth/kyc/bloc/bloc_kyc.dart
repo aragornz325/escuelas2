@@ -234,9 +234,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
             // Creacion del objeto a partir de las opciones de formulario
             return AsignaturaSolicitada(
               asignaturaId: asignatura.id ?? 0,
-              asignatura: asignatura,
               comisionId: comision.id ?? 0,
-              comision: comision,
               idUsuarioPendiente: usuarioPendiente.id ?? 0,
               ultimaModificacion: DateTime.now(),
               fechaCreacion: DateTime.now(),

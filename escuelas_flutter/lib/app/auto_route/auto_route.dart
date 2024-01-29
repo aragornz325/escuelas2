@@ -123,7 +123,7 @@ class AppRouter extends $AppRouter {
             ),
             AutoRoute(
               page: RutaSupervisionEnvioCalificaciones.page,
-              path: 'grade-submission-supervision/:idCurso/:fecha',
+              path: 'grade-submission-supervision/:idComision/:fecha',
             ),
           ],
         ),

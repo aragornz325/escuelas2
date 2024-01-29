@@ -15,20 +15,18 @@ import 'package:full_responsive/full_responsive.dart';
 class BotonFinalizarInasistencias extends StatelessWidget {
   /// {@macro BotonFinalizarInasistencias}
   const BotonFinalizarInasistencias({
+    required this.inasistencias,
     required this.comisionDeCurso,
     required this.fecha,
-    required this.inasistencias,
     super.key,
   });
 
-  /// Curso en el que se finalizaron las asistencias
+  final List<AsistenciaDiaria> inasistencias;
+
   final ComisionDeCurso comisionDeCurso;
 
   /// Fecha en la que se finalizaron las asistencias
   final DateTime fecha;
-
-  /// Inasistencias que se finalizaron
-  final List<AsistenciaDiaria> inasistencias;
 
   /// Función que abre un Dialog para ver las informaciones de la asistencia.
   /// Con la cual muestra la cantidad de alumnos que no asistieron.
@@ -47,8 +45,9 @@ class BotonFinalizarInasistencias extends StatelessWidget {
         child: DialogInasistenciasDelDia(
           inasistencias: asistencias,
           estudiantes: comision.estudiantes ?? [],
-          idCurso: comision.curso?.id ?? 0,
+          idComision: comision.curso?.id ?? 0,
           fecha: fecha,
+          esEditar: asistencias.any((e) => e.id != null),
         ),
       ),
     );

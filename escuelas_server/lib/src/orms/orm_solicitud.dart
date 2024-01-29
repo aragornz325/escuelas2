@@ -149,4 +149,15 @@ class OrmSolicitud extends ORM {
     }
     return solicitud.first;
   }
+
+  Future<List<Solicitud>> obtenerSolicitudesPendientes(
+    Session session,
+  ) async =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => Solicitud.db.find(
+          session,
+          where: (t) => t.fechaRealizacion.equals(null),
+        ),
+      );
 }

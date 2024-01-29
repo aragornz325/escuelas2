@@ -13,7 +13,9 @@ abstract class BlocMisCursosEvento {
 /// {@endtemplate}
 class BlocMisCursosEventoInicializar extends BlocMisCursosEvento {
   /// {@macro BlocMisCursosEventoicializar}
-  const BlocMisCursosEventoInicializar();
+  const BlocMisCursosEventoInicializar({required this.usuarioId});
+
+  final int usuarioId;
 }
 
 /// {@template BlocMisCursosEventoCambiarMes}
@@ -24,7 +26,10 @@ class BlocMisCursosEventoCambiarMes extends BlocMisCursosEvento {
   /// {@macro BlocMisCursosEventoCambiarMes}
   const BlocMisCursosEventoCambiarMes({
     required this.periodoSeleccionada,
+    required this.usuarioId,
   });
+
+  final int usuarioId;
 
   /// PeriodoSeleccionado
   final DateTime periodoSeleccionada;

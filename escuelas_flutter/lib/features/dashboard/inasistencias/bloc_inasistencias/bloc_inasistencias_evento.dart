@@ -19,40 +19,40 @@ class BlocInasistenciasEventoInicializar extends BlocInasistenciasEvento {
   final DateTime fecha;
 }
 
-/// {@template BlocInasistenciasEventoFinalizarInasistencias}
-/// Evento que finaliza la asistencia del dia de dicho curso
+/// {@template BlocInasistenciasEventoCrearInasistencias}
+/// Evento para crear las inasistencias de los estudiantes de una
+/// comision en particular.
 /// {@endtemplate}
-class BlocInasistenciasEventoFinalizarInasistencias
+class BlocInasistenciasEventoCrearInasistencias
     extends BlocInasistenciasEvento {
-  /// {@macro BlocInasistenciasEventoFinalizarInasistencias}
-  const BlocInasistenciasEventoFinalizarInasistencias({required this.idCurso});
-
-  /// Id del curso  a modificar si se tomo asistencia.
-  final int idCurso;
-}
-
-/// {@template BlocAsistenciaEventoCambiarInasistenciaEstudiante}
-/// Evento para cambiar la inasistencia de un estudiante
-/// {@endtemplate}
-class BlocAsistenciaEventoCambiarInasistenciaEstudiante
-    extends BlocInasistenciasEvento {
-  /// {@macro BlocAsistenciaEventoCambiarInasistenciaEstudiante}
-  const BlocAsistenciaEventoCambiarInasistenciaEstudiante({
+  /// {@macro BlocInasistenciasEventoCrearInasistencias}
+  const BlocInasistenciasEventoCrearInasistencias({
     required this.idComision,
-    required this.idEstudiante,
-    required this.fecha,
-    required this.estadoInasistencia,
+    required this.inasistencias,
   });
 
-  /// Id del comision  a modificar si se tomo asistencia.
+  /// Id de la comision a modificar si se tomo asistencia.
   final int idComision;
 
-  /// Id del estudiante a modificar la inasistencia
-  final int idEstudiante;
+  /// Lista de inasistencias a crear
+  final List<AsistenciaDiaria> inasistencias;
+}
 
-  /// Fecha para saber su ultima modificación.
-  final DateTime fecha;
+/// {@template BlocInasistenciasEventoEditarInasistencias}
+/// Evento para crear las inasistencias de los estudiantes de una
+/// comision en particular.
+/// {@endtemplate}
+class BlocInasistenciasEventoEditarInasistencias
+    extends BlocInasistenciasEvento {
+  /// {@macro BlocInasistenciasEventoEditarInasistencias}
+  const BlocInasistenciasEventoEditarInasistencias({
+    required this.idComision,
+    required this.inasistencias,
+  });
 
-  /// Asistencia de estudiante a modificar
-  final EstadoDeAsistencia estadoInasistencia;
+  /// Id de la comision a modificar si se tomo asistencia.
+  final int idComision;
+
+  /// Lista de inasistencias a modificar
+  final List<AsistenciaDiaria> inasistencias;
 }

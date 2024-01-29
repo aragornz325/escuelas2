@@ -17,8 +17,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PaginaCargaDeCalificaciones extends StatelessWidget {
   /// {@macro PaginaCargaDeCalificaciones}
   PaginaCargaDeCalificaciones({
-    @PathParam('nombreAsignatura') required this.nombreAsignatura,
-    @PathParam('idCurso') required this.idCurso,
+    @PathParam('idAsignatura') required this.idAsignatura,
+    @PathParam('idComision') required this.idComision,
     @PathParam('fecha') required String fecha,
     super.key,
   }) : fecha = DateTime.parse(fecha);
@@ -26,11 +26,11 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
   /// Fecha actual de la calificación del alumno.
   final DateTime fecha;
 
-  /// Id del curso.
-  final int idCurso;
+  /// Id de la comision
+  final int idComision;
 
-  /// Nombre del curso
-  final String nombreAsignatura;
+  /// id de la asignatura
+  final int idAsignatura;
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +39,13 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
         ..add(
           BlocCargaCalificacionesEventoInicializar(
             fecha: fecha,
-            idCurso: idCurso,
+            idComision: idComision,
+            idAsignatura: idAsignatura,
           ),
         ),
       child: FullResponsiveScreen(
         celular: VistaCelularCargaDeCalificaciones(
           fecha: fecha,
-          nombreAsignatura: nombreAsignatura,
         ),
         escritorio: const VistaEscritorioCargaDeCalificaciones(),
       ),
