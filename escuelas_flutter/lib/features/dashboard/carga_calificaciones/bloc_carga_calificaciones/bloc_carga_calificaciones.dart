@@ -94,8 +94,8 @@ class BlocCargaCalificaciones
     await operacionBloc(
       callback: (client) async {
         // TODO(SAM): Hacer IF si id solicitd es null no deberia poder ver el BOTON en la UI
-        // TODO(SAM): Front asegurarse de q la lista de calificaciones fueron modificadas por el profesor
-        // TODO(SAM): el valor index etc de CADA UNA.
+        // TODO(ANYONE): Front asegurarse de q la lista de calificaciones fueron modificadas por el profesor
+        // TODO(ANYONE): el valor index etc de CADA UNA.
         await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
           calificacionesMensuales:
               state.calificacionesMensuales?.calificacionesMensuales ?? [],
