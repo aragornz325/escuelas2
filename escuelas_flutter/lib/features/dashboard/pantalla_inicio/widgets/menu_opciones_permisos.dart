@@ -25,12 +25,9 @@ class MenuOpcionesPermisos extends StatelessWidget {
     return showDialog<void>(
       context: context,
       builder: (context) => EscuelasDialog.fallido(
-        // TODO(anyone): Revisar si este container esta bien
         content: Column(
           children: [
-            SizedBox(
-              height: 20.ph,
-            ),
+            SizedBox(height: 20.ph),
             Center(
               child: Text(
                 l10n.commonDialogError,
@@ -62,7 +59,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
     final colores = context.colores;
 
     final menus = _menusPermitidos(context);
- final l10n = context.l10n;
+    final l10n = context.l10n;
 
     return Column(
       children: [
@@ -81,7 +78,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
             if (state is BlocInicioEstadoExitoso && menus.isEmpty) {
               return Center(
                 child: Text(
-                 l10n.pageHomeNoOptionsMenu,
+                  l10n.pageHomeNoOptionsMenu,
                   style: TextStyle(
                     color: colores.onBackground,
                     fontWeight: FontWeight.w600,
@@ -132,8 +129,8 @@ class MenuOpcionesPermisos extends StatelessWidget {
             );
           },
         ),
+        // TODO(SAM): eLIMINAR LUEGO
         GestureDetector(
-          // TODO(SAM): eLIMINAR LUEGO
           onTap: () async => {
             await client.solicitudNotaMensual.enviarSolicitudADocentes(),
           },

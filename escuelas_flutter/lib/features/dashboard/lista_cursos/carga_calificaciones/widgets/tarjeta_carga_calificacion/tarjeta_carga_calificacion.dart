@@ -1,6 +1,6 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/tarjeta_carga_calificacion/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/widgets.dart';
 import 'package:escuelas_flutter/utilidades/funciones/funciones.dart';
 import 'package:flutter/material.dart';
 

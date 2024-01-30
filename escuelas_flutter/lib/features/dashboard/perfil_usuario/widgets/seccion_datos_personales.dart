@@ -75,7 +75,6 @@ class DatosPersonales extends StatelessWidget {
                       tipoDato: '${l10n.commonDNI}: ',
                       dato: state.dniUsuario,
                     ),
-                    // TODO(anyone): Agregar el dato cuando este implementado
                     SizedBox(height: 10.ph),
                     _DatoPersonal(
                       tipoDato: '${l10n.commonEmergencyContact}: ',

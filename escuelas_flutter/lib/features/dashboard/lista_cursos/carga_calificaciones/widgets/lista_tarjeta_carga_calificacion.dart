@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 

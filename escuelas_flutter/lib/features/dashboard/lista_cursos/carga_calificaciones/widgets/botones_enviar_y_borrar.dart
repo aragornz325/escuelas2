@@ -1,5 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/celular/vista_celular_carga_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/escritorio/vista_escritorio_carga_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/celular/vista_celular_carga_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/escritorio/vista_escritorio_carga_calificaciones.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

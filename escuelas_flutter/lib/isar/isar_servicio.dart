@@ -129,5 +129,6 @@ abstract class IsarServicio {
 
   //?  En el futuro se podria agregar updateUsuario/ updateUsuarioPendiente
 
-  // TODO(ANYONE): Para que funcione en Web deberia estar al menos la version de Isar >= 4.0.0
+  // TODO(ANYONE): Para que funcione en Web deberia estar al menos la version de
+  // Isar >= 4.0.0
 }

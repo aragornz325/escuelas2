@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO(Manu): Cuando vir unifique colores, revisar cuales quedaron.
-
 /// Esquema de color claro por defecto de Escuelas
 const themeDefaultEscuelas = ColorScheme.light(
   /// Color utilizado en los apartados de autenticacion para hinttext de los

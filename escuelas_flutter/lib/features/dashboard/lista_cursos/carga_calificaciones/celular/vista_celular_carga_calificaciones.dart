@@ -1,7 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/popups/dialogs.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/popups/dialogs.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/widgets.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
 import 'package:flutter/material.dart';
