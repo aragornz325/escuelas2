@@ -494,4 +494,24 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       usuariosListados: usuariosListados,
     );
   }
+
+  Future<List<Usuario>> obtenerUsuariosEnLote(
+    Session session, {
+    required List<int> ids,
+  }) async =>
+      ejecutarOperacion(
+        () => orm.obtenerUsuariosEnLote(
+          session,
+          ids: ids,
+        ),
+      );
+
+  Future<List<int>> obtenerIdsDeUsuariosDocentes(
+    Session session,
+  ) async =>
+      ejecutarOperacion(
+        () => orm.obtenerIdsDeUsuariosDocentes(
+          session,
+        ),
+      );
 }
