@@ -22,6 +22,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
   /// Muestra dialog de error
   Future<void> _showDialogError(BuildContext context) {
     final l10n = context.l10n;
+
     return showDialog<void>(
       context: context,
       builder: (context) => EscuelasDialog.fallido(
@@ -58,8 +59,9 @@ class MenuOpcionesPermisos extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    final menus = _menusPermitidos(context);
     final l10n = context.l10n;
+
+    final menus = _menusPermitidos(context);
 
     return Column(
       children: [

@@ -104,7 +104,7 @@ FROM
 "asignaturas" a
 INNER JOIN r_asignatura_curso rac ON rac."idAsignatura" = a."id"
 WHERE
-rac."idCurso" = c."id"
+rac."idCurso" = c."cursoId"
 )
 ''';
 
@@ -229,15 +229,6 @@ WHERE rau."usuarioId" = $idUsuario
       );
     }
 
-    await ejecutarOperacion(
-      () => _servicioSolicitud.actualizarSolicitud(
-        session,
-        solicitud: solicitud.copyWith(
-          fechaRealizacion: DateTime.now(),
-        ),
-      ),
-    );
-
     final calificaciones = calificacionesMensuales.map((e) {
       final calificacion = e.calificacion;
 
@@ -263,9 +254,11 @@ WHERE rau."usuarioId" = $idUsuario
         // Insertamos el id de la calificacion creada en la calificacion mensual
         final calificacion = c
           ..calificacionId = calificacionesCreadas
-                  .firstWhere((element) => element.id == c.calificacion?.id)
+                  .firstWhere((element) =>
+                      element.estudianteId == c.calificacion?.estudianteId)
                   .id ??
-              0;
+              0
+          ..calificacion = null;
 
         return calificacion;
       },
@@ -274,6 +267,15 @@ WHERE rau."usuarioId" = $idUsuario
     await _ormCalificacionMensual.crearCalificacionesMensuales(
       session,
       calificaciones: calificacionesMensualesActualizadas,
+    );
+
+    await ejecutarOperacion(
+      () => _servicioSolicitud.actualizarSolicitud(
+        session,
+        solicitud: solicitud.copyWith(
+          fechaRealizacion: DateTime.now(),
+        ),
+      ),
     );
   }
 

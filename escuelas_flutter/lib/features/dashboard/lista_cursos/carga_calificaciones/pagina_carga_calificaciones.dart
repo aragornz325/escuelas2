@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/celular/vista_celular_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/escritorio/vista_escritorio_carga_calificaciones.dart';
@@ -34,6 +35,8 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final idAutor = context.read<BlocDashboard>().state.usuario.id ?? 0;
+
     return BlocProvider<BlocCargaCalificaciones>(
       create: (context) => BlocCargaCalificaciones()
         ..add(
@@ -41,6 +44,7 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
             fecha: fecha,
             idComision: idComision,
             idAsignatura: idAsignatura,
+            idAutor: idAutor,
           ),
         ),
       child: const FullResponsiveScreen(

@@ -20,6 +20,7 @@ class BlocCargaCalificacionesEventoInicializar
     required this.idComision,
     required this.fecha,
     required this.idAsignatura,
+    required this.idAutor,
   });
 
   /// Fecha utilizada para iniciar la pantalla de carga de calificaciones
@@ -30,6 +31,7 @@ class BlocCargaCalificacionesEventoInicializar
 
   /// Id de la asignatura.
   final int idAsignatura;
+  final int idAutor;
 }
 
 /// {@template BlocCargaCalificacionesEventoFiltrarListaPorFecha}

@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
-
 part 'bloc_carga_calificaciones_estado.dart';
 part 'bloc_carga_calificaciones_evento.dart';
 
@@ -73,8 +71,8 @@ class BlocCargaCalificaciones
                         estudianteId: relacionComisionUsuario.usuarioId,
                         fechaCreacion: DateTime.now(),
                         ultimaModificacion: DateTime.now(),
-                        idAutor: sessionManager.signedInUser?.id ?? 0,
-                        idInstanciaDeEvaluacion: 0,
+                        idAutor: event.idAutor,
+                        idInstanciaDeEvaluacion: 1,
                         tipoCalificacion: TipoCalificacion.numericoDecimal,
                         index: 0,
                         diferencial: '0',
