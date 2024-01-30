@@ -49,13 +49,19 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
     final tienePermiso =
         context.tienePermiso(PermisoDeUsuario.responderSolicitudDeRegistro);
 
-    return BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
+    return BlocConsumer<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
+      listener: (BuildContext context, BlocPerfilUsuarioEstado state) {
+        if (state is BlocPerfilUsuarioEstadoUsuarioAceptado) {
+          context.router.push(const RutaUsuariosPendientes());
+        }
+      },
       builder: (context, state) {
         if (state is BlocPerfilUsuarioEstadoCargando) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
+
         return Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -130,8 +136,6 @@ class _DialogAceptarSolicitudRegistro extends StatelessWidget {
         .add(BlocPerfilUsuarioEventoAceptarSolicitud());
 
     Navigator.of(context).pop();
-
-    context.router.push(const RutaUsuariosPendientes());
   }
 
   final String? nombreUsuario;

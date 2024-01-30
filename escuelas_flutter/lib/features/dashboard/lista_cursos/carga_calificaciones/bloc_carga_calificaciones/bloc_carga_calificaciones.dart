@@ -170,29 +170,41 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final esEditar =
-            state.calificacionesMensuales?.solicitudNotaMensual == null;
-        if (esEditar) {
-          await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
-            calificacionesMensuales: state.listaCalificacionesMesActual,
-            idSolicitud: state.calificacionesMensuales?.solicitudNotaMensual
-                    ?.solicitudId ??
-                0,
-          );
-        } else {
-          // TODO(mati): implementar editar calificaciones
-          // await client.calificacion.(
-          //   calificacionesMensuales: state.listaCalificacionesMesActual,
-          //   idSolicitud: state
-          //           .calificacionesMensuales?.solicitudNotaMensual?.
-          // solicitudId ?? 0,
-          // );
-        }
+        final haySolicitud =
+            state.calificacionesMensuales?.solicitudNotaMensual != null;
 
-        emit(
-          BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
-              .desde(state),
-        );
+        final estaRealizada = state.calificacionesMensuales
+                ?.solicitudNotaMensual?.solicitud?.fechaRealizacion !=
+            null;
+
+        if (haySolicitud) {
+          if (estaRealizada) {
+            // TODO(mati): implementar editar calificaciones
+            // await client.calificacion.(
+            //   calificacionesMensuales: state.listaCalificacionesMesActual,
+            //   idSolicitud: state
+            //           .calificacionesMensuales?.solicitudNotaMensual?.
+            // solicitudId ?? 0,
+            // );
+            emit(
+              BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
+                  .desde(state),
+            );
+          } else {
+            await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
+              calificacionesMensuales: state.listaCalificacionesMesActual,
+              idSolicitud: state.calificacionesMensuales?.solicitudNotaMensual
+                      ?.solicitudId ??
+                  0,
+            );
+            emit(
+              BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
+                  .desde(state),
+            );
+          }
+        } else {
+          // TODO(anyone): handlear el caso en que no hay solicitud
+        }
       },
       onError: (e, st) => emit(
         BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones.desde(
