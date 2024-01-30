@@ -82,9 +82,10 @@ class OrmSolicitudNotaMensual extends ORM {
     Session session, {
     required int idSolicitud,
   }) async {
+    print(idSolicitud);
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
-      (session) => SolicitudCalificacionMensual.db.findFirstRow(
+      (session) => SolicitudCalificacionMensual.db.find(
         session,
         where: (t) => t.solicitudId.equals(idSolicitud),
         include: SolicitudCalificacionMensual.include(
@@ -92,8 +93,8 @@ class OrmSolicitudNotaMensual extends ORM {
         ),
       ),
     );
-
-    if (solicitudNotaMensualADb == null) {
+    print(solicitudNotaMensualADb);
+    if (solicitudNotaMensualADb.isEmpty) {
       throw ExcepcionCustom(
         titulo: 'no se pudo obtener',
         mensaje: 'no se pudo obtener el registro',
@@ -102,7 +103,7 @@ class OrmSolicitudNotaMensual extends ORM {
       );
     }
 
-    return solicitudNotaMensualADb;
+    return solicitudNotaMensualADb.first;
   }
 
   /// La función `obtenerSolicitudesNotaMensual` obtiene todos los registros de solicitud en una base de datos y
