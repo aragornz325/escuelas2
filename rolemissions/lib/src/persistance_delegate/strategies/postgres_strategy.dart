@@ -28,13 +28,23 @@ class PostgresStrategy extends PersistanceDelegate {
 
     /// The port number on which the PostgreSQL server is listening.
     required int port,
+
+    /// The schema where the tables should be created.
     String schema = '',
+
+    /// The name of the table where the roles will be stored.
+    String roleTable = 'roles',
+
+    /// The name of the table where the user-role relations will be stored.
+    String userRoleRelationTable = 'user_role_relation',
   })  : _host = host,
         _databaseName = databaseName,
         _userName = userName,
         _dbPassword = dbPassword,
         _port = port,
         _schema = schema,
+        _roleTable = roleTable,
+        _userRoleRelationTable = userRoleRelationTable,
         super();
 
   @override
@@ -53,6 +63,10 @@ class PostgresStrategy extends PersistanceDelegate {
   final String _schema;
 
   String get _schemaLabel => _schema.isNotEmpty ? '$_schema.' : '';
+
+  final String _roleTable;
+
+  final String _userRoleRelationTable;
 
   /// The connection to the database
   late final PostgreSQLConnection connection;
@@ -75,7 +89,7 @@ class PostgresStrategy extends PersistanceDelegate {
     await connection.open();
 
     await connection.execute('''
-      CREATE TABLE IF NOT EXISTS ${_schemaLabel}roles (
+      CREATE TABLE IF NOT EXISTS $_schemaLabel$_roleTable (
       id SERIAL PRIMARY KEY,
       name VARCHAR(255),
       permissions VARCHAR(255),
@@ -85,10 +99,12 @@ class PostgresStrategy extends PersistanceDelegate {
   ''');
 
     await connection.execute('''
-      CREATE TABLE IF NOT EXISTS ${_schemaLabel}user_role_relation (
+      CREATE TABLE IF NOT EXISTS $_schemaLabel$_userRoleRelationTable (
       id SERIAL PRIMARY KEY,
+      "organizationId" INT NOT NULL,
       "roleId" INT NOT NULL,
       "userId" INT NOT NULL,
+      "privileges" VARCHAR(255),
       "createdAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
       "updatedAt" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
     );
@@ -244,15 +260,44 @@ class PostgresStrategy extends PersistanceDelegate {
   FutureOr<int> relateRoleToUser({
     required int userId,
     required int roleId,
+    required int organizationId,
+    String? privileges,
   }) async {
     final query = await connection.query(
-      'INSERT INTO user_role_relation ("userId", "roleId") VALUES (@userId, @roleId) RETURNING id',
+      '''
+      INSERT INTO user_role_relation ("userId", "roleId", "organizationId", "privileges") 
+      VALUES (@userId, @roleId, @organizationId, @privileges) RETURNING id'
+      ''',
       substitutionValues: {
         'userId': userId,
         'roleId': roleId,
+        'organizationId': organizationId,
+        'privileges': privileges,
       },
     );
 
     return query.map((row) => row[0] as int).first;
+  }
+
+  @override
+  FutureOr<bool> updateUserPrivileges({
+    required int userId,
+    required int organizationId,
+    required String privileges,
+  }) async {
+    final query = await connection.query(
+      '''
+      UPDATE user_role_relation 
+      SET "privileges" = @privileges, "updatedAt" = CURRENT_TIMESTAMP 
+      WHERE "userId" = @userId AND "organizationId" = @organizationId
+      ''',
+      substitutionValues: {
+        'userId': userId,
+        'organizationId': organizationId,
+        'privileges': privileges,
+      },
+    );
+
+    return query.isNotEmpty;
   }
 }

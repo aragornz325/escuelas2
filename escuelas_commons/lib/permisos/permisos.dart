@@ -8,8 +8,6 @@ import 'package:rolemissions/rolemissions.dart';
 /// Los permisos se pueden asignar a los usuarios a través de
 /// los roles o de los privilegios.
 class Permisos extends RolemissionPermissions {
-  Permisos() : super();
-
   Permisos.fromSerialization(super.serialization) : super.fromSerialization();
 
   Permisos.fromEnumList(super.permissions) : super.fromEnumList();
