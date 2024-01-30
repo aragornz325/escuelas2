@@ -266,7 +266,7 @@ class PostgresStrategy extends PersistanceDelegate {
     final query = await connection.query(
       '''
       INSERT INTO user_role_relation ("userId", "roleId", "organizationId", "privileges") 
-      VALUES (@userId, @roleId, @organizationId, @privileges) RETURNING id'
+      VALUES (@userId, @roleId, @organizationId, @privileges) RETURNING id
       ''',
       substitutionValues: {
         'userId': userId,
