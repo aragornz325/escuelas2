@@ -51,7 +51,7 @@ class ListaTarjetaCargaCalificacion extends StatelessWidget {
                       listaCalificacionesMesesRestantes,
                   alumno: relacionComisionUsuario.usuario,
                   calificacion: calificacion == null
-                      ? 'S/C' //TODO l10n
+                      ? 'S/C' // TODO(anyone): l10n
                       : ManejadorDeCalificaciones.obtenerValorDeCalificacion(
                           calificacion.tipoCalificacion,
                           calificacion.index,

@@ -148,14 +148,14 @@ class BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones
       : super.desde();
 }
 
-/// {@template BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas}
+/// {@template BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas}
 /// Sirve para que muestre un popup indicando que las calificaciones fueron
 /// borradas.
 /// {@endtemplate}
-class BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas
+class BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas
     extends BlocCargaCalificacionesEstado {
-  /// {@macro BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas}
-  BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas.desde(
+  /// {@macro BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas}
+  BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas.desde(
     super.otro, {
     super.listaCalificacionesMesActual,
   }) : super.desde();

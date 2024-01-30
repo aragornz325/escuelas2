@@ -6,7 +6,6 @@ import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
-import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioCalificacion extends Servicio<OrmCalificacion> {
@@ -20,8 +19,6 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   final _ormCalificacionMensual = OrmCalificacionMensual();
 
   final _servicioSolicitud = ServicioSolicitud();
-
-  final _servicioUsuario = ServicioUsuario();
 
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {

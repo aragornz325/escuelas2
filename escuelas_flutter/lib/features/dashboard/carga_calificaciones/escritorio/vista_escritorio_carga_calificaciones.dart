@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 class VistaEscritorioCargaDeCalificaciones extends StatelessWidget {
   /// {@macro VistaEscritorioCargaDeCalificaciones}
   const VistaEscritorioCargaDeCalificaciones({super.key});
-// TODO(anyone): Implementar vista de escritorio para la carga de calificaciones.
+// TODO(anyone): Implementar vista de escritorio para la carga de
+// calificaciones.
   @override
   Widget build(BuildContext context) {
     return Container();
