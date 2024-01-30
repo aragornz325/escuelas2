@@ -30,4 +30,12 @@ class OrmRelacionAsignaturaUsuario extends ORM {
       },
     );
   }
+
+  Future<void> eliminarRelacionUsuarioAAsignaturas(
+    Session session, {
+    required List<AsignaturaSolicitada> asignaturasSolicitadas,
+    required int usuarioId,
+  }) async {
+      }
+
 }
