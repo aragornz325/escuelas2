@@ -329,8 +329,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
 
-    //crear relacion usuario - comision
-
     final idUsuario = usuario.id;
 
     final comisionSolicitada = usuarioPendiente.comisionSolicitada;
@@ -350,6 +348,11 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         session,
         idUsuario: idUsuario,
         idRol: usuarioPendiente.idRolSolicitado,
+        // TODO(anyone):
+        // Por ahora el id de organizacion siempre va a ser 1
+        // ese id va a ser referente a la organizacion de la escuela
+        // `Redemptoris Missio`
+        idOrganizacion: 1,
       ),
     );
 
