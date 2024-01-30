@@ -29,10 +29,11 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   final ServicioRol _servicioRol = ServicioRol();
 
   Future<Usuario> obtenerInfoBasicaUsuario(Session session) async {
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
     return await ejecutarOperacion(
       () async => orm.obtenerInfoBasicaUsuario(
         session,
-        idUserInfo: 6,
+        idUserInfo: idUserInfo,
       ),
     );
   }
