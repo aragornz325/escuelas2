@@ -171,7 +171,7 @@ class BlocCargaCalificaciones
     await operacionBloc(
       callback: (client) async {
         final esEditar =
-            state.calificacionesMensuales?.solicitudNotaMensual == null;
+            state.calificacionesMensuales?.solicitudNotaMensual != null;
         if (esEditar) {
           await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
             calificacionesMensuales: state.listaCalificacionesMesActual,
