@@ -124,4 +124,17 @@ class CalificacionEndpoint extends Endpoint with Controller {
           idComision: idComision,
         ),
       );
+
+  Future<void> actualizarCalificacionesMensualesEnLote(
+    Session session, {
+    required List<CalificacionMensual> calificacionesMensuales,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'actualizarCalificacionesMensualesEnLote',
+        () async => await servicio.actualizarCalificacionesMensualesEnLote(
+          session,
+          calificacionesMensuales: calificacionesMensuales,
+        ),
+      );
 }

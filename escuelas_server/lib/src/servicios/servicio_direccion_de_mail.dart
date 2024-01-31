@@ -20,7 +20,7 @@ class ServicioDireccionDeMail extends Servicio<OrmDireccionesdeEmail> {
 
     final ahora = DateTime.now();
     final direccionDeEmail = DireccionDeEmail(
-      usuarioId: idUsuario,
+      idUsuario: idUsuario,
       direccionDeEmail: informacionDeUssuario.email!,
       ultimaModificacion: ahora,
       fechaCreacion: ahora,

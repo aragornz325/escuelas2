@@ -43,15 +43,15 @@ class OrmCalificacionMensual extends ORM {
         ),
       );
 
-  Future<List<CalificacionMensual>> actualizarCalificaciones(
+  Future<List<CalificacionMensual>> actualizarCalificacionesMensualesEnLote(
     Session session, {
-    required List<CalificacionMensual> calificaciones,
+    required List<CalificacionMensual> calificacionesMensuales,
   }) async =>
       ejecutarOperacionOrm(
         session,
         (session) => CalificacionMensual.db.update(
           session,
-          calificaciones,
+          calificacionesMensuales,
         ),
       );
 
