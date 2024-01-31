@@ -43,16 +43,34 @@ class OrmCalificacionMensual extends ORM {
         ),
       );
 
+
+
+
+
   Future<List<CalificacionMensual>> actualizarCalificacionesMensualesEnLote(
     Session session, {
     required List<CalificacionMensual> calificacionesMensuales,
   }) async =>
       ejecutarOperacionOrm(
         session,
-        (session) => CalificacionMensual.db.update(
-          session,
-          calificacionesMensuales,
-        ),
+        (session) async {
+          print(calificacionesMensuales);
+          final calificacionMensual = await CalificacionMensual.db.update(
+            session,
+            calificacionesMensuales,
+          );
+
+
+          // if (calificacionMensual.isEmpty) {
+          //   throw ExcepcionCustom(
+          //     titulo: 'no se actualizo',
+          //     mensaje: 'no se pudo actualizar el registro',
+          //     tipoDeError: TipoExcepcion.desconocido,
+          //     codigoError: 560,
+          //   );
+          // }
+          return calificacionMensual;
+        },
       );
 
   Future<List<int>> eliminarCalificaciones(

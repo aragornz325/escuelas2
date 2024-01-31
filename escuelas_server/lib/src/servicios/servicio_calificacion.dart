@@ -20,6 +20,8 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
 
   final _servicioSolicitud = ServicioSolicitud();
 
+  final _ormCalificacion = OrmCalificacion();
+
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {
     required List<Calificacion> calificaciones,
@@ -298,10 +300,23 @@ WHERE rau."usuarioId" = $idUsuario
     Session session, {
     required List<CalificacionMensual> calificacionesMensuales,
   }) =>
-      ejecutarOperacion(
-        () => _ormCalificacionMensual.actualizarCalificacionesMensualesEnLote(
+      ejecutarOperacion(() async {
+        final calificacionMensual = await _ormCalificacionMensual
+            .actualizarCalificacionesMensualesEnLote(
           session,
           calificacionesMensuales: calificacionesMensuales,
-        ),
-      );
+        );
+
+        final calificacion = calificacionesMensuales
+            .where((e) => e.calificacion != null)
+            .map((e) => e.calificacion!)
+            .toList();
+
+        await _ormCalificacion.actualizarCalificacionesEnLote(
+          session,
+          calificaciones: calificacion,
+        );
+
+        return;
+      });
 }

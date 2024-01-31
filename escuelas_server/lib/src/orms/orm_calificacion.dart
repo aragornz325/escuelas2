@@ -95,4 +95,17 @@ class OrmCalificacion extends ORM {
       ),
     );
   }
+
+  Future<List<Calificacion>> actualizarCalificacionesEnLote(
+    Session session, {
+    required List<Calificacion> calificaciones,
+  }) async {
+    return await ejecutarOperacionOrm(
+      session,
+      (session) => Calificacion.db.update(
+        session,
+        calificaciones,
+      ),
+    );
+  }
 }
