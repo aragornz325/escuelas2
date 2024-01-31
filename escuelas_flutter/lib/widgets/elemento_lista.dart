@@ -49,7 +49,7 @@ class ElementoLista extends StatelessWidget {
     return ElementoLista(
       altura: 50.ph,
       texto: Text(
-        nombreMateria,
+        nombreMateria.toUpperCase(),
         maxLines: 1,
         style: TextStyle(
           fontSize: 12.pf,

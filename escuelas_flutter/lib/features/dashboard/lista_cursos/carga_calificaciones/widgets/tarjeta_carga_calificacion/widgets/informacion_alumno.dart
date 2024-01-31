@@ -75,7 +75,9 @@ class _InformacionAlumnoState extends State<InformacionAlumno> {
                 ),
               ),
               Text(
-                widget.promedio.toStringAsFixed(2),
+                widget.promedio.toStringAsFixed(
+                  widget.promedio.truncateToDouble() == widget.promedio ? 0 : 2,
+                ),
                 style: TextStyle(
                   color: colores.onBackground,
                   fontSize: 13.pf,

@@ -3,6 +3,7 @@ import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboar
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/popups/dialogs.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/widgets.dart';
+import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
 import 'package:flutter/material.dart';
@@ -40,15 +41,29 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
       builder: (context, state) {
         final idAutor = context.read<BlocDashboard>().state.usuario.id ?? 0;
 
-        if (state is BlocCargaCalificacionesEstadoCargando) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+        final etiqueta = state.fecha != null
+            ? state.fecha!.nombreMes(context).toUpperCase()
+            : '';
+
+        final fechaDesde =
+            state.fecha?.copyWith(day: 1) ?? DateTime.now().copyWith(day: 1);
+
+        final fechaHasta = DateTime(
+          DateTime.now().year,
+          DateTime.now().month + 1,
+        ).subtract(const Duration(days: 1));
+
         return Column(
           children: [
             SelectorDePeriodo(
-              delegate: PeriodoMensualDelegate(context),
+              delegate: PeriodoMensualDelegate(
+                context,
+                periodo: PeriodoDelSelector(
+                  etiqueta: etiqueta,
+                  fechaDesde: fechaDesde,
+                  fechaHasta: fechaHasta,
+                ),
+              ),
               onSeleccionarPeriodo: (periodo) =>
                   context.read<BlocCargaCalificaciones>().add(
                         BlocCargaCalificacionesEventoInicializar(
@@ -74,7 +89,8 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                   state.listaCalificacionesMesesRestantes,
               listaEstudiantes: state.estudiantes,
             ),
-            if (state.calificacionesMensuales?.solicitudNotaMensual != null)
+            if (state.calificacionesMensuales?.solicitudNotaMensual != null &&
+                state is! BlocCargaCalificacionesEstadoCargando)
               Padding(
                 padding: EdgeInsets.only(top: 10.ph),
                 child: const BotonesEnviarNotasYLimpiarNotas(),
