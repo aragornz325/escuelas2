@@ -40,7 +40,7 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
             EscuelasBoton.texto(
               context: context,
               estaHabilitado:
-                  state.listaCalificaciones.length == state.estudiantes.length,
+                  state.calificacionesMensuales?.solicitudNotaMensual != null,
               // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este
               // lo de back
               onTap: () => context.read<BlocCargaCalificaciones>().add(
