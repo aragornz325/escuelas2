@@ -43,4 +43,31 @@ class ServicioComision extends Servicio<OrmComision> {
 
     return comisiones.first;
   }
+
+  Future<List<SupervisionDeCurso>>
+      obtenerComisionesConSolicitudesCalificacionMensual(
+    Session session, {
+    required int mes,
+    required int anio,
+  }) async {
+    final comisiones = await ejecutarOperacion(
+      () => orm.obtenerComisionesConSolicitudesCalificacionMensual(
+        session,
+        mes: mes,
+        anio: anio,
+      ),
+    );
+
+    final supervisionDeCursos = comisiones
+        .map(
+          (comision) => SupervisionDeCurso(
+            comision: comision,
+            // TODO(anyone): Hacer soporte de notificaciones.
+            fechaDeNotificacion: null,
+          ),
+        )
+        .toList();
+
+    return supervisionDeCursos;
+  }
 }

@@ -166,7 +166,7 @@ class OrmSolicitudNotaMensual extends ORM {
             session,
             (session) => SolicitudCalificacionMensual.db.find(
               session,
-              where: (t) => t.numeroDeMes.equals(numeroDeMes),
+              where: (t) => t.mes.equals(numeroDeMes),
               include: SolicitudCalificacionMensual.include(
                 solicitud: Solicitud.include(),
               ),
@@ -217,7 +217,7 @@ class OrmSolicitudNotaMensual extends ORM {
         where: (t) =>
             t.idAsignatura.equals(idAsignatura) &
             t.comisionId.equals(idComision) &
-            t.numeroDeMes.equals(numeroDeMes),
+            t.mes.equals(numeroDeMes),
         include: SolicitudCalificacionMensual.include(
           solicitud: Solicitud.include(),
         ),
