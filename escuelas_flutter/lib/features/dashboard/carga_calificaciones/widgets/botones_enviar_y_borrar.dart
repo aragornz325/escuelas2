@@ -39,10 +39,10 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
             ),
             EscuelasBoton.texto(
               context: context,
-              estaHabilitado:
-                  state.calificacionesMensuales?.solicitudNotaMensual != null,
-              // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este
-              // lo de back
+              estaHabilitado: true,
+              // TODO(ANYONE): Cambiar por el id correspondiente, cuadno este lo de back
+
+              // TODO(ANYONE): checkear la validacion de si esta habilitado, Si agregar alguna
               onTap: () => context.read<BlocCargaCalificaciones>().add(
                     const BlocCargaCalificacionesEventoEnviarCalificaciones(),
                   ),
