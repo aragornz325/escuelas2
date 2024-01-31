@@ -177,13 +177,9 @@ class BlocCargaCalificaciones
 
         if (haySolicitud) {
           if (estaRealizada) {
-            // TODO(mati): implementar editar calificaciones
-            // await client.calificacion.(
-            //   calificacionesMensuales: state.listaCalificacionesMesActual,
-            //   idSolicitud: state
-            //           .calificacionesMensuales?.solicitudNotaMensual?.
-            // solicitudId ?? 0,
-            // );
+            await client.calificacion.actualizarCalificacionesMensualesEnLote(
+              calificacionesMensuales: state.listaCalificacionesMesActual,
+            );
             emit(
               BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
                   .desde(state),
