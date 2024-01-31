@@ -28,6 +28,7 @@ class BlocCargaCalificaciones
     );
   }
 
+  /// Fecha de la pantalla anterior
   final DateTime fecha;
 
   /// Al iniciar la pantalla trae todos los alumnos de una fecha.
