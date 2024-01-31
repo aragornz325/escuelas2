@@ -38,10 +38,9 @@ class PaginaCargaDeCalificaciones extends StatelessWidget {
     final idAutor = context.read<BlocDashboard>().state.usuario.id ?? 0;
 
     return BlocProvider<BlocCargaCalificaciones>(
-      create: (context) => BlocCargaCalificaciones()
+      create: (context) => BlocCargaCalificaciones(fecha: fecha)
         ..add(
           BlocCargaCalificacionesEventoInicializar(
-            fecha: fecha,
             idComision: idComision,
             idAsignatura: idAsignatura,
             idAutor: idAutor,

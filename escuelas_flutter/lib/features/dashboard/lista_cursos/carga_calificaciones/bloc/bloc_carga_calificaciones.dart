@@ -14,8 +14,8 @@ part 'bloc_carga_calificaciones_evento.dart';
 class BlocCargaCalificaciones
     extends Bloc<BlocCargaCalificacionesEvento, BlocCargaCalificacionesEstado> {
   /// {@macro BlocCargaCalificaciones}
-  BlocCargaCalificaciones()
-      : super(const BlocCargaCalificacionesEstadoInicial()) {
+  BlocCargaCalificaciones({required this.fecha})
+      : super(BlocCargaCalificacionesEstadoInicial(fecha: fecha)) {
     on<BlocCargaCalificacionesEventoInicializar>(_onInicializar);
     on<BlocCargaCalificacionesEventoAgregarCalificacion>(
       _onAgregarCalificacion,
@@ -27,6 +27,9 @@ class BlocCargaCalificaciones
       _onEnviarCalificaciones,
     );
   }
+
+  /// Fecha de la pantalla anterior
+  final DateTime fecha;
 
   /// Al iniciar la pantalla trae todos los alumnos de una fecha.
   Future<void> _onInicializar(
@@ -46,20 +49,22 @@ class BlocCargaCalificaciones
             .obtenerCalificacionesPorAsignaturaPorPeriodoPorComision(
           idAsignatura: event.idAsignatura,
           idComision: event.idComision,
-          numeroDeAnio: event.fecha.year,
-          numeroDeMes: event.fecha.month,
+          numeroDeAnio: event.fecha?.year ?? fecha.year,
+          numeroDeMes: event.fecha?.month ?? fecha.month,
         );
 
-        var listaCalificacionesMesActual = calificacionesMensuales
-                .calificacionesMensualesPorPeriodo
-                .firstWhereOrNull(
-                  (listaCalificacionMensual) => listaCalificacionMensual.any(
-                    (calificacionMensual) =>
-                        calificacionMensual.numeroDeMes == event.fecha.month,
-                  ),
-                )
-                ?.toList() ??
-            [];
+        var listaCalificacionesMesActual =
+            calificacionesMensuales.calificacionesMensualesPorPeriodo
+                    .firstWhereOrNull(
+                      (listaCalificacionMensual) =>
+                          listaCalificacionMensual.any(
+                        (calificacionMensual) =>
+                            calificacionMensual.numeroDeMes ==
+                            (event.fecha?.month ?? fecha.month),
+                      ),
+                    )
+                    ?.toList() ??
+                [];
 
         if (listaCalificacionesMesActual.isEmpty) {
           listaCalificacionesMesActual =
@@ -77,20 +82,21 @@ class BlocCargaCalificaciones
                         index: 0,
                         diferencial: '0',
                       ),
-                      numeroDeMes: event.fecha.month,
+                      numeroDeMes: event.fecha?.month ?? fecha.month,
                       calificacionId: 0,
                     );
                   }).toList() ??
                   [];
         }
-        final listaCalificacionesMesesRestantes =
-            calificacionesMensuales.calificacionesMensualesPorPeriodo
-                .where(
-                  (element) => element.any(
-                    (element) => element.numeroDeMes != event.fecha.month,
-                  ),
-                )
-                .toList();
+        final listaCalificacionesMesesRestantes = calificacionesMensuales
+            .calificacionesMensualesPorPeriodo
+            .where(
+              (element) => element.any(
+                (element) =>
+                    element.numeroDeMes != (event.fecha?.month ?? fecha.month),
+              ),
+            )
+            .toList();
 
         emit(
           BlocCargaCalificacionesEstadoExitoso.desde(

@@ -34,21 +34,21 @@ class ItemMateria extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    return Row(
-      children: [
-        Expanded(
-          child: ElementoLista.misCursos(
-            nombreMateria: asignatura.nombreDeAsignatura,
-            estaCargada: estaCargada,
-            estaHabilitado: estaHabilitado,
-            context: context,
-            onTap: () => estaHabilitado ? onTap : null,
+    return GestureDetector(
+      onTap: estaHabilitado ? onTap : null,
+      child: Row(
+        children: [
+          Expanded(
+            child: ElementoLista.misCursos(
+              nombreMateria: asignatura.nombreDeAsignatura,
+              estaCargada: estaCargada,
+              estaHabilitado: estaHabilitado,
+              context: context,
+              onTap: () => estaHabilitado ? onTap : null,
+            ),
           ),
-        ),
-        SizedBox(width: 10.pw),
-        GestureDetector(
-          onTap: estaHabilitado ? onTap : null,
-          child: Container(
+          SizedBox(width: 10.pw),
+          Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(100.sw),
               color: estaHabilitado
@@ -65,8 +65,8 @@ class ItemMateria extends StatelessWidget {
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

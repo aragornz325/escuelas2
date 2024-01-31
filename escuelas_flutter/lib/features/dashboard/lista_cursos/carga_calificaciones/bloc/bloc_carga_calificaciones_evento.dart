@@ -18,13 +18,13 @@ class BlocCargaCalificacionesEventoInicializar
   /// {@macro BlocCargaCalificacionesEventoInicializar}
   const BlocCargaCalificacionesEventoInicializar({
     required this.idComision,
-    required this.fecha,
     required this.idAsignatura,
     required this.idAutor,
+    this.fecha,
   });
 
   /// Fecha utilizada para iniciar la pantalla de carga de calificaciones
-  final DateTime fecha;
+  final DateTime? fecha;
 
   /// Id de la comision.
   final int idComision;

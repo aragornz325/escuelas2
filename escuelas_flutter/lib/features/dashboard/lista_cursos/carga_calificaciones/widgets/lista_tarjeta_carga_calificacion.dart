@@ -1,8 +1,10 @@
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ListaTarjetaCargaCalificacion}
@@ -28,40 +30,52 @@ class ListaTarjetaCargaCalificacion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: SingleChildScrollView(
-        child: Column(
-          children: listaEstudiantes.map(
-            (relacionComisionUsuario) {
-              final calificacion = listaCalificacionesMesActual
-                  .firstWhereOrNull(
-                    (calificacionMensual) =>
-                        calificacionMensual.calificacion?.estudianteId ==
-                        relacionComisionUsuario.usuario?.id,
-                  )
-                  ?.calificacion;
+    return BlocBuilder<BlocCargaCalificaciones, BlocCargaCalificacionesEstado>(
+      builder: (context, state) {
+        if (state is BlocCargaCalificacionesEstadoCargando) {
+          return const Expanded(
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+        return Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: listaEstudiantes.map(
+                (relacionComisionUsuario) {
+                  final calificacion = listaCalificacionesMesActual
+                      .firstWhereOrNull(
+                        (calificacionMensual) =>
+                            calificacionMensual.calificacion?.estudianteId ==
+                            relacionComisionUsuario.usuario?.id,
+                      )
+                      ?.calificacion;
 
-              return Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 5.ph,
-                  horizontal: 15.pw,
-                ),
-                child: TarjetaCargaCalificacion(
-                  listaCalificacionesMesesRestantes:
-                      listaCalificacionesMesesRestantes,
-                  alumno: relacionComisionUsuario.usuario,
-                  calificacion: calificacion == null
-                      ? 'S/C' // TODO(anyone): l10n
-                      : ManejadorDeCalificaciones.obtenerValorDeCalificacion(
-                          calificacion.tipoCalificacion,
-                          calificacion.index,
-                        ),
-                ),
-              );
-            },
-          ).toList(),
-        ),
-      ),
+                  return Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 5.ph,
+                      horizontal: 15.pw,
+                    ),
+                    child: TarjetaCargaCalificacion(
+                      listaCalificacionesMesesRestantes:
+                          listaCalificacionesMesesRestantes,
+                      alumno: relacionComisionUsuario.usuario,
+                      calificacion: calificacion == null
+                          ? 'S/C' // TODO(anyone): l10n
+                          : ManejadorDeCalificaciones
+                              .obtenerValorDeCalificacion(
+                              calificacion.tipoCalificacion,
+                              calificacion.index,
+                            ),
+                    ),
+                  );
+                },
+              ).toList(),
+            ),
+          ),
+        );
+      },
     );
   }
 }

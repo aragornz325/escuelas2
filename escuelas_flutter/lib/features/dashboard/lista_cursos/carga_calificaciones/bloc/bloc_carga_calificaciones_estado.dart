@@ -84,7 +84,7 @@ class BlocCargaCalificacionesEstado {
 class BlocCargaCalificacionesEstadoInicial
     extends BlocCargaCalificacionesEstado {
   /// {@macro BlocCargaCalificacionesEstadoInicial}
-  const BlocCargaCalificacionesEstadoInicial() : super._();
+  const BlocCargaCalificacionesEstadoInicial({super.fecha}) : super._();
 }
 
 /// {@template BlocCargaCalificacionesEstadoCargando}
