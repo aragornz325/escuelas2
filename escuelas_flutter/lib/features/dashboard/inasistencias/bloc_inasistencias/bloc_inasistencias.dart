@@ -168,13 +168,14 @@ class BlocInasistencias
 
         final comisionesConAsistencias = List<ComisionConAsistencias>.from(
           state.comisionesConAsistencias.map(
-            (e) {
-              return e.comisionDeCurso.id == event.idComision
+            (comisionConAsistencias) {
+              return comisionConAsistencias.comisionDeCurso.id ==
+                      event.idComision
                   ? ComisionConAsistencias(
-                      comisionDeCurso: e.comisionDeCurso,
+                      comisionDeCurso: comisionConAsistencias.comisionDeCurso,
                       inasistenciasDelCurso: asistencias,
                     )
-                  : e;
+                  : comisionConAsistencias;
             },
           ),
         );

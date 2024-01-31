@@ -11,7 +11,5 @@ dev_dependencies:
   test: ^1.19.2
   very_good_analysis: ^5.1.0
 dependencies:
-  escuelas_commons:
-    path: ../escuelas_commons
   logging: ^1.2.0
   postgres: ^2.6.1

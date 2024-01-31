@@ -74,10 +74,24 @@ class Rolemissions {
   FutureOr<int> asignRoleToUser({
     required int userId,
     required int roleId,
+    required int organizationId,
   }) async =>
       _persistanceDelegate.relateRoleToUser(
         userId: userId,
         roleId: roleId,
+        organizationId: organizationId,
+      );
+
+  /// Updates the privileges of a user in an organization.
+  FutureOr<bool> updateUserPrivileges({
+    required int userId,
+    required int organizationId,
+    required String privileges,
+  }) async =>
+      _persistanceDelegate.updateUserPrivileges(
+        userId: userId,
+        organizationId: organizationId,
+        privileges: privileges,
       );
 }
 
@@ -86,13 +100,11 @@ class Rolemissions {
 /// {@endtemplate}
 abstract class RolemissionPermissions {
   /// {@macro rolemission_permissions}
-  RolemissionPermissions();
-
-  /// {@macro rolemission_permissions}
   RolemissionPermissions.fromSerialization(String serialization) {
     _permissions = deserialization(serialization);
   }
 
+  /// {@macro rolemission_permissions}
   RolemissionPermissions.fromEnumList(List<List<Enum>> permissions) {
     _permissions = permissions;
   }
@@ -128,12 +140,18 @@ abstract class RolemissionPermissions {
   /// be 1 character longer with no benefict
   static const maxBitsLength = 62;
 
+  /// Deserializes the permissions from a [String] that was stored in a
+  /// database.
+  ///
+  /// The [String] should be the result of the [toSerialization] method.
   List<List<Enum>> deserialization(String serialization) {
     final permissions = <List<Enum>>[];
     final serializedPermissions =
         serialization.split(serializationNewEnumSeparator);
-    assert(serializedPermissions.length == allPermissions.length,
-        'The amount of serialized permissions is not the same as the amount of permissions in the app',);
+    assert(
+      serializedPermissions.length == allPermissions.length,
+      'The amount of serialized permissions is not the same as the amount of permissions in the app',
+    );
     for (var e = 0; e < serializedPermissions.length; e++) {
       final serializedPermission = serializedPermissions[e];
       final enumPermission = <Enum>[];
@@ -177,9 +195,12 @@ abstract class RolemissionPermissions {
     return buffer.toString().substring(0, buffer.length - 1);
   }
 
-  /// Checks if the user has the permission.
+  /// Checks if the user has a specific permission.
+  ///
+  /// The [permission] should be an enum that is included in the
+  /// [allPermissions] list.
   bool hasPermission(Enum permission) {
-    for (final permissionEnum in permissions) {
+    for (final permissionEnum in allPermissions) {
       if (permissionEnum.contains(permission)) return true;
     }
     return false;

@@ -47,5 +47,14 @@ abstract class PersistanceDelegate {
   FutureOr<int> relateRoleToUser({
     required int userId,
     required int roleId,
+    required int organizationId,
+    String? privileges,
+  });
+
+  /// Updates the privileges of a user in an organization.
+  FutureOr<bool> updateUserPrivileges({
+    required int userId,
+    required int organizationId,
+    required String privileges,
   });
 }

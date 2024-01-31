@@ -64,7 +64,6 @@ class _ItemCursoConListaDeEstudiantesState
           comisionConAsistencias: widget.comisionConAsistencias,
         ),
         if (_inasistencias.isEmpty)
-          // TODO(anyone): hacer una vista cuando no hay cursos.
           SizedBox(
             height: max(150.ph, 150.sh),
             child: Center(

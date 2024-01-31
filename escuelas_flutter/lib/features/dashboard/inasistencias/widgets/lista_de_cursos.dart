@@ -107,8 +107,7 @@ class _ContenidoDeplegableDeLaComisionDeCursoState
             const Duration(milliseconds: 250),
             () {
               widget.controller.animateTo(
-                widget.index *
-                    8.hp, // TODO(anyone): ver bien esto con el emulador
+                widget.index * 8.hp,
                 duration: const Duration(seconds: 1),
                 curve: Curves.easeInOut,
               );

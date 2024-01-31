@@ -1,0 +1,164 @@
+part of 'bloc_carga_calificaciones.dart';
+
+/// {@template BlocCargaCalificacionesEstado}
+/// Maneja el estado del bloc de las calificaciones de los alumnos dependiendo
+/// del rol del usuario.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstado}
+  const BlocCargaCalificacionesEstado._({
+    this.comision,
+    this.listaCalificacionesMesActual = const [],
+    this.fecha,
+    this.listaCalificacionesMesesRestantes = const [],
+    this.asignatura,
+    this.calificacionesMensuales,
+  });
+
+  BlocCargaCalificacionesEstado.desde(
+    BlocCargaCalificacionesEstado otro, {
+    List<CalificacionMensual>? listaCalificacionesMesActual,
+    ComisionDeCurso? comision,
+    Asignatura? asignatura,
+    DateTime? fecha,
+    List<List<CalificacionMensual>>? listaCalificacionesMesesRestantes,
+    CalificacionesMensuales? calificacionesMensuales,
+  }) : this._(
+          fecha: fecha ?? otro.fecha,
+          comision: comision ?? otro.comision,
+          listaCalificacionesMesesRestantes:
+              listaCalificacionesMesesRestantes ??
+                  otro.listaCalificacionesMesesRestantes,
+          asignatura: asignatura ?? otro.asignatura,
+          listaCalificacionesMesActual:
+              listaCalificacionesMesActual ?? otro.listaCalificacionesMesActual,
+          calificacionesMensuales:
+              calificacionesMensuales ?? otro.calificacionesMensuales,
+        );
+
+  /// Comision con los alumnos.
+  final ComisionDeCurso? comision;
+
+  /// Asignatura del usuario
+  final Asignatura? asignatura;
+
+  /// Periodo actual del calendario
+  final DateTime? fecha;
+
+  /// Calificaciones mensuales de los alumnos contiene las calificaciones
+  /// mensuales por periodo y la solicitud de envio de notas
+  final CalificacionesMensuales? calificacionesMensuales;
+
+  /// Contiene una lista de calificaciones mensuales del mes actual
+  final List<CalificacionMensual> listaCalificacionesMesActual;
+
+  /// Contiene las calificaciones mensuales de los meses restantes
+  final List<List<CalificacionMensual>> listaCalificacionesMesesRestantes;
+
+  /// Indica si el estado es
+  /// [BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones]
+  bool get falloAlEnviarCalificaciones =>
+      this is BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones;
+
+  /// Indica si el estado es
+  /// [BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente]
+  bool get exitoAlEnviarCalificaciones =>
+      this is BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente;
+
+  /// lista de estudiantes de una comision
+  List<RelacionComisionUsuario> get estudiantes => comision?.estudiantes ?? [];
+
+  List<Object?> get props => [
+        comision,
+        fecha,
+        listaCalificacionesMesesRestantes,
+        listaCalificacionesMesActual,
+        asignatura,
+        calificacionesMensuales,
+      ];
+}
+
+/// {@template BlocCargaCalificacionesEstadoInicial}
+/// Estado `inicial` de los componentes de la pantalla 'Carga de calificaciones'
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoInicial
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoInicial}
+  const BlocCargaCalificacionesEstadoInicial() : super._();
+}
+
+/// {@template BlocCargaCalificacionesEstadoCargando}
+/// Estado `cargando` de los componentes en la pantalla de
+/// 'Carga de calificaciones'
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoCargando
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoCargando}
+  BlocCargaCalificacionesEstadoCargando.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoExitoso}
+/// Estado `exitoso` general de los componentes de la pantalla
+/// 'Carga de calificaciones'
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoExitoso
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoExitoso}
+  BlocCargaCalificacionesEstadoExitoso.desde(
+    super.otro, {
+    super.comision,
+    super.fecha,
+    super.asignatura,
+    super.listaCalificacionesMesActual,
+    super.listaCalificacionesMesesRestantes,
+    super.calificacionesMensuales,
+  }) : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoFallido}
+/// Estado de `error general` de los componentes de la pantalla
+/// 'Carga de calificaciones'
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoFallido
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoFallido}
+  BlocCargaCalificacionesEstadoFallido.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente}
+/// Estado de `enviadas correctamente` de los componentes de la pantalla
+/// 'Carga de calificaciones' para que muestre un popup indicando que las
+///  calificaciones fueron enviadas.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente}
+  BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente.desde(
+    super.otro,
+  ) : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones}
+/// Estado de `error al enviar notas` de los componentes de la pantalla
+/// 'Carga de calificaciones' para que muestre un popup indicando que las
+/// calificaciones no fueron enviadas.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones}
+  BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones.desde(super.otro)
+      : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas}
+/// Sirve para que muestre un popup indicando que las calificaciones fueron
+/// borradas.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas}
+  BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas.desde(
+    super.otro, {
+    super.listaCalificacionesMesActual,
+  }) : super.desde();
+}

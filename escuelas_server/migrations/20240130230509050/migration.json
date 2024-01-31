@@ -1,0 +1,217 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "direcciones_de_email"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "direcciones_de_email",
+        "dartName": "DireccionDeEmail",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('direcciones_de_email_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "usuarioId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "direccionDeEmail",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "direcciones_de_email_fk_0",
+            "columns": [
+              "usuarioId"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "direcciones_de_email_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "periodos",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "ultimaModificacion",
+          "fechaCreacion",
+          "fechaEliminacion"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"idUsuario\" of table \"direcciones_de_email\" will be dropped.",
+            "table": "direcciones_de_email",
+            "columns": [
+              "idUsuario"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "columnDropped",
+            "message": "Column \"_usuariosDireccionesdeemailUsuariosId\" of table \"direcciones_de_email\" will be dropped.",
+            "table": "direcciones_de_email",
+            "columns": [
+              "_usuariosDireccionesdeemailUsuariosId"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "tableDropped",
+            "message": "One or more columns are added to table \"direcciones_de_email\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+            "table": "direcciones_de_email",
+            "columns": [
+              "usuarioId"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "columnDropped",
+            "message": "Column \"ultimaModificacion\" of table \"periodos\" will be dropped.",
+            "table": "periodos",
+            "columns": [
+              "ultimaModificacion"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "columnDropped",
+            "message": "Column \"fechaCreacion\" of table \"periodos\" will be dropped.",
+            "table": "periodos",
+            "columns": [
+              "fechaCreacion"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "columnDropped",
+            "message": "Column \"fechaEliminacion\" of table \"periodos\" will be dropped.",
+            "table": "periodos",
+            "columns": [
+              "fechaEliminacion"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"idUsuario\" of table \"direcciones_de_email\" will be dropped.",
+      "table": "direcciones_de_email",
+      "columns": [
+        "idUsuario"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"_usuariosDireccionesdeemailUsuariosId\" of table \"direcciones_de_email\" will be dropped.",
+      "table": "direcciones_de_email",
+      "columns": [
+        "_usuariosDireccionesdeemailUsuariosId"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"direcciones_de_email\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "direcciones_de_email",
+      "columns": [
+        "usuarioId"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"ultimaModificacion\" of table \"periodos\" will be dropped.",
+      "table": "periodos",
+      "columns": [
+        "ultimaModificacion"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"fechaCreacion\" of table \"periodos\" will be dropped.",
+      "table": "periodos",
+      "columns": [
+        "fechaCreacion"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"fechaEliminacion\" of table \"periodos\" will be dropped.",
+      "table": "periodos",
+      "columns": [
+        "fechaEliminacion"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

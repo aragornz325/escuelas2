@@ -23,6 +23,24 @@ class VistaCelularInasistencias extends StatefulWidget {
 }
 
 class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
+  Future<void> _inasistenciasEnviadasCorrectamente(
+    BuildContext context,
+  ) {
+    final l10n = context.l10n;
+
+    return showDialog<void>(
+      context: context,
+      builder: (context) => EscuelasDialog.exitoso(
+        altura: max(80.ph, 80.sh),
+        context: context,
+        onTap: () => Navigator.of(context).pop(),
+        content: Text(
+          l10n.dialogAbsencesSentCorrectly,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -34,19 +52,7 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
         BlocConsumer<BlocInasistencias, BlocInasistenciasEstado>(
           listener: (context, state) {
             if (state is BlocInasistenciasEstadoExitosoEnvioDeInasistencias) {
-              // TODO(anyone): pedir un aviso de que se actualizaron o cargaron las
-              // inasistencias
-              showDialog<void>(
-                context: context,
-                builder: (context) => EscuelasDialog.exitoso(
-                  altura: max(80.ph, 80.sh),
-                  context: context,
-                  onTap: () => Navigator.of(context).pop(),
-                  content: Text(
-                    l10n.dialogAbsencesSentCorrectly,
-                  ),
-                ),
-              );
+              _inasistenciasEnviadasCorrectamente(context);
             }
           },
           builder: (context, state) {
@@ -83,7 +89,6 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
             }
 
             if (state.comisionesConAsistencias.isEmpty) {
-              // TODO(anyone): hacer una vista cuando no hay cursos.
               return Center(
                 child: Text(l10n.pageAttendanceWithoutCourses),
               );

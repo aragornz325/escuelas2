@@ -1,9 +1,9 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
-import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
+import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:serverpod/server.dart';
 
 import 'package:escuelas_server/utils/templates.dart';
@@ -12,7 +12,7 @@ import 'package:serverpod/serverpod.dart';
 class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
   @override
   OrmSolicitudNotaMensual get orm => OrmSolicitudNotaMensual();
-  OrmUsuario get ormUsuario => OrmUsuario();
+  ServicioUsuario get servicioUsuario => ServicioUsuario();
   OrmSolicitud get ormSolicitud => OrmSolicitud();
   ServicioComunicaciones get servicioComunicacion => ServicioComunicaciones();
 
@@ -105,14 +105,20 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
     Session session,
   ) async {
     final ahora = DateTime.now();
-    final listaIdDocentes = await ormUsuario.obtenerIdsDeUsuariosDocentes(
+
+    final listaIdDocentes = await servicioUsuario.obtenerIdsDeUsuariosDocentes(
       session,
     );
 
-    final idAutor = await obtenerIdDeUsuarioLogueado(session);
-    final usuarios = await ormUsuario.obtenerUsuariosEnLote(
-      session,
-      ids: listaIdDocentes,
+    final autor = await ejecutarOperacion(
+      () => servicioUsuario.obtenerInfoBasicaUsuario(session),
+    );
+
+    final usuarios = await ejecutarOperacion(
+      () => servicioUsuario.obtenerUsuariosEnLote(
+        session,
+        ids: listaIdDocentes,
+      ),
     );
 
     for (final usuario in usuarios) {
@@ -122,7 +128,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           in usuario.asignaturas ?? <RelacionAsignaturaUsuario>[]) {
         final solicitud = Solicitud(
           tipoSolicitud: TipoSolicitud.calificacion,
-          idAutor: idAutor,
+          idAutor: autor.id!,
           idDestinatario: usuario.id!,
           fechaCreacion: ahora,
         );

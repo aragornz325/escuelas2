@@ -14,9 +14,18 @@ import 'package:full_responsive/full_responsive.dart';
 /// Vista para celular de la pagina 'Supervision de Cursos' donde se supervisa
 /// la carga de calificaciones de las materias de los cursos
 /// {@endtemplate}
-class VistaCelularSupervisionCursos extends StatelessWidget {
+class VistaCelularSupervisionCursos extends StatefulWidget {
   /// {@macro VistaCelularSupervisionCursos}
   const VistaCelularSupervisionCursos({super.key});
+
+  @override
+  State<VistaCelularSupervisionCursos> createState() =>
+      _VistaCelularSupervisionCursosState();
+}
+
+class _VistaCelularSupervisionCursosState
+    extends State<VistaCelularSupervisionCursos> {
+  DateTime fecha = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +37,7 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
           children: [
             SelectorDePeriodo(
               delegate: PeriodoMensualDelegate(context),
-              onSeleccionarPeriodo: (periodo) {},
+              onSeleccionarPeriodo: (periodo) => fecha = periodo.fechaDesde,
               decoration: BoxDecoration(
                 color: colores.tertiary,
                 borderRadius: BorderRadius.circular(40.sw),
@@ -47,11 +56,7 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                             onTap: () => context.router.push(
                               RutaSupervisionEnvioCalificaciones(
                                 idCurso: curso.id ?? 0,
-                                // TODO(anyone): Pasar fecha del periodo
-                                // seleccionado
-                                fecha: DateTime.now()
-                                    .copyWith(month: DateTime.now().month + 2)
-                                    .toString(),
+                                fecha: fecha.toString(),
                               ),
                             ),
                             nombreCurso: curso.nombre,
@@ -75,8 +80,10 @@ class VistaCelularSupervisionCursos extends StatelessWidget {
                                                     .formatear
                                                     .toString()
                                                 : '8 de 12',
-                                            // ${state.materiasCargadasDelCurso} de
-                                            // ${state.totalDeMateriasDelCurso}',
+                                            // ${state.materiasCargadasDelCurso}
+                                            // de
+                                            // ${state.totalDeMateriasDelCurso}'
+                                            // ,
                                             style: TextStyle(
                                               color: colores.background,
                                               fontSize: 15.pf,

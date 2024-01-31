@@ -1,3 +1,4 @@
+import 'package:escuelas_server/constants/config.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion_mensual.dart';
@@ -5,7 +6,6 @@ import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
-import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioCalificacion extends Servicio<OrmCalificacion> {
@@ -20,7 +20,7 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
 
   final _servicioSolicitud = ServicioSolicitud();
 
-  final _servicioUsuario = ServicioUsuario();
+  final _ormCalificacion = OrmCalificacion();
 
   Future<List<Calificacion>> crearCalificacionesEnBloque(
     Session session, {
@@ -106,7 +106,7 @@ FROM
 "asignaturas" a
 INNER JOIN r_asignatura_curso rac ON rac."idAsignatura" = a."id"
 WHERE
-rac."idCurso" = c."id"
+rac."idCurso" = c."cursoId"
 )
 ''';
 
@@ -164,13 +164,22 @@ WHERE rau."usuarioId" = $idUsuario
     required int idAsignatura,
     required int idComision,
   }) async {
-    List<CalificacionMensual> calificacionesMensuales =
-        await obtenerCalificacionesMensuales(
-      session,
-      idAsignatura: idAsignatura,
-      idComision: idComision,
-      numeroDeMes: numeroDeMes,
+    final mesesDePeriodo = config.obtenerListaDeMesesPorPeriodo(
+      DateTime(numeroDeAnio, numeroDeMes),
     );
+
+    final calificacionesMensualesPorPeriodo = <List<CalificacionMensual>>[];
+    for (var mes in mesesDePeriodo) {
+      List<CalificacionMensual> calificacionesMensuales =
+          await obtenerCalificacionesMensuales(
+        session,
+        idAsignatura: idAsignatura,
+        idComision: idComision,
+        numeroDeMes: mes,
+      );
+
+      calificacionesMensualesPorPeriodo.add(calificacionesMensuales);
+    }
 
     final solicitudesNotaMensual = await ejecutarOperacion(
       () =>
@@ -182,43 +191,8 @@ WHERE rau."usuarioId" = $idUsuario
       ),
     );
 
-    // TODO(anyone):
-    // Analizar si es lo mejor esto de mandar las calificaciones
-    // vacias en caso de una instancia en la que se haya hecho una solicitud
-    // pero no se hayan creado las calificaciones mensuales
-    if (solicitudesNotaMensual.isNotEmpty && calificacionesMensuales.isEmpty) {
-      final estudiantes = await ejecutarOperacion(
-        () => _servicioUsuario.obtenerListaDeEstudiantesDeComision(
-          session,
-          idComision: idComision,
-        ),
-      );
-
-      final idAutor = await obtenerIdDeUsuarioLogueado(session);
-
-      // Creamos una calificacion mensual vacia para cada estudiante
-      calificacionesMensuales = estudiantes.map((e) {
-        return CalificacionMensual(
-          calificacion: Calificacion(
-            idAsignatura: idAsignatura,
-            idComision: idComision,
-            estudianteId: e.id ?? 0,
-            fechaCreacion: DateTime.now(),
-            ultimaModificacion: DateTime.now(),
-            idAutor: idAutor,
-            idInstanciaDeEvaluacion: 0,
-            tipoCalificacion: TipoCalificacion.numericoDecimal,
-            index: 0,
-            diferencial: '0',
-          ),
-          numeroDeMes: numeroDeMes,
-          calificacionId: 0,
-        );
-      }).toList();
-    }
-
     final respuesta = CalificacionesMensuales(
-      calificacionesMensuales: calificacionesMensuales,
+      calificacionesMensualesPorPeriodo: calificacionesMensualesPorPeriodo,
       solicitudNotaMensual:
           solicitudesNotaMensual.isEmpty ? null : solicitudesNotaMensual.first,
     );
@@ -257,15 +231,6 @@ WHERE rau."usuarioId" = $idUsuario
       );
     }
 
-    await ejecutarOperacion(
-      () => _servicioSolicitud.actualizarSolicitud(
-        session,
-        solicitud: solicitud.copyWith(
-          fechaRealizacion: DateTime.now(),
-        ),
-      ),
-    );
-
     final calificaciones = calificacionesMensuales.map((e) {
       final calificacion = e.calificacion;
 
@@ -291,9 +256,11 @@ WHERE rau."usuarioId" = $idUsuario
         // Insertamos el id de la calificacion creada en la calificacion mensual
         final calificacion = c
           ..calificacionId = calificacionesCreadas
-                  .firstWhere((element) => element.id == c.calificacion?.id)
+                  .firstWhere((element) =>
+                      element.estudianteId == c.calificacion?.estudianteId)
                   .id ??
-              0;
+              0
+          ..calificacion = null;
 
         return calificacion;
       },
@@ -302,6 +269,15 @@ WHERE rau."usuarioId" = $idUsuario
     await _ormCalificacionMensual.crearCalificacionesMensuales(
       session,
       calificaciones: calificacionesMensualesActualizadas,
+    );
+
+    await ejecutarOperacion(
+      () => _servicioSolicitud.actualizarSolicitud(
+        session,
+        solicitud: solicitud.copyWith(
+          fechaRealizacion: DateTime.now(),
+        ),
+      ),
     );
   }
 
@@ -319,4 +295,28 @@ WHERE rau."usuarioId" = $idUsuario
           numeroDeMes: numeroDeMes,
         ),
       );
+
+  Future<void> actualizarCalificacionesMensualesEnLote(
+    Session session, {
+    required List<CalificacionMensual> calificacionesMensuales,
+  }) =>
+      ejecutarOperacion(() async {
+        final calificacionMensual = await _ormCalificacionMensual
+            .actualizarCalificacionesMensualesEnLote(
+          session,
+          calificacionesMensuales: calificacionesMensuales,
+        );
+
+        final calificacion = calificacionesMensuales
+            .where((e) => e.calificacion != null)
+            .map((e) => e.calificacion!)
+            .toList();
+
+        await _ormCalificacion.actualizarCalificacionesEnLote(
+          session,
+          calificaciones: calificacion,
+        );
+
+        return;
+      });
 }

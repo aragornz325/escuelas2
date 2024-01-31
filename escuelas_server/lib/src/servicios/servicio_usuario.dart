@@ -29,10 +29,11 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   final ServicioRol _servicioRol = ServicioRol();
 
   Future<Usuario> obtenerInfoBasicaUsuario(Session session) async {
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
     return await ejecutarOperacion(
       () async => orm.obtenerInfoBasicaUsuario(
         session,
-        idUserInfo: 6,
+        idUserInfo: idUserInfo,
       ),
     );
   }
@@ -329,8 +330,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       ),
     );
 
-    //crear relacion usuario - comision
-
     final idUsuario = usuario.id;
 
     final comisionSolicitada = usuarioPendiente.comisionSolicitada;
@@ -350,6 +349,11 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         session,
         idUsuario: idUsuario,
         idRol: usuarioPendiente.idRolSolicitado,
+        // TODO(anyone):
+        // Por ahora el id de organizacion siempre va a ser 1
+        // ese id va a ser referente a la organizacion de la escuela
+        // `Redemptoris Missio`
+        idOrganizacion: 1,
       ),
     );
 
@@ -491,4 +495,24 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       usuariosListados: usuariosListados,
     );
   }
+
+  Future<List<Usuario>> obtenerUsuariosEnLote(
+    Session session, {
+    required List<int> ids,
+  }) async =>
+      ejecutarOperacion(
+        () => orm.obtenerUsuariosEnLote(
+          session,
+          ids: ids,
+        ),
+      );
+
+  Future<List<int>> obtenerIdsDeUsuariosDocentes(
+    Session session,
+  ) async =>
+      ejecutarOperacion(
+        () => orm.obtenerIdsDeUsuariosDocentes(
+          session,
+        ),
+      );
 }

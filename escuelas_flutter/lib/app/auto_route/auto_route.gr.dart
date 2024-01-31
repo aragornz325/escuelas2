@@ -18,8 +18,6 @@ import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i8;
 import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
     as _i16;
 import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i11;
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/pagina_carga_calificaciones.dart'
-    as _i1;
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/listado_comunidad/pagina_listado_comunidad.dart'
     as _i10;
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/menu/pagina_menu_comunidad_academica.dart'
@@ -28,9 +26,11 @@ import 'package:escuelas_flutter/features/dashboard/comunidad_academica/pagina_c
     as _i2;
 import 'package:escuelas_flutter/features/dashboard/inasistencias/pagina_inasistencias.dart'
     as _i6;
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/pagina_carga_calificaciones.dart'
+    as _i1;
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/lista_cursos.dart'
     as _i9;
-import 'package:escuelas_flutter/features/dashboard/mis_cursos/pagina_mis_cursos.dart'
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/mis_cursos/pagina_mis_cursos.dart'
     as _i13;
 import 'package:escuelas_flutter/features/dashboard/pagina_dashboard.dart'
     as _i3;

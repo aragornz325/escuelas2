@@ -1,21 +1,29 @@
 // ignore_for_file: public_member_api_docs
 
 enum ValorDeCalificacionConceptualAlfabetica {
-  aMas('A+'),
-  a('A'), // TODO(ANYONE): Agregar a-, f+?
-  bMas('B+'),
-  b('B'),
-  bMenos('B-'),
-  cMas('C+'),
-  c('C'),
-  cMenos('C-'),
-  dMas('D+'),
-  d('D'),
-  dMenos('D-'),
-  f('F');
+  sinCalificar(0, 'S/C'),
+  f(1, 'F'),
+  dMenos(2, 'D-'),
+  d(3, 'D'),
+  dMas(4, 'D+'),
+  cMenos(5, 'C-'),
+  c(6, 'C'),
+  cMas(6, 'C+'),
+  bMenos(7, 'B-'),
+  b(8, 'B'),
+  bMas(9, 'B+'),
+  aMenos(10, 'A-'),
+  a(11, 'A'),
+  aMas(12, 'A+');
 
-  const ValorDeCalificacionConceptualAlfabetica(this.valor);
+  const ValorDeCalificacionConceptualAlfabetica(
+    this.valor,
+    this.representacion,
+  );
+
+  /// Reprersentacion numero del valor de la calificacion.
+  final int valor;
 
   /// Representación textual del valor de la calificación.
-  final String valor;
+  final String representacion;
 }

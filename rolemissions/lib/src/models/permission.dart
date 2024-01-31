@@ -1,4 +1,5 @@
-/// The main class of a permission. Your base category of permission should extend this class.
+/// The main class of a permission. Your base category of permission should
+/// extend this class.
 /// e.g.:
 /// ```dart
 ///
@@ -8,7 +9,6 @@
 /// ```
 @Deprecated('Use a simple enum value instead')
 abstract class Permission {
-
   Permission(this.enumValue);
   final Enum enumValue;
 
