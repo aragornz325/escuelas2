@@ -74,10 +74,11 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                   state.listaCalificacionesMesesRestantes,
               listaEstudiantes: state.estudiantes,
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 10.ph),
-              child: const BotonesEnviarNotasYLimpiarNotas(),
-            ),
+            if (state.calificacionesMensuales?.solicitudNotaMensual != null)
+              Padding(
+                padding: EdgeInsets.only(top: 10.ph),
+                child: const BotonesEnviarNotasYLimpiarNotas(),
+              ),
           ],
         );
       },
