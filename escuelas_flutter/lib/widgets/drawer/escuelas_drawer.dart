@@ -5,6 +5,7 @@ import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboar
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 
 import 'package:escuelas_flutter/widgets/drawer/bloc/bloc_drawer.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
@@ -185,6 +186,36 @@ class EscuelasDrawer extends StatelessWidget {
                         onTap: () => _redireccionPerfil(context),
                       ),
                       const Spacer(),
+                      // TODO(anyone): Eliminar este widget
+                      GestureDetector(
+                        onTap: () async => {
+                          await client.solicitudNotaMensual
+                              .enviarSolicitudADocentes(),
+                        },
+                        child: Container(
+                          height: 70.ph,
+                          width: 200.pw,
+                          decoration: BoxDecoration(
+                            color: Colors.amber,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              width: 2,
+                            ),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: Text(
+                                'Press (solo para enviar solicitud notas)',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w800,
+                                  fontSize: 16.pf,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                       _EscuelasListTile(
                         icon: Icons.logout,
                         title: l10n.drawerLogOut,

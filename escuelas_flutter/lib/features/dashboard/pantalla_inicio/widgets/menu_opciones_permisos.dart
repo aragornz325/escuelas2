@@ -4,7 +4,6 @@ import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboar
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/utilidades/enum_menu_opciones_de_inicio.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
@@ -130,33 +129,6 @@ class MenuOpcionesPermisos extends StatelessWidget {
                   .toList(),
             );
           },
-        ),
-        // TODO(SAM): eLIMINAR LUEGO
-        GestureDetector(
-          onTap: () async => {
-            await client.solicitudNotaMensual.enviarSolicitudADocentes(),
-          },
-          child: Container(
-            height: 70.ph,
-            width: 200.pw,
-            decoration: BoxDecoration(
-              color: Colors.amber,
-              borderRadius: BorderRadius.circular(10),
-              border: Border.all(
-                width: 2,
-              ),
-            ),
-            child: Center(
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  'Press (solo para enviar solicitud notas)',
-                  style:
-                      TextStyle(fontWeight: FontWeight.w800, fontSize: 16.pf),
-                ),
-              ),
-            ),
-          ),
         ),
       ],
     );
