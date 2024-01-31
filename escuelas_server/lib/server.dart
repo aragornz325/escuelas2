@@ -50,7 +50,7 @@ void run(List<String> args) async {
       databaseName: 'postgres',
       userName: 'postgres.mvdsvzvejhmrnxgdfdwz',
       dbPassword: 'L86Grm9pso3LyUdA',
-      port: 6543,
+      port: 5432,
     ),
   );
 

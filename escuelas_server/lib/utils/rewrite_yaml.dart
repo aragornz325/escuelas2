@@ -28,7 +28,7 @@ void rewriteConfigYaml(String mode) {
     },
     'database': {
       'host': 'aws-0-sa-east-1.pooler.supabase.com',
-      'port': 6543,
+      'port': 5432,
       'name': 'postgres',
       'user': 'postgres.mvdsvzvejhmrnxgdfdwz',
       'password': 'L86Grm9pso3LyUdA',
