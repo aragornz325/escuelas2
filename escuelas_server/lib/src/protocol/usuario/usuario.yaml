@@ -18,8 +18,8 @@ fields:
   ###  'PRECEPTOR': 'PERMISOS-SEREALIZADOS-DE-PRECEPTOR'
   ### }
   roles: Map<String, String>?, !persist
-  ultimaModificacion: DateTime, scope=serverOnly
-  fechaCreacion: DateTime, scope=serverOnly
+  ultimaModificacion: DateTime?, scope=serverOnly
+  fechaCreacion: DateTime?, scope=serverOnly
   fechaEliminacion: DateTime?, scope=serverOnly
   comisiones: List<RelacionComisionUsuario>?, relation(name=usuario_comisiones)
   asignaturas: List<RelacionAsignaturaUsuario>?, relation(name=usuario_asignaturas)
