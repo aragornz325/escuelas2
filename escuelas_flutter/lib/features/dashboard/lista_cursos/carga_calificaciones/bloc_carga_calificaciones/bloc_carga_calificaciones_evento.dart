@@ -31,6 +31,8 @@ class BlocCargaCalificacionesEventoInicializar
 
   /// Id de la asignatura.
   final int idAsignatura;
+
+  /// Id del autor de la carga de calificaciones.
   final int idAutor;
 }
 

@@ -17,6 +17,7 @@ class ListaDeAsignaturasPorComision extends StatelessWidget {
     super.key,
   });
 
+  /// Periodo de la lista de asignaturas
   final DateTime periodo;
 
   @override
