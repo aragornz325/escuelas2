@@ -293,4 +293,15 @@ WHERE rau."usuarioId" = $idUsuario
           numeroDeMes: numeroDeMes,
         ),
       );
+
+  Future<void> actualizarCalificacionesMensualesEnLote(
+    Session session, {
+    required List<CalificacionMensual> calificacionesMensuales,
+  }) =>
+      ejecutarOperacion(
+        () => _ormCalificacionMensual.actualizarCalificacionesMensualesEnLote(
+          session,
+          calificacionesMensuales: calificacionesMensuales,
+        ),
+      );
 }
