@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template VistaEscritorioSupervisionCursos}
-// TODO(anyone): AGREGAR DOCUMENTACION
+/// Pagina donde el usuario puede supervisar la cantidad de asignaturas cargadas
+/// dentro de las comisiones
 /// {@endtemplate}
 @RoutePage()
 class PaginaSupervisionCursos extends StatelessWidget {

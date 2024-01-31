@@ -42,8 +42,7 @@ class ItemMateria extends StatelessWidget {
             estaCargada: estaCargada,
             estaHabilitado: estaHabilitado,
             context: context,
-            // TODO(anyone): Poner la funcion
-            onTap: () {},
+            onTap: () => estaHabilitado ? onTap : null,
           ),
         ),
         SizedBox(width: 10.pw),

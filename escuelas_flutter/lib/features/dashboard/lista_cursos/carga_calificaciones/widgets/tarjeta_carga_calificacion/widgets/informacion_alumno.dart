@@ -16,8 +16,10 @@ class InformacionAlumno extends StatefulWidget {
     super.key,
   });
 
+  /// Nombre del alumno
   final String nombreAlumno;
 
+  /// Promedio del alumno
   final double promedio;
 
   @override

@@ -135,7 +135,6 @@ class _ListaDeAlumnosAusentesState extends State<ListaDeAlumnosAusentes> {
                 else
                   ...alumnosOrdenados.map(
                     (alumno) {
-                      // TODO(mati): cambiar esta horrible logica
                       final asistenciaDiaria = widget.asistencias.firstWhere(
                         (asistencia) =>
                             asistencia.estudiante?.id == alumno.usuario?.id,

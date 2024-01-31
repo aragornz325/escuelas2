@@ -2,8 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
-
 part 'bloc_carga_calificaciones_estado.dart';
 part 'bloc_carga_calificaciones_evento.dart';
 
@@ -73,8 +71,8 @@ class BlocCargaCalificaciones
                         estudianteId: relacionComisionUsuario.usuarioId,
                         fechaCreacion: DateTime.now(),
                         ultimaModificacion: DateTime.now(),
-                        idAutor: sessionManager.signedInUser?.id ?? 0,
-                        idInstanciaDeEvaluacion: 0,
+                        idAutor: event.idAutor,
+                        idInstanciaDeEvaluacion: 1,
                         tipoCalificacion: TipoCalificacion.numericoDecimal,
                         index: 0,
                         diferencial: '0',
@@ -155,7 +153,7 @@ class BlocCargaCalificaciones
       calificacionMensual.calificacion?.index = 0;
     }
     emit(
-      BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas.desde(
+      BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas.desde(
         state,
         listaCalificacionesMesActual: lista,
       ),
@@ -170,29 +168,37 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final esEditar =
-            state.calificacionesMensuales?.solicitudNotaMensual == null;
-        if (esEditar) {
-          await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
-            calificacionesMensuales: state.listaCalificacionesMesActual,
-            idSolicitud: state.calificacionesMensuales?.solicitudNotaMensual
-                    ?.solicitudId ??
-                0,
-          );
-        } else {
-          // TODO(mati): implementar editar calificaciones
-          // await client.calificacion.(
-          //   calificacionesMensuales: state.listaCalificacionesMesActual,
-          //   idSolicitud: state
-          //           .calificacionesMensuales?.solicitudNotaMensual?.solicitudId ??
-          //       0,
-          // );
-        }
+        final haySolicitud =
+            state.calificacionesMensuales?.solicitudNotaMensual != null;
 
-        emit(
-          BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
-              .desde(state),
-        );
+        final estaRealizada = state.calificacionesMensuales
+                ?.solicitudNotaMensual?.solicitud?.fechaRealizacion !=
+            null;
+
+        if (haySolicitud) {
+          if (estaRealizada) {
+            await client.calificacion.actualizarCalificacionesMensualesEnLote(
+              calificacionesMensuales: state.listaCalificacionesMesActual,
+            );
+            emit(
+              BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
+                  .desde(state),
+            );
+          } else {
+            await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
+              calificacionesMensuales: state.listaCalificacionesMesActual,
+              idSolicitud: state.calificacionesMensuales?.solicitudNotaMensual
+                      ?.solicitudId ??
+                  0,
+            );
+            emit(
+              BlocCargaCalificacionesEstadoCalificacionesEnviadasCorrectamente
+                  .desde(state),
+            );
+          }
+        } else {
+          // TODO(anyone): handlear el caso en que no hay solicitud
+        }
       },
       onError: (e, st) => emit(
         BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones.desde(

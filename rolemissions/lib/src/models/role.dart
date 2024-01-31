@@ -1,5 +1,3 @@
-import 'package:escuelas_commons/escuelas_commons.dart';
-
 /// {@template Role}
 /// A role is a set of permissions that can be assigned to a user.
 /// {@endtemplate}
@@ -50,7 +48,4 @@ class Role {
       'updatedAt': createdAt.toIso8601String(),
     };
   }
-
-  List<List<Enum>> get permissionsList =>
-      Permisos().deserialization(permissions);
 }

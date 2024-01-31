@@ -1,6 +1,6 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/tarjeta_carga_calificacion/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/widgets.dart';
 import 'package:escuelas_flutter/utilidades/funciones/funciones.dart';
 import 'package:flutter/material.dart';
 
@@ -30,37 +30,45 @@ class TarjetaCargaCalificacion extends StatelessWidget {
   /// Lista de Calificaciones de meses anteriores al actual
   final List<List<CalificacionMensual>> listaCalificacionesMesesRestantes;
 
+  double _promedioDeCalificacionesRestantesYActual() {
+    final listaValorCalificacionesMesessRestantes =
+        listaCalificacionesMesesRestantes
+            .expand(
+              (listaCalificacionesPorMes) => listaCalificacionesPorMes
+                  .where(
+                    (calMensual) =>
+                        calMensual.calificacion?.estudianteId == alumno?.id,
+                  )
+                  .toList(),
+            )
+            .map(
+              (calificacionMensual) =>
+                  ManejadorDeCalificaciones.obtenerValorDeCalificacion(
+                calificacionMensual.calificacion?.tipoCalificacion ??
+                    TipoCalificacion.numericoDecimal,
+                calificacionMensual.calificacion?.index ?? 0,
+              ),
+            )
+            .toList()
+          ..add(calificacion ?? 'S/C');
+
+    final listaParaPromedio = listaValorCalificacionesMesessRestantes
+        .map(
+          (calificacion) => calificacion == 'S/C'
+              ? double.parse('0')
+              : double.parse(calificacion),
+        )
+        .toList();
+    return calcularPromedio(listaParaPromedio);
+  }
+
   @override
   Widget build(BuildContext context) {
-    final lista = listaCalificacionesMesesRestantes
-        .expand(
-          (listaCalificacionesPorMes) => listaCalificacionesPorMes
-              .where(
-                (calMensual) =>
-                    calMensual.calificacion?.estudianteId == alumno?.id,
-              )
-              .toList(),
-        )
-        .map(
-          (e) => ManejadorDeCalificaciones.obtenerValorDeCalificacion(
-            e.calificacion?.tipoCalificacion ??
-                TipoCalificacion.numericoDecimal,
-            e.calificacion?.index ?? 0,
-          ),
-        )
-        .toList()
-      ..add(calificacion ?? 'S/C');
-
-    // TODO(anyone): Revisar el calculo de promedio
-    final lista2 = lista
-        .map((e) => e == 'S/C' ? double.parse('0') : double.parse(e))
-        .toList();
-
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InformacionAlumno(
-          promedio: calcularPromedio(lista2),
+          promedio: _promedioDeCalificacionesRestantesYActual(),
           nombreAlumno: alumno?.nombre ?? '',
         ),
         BotonCargaCalificacion(

@@ -35,7 +35,6 @@ enum MenuOpcionesDeInicio {
     final l10n = context.l10n;
 
     switch (this) {
-      // TODO(Anyone): Ver si falta alguno
       case listaCursos:
         return l10n.routeNameCourses.toUpperCase();
       case comunidadAcademica:

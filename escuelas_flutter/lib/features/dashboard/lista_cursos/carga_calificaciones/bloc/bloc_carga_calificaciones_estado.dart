@@ -42,15 +42,17 @@ class BlocCargaCalificacionesEstado {
   /// Asignatura del usuario
   final Asignatura? asignatura;
 
-  /// Periodo actual del calendaio
+  /// Periodo actual del calendario
   final DateTime? fecha;
 
+  /// Calificaciones mensuales de los alumnos contiene las calificaciones
+  /// mensuales por periodo y la solicitud de envio de notas
   final CalificacionesMensuales? calificacionesMensuales;
 
-  /// Contiene una lista de calificaciones mensuales y
-  /// la solicitud de envio de notas si fue aprobada o no por el admin.
+  /// Contiene una lista de calificaciones mensuales del mes actual
   final List<CalificacionMensual> listaCalificacionesMesActual;
 
+  /// Contiene las calificaciones mensuales de los meses restantes
   final List<List<CalificacionMensual>> listaCalificacionesMesesRestantes;
 
   /// Indica si el estado es
@@ -148,14 +150,14 @@ class BlocCargaCalificacionesEstadoFallidoAlEnviarCalificaciones
       : super.desde();
 }
 
-/// {@template BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas}
+/// {@template BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas}
 /// Sirve para que muestre un popup indicando que las calificaciones fueron
 /// borradas.
 /// {@endtemplate}
-class BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas
+class BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas
     extends BlocCargaCalificacionesEstado {
-  /// {@macro BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas}
-  BlocCargaCalificacionesEstadoExitosoAlBorrarCalificacionesCargadas.desde(
+  /// {@macro BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas}
+  BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas.desde(
     super.otro, {
     super.listaCalificacionesMesActual,
   }) : super.desde();

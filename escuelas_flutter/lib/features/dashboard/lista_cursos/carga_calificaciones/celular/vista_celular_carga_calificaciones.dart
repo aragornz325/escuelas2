@@ -1,7 +1,8 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/bloc_carga_calificaciones/bloc_carga_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/popups/dialogs.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc/bloc_carga_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/popups/dialogs.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/widgets.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +38,8 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
         }
       },
       builder: (context, state) {
+        final idAutor = context.read<BlocDashboard>().state.usuario.id ?? 0;
+
         if (state is BlocCargaCalificacionesEstadoCargando) {
           return const Center(
             child: CircularProgressIndicator(),
@@ -52,6 +55,7 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                           fecha: periodo.fechaDesde,
                           idAsignatura: state.asignatura?.id ?? 0,
                           idComision: state.comision?.id ?? 0,
+                          idAutor: idAutor,
                         ),
                       ),
               decoration: BoxDecoration(

@@ -67,11 +67,13 @@ class ServicioRol extends Servicio {
     Session session, {
     required int idUsuario,
     required int idRol,
+    required int idOrganizacion,
   }) async =>
       ejecutarOperacion(
         () => Rolemissions.instance.asignRoleToUser(
           userId: idUsuario,
           roleId: idRol,
+          organizationId: idOrganizacion,
         ),
       );
 }

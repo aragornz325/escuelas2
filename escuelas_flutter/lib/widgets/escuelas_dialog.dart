@@ -342,9 +342,8 @@ class EscuelasDialog extends StatelessWidget {
                   context: context,
                   onTap: estaHabilitado ? onTapConfirmar : () {},
                   estaHabilitado: estaHabilitado,
-                  color: colores
-                      .verdeConfirmar, // TODO(anyone): Checkear color o q
-                  // permita pasarle color del boton
+                  // TODO(anyone): Hacer permita pasarle color del boton
+                  color: colores.verdeConfirmar,
                   texto: tituloBotonPrincipal ?? l10n.commonBack,
                 ),
               )

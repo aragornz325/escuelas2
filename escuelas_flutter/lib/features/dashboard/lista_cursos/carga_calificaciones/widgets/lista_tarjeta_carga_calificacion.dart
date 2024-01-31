@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/carga_calificaciones/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -51,7 +51,7 @@ class ListaTarjetaCargaCalificacion extends StatelessWidget {
                       listaCalificacionesMesesRestantes,
                   alumno: relacionComisionUsuario.usuario,
                   calificacion: calificacion == null
-                      ? 'S/C' //TODO l10n
+                      ? 'S/C' // TODO(anyone): l10n
                       : ManejadorDeCalificaciones.obtenerValorDeCalificacion(
                           calificacion.tipoCalificacion,
                           calificacion.index,
