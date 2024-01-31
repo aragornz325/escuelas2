@@ -7,12 +7,12 @@ data "aws_availability_zones" "available" {
 
 # TODO: Fix?
 data "aws_ami" "amazon-linux" {
-  most_recent = true
+ most_recent = true
   owners      = ["amazon"]
 
   filter {
     name   = "name"
-    values = ["amzn-ami-hvm-*-x86_64-ebs"]
+    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
 }
 
