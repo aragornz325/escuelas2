@@ -41,6 +41,12 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
         ),
       );
 
+  /// Obtiene las comisiones que tienen solicitudes de calificación mensual
+  /// en el mes y año especificados.
+  ///
+  /// [SupervisionDeCurso] es un modelo que contiene la comisión y la fecha en la
+  /// que se le notifico a los estudiantes/padres de familia de sus calificaciones
+  /// del mes y año especificados.
   Future<List<SupervisionDeCurso>>
       obtenerComisionesConSolicitudesCalificacionMensual(
     Session session, {
