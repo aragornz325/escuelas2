@@ -227,12 +227,12 @@ class ElementoLista extends StatelessWidget {
   }
 
   /// Elemento de lista para la supervision de cursos
-  factory ElementoLista.supervisionCurso({
+  factory ElementoLista.supervisionComision({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
 
     /// Nombre del curso.
-    required String nombreCurso,
+    required String nombreComision,
 
     /// Color del fondo del elemento
     required Color colorFondo,
@@ -246,7 +246,7 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
     return ElementoLista(
       texto: Text(
-        nombreCurso.toUpperCase(),
+        nombreComision.toUpperCase(),
         style: TextStyle(
           fontSize: 16.pf,
           fontWeight: FontWeight.w700,
