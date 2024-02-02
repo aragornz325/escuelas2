@@ -381,8 +381,8 @@
         "description": ""
     },
 
-    "routeNameCourseSupervision": "Course supervision",
-    "@routeNameCourseSupervision": {
+    "routeNameCommissionSupervision": "Commission supervision",
+    "@routeNameCommissionSupervision": {
         "description": ""
     },
 

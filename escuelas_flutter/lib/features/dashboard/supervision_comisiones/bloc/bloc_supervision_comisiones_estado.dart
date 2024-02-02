@@ -7,22 +7,36 @@ class BlocSupervisionComisionesEstado {
   /// {@macro BlocSupervisionComisionesEstado}
   const BlocSupervisionComisionesEstado._({
     this.listaComisiones = const [],
+    this.fecha,
   });
 
   BlocSupervisionComisionesEstado.desde(
     BlocSupervisionComisionesEstado otro, {
     List<SupervisionDeCurso>? listaComisiones,
+    DateTime? fecha,
   }) : this._(
           listaComisiones: listaComisiones ?? otro.listaComisiones,
+          fecha: fecha ?? otro.fecha,
         );
 
   final List<SupervisionDeCurso> listaComisiones;
 
-  bool get todasMateriasCargadas => true;
+  final DateTime? fecha;
 
-  bool get habilitacionCargaDeCalificaciones => true;
+  DateTime? get fechaUltimaAsignaturaCargada => listaComisiones.isNotEmpty
+      ? listaComisiones
+          .map((e) => e.fechaDeNotificacion)
+          .reduce((value, element) => value ?? element)
+      : null;
 
-  DateTime get fechaUltimaMateriaCargada => DateTime.now();
+  bool get todasAsignaturasCargadasDeTodasLasComisiones =>
+      listaComisiones.every(
+        (supervisionCurso) =>
+            supervisionCurso.comision.solicitudesCalificacionMensual?.every(
+              (element) => element.solicitud?.fechaRealizacion != null,
+            ) ??
+            false,
+      );
 }
 
 /// {@template BlocSupervisionComisionEstadoInicial}

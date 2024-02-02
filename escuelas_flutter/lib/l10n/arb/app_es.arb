@@ -332,9 +332,8 @@
     "@routeAcademicCommunityList": {
         "description": ""
     },
-
-    "routeNameCourseSupervision": "Supervisión de cursos",
-    "@routeNameCourseSupervision": {
+    "routeNameCommissionSupervision": "Supervisión de comisiones",
+    "@routeNameCommissionSupervision": {
         "description": ""
     },
 

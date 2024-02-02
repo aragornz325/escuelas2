@@ -28,9 +28,9 @@ class Colores {
   /// Devuelve un color segun la proporcion de materias cargadas (la proporcion
   /// debe ser un valor entre 0 y 1)
   Color segunProporcionDeMateriasCargadas({required double proporcion}) {
-    if (proporcion == 1) {
+    if (proporcion >= .8) {
       return colores.verdeConfirmar;
-    } else if (proporcion > 0.7 && proporcion < 1) {
+    } else if (proporcion >= 0.6) {
       return colores.naranjaMediaFalta;
     } else {
       return colores.error;

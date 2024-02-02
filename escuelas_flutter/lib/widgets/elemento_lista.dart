@@ -369,9 +369,7 @@ class ElementoLista extends StatelessWidget {
       widgetLateralDerecho: Padding(
         padding: EdgeInsets.only(right: 10.pw),
         child: Text(
-          // TODO(anyone): Ver como viene la fecha cuando no la cargo para poner
-          // el texto 'Sin cargar'
-          fechaDeCarga.formatear(context),
+          fechaDeCarga.formatear,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Colores(context).segunVencimientoSegunFecha(
