@@ -206,6 +206,11 @@
     "@pageAcademicCommunityNoUsersToShow": {
         "description": "There are no users to show text"
     },
+    
+    "pageUserProfileButtonDeleteTeacher": "Eliminar docente",
+    "@pageUserProfileButtonDeleteTeacher": {
+        "description": "Text in button to delete the current teacher"
+    },
 
 
     "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
@@ -539,6 +544,11 @@
 
     "commonCancel": "Cancelar",
     "@commonCancel": {
+        "description": ""
+    },
+
+    "commonEdit": "Editar",
+    "@commonEdit": {
         "description": ""
     },
 

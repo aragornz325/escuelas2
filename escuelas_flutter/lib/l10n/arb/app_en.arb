@@ -215,6 +215,11 @@
             }
         }  
     },
+    
+    "pageUserProfileButtonDeleteTeacher": "Delete teacher",
+    "@pageUserProfileButtonDeleteTeacher": {
+        "description": "Text in button to delete the current teacher"
+    },
 
     "pageAttendanceNotAbsentStudents": "There are no students",
     "@pageAttendanceNotAbsentStudents": {
@@ -540,6 +545,11 @@
     "@commonCancel": {
         "description": ""
     },
+    "commonEdit": "Edit",
+    "@commonEdit": {
+        "description": ""
+    },
+
 
     "commonSubject": "Subject",
     "@commonSubject": {

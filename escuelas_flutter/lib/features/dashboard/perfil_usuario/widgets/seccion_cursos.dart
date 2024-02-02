@@ -2,6 +2,7 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -200,13 +201,35 @@ class _DesplegableCurso extends StatelessWidget {
     final l10n = context.l10n;
 
     return ExpansionTile(
-      title: Text(
-        l10n.commonCourses,
-        style: TextStyle(
-          color: colores.onBackground,
-          fontSize: 13.pf,
-          fontWeight: FontWeight.w700,
+      trailing: GestureDetector(
+        onTap: () {},
+        //! TODO(Manu):dar funcion
+        child: Icon(
+          Icons.delete_outline_outlined,
+          color: colores.error,
+          size: 20.sw,
         ),
+      ),
+      title: Row(
+        children: [
+          Text(
+            l10n.commonCourses,
+            style: TextStyle(
+              color: colores.onBackground,
+              fontSize: 13.pf,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const Spacer(),
+          //! TODO(Manu):terminar
+          EscuelasBoton.textoEIcono(
+            color: colores.primary,
+            onTap: () {},
+            texto: 'Añadir asignatura',
+            context: context,
+            icono: Icons.add,
+          ),
+        ],
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20.sw),
@@ -215,6 +238,7 @@ class _DesplegableCurso extends StatelessWidget {
         borderRadius: BorderRadius.circular(50.sw),
       ),
       backgroundColor: colores.tertiary,
+      iconColor: colores.error,
       children: <Widget>[
         Divider(
           height: .5,

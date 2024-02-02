@@ -15,6 +15,7 @@ class EscuelasBoton extends StatelessWidget {
     required this.onTap,
     required this.color,
     required this.child,
+    this.borderRadius,
     this.width,
     this.height,
     super.key,
@@ -61,6 +62,59 @@ class EscuelasBoton extends StatelessWidget {
           color: colores.background,
           fontWeight: FontWeight.w700,
         ),
+      ),
+    );
+  }
+
+  factory EscuelasBoton.textoEIcono({
+    /// Color que va a llevar el boton.
+    required Color color,
+
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Texto del boton.
+    required String texto,
+
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Icono del boton
+    required IconData icono,
+
+    /// Color del texto, por defecto blanco
+    Color? colorDeTexto,
+
+    /// Tamaño del texto por defecto 10, agregarle .pf
+    double? fontSize,
+
+    /// Tamaño del icono por defecto 15
+    double? tamanoIcono,
+  }) {
+    final colores = context.colores;
+
+    return EscuelasBoton(
+      estaHabilitado: true,
+      onTap: onTap,
+      color: color,
+      borderRadius: BorderRadius.circular(4.sw),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            texto,
+            style: TextStyle(
+              color: colorDeTexto ?? colores.background,
+              fontSize: fontSize ?? 10.pf,
+            ),
+          ),
+          SizedBox(width: 5.pw),
+          Icon(
+            icono,
+            color: colores.background,
+            size: tamanoIcono ?? 15.sw,
+          ),
+        ],
       ),
     );
   }
@@ -161,6 +215,9 @@ class EscuelasBoton extends StatelessWidget {
   /// Color del container cuando esta habilitado
   final Color color;
 
+  /// Border radius, por defecto es circular(30.sw)
+  final BorderRadiusGeometry? borderRadius;
+
   /// Widget que va a contener el boton, puede ser un texto o texto e iconos
   final Widget child;
 
@@ -176,7 +233,7 @@ class EscuelasBoton extends StatelessWidget {
             width: width,
             height: height,
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30.sw),
+              borderRadius: borderRadius ?? BorderRadius.circular(30.sw),
               color: esOutlined
                   ? colores.background
                   : estaHabilitado
