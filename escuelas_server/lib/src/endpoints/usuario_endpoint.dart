@@ -199,6 +199,9 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     );
   }
 
+  // la funcion `softDeleteUsuario` actualiza el campo `fechaEliminacion` de un usuario
+  // en la base de datos y devuelve un valor booleano que indica si la operación fue exitosa.
+
   Future<bool> softDeleteUsuario(
     Session session, {
     required int idUsuario,
@@ -212,5 +215,4 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
       ),
     );
   }
-
 }
