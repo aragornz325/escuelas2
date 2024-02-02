@@ -65,8 +65,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   }
 
   Future<Usuario> obtenerDatosDelUsuario(Session session) async {
-    //final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
-    final idUserInfo = 1;
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+
     final datosDeUsuario = await ejecutarOperacion(
       () => orm.obtenerUsuario(
         session,
