@@ -1,0 +1,43 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "usuarios",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "activo"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"activo\" of table \"usuarios\" will be dropped.",
+            "table": "usuarios",
+            "columns": [
+              "activo"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"activo\" of table \"usuarios\" will be dropped.",
+      "table": "usuarios",
+      "columns": [
+        "activo"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

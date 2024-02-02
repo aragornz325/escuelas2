@@ -187,6 +187,13 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     );
   }
 
+  /// La función `actualizarUsuario` actualiza un usuario en la base de datos.
+  /// Devuelve el usuario actualizado.
+  /// Args:
+  ///  session (Session): El parámetro `session` es de tipo `Session` y es obligatorio. Representa la
+  /// sesión del usuario actual.
+  /// usuario (Usuario): El parámetro `usuario` es de tipo `Usuario` y es obligatorio. Representa el
+  /// objeto de usuario que debe actualizarse en la base de datos.
   Future<Usuario> actualizarUsuario(
     Session session, {
     required Usuario usuario,
@@ -200,4 +207,19 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
       ),
     );
   }
+
+  Future<bool> softDeleteUsuario(
+    Session session, {
+    required int idUsuario,
+  }) async {
+    return await ejecutarOperacionControlador(
+      session,
+      'eliminarUsuario',
+      () => servicio.softDeleteUsuario(
+        session,
+        idUsuario: idUsuario,
+      ),
+    );
+  }
+
 }

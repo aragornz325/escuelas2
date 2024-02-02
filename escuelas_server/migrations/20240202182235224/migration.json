@@ -1,0 +1,68 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "r_asignaturas_usuarios",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [
+          {
+            "indexName": "r_usuario_asignatura_index_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "usuarioId"
+              },
+              {
+                "type": 0,
+                "definition": "asignaturaId"
+              },
+              {
+                "type": 0,
+                "definition": "comisionId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "deleteIndexes": [
+          "r_usuario_asignatura_index_idx"
+        ],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"r_usuario_asignatura_index_idx\" is added to table \"r_asignaturas_usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "r_asignaturas_usuarios",
+            "columns": [
+              "usuarioId",
+              "asignaturaId",
+              "comisionId"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"r_usuario_asignatura_index_idx\" is added to table \"r_asignaturas_usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "r_asignaturas_usuarios",
+      "columns": [
+        "usuarioId",
+        "asignaturaId",
+        "comisionId"
+      ],
+      "destrucive": false
+    }
+  ],
+  "migrationApiVersion": 1
+}
