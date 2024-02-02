@@ -211,7 +211,10 @@
     "@pageUserProfileButtonDeleteTeacher": {
         "description": "Text in button to delete the current teacher"
     },
-
+    "pageUserProfileButtonAddSubject": "Añadir asignatura",
+    "@pageUserProfileButtonAddSubject": {
+        "description": "Text in button to Add a new subject for the current teacher"
+    },
 
     "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
     "@dialogErrorToSendGrades": {

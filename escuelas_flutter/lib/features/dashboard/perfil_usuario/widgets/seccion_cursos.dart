@@ -225,7 +225,7 @@ class _DesplegableCurso extends StatelessWidget {
           EscuelasBoton.textoEIcono(
             color: colores.primary,
             onTap: () {},
-            texto: 'Añadir asignatura',
+            texto: l10n.pageUserProfileButtonAddSubject,
             context: context,
             icono: Icons.add,
           ),

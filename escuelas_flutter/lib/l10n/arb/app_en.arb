@@ -221,6 +221,11 @@
         "description": "Text in button to delete the current teacher"
     },
 
+    "pageUserProfileButtonAddSubject": "Add subject",
+    "@pageUserProfileButtonAddSubject": {
+        "description": "Text in button to Add a new subject for the current teacher"
+    },
+
     "pageAttendanceNotAbsentStudents": "There are no students",
     "@pageAttendanceNotAbsentStudents": {
         "description": "Text to be displayed when there are no absent students"
