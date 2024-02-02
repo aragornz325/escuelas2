@@ -26,4 +26,30 @@ class OrmDireccionesdeEmail extends ORM {
 
     return direccionDeEmail.first;
   }
+
+
+
+  Future<DireccionDeEmail> obtenerDireccionDeEmail(
+    Session session, {
+    required int idUsuario,
+  }) async {
+    final direccionDeEmail = await ejecutarOperacionOrm(
+      session,
+      (session) async => await DireccionDeEmail.db.findFirstRow(
+        session,
+        where: (t) => t.usuarioId.equals(idUsuario),
+      ),
+    );
+
+    if (direccionDeEmail == null) {
+      throw ExcepcionCustom(
+        titulo: 'no se encontro',
+        mensaje: 'no se encontro la direccion de mail solicitada',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
+    }
+
+    return direccionDeEmail;
+  }
 }

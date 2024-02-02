@@ -19,4 +19,25 @@ class OrmUserInfo extends ORM {
     }
     return userInfo;
   }
+
+  Future<UserInfo> actualizarUserInfo(
+      Session session, UserInfo userInfo) async {
+    final userInfoActualizado = await ejecutarOperacionOrm(
+      session,
+      (session) => UserInfo.db.update(
+        session,
+        [userInfo],
+      ),
+    );
+
+    if (userInfoActualizado.isEmpty) {
+      throw ExcepcionCustom(
+        titulo: 'no se actualizo',
+        mensaje: 'no se actualizo el usuario solicitado',
+        tipoDeError: TipoExcepcion.desconocido,
+        codigoError: 560,
+      );
+    }
+    return userInfoActualizado.first;
+  }
 }
