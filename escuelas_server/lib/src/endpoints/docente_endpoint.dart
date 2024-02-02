@@ -1,6 +1,6 @@
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/servicios/servicio_docene.dart';
+import 'package:escuelas_server/src/servicios/servicio_docente.dart';
 import 'package:serverpod/server.dart';
 
 class DocenteEndpoint extends Endpoint with Controller<ServicioDocente> {
