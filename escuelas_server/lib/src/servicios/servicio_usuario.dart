@@ -90,7 +90,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       );
     }
 
-    final userInfoNombresYApellidos = userInfo.fullName?.split('|');
+    final userInfoNombresYApellidos = userInfo.fullName?.split(' ');
 
     datosDeUsuario
       ..nombre = userInfoNombresYApellidos?.first ?? ''
@@ -549,7 +549,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         idUsuario: usuario.id!,
       );
 
-      
       if (direccionDeEmail.id != 0) {
         logger.info(
           'direccion de Email encontrada: se va a actualizar',
@@ -566,7 +565,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           ),
         );
       }
-
 
       String email = '';
       if (usuario.direccionesDeEmail != null &&
