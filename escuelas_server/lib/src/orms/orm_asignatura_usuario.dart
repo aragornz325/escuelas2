@@ -36,7 +36,7 @@ class OrmRelacionAsignaturaUsuario extends ORM {
   //recibe una session, una lista de asignaturas solicitadas, un id de usuario, un id de comision y un id de asignatura
   //devuelve un Future<void> que indica si la operacion fue exitosa
 
-  Future<void> eliminarRelacionUsuarioAAsignaturas(
+  Future<void> desasignarUsuarioAAsignatura(
     Session session, {
     required int idDocente,
     required int comisionId,
@@ -59,7 +59,7 @@ class OrmRelacionAsignaturaUsuario extends ORM {
   //recibe una session, una lista de ids de asignaturas, un id de docente y un id de comision
   //devuelve un Future<bool> que indica si la operacion fue exitosa
 
-  Future<RelacionAsignaturaUsuario> obtenerRelacionUsuarioAAsignatura(
+  Future<RelacionAsignaturaUsuario?> obtenerRelacionUsuarioAAsignatura(
     Session session, {
     required int usuarioId,
     required int asignaturaId,
@@ -80,14 +80,7 @@ class OrmRelacionAsignaturaUsuario extends ORM {
       },
     );
     if (relacion.isEmpty) {
-      logger.info('No se encontro la relacion, se devuelve una vacia');
-      return RelacionAsignaturaUsuario(
-        asignaturaId: 0,
-        usuarioId: 0,
-        comisionId: 0,
-        ultimaModificacion: ahora,
-        fechaCreacion: ahora,
-      );
+      return null;
     }
     return relacion.first;
   }

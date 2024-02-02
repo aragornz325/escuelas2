@@ -11,13 +11,13 @@ class DocenteEndpoint extends Endpoint with Controller<ServicioDocente> {
   /// en la base de datos.
   /// Recibe una session, una lista de ids de asignaturas, un id de docente y un id de comision.
   /// Devuelve un Future<bool> que indica si la operacion fue exitosa.
-  Future<bool> crearRelacionesDocenteAsignatura(
+  Future<bool> asignarDocenteAAsignatura(
     Session session, {
     required List<int> idsAsignaturas,
     required int idDocente,
     required int idComision,
   }) async {
-    return servicio.crearRelacionesDocenteAsignatura(
+    return servicio.asignarDocenteAAsignatura(
       session,
       idsAsignaturas: idsAsignaturas,
       idDocente: idDocente,
@@ -25,13 +25,13 @@ class DocenteEndpoint extends Endpoint with Controller<ServicioDocente> {
     );
   }
 
-  Future<void> eliminarRelacionUsuarioAAsignaturas(
+  Future<void> desasignarUsuarioAAsignatura(
     Session session, {
     required int idDocente,
     required int comisionId,
     required int asignaturaId,
   }) async {
-    return servicio.eliminarRelacionUsuarioAAsignaturas(
+    return servicio.desasignarUsuarioAAsignatura(
       session,
       idDocente: idDocente,
       comisionId: comisionId,

@@ -641,22 +641,13 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         session,
         idUsuario: idUsuario,
       );
-      logger.info('creando el usuario a eliminar... soft delete');
-      final usuariaAdb = Usuario(
-        id: usuario.id,
-        idUserInfo: usuario.idUserInfo,
-        nombre: usuario.nombre,
-        apellido: usuario.apellido,
-        urlFotoDePerfil: usuario.urlFotoDePerfil,
-        fechaCreacion: usuario.fechaCreacion,
-        ultimaModificacion: ahora,
-        fechaEliminacion: ahora,
-      );
 
       logger.info('actualizando usuario');
       await orm.actualizarUsuario(
         session,
-        usuario: usuariaAdb,
+        usuario: usuario
+          ..fechaEliminacion = ahora
+          ..ultimaModificacion = ahora,
       );
       logger.info('usuario eliminado con exito');
       return true;

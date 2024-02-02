@@ -14,7 +14,7 @@ class ServicioDocente extends Servicio<OrmDocente> {
   //en la base de datos
   //recibe una session, una lista de ids de asignaturas, un id de docente y un id de comision
   //devuelve un Future<bool> que indica si la operacion fue exitosa
-  Future<bool> crearRelacionesDocenteAsignatura(
+  Future<bool> asignarDocenteAAsignatura(
     Session session, {
     required List<int> idsAsignaturas,
     required int idDocente,
@@ -35,8 +35,10 @@ class ServicioDocente extends Servicio<OrmDocente> {
 
     logger.info('ejecutando la operacion de orm');
     ejecutarOperacion(
-      () => orm.crearRelacionesDocenteAsignatura(session,
-          relacionAsignaturaUsuario: relaciones),
+      () => orm.crearRelacionesDocenteAsignatura(
+        session,
+        relacionAsignaturaUsuario: relaciones,
+      ),
     );
     logger.info('se crearon todas las relaciones');
     return true;
@@ -46,14 +48,14 @@ class ServicioDocente extends Servicio<OrmDocente> {
   //en la base de datos
   //recibe una session, una lista de asignaturas solicitadas, un id de usuario, un id de comision y un id de asignatura
   //devuelve un Future<void> que indica si la operacion fue exitosa
-  Future<void> eliminarRelacionUsuarioAAsignaturas(
+  Future<void> desasignarUsuarioAAsignatura(
     Session session, {
     required int idDocente,
     required int comisionId,
     required int asignaturaId,
   }) async {
     ejecutarOperacion(
-      () => ormRelacionAsignaturaUsuario.eliminarRelacionUsuarioAAsignaturas(
+      () => ormRelacionAsignaturaUsuario.desasignarUsuarioAAsignatura(
         session,
         idDocente: idDocente,
         comisionId: comisionId,
