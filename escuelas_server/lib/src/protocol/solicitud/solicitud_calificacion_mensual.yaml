@@ -1,0 +1,12 @@
+class: SolicitudCalificacionMensual
+table: solicitudes_calificaciones_mensuales
+fields:
+  ### La solicitud de la cual se deriva esta nota mensual
+  solicitud: Solicitud?, relation(onDelete=Cascade)
+  comision: ComisionDeCurso?, relation(name=solicitud_mensual_comisiones)
+  idAsignatura: int, relation(parent=asignaturas)
+  ### Representa el mes al que corresponde la solicitud
+  mes: int
+  ### Representa el año al que corresponde la solicitud
+  anio: int
+  calificaciones: List<CalificacionMensual>?, relation

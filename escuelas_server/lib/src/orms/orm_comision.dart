@@ -40,4 +40,34 @@ class OrmComision extends ORM {
           ),
         ),
       );
+
+  /// Obtiene las comisiones que tienen solicitudes de calificación mensual
+  /// en el mes y año especificados.
+  Future<List<ComisionDeCurso>>
+      obtenerComisionesConSolicitudesCalificacionMensual(
+    Session session, {
+    required int mes,
+    required int anio,
+  }) async =>
+          ejecutarOperacionOrm(
+            session,
+            (session) => ComisionDeCurso.db.find(
+              session,
+              where: (comision) => comision.solicitudesCalificacionMensual.any(
+                (solicitud) =>
+                    solicitud.mes.equals(mes) &
+                    solicitud.anio.equals(
+                      anio,
+                    ),
+              ),
+              include: ComisionDeCurso.include(
+                solicitudesCalificacionMensual:
+                    SolicitudCalificacionMensual.includeList(
+                  include: SolicitudCalificacionMensual.include(
+                    solicitud: Solicitud.include(),
+                  ),
+                ),
+              ),
+            ),
+          );
 }
