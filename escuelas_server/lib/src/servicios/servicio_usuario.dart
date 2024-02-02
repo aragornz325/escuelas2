@@ -11,6 +11,7 @@ import 'package:escuelas_server/src/servicios/servicio_user_info.dart';
 import 'package:escuelas_server/src/utils/listado_alfabetico.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
+import 'package:serverpod_auth_server/module.dart';
 
 class ServicioUsuario extends Servicio<OrmUsuario> {
   @override
@@ -64,8 +65,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
   }
 
   Future<Usuario> obtenerDatosDelUsuario(Session session) async {
-    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
-
+    //final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+    final idUserInfo = 1;
     final datosDeUsuario = await ejecutarOperacion(
       () => orm.obtenerUsuario(
         session,
@@ -515,4 +516,119 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           session,
         ),
       );
+
+  /// La función `actualizarUsuario` actualiza un usuario con un objeto `Usuario` usando una sesión y un ORM.
+  /// Args:
+  ///  session (Session): Un objeto de sesión utilizado para operaciones de bases de datos.
+  /// usuario (Usuario): Un objeto `Usuario` que representa la información del usuario que se va a actualizar.
+  /// Returns:
+  /// a `Futuro<Usuario>`.
+  Future<Usuario> actualizarUsuario(
+    Session session, {
+    required Usuario usuario,
+  }) async {
+    return await ejecutarOperacion(() async {
+      final ahora = DateTime.now();
+
+      logger.info(
+        'buscando el UserInfo',
+      );
+      final userInfoData = await userInfo.traerInformacionDeUsuario(
+        session,
+        idUserInfo: usuario.idUserInfo,
+      );
+      logger.info(
+        'userInfo encontrado: $userInfo',
+      );
+
+      logger.info(
+        'verificando direccion de Email',
+      );
+      final direccionDeEmail = await servicioDeEmail.obtenerDireccionDeEmail(
+        session,
+        idUsuario: usuario.id!,
+      );
+
+      
+      if (direccionDeEmail.id != 0) {
+        logger.info(
+          'direccion de Email encontrada: se va a actualizar',
+          await servicioDeEmail.actualizarDireccionDeEmail(session,
+              direccionDeEmail: direccionDeEmail),
+        );
+      } else {
+        logger.info(
+          'direccion de Email no encontrada: se va a crear',
+          await servicioDeEmail.crearDireccionDeEmail(
+            session,
+            idUsuario: usuario.id!,
+            idUserInfo: usuario.idUserInfo,
+          ),
+        );
+      }
+
+
+      String email = '';
+      if (usuario.direccionesDeEmail != null &&
+          usuario.direccionesDeEmail!.isNotEmpty) {
+        email = usuario.direccionesDeEmail!.first.direccionDeEmail;
+      } else {
+        email = userInfoData.userIdentifier;
+      }
+
+      logger.info(
+        'creando userInfo a partir de usuario: $usuario',
+      );
+      final userInfoADb = UserInfo(
+        id: userInfoData.id,
+        userIdentifier: email,
+        userName: usuario.nombre,
+        fullName: '${usuario.nombre} ${usuario.apellido}',
+        email: email,
+        created: userInfoData.created,
+        scopeNames: userInfoData.scopeNames,
+        blocked: userInfoData.blocked,
+        imageUrl: usuario.urlFotoDePerfil,
+      );
+
+      logger.info(
+        'iniciando la transaccion para actualizar el usuario y el userInfo',
+      );
+
+      final resultado = await session.dbNext.transaction(
+        (transaction) async {
+          await Usuario.db.update(
+            session,
+            [
+              usuario..ultimaModificacion = ahora,
+            ],
+            transaction: transaction,
+          );
+          await UserInfo.db.update(
+            session,
+            [userInfoADb],
+            transaction: transaction,
+          );
+          return true;
+        },
+      );
+
+      if (!resultado) {
+        throw ExcepcionCustom(
+          titulo: 'Error al actualizar el usuario',
+          mensaje: 'error en la transaccion de la base de datos',
+          tipoDeError: TipoExcepcion.desconocido,
+          codigoError: 500,
+        );
+      }
+
+      logger.info(
+        'usuario actualizado con exito... obteniendo datos del usuario actualizado',
+      );
+      final usuarioActualizado = await obtenerDatosDelUsuario(
+        session,
+      );
+      return usuarioActualizado;
+    });
+  }
 }

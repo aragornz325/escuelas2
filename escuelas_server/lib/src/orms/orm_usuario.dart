@@ -2,6 +2,7 @@ import 'package:escuelas_server/src/extensiones/expresiones_en_columnas.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
+import 'package:serverpod_auth_server/module.dart';
 
 class OrmUsuario extends ORM {
   Future<Usuario> crearUsuario(
@@ -170,13 +171,32 @@ class OrmUsuario extends ORM {
     return roles;
   }
 
+  /// La función `actualizarUsuario` actualiza un usuario en la base de datos y devuelve el usuario
+  /// actualizado.
+  /// 
+  /// Args:
+  ///   session (Session): 
+  ///   usuario (Usuario): El parámetro `usuario` es de tipo `Usuario` y es obligatorio. Representa el
+  /// objeto de usuario que debe actualizarse en la base de datos.
+  
   Future<Usuario> actualizarUsuario(
     Session session, {
     required Usuario usuario,
   }) async {
     return await ejecutarOperacionOrm(
       session,
-      (session) async => await Usuario.db.updateRow(session, usuario),
+      (session) async {
+        logger.info('Actualizando tabla usuario: $usuario');
+        final usuarioActualizado = await Usuario.db.update(
+          session,
+          [usuario],
+        ).then((value) => usuario);
+        logger
+            .info('tabla usuario actualizada con exito... buscando userInfo.');
+
+            return usuarioActualizado;
+
+      },
     );
   }
 

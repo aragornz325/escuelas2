@@ -33,4 +33,26 @@ class ServicioDireccionDeMail extends Servicio<OrmDireccionesdeEmail> {
             ));
     return direccionDeEmailADb;
   }
+
+  Future<DireccionDeEmail> obtenerDireccionDeEmail(
+    Session session, {
+    required int idUsuario,
+  }) async {
+    final direccionDeEmail = await ejecutarOperacion(
+        () => orm.obtenerDireccionDeEmail(session, idUsuario: idUsuario));
+    return direccionDeEmail;
+  }
+
+  Future<DireccionDeEmail> actualizarDireccionDeEmail(
+    Session session, {
+    required DireccionDeEmail direccionDeEmail,
+  }) async {
+    final direccionDeEmailActualizada = await ejecutarOperacion(
+      () => orm.actualizarDireccionDeEmail(
+        session,
+        direccionDeEmail: direccionDeEmail,
+      ),
+    );
+    return direccionDeEmailActualizada;
+  }
 }
