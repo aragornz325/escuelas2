@@ -8,3 +8,4 @@ fields:
   fechaCreacion: DateTime?, scope=serverOnly
   fechaEliminacion: DateTime?, scope=serverOnly
   estudiantes: List<RelacionComisionUsuario>?, relation(name=comision_comisiones)
+  solicitudesCalificacionMensual: List<SolicitudCalificacionMensual>?, relation(name=solicitud_mensual_comisiones)

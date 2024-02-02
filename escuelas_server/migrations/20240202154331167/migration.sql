@@ -5,14 +5,15 @@ BEGIN;
 --
 ALTER TABLE "direcciones_de_email" ALTER COLUMN "ultimaModificacion" DROP NOT NULL;
 ALTER TABLE "direcciones_de_email" ALTER COLUMN "fechaCreacion" DROP NOT NULL;
+CREATE UNIQUE INDEX "direcciones_de_email_de_usuario_unique_idx" ON "direcciones_de_email" USING btree ("direccionDeEmail");
 
 --
 -- MIGRATION VERSION FOR escuelas
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('escuelas', '20240202141320568', now())
+    VALUES ('escuelas', '20240202154331167', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240202141320568', "timestamp" = now();
+    DO UPDATE SET "version" = '20240202154331167', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

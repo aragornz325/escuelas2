@@ -1,0 +1,133 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "solicitudes_calificaciones_mensuales"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "solicitudes_calificaciones_mensuales",
+        "dartName": "SolicitudCalificacionMensual",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('solicitudes_calificaciones_mensuales_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "solicitudId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "comisionId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "idAsignatura",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "mes",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "anio",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "solicitudes_calificaciones_mensuales_fk_0",
+            "columns": [
+              "solicitudId"
+            ],
+            "referenceTable": "solicitudes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 4
+          },
+          {
+            "constraintName": "solicitudes_calificaciones_mensuales_fk_1",
+            "columns": [
+              "comisionId"
+            ],
+            "referenceTable": "comisiones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "solicitudes_calificaciones_mensuales_fk_2",
+            "columns": [
+              "idAsignatura"
+            ],
+            "referenceTable": "asignaturas",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "solicitudes_calificaciones_mensuales_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"numeroDeMes\" of table \"solicitudes_calificaciones_mensuales\" will be dropped.",
+      "table": "solicitudes_calificaciones_mensuales",
+      "columns": [
+        "numeroDeMes"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"solicitudes_calificaciones_mensuales\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "solicitudes_calificaciones_mensuales",
+      "columns": [
+        "mes"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

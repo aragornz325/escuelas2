@@ -7,7 +7,20 @@
         "schema": "public",
         "addColumns": [],
         "deleteColumns": [],
-        "modifyColumns": [],
+        "modifyColumns": [
+          {
+            "columnName": "ultimaModificacion",
+            "addNullable": true,
+            "removeNullable": false,
+            "changeDefault": false
+          },
+          {
+            "columnName": "fechaCreacion",
+            "addNullable": true,
+            "removeNullable": false,
+            "changeDefault": false
+          }
+        ],
         "addIndexes": [
           {
             "indexName": "direcciones_de_email_de_usuario_unique_idx",

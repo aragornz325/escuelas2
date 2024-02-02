@@ -113,13 +113,10 @@ CREATE TABLE "direcciones_de_email" (
     "id" serial PRIMARY KEY,
     "usuarioId" integer NOT NULL,
     "direccionDeEmail" text NOT NULL,
-    "ultimaModificacion" timestamp without time zone,
-    "fechaCreacion" timestamp without time zone,
+    "ultimaModificacion" timestamp without time zone NOT NULL,
+    "fechaCreacion" timestamp without time zone NOT NULL,
     "fechaEliminacion" timestamp without time zone
 );
-
--- Indexes
-CREATE UNIQUE INDEX "direcciones_de_email_de_usuario_unique_idx" ON "direcciones_de_email" USING btree ("direccionDeEmail");
 
 --
 -- Class DireccionDeEmailInstitucion as table direcciones_de_email_institucion
@@ -329,7 +326,8 @@ CREATE TABLE "solicitudes_calificaciones_mensuales" (
     "solicitudId" integer NOT NULL,
     "comisionId" integer NOT NULL,
     "idAsignatura" integer NOT NULL,
-    "numeroDeMes" integer NOT NULL
+    "mes" integer NOT NULL,
+    "anio" integer NOT NULL
 );
 
 --
@@ -1025,7 +1023,7 @@ ALTER TABLE ONLY "solicitudes_calificaciones_mensuales"
     ADD CONSTRAINT "solicitudes_calificaciones_mensuales_fk_0"
     FOREIGN KEY("solicitudId")
     REFERENCES "solicitudes"("id")
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION;
 ALTER TABLE ONLY "solicitudes_calificaciones_mensuales"
     ADD CONSTRAINT "solicitudes_calificaciones_mensuales_fk_1"
@@ -1095,9 +1093,9 @@ ALTER TABLE ONLY "serverpod_query_log"
 -- MIGRATION VERSION FOR escuelas
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('escuelas', '20240202153105713', now())
+    VALUES ('escuelas', '20240131233234337', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240202153105713', "timestamp" = now();
+    DO UPDATE SET "version" = '20240131233234337', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod

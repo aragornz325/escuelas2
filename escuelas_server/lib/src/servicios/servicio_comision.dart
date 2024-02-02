@@ -43,4 +43,37 @@ class ServicioComision extends Servicio<OrmComision> {
 
     return comisiones.first;
   }
+
+  /// Obtiene las comisiones que tienen solicitudes de calificación mensual
+  /// en el mes y año especificados.
+  ///
+  /// [SupervisionDeCurso] es un modelo que contiene la comisión y la fecha en la
+  /// que se le notifico a los estudiantes/padres de familia de sus calificaciones
+  /// del mes y año especificados.
+  Future<List<SupervisionDeCurso>>
+      obtenerComisionesConSolicitudesCalificacionMensual(
+    Session session, {
+    required int mes,
+    required int anio,
+  }) async {
+    final comisiones = await ejecutarOperacion(
+      () => orm.obtenerComisionesConSolicitudesCalificacionMensual(
+        session,
+        mes: mes,
+        anio: anio,
+      ),
+    );
+
+    final supervisionDeCursos = comisiones
+        .map(
+          (comision) => SupervisionDeCurso(
+            comision: comision,
+            // TODO(anyone): Hacer soporte de notificaciones.
+            fechaDeNotificacion: null,
+          ),
+        )
+        .toList();
+
+    return supervisionDeCursos;
+  }
 }

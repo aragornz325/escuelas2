@@ -154,7 +154,8 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
         final solicitudNotaMensual = SolicitudCalificacionMensual(
           idAsignatura: asignatura.asignaturaId,
           comisionId: asignatura.comisionId,
-          numeroDeMes: ahora.month,
+          anio: ahora.year,
+          mes: ahora.month,
           solicitudId: solicitudCreada.id!,
         );
 

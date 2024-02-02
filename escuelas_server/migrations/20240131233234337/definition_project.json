@@ -804,14 +804,14 @@
         {
           "name": "ultimaModificacion",
           "columnType": 4,
-          "isNullable": true,
-          "dartType": "DateTime?"
+          "isNullable": false,
+          "dartType": "DateTime"
         },
         {
           "name": "fechaCreacion",
           "columnType": 4,
-          "isNullable": true,
-          "dartType": "DateTime?"
+          "isNullable": false,
+          "dartType": "DateTime"
         },
         {
           "name": "fechaEliminacion",
@@ -847,18 +847,6 @@
           "type": "btree",
           "isUnique": true,
           "isPrimary": true
-        },
-        {
-          "indexName": "direcciones_de_email_de_usuario_unique_idx",
-          "elements": [
-            {
-              "type": 0,
-              "definition": "direccionDeEmail"
-            }
-          ],
-          "type": "btree",
-          "isUnique": true,
-          "isPrimary": false
         }
       ],
       "managed": true
@@ -2228,7 +2216,13 @@
           "dartType": "int"
         },
         {
-          "name": "numeroDeMes",
+          "name": "mes",
+          "columnType": 2,
+          "isNullable": false,
+          "dartType": "int"
+        },
+        {
+          "name": "anio",
           "columnType": 2,
           "isNullable": false,
           "dartType": "int"
@@ -2246,7 +2240,7 @@
             "id"
           ],
           "onUpdate": 3,
-          "onDelete": 3
+          "onDelete": 4
         },
         {
           "constraintName": "solicitudes_calificaciones_mensuales_fk_1",
@@ -2531,7 +2525,7 @@
     },
     {
       "module": "escuelas",
-      "version": "20240202141320568"
+      "version": "20240131142718594"
     }
   ],
   "migrationApiVersion": 1

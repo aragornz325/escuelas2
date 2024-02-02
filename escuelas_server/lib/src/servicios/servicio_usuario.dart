@@ -544,9 +544,28 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       logger.info(
         'verificando direccion de Email',
       );
+      final direccionDeEmail = await servicioDeEmail.obtenerDireccionDeEmail(
+        session,
+        idUsuario: usuario.id!,
+      );
 
       
-
+      if (direccionDeEmail.id != 0) {
+        logger.info(
+          'direccion de Email encontrada: se va a actualizar',
+          await servicioDeEmail.actualizarDireccionDeEmail(session,
+              direccionDeEmail: direccionDeEmail),
+        );
+      } else {
+        logger.info(
+          'direccion de Email no encontrada: se va a crear',
+          await servicioDeEmail.crearDireccionDeEmail(
+            session,
+            idUsuario: usuario.id!,
+            idUserInfo: usuario.idUserInfo,
+          ),
+        );
+      }
 
 
       String email = '';
@@ -575,6 +594,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       logger.info(
         'iniciando la transaccion para actualizar el usuario y el userInfo',
       );
+
       final resultado = await session.dbNext.transaction(
         (transaction) async {
           await Usuario.db.update(
@@ -592,6 +612,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           return true;
         },
       );
+
       if (!resultado) {
         throw ExcepcionCustom(
           titulo: 'Error al actualizar el usuario',
