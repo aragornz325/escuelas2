@@ -547,12 +547,12 @@
 
     "commonCancel": "Cancelar",
     "@commonCancel": {
-        "description": ""
+        "description": "Use to cancel an action"
     },
 
     "commonEdit": "Editar",
     "@commonEdit": {
-        "description": ""
+        "description": "Use to edit something"
     },
 
     "commonSubject": "Asignatura",

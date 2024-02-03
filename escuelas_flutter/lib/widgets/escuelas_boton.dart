@@ -66,6 +66,7 @@ class EscuelasBoton extends StatelessWidget {
     );
   }
 
+  /// Botom custom que recibe un texto y un icono a eleccion.
   factory EscuelasBoton.textoEIcono({
     /// Color que va a llevar el boton.
     required Color color,

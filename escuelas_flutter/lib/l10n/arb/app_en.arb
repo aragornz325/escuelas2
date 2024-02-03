@@ -548,11 +548,11 @@
 
     "commonCancel": "Cancel",
     "@commonCancel": {
-        "description": ""
+        "description": "Use to cancel an action"
     },
     "commonEdit": "Edit",
     "@commonEdit": {
-        "description": ""
+        "description": "Use to edit something"
     },
 
 
