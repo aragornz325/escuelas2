@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -35,7 +37,7 @@ class TarjetaPerfil extends StatelessWidget {
 
     final l10n = context.l10n;
 
-    final roles = '${l10n.commonRoles}: ${rolesAsignados.capitalize}';
+    final roles = rolesAsignados.capitalize;
 
     return IntrinsicHeight(
       child: Container(
@@ -78,21 +80,9 @@ class TarjetaPerfil extends StatelessWidget {
                 children: [
                   Flexible(
                     child: Text(
-                      nombreUsuario,
+                      '$nombreUsuario $apellidoUsuario',
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
-                      style: TextStyle(
-                        color: colores.onBackground,
-                        fontSize: 20.pf,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                    child: Text(
-                      apellidoUsuario,
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 1,
+                      maxLines: 2,
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 20.pf,
@@ -112,15 +102,31 @@ class TarjetaPerfil extends StatelessWidget {
                     ),
                   ),
                   EscuelasBoton.texto(
+                    width: 185.pw,
                     estaHabilitado: true,
-                    // TODO(Gon): Dar funcion
+                    //! TODO(Manu): Dar funcion
                     onTap: () => showDialog<void>(
                       context: context,
                       builder: (context) =>
                           EscuelasDialog.featNoDisponible(context: context),
                     ),
-                    color: colores.azul,
-                    texto: l10n.commonContact,
+                    color: colores.primaryContainer,
+                    texto: l10n.commonEdit,
+                    fontSize: 12.pf,
+                    context: context,
+                  ),
+                  SizedBox(height: max(8.ph, 8.sh)),
+                  EscuelasBoton.texto(
+                    width: 185.pw,
+                    estaHabilitado: true,
+                    //! TODO(Manu): Dar funcion
+                    onTap: () => showDialog<void>(
+                      context: context,
+                      builder: (context) =>
+                          EscuelasDialog.featNoDisponible(context: context),
+                    ),
+                    color: colores.rojoTED,
+                    texto: l10n.pageUserProfileButtonDeleteTeacher,
                     fontSize: 12.pf,
                     context: context,
                   ),
