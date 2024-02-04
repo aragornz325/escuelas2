@@ -16,11 +16,13 @@ class BlocSupervisionComisiones extends Bloc<BlocSupervisionComisionesEvento,
       : super(const BlocSupervisionComisionEstadoInicial()) {
     on<BlocSupervisionComisionesEventoInicializar>(_inicializar);
   }
+
   Future<void> _inicializar(
     BlocSupervisionComisionesEventoInicializar event,
     Emitter<BlocSupervisionComisionesEstado> emit,
   ) async {
     emit(BlocSupervisionComisionEstadoCargando.desde(state));
+
     await operacionBloc(
       callback: (client) async {
         final listaComisiones = await client.comision
@@ -32,7 +34,7 @@ class BlocSupervisionComisiones extends Bloc<BlocSupervisionComisionesEvento,
         emit(
           BlocSupervisionComisionEstadoExitoso.desde(
             state,
-            listaComisiones: listaComisiones,
+            listaSupervisionComisiones: listaComisiones,
           ),
         );
       },

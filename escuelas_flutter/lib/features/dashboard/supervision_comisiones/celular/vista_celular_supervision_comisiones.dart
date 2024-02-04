@@ -49,12 +49,12 @@ class _VistaCelularSupervisionComisionState
           builder: (context, state) {
             if (state.todasAsignaturasCargadasDeTodasLasComisiones &&
                 state.fechaUltimaAsignaturaCargada != null) {
-              Padding(
+              return Padding(
                 padding: EdgeInsets.symmetric(vertical: 20.ph),
                 child: Center(
                   child: Text(
                     'Fecha final de envio: '
-                    '${state.fechaUltimaAsignaturaCargada?.formatear}',
+                    '${state.fechaUltimaAsignaturaCargada!.formatear}',
                     style: TextStyle(
                       color: colores.grisSC,
                       fontSize: 16.pf,

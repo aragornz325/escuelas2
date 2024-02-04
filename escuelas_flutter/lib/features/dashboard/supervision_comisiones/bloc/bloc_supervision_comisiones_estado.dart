@@ -6,31 +6,52 @@ part of 'bloc_supervision_comisiones.dart';
 class BlocSupervisionComisionesEstado {
   /// {@macro BlocSupervisionComisionesEstado}
   const BlocSupervisionComisionesEstado._({
-    this.listaComisiones = const [],
+    this.listaSupervisionComisiones = const [],
     this.fecha,
   });
 
   BlocSupervisionComisionesEstado.desde(
     BlocSupervisionComisionesEstado otro, {
-    List<SupervisionDeCurso>? listaComisiones,
+    List<SupervisionDeCurso>? listaSupervisionComisiones,
     DateTime? fecha,
   }) : this._(
-          listaComisiones: listaComisiones ?? otro.listaComisiones,
+          listaSupervisionComisiones:
+              listaSupervisionComisiones ?? otro.listaSupervisionComisiones,
           fecha: fecha ?? otro.fecha,
         );
 
-  final List<SupervisionDeCurso> listaComisiones;
+  /// Lista de supervisiones de comisiones
+  final List<SupervisionDeCurso> listaSupervisionComisiones;
 
+  /// Fecha del selector, para saber que periodo se esta supervisando
   final DateTime? fecha;
 
-  DateTime? get fechaUltimaAsignaturaCargada => listaComisiones.isNotEmpty
-      ? listaComisiones
-          .map((e) => e.fechaDeNotificacion)
-          .reduce((value, element) => value ?? element)
-      : null;
+  /// Devuelve la fecha de la ultima asignatura cargada
+  DateTime? get fechaUltimaAsignaturaCargada {
+    DateTime? fechaMasActual;
+    for (final supervisionComision in listaSupervisionComisiones) {
+      if (supervisionComision
+              .comision.solicitudesCalificacionMensual?.isEmpty ??
+          true) {
+        return null;
+      }
 
+      final solicitudMasActual =
+          supervisionComision.comision.solicitudesCalificacionMensual?.last;
+      final fechaRealizacion = solicitudMasActual?.solicitud?.fechaRealizacion;
+
+      if (fechaMasActual == null ||
+          (fechaRealizacion != null &&
+              fechaRealizacion.isAfter(fechaMasActual))) {
+        fechaMasActual = fechaRealizacion;
+      }
+    }
+    return fechaMasActual;
+  }
+
+  /// Devuelve si todas las asignaturas de todas las comisiones estan cargadas
   bool get todasAsignaturasCargadasDeTodasLasComisiones =>
-      listaComisiones.every(
+      listaSupervisionComisiones.every(
         (supervisionCurso) =>
             supervisionCurso.comision.solicitudesCalificacionMensual?.every(
               (element) => element.solicitud?.fechaRealizacion != null,
@@ -67,7 +88,7 @@ class BlocSupervisionComisionEstadoExitoso
   /// {@macro BlocSupervisionComisionEstadoExitoso}
   BlocSupervisionComisionEstadoExitoso.desde(
     super.otro, {
-    super.listaComisiones,
+    super.listaSupervisionComisiones,
   }) : super.desde();
 }
 

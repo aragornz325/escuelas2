@@ -22,8 +22,18 @@ class ListaComisiones extends StatelessWidget {
       child: BlocBuilder<BlocSupervisionComisiones,
           BlocSupervisionComisionesEstado>(
         builder: (context, state) {
+          if (state is BlocSupervisionComisionEstadoCargando) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          if (state.listaSupervisionComisiones.isEmpty) {
+            return const Center(
+              child: Text('No hay comisiones para mostrar'),
+            );
+          }
           return ListView(
-            children: state.listaComisiones
+            children: state.listaSupervisionComisiones
                 .map(
                   (supervisionComision) => Padding(
                     padding: EdgeInsets.symmetric(

@@ -2,7 +2,6 @@ import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -372,11 +371,8 @@ class ElementoLista extends StatelessWidget {
           fechaDeCarga.formatear,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colores(context).segunVencimientoSegunFecha(
-              dia: int.parse(
-                fechaDeCarga.numeroDia(context),
-              ),
-            ),
+            // TODO: Cambiar color dependiendo de la fecha
+            color: Colors.green,
             fontSize: 15.pf,
             fontWeight: FontWeight.w600,
           ),
