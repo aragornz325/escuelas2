@@ -104,7 +104,8 @@ CREATE TABLE "comisiones" (
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone,
   "fechaEliminacion" timestamp without time zone,
-  "estudiantes" json
+  "estudiantes" json,
+  "solicitudesCalificacionMensual" json
 );
 
 ALTER TABLE ONLY "comisiones"
@@ -151,7 +152,7 @@ ALTER TABLE ONLY "cursos"
 
 CREATE TABLE "direcciones_de_email" (
   "id" serial,
-  "idUsuario" integer NOT NULL,
+  "usuario" json,
   "direccionDeEmail" text NOT NULL,
   "ultimaModificacion" timestamp without time zone NOT NULL,
   "fechaCreacion" timestamp without time zone NOT NULL,
@@ -361,10 +362,7 @@ ALTER TABLE ONLY "numeros_de_telefono_institucion"
 CREATE TABLE "periodos" (
   "id" serial,
   "fechaInicio" timestamp without time zone NOT NULL,
-  "fechaFin" timestamp without time zone NOT NULL,
-  "ultimaModificacion" timestamp without time zone NOT NULL,
-  "fechaCreacion" timestamp without time zone NOT NULL,
-  "fechaEliminacion" timestamp without time zone
+  "fechaFin" timestamp without time zone NOT NULL
 );
 
 ALTER TABLE ONLY "periodos"
@@ -449,7 +447,8 @@ CREATE TABLE "solicitudes_calificaciones_mensuales" (
   "solicitud" json,
   "comision" json,
   "idAsignatura" integer NOT NULL,
-  "numeroDeMes" integer NOT NULL,
+  "mes" integer NOT NULL,
+  "anio" integer NOT NULL,
   "calificaciones" json
 );
 
@@ -472,8 +471,8 @@ CREATE TABLE "usuarios" (
   "direccionesDeEmail" json,
   "numerosDeTelefono" json,
   "roles" json,
-  "ultimaModificacion" timestamp without time zone NOT NULL,
-  "fechaCreacion" timestamp without time zone NOT NULL,
+  "ultimaModificacion" timestamp without time zone,
+  "fechaCreacion" timestamp without time zone,
   "fechaEliminacion" timestamp without time zone,
   "comisiones" json,
   "asignaturas" json,

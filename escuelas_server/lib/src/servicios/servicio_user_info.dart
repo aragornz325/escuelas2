@@ -27,4 +27,24 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
             ));
     return userInfo;
   }
+
+  /// La función `actualizarUserInfo` actualiza un usuario con un objeto `UserInfo` usando una sesión y un ORM.
+  /// Args:
+  ///   session (Session): Un objeto de sesión utilizado para operaciones de bases de datos.
+  ///  userInfo (UserInfo): Un objeto `UserInfo` que representa la información del usuario que se va a actualizar.
+  /// Returns:
+  /// a `Futuro<UserInfo>`.
+
+  Future<UserInfo> actualizarUserInfo(
+    Session session, {
+    required UserInfo userInfo,
+  }) async {
+    final userInfoActualizado = await ejecutarOperacion(
+      () => orm.actualizarUserInfo(
+        session,
+        userInfo,
+      ),
+    );
+    return userInfoActualizado;
+  }
 }
