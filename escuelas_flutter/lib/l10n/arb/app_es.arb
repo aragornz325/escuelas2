@@ -206,7 +206,15 @@
     "@pageAcademicCommunityNoUsersToShow": {
         "description": "There are no users to show text"
     },
-
+    
+    "pageUserProfileButtonDeleteTeacher": "Eliminar docente",
+    "@pageUserProfileButtonDeleteTeacher": {
+        "description": "Text in button to delete the current teacher"
+    },
+    "pageUserProfileButtonAddSubject": "Añadir asignatura",
+    "@pageUserProfileButtonAddSubject": {
+        "description": "Text in button to Add a new subject for the current teacher"
+    },
 
     "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
     "@dialogErrorToSendGrades": {
@@ -539,7 +547,12 @@
 
     "commonCancel": "Cancelar",
     "@commonCancel": {
-        "description": ""
+        "description": "Use to cancel an action"
+    },
+
+    "commonEdit": "Editar",
+    "@commonEdit": {
+        "description": "Use to edit something"
     },
 
     "commonSubject": "Asignatura",
