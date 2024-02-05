@@ -167,4 +167,21 @@ class OrmAsignatura extends ORM {
     );
     return eliminado.first;
   }
+
+  Future<bool> crearRelacionesDocenteAsignatura(
+    Session session, {
+    required List<RelacionAsignaturaUsuario> relacionAsignaturaUsuario,
+  }) async {
+    ejecutarOperacionOrm(
+      session,
+      (session) => RelacionAsignaturaUsuario.db.insert(
+        session,
+        relacionAsignaturaUsuario,
+      ),
+    );
+    return true;
+  }
+
+
+  
 }
