@@ -103,7 +103,7 @@ class AsignaturaEndpoint extends Endpoint with Controller {
   }
 
 
-
+/// quita la relacion entre un [docente] y una [asignatura]
 Future<void> desasignarUsuarioAAsignatura(
     Session session, {
     required int idDocente,
