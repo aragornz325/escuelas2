@@ -1,6 +1,7 @@
 class: LlamadoCompensacion
 table: llamados_compensacion
 fields:
+  lugar: int
   fechaLlamado: DateTime # Fecha para la que fue programado el llamado.
   fechaRealizacion: DateTime? # Fecha de la realizacion efectiva del llamado.
   idAsignatura: int, relation(parent=asignaturas)
