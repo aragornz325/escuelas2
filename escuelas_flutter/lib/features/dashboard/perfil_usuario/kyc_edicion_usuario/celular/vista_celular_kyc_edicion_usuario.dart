@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -87,6 +89,23 @@ class VistaCelularKyCEdicionUsuario extends StatelessWidget {
                         ),
                       ],
                     ),
+                    SizedBox(height: max(15.ph, 15.sh)),
+                    Text(
+                      'Contacto de emergencia',
+                      style: TextStyle(
+                        color: colores.tertiary,
+                        fontSize: 10.pf,
+                      ),
+                    ),
+                    KyCTextfield(
+                        texto: 'Nombre', textfield: EscuelasTextfield()),
+                    KyCTextfield(
+                        texto: 'Vinculo', textfield: EscuelasTextfield()),
+                    KyCTextfield(
+                        texto: 'Telefono',
+                        textfield: EscuelasTextfield.soloNumero()),
+                    KyCTextfield(
+                        texto: 'Mail', textfield: EscuelasTextfield.email())
                   ],
                 ),
               ),
