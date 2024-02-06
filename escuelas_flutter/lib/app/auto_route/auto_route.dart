@@ -68,10 +68,15 @@ class AppRouter extends $AppRouter {
               path: 'home',
               initial: true,
             ),
-            CustomRoute(
+            AutoRoute(
               page: RutaPerfilUsuario.page,
               path: 'user-profile/:userId',
-              transitionsBuilder: TransitionsBuilders.noTransition,
+              children: [
+                AutoRoute(
+                  page: RutaKycEdicionUsuario.page,
+                  path: 'kyc-edit-user/:userId',
+                ),
+              ],
             ),
             CustomRoute(
               page: RutaPerfilUsuarioPendiente.page,
