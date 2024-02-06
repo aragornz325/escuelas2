@@ -9,7 +9,6 @@ import 'package:rolemissions/rolemissions.dart';
 part 'bloc_perfil_usuario_estado.dart';
 part 'bloc_perfil_usuario_evento.dart';
 
-
 /// {@template BlocPerfilUsuario}
 /// Bloc que maneja los estados y lógica de la pagina de [PaginaPerfilUsuario]
 /// {@endtemplate}
@@ -18,8 +17,11 @@ class BlocPerfilUsuario
   /// {@macro BlocPerfilUsuario}
   BlocPerfilUsuario() : super(const BlocPerfilUsuarioEstadoInicial()) {
     on<BlocPerfilUsuarioEventoTraerUsuario>(_traerUsuario);
+    on<BlocPerfilUsuarioEventoEditarDocente>(_onEditarDocente);
+    on<BlocPerfilUsuarioEventoEliminarDocente>(_onEliminarDocente);
+    on<BlocPerfilUsuarioEventoAgregarAsignatura>(_onAgregarAsignatura);
+    on<BlocPerfilUsuarioEventoQuitarAsignatura>(_onQuitarAsignatura);
   }
-
 
   /// Trae un usuario y la lista de roles
   Future<void> _traerUsuario(
@@ -50,4 +52,59 @@ class BlocPerfilUsuario
     );
   }
 
+  /// Edita los datos personales del docente
+  Future<void> _onEditarDocente(
+    BlocPerfilUsuarioEventoEditarDocente event,
+    Emitter<BlocPerfilUsuarioEstado> emit,
+  ) async {
+    emit(BlocPerfilUsuarioEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {},
+      onError: (e, st) {
+        emit(BlocPerfilUsuarioEstadoError.desde(state));
+      },
+    );
+  }
+
+  /// Elimina al docente seleccionado
+  Future<void> _onEliminarDocente(
+    BlocPerfilUsuarioEventoEliminarDocente event,
+    Emitter<BlocPerfilUsuarioEstado> emit,
+  ) async {
+    emit(BlocPerfilUsuarioEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {},
+      onError: (e, st) {
+        emit(BlocPerfilUsuarioEstadoError.desde(state));
+      },
+    );
+  }
+
+  /// Agrega asignatura seleccionada al docente
+  Future<void> _onAgregarAsignatura(
+    BlocPerfilUsuarioEventoAgregarAsignatura event,
+    Emitter<BlocPerfilUsuarioEstado> emit,
+  ) async {
+    emit(BlocPerfilUsuarioEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {},
+      onError: (e, st) {
+        emit(BlocPerfilUsuarioEstadoError.desde(state));
+      },
+    );
+  }
+
+  /// Quita una asignatura existente de un docente
+  Future<void> _onQuitarAsignatura(
+    BlocPerfilUsuarioEventoQuitarAsignatura event,
+    Emitter<BlocPerfilUsuarioEstado> emit,
+  ) async {
+    emit(BlocPerfilUsuarioEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {},
+      onError: (e, st) {
+        emit(BlocPerfilUsuarioEstadoError.desde(state));
+      },
+    );
+  }
 }
