@@ -141,14 +141,7 @@ class BlocPerfilUsuarioEstadoExitosoAltraerUsuarioPendiente
   }) : super.desde();
 }
 
-/// {@template BlocPerfilUsuarioAceptado}
-/// Estado para darle un delay a la llamada de los endpoints de la pagina
-/// de lista de usuarios pendientes
-/// {@endtemplate}
-class BlocPerfilUsuarioEstadoUsuarioAceptado extends BlocPerfilUsuarioEstado {
-  /// {@macro BlocPerfilUsuarioEstadoUsuarioAceptado}
-  BlocPerfilUsuarioEstadoUsuarioAceptado.desde(super.otro) : super.desde();
-}
+
 
 /// {@template BlocPerfilUsuarioEstadoFallido}
 /// Estado de error de los componentes de la pantalla 'Perfil de usuario'

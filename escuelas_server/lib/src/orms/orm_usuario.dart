@@ -5,7 +5,7 @@ import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
 class OrmUsuario extends ORM {
-  Future<Usuario> crearUsuario(
+  Future<Usuario> crearUsuario( 
     Session session, {
     required Usuario nuevoUsuario,
   }) async {
@@ -23,9 +23,16 @@ class OrmUsuario extends ORM {
   }) async {
     final usuario = await ejecutarOperacionOrm(
       session,
-      (session) async => await Usuario.db.findFirstRow(session, where: (t) {
-        return t.idUserInfo.equals(idUserInfo);
-      }),
+      (session) async => await Usuario.db.findFirstRow(
+        session,
+        where: (t) =>
+            t.idUserInfo.equals(
+              idUserInfo,
+            ) &
+            t.fechaEliminacion.equals(
+              null,
+            ),
+      ),
     );
 
     if (usuario == null) {
@@ -62,12 +69,14 @@ class OrmUsuario extends ORM {
       session,
       (session) async => await Usuario.db.find(
         session,
-        where: (t) {
-          return t.id.contains(
-            ids,
-            Usuario.t.tableName,
-          );
-        },
+        where: (t) =>
+            t.id.contains(
+              ids,
+              Usuario.t.tableName,
+            ) &
+            t.fechaEliminacion.equals(
+              null,
+            ),
         include: Usuario.include(
           direccionesDeEmail: DireccionDeEmail.includeList(
             include: DireccionDeEmail.include(),
@@ -100,12 +109,27 @@ class OrmUsuario extends ORM {
         session,
         where: (t) {
           if (idUserInfo != null) {
-            return t.idUserInfo.equals(idUserInfo);
+            return t.idUserInfo.equals(
+                  idUserInfo,
+                ) &
+                t.fechaEliminacion.equals(
+                  null,
+                );
           }
           if (idUsuario != null) {
-            return t.id.equals(idUsuario);
+            return t.id.equals(
+                  idUsuario,
+                ) &
+                t.fechaEliminacion.equals(
+                  null,
+                );
           }
-          return t.id.notEquals(null);
+          return t.id.notEquals(
+                null,
+              ) &
+              t.fechaEliminacion.equals(
+                null,
+              );
         },
         include: Usuario.include(
           direccionesDeEmail: DireccionDeEmail.includeList(
@@ -173,12 +197,12 @@ class OrmUsuario extends ORM {
 
   /// La función `actualizarUsuario` actualiza un usuario en la base de datos y devuelve el usuario
   /// actualizado.
-  /// 
+  ///
   /// Args:
-  ///   session (Session): 
+  ///   session (Session):
   ///   usuario (Usuario): El parámetro `usuario` es de tipo `Usuario` y es obligatorio. Representa el
   /// objeto de usuario que debe actualizarse en la base de datos.
-  
+
   Future<Usuario> actualizarUsuario(
     Session session, {
     required Usuario usuario,
@@ -191,11 +215,9 @@ class OrmUsuario extends ORM {
           session,
           [usuario],
         ).then((value) => usuario);
-        logger
-            .info('tabla usuario actualizada con exito... buscando userInfo.');
+        logger.info('tabla usuario actualizada con exito');
 
-            return usuarioActualizado;
-
+        return usuarioActualizado;
       },
     );
   }
@@ -218,7 +240,12 @@ class OrmUsuario extends ORM {
             );
           }
 
-          return t.id.notEquals(null);
+          return t.id.notEquals(
+                null,
+              ) &
+              t.fechaEliminacion.equals(
+                null,
+              );
         },
         include: Usuario.include(
           comisiones: RelacionComisionUsuario.includeList(

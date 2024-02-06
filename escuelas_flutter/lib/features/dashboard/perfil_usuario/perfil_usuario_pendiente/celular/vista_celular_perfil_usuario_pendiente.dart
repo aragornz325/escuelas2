@@ -3,7 +3,7 @@ import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario_pendiente/bloc/bloc_perfil_usuario_pendiente.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/tarjeta_perfil.dart';
 import 'package:escuelas_flutter/gen/fonts.gen.dart';
@@ -31,7 +31,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
     showDialog<void>(
       context: context,
       builder: (_) => BlocProvider.value(
-        value: context.read<BlocPerfilUsuario>(),
+        value: context.read<BlocPerfilUsuarioPendiente>(),
         child: _DialogAceptarSolicitudRegistro(
           nombreUsuario: nombreUsuario,
           nombreRol: nombreRol,
@@ -49,14 +49,15 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
     final tienePermiso =
         context.tienePermiso(PermisoDeUsuario.responderSolicitudDeRegistro);
 
-    return BlocConsumer<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
-      listener: (BuildContext context, BlocPerfilUsuarioEstado state) {
-        if (state is BlocPerfilUsuarioEstadoUsuarioAceptado) {
+    return BlocConsumer<BlocPerfilUsuarioPendiente,
+        BlocPerfilUsuarioPendienteEstado>(
+      listener: (BuildContext context, BlocPerfilUsuarioPendienteEstado state) {
+        if (state is BlocPerfilUsuarioPendienteEstadoUsuarioAceptado) {
           context.router.push(const RutaUsuariosPendientes());
         }
       },
       builder: (context, state) {
-        if (state is BlocPerfilUsuarioEstadoCargando) {
+        if (state is BlocPerfilUsuarioPendienteEstadoCargando) {
           return const Center(
             child: CircularProgressIndicator(),
           );
@@ -132,8 +133,8 @@ class _DialogAceptarSolicitudRegistro extends StatelessWidget {
   /// Acepta la solicitud de registro de un usuario, aprobandole el rol.
   void _aceptarSolicitudRegistro(BuildContext context) {
     context
-        .read<BlocPerfilUsuario>()
-        .add(BlocPerfilUsuarioEventoAceptarSolicitud());
+        .read<BlocPerfilUsuarioPendiente>()
+        .add(BlocPerfilUsuarioPendienteEventoAceptarSolicitud());
 
     Navigator.of(context).pop();
   }

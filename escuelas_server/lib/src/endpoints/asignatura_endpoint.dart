@@ -84,4 +84,37 @@ class AsignaturaEndpoint extends Endpoint with Controller {
         ),
         permisoRequerido: PermisoDeAsistencia.eliminarAsistencia,
       );
+
+  /// las [Asignatura]s tienen un solo docente asignado (por el momento)    
+  /// {multiples asignaciones}(http://google.com/)     
+  /// ///TODO(chivo): soportar multiples asignaciones 
+  Future<bool> asignarDocenteAAsignatura(
+    Session session, {
+    required List<int> idsAsignaturas,
+    required int idDocente,
+    required int idComision,
+  }) async {
+    return servicio.asignarDocenteAAsignatura(
+      session,
+      idsAsignaturas: idsAsignaturas,
+      idDocente: idDocente,
+      idComision: idComision,
+    );
+  }
+
+
+/// quita la relacion entre un [docente] y una [asignatura]
+Future<void> desasignarUsuarioAAsignatura(
+    Session session, {
+    required int idDocente,
+    required int comisionId,
+    required int asignaturaId,
+  }) async {
+    return servicio.desasignarUsuarioAAsignatura(
+      session,
+      idDocente: idDocente,
+      comisionId: comisionId,
+      asignaturaId: asignaturaId,
+    );
+  }
 }

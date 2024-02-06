@@ -23,12 +23,16 @@ class TarjetaPerfil extends StatelessWidget {
     super.key,
   });
 
+/// Rol del usuario seleccionado
   final String rolesAsignados;
 
+/// Nombre del usuario seleccionado
   final String nombreUsuario;
 
+/// Apellido del usuario seleccionado
   final String apellidoUsuario;
 
+/// Url de la foto de perfil del usuario seleccionado
   final String? urlImage;
 
   @override

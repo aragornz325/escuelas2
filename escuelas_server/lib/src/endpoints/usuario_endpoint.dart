@@ -106,12 +106,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
 
   /// La función `enviarSoliciturRegistroAlumno` envía una solicitud de registro
   /// para un usuario pendiente.
-  ///
-  /// Args:
-  ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual. Es necesario
-  /// para fines de autenticación y autorización.
-  ///   usuarioPendiente (UsuarioPendiente): El parámetro "UserPending" es de tipo "UserPending" y es
-  /// obligatorio.
+
   Future<UsuarioPendiente> enviarSolicitudRegistroAlumno(
     Session session, {
     required UsuarioPendiente usuarioPendiente,
@@ -187,6 +182,9 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     );
   }
 
+  /// La función `actualizarUsuario` actualiza un usuario en la base de datos.
+  /// Devuelve el usuario actualizado.
+
   Future<Usuario> actualizarUsuario(
     Session session, {
     required Usuario usuario,
@@ -197,6 +195,23 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
       () => servicio.actualizarUsuario(
         session,
         usuario: usuario,
+      ),
+    );
+  }
+
+  // la funcion `softDeleteUsuario` actualiza el campo `fechaEliminacion` de un usuario
+  // en la base de datos y devuelve un valor booleano que indica si la operación fue exitosa.
+
+  Future<bool> softDeleteUsuario(
+    Session session, {
+    required int idUsuario,
+  }) async {
+    return await ejecutarOperacionControlador(
+      session,
+      'eliminarUsuario',
+      () => servicio.softDeleteUsuario(
+        session,
+        idUsuario: idUsuario,
       ),
     );
   }
