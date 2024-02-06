@@ -42,11 +42,18 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Contexto para traducciones
     required BuildContext context,
+
+    /// Texto interno
+    String? hintText,
+
+        /// Ancho del textfield
+    double? width,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
-      hintText: l10n.commonMail,
+      width: width?? 302.pw,
+      hintText: hintText ?? l10n.commonMail,
       controller: controller,
       keyboardType: TextInputType.emailAddress,
       esPassword: false,
@@ -62,7 +69,7 @@ class EscuelasTextfield extends StatefulWidget {
   }
 
   factory EscuelasTextfield.soloNumero({
-    /// Controller del TextFormField eMail
+    /// Controller del TextFormField de numeros
     required TextEditingController controller,
 
     /// Texto guía
@@ -73,10 +80,14 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Funcion onChanged del textfield
     required void Function(String)? onChanged,
+
+    /// Ancho del textfield
+    double? width,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
+      width: width ?? 302.pw,
       hintText: hintText,
       controller: controller,
       esPassword: false,

@@ -72,8 +72,8 @@ class AppRouter extends $AppRouter {
               page: RutaPerfilUsuario.page,
               path: 'user-profile/:userId',
               children: [
-                AutoRoute(
-                  page: RutaKycEdicionUsuario.page,
+                CustomRoute(
+                  page: RutaKyCEdicionUsuario.page,
                   path: 'kyc-edit-user/:userId',
                 ),
               ],
