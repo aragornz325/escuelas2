@@ -240,7 +240,7 @@ class ElementoLista extends StatelessWidget {
     required BuildContext context,
 
     /// Componente que se agrega al final del [ElementoLista] a la derecha
-    Widget? widgetLateralDerecho,
+    required Widget widgetLateralDerecho,
   }) {
     final colores = context.colores;
     return ElementoLista(
