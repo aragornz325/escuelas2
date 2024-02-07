@@ -79,54 +79,21 @@ class ServicioComision extends Servicio<OrmComision> {
     return supervisionDeCursos;
   }
 
-  /// Obtiene las [comisiones] con las asignaturas que tienen.
+  /// Obtiene las [ComisionDeCurso] con las asignaturas que tienen.
   Future<List<ComisionConAsignaturas>> listarComisionesConAsignaturas(
     Session session,
   ) async {
-    List<ComisionConAsignaturas> comisionesConAsignaturas = [];
-
     final comisiones = await ejecutarOperacion(
       () => orm.obtenerComisionesConAsignaturas(
         session,
       ),
     );
 
-    for (var comisionMap in comisiones) {
-      var comision = {
-        'comision': comisionMap['comisiones'],
-        'curso': comisionMap['cursos'],
-        'asignaturas': comisionMap['']?['asignaturas'] ?? []
-      };
-
-      comisionesConAsignaturas.add(
-        ComisionConAsignaturas(
-          comision: ComisionDeCurso(
-            cursoId: comision['curso']['curso_id'],
-            anioLectivo: comision['comision']['anio_lectivo'],
-            id: comision['comision']['comision_id'],
-            nombre: comision['comision']['nombre_comision'],
-            curso: Curso(
-              id: comision['curso']['curso_id'],
-              nombre: comision['curso']['nombre_curso'],
-            ),
-          ),
-          asignaturas: comision['asignaturas']
-              .map<Asignatura>(
-                (asignatura) => Asignatura(
-                  id: asignatura['asignatura_id'],
-                  nombre: asignatura['nombre_asignatura'],
-                ),
-              )
-              .toList(),
-        ),
-      );
-    }
-
-    return comisionesConAsignaturas;
+    return comisiones;
   }
 
-  ///cambia un usuario de una [ComisionDeCurso] a otra
-  ///si el usuario no tiene asignada una comision previa lo asigna a la nueva
+  /// cambia un usuario de una [ComisionDeCurso] a otra
+  /// si el usuario no tiene asignada una comision previa lo asigna a la nueva
   Future<bool> cambiarUsuarioDeComision(
     Session session, {
     required int idComision,
@@ -151,7 +118,6 @@ class ServicioComision extends Servicio<OrmComision> {
       );
     } else {
       await session.dbNext.transaction((transaction) async {
-      
         await RelacionComisionUsuario.db.deleteWhere(
           session,
           where: (t) =>

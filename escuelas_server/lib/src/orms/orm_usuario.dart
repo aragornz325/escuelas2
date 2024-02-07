@@ -222,7 +222,7 @@ class OrmUsuario extends ORM {
     );
   }
 
-  //devuelve una lista de [Usuario]s dependiendo de los parametros que se le pasen
+  ///devuelve una lista de [Usuario]s dependiendo de los parametros que se le pasen
   Future<List<Usuario>> obtenerUsuarios(
     Session session, {
     int? idRol,
