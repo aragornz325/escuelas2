@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ContenedorFechaDeCarga}
-/// Contenedor que muestra la fecha de carga de las notas de una comision o la
-/// proporcion de materias cargadas
+/// Contenedor que muestra la fecha de carga de las calificaciones de una
+/// comision o la proporcion de materias cargadas
 /// {@endtemplate}
 class InformacionComision extends StatelessWidget {
   /// {@macro ContenedorFechaDeCarga}
@@ -17,9 +17,7 @@ class InformacionComision extends StatelessWidget {
   });
 
   /// Devuelve la cantidad de asignaturas cargadas de una comision
-  int cantidadAsignaturasCargadas({
-    required SupervisionDeCurso supervisionDeCurso,
-  }) {
+  int get cantidadAsignaturasCargadas {
     var cant = 0;
     final lista =
         supervisionDeCurso.comision.solicitudesCalificacionMensual ?? [];
@@ -81,9 +79,7 @@ class InformacionComision extends StatelessWidget {
 
   /// Devuelve la proporcion de materias cargadas
   double get proporcion =>
-      cantidadAsignaturasCargadas(
-        supervisionDeCurso: supervisionDeCurso,
-      ) /
+      cantidadAsignaturasCargadas /
       (supervisionDeCurso.comision.solicitudesCalificacionMensual?.length ?? 0);
 
   /// Devuelve la fecha de carga de la ultima asignatura cargada
@@ -112,9 +108,7 @@ class InformacionComision extends StatelessWidget {
 
     final proporcionAsignaturasCargadas =
         l10n.pageComissionSupervisionProportionOfLoadedsubjects(
-      cantidadAsignaturasCargadas(
-        supervisionDeCurso: supervisionDeCurso,
-      ),
+      cantidadAsignaturasCargadas,
       supervisionDeCurso.comision.solicitudesCalificacionMensual?.length ?? 0,
     );
 
