@@ -29,41 +29,6 @@ class InformacionComision extends StatelessWidget {
     return cant;
   }
 
-  /// Devuelve un color que tan tarde se cargaron las notas
-  Color colorSegunVencimientoSegunFecha({
-    required BuildContext context,
-    required int dia,
-  }) {
-    final colores = context.colores;
-    if (dia > 0 && dia <= 4) {
-      return colores.verdeConfirmar;
-    } else if (dia > 4 && dia <= 6) {
-      return colores.verdeTEA;
-    } else if (dia > 6 && dia <= 8) {
-      return colores.naranjaTEP;
-    } else if (dia > 8 && dia >= 9) {
-      return colores.rojoTED;
-    } else {
-      return colores.onSecondary;
-    }
-  }
-
-  /// Devuelve un color segun la proporcion de materias cargadas (la proporcion
-  /// debe ser un valor entre 0 y 1)
-  Color colorSegunProporcionDeMateriasCargadas({
-    required BuildContext context,
-    required double proporcion,
-  }) {
-    final colores = context.colores;
-    if (proporcion >= .8) {
-      return colores.verdeConfirmar;
-    } else if (proporcion >= 0.6) {
-      return colores.naranjaMediaFalta;
-    } else {
-      return colores.error;
-    }
-  }
-
   /// Devuelve si todas las asignaturas de una comision estan cargadas
   bool get todasAsignaturasCargadas =>
       supervisionDeCurso.comision.solicitudesCalificacionMensual?.every(
@@ -123,13 +88,11 @@ class InformacionComision extends StatelessWidget {
         ),
         color: haySolicitudes
             ? todasAsignaturasCargadas
-                ? colorSegunVencimientoSegunFecha(
-                    context: context,
-                    dia: fechaDeCargaDeLaUltimaAsignatura?.day ?? 0,
+                ? colores.segunVencimientoFecha(
+                    fechaDeCargaDeLaUltimaAsignatura?.day ?? 0,
                   )
-                : colorSegunProporcionDeMateriasCargadas(
-                    context: context,
-                    proporcion: proporcion,
+                : colores.segunProporcionDeMateriasCargadas(
+                    proporcion,
                   )
             : colores.grisDeshabilitado,
       ),
