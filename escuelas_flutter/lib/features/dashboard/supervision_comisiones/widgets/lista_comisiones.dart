@@ -51,7 +51,7 @@ class ListaComisiones extends StatelessWidget {
                       context: context,
                       onTap: () => context.router.push(
                         RutaSupervisionEnvioCalificaciones(
-                          idCurso: supervisionComision.comision.id ?? 0,
+                          idComision: supervisionComision.comision.id ?? 0,
                           fecha: state.fecha.toString(),
                         ),
                       ),
