@@ -162,7 +162,7 @@
         "description": "Text to indicate the log in with google system"
     },
 
-    "pageGradeSubmissionSupervisionButton": "Request missing grades({numberOfGrades})",
+    "pageGradeSubmissionSupervisionButton": "Solicitar calificaciones faltantes ({numberOfGrades})",
     "@pageGradeSubmissionSupervisionButton": {
         "description": "Represents the text for a button that is used to request missing grades. The {numberOfGrades} placeholder is used to dynamically indicate the number of missing grades.",
         "placeholders" :{
@@ -172,6 +172,11 @@
         }
     },
 
+    "pageGradeSubmissionSupervisionButtonSendQualifications": "Enviar calificaciones",
+    "@pageGradeSubmissionSupervisionButtonSendQualifications": {
+        "description": "Text for a button used to send grades."
+    },
+    
     "pageLoginTextAllRightsReserved": "Desarrollado por © Nidus Development - Argentina\nTodos los derechos reservados",
     "@pageLoginTextAllRightsReserved": {
         "description": "text to indicate the origin of development"

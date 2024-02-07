@@ -14,13 +14,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PaginaSupervisionEnvioCalificaciones extends StatelessWidget {
   /// {@macro PaginaSupervisionEnvioCalificaciones}
   PaginaSupervisionEnvioCalificaciones({
-    @PathParam('idCurso') required this.idCurso,
+    @PathParam('idComision') required this.idComision,
     @PathParam('fecha') required String fecha,
     super.key,
   }) : fecha = DateTime.parse(fecha);
 
   /// Id del curso a supervisar
-  final int idCurso;
+  final int idComision;
 
   /// Fecha del periodo a supervisar
   final DateTime fecha;
@@ -28,11 +28,9 @@ class PaginaSupervisionEnvioCalificaciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocSupervisionEnvioCalificaciones>(
-      create: (context) => BlocSupervisionEnvioCalificaciones(idCurso)
+      create: (context) => BlocSupervisionEnvioCalificaciones(idComision, fecha)
         ..add(
-          BlocSupervisionEnvioCalificacionesEventoInicializar(
-            fecha: fecha,
-          ),
+          const BlocSupervisionEnvioCalificacionesEventoInicializar(),
         ),
       child: const FullResponsiveScreen(
         celular: VistaCelularSupervisionEnvioCalificaciones(),

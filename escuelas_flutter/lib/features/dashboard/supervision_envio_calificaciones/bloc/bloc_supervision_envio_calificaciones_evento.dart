@@ -16,11 +16,11 @@ class BlocSupervisionEnvioCalificacionesEventoInicializar
     extends BlocSupervisionEnvioCalificacionesEvento {
   /// {@macro BlocSupervisionEnvioCalificacionesEventoCargar}
   const BlocSupervisionEnvioCalificacionesEventoInicializar({
-    required this.fecha,
+    this.fecha,
   });
 
   /// Fecha del periodo a supervisar
-  final DateTime fecha;
+  final DateTime? fecha;
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEventoCaliFaltantes}

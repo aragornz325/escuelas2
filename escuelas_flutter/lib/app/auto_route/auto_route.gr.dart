@@ -9,7 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i20;
-import 'package:escuelas_client/escuelas_client.dart' as _i22;
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/features/auth/kyc/espera/pagina_espera.dart'
     as _i4;
 import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.dart'
@@ -47,7 +47,7 @@ import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaci
 import 'package:escuelas_flutter/features/dashboard/usuarios_pendientes/pagina_usuarios_pendientes.dart'
     as _i19;
 import 'package:flutter/material.dart' as _i21;
-import 'package:serverpod_auth_client/module.dart' as _i23;
+import 'package:serverpod_auth_client/module.dart' as _i22;
 
 abstract class $AppRouter extends _i20.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -198,13 +198,13 @@ abstract class $AppRouter extends _i20.RootStackRouter {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<RutaSupervisionEnvioCalificacionesArgs>(
           orElse: () => RutaSupervisionEnvioCalificacionesArgs(
-                idCurso: pathParams.getInt('idCurso'),
+                idComision: pathParams.getInt('idComision'),
                 fecha: pathParams.getString('fecha'),
               ));
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i18.PaginaSupervisionEnvioCalificaciones(
-          idCurso: args.idCurso,
+          idComision: args.idComision,
           fecha: args.fecha,
           key: args.key,
         ),
@@ -291,8 +291,8 @@ class RutaComunidadAcademica extends _i20.PageRouteInfo<void> {
 /// [_i3.PaginaDashboard]
 class RutaDashboard extends _i20.PageRouteInfo<RutaDashboardArgs> {
   RutaDashboard({
-    required _i22.Usuario usuario,
-    required _i23.UserInfo userInfo,
+    required Usuario usuario,
+    required _i22.UserInfo userInfo,
     _i21.Key? key,
     List<_i20.PageRouteInfo>? children,
   }) : super(
@@ -318,9 +318,9 @@ class RutaDashboardArgs {
     this.key,
   });
 
-  final _i22.Usuario usuario;
+  final Usuario usuario;
 
-  final _i23.UserInfo userInfo;
+  final _i22.UserInfo userInfo;
 
   final _i21.Key? key;
 
@@ -608,19 +608,19 @@ class RutaSupervisionCursos extends _i20.PageRouteInfo<void> {
 class RutaSupervisionEnvioCalificaciones
     extends _i20.PageRouteInfo<RutaSupervisionEnvioCalificacionesArgs> {
   RutaSupervisionEnvioCalificaciones({
-    required int idCurso,
+    required int idComision,
     required String fecha,
     _i21.Key? key,
     List<_i20.PageRouteInfo>? children,
   }) : super(
           RutaSupervisionEnvioCalificaciones.name,
           args: RutaSupervisionEnvioCalificacionesArgs(
-            idCurso: idCurso,
+            idComision: idComision,
             fecha: fecha,
             key: key,
           ),
           rawPathParams: {
-            'idCurso': idCurso,
+            'idComision': idComision,
             'fecha': fecha,
           },
           initialChildren: children,
@@ -634,12 +634,12 @@ class RutaSupervisionEnvioCalificaciones
 
 class RutaSupervisionEnvioCalificacionesArgs {
   const RutaSupervisionEnvioCalificacionesArgs({
-    required this.idCurso,
+    required this.idComision,
     required this.fecha,
     this.key,
   });
 
-  final int idCurso;
+  final int idComision;
 
   final String fecha;
 
@@ -647,7 +647,7 @@ class RutaSupervisionEnvioCalificacionesArgs {
 
   @override
   String toString() {
-    return 'RutaSupervisionEnvioCalificacionesArgs{idCurso: $idCurso, fecha: $fecha, key: $key}';
+    return 'RutaSupervisionEnvioCalificacionesArgs{idComision: $idComision, fecha: $fecha, key: $key}';
   }
 }
 

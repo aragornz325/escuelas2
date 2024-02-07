@@ -241,6 +241,12 @@
         }
     },
 
+     
+    "pageGradeSubmissionSupervisionButtonSendQualifications": "Send Qualifications",
+    "@pageGradeSubmissionSupervisionButtonSendQualifications": {
+        "description": "Text for a button used to send grades."
+    },
+    
     "pageAcademicCommunityNoUsersToShow": "There are no users to show",
     "@pageAcademicCommunityNoUsersToShow": {
         "description": "There are no users to show text"

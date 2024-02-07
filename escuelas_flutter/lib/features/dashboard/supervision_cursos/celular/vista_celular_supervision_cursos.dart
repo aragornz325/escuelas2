@@ -55,7 +55,7 @@ class _VistaCelularSupervisionCursosState
                             context: context,
                             onTap: () => context.router.push(
                               RutaSupervisionEnvioCalificaciones(
-                                idCurso: curso.id ?? 0,
+                                idComision: curso.id ?? 0,
                                 fecha: fecha.toString(),
                               ),
                             ),

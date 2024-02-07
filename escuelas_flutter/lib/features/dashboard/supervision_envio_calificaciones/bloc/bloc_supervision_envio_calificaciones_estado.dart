@@ -6,7 +6,7 @@ part of 'bloc_supervision_envio_calificaciones.dart';
 class BlocSupervisionEnvioCalificacionesEstado {
   /// {@macro BlocSupervisionEnvioCalificacionesEstado}
   const BlocSupervisionEnvioCalificacionesEstado._({
-    required this.idCurso,
+    required this.idComision,
     this.fecha,
     this.listaAsignaturas = const [],
   });
@@ -17,7 +17,7 @@ class BlocSupervisionEnvioCalificacionesEstado {
     DateTime? fecha,
     int? idCurso,
   }) : this._(
-          idCurso: idCurso ?? otro.idCurso,
+          idComision: idCurso ?? otro.idComision,
           listaAsignaturas: listaAsignaturas ?? otro.listaAsignaturas,
           fecha: fecha ?? otro.fecha,
         );
@@ -29,9 +29,11 @@ class BlocSupervisionEnvioCalificacionesEstado {
   final DateTime? fecha;
 
   List<Asignatura> get asignaturasFaltantes => [];
+
   // TODO(anyone): Ver como saber si una asignatura no tiene fecha de envio
   // listaAsignaturas.where((asignatura) => asignatura.fecha == null).toList();
-  final int idCurso;
+  /// Id de la comision
+  final int idComision;
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoInicial}
@@ -41,8 +43,13 @@ class BlocSupervisionEnvioCalificacionesEstado {
 class BlocSupervisionEnvioCalificacionesEstadoInicial
     extends BlocSupervisionEnvioCalificacionesEstado {
   /// {@macro BlocSupervisionEnvioCalificacionesEstadoInicial}
-  const BlocSupervisionEnvioCalificacionesEstadoInicial(int idCurso)
-      : super._(idCurso: idCurso);
+  const BlocSupervisionEnvioCalificacionesEstadoInicial(
+    int idComision,
+    DateTime fecha,
+  ) : super._(
+          idComision: idComision,
+          fecha: fecha,
+        );
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoCargando}

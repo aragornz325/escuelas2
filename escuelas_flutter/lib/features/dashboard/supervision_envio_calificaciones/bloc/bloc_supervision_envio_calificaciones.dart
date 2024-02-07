@@ -13,9 +13,20 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     BlocSupervisionEnvioCalificacionesEvento,
     BlocSupervisionEnvioCalificacionesEstado> {
   /// {@macro BlocSupervision}
-  BlocSupervisionEnvioCalificaciones(int idCurso)
-      : super(BlocSupervisionEnvioCalificacionesEstadoInicial(idCurso)) {
+  BlocSupervisionEnvioCalificaciones(int idComision, DateTime fecha)
+      : super(
+          BlocSupervisionEnvioCalificacionesEstadoInicial(
+            idComision,
+            fecha,
+          ),
+        ) {
     on<BlocSupervisionEnvioCalificacionesEventoInicializar>(_onInicializar);
+    on<BlocSupervisionEnvioCalificacionesEventoSolicitarCaliFaltantes>(
+      _onSolicitarCalificacionesFaltantes,
+    );
+    on<BlocSupervisionEnvioCalificacionesEventoEnviarCalificaciones>(
+      _onEnviarCalificaciones,
+    );
   }
 
   /// Trae las asignaturas del curso a supervisar y las guarda en el estado asi
@@ -63,6 +74,42 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
           BlocSupervisionEnvioCalificacionesEstadoError.desde(state),
         );
       },
+    );
+  }
+
+  /// Envia las a los profesores que faltan cargar las calificaciones
+  Future<void> _onSolicitarCalificacionesFaltantes(
+    BlocSupervisionEnvioCalificacionesEventoSolicitarCaliFaltantes event,
+    Emitter<BlocSupervisionEnvioCalificacionesEstado> emit,
+  ) async {
+    emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) {
+        // TODO(anyone): llamar al endpoint de envio de calificaciones faltantes
+        // client.asignatura.enviarCalificacionesFaltantes();
+        emit(BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(state));
+      },
+      onError: (e, st) => emit(
+        BlocSupervisionEnvioCalificacionesEstadoError.desde(state),
+      ),
+    );
+  }
+
+  /// Envia todas las calificaciones a los padres/alumnos
+  Future<void> _onEnviarCalificaciones(
+    BlocSupervisionEnvioCalificacionesEventoEnviarCalificaciones event,
+    Emitter<BlocSupervisionEnvioCalificacionesEstado> emit,
+  ) async {
+    emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) {
+        // TODO(anyone): llamar al endpoint de envio de calificaciones faltantes
+        // client.asignatura.enviarCalificacionesFaltantes();
+        emit(BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(state));
+      },
+      onError: (e, st) => emit(
+        BlocSupervisionEnvioCalificacionesEstadoError.desde(state),
+      ),
     );
   }
 }
