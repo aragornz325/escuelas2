@@ -25,8 +25,8 @@ class BlocPerfilUsuarioEventoTraerUsuario extends BlocPerfilUsuarioEvento {
 /// Evento que realiza la accion de editar los datos de un docente
 /// {@endtemplate}
 class BlocPerfilUsuarioEventoEditarDocente extends BlocPerfilUsuarioEvento {
-    /// {@macro BlocPerfilUsuarioEventoEditarDocente}
-const BlocPerfilUsuarioEventoEditarDocente();
+  /// {@macro BlocPerfilUsuarioEventoEditarDocente}
+  const BlocPerfilUsuarioEventoEditarDocente();
 }
 
 /// {@template BlocPerfilUsuarioEventoAgregarAsignatura}
@@ -34,7 +34,7 @@ const BlocPerfilUsuarioEventoEditarDocente();
 /// {@endtemplate}
 class BlocPerfilUsuarioEventoAgregarAsignatura extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoAgregarAsignatura}
-const BlocPerfilUsuarioEventoAgregarAsignatura();
+  const BlocPerfilUsuarioEventoAgregarAsignatura();
 }
 
 /// {@template BlocPerfilUsuarioEventoQuitarAsignatura}
@@ -42,7 +42,7 @@ const BlocPerfilUsuarioEventoAgregarAsignatura();
 /// {@endtemplate}
 class BlocPerfilUsuarioEventoQuitarAsignatura extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoQuitarAsignatura}
-   const BlocPerfilUsuarioEventoQuitarAsignatura();
+  const BlocPerfilUsuarioEventoQuitarAsignatura();
 }
 
 /// {@template BlocPerfilUsuarioEventoEliminarDocente}
@@ -51,4 +51,60 @@ class BlocPerfilUsuarioEventoQuitarAsignatura extends BlocPerfilUsuarioEvento {
 class BlocPerfilUsuarioEventoEliminarDocente extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoEliminarDocente}
   const BlocPerfilUsuarioEventoEliminarDocente();
+}
+
+/// {@template BlocPerfilUsuarioEventoRecolectarDatosKyC}
+/// Evento que recolecta los datos KYC del usuario
+/// {@endtemplate}
+class BlocPerfilUsuarioEventoRecolectarDatosKyC
+    extends BlocPerfilUsuarioEvento {
+  BlocPerfilUsuarioEventoRecolectarDatosKyC({
+    this.telefono,
+    this.mail,
+    this.factorSanguineo,
+    this.edad,
+    this.contactoEmergenciaNombre,
+    this.contactoEmergenciaVinculo,
+    this.contactoEmergenciaTelefono,
+    this.contactoEmergenciaMail,
+    this.observaciones,
+  });
+
+  /// telefono del usuario
+  final String? telefono;
+
+  /// mail del usuario
+  final String? mail;
+
+  /// grupo sanguineo del usuario
+  final String? factorSanguineo;
+
+  /// edad del usuario
+  final String? edad;
+
+  /// nombre del contacto de emergencia
+  final String? contactoEmergenciaNombre;
+
+  /// vinculo del contacto de emergencia
+  final String? contactoEmergenciaVinculo;
+
+  /// telefono del contacto de emergencia
+  final String? contactoEmergenciaTelefono;
+
+  /// mail del contacto de emergencia
+  final String? contactoEmergenciaMail;
+
+  /// observaciones
+  final String? observaciones;
+}
+
+/// {@template BlocPerfilUsuarioEventoInsertarInformacionDeKyc}
+/// Inserta los valores que se completaron en el formulario,
+/// guardados dentro del estado dentro de la informacion
+/// del usuario en la base de datos.
+/// {@endtemplate}
+class BlocPerfilUsuarioEventoInsertarInformacionDeKyc
+    extends BlocPerfilUsuarioEvento {
+  /// {@macro BlocPerfilUsuarioEventoInsertarInformacionDeKyc}
+  BlocPerfilUsuarioEventoInsertarInformacionDeKyc();
 }

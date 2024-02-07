@@ -46,13 +46,16 @@ class EscuelasTextfield extends StatefulWidget {
     /// Texto interno
     String? hintText,
 
-        /// Ancho del textfield
+    /// Ancho del textfield
     double? width,
+
+    /// Funcion onChanged del textfield
+    void Function(String)? onChanged,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
-      width: width?? 302.pw,
+      width: width ?? 302.pw,
       hintText: hintText ?? l10n.commonMail,
       controller: controller,
       keyboardType: TextInputType.emailAddress,
@@ -65,6 +68,7 @@ class EscuelasTextfield extends StatefulWidget {
         }
         return null;
       },
+      onChanged: onChanged,
     );
   }
 

@@ -225,6 +225,20 @@
     "@pageUserProfileButtonAddSubject": {
         "description": "Text in button to Add a new subject for the current teacher"
     },
+    "pageUserProfileKyCPersonalInformation": "Personal information",
+    "@pageUserProfileKyCPersonalInformation": {
+        "description": "Title of the page KyC to edit personal information"
+    },
+
+    "pageUserProfileKyCBloodFactor": "Blood factor",
+    "@pageUserProfileKyCBloodFactor": {
+        "description": "Title of the page KyC to edit the blood factor"
+    },
+    "pageUserProfileKyCEmergencyContact": "Emergency contact",
+    "@pageUserProfileKyCEmergencyContact": {
+        "description": "Title in the page KyC of emergency contact"
+    },
+
 
     "pageAttendanceNotAbsentStudents": "There are no students",
     "@pageAttendanceNotAbsentStudents": {

@@ -8,8 +8,55 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-class VistaCelularKyCEdicionUsuario extends StatelessWidget {
+class VistaCelularKyCEdicionUsuario extends StatefulWidget {
   const VistaCelularKyCEdicionUsuario({super.key});
+
+  @override
+  State<VistaCelularKyCEdicionUsuario> createState() =>
+      _VistaCelularKyCEdicionUsuarioState();
+}
+
+class _VistaCelularKyCEdicionUsuarioState
+    extends State<VistaCelularKyCEdicionUsuario> {
+  /// Controller del telefono del usuario
+  final controllerTelefono = TextEditingController();
+
+  /// Controller del mail del usuario
+  final controllerMail = TextEditingController();
+
+  /// Controller del textfield del grupo sanguineo del usuario
+  final controllerGrupoSanguineo = TextEditingController();
+
+  /// Controller del textfield de la edad del usuario
+  final controllerEdad = TextEditingController();
+
+  /// Controller del textfield del nombre del Contacto de Emergencia
+  final controllerCENombre = TextEditingController();
+
+  /// Controller del textfield del parentesco del Contacto de Emergencia
+  final controllerCEVinculo = TextEditingController();
+
+  /// Controller del textfield del telefono del Contacto de Emergencia
+  final controllerCETelefono = TextEditingController();
+
+  /// Controller del textfield del mail del Contacto de Emergencia
+  final controllerCEMail = TextEditingController();
+
+  /// Controller del textfield de las observaciones
+  final controllerObservaciones = TextEditingController();
+
+  @override
+  void dispose() {
+    controllerTelefono.dispose();
+    controllerMail.dispose();
+    controllerGrupoSanguineo.dispose();
+    controllerEdad.dispose();
+    controllerCENombre.dispose();
+    controllerCEVinculo.dispose();
+    controllerCETelefono.dispose();
+    controllerCEMail.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +87,8 @@ class VistaCelularKyCEdicionUsuario extends StatelessWidget {
                     Padding(
                       padding: EdgeInsets.only(left: 17.pw),
                       child: Text(
-                        'DATOS PERSONALES',
+                        l10n.pageUserProfileKyCPersonalInformation
+                            .toUpperCase(),
                         style: TextStyle(
                           color: colores.tertiary,
                           fontSize: 13.pf,
@@ -49,38 +97,60 @@ class VistaCelularKyCEdicionUsuario extends StatelessWidget {
                     ),
                     const Divider(height: .5),
                     KyCTextfield(
-                      texto: 'Teléfono',
+                      texto: l10n.commonPhone,
                       textfield: EscuelasTextfield.soloNumero(
-                          onChanged: (p0) {},
-                          context: context,
-                          hintText: '',
-                          controller: controllerTelefono),
+                        onChanged: (_) => context.read<BlocPerfilUsuario>().add(
+                              BlocPerfilUsuarioEventoRecolectarDatosKyC(
+                                telefono: controllerTelefono.text,
+                              ),
+                            ),
+                        context: context,
+                        hintText: '',
+                        controller: controllerTelefono,
+                      ),
                     ),
                     KyCTextfield(
-                      texto: 'Mail',
+                      texto: l10n.commonMail,
                       textfield: EscuelasTextfield.email(
                         controller: controllerMail,
                         context: context,
                         hintText: '',
+                        onChanged: (_) => context.read<BlocPerfilUsuario>().add(
+                              BlocPerfilUsuarioEventoRecolectarDatosKyC(
+                                mail: controllerMail.text,
+                              ),
+                            ),
                       ),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         KyCTextfield(
-                          texto: 'Grupo sanguíneo',
+                          texto: l10n.commonBloodFactor,
                           textfield: EscuelasTextfield(
                             esPassword: false,
                             width: 147.pw,
                             hintText: '',
                             controller: controllerGrupoSanguineo,
+                            onChanged: (_) =>
+                                context.read<BlocPerfilUsuario>().add(
+                                      BlocPerfilUsuarioEventoRecolectarDatosKyC(
+                                        factorSanguineo:
+                                            controllerGrupoSanguineo.text,
+                                      ),
+                                    ),
                           ),
                         ),
                         SizedBox(width: 7.pw),
                         KyCTextfield(
-                          texto: 'Edad',
+                          texto: l10n.commonAge,
                           textfield: EscuelasTextfield.soloNumero(
-                            onChanged: (p0) {},
+                            onChanged: (_) =>
+                                context.read<BlocPerfilUsuario>().add(
+                                      BlocPerfilUsuarioEventoRecolectarDatosKyC(
+                                        edad: controllerEdad.text,
+                                      ),
+                                    ),
                             context: context,
                             hintText: '',
                             width: 147.pw,
@@ -91,21 +161,80 @@ class VistaCelularKyCEdicionUsuario extends StatelessWidget {
                     ),
                     SizedBox(height: max(15.ph, 15.sh)),
                     Text(
-                      'Contacto de emergencia',
+                      l10n.pageUserProfileKyCEmergencyContact,
                       style: TextStyle(
                         color: colores.tertiary,
                         fontSize: 10.pf,
                       ),
                     ),
                     KyCTextfield(
-                        texto: 'Nombre', textfield: EscuelasTextfield()),
+                      texto: l10n.commonName,
+                      textfield: EscuelasTextfield(
+                        hintText: '',
+                        controller: controllerCENombre,
+                        esPassword: false,
+                        onChanged: (_) => context.read<BlocPerfilUsuario>().add(
+                              BlocPerfilUsuarioEventoRecolectarDatosKyC(
+                                contactoEmergenciaNombre:
+                                    controllerCENombre.text,
+                              ),
+                            ),
+                      ),
+                    ),
                     KyCTextfield(
-                        texto: 'Vinculo', textfield: EscuelasTextfield()),
+                      texto: l10n.commonBond,
+                      textfield: EscuelasTextfield(
+                        hintText: '',
+                        controller: controllerCEVinculo,
+                        esPassword: false,
+                        onChanged: (_) => context.read<BlocPerfilUsuario>().add(
+                              BlocPerfilUsuarioEventoRecolectarDatosKyC(
+                                contactoEmergenciaVinculo:
+                                    controllerCEVinculo.text,
+                              ),
+                            ),
+                      ),
+                    ),
                     KyCTextfield(
-                        texto: 'Telefono',
-                        textfield: EscuelasTextfield.soloNumero()),
+                      texto: l10n.commonPhone,
+                      textfield: EscuelasTextfield.soloNumero(
+                        hintText: '',
+                        controller: controllerCETelefono,
+                        context: context,
+                        onChanged: (_) => context.read<BlocPerfilUsuario>().add(
+                              BlocPerfilUsuarioEventoRecolectarDatosKyC(
+                                contactoEmergenciaTelefono:
+                                    controllerCETelefono.text,
+                              ),
+                            ),
+                      ),
+                    ),
                     KyCTextfield(
-                        texto: 'Mail', textfield: EscuelasTextfield.email())
+                      texto: l10n.commonMail,
+                      textfield: EscuelasTextfield.email(
+                        controller: controllerCEMail,
+                        context: context,
+                        hintText: '',
+                        onChanged: (_) => context.read<BlocPerfilUsuario>().add(
+                              BlocPerfilUsuarioEventoRecolectarDatosKyC(
+                                contactoEmergenciaMail: controllerCEMail.text,
+                              ),
+                            ),
+                      ),
+                    ),
+                    KyCTextfield(
+                      texto: l10n.commonObservations,
+                      textfield: EscuelasTextfield(
+                        hintText: '',
+                        controller: controllerObservaciones,
+                        esPassword: false,
+                        onChanged: (_) => context.read<BlocPerfilUsuario>().add(
+                              BlocPerfilUsuarioEventoRecolectarDatosKyC(
+                                observaciones: controllerObservaciones.text,
+                              ),
+                            ),
+                      ),
+                    ),
                   ],
                 ),
               ),

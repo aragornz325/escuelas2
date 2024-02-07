@@ -215,7 +215,18 @@
     "@pageUserProfileButtonAddSubject": {
         "description": "Text in button to Add a new subject for the current teacher"
     },
-
+    "pageUserProfileKyCPersonalInformation": "Datos personales",
+    "@pageUserProfileKyCPersonalInformation": {
+        "description": "Title of the page KyC to edit personal information"
+    },
+    "pageUserProfileKyCBloodFactor": "Factor sanguíneo",
+    "@pageUserProfileKyCBloodFactor": {
+        "description": "Title of the page KyC to edit the blood factor"
+    },
+    "pageUserProfileKyCEmergencyContact": "Contacto de emergencia",
+    "@pageUserProfileKyCEmergencyContact": {
+        "description": "Title in the page KyC of emergency contact"
+    },
     "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
     "@dialogErrorToSendGrades": {
         "description": "Label indicating an error when sending notes."
