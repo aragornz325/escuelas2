@@ -28,6 +28,17 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
         () => servicio.obtenerComisiones(session),
       );
 
+  Future<List<ComisionConAsignaturas>> listarComisionesConAsignaturas(
+    Session session,
+  ) async =>
+      ejecutarOperacionControlador(
+        session,
+        'listarComisionesConAsignaturas',
+        () => servicio.listarComisionesConAsignaturas(
+          session,
+        ),
+      );
+
   Future<ComisionDeCurso> obtenerComisionesDeCursoPorId(
     Session session, {
     required int idComision,

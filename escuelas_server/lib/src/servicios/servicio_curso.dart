@@ -36,7 +36,9 @@ class ServicioCurso extends Servicio<OrmCurso> {
   ///   un objeto `Futuro` que se resuelve en una `Lista` de objetos `Curso`.
   Future<List<Curso>> obtenerCursos(Session session) async {
     final cursos = await ejecutarOperacion(
-      () => orm.obtenerCursos(session),
+      () => orm.obtenerCursos(
+        session,
+      ),
     );
     return cursos;
   }
@@ -98,13 +100,13 @@ class ServicioCurso extends Servicio<OrmCurso> {
   }
 
   /// La función `obtenerAsignaturasPorCurso` recupera una lista de cursos por su ID.
-  /// 
+  ///
   /// Args:
   ///   session (Session): Un objeto de sesión que representa una conexión a una base de datos o una
   /// sesión de usuario específica. Se utiliza para ejecutar operaciones de bases de datos y gestionar
   /// transacciones.
   ///   idCurso (int): El parámetro "idCurso" es un número entero que representa el ID de un curso.
-  /// 
+  ///
   /// Returns:
   ///   a `Futuro<Curso>`.
   Future<Curso> obtenerAsignaturasPorCurso(

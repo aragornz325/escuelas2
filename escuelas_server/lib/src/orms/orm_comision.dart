@@ -70,4 +70,13 @@ class OrmComision extends ORM {
               ),
             ),
           );
+
+  Future<List<ComisionDeCurso>> listarComisionesConAsignaturas(
+          Session session) async =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => ComisionDeCurso.db.find(
+          session,
+        ),
+      );
 }

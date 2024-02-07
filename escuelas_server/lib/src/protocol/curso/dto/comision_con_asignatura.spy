@@ -1,0 +1,6 @@
+### DTO de comisiones con asignaturas
+class: ComisionConAsignaturas
+fields:
+  comision: ComisionDeCurso
+  asignaturas: List<Asignatura>
+ 

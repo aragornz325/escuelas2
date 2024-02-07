@@ -215,4 +215,22 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
       ),
     );
   }
+
+  Future<List<Usuario>> obtenerUsuariosSegunRol(
+    Session session,
+    String? nombre,
+    String? apellido, {
+    required int idRol,
+  }) async {
+    return await ejecutarOperacionControlador(
+      session,
+      'obtenerUsuarios',
+      () => servicio.listarUsuariosSegunRol(
+        session,
+        nombre,
+        apellido,
+        idRol: idRol,
+      ),
+    );
+  }
 }
