@@ -162,6 +162,39 @@
         "description": "Text to indicate the log in with google system"
     },
 
+    "pageComissionSupervisionNoComissions": "No hay comisiones para mostrar",
+    "@pageComissionSupervisionNoComissions": {
+        "description": ""
+    },
+
+    "pageComissionSupervisionWithoutEnabling": "Sin habilitar",
+    "@pageComissionSupervisionWithoutEnabling": {
+        "description": ""
+    },
+
+    "pageComissionSupervisionSendingDate": "Fecha de envío: {date}",
+    "@pageComissionSupervisionSendingDate": {
+        "description": "",
+          "placeholders" :{
+            "date" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageComissionSupervisionProportionOfLoadedsubjects": "{numbreOfLoadedGrades} de {numberOfGrades}",
+    "@pageComissionSupervisionProportionOfLoadedsubjects": {
+        "description": "",
+        "placeholders" :{
+            "numbreOfLoadedGrades" : {
+                "type": "int"
+            },
+            "numberOfGrades" : {
+                "type": "int"
+            }
+        }
+    },
+
     "pageGradeSubmissionSupervisionButton": "Solicitar calificaciones faltantes ({numberOfGrades})",
     "@pageGradeSubmissionSupervisionButton": {
         "description": "Represents the text for a button that is used to request missing grades. The {numberOfGrades} placeholder is used to dynamically indicate the number of missing grades.",
@@ -240,7 +273,6 @@
     "@commonWelcome": {
         "description": "Welcoming text"
     },
-
 
     "drawerMyProfile": "Mi perfil",
     "@drawerMyProfile": {
@@ -345,9 +377,8 @@
     "@routeAcademicCommunityList": {
         "description": ""
     },
-
-    "routeNameCourseSupervision": "Supervisión de cursos",
-    "@routeNameCourseSupervision": {
+    "routeNameCommissionSupervision": "Supervisión de comisiones",
+    "@routeNameCommissionSupervision": {
         "description": ""
     },
 
