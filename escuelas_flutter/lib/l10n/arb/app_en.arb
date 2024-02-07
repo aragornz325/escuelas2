@@ -274,7 +274,7 @@
     },
 
      
-    "pageGradeSubmissionSupervisionButtonSendQualifications": "Send Qualifications",
+    "pageGradeSubmissionSupervisionButtonSendQualifications": "Send grades",
     "@pageGradeSubmissionSupervisionButtonSendQualifications": {
         "description": "Text for a button used to send grades."
     },
