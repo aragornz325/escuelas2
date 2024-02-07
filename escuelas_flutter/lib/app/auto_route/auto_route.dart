@@ -66,7 +66,6 @@ class AppRouter extends $AppRouter {
             AutoRoute(
               page: RutaInicio.page,
               path: 'home',
-              initial: true,
             ),
             CustomRoute(
               page: RutaPerfilUsuario.page,

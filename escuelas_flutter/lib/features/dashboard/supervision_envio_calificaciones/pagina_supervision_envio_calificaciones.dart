@@ -28,10 +28,9 @@ class PaginaSupervisionEnvioCalificaciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocSupervisionEnvioCalificaciones>(
-      create: (context) => BlocSupervisionEnvioCalificaciones()
+      create: (context) => BlocSupervisionEnvioCalificaciones(idCurso)
         ..add(
           BlocSupervisionEnvioCalificacionesEventoInicializar(
-            idCurso: idCurso,
             fecha: fecha,
           ),
         ),

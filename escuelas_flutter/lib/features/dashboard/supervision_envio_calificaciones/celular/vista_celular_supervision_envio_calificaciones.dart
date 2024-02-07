@@ -19,6 +19,13 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
   /// {@macro VistaCelularSupervisionEnvioCalificaciones}
   const VistaCelularSupervisionEnvioCalificaciones({super.key});
 
+  // ignore: avoid_field_initializers_in_const_classes
+  final eventoSolicitarCaliFaltantes =
+      const BlocSupervisionEnvioCalificacionesEventoSolicitarCaliFaltantes();
+  // ignore: avoid_field_initializers_in_const_classes
+  final eventoEnviarCalificaciones =
+      const BlocSupervisionEnvioCalificacionesEventoEnviarCalificaciones();
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -44,6 +51,11 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
           DateTime.now().month + 1,
         ).subtract(const Duration(days: 1));
 
+        final envioDeCalificaciones =
+            context.read<BlocSupervisionEnvioCalificaciones>().add(
+                  eventoSolicitarCaliFaltantes,
+                );
+
         return Padding(
           padding: EdgeInsets.symmetric(horizontal: 20.pw),
           child: Column(
@@ -57,8 +69,12 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                     fechaHasta: fechaHasta,
                   ),
                 ),
-                // TODO(anyone): Manejar seleccion de periodo
-                onSeleccionarPeriodo: (periodo) {},
+                onSeleccionarPeriodo: (periodo) =>
+                    context.read<BlocSupervisionEnvioCalificaciones>().add(
+                          BlocSupervisionEnvioCalificacionesEventoInicializar(
+                            fecha: periodo.fechaDesde,
+                          ),
+                        ),
                 decoration: BoxDecoration(
                   color: colores.tertiary,
                   borderRadius: BorderRadius.circular(40.sw),
@@ -120,12 +136,23 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                 padding: EdgeInsets.only(top: 15.ph),
                 child: EscuelasBoton.texto(
                   estaHabilitado: true,
-                  // TODO(anyone): Implementar funcion
-                  onTap: () {},
+                  onTap: () => envioDeCalificaciones,
                   color: colores.azul,
                   texto: l10n.pageGradeSubmissionSupervisionButton(
                     state.asignaturasFaltantes.length,
                   ),
+                  context: context,
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 15.ph),
+                child: EscuelasBoton.outlined(
+                  estaHabilitado: true,
+                  onTap: () => context
+                      .read<BlocSupervisionEnvioCalificaciones>()
+                      .add(eventoEnviarCalificaciones),
+                  color: colores.primary,
+                  texto: 'Enviar calificaciones',
                   context: context,
                 ),
               ),

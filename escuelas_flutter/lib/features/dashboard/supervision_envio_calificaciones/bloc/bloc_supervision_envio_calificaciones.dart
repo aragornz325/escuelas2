@@ -13,8 +13,8 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     BlocSupervisionEnvioCalificacionesEvento,
     BlocSupervisionEnvioCalificacionesEstado> {
   /// {@macro BlocSupervision}
-  BlocSupervisionEnvioCalificaciones()
-      : super(const BlocSupervisionEnvioCalificacionesEstadoInicial()) {
+  BlocSupervisionEnvioCalificaciones(int idCurso)
+      : super(BlocSupervisionEnvioCalificacionesEstadoInicial(idCurso)) {
     on<BlocSupervisionEnvioCalificacionesEventoInicializar>(_onInicializar);
   }
 
@@ -29,7 +29,8 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
       callback: (client) async {
         // TODO(anyone): Descomentar cuando haya endpoint
         // final listaAsignaturas =
-        //awaitclient.obtenerAsignaturasDeCurso(event.idCurso,event.idPeriodo);
+        // await client.asignatura.obtenerAsignaturasPorIdCurso(idCurso,event.idPeriodo);
+
         emit(
           BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(
             state,

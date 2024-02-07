@@ -1,6 +1,6 @@
 apiServer: 
   port: 8080
-  publicHost: 0.0.0.0
+  publicHost: localhost
   publicPort: 8080
   publicScheme: http
 insightsServer: 
@@ -14,11 +14,11 @@ webServer:
   publicPort: 8082
   publicScheme: http
 database: 
-  host: db.mvdsvzvejhmrnxgdfdwz.supabase.co
+  host: aws-0-sa-east-1.pooler.supabase.com
   port: 5432
   name: postgres
-  user: postgres
-  password: 08WKsRfTZzrDv70J
+  user: postgres.mvdsvzvejhmrnxgdfdwz
+  password: L86Grm9pso3LyUdA
 redis: 
   enabled: false
   host: redis.private-staging.examplepod.com
