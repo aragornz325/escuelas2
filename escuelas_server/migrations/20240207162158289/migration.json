@@ -1,0 +1,260 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "comisiones",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [
+          {
+            "columnName": "ultimaModificacion",
+            "addNullable": true,
+            "removeNullable": false,
+            "changeDefault": false
+          }
+        ],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "tableDropped",
+            "message": "One or more columns are added to table \"llamados_compensacion\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+            "table": "llamados_compensacion",
+            "columns": [
+              "lugar"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"r_usuario_index_idx\" is added to table \"r_comisiones_usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "r_comisiones_usuarios",
+            "columns": [
+              "usuarioId"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "deleteTable",
+      "deleteTable": "llamados_compensacion"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "llamados_compensacion",
+        "dartName": "LlamadoCompensacion",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('llamados_compensacion_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "lugar",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "fechaLlamado",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaRealizacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "idAsignatura",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "observaciones",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "llamados_compensacion_fk_0",
+            "columns": [
+              "idAsignatura"
+            ],
+            "referenceTable": "asignaturas",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "llamados_compensacion_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "numeros_de_telefono",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [
+          {
+            "columnName": "ultimaModificacion",
+            "addNullable": true,
+            "removeNullable": false,
+            "changeDefault": false
+          },
+          {
+            "columnName": "fechaCreacion",
+            "addNullable": true,
+            "removeNullable": false,
+            "changeDefault": false
+          }
+        ],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "tableDropped",
+            "message": "One or more columns are added to table \"llamados_compensacion\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+            "table": "llamados_compensacion",
+            "columns": [
+              "lugar"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"r_usuario_index_idx\" is added to table \"r_comisiones_usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "r_comisiones_usuarios",
+            "columns": [
+              "usuarioId"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "r_comisiones_usuarios",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [
+          {
+            "indexName": "r_usuario_index_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "usuarioId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "tableDropped",
+            "message": "One or more columns are added to table \"llamados_compensacion\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+            "table": "llamados_compensacion",
+            "columns": [
+              "lugar"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"r_usuario_index_idx\" is added to table \"r_comisiones_usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "r_comisiones_usuarios",
+            "columns": [
+              "usuarioId"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"llamados_compensacion\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "llamados_compensacion",
+      "columns": [
+        "lugar"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"r_usuario_index_idx\" is added to table \"r_comisiones_usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "r_comisiones_usuarios",
+      "columns": [
+        "usuarioId"
+      ],
+      "destrucive": false
+    }
+  ],
+  "migrationApiVersion": 1
+}

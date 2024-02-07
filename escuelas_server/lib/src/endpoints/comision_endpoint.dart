@@ -73,4 +73,19 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
               anio: anio,
             ),
           );
+
+  Future<bool> cambiarUsuarioDeComision(
+    Session session,
+    int idComision,
+    int idUsuario,
+  ) async =>
+      ejecutarOperacionControlador(
+        session,
+        'cambiarUsuarioDeComision',
+        () => servicio.cambiarUsuarioDeComision(
+          session,
+          idComision: idComision,
+          idUsuario: idUsuario,
+        ),
+      );
 }

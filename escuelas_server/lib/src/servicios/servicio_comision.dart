@@ -93,11 +93,9 @@ class ServicioComision extends Servicio<OrmComision> {
 
     for (var comisionMap in comisiones) {
       var comision = {
-        'comision':
-            comisionMap['comisiones'],
-        'curso': comisionMap['cursos'], 
-        'asignaturas':
-            comisionMap['']?['asignaturas'] ?? [] 
+        'comision': comisionMap['comisiones'],
+        'curso': comisionMap['cursos'],
+        'asignaturas': comisionMap['']?['asignaturas'] ?? []
       };
 
       comisionesConAsignaturas.add(
@@ -125,5 +123,56 @@ class ServicioComision extends Servicio<OrmComision> {
     }
 
     return comisionesConAsignaturas;
+  }
+
+  ///cambia un usuario de una [ComisionDeCurso] a otra
+  ///si el usuario no tiene asignada una comision previa lo asigna a la nueva
+  Future<bool> cambiarUsuarioDeComision(
+    Session session, {
+    required int idComision,
+    required int idUsuario,
+  }) async {
+    final relacionPrevia =
+        await _ormUsuarioComision.obtenerRelacionConCursoDeUnUsuario(
+      session,
+      idUsuario: idUsuario,
+    );
+
+    final relacion = RelacionComisionUsuario(
+      comisionId: idComision,
+      usuarioId: idUsuario,
+    );
+
+    if (relacionPrevia.isEmpty) {
+      await _ormUsuarioComision.crearRelacionUsuarioAComision(
+        session,
+        idComision: idComision,
+        idUsuario: idUsuario,
+      );
+    } else {
+      await session.dbNext.transaction((transaction) async {
+      
+        await RelacionComisionUsuario.db.deleteWhere(
+          session,
+          where: (t) =>
+              t.comisionId.equals(
+                relacionPrevia.first.comisionId,
+              ) &
+              t.usuarioId.equals(
+                relacionPrevia.first.usuarioId,
+              ),
+          transaction: transaction,
+        );
+        await RelacionComisionUsuario.db.insertRow(
+          session,
+          relacion,
+          transaction: transaction,
+        );
+
+        return true;
+      });
+    }
+
+    return true;
   }
 }
