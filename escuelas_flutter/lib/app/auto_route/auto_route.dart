@@ -118,7 +118,7 @@ class AppRouter extends $AppRouter {
               path: 'absences',
             ),
             AutoRoute(
-              page: RutaSupervisionCursos.page,
+              page: RutaSupervisionComisiones.page,
               path: 'course-supervision',
             ),
             AutoRoute(

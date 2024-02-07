@@ -40,7 +40,7 @@ import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil
     as _i14;
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario_pendiente.dart'
     as _i15;
-import 'package:escuelas_flutter/features/dashboard/supervision_cursos/pagina_supervision_cursos.dart'
+import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/pagina_supervision_comisiones.dart'
     as _i17;
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/pagina_supervision_envio_calificaciones.dart'
     as _i18;
@@ -188,10 +188,10 @@ abstract class $AppRouter extends _i20.RootStackRouter {
         child: const _i16.PaginaSeleccionDeRol(),
       );
     },
-    RutaSupervisionCursos.name: (routeData) {
+    RutaSupervisionComisiones.name: (routeData) {
       return _i20.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i17.PaginaSupervisionCursos(),
+        child: const _i17.PaginaSupervisionComisiones(),
       );
     },
     RutaSupervisionEnvioCalificaciones.name: (routeData) {
@@ -590,15 +590,15 @@ class RutaSeleccionDeRol extends _i20.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i17.PaginaSupervisionCursos]
-class RutaSupervisionCursos extends _i20.PageRouteInfo<void> {
-  const RutaSupervisionCursos({List<_i20.PageRouteInfo>? children})
+/// [_i17.PaginaSupervisionComisiones]
+class RutaSupervisionComisiones extends _i20.PageRouteInfo<void> {
+  const RutaSupervisionComisiones({List<_i20.PageRouteInfo>? children})
       : super(
-          RutaSupervisionCursos.name,
+          RutaSupervisionComisiones.name,
           initialChildren: children,
         );
 
-  static const String name = 'RutaSupervisionCursos';
+  static const String name = 'RutaSupervisionComisiones';
 
   static const _i20.PageInfo<void> page = _i20.PageInfo<void>(name);
 }
