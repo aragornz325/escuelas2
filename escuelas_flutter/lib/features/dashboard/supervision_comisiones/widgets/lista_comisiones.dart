@@ -3,13 +3,18 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/bloc/bloc_supervision_comisiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/widgets/contenedor_fecha_de_carga.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
+/// {@template ListaComisiones}
+/// Lista de comisiones a supervisar
+/// {@endtemplate}
 class ListaComisiones extends StatelessWidget {
+  /// {@macro ListaComisiones}
   const ListaComisiones({
     super.key,
   });
@@ -17,6 +22,8 @@ class ListaComisiones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
 
     return Expanded(
       child: BlocBuilder<BlocSupervisionComisiones,
@@ -28,8 +35,8 @@ class ListaComisiones extends StatelessWidget {
             );
           }
           if (state.listaSupervisionComisiones.isEmpty) {
-            return const Center(
-              child: Text('No hay comisiones para mostrar'),
+            return Center(
+              child: Text(l10n.pageComissionSupervisionNoComissions),
             );
           }
           return ListView(
@@ -53,7 +60,7 @@ class ListaComisiones extends StatelessWidget {
                           supervisionComision.fechaDeNotificacion != null
                               ? colores.primaryContainer
                               : colores.grisDeshabilitado,
-                      widgetLateralDerecho: ContenedorFechaDeCarga(
+                      widgetLateralDerecho: InformacionComision(
                         supervisionDeCurso: supervisionComision,
                       ),
                     ),

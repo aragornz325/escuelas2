@@ -1,7 +1,7 @@
 part of 'bloc_supervision_comisiones.dart';
 
 /// {@template BlocSupervisionComisionesEvento}
-/// AGREGAR DOCUMENTACION GENERADA
+/// Eventos para el bloc de supervision de comisiones
 /// {@endtemplate}
 abstract class BlocSupervisionComisionesEvento {
   /// {@macro BlocSupervisionComisionesEvento}
@@ -9,7 +9,7 @@ abstract class BlocSupervisionComisionesEvento {
 }
 
 /// {@template BlocSupervisionComisionesEventoInicializar}
-/// AGREGAR DOCUMENTACION GENERADA
+/// Evento para inicializar el bloc de supervision de comisiones
 /// {@endtemplate}
 class BlocSupervisionComisionesEventoInicializar
     extends BlocSupervisionComisionesEvento {
@@ -17,5 +17,7 @@ class BlocSupervisionComisionesEventoInicializar
   const BlocSupervisionComisionesEventoInicializar({
     required this.fecha,
   });
+
+  /// Fecha utilizada para traer los datos de las comisiones
   final DateTime fecha;
 }

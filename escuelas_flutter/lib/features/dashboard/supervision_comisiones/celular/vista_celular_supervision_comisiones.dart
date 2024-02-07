@@ -1,6 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/bloc/bloc_supervision_comisiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/widgets/lista_comisiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
@@ -27,17 +28,18 @@ class _VistaCelularSupervisionComisionState
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return Column(
       children: [
         SelectorDePeriodo(
           delegate: PeriodoMensualDelegate(context),
-          onSeleccionarPeriodo: (periodo) {
-            context.read<BlocSupervisionComisiones>().add(
-                  BlocSupervisionComisionesEventoInicializar(
-                    fecha: periodo.fechaDesde,
+          onSeleccionarPeriodo: (periodo) =>
+              context.read<BlocSupervisionComisiones>().add(
+                    BlocSupervisionComisionesEventoInicializar(
+                      fecha: periodo.fechaDesde,
+                    ),
                   ),
-                );
-          },
           decoration: BoxDecoration(
             color: colores.tertiary,
             borderRadius: BorderRadius.circular(40.sw),
@@ -53,8 +55,9 @@ class _VistaCelularSupervisionComisionState
                 padding: EdgeInsets.symmetric(vertical: 20.ph),
                 child: Center(
                   child: Text(
-                    'Fecha final de envio: '
-                    '${state.fechaUltimaAsignaturaCargada!.formatear}',
+                    l10n.pageComissionSupervisionSendingDate(
+                      state.fechaUltimaAsignaturaCargada!.formatear,
+                    ),
                     style: TextStyle(
                       color: colores.grisSC,
                       fontSize: 16.pf,

@@ -1,11 +1,17 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-class ContenedorFechaDeCarga extends StatelessWidget {
-  const ContenedorFechaDeCarga({
+/// {@template ContenedorFechaDeCarga}
+/// Contenedor que muestra la fecha de carga de las notas de una comision o la
+/// proporcion de materias cargadas
+/// {@endtemplate}
+class InformacionComision extends StatelessWidget {
+  /// {@macro ContenedorFechaDeCarga}
+  const InformacionComision({
     required this.supervisionDeCurso,
     super.key,
   });
@@ -80,13 +86,6 @@ class ContenedorFechaDeCarga extends StatelessWidget {
       ) /
       (supervisionDeCurso.comision.solicitudesCalificacionMensual?.length ?? 0);
 
-  /// Devuelve la cantidad de asignaturas cargadas sobre la cantidad de
-  /// asignaturas que tiene la comision
-  String get proporcionAsignaturasCargadas => '${cantidadAsignaturasCargadas(
-        supervisionDeCurso: supervisionDeCurso,
-      )} de '
-      '${supervisionDeCurso.comision.solicitudesCalificacionMensual?.length}';
-
   /// Devuelve la fecha de carga de la ultima asignatura cargada
   DateTime? get fechaDeCargaDeLaUltimaAsignatura => haySolicitudes
       ? supervisionDeCurso.comision.solicitudesCalificacionMensual
@@ -108,6 +107,16 @@ class ContenedorFechaDeCarga extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
+
+    final proporcionAsignaturasCargadas =
+        l10n.pageComissionSupervisionProportionOfLoadedsubjects(
+      cantidadAsignaturasCargadas(
+        supervisionDeCurso: supervisionDeCurso,
+      ),
+      supervisionDeCurso.comision.solicitudesCalificacionMensual?.length ?? 0,
+    );
 
     return Container(
       constraints: BoxConstraints(
@@ -133,7 +142,7 @@ class ContenedorFechaDeCarga extends StatelessWidget {
       child: Center(
         child: Text(
           !haySolicitudes
-              ? 'SIN HABILITAR'
+              ? l10n.pageComissionSupervisionWithoutEnabling.toUpperCase()
               : todasAsignaturasCargadas
                   ? fechaDeCargaDeLaUltimaAsignatura?.formatear ?? ''
                   : proporcionAsignaturasCargadas,
