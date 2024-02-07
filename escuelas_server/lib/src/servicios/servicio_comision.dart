@@ -79,36 +79,49 @@ class ServicioComision extends Servicio<OrmComision> {
     return supervisionDeCursos;
   }
 
+  /// Obtiene las [comisiones] con las asignaturas que tienen.
   Future<List<ComisionConAsignaturas>> listarComisionesConAsignaturas(
     Session session,
   ) async {
     List<ComisionConAsignaturas> comisionesConAsignaturas = [];
 
-    logger.info('se obtendran las comisones');
     final comisiones = await ejecutarOperacion(
-      () => orm.obtenerComisiones(
+      () => orm.obtenerComisionesConAsignaturas(
         session,
       ),
     );
 
-    logger.info(
-        'se obtendran las asignaturas segun el curso al que pertenece la comision');
-
-    for (var comision in comisiones) {
-      final asignatura = await servicioAsignatura
-          .obtenerAsignaturaPorCursoId(session, idCurso: comision.cursoId);
+    for (var comisionMap in comisiones) {
+      var comision = {
+        'comision':
+            comisionMap['comisiones'],
+        'curso': comisionMap['cursos'], 
+        'asignaturas':
+            comisionMap['']?['asignaturas'] ?? [] 
+      };
 
       comisionesConAsignaturas.add(
         ComisionConAsignaturas(
-          comision: comision,
-          asignaturas: asignatura,
+          comision: ComisionDeCurso(
+            cursoId: comision['curso']['curso_id'],
+            anioLectivo: comision['comision']['anio_lectivo'],
+            id: comision['comision']['comision_id'],
+            nombre: comision['comision']['nombre_comision'],
+            curso: Curso(
+              id: comision['curso']['curso_id'],
+              nombre: comision['curso']['nombre_curso'],
+            ),
+          ),
+          asignaturas: comision['asignaturas']
+              .map<Asignatura>(
+                (asignatura) => Asignatura(
+                  id: asignatura['asignatura_id'],
+                  nombre: asignatura['nombre_asignatura'],
+                ),
+              )
+              .toList(),
         ),
       );
-    }
-
-    logger.info('se eliminara la lista de estudiantes de las comisiones');
-    for (var comision in comisionesConAsignaturas) {
-      comision.comision.estudiantes = null;
     }
 
     return comisionesConAsignaturas;
