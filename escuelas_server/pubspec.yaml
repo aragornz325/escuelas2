@@ -24,8 +24,8 @@ dependencies:
   envied: ^0.5.2
   logging: ^1.2.0
   mailer: ^6.0.1
-  serverpod: 1.2.0
-  serverpod_auth_server: 1.2.0
+  serverpod: 1.2.2
+  serverpod_auth_server: 1.2.2
   yaml_writer: ^1.0.3
   rolemissions:
     path: ../rolemissions

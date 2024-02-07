@@ -629,4 +629,28 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       return usuarioActualizado;
     });
   }
+
+  Future<bool> softDeleteUsuario(
+    Session session, {
+    required int idUsuario,
+  }) async {
+    return await ejecutarOperacion(() async {
+      final ahora = DateTime.now();
+      logger.info('obteniendo usuario');
+      final usuario = await orm.obtenerUsuario(
+        session,
+        idUsuario: idUsuario,
+      );
+
+      logger.info('actualizando usuario');
+      await orm.actualizarUsuario(
+        session,
+        usuario: usuario
+          ..fechaEliminacion = ahora
+          ..ultimaModificacion = ahora,
+      );
+      logger.info('usuario eliminado con exito');
+      return true;
+    });
+  }
 }

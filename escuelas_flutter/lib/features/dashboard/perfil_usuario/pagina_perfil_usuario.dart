@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/features/dashboard/perfil_usuario/bloc/bloc_perfil_usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/celular/vista_celular_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/escritorio/vista_escritorio_perfil_usuario.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
