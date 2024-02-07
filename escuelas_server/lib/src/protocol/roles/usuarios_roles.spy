@@ -1,9 +1,0 @@
-class: UsuarioRol
-table: user_role_relation
-fields:
-    roleId: int
-    userId: int
-    organizationId: int
-    privileges: String
-    createdAt: DateTime?, scope=serverOnly
-    updatedAt: DateTime?, scope=serverOnly
