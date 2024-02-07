@@ -59,4 +59,31 @@ extension EscuelasColorScheme on ColorScheme {
 
   /// Este color es utilizable en los items del drawer cuando son seleccionados
   Color get primaryOpacidadVeinte => primary.withOpacity(0.2);
+
+  /// Devuelve un color que tan tarde se cargaron las calificaciones
+  Color segunVencimientoFecha(int dia) {
+    if (dia > 0 && dia <= 4) {
+      return verdeConfirmar;
+    } else if (dia > 4 && dia <= 6) {
+      return verdeTEA;
+    } else if (dia > 6 && dia <= 8) {
+      return naranjaTEP;
+    } else if (dia > 8 && dia >= 9) {
+      return rojoTED;
+    } else {
+      return onSecondary;
+    }
+  }
+
+  /// Devuelve un color segun la proporcion de materias cargadas (la proporcion
+  /// debe ser un valor entre 0 y 1)
+  Color segunProporcionDeMateriasCargadas(double proporcion) {
+    if (proporcion >= .8) {
+      return verdeConfirmar;
+    } else if (proporcion >= 0.6) {
+      return naranjaMediaFalta;
+    } else {
+      return error;
+    }
+  }
 }

@@ -166,8 +166,40 @@
         "description": "Text in the dialog to indicate that an error ocurred" 
     },
 
+    "pageComissionSupervisionNoComissions": "There are no comissions",
+    "@pageComissionSupervisionNoComissions": {
+        "description": ""
+    },
 
-    "pageGradesNoGrades": "They are no grades",
+    "pageComissionSupervisionWithoutEnabling": "Without enabling",
+    "@pageComissionSupervisionWithoutEnabling": {
+        "description": ""
+    },
+
+    "pageComissionSupervisionSendingDate": "Sending date: {date}",
+    "@pageComissionSupervisionSendingDate": {
+        "description": "",
+          "placeholders" :{
+            "date" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageComissionSupervisionProportionOfLoadedsubjects": "{numbreOfLoadedGrades} of {numberOfGrades}",
+    "@pageComissionSupervisionProportionOfLoadedsubjects": {
+        "description": "",
+        "placeholders" :{
+            "numbreOfLoadedGrades" : {
+                "type": "int"
+            },
+            "numberOfGrades" : {
+                "type": "int"
+            }
+        }
+    },
+
+    "pageGradesNoGrades": "There are no grades",
     "@pageGradesNoGrades": {
         "description": "Text to be displayed if there are no grades"
     },
@@ -391,8 +423,8 @@
         "description": ""
     },
 
-    "routeNameCourseSupervision": "Course supervision",
-    "@routeNameCourseSupervision": {
+    "routeNameCommissionSupervision": "Commission supervision",
+    "@routeNameCommissionSupervision": {
         "description": ""
     },
 
