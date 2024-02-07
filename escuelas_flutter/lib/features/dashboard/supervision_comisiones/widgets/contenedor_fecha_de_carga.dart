@@ -91,7 +91,7 @@ class InformacionComision extends StatelessWidget {
                 ? colores.segunVencimientoFecha(
                     fechaDeCargaDeLaUltimaAsignatura?.day ?? 0,
                   )
-                : colores.segunProporcionDeMateriasCargadas(
+                : colores.segunProporcionDeAsignaturasCargadas(
                     proporcion,
                   )
             : colores.grisDeshabilitado,
@@ -99,7 +99,7 @@ class InformacionComision extends StatelessWidget {
       child: Center(
         child: Text(
           !haySolicitudes
-              ? l10n.pageComissionSupervisionWithoutEnabling.toUpperCase()
+              ? l10n.pageComissionSupervisionNotAvailable.toUpperCase()
               : todasAsignaturasCargadas
                   ? fechaDeCargaDeLaUltimaAsignatura?.formatear ?? ''
                   : proporcionAsignaturasCargadas,

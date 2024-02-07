@@ -167,8 +167,8 @@
         "description": ""
     },
 
-    "pageComissionSupervisionWithoutEnabling": "Sin habilitar",
-    "@pageComissionSupervisionWithoutEnabling": {
+    "pageComissionSupervisionNotAvailable": "No disponible",
+    "@pageComissionSupervisionNotAvailable": {
         "description": ""
     },
 
