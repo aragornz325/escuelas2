@@ -23,7 +23,13 @@ class CursoEndpoint extends Endpoint with Controller<ServicioCurso> {
 
   /// La función "obtenerCursos" recupera una lista de cursos utilizando un objeto de sesión.
   Future<List<Curso>> obtenerCursos(Session session) async {
-    return servicio.obtenerCursos(session);
+    return ejecutarOperacionControlador(
+      session,
+      'obtenerCursos',
+      () => servicio.obtenerCursos(
+        session,
+      ),
+    );
   }
 
   /// La función `crearCurso` crea un curso en una base de datos utilizando la sesión y el objeto del
@@ -62,12 +68,12 @@ class CursoEndpoint extends Endpoint with Controller<ServicioCurso> {
   }
 
   /// La función "obtenerAsignaturasPorCurso" recupera una lista de materias de un curso determinado.
-  /// 
+  ///
   /// Args:
   ///   session (Session): Un objeto de sesión que representa la sesión del usuario actual. Se utiliza
   /// para autenticar y autorizar las acciones del usuario.
   ///   idCurso (int): El parámetro "idCurso" es un número entero que representa el ID de un curso.
-  /// 
+  ///
   /// Returns:
   ///   Se devuelve un objeto `Future<Curso>`.
   Future<Curso> obtenerAsignaturasPorCurso(

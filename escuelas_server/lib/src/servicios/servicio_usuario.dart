@@ -398,6 +398,22 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     );
   }
 
+  Future<List<Usuario>> listarUsuariosSegunRol(
+    Session session, {
+    required int idRol,
+    required String? nombre,
+    required String? apellido,
+  }) async {
+    return await ejecutarOperacion(
+      () => orm.obtenerUsuarios(
+        session,
+        idRol: idRol,
+        nombre: nombre,
+        apellido: apellido,
+      ),
+    );
+  }
+
   Future<UsuariosOrdenados> obtenerUsuariosPorRolSorteados(
     Session session, {
     required int idRol,
