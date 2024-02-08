@@ -212,4 +212,16 @@ class ServicioAsignatura extends Servicio<OrmAsignatura> {
       ),
     );
   }
+
+  Future<List<Asignatura>> obtenerAsignaturaPorCursoId(
+    Session session, {
+    required int idCurso,
+  }) async {
+    return await ejecutarOperacion(
+      () => orm.obtenerAsignaturaPorCursoId(
+        session,
+        idCurso: idCurso,
+      ),
+    );
+  }
 }

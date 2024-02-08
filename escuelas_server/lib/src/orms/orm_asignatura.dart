@@ -182,6 +182,33 @@ class OrmAsignatura extends ORM {
     return true;
   }
 
+  Future<List<Asignatura>> obtenerAsignaturaPorCursoId(
+    Session session, {
+    required int idCurso,
+  }) async {
+    logger
+        .info('obteniendo las relaciones de asignaturas con el curso $idCurso');
+    final relaciones = await ejecutarOperacionOrm(
+      session,
+      (session) => RelacionAsignaturaCurso.db.find(
+        session,
+        where: (t) => t.idCurso.equals(
+          idCurso,
+        ),
+      ),
+    );
+    final asignaturas = <Asignatura>[];
+    logger.info('obteniendo las asignaturas segun las relaciones');
+    for (var relacion in relaciones) {
+      final asignatura = await obtenerAsignaturaPorId(
+        session,
+        id: relacion.idAsignatura,
+      );
+      asignaturas.add(
+        asignatura,
+      );
+    }
 
-  
+    return asignaturas;
+  }
 }

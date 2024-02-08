@@ -46,4 +46,17 @@ class OrmUsuarioComision extends ORM {
       ),
     );
   }
+
+  Future<List<RelacionComisionUsuario>> obtenerRelacionConCursoDeUnUsuario(
+    Session session, {
+    required int idUsuario,
+  }) async {
+    return await ejecutarOperacionOrm(
+      session,
+      (session) => RelacionComisionUsuario.db.find(
+        session,
+        where: (t) => t.usuarioId.equals(idUsuario),
+      ),
+    );
+  }
 }
