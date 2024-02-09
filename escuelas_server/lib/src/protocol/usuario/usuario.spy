@@ -8,7 +8,7 @@ fields:
   dni: String?
   domicilio: DomicilioDeUsuario?, relation(optional)
   direccionesDeEmail: List<DireccionDeEmail>?, relation(name=usuario_direccion_de_email)
-  numerosDeTelefono: List<NumeroDeTelefono>?, relation(name=usuario_numeros_de_telefono)
+  numerosDeTelefono: List<NumeroDeTelefono>?, relation
   ### Esta es una lista de los permisos de cada uno de los roles que tiene el usuario
   ### Ejemplo:
   ### Usuario con rol de profesor y preceptor
