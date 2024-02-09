@@ -1,6 +1,7 @@
 class: NumeroDeTelefono
 table: numeros_de_telefono
 fields:
+  usuario: Usuario?, relation(name=usuario_numeros_de_telefono)
   numeroDeTelefono: String
   tipoDeTelefono: TipoDeTelefono
   ultimaModificacion: DateTime?, scope=serverOnly

@@ -260,6 +260,12 @@ class OrmUsuario extends ORM {
               comision: ComisionDeCurso.include(),
             ),
           ),
+          numerosDeTelefono: NumeroDeTelefono.includeList(
+            include: NumeroDeTelefono.include(),
+          ),
+          direccionesDeEmail: DireccionDeEmail.includeList(
+            include: DireccionDeEmail.include(),
+          ),
           asignaturas: RelacionAsignaturaUsuario.includeList(
             include: RelacionAsignaturaUsuario.include(
               asignatura: Asignatura.include(),

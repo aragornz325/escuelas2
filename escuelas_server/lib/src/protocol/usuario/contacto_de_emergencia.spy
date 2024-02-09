@@ -1,0 +1,11 @@
+class: ContactoDeEmergencia
+table: contactos_de_emergencia
+fields:
+    nombre: String
+    apellido: String
+    telefono: String
+    email: String
+    relacion: String
+    ultimaModificacion: DateTime?, scope=serverOnly
+    fechaCreacion: DateTime?, scope=serverOnly
+    fechaEliminacion: DateTime?, scope=serverOnly
