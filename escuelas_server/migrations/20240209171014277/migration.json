@@ -1,0 +1,122 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "contactos_de_emergencia"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "contactos_de_emergencia",
+        "dartName": "ContactoDeEmergencia",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('contactos_de_emergencia_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "idUsuario",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "nombre",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "apellido",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "telefono",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "email",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "relacion",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "contactos_de_emergencia_fk_0",
+            "columns": [
+              "idUsuario"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "contactos_de_emergencia_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"contactos_de_emergencia\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "contactos_de_emergencia",
+      "columns": [
+        "idUsuario"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}
