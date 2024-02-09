@@ -5,15 +5,40 @@ import 'package:serverpod/serverpod.dart';
 
 class OrmComision extends ORM {
   Future<List<ComisionDeCurso>> obtenerComisiones(
-    Session session,
-  ) async =>
+    Session session, {
+    List<int>? idCursos,
+    List<int>? idComisiones,
+    List<int>? includeEstudiantesFiltrados,
+  }) async =>
       ejecutarOperacionOrm(
         session,
         (session) => ComisionDeCurso.db.find(
           session,
+          where: (t) {
+            final expresionCursos = (idCursos != null && idCursos.isNotEmpty)
+                ? t.cursoId.inSet(idCursos.toSet())
+                : t.id.notEquals(null);
+            final expresionComisiones =
+                (idComisiones != null && idComisiones.isNotEmpty)
+                    ? t.id.inSet(idComisiones.toSet())
+                    : t.id.notEquals(null);
+
+            return expresionCursos & expresionComisiones;
+          },
           include: ComisionDeCurso.include(
-            curso: Curso.include(),
+            curso: Curso.include(
+              asignaturas: Asignatura.includeList(),
+            ),
             estudiantes: RelacionComisionUsuario.includeList(
+              where: (t) {
+                final expresionEstudiantes =
+                    (includeEstudiantesFiltrados != null &&
+                            includeEstudiantesFiltrados.isNotEmpty)
+                        ? t.usuarioId.inSet(includeEstudiantesFiltrados.toSet())
+                        : t.id.notEquals(null);
+
+                return expresionEstudiantes;
+              },
               include: RelacionComisionUsuario.include(
                 usuario: Usuario.include(
                   direccionesDeEmail: DireccionDeEmail.includeList(
@@ -60,7 +85,7 @@ class OrmComision extends ORM {
         comisiones.id, cursos.id;
 '''),
     );
-     List<ComisionConAsignaturas> comisionesConAsignaturas = [];
+    List<ComisionConAsignaturas> comisionesConAsignaturas = [];
     for (var comisionMap in respuesta) {
       var comision = {
         'comision': comisionMap['comisiones'],
@@ -91,7 +116,6 @@ class OrmComision extends ORM {
         ),
       );
     }
-
 
     return comisionesConAsignaturas;
   }

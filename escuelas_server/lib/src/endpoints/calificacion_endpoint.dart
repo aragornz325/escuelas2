@@ -138,19 +138,23 @@ class CalificacionEndpoint extends Endpoint with Controller {
         ),
       );
 
-  Future<bool> enviarCalificaciones(
+  Future<bool> enviarCalificacionesPorMesYAnio(
     Session session, {
     required EnvioCalificaciones filtroDeEnvio,
+    required int mes,
+    required int anio,
     List<int>? idCursos,
     List<int>? idComisiones,
     List<int>? idEstudiantes,
   }) async {
     return await ejecutarOperacionControlador(
       session,
-      'enviarCalificaciones',
-      () => servicio.enviarCalificaciones(
+      'enviarCalificacionesPorMesYAnio',
+      () => servicio.enviarCalificacionesPorMesYAnio(
         session,
         filtroDeEnvio: filtroDeEnvio,
+        mes: mes,
+        anio: anio,
         idCursos: idCursos,
         idComisiones: idComisiones,
         idEstudiantes: idEstudiantes,

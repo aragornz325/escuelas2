@@ -2,9 +2,11 @@ import 'package:escuelas_server/constants/config.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion_mensual.dart';
+import 'package:escuelas_server/src/orms/orm_comision.dart';
 import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
+import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
 import 'package:serverpod/serverpod.dart';
 
@@ -319,4 +321,228 @@ WHERE rau."usuarioId" = $idUsuario
 
         return;
       });
+
+  Future<bool> enviarCalificacionesPorMesYAnio(
+    Session session, {
+    required EnvioCalificaciones filtroDeEnvio,
+    required int mes,
+    required int anio,
+    List<int>? idCursos,
+    List<int>? idComisiones,
+    List<int>? idEstudiantes,
+  }) async {
+    switch (filtroDeEnvio) {
+      case EnvioCalificaciones.todos:
+        return await ejecutarOperacion(
+          () => _enviarCalificacionesEnGeneral(
+            session,
+            mes: mes,
+            anio: anio,
+          ),
+        );
+      case EnvioCalificaciones.porCurso:
+        if (idCursos == null || idCursos.isEmpty) return false;
+        return await ejecutarOperacion(
+          () => _enviarCalificacionesACursos(
+            session,
+            idCursos: idCursos,
+            mes: mes,
+            anio: anio,
+          ),
+        );
+      case EnvioCalificaciones.porComision:
+        if (idComisiones == null || idComisiones.isEmpty) return false;
+        return await ejecutarOperacion(
+          () => _enviarCalificacionesAComisiones(
+            session,
+            idComisiones: idComisiones,
+            mes: mes,
+            anio: anio,
+          ),
+        );
+      case EnvioCalificaciones.porEstudiante:
+        if (idEstudiantes == null || idEstudiantes.isEmpty) return false;
+        return await ejecutarOperacion(
+          () => _enviarCalificacionesAEstudiantes(
+            session,
+            idEstudiantes: idEstudiantes,
+            mes: mes,
+            anio: anio,
+          ),
+        );
+    }
+  }
+
+  Future<bool> _enviarCalificacionesEnGeneral(
+    Session session, {
+    required int mes,
+    required int anio,
+  }) async {
+    final comisiones = await OrmComision().obtenerComisiones(session);
+    final calificaciones = await _ormCalificacion.obtenerCalificaciones(
+      session,
+      mes: mes,
+      anio: anio,
+      idComisiones: comisiones.map((e) => e.id!).toList(),
+    );
+
+    for (var comision in comisiones) {
+      final curso = comision.curso;
+      final asignaturasCurso = curso!.asignaturas;
+      final estudiantesComision =
+          comision.estudiantes!.map((e) => e.usuario).toList();
+
+      for (var estudiante in estudiantesComision) {
+        Map<String, dynamic> asignaturasCalificaciones = {};
+        for (var asignatura in asignaturasCurso!) {
+          asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
+            (element) =>
+                element.idAsignatura == asignatura.id &&
+                element.estudianteId == estudiante!.id,
+          );
+        }
+
+        await ServicioComunicaciones().enviarEmail(session,
+            direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
+                .map((e) => e.direccionDeEmail)
+                .toList(),
+            asuntoDelCorreo:
+                '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+            contenidoHtmlDelCorreo: '$asignaturasCalificaciones');
+      }
+    }
+    return true;
+  }
+
+  Future<bool> _enviarCalificacionesACursos(
+    Session session, {
+    required int mes,
+    required int anio,
+    required List<int> idCursos,
+  }) async {
+    final comisiones = await OrmComision().obtenerComisiones(
+      session,
+      idCursos: idCursos,
+    );
+    final calificaciones = await _ormCalificacion.obtenerCalificaciones(session,
+        mes: mes,
+        anio: anio,
+        idComisiones: comisiones.map((e) => e.id!).toList());
+
+    for (var comision in comisiones) {
+      final curso = comision.curso;
+      final asignaturasCurso = curso!.asignaturas;
+      final estudiantesComision =
+          comision.estudiantes!.map((e) => e.usuario).toList();
+
+      for (var estudiante in estudiantesComision) {
+        Map<String, dynamic> asignaturasCalificaciones = {};
+        for (var asignatura in asignaturasCurso!) {
+          asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
+            (element) =>
+                element.idAsignatura == asignatura.id &&
+                element.estudianteId == estudiante!.id,
+          );
+        }
+
+        await ServicioComunicaciones().enviarEmail(session,
+            direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
+                .map((e) => e.direccionDeEmail)
+                .toList(),
+            asuntoDelCorreo:
+                '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+            contenidoHtmlDelCorreo: '$asignaturasCalificaciones');
+      }
+    }
+    return true;
+  }
+
+  Future<bool> _enviarCalificacionesAComisiones(
+    Session session, {
+    required int mes,
+    required int anio,
+    required List<int> idComisiones,
+  }) async {
+    final comisiones = await OrmComision().obtenerComisiones(
+      session,
+      idComisiones: idComisiones,
+    );
+    final calificaciones = await _ormCalificacion.obtenerCalificaciones(session,
+        mes: mes,
+        anio: anio,
+        idComisiones: comisiones.map((e) => e.id!).toList());
+
+    for (var comision in comisiones) {
+      final curso = comision.curso;
+      final asignaturasCurso = curso!.asignaturas;
+      final estudiantesComision =
+          comision.estudiantes!.map((e) => e.usuario).toList();
+
+      for (var estudiante in estudiantesComision) {
+        Map<String, dynamic> asignaturasCalificaciones = {};
+        for (var asignatura in asignaturasCurso!) {
+          asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
+            (element) =>
+                element.idAsignatura == asignatura.id &&
+                element.estudianteId == estudiante!.id,
+          );
+        }
+
+        await ServicioComunicaciones().enviarEmail(session,
+            direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
+                .map((e) => e.direccionDeEmail)
+                .toList(),
+            asuntoDelCorreo:
+                '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+            contenidoHtmlDelCorreo: '$asignaturasCalificaciones');
+      }
+    }
+    return true;
+  }
+
+  Future<bool> _enviarCalificacionesAEstudiantes(Session session,
+      {required int mes,
+      required int anio,
+      required List<int> idEstudiantes}) async {
+    final comisiones = await OrmComision().obtenerComisiones(
+      session,
+      includeEstudiantesFiltrados: idEstudiantes,
+    );
+    final calificaciones = await _ormCalificacion.obtenerCalificaciones(session,
+        mes: mes,
+        anio: anio,
+        idComisiones: comisiones.where((element) => element.estudiantes!.isNotEmpty).map((e) => e.id!).toList());
+
+    for (var comision
+        in comisiones.where((element) => element.estudiantes!.isNotEmpty)) {
+      final curso = comision.curso;
+      final asignaturasCurso = curso!.asignaturas;
+      final estudiantesComision =
+          comision.estudiantes!.map((e) => e.usuario).toList();
+
+      if (estudiantesComision.isEmpty) {
+        continue;
+      }
+
+      for (var estudiante in estudiantesComision) {
+        Map<String, dynamic> asignaturasCalificaciones = {};
+        for (var asignatura in asignaturasCurso!) {
+          asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
+            (element) =>
+                element.idAsignatura == asignatura.id &&
+                element.estudianteId == estudiante!.id,
+          );
+        }
+
+        await ServicioComunicaciones().enviarEmail(session,
+            direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
+                .map((e) => e.direccionDeEmail)
+                .toList(),
+            asuntoDelCorreo:
+                '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+            contenidoHtmlDelCorreo: '$asignaturasCalificaciones');
+      }
+    }
+    return true;
+  }
 }
