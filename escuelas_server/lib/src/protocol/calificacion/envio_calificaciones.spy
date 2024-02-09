@@ -1,0 +1,6 @@
+enum: EnvioCalificaciones
+values:
+    - todos
+    - porCurso
+    - porComision
+    - porEstudiante

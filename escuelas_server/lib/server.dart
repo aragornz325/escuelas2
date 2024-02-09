@@ -61,7 +61,7 @@ void run(List<String> args) async {
       sendValidationEmail: (session, email, validationCode) async {
         final enviarEmail = await _servicioComunicaciones.enviarEmail(
           session,
-          direccionEmailDestinatario: email,
+          direccionEmailDestinatarios: [email],
           asuntoDelCorreo: asuntoDeCorreoVerificacionDeCuenta,
           contenidoHtmlDelCorreo:
               '<p>Tu código de validación es $validationCode.</p>',
@@ -86,7 +86,7 @@ void run(List<String> args) async {
 
         final enviarEmail = await _servicioComunicaciones.enviarEmail(
           session,
-          direccionEmailDestinatario: userInfo.email!,
+          direccionEmailDestinatarios: [userInfo.email!],
           asuntoDelCorreo: asuntoDeCorreoRecuperacionDePassword,
           contenidoHtmlDelCorreo:
               '<p>Tu código de validación es $validationCode.</p>',

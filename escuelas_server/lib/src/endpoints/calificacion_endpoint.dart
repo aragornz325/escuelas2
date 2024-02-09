@@ -137,4 +137,24 @@ class CalificacionEndpoint extends Endpoint with Controller {
           calificacionesMensuales: calificacionesMensuales,
         ),
       );
+
+  Future<bool> enviarCalificaciones(
+    Session session, {
+    required EnvioCalificaciones filtroDeEnvio,
+    List<int>? idCursos,
+    List<int>? idComisiones,
+    List<int>? idEstudiantes,
+  }) async {
+    return await ejecutarOperacionControlador(
+      session,
+      'enviarCalificaciones',
+      () => servicio.enviarCalificaciones(
+        session,
+        filtroDeEnvio: filtroDeEnvio,
+        idCursos: idCursos,
+        idComisiones: idComisiones,
+        idEstudiantes: idEstudiantes,
+      ),
+    );
+  }
 }

@@ -177,7 +177,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
             in usuario.direccionesDeEmail ?? <DireccionDeEmail>[]) {
           await servicioComunicacion.enviarEmail(
             session,
-            direccionEmailDestinatario: direccionEmail.direccionDeEmail.trim(),
+            direccionEmailDestinatarios: [direccionEmail.direccionDeEmail.trim()],
             asuntoDelCorreo: "tienes un pedido de calificacion",
             contenidoHtmlDelCorreo: contenidoHtml,
           );

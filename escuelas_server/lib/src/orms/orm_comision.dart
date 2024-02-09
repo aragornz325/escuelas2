@@ -1,4 +1,4 @@
-import 'dart:convert';
+import 'package:escuelas_server/src/funciones.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
@@ -15,7 +15,11 @@ class OrmComision extends ORM {
             curso: Curso.include(),
             estudiantes: RelacionComisionUsuario.includeList(
               include: RelacionComisionUsuario.include(
-                usuario: Usuario.include(),
+                usuario: Usuario.include(
+                  direccionesDeEmail: DireccionDeEmail.includeList(
+                    include: DireccionDeEmail.include(),
+                  ),
+                ),
               ),
             ),
           ),
@@ -142,4 +146,42 @@ class OrmComision extends ORM {
             ),
           );
 
+  Future<List<EstadoCalificacionesAsignatura>>
+      obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+    Session session, {
+    required int idComision,
+    required int mes,
+    required int anio,
+  }) async {
+    final listaQuery = await ejecutarOperacionOrm(
+      session,
+      (session) => session.dbNext.unsafeQueryMappedResults(session, '''
+SELECT 
+  a."id" as "idAsignatura",
+  a."nombre" AS "nombreAsignatura",
+  u."id" AS "idUsuario",
+  CONCAT(u."nombre", ' ', u."apellido") AS "nombreDocente",
+  sol."id" AS "idSolicitud",
+  sol."fechaRealizacion" AS "fechaRealizacionSolicitud"
+FROM ${RelacionAsignaturaUsuario.t.tableName} rau 
+INNER JOIN ${Usuario.t.tableName} u ON u."id" = rau."usuarioId"
+INNER JOIN ${Asignatura.t.tableName} a ON a."id" = rau."asignaturaId"
+INNER JOIN ${SolicitudCalificacionMensual.t.tableName} scm ON scm."idAsignatura" = a."id"
+INNER JOIN ${Solicitud.t.tableName} sol ON sol."id" = scm."solicitudId"
+WHERE 
+  scm.mes = $mes AND
+  scm.anio = $anio AND
+  rau."comisionId" = $idComision;
+'''),
+    );
+
+    return listaQuery
+        .map(
+          (e) => EstadoCalificacionesAsignatura.fromJson(
+            extenderMap(e),
+            Protocol(),
+          ),
+        )
+        .toList();
+  }
 }

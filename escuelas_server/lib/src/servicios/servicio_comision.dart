@@ -140,5 +140,21 @@ class ServicioComision extends Servicio<OrmComision> {
     }
 
     return true;
+
+  }
+  
+  Future<List<EstadoCalificacionesAsignatura>> obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+    Session session, {
+    required int idComision,
+    required int mes,
+    required int anio,
+  }) async {
+    return await ejecutarOperacion(
+        () => orm.obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+              session,
+              idComision: idComision,
+              mes: mes,
+              anio: anio,
+            ));
   }
 }
