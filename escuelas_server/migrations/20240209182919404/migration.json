@@ -1,0 +1,122 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "numeros_de_telefono",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "_usuariosNumerosdetelefonoUsuariosId",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          }
+        ],
+        "deleteColumns": [
+          "usuarioId"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "numeros_de_telefono_fk_0",
+            "columns": [
+              "_usuariosNumerosdetelefonoUsuariosId"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "deleteForeignKeys": [
+          "numeros_de_telefono_fk_0"
+        ],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"usuarioId\" of table \"numeros_de_telefono\" will be dropped.",
+            "table": "numeros_de_telefono",
+            "columns": [
+              "usuarioId"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "columnDropped",
+            "message": "Column \"contactoDeEmergenciaId\" of table \"usuarios\" will be dropped.",
+            "table": "usuarios",
+            "columns": [
+              "contactoDeEmergenciaId"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "usuarios",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "contactoDeEmergenciaId"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [
+          "usuarios_fk_1"
+        ],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"usuarioId\" of table \"numeros_de_telefono\" will be dropped.",
+            "table": "numeros_de_telefono",
+            "columns": [
+              "usuarioId"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "columnDropped",
+            "message": "Column \"contactoDeEmergenciaId\" of table \"usuarios\" will be dropped.",
+            "table": "usuarios",
+            "columns": [
+              "contactoDeEmergenciaId"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"usuarioId\" of table \"numeros_de_telefono\" will be dropped.",
+      "table": "numeros_de_telefono",
+      "columns": [
+        "usuarioId"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "columnDropped",
+      "message": "Column \"contactoDeEmergenciaId\" of table \"usuarios\" will be dropped.",
+      "table": "usuarios",
+      "columns": [
+        "contactoDeEmergenciaId"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}
