@@ -32,15 +32,6 @@ extension EscuelasColorScheme on ColorScheme {
   /// Se utiliza para el fondo del campo de texto para ingresar una calificacion
   Color get azul => const Color(0xff2E75FF);
 
-  /// Color utilizado en el promedio TEA
-  Color get verdeTEA => const Color(0xff62B446);
-
-  /// Color utilizado en el promedio TEP
-  Color get naranjaTEP => const Color(0xffFF7E21);
-
-  /// Color utilizado en el promedio TED
-  Color get rojoTED => const Color(0xffFF4444);
-
   /// Color utilizado para los componentes deshabilitados
   Color get grisDeshabilitado => const Color(0xffCCCCCC);
 
@@ -59,4 +50,56 @@ extension EscuelasColorScheme on ColorScheme {
 
   /// Este color es utilizable en los items del drawer cuando son seleccionados
   Color get primaryOpacidadVeinte => primary.withOpacity(0.2);
+
+  /// Color utilizado en el promedio TEA
+  Color get verdeTEA => const Color(0xff62B446);
+
+  /// Color utilizado en el promedio TEP
+  Color get naranjaTEP => const Color(0xffFF7E21);
+
+  /// Color utilizado en el promedio TED
+  Color get rojoTED => const Color(0xffFF4444);
+
+  /// Indica que la fecha es reciente, se usa para indicar el vencimiento de
+  /// la fecha de carga de calificaciones
+  Color get fechaReciente => const Color(0xff2A820C);
+
+  /// Indica que la fecha es moderadamente reciente, se usa para indicar el
+  /// vencimiento de la fecha de carga de calificaciones
+  Color get fechaModeradamenteReciente => const Color(0xff62B446);
+
+  /// Indica que la fecha es tardia, se usa para indicar el vencimiento de
+  /// la fecha de carga de calificaciones
+  Color get fechaTardia => const Color(0xffFF7E21);
+
+  /// Indica que la fecha es muy tardia, se usa para indicar el vencimiento de
+  /// la fecha de carga de calificaciones
+  Color get fechaMuyTardia => const Color(0xffE43939);
+
+  /// Devuelve un color que tan tarde se cargaron las calificaciones
+  Color segunVencimientoFecha(int dia) {
+    if (dia > 0 && dia <= 4) {
+      return fechaReciente;
+    } else if (dia > 4 && dia <= 6) {
+      return fechaModeradamenteReciente;
+    } else if (dia > 6 && dia <= 8) {
+      return fechaTardia;
+    } else if (dia > 8) {
+      return fechaMuyTardia;
+    } else {
+      return onSecondary;
+    }
+  }
+
+  /// Devuelve un color segun la proporcion de materias cargadas (la proporcion
+  /// debe ser un valor entre 0 y 1)
+  Color segunProporcionDeAsignaturasCargadas(double proporcion) {
+    if (proporcion >= .9) {
+      return verdeConfirmar;
+    } else if (proporcion >= .7) {
+      return naranjaMediaFalta;
+    } else {
+      return error;
+    }
+  }
 }

@@ -10,14 +10,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// {@endtemplate}
 @RoutePage()
 class PaginaKyCEdicionUsuario extends StatelessWidget {
+  /// {@macro PaginaKyCEdicionUsuario}
   const PaginaKyCEdicionUsuario({
-    @PathParam('userID') required this.idUsuario,
+    @PathParam('userId') required this.idUsuario,
     super.key,
   });
 
-/// ID del usuario que se edita
+  /// Id del usuario
   final int idUsuario;
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocPerfilUsuario>(

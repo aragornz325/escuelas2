@@ -42,7 +42,7 @@ import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil
     as _i15;
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario_pendiente.dart'
     as _i16;
-import 'package:escuelas_flutter/features/dashboard/supervision_cursos/pagina_supervision_cursos.dart'
+import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/pagina_supervision_comisiones.dart'
     as _i18;
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/pagina_supervision_envio_calificaciones.dart'
     as _i19;
@@ -119,7 +119,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<RutaKyCEdicionUsuarioArgs>(
           orElse: () => RutaKyCEdicionUsuarioArgs(
-              idUsuario: pathParams.getInt('userID')));
+              idUsuario: pathParams.getInt('userId')));
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i8.PaginaKyCEdicionUsuario(
@@ -203,10 +203,10 @@ abstract class $AppRouter extends _i21.RootStackRouter {
         child: const _i17.PaginaSeleccionDeRol(),
       );
     },
-    RutaSupervisionCursos.name: (routeData) {
+    RutaSupervisionComisiones.name: (routeData) {
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i18.PaginaSupervisionCursos(),
+        child: const _i18.PaginaSupervisionComisiones(),
       );
     },
     RutaSupervisionEnvioCalificaciones.name: (routeData) {
@@ -415,7 +415,7 @@ class RutaKyCEdicionUsuario
             idUsuario: idUsuario,
             key: key,
           ),
-          rawPathParams: {'userID': idUsuario},
+          rawPathParams: {'userId': idUsuario},
           initialChildren: children,
         );
 
@@ -645,15 +645,15 @@ class RutaSeleccionDeRol extends _i21.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i18.PaginaSupervisionCursos]
-class RutaSupervisionCursos extends _i21.PageRouteInfo<void> {
-  const RutaSupervisionCursos({List<_i21.PageRouteInfo>? children})
+/// [_i18.PaginaSupervisionComisiones]
+class RutaSupervisionComisiones extends _i21.PageRouteInfo<void> {
+  const RutaSupervisionComisiones({List<_i21.PageRouteInfo>? children})
       : super(
-          RutaSupervisionCursos.name,
+          RutaSupervisionComisiones.name,
           initialChildren: children,
         );
 
-  static const String name = 'RutaSupervisionCursos';
+  static const String name = 'RutaSupervisionComisiones';
 
   static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
 }

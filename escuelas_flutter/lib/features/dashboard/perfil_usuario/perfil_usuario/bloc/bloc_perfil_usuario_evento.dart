@@ -21,12 +21,13 @@ class BlocPerfilUsuarioEventoTraerUsuario extends BlocPerfilUsuarioEvento {
   final int? idUsuario;
 }
 
-/// {@template BlocPerfilUsuarioEventoEditarDocente}
-/// Evento que realiza la accion de editar los datos de un docente
+/// {@template BlocPerfilUsuarioEventoTraerAsignaturasComisiones}
+/// Trae las asignaturas de la institucion con sus comisiones
 /// {@endtemplate}
-class BlocPerfilUsuarioEventoEditarDocente extends BlocPerfilUsuarioEvento {
-  /// {@macro BlocPerfilUsuarioEventoEditarDocente}
-  const BlocPerfilUsuarioEventoEditarDocente();
+class BlocPerfilUsuarioEventoTraerAsignaturasComisiones
+    extends BlocPerfilUsuarioEvento {
+  /// {@macro BlocPerfilUsuarioEventoTraerAsignaturasComisiones}
+  const BlocPerfilUsuarioEventoTraerAsignaturasComisiones();
 }
 
 /// {@template BlocPerfilUsuarioEventoAgregarAsignatura}
@@ -34,7 +35,16 @@ class BlocPerfilUsuarioEventoEditarDocente extends BlocPerfilUsuarioEvento {
 /// {@endtemplate}
 class BlocPerfilUsuarioEventoAgregarAsignatura extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoAgregarAsignatura}
-  const BlocPerfilUsuarioEventoAgregarAsignatura();
+  const BlocPerfilUsuarioEventoAgregarAsignatura({
+    required this.idAsignaturaSeleccionada,
+    required this.idComisionSeleccionada,
+  });
+
+  /// Id de la asignatura seleccionada
+  final int idAsignaturaSeleccionada;
+
+  /// Id de la comision seleccionada
+  final int idComisionSeleccionada;
 }
 
 /// {@template BlocPerfilUsuarioEventoQuitarAsignatura}
@@ -42,7 +52,20 @@ class BlocPerfilUsuarioEventoAgregarAsignatura extends BlocPerfilUsuarioEvento {
 /// {@endtemplate}
 class BlocPerfilUsuarioEventoQuitarAsignatura extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoQuitarAsignatura}
-  const BlocPerfilUsuarioEventoQuitarAsignatura();
+  const BlocPerfilUsuarioEventoQuitarAsignatura({
+    required this.idUsuario,
+    required this.idAsignatura,
+    required this.idComision,
+  });
+
+  /// Id del docente al que se le quita la asignatura
+  final int idUsuario;
+
+  /// Id de la asignatura a quitar
+  final int idAsignatura;
+
+  /// Id de la comision de la asignatura a quitar
+  final int idComision;
 }
 
 /// {@template BlocPerfilUsuarioEventoEliminarDocente}
@@ -50,7 +73,10 @@ class BlocPerfilUsuarioEventoQuitarAsignatura extends BlocPerfilUsuarioEvento {
 /// {@endtemplate}
 class BlocPerfilUsuarioEventoEliminarDocente extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoEliminarDocente}
-  const BlocPerfilUsuarioEventoEliminarDocente();
+  const BlocPerfilUsuarioEventoEliminarDocente({required this.idUsuario});
+
+  /// id del usuario a eliminar
+  final int idUsuario;
 }
 
 /// {@template BlocPerfilUsuarioEventoRecolectarDatosKyC}

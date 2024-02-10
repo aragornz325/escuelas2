@@ -162,6 +162,39 @@
         "description": "Text to indicate the log in with google system"
     },
 
+    "pageComissionSupervisionNoComissions": "No hay comisiones para mostrar",
+    "@pageComissionSupervisionNoComissions": {
+        "description": ""
+    },
+
+    "pageComissionSupervisionNotAvailable": "No disponible",
+    "@pageComissionSupervisionNotAvailable": {
+        "description": ""
+    },
+
+    "pageComissionSupervisionSendingDate": "Fecha de envío: {date}",
+    "@pageComissionSupervisionSendingDate": {
+        "description": "",
+          "placeholders" :{
+            "date" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageComissionSupervisionProportionOfLoadedsubjects": "{numbreOfLoadedGrades} de {numberOfGrades}",
+    "@pageComissionSupervisionProportionOfLoadedsubjects": {
+        "description": "",
+        "placeholders" :{
+            "numbreOfLoadedGrades" : {
+                "type": "int"
+            },
+            "numberOfGrades" : {
+                "type": "int"
+            }
+        }
+    },
+
     "pageGradeSubmissionSupervisionButton": "Request missing grades({numberOfGrades})",
     "@pageGradeSubmissionSupervisionButton": {
         "description": "Represents the text for a button that is used to request missing grades. The {numberOfGrades} placeholder is used to dynamically indicate the number of missing grades.",
@@ -227,6 +260,31 @@
     "@pageUserProfileKyCEmergencyContact": {
         "description": "Title in the page KyC of emergency contact"
     },
+    "pageUserProfileKyCConfirmationSaveChanges": "¿Estas seguro que deseas editar los datos personales de ",
+    "@pageUserProfileKyCConfirmationSaveChanges": {
+        "description": "Text in te alert dialog to confirm the save changes of personal data"
+    },
+    "pageUserProfileKyCSuccessfulEdition": "¿El perfil fue editado con éxito!",
+    "@pageUserProfileKyCSuccessfulEdition": {
+        "description": "Text in te alert dialog to confirm the edited successfully save changes of personal data"
+    },    
+    "pageUserProfileConfirmDeleteQuestion": "Al continuar eliminaras PERMANENTEMENTE a ",
+    "@pageUserProfileConfirmDeleteQuestion": {
+        "description": "Text in te alert dialog to confirm delete the teacher"
+    },
+    "pageUserProfileTeacherList": " de tu lista de docentes",
+    "@pageUserProfileTeacherList": {
+        "description": "Text in te alert dialog to confirm delete the teacher"
+    },
+    "pageUserProfileTeacherSuccessfullyEliminated": " fue eliminado con éxito",
+    "@pageUserProfileTeacherSuccessfullyEliminated": {
+        "description": "Text in the alert dialog to confirm delete the teacher"
+    },
+    "pageUserProfileSelectTheSubjectToDelete": "Select the subject you want to delete",
+    "@pageUserProfileSelectTheSubjectToDelete": {
+        "description": "Text in the alert dialog to select the subject to delete"
+    },
+
     "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
     "@dialogErrorToSendGrades": {
         "description": "Label indicating an error when sending notes."
@@ -246,7 +304,6 @@
     "@commonWelcome": {
         "description": "Welcoming text"
     },
-
 
     "drawerMyProfile": "Mi perfil",
     "@drawerMyProfile": {
@@ -351,9 +408,8 @@
     "@routeAcademicCommunityList": {
         "description": ""
     },
-
-    "routeNameCourseSupervision": "Supervisión de cursos",
-    "@routeNameCourseSupervision": {
+    "routeNameCommissionSupervision": "Supervisión de comisiones",
+    "@routeNameCommissionSupervision": {
         "description": ""
     },
 
@@ -614,5 +670,17 @@
     "commonDeleteAll": "Borrar todos",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+    "commonSaveChanges": "Guardar cambios",
+    "@commonSaveChanges": {
+        "description": "Text in button to save changes"
+    },
+    "commonAttention": "Attention",
+    "@commonAttention": {
+        "description": "text to notify attention"
+    },
+    "commonWantToContinue": "¿Do you want to continue?",
+    "@commonWantToContinue": {
+        "description": "continue question"
     }
 }

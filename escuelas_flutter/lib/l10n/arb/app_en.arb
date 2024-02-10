@@ -166,8 +166,40 @@
         "description": "Text in the dialog to indicate that an error ocurred" 
     },
 
+    "pageComissionSupervisionNoComissions": "There are no comissions",
+    "@pageComissionSupervisionNoComissions": {
+        "description": ""
+    },
 
-    "pageGradesNoGrades": "They are no grades",
+    "pageComissionSupervisionNotAvailable": "Not available",
+    "@pageComissionSupervisionNotAvailable": {
+        "description": ""
+    },
+
+    "pageComissionSupervisionSendingDate": "Sending date: {date}",
+    "@pageComissionSupervisionSendingDate": {
+        "description": "",
+          "placeholders" :{
+            "date" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageComissionSupervisionProportionOfLoadedsubjects": "{numbreOfLoadedGrades} of {numberOfGrades}",
+    "@pageComissionSupervisionProportionOfLoadedsubjects": {
+        "description": "",
+        "placeholders" :{
+            "numbreOfLoadedGrades" : {
+                "type": "int"
+            },
+            "numberOfGrades" : {
+                "type": "int"
+            }
+        }
+    },
+
+    "pageGradesNoGrades": "There are no grades",
     "@pageGradesNoGrades": {
         "description": "Text to be displayed if there are no grades"
     },
@@ -238,8 +270,30 @@
     "@pageUserProfileKyCEmergencyContact": {
         "description": "Title in the page KyC of emergency contact"
     },
-
-
+    "pageUserProfileKyCConfirmationSaveChanges": "Are you sure you want to edit the personal data of ",
+    "@pageUserProfileKyCConfirmationSaveChanges": {
+        "description": "Text in te alert dialog to confirm the save changes of personal data"
+    },
+    "pageUserProfileKyCSuccessfulEdition": "The profile was edited successfully!",
+    "@pageUserProfileKyCSuccessfulEdition": {
+        "description": "Text in te alert dialog to confirm the edited successfully save changes of personal data"
+    },
+    "pageUserProfileConfirmDeleteQuestion": "By confirming you will PERMANENTLY delete ",
+    "@pageUserProfileConfirmDeleteQuestion": {
+        "description": "Text in te alert dialog to confirm delete the teacher"
+    },
+    "pageUserProfileTeacherList": " from your teacher list",
+    "@pageUserProfileTeacherList": {
+        "description": "Text in the alert dialog to confirm delete the teacher"
+    },
+    "pageUserProfileTeacherSuccessfullyEliminated": " was successfully eliminated",
+    "@pageUserProfileTeacherSuccessfullyEliminated": {
+        "description": "Text in the alert dialog to confirm delete the teacher"
+    },
+    "pageUserProfileSelectTheSubjectToDelete": "Select the subject you want to delete",
+    "@pageUserProfileSelectTheSubjectToDelete": {
+        "description": "Text in the alert dialog to select the subject to delete"
+    },
     "pageAttendanceNotAbsentStudents": "There are no students",
     "@pageAttendanceNotAbsentStudents": {
         "description": "Text to be displayed when there are no absent students"
@@ -405,8 +459,8 @@
         "description": ""
     },
 
-    "routeNameCourseSupervision": "Course supervision",
-    "@routeNameCourseSupervision": {
+    "routeNameCommissionSupervision": "Commission supervision",
+    "@routeNameCommissionSupervision": {
         "description": ""
     },
 
@@ -618,6 +672,20 @@
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+
+    
+    "commonSaveChanges": "Save changes",
+    "@commonSaveChanges": {
+        "description": "Text in button to save changes"
+    },
+    "commonAttention": "Attention",
+    "@commonAttention": {
+        "description": "text to notify attention"
+    },
+    "commonWantToContinue": "¿Do you want to continue?",
+    "@commonWantToContinue": {
+        "description": "continue question"
     }
 
 }

@@ -8,9 +8,7 @@ extension DateTimeX on DateTime {
           .format(this);
 
   /// Devuelve la fecha formateada como xx/xx/xx.
-  String formatear(BuildContext context) =>
-      DateFormat('dd/MM/yy', Localizations.localeOf(context).languageCode)
-          .format(this);
+  String get formatear => DateFormat('dd/MM/yy').format(this);
 
   /// Devuelve el numero del dia. (Ej: 01, 02, ...)
   String numeroDia(BuildContext context) =>

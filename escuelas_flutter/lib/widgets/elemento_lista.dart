@@ -2,7 +2,6 @@ import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/utilidades/funciones/colores.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -227,12 +226,12 @@ class ElementoLista extends StatelessWidget {
   }
 
   /// Elemento de lista para la supervision de cursos
-  factory ElementoLista.supervisionCurso({
+  factory ElementoLista.supervisionComision({
     /// Funcion a realizarse accionando el boton.
     required VoidCallback onTap,
 
     /// Nombre del curso.
-    required String nombreCurso,
+    required String nombreComision,
 
     /// Color del fondo del elemento
     required Color colorFondo,
@@ -241,12 +240,12 @@ class ElementoLista extends StatelessWidget {
     required BuildContext context,
 
     /// Componente que se agrega al final del [ElementoLista] a la derecha
-    Widget? widgetLateralDerecho,
+    required Widget widgetLateralDerecho,
   }) {
     final colores = context.colores;
     return ElementoLista(
       texto: Text(
-        nombreCurso.toUpperCase(),
+        nombreComision.toUpperCase(),
         style: TextStyle(
           fontSize: 16.pf,
           fontWeight: FontWeight.w700,
@@ -369,16 +368,11 @@ class ElementoLista extends StatelessWidget {
       widgetLateralDerecho: Padding(
         padding: EdgeInsets.only(right: 10.pw),
         child: Text(
-          // TODO(anyone): Ver como viene la fecha cuando no la cargo para poner
-          // el texto 'Sin cargar'
-          fechaDeCarga.formatear(context),
+          fechaDeCarga.formatear,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Colores(context).segunVencimientoSegunFecha(
-              dia: int.parse(
-                fechaDeCarga.numeroDia(context),
-              ),
-            ),
+            // TODO: Cambiar color dependiendo de la fecha
+            color: Colors.green,
             fontSize: 15.pf,
             fontWeight: FontWeight.w600,
           ),

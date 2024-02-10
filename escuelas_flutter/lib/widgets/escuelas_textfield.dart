@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/funciones.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,9 +14,9 @@ import 'package:full_responsive/full_responsive.dart';
 class EscuelasTextfield extends StatefulWidget {
   /// {@macro EscuelasTextfield}
   const EscuelasTextfield({
-    required this.hintText,
     required this.controller,
     required this.esPassword,
+    this.hintText,
     this.focusNode,
     super.key,
     this.width,
@@ -33,6 +34,8 @@ class EscuelasTextfield extends StatefulWidget {
     this.prefixIcon,
     this.onEditingComplete,
     this.onFieldSubmitted,
+    this.fontHintText,
+    this.tamanoController,
   });
 
   /// TextFormField de email con su expresion regular.
@@ -49,13 +52,25 @@ class EscuelasTextfield extends StatefulWidget {
     /// Ancho del textfield
     double? width,
 
+    /// Alto del textfield
+    double? height,
+
+    /// tamaño de la fuente del hinttext del textfield
+    double? fontHintText,
+
+    /// Define si el textfield tiene borde
+    bool tieneBorde = false,
+
     /// Funcion onChanged del textfield
     void Function(String)? onChanged,
   }) {
     final l10n = context.l10n;
+    final colores = context.colores;
 
     return EscuelasTextfield(
       width: width ?? 302.pw,
+      height: height ?? 40.ph,
+      fontHintText: fontHintText ?? 16.pf,
       hintText: hintText ?? l10n.commonMail,
       controller: controller,
       keyboardType: TextInputType.emailAddress,
@@ -69,6 +84,16 @@ class EscuelasTextfield extends StatefulWidget {
         return null;
       },
       onChanged: onChanged,
+      decoration: tieneBorde
+          ? InputDecoration(
+              hintText: hintText,
+              hintStyle: TextStyle(height: 1.7, fontSize: 8.pf),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.sw),
+                borderSide: BorderSide(color: colores.rojoTED),
+              ),
+            )
+          : null,
     );
   }
 
@@ -87,11 +112,22 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Ancho del textfield
     double? width,
+
+    /// Alto del textfield
+    double? height,
+
+    /// tamaño de la fuente del hinttext del textfield
+    double? fontHintText,
+
+    /// Define si el textfield tiene borde
+    bool tieneBorde = false,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
       width: width ?? 302.pw,
+      height: height ?? 40.ph,
+      fontHintText: fontHintText ?? 16.pf,
       hintText: hintText,
       controller: controller,
       esPassword: false,
@@ -107,6 +143,15 @@ class EscuelasTextfield extends StatefulWidget {
         }
         return null;
       },
+      decoration: tieneBorde
+          ? InputDecoration(
+              hintText: hintText,
+              hintStyle: TextStyle(height: 1.7, fontSize: 8.pf),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.sw),
+              ),
+            )
+          : null,
     );
   }
 
@@ -120,7 +165,7 @@ class EscuelasTextfield extends StatefulWidget {
   final InputDecoration? decoration;
 
   /// Texto interno del TextFormField
-  final String hintText;
+  final String? hintText;
 
   /// Tipo de teclado
   final TextInputType? keyboardType;
@@ -159,8 +204,12 @@ class EscuelasTextfield extends StatefulWidget {
   /// Focus Node del textfield
   final FocusNode? focusNode;
 
+  final double? fontHintText;
+
   /// Icono de prefijo
   final IconData? prefixIcon;
+
+  final double? tamanoController;
 
   /// Al completar el textfield ejecuta esa accion.
   final void Function()? onEditingComplete;
@@ -191,17 +240,21 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
         cursorColor: widget.cursorColor ?? colores.primary,
         maxLength: widget.maxLength,
         maxLines: widget.maxLines,
-        style: TextStyle(color: colores.primary),
+        style: TextStyle(
+          color: colores.primary,
+          fontSize: widget.tamanoController ?? 16.pf,
+        ),
         decoration: widget.decoration ??
             InputDecoration(
               prefixIcon: Icon(widget.prefixIcon),
               contentPadding: EdgeInsets.symmetric(horizontal: 15.sw),
               filled: true,
               fillColor: colores.tertiary,
-              hintText: widget.hintText,
+              hintText: widget.hintText ?? '',
               hintStyle: TextStyle(
-                fontSize: 16.pf,
+                fontSize: widget.fontHintText ?? 16.pf,
                 color: colores.onSecondary,
+                height: 1,
               ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(40.sw),

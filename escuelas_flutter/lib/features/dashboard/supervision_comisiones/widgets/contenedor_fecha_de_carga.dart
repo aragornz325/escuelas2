@@ -1,0 +1,115 @@
+import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
+import 'package:flutter/material.dart';
+import 'package:full_responsive/full_responsive.dart';
+
+/// {@template ContenedorFechaDeCarga}
+/// Contenedor que muestra la fecha de carga de las calificaciones de una
+/// comision o la proporcion de materias cargadas
+/// {@endtemplate}
+class InformacionComision extends StatelessWidget {
+  /// {@macro ContenedorFechaDeCarga}
+  const InformacionComision({
+    required this.supervisionDeCurso,
+    super.key,
+  });
+
+  /// Devuelve la cantidad de asignaturas cargadas de una comision
+  int get cantidadAsignaturasCargadas {
+    var cant = 0;
+    final lista =
+        supervisionDeCurso.comision.solicitudesCalificacionMensual ?? [];
+    for (final solicitud in lista) {
+      if (solicitud.solicitud?.fechaRealizacion != null) {
+        cant++;
+      }
+    }
+    return cant;
+  }
+
+  /// Devuelve si todas las asignaturas de una comision estan cargadas
+  bool get todasAsignaturasCargadas =>
+      supervisionDeCurso.comision.solicitudesCalificacionMensual?.every(
+        (element) => element.solicitud?.fechaRealizacion != null,
+      ) ??
+      false;
+
+  /// Devuelve si hay solicitudes de calificacion mensual
+  bool get haySolicitudes =>
+      supervisionDeCurso.comision.solicitudesCalificacionMensual != null &&
+      (supervisionDeCurso.comision.solicitudesCalificacionMensual?.isNotEmpty ??
+          false);
+
+  /// Devuelve la proporcion de materias cargadas
+  double get proporcion =>
+      cantidadAsignaturasCargadas /
+      (supervisionDeCurso.comision.solicitudesCalificacionMensual?.length ?? 0);
+
+  /// Devuelve la fecha de carga de la ultima asignatura cargada
+  DateTime? get fechaDeCargaDeLaUltimaAsignatura => haySolicitudes
+      ? supervisionDeCurso.comision.solicitudesCalificacionMensual
+          ?.map((e) => e.solicitud?.fechaRealizacion)
+          .reduce((DateTime? value, DateTime? element) {
+          if (value == null) {
+            return element;
+          } else if (element == null) {
+            return value;
+          } else {
+            return value.isAfter(element) ? value : element;
+          }
+        })
+      : null;
+
+  /// Objeto de donde se obtiene la informacion de la comision
+  final SupervisionDeCurso supervisionDeCurso;
+
+  @override
+  Widget build(BuildContext context) {
+    final colores = context.colores;
+
+    final l10n = context.l10n;
+
+    final proporcionAsignaturasCargadas =
+        l10n.pageComissionSupervisionProportionOfLoadedsubjects(
+      cantidadAsignaturasCargadas,
+      supervisionDeCurso.comision.solicitudesCalificacionMensual?.length ?? 0,
+    );
+
+    return Container(
+      constraints: BoxConstraints(
+        minWidth: 90.pw,
+      ),
+      padding: EdgeInsets.symmetric(horizontal: 10.pw),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.all(
+          Radius.circular(30.sw),
+        ),
+        color: haySolicitudes
+            ? todasAsignaturasCargadas
+                ? colores.segunVencimientoFecha(
+                    fechaDeCargaDeLaUltimaAsignatura?.day ?? 0,
+                  )
+                : colores.segunProporcionDeAsignaturasCargadas(
+                    proporcion,
+                  )
+            : colores.grisDeshabilitado,
+      ),
+      child: Center(
+        child: Text(
+          !haySolicitudes
+              ? l10n.pageComissionSupervisionNotAvailable.toUpperCase()
+              : todasAsignaturasCargadas
+                  ? fechaDeCargaDeLaUltimaAsignatura?.formatear ?? ''
+                  : proporcionAsignaturasCargadas,
+          style: TextStyle(
+            color: colores.background,
+            fontSize: 15.pf,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ),
+    );
+  }
+}

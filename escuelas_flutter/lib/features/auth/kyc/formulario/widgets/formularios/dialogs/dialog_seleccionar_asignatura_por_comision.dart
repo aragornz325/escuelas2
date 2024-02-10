@@ -1,6 +1,6 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -39,8 +39,8 @@ class _SeleccionarAsignaturaPorComisionState
       estaHabilitado:
           idAsignaturaSeleccionada != null && idComisionSeleccionada != null,
       onTapConfirmar: () {
-        context.read<BlocKyc>().add(
-              BlocKycEventoAgregarOpcionDocente(
+        context.read<BlocPerfilUsuario>().add(
+              BlocPerfilUsuarioEventoAgregarAsignatura(
                 idAsignaturaSeleccionada: idAsignaturaSeleccionada!,
                 idComisionSeleccionada: idComisionSeleccionada!,
               ),
@@ -51,7 +51,7 @@ class _SeleccionarAsignaturaPorComisionState
       conBotonCancelar: true,
       tituloDelBotonSecundario: l10n.commonCancel.toUpperCase(),
       colorDeFondoDelBotonSecundario: colores.error,
-      content: BlocBuilder<BlocKyc, BlocKycEstado>(
+      content: BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
         builder: (context, state) {
           int idCursoSegunComision(int idComision) {
             return state.listaComisiones

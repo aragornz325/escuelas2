@@ -10,7 +10,8 @@ enum MenuOpcionesDeInicio {
   tomarInasistencia([PermisoDeAsistencia.verAsistencia]),
   listaCursos([PermisoDeCurso.verCurso]),
   usuariosPendientes([PermisoDeUsuario.verUsuario]),
-  comunidadAcademica([PermisoDeUsuario.verUsuario]);
+  comunidadAcademica([PermisoDeUsuario.verUsuario]),
+  supervisionComision([PermisoDeUsuario.verUsuario]);
 
   const MenuOpcionesDeInicio(this.permisosRequeridos);
 
@@ -27,6 +28,8 @@ enum MenuOpcionesDeInicio {
         context.router.push(const RutaInasistencia());
       case usuariosPendientes:
         context.router.push(const RutaUsuariosPendientes());
+      case supervisionComision:
+        context.router.push(const RutaSupervisionComisiones());
     }
   }
 
@@ -43,6 +46,8 @@ enum MenuOpcionesDeInicio {
         return l10n.routeNameAbsences.toUpperCase();
       case usuariosPendientes:
         return l10n.routeNamePendingUsers.toUpperCase();
+      case supervisionComision:
+        return l10n.routeNameCommissionSupervision.toUpperCase();
     }
   }
 }
