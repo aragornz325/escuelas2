@@ -500,18 +500,23 @@ WHERE rau."usuarioId" = $idUsuario
     return true;
   }
 
-  Future<bool> _enviarCalificacionesAEstudiantes(Session session,
-      {required int mes,
-      required int anio,
-      required List<int> idEstudiantes}) async {
+  Future<bool> _enviarCalificacionesAEstudiantes(
+    Session session, {
+    required int mes,
+    required int anio,
+    required List<int> idEstudiantes,
+  }) async {
     final comisiones = await OrmComision().obtenerComisiones(
       session,
-      includeEstudiantesFiltrados: idEstudiantes,
+      idEstudiantesFiltrados: idEstudiantes,
     );
     final calificaciones = await _ormCalificacion.obtenerCalificaciones(session,
         mes: mes,
         anio: anio,
-        idComisiones: comisiones.where((element) => element.estudiantes!.isNotEmpty).map((e) => e.id!).toList());
+        idComisiones: comisiones
+            .where((element) => element.estudiantes!.isNotEmpty)
+            .map((e) => e.id!)
+            .toList());
 
     for (var comision
         in comisiones.where((element) => element.estudiantes!.isNotEmpty)) {

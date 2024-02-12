@@ -8,7 +8,7 @@ class OrmComision extends ORM {
     Session session, {
     List<int>? idCursos,
     List<int>? idComisiones,
-    List<int>? includeEstudiantesFiltrados,
+    List<int>? idEstudiantesFiltrados,
   }) async =>
       ejecutarOperacionOrm(
         session,
@@ -27,15 +27,16 @@ class OrmComision extends ORM {
           },
           include: ComisionDeCurso.include(
             curso: Curso.include(
-              asignaturas: Asignatura.includeList(include: Asignatura.include()),
+              asignaturas: Asignatura.includeList(
+                include: Asignatura.include(),
+              ),
             ),
             estudiantes: RelacionComisionUsuario.includeList(
               where: (t) {
-                final expresionEstudiantes =
-                    (includeEstudiantesFiltrados != null &&
-                            includeEstudiantesFiltrados.isNotEmpty)
-                        ? t.usuarioId.inSet(includeEstudiantesFiltrados.toSet())
-                        : t.id.notEquals(null);
+                final expresionEstudiantes = (idEstudiantesFiltrados != null &&
+                        idEstudiantesFiltrados.isNotEmpty)
+                    ? t.usuarioId.inSet(idEstudiantesFiltrados.toSet())
+                    : t.id.notEquals(null);
 
                 return expresionEstudiantes;
               },
@@ -170,6 +171,8 @@ class OrmComision extends ORM {
             ),
           );
 
+  /// Obtiene una lista de las asignaturas dentro de una comisión, junto al nombre del docente,
+  /// y la fecha en que las calificaciones del mes y el año indicados fueron cargadas.
   Future<List<EstadoCalificacionesAsignatura>>
       obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
     Session session, {
@@ -181,17 +184,17 @@ class OrmComision extends ORM {
       session,
       (session) => session.dbNext.unsafeQueryMappedResults(session, '''
 SELECT 
-  a."id" as "idAsignatura",
-  a."nombre" AS "nombreAsignatura",
-  u."id" AS "idUsuario",
-  CONCAT(u."nombre", ' ', u."apellido") AS "nombreDocente",
-  sol."id" AS "idSolicitud",
-  sol."fechaRealizacion" AS "fechaRealizacionSolicitud"
+  a."${Asignatura.t.id.columnName}" as "idAsignatura",
+  a."${Asignatura.t.nombre.columnName}" AS "nombreAsignatura",
+  u."${Usuario.t.id.columnName}" AS "idUsuario",
+  CONCAT(u."${Usuario.t.nombre.columnName}", ' ', u."${Usuario.t.apellido.columnName}") AS "nombreDocente",
+  sol."${Solicitud.t.id.columnName}" AS "idSolicitud",
+  sol."${Solicitud.t.fechaRealizacion.columnName}" AS "fechaRealizacionSolicitud"
 FROM ${RelacionAsignaturaUsuario.t.tableName} rau 
-INNER JOIN ${Usuario.t.tableName} u ON u."id" = rau."usuarioId"
-INNER JOIN ${Asignatura.t.tableName} a ON a."id" = rau."asignaturaId"
-INNER JOIN ${SolicitudCalificacionMensual.t.tableName} scm ON scm."idAsignatura" = a."id"
-INNER JOIN ${Solicitud.t.tableName} sol ON sol."id" = scm."solicitudId"
+INNER JOIN ${Usuario.t.tableName} u ON u."${Usuario.t.id.columnName}" = rau."${RelacionAsignaturaUsuario.t.usuarioId.columnName}"
+INNER JOIN ${Asignatura.t.tableName} a ON a."${Asignatura.t.id.columnName}" = rau."${RelacionAsignaturaUsuario.t.asignaturaId.columnName}"
+INNER JOIN ${SolicitudCalificacionMensual.t.tableName} scm ON scm."${SolicitudCalificacionMensual.t.idAsignatura.columnName}" = a."${Asignatura.t.id.columnName}"
+INNER JOIN ${Solicitud.t.tableName} sol ON sol."${Solicitud.t.id.columnName}" = scm."${SolicitudCalificacionMensual.t.solicitudId.columnName}"
 WHERE 
   scm.mes = $mes AND
   scm.anio = $anio AND
