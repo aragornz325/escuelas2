@@ -19,23 +19,60 @@ class OrmCalificacion extends ORM {
   Future<List<Calificacion>> obtenerCalificaciones(
     Session session, {
     Periodo? periodo,
-  }) async =>
-      ejecutarOperacionOrm(
+    int? mes,
+    int? anio,
+    List<int>? idComisiones,
+    List<int>? idEstudiantes,
+  }) async {
+    final ahora = DateTime.now();
+    return ejecutarOperacionOrm(
+      session,
+      (session) => Calificacion.db.find(
         session,
-        (session) => Calificacion.db.find(
-          session,
-          where: (t) {
-            if (periodo != null) {
-              return t.fechaCreacion.between(
-                periodo.fechaInicio,
-                periodo.fechaFin,
-              );
-            }
+        where: (t) {
+          final expresionPeriodo = periodo != null
+              ? t.fechaCreacion.between(
+                  periodo.fechaInicio,
+                  periodo.fechaFin,
+                )
+              : t.id.notEquals(null);
+          final expresionFecha = (mes != null || anio != null)
+              ? t.fechaCreacion.between(
+                  DateTime(
+                    anio ?? ahora.year,
+                    mes ?? ahora.month,
+                    1,
+                  ),
+                  DateTime(
+                    (mes != null)
+                        ? ((anio != null) ? (anio + 1) : (ahora.year + 1))
+                        : anio ?? ahora.year,
+                    (mes != null)
+                        ? (mes + 1)
+                        : (anio != null)
+                            ? 1
+                            : (ahora.month + 1),
+                    1,
+                  ),
+                )
+              : t.id.notEquals(null);
+          final expresionComisiones =
+              (idComisiones != null && idComisiones.isNotEmpty)
+                  ? t.idComision.inSet(idComisiones.toSet())
+                  : t.id.notEquals(null);
+          final expresionEstudiantes =
+              (idEstudiantes != null && idEstudiantes.isNotEmpty)
+                  ? t.estudianteId.inSet(idEstudiantes.toSet())
+                  : t.id.notEquals(null);
 
-            return t.id.notEquals(null);
-          },
-        ),
-      );
+          return expresionPeriodo &
+              expresionFecha &
+              expresionComisiones &
+              expresionEstudiantes;
+        },
+      ),
+    );
+  }
 
   Future<List<Calificacion>> actualizarCalificaciones(
     Session session, {
