@@ -1,5 +1,9 @@
 import 'package:serverpod/serverpod.dart';
 
+extension ColumnX on Column {
+  String get nombreCaseSensitive => '"$columnName"';
+}
+
 extension ColumnIntX on ColumnInt {
   /// Agrega expresión compatible con Serverpod para operador SQL `IN`.
   Expression contains(List<int> values, String tableName) {

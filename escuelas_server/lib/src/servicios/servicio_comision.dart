@@ -140,5 +140,23 @@ class ServicioComision extends Servicio<OrmComision> {
     }
 
     return true;
+
+  }
+  
+  /// Obtiene una lista de las asignaturas dentro de una comisión, junto al nombre del docente,
+  /// y la fecha en que las calificaciones del mes y el año indicados fueron cargadas.
+  Future<List<EstadoCalificacionesAsignatura>> obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+    Session session, {
+    required int idComision,
+    required int mes,
+    required int anio,
+  }) async {
+    return await ejecutarOperacion(
+        () => orm.obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+              session,
+              idComision: idComision,
+              mes: mes,
+              anio: anio,
+            ));
   }
 }

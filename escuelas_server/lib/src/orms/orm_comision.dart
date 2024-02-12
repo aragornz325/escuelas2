@@ -1,21 +1,51 @@
-import 'dart:convert';
+import 'package:escuelas_server/src/funciones.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
 class OrmComision extends ORM {
   Future<List<ComisionDeCurso>> obtenerComisiones(
-    Session session,
-  ) async =>
+    Session session, {
+    List<int>? idCursos,
+    List<int>? idComisiones,
+    List<int>? idEstudiantesFiltrados,
+  }) async =>
       ejecutarOperacionOrm(
         session,
         (session) => ComisionDeCurso.db.find(
           session,
+          where: (t) {
+            final expresionCursos = (idCursos != null && idCursos.isNotEmpty)
+                ? t.cursoId.inSet(idCursos.toSet())
+                : t.id.notEquals(null);
+            final expresionComisiones =
+                (idComisiones != null && idComisiones.isNotEmpty)
+                    ? t.id.inSet(idComisiones.toSet())
+                    : t.id.notEquals(null);
+
+            return expresionCursos & expresionComisiones;
+          },
           include: ComisionDeCurso.include(
-            curso: Curso.include(),
+            curso: Curso.include(
+              asignaturas: Asignatura.includeList(
+                include: Asignatura.include(),
+              ),
+            ),
             estudiantes: RelacionComisionUsuario.includeList(
+              where: (t) {
+                final expresionEstudiantes = (idEstudiantesFiltrados != null &&
+                        idEstudiantesFiltrados.isNotEmpty)
+                    ? t.usuarioId.inSet(idEstudiantesFiltrados.toSet())
+                    : t.id.notEquals(null);
+
+                return expresionEstudiantes;
+              },
               include: RelacionComisionUsuario.include(
-                usuario: Usuario.include(),
+                usuario: Usuario.include(
+                  direccionesDeEmail: DireccionDeEmail.includeList(
+                    include: DireccionDeEmail.include(),
+                  ),
+                ),
               ),
             ),
           ),
@@ -56,7 +86,7 @@ class OrmComision extends ORM {
         comisiones.id, cursos.id;
 '''),
     );
-     List<ComisionConAsignaturas> comisionesConAsignaturas = [];
+    List<ComisionConAsignaturas> comisionesConAsignaturas = [];
     for (var comisionMap in respuesta) {
       var comision = {
         'comision': comisionMap['comisiones'],
@@ -87,7 +117,6 @@ class OrmComision extends ORM {
         ),
       );
     }
-
 
     return comisionesConAsignaturas;
   }
@@ -142,4 +171,44 @@ class OrmComision extends ORM {
             ),
           );
 
+  /// Obtiene una lista de las asignaturas dentro de una comisión, junto al nombre del docente,
+  /// y la fecha en que las calificaciones del mes y el año indicados fueron cargadas.
+  Future<List<EstadoCalificacionesAsignatura>>
+      obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+    Session session, {
+    required int idComision,
+    required int mes,
+    required int anio,
+  }) async {
+    final listaQuery = await ejecutarOperacionOrm(
+      session,
+      (session) => session.dbNext.unsafeQueryMappedResults(session, '''
+SELECT 
+  a."${Asignatura.t.id.columnName}" as "idAsignatura",
+  a."${Asignatura.t.nombre.columnName}" AS "nombreAsignatura",
+  u."${Usuario.t.id.columnName}" AS "idUsuario",
+  CONCAT(u."${Usuario.t.nombre.columnName}", ' ', u."${Usuario.t.apellido.columnName}") AS "nombreDocente",
+  sol."${Solicitud.t.id.columnName}" AS "idSolicitud",
+  sol."${Solicitud.t.fechaRealizacion.columnName}" AS "fechaRealizacionSolicitud"
+FROM ${RelacionAsignaturaUsuario.t.tableName} rau 
+INNER JOIN ${Usuario.t.tableName} u ON u."${Usuario.t.id.columnName}" = rau."${RelacionAsignaturaUsuario.t.usuarioId.columnName}"
+INNER JOIN ${Asignatura.t.tableName} a ON a."${Asignatura.t.id.columnName}" = rau."${RelacionAsignaturaUsuario.t.asignaturaId.columnName}"
+INNER JOIN ${SolicitudCalificacionMensual.t.tableName} scm ON scm."${SolicitudCalificacionMensual.t.idAsignatura.columnName}" = a."${Asignatura.t.id.columnName}"
+INNER JOIN ${Solicitud.t.tableName} sol ON sol."${Solicitud.t.id.columnName}" = scm."${SolicitudCalificacionMensual.t.solicitudId.columnName}"
+WHERE 
+  scm.mes = $mes AND
+  scm.anio = $anio AND
+  rau."comisionId" = $idComision;
+'''),
+    );
+
+    return listaQuery
+        .map(
+          (e) => EstadoCalificacionesAsignatura.fromJson(
+            extenderMap(e),
+            Protocol(),
+          ),
+        )
+        .toList();
+  }
 }
