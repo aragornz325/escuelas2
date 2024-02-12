@@ -1,0 +1,42 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "usuarios",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "contactoDeEmergenciaId",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "usuarios_fk_1",
+            "columns": [
+              "contactoDeEmergenciaId"
+            ],
+            "referenceTable": "contactos_de_emergencia",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "deleteForeignKeys": [],
+        "warnings": []
+      }
+    }
+  ],
+  "warnings": [],
+  "migrationApiVersion": 1
+}

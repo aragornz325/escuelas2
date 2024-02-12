@@ -1,0 +1,110 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "contactos_de_emergencia",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "idUsuario"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [
+          "contactos_de_emergencia_fk_0"
+        ],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"idUsuario\" of table \"contactos_de_emergencia\" will be dropped.",
+            "table": "contactos_de_emergencia",
+            "columns": [
+              "idUsuario"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"usuario_contacto_de_emergencia_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios",
+            "columns": [
+              "contactoDeEmergenciaId"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "usuarios",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [
+          {
+            "indexName": "usuario_contacto_de_emergencia_unique_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "contactoDeEmergenciaId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"idUsuario\" of table \"contactos_de_emergencia\" will be dropped.",
+            "table": "contactos_de_emergencia",
+            "columns": [
+              "idUsuario"
+            ],
+            "destrucive": true
+          },
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"usuario_contacto_de_emergencia_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios",
+            "columns": [
+              "contactoDeEmergenciaId"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"idUsuario\" of table \"contactos_de_emergencia\" will be dropped.",
+      "table": "contactos_de_emergencia",
+      "columns": [
+        "idUsuario"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"usuario_contacto_de_emergencia_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "usuarios",
+      "columns": [
+        "contactoDeEmergenciaId"
+      ],
+      "destrucive": false
+    }
+  ],
+  "migrationApiVersion": 1
+}
