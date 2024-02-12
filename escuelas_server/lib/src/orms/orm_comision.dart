@@ -27,7 +27,7 @@ class OrmComision extends ORM {
           },
           include: ComisionDeCurso.include(
             curso: Curso.include(
-              asignaturas: Asignatura.includeList(),
+              asignaturas: Asignatura.includeList(include: Asignatura.include()),
             ),
             estudiantes: RelacionComisionUsuario.includeList(
               where: (t) {
