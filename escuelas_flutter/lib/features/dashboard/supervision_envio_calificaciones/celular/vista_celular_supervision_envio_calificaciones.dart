@@ -62,7 +62,6 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                   color: colores.tertiary,
                   borderRadius: BorderRadius.circular(40.sw),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 20.pw),
               ),
               const _MateriaYEstado(),
               Expanded(
