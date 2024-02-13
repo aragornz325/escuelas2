@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/bloc/bloc_supervision_envio_calificaciones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -17,13 +16,7 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@endtemplate}
 class BotonesEnviarCalificaciones extends StatelessWidget {
   /// {@macro BotonesEnviarCalificaciones}
-  const BotonesEnviarCalificaciones({
-    required this.asignaturasFaltantes,
-    super.key,
-  });
-
-  /// lista de asignaturas faltantes
-  final List<Asignatura> asignaturasFaltantes;
+  const BotonesEnviarCalificaciones({super.key});
 
   // ignore: avoid_field_initializers_in_const_classes
   final eventoSolicitarCaliFaltantes =
@@ -38,46 +31,53 @@ class BotonesEnviarCalificaciones extends StatelessWidget {
 
     final colores = context.colores;
 
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.only(top: 15.ph),
-          child: EscuelasBoton.texto(
-            width: 340.pw,
-            height: max(40.ph, 40.sh),
-            // TODO(mati): Habilitar cuando la lista tenga aunquesea 1 sin
-            // cargar
-            estaHabilitado: true,
-            onTap: () => context.read<BlocSupervisionEnvioCalificaciones>().add(
-                  eventoSolicitarCaliFaltantes,
+    return BlocBuilder<BlocSupervisionEnvioCalificaciones,
+        BlocSupervisionEnvioCalificacionesEstado>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 15.ph),
+              child: EscuelasBoton.texto(
+                width: 340.pw,
+                height: max(40.ph, 40.sh),
+                estaHabilitado: state.listaAsignaturas.any(
+                  (asignatura) => asignatura.fechaRealizacionSolicitud == null,
                 ),
-            color: colores.azul,
-            texto: l10n.pageGradeSubmissionSupervisionButton(
-              asignaturasFaltantes.length,
+                onTap: () =>
+                    context.read<BlocSupervisionEnvioCalificaciones>().add(
+                          eventoSolicitarCaliFaltantes,
+                        ),
+                color: colores.azul,
+                texto: l10n.pageGradeSubmissionSupervisionButton(
+                  state.asignaturasFaltantes,
+                ),
+                context: context,
+              ),
             ),
-            context: context,
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.only(top: 15.ph),
-          child: EscuelasBoton.outlined(
-            width: 340.pw,
-            height: max(40.ph, 40.sh),
-            // TODO(mati): Habilitar cuando esten todas las
-            // calificaciones cargadas
-            estaHabilitado: false,
-            tamanioFuente: 16.pf,
-            anchoDeLasLetras: FontWeight.w700,
-            onTap: () => context
-                .read<BlocSupervisionEnvioCalificaciones>()
-                .add(eventoEnviarCalificaciones),
-            color: colores.primaryContainer,
-            colorTexto: colores.primaryContainer,
-            texto: l10n.pageGradeSubmissionSupervisionButtonSendQualifications,
-            context: context,
-          ),
-        ),
-      ],
+            Padding(
+              padding: EdgeInsets.only(top: 15.ph),
+              child: EscuelasBoton.outlined(
+                width: 340.pw,
+                height: max(40.ph, 40.sh),
+                estaHabilitado: state.listaAsignaturas.every(
+                  (asignatura) => asignatura.fechaRealizacionSolicitud != null,
+                ),
+                tamanioFuente: 16.pf,
+                anchoDeLasLetras: FontWeight.w700,
+                onTap: () => context
+                    .read<BlocSupervisionEnvioCalificaciones>()
+                    .add(eventoEnviarCalificaciones),
+                color: colores.primaryContainer,
+                colorTexto: colores.primaryContainer,
+                texto:
+                    l10n.pageGradeSubmissionSupervisionButtonSendQualifications,
+                context: context,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

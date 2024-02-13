@@ -16,7 +16,7 @@ class ListaDeAsignaturas extends StatelessWidget {
   });
 
   /// Lista de asignaturas a mostrar
-  final List<Asignatura> asignaturas;
+  final List<EstadoCalificacionesAsignatura> asignaturas;
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +28,10 @@ class ListaDeAsignaturas extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 10.ph),
                 child: ElementoLista.supervisionEnvioCalificaciones(
                   context: context,
-                  // TODO(anyoone): Cambiar por fecha de carga de
-                  // calificaciones (cuando se implemente) de cada ,ateroa
-                  // y reemplazar por el nombnre de la docente asignada a esa
-                  // asignatura
-                  fechaDeCarga: DateTime.now(),
-                  nombreProfesor: obtenerNombreAbreviado(
-                    // asignatura.docentes.first.nombre,
-                    'Gonzalo Miguel Rigoni',
-                  ),
-                  nombreAsignatura: asignatura.nombre,
+                  fechaDeCarga:  asignatura.fechaRealizacionSolicitud,
+                  nombreProfesor:
+                      obtenerNombreAbreviado(asignatura.nombreDocente),
+                  nombreAsignatura: asignatura.nombreAsignatura,
                 ),
               ),
             )

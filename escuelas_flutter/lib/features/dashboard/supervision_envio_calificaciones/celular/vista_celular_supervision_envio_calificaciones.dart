@@ -69,9 +69,7 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                   asignaturas: state.listaAsignaturas,
                 ),
               ),
-              BotonesEnviarCalificaciones(
-                asignaturasFaltantes: state.asignaturasFaltantes,
-              ),
+              const BotonesEnviarCalificaciones(),
             ],
           ),
         );

@@ -12,7 +12,7 @@ part 'bloc_supervision_envio_calificaciones_evento.dart';
 class BlocSupervisionEnvioCalificaciones extends Bloc<
     BlocSupervisionEnvioCalificacionesEvento,
     BlocSupervisionEnvioCalificacionesEstado> {
-  /// {@macro BlocSupervision}
+  /// {@macro BlocSupervisionEnvioCalificaciones}
   BlocSupervisionEnvioCalificaciones(int idComision, DateTime fecha)
       : super(
           BlocSupervisionEnvioCalificacionesEstadoInicial(
@@ -38,34 +38,20 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): Descomentar cuando haya endpoint
-        // final listaAsignaturas =
-        // await client.asignatura.obtenerAsignaturasPorIdCurso(idCurso,event.idPeriodo);
+        final fecha = event.fecha ?? state.fecha;
+
+        final listaAsignaturas = await client.comision
+            .obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+          idComision: state.idComision,
+          anio: fecha?.year ?? 0,
+          mes: fecha?.month ?? 0,
+        );
 
         emit(
           BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(
             state,
             fecha: event.fecha,
-            // TODO(anyone): Cambiar por la lista de asignaturas que vienen del
-            // back
-            listaAsignaturas: [
-              Asignatura(
-                id: 1,
-                nombre: 'Matematicas',
-              ),
-              Asignatura(
-                id: 1,
-                nombre: 'Matematicas',
-              ),
-              Asignatura(
-                id: 1,
-                nombre: 'Matematicas',
-              ),
-              Asignatura(
-                id: 1,
-                nombre: 'Matematicas',
-              ),
-            ],
+            listaAsignaturas: listaAsignaturas,
           ),
         );
       },
@@ -85,8 +71,8 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) {
-        // TODO(anyone): llamar al endpoint de envio de calificaciones faltantes
-        // client.asignatura.enviarCalificacionesFaltantes();
+        client.solicitudNotaMensual.enviarSolicitudADocentes();
+
         emit(BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(state));
       },
       onError: (e, st) => emit(
@@ -103,8 +89,12 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) {
-        // TODO(anyone): llamar al endpoint de envio de calificaciones faltantes
-        // client.asignatura.enviarCalificacionesFaltantes();
+        client.calificacion.enviarCalificacionesPorMesYAnio(
+          anio: state.fecha?.year ?? 0,
+          mes: state.fecha?.month ?? 0,
+          filtroDeEnvio: EnvioCalificaciones.porComision,
+        );
+
         emit(BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(state));
       },
       onError: (e, st) => emit(

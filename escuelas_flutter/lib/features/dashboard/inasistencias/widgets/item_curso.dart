@@ -57,11 +57,14 @@ class ItemCurso extends StatelessWidget {
               texto: Text(
                 comision.nombre.toUpperCase(),
                 style: TextStyle(
-                  color: comision.ultimaModificacion.mismaFecha(
-                    state.fechaActual ?? DateTime.now(),
-                  )
-                      ? colores.onBackground
-                      : colores.onSecondary,
+                  color:
+                      // TODO(anyone): descomentar cuando juanjo modifique el modelo
+                      // comision.ultimaModificacion.mismaFecha(
+                      //   state.fechaActual ?? DateTime.now(),
+                      // )
+                      //     ? colores.onBackground
+                      // :
+                      colores.onSecondary,
                   fontSize: 16.pf,
                   fontWeight: FontWeight.w800,
                 ),

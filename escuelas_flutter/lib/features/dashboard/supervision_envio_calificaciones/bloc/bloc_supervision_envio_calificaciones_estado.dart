@@ -13,7 +13,7 @@ class BlocSupervisionEnvioCalificacionesEstado {
 
   BlocSupervisionEnvioCalificacionesEstado.desde(
     BlocSupervisionEnvioCalificacionesEstado otro, {
-    List<Asignatura>? listaAsignaturas,
+    List<EstadoCalificacionesAsignatura>? listaAsignaturas,
     DateTime? fecha,
     int? idCurso,
   }) : this._(
@@ -23,15 +23,15 @@ class BlocSupervisionEnvioCalificacionesEstado {
         );
 
   /// Lista de asignaturas del curso a supervisar
-  final List<Asignatura> listaAsignaturas;
+  final List<EstadoCalificacionesAsignatura> listaAsignaturas;
 
   /// Fecha del periodo a supervisar
   final DateTime? fecha;
 
-  List<Asignatura> get asignaturasFaltantes => [];
+  int get asignaturasFaltantes => listaAsignaturas
+      .where((element) => element.fechaRealizacionSolicitud == null)
+      .length;
 
-  // TODO(anyone): Ver como saber si una asignatura no tiene fecha de envio
-  // listaAsignaturas.where((asignatura) => asignatura.fecha == null).toList();
   /// Id de la comision
   final int idComision;
 }
