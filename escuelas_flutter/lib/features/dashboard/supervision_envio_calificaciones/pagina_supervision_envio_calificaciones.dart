@@ -8,7 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template VistaEscritorioSupervisionEnvioCalificaciones}
 /// Vista para celular de la pagina 'Supervision de Envio de Calificaciones'
-/// donde se supervisa la carga de calificaciones de las materias de un curso
+/// donde se supervisa la carga de calificaciones de las asignaturas de una
+/// comision
 /// {@endtemplate}
 @RoutePage()
 class PaginaSupervisionEnvioCalificaciones extends StatelessWidget {
@@ -19,7 +20,7 @@ class PaginaSupervisionEnvioCalificaciones extends StatelessWidget {
     super.key,
   }) : fecha = DateTime.parse(fecha);
 
-  /// Id del curso a supervisar
+  /// Id de la comision a supervisar
   final int idComision;
 
   /// Fecha del periodo a supervisar
@@ -28,8 +29,10 @@ class PaginaSupervisionEnvioCalificaciones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocSupervisionEnvioCalificaciones>(
-      create: (context) => BlocSupervisionEnvioCalificaciones(idComision, fecha)
-        ..add(
+      create: (context) => BlocSupervisionEnvioCalificaciones(
+        idComision: idComision,
+        fecha: fecha,
+      )..add(
           const BlocSupervisionEnvioCalificacionesEventoInicializar(),
         ),
       child: const FullResponsiveScreen(

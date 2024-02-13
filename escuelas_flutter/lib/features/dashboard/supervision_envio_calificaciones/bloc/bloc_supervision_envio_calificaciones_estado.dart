@@ -15,9 +15,9 @@ class BlocSupervisionEnvioCalificacionesEstado {
     BlocSupervisionEnvioCalificacionesEstado otro, {
     List<EstadoCalificacionesAsignatura>? listaAsignaturas,
     DateTime? fecha,
-    int? idCurso,
+    int? idComision,
   }) : this._(
-          idComision: idCurso ?? otro.idComision,
+          idComision: idComision ?? otro.idComision,
           listaAsignaturas: listaAsignaturas ?? otro.listaAsignaturas,
           fecha: fecha ?? otro.fecha,
         );
@@ -35,12 +35,30 @@ class BlocSupervisionEnvioCalificacionesEstado {
   /// Id de la comision
   final int idComision;
 
+  /// Estado del envio de calificaciones `a los padres/tutores` exitosamente
   bool get exitosoAlEnviarCalificaciones => this
       is BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones;
 
+  /// Estado del envio de `carga de calificaciones` exitosamente
   bool get exitosoAlSolicitarCargaDeCalificaciones => this
       // ignore: lines_longer_than_80_chars
       is BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes;
+
+  /// Getter para habilitar el boton de carga de calificaciones a los docentes
+  /// faltantes.
+  bool get solicitarCargaDeCalificaciones =>
+      listaAsignaturas.any(
+        (asignatura) => asignatura.fechaRealizacionSolicitud == null,
+      ) &&
+      listaAsignaturas.isNotEmpty;
+
+  /// Getter para habilitar el boton de enviar calificaciones a los padres o
+  /// tutores.
+  bool get enviarCalificaciones =>
+      listaAsignaturas.every(
+        (asignatura) => asignatura.fechaRealizacionSolicitud != null,
+      ) &&
+      listaAsignaturas.isNotEmpty;
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoInicial}

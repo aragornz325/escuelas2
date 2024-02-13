@@ -13,8 +13,10 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     BlocSupervisionEnvioCalificacionesEvento,
     BlocSupervisionEnvioCalificacionesEstado> {
   /// {@macro BlocSupervisionEnvioCalificaciones}
-  BlocSupervisionEnvioCalificaciones(int idComision, DateTime fecha)
-      : super(
+  BlocSupervisionEnvioCalificaciones({
+    required int idComision,
+    required DateTime fecha,
+  }) : super(
           BlocSupervisionEnvioCalificacionesEstadoInicial(
             idComision,
             fecha,
@@ -72,16 +74,13 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final respuesta =
-            await client.solicitudNotaMensual.enviarSolicitudADocentes();
+        await client.solicitudNotaMensual.enviarSolicitudADocentes();
 
-        if (respuesta) {
-          emit(
-            // ignore: lines_longer_than_80_chars
-            BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes
-                .desde(state),
-          );
-        }
+        emit(
+          // ignore: lines_longer_than_80_chars
+          BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes
+              .desde(state),
+        );
       },
       onError: (e, st) => emit(
         BlocSupervisionEnvioCalificacionesEstadoError.desde(state),
@@ -97,8 +96,7 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final respuesta =
-            await client.calificacion.enviarCalificacionesPorMesYAnio(
+        await client.calificacion.enviarCalificacionesPorMesYAnio(
           anio: state.fecha?.year ?? 0,
           mes: state.fecha?.month ?? 0,
           filtroDeEnvio: EnvioCalificaciones.porComision,
@@ -106,12 +104,10 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
             state.idComision,
           ],
         );
-        if (respuesta) {
-          emit(
-            BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones
-                .desde(state),
-          );
-        }
+        emit(
+          BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones
+              .desde(state),
+        );
       },
       onError: (e, st) => emit(
         BlocSupervisionEnvioCalificacionesEstadoError.desde(state),

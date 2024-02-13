@@ -1,5 +1,3 @@
-import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -32,20 +30,6 @@ extension DateTimeX on DateTime {
       return '3er Cuat.';
     } else {
       return '4to Cuat.';
-    }
-  }
-
-  Color colorDeFechaDeEnvio(BuildContext context) {
-    final colores = context.colores;
-
-    if (day >= 1 && day <= 4) {
-      return colores.fechaReciente;
-    } else if (day >= 5 && day <= 6) {
-      return colores.fechaModeradamenteReciente;
-    } else if (day >= 7 && day <= 8) {
-      return colores.fechaTardia;
-    } else {
-      return colores.fechaMuyTardia;
     }
   }
 

@@ -5,8 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ListaDeAsignaturas}
-/// La lista de asignaturas con el texto del nombre de la asignatura con el
-/// docente y la fecha en la que cargo esa asignatura sus calificaciones.
+/// Lista de asignaturas muestra:
+///
+/// - Nombre de la asignatura de una comision
+/// - Nombre del docente que esta asignado a esa asignatura
+/// - Fecha de la carga de las calificaciones(la fecha que cargo/subio el
+/// doncente a cargo las calificaciones de los alumnos en caso contrario
+/// muestra un mensaje de
+/// `sin enviar`).
 /// {@endtemplate}
 class ListaDeAsignaturas extends StatelessWidget {
   /// {@macro ListaDeAsignaturas}
@@ -20,23 +26,21 @@ class ListaDeAsignaturas extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        children: asignaturas
-            .map(
-              (asignatura) => Padding(
-                padding: EdgeInsets.only(bottom: 10.ph),
-                child: ElementoLista.supervisionEnvioCalificaciones(
-                  context: context,
-                  fechaDeCarga:  asignatura.fechaRealizacionSolicitud,
-                  nombreProfesor:
-                      obtenerNombreAbreviado(asignatura.nombreDocente),
-                  nombreAsignatura: asignatura.nombreAsignatura,
-                ),
+    return ListView(
+      children: asignaturas
+          .map(
+            (asignatura) => Padding(
+              padding: EdgeInsets.only(bottom: 10.ph),
+              child: ElementoLista.supervisionEnvioCalificaciones(
+                context: context,
+                fechaDeCarga: asignatura.fechaRealizacionSolicitud,
+                nombreProfesor:
+                    obtenerNombreAbreviado(asignatura.nombreDocente),
+                nombreAsignatura: asignatura.nombreAsignatura,
               ),
-            )
-            .toList(),
-      ),
+            ),
+          )
+          .toList(),
     );
   }
 }

@@ -170,10 +170,15 @@
     "@pageComissionSupervisionNoComissions": {
         "description": "Indicates that there are no commissions."
     },
+  
+    "pageComissionSupervisionUnsent": "Unsent",
+    "@pageComissionSupervisionUnsent": {
+        "description": "Indicates that the item has not been sent."
+    },
 
     "pageComissionSupervisionGradesUpLoadSuccessfullyRequested": "Requested Grades have been successfully uploaded.",
-    "@pageComissionSupervisionGradesUpLoadSuccessfullyRequested": {
-        "description": "Indicates that the grades have been successfully requested and uploaded."
+    "@pageComissionSupervisionGradesUpLoadSuccessfullyRequested": {     
+        "description": "Indicates that the requested grades have been successfully uploaded."
     },
 
     "pageComissionSupervisionGradesSentSuccessfully": "Grades sent successfully.",

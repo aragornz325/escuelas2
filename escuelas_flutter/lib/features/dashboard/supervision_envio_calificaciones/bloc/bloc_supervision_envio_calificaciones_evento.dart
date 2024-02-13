@@ -24,7 +24,7 @@ class BlocSupervisionEnvioCalificacionesEventoInicializar
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEventoCaliFaltantes}
-/// Evento para enviar las carga de calificaciones a los profesores que le
+/// Evento para enviar las carga de calificaciones a los docentes que le
 /// faltan cargar las calificaciones.
 /// {@endtemplate}
 class BlocSupervisionEnvioCalificacionesEventoSolicitarCaliFaltantes

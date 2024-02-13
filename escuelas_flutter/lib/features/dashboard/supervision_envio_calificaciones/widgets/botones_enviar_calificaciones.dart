@@ -21,6 +21,7 @@ class BotonesEnviarCalificaciones extends StatelessWidget {
   // ignore: avoid_field_initializers_in_const_classes
   final eventoSolicitarCaliFaltantes =
       const BlocSupervisionEnvioCalificacionesEventoSolicitarCaliFaltantes();
+
   // ignore: avoid_field_initializers_in_const_classes
   final eventoEnviarCalificaciones =
       const BlocSupervisionEnvioCalificacionesEventoEnviarCalificaciones();
@@ -41,11 +42,7 @@ class BotonesEnviarCalificaciones extends StatelessWidget {
               child: EscuelasBoton.texto(
                 width: 340.pw,
                 height: max(40.ph, 40.sh),
-                estaHabilitado: state.listaAsignaturas.any(
-                      (asignatura) =>
-                          asignatura.fechaRealizacionSolicitud == null,
-                    ) &&
-                    state.listaAsignaturas.isNotEmpty,
+                estaHabilitado: state.solicitarCargaDeCalificaciones,
                 onTap: () =>
                     context.read<BlocSupervisionEnvioCalificaciones>().add(
                           eventoSolicitarCaliFaltantes,
@@ -62,11 +59,7 @@ class BotonesEnviarCalificaciones extends StatelessWidget {
               child: EscuelasBoton.outlined(
                 width: 340.pw,
                 height: max(40.ph, 40.sh),
-                estaHabilitado: state.listaAsignaturas.every(
-                      (asignatura) =>
-                          asignatura.fechaRealizacionSolicitud != null,
-                    ) &&
-                    state.listaAsignaturas.isNotEmpty,
+                estaHabilitado: state.enviarCalificaciones,
                 tamanioFuente: 16.pf,
                 anchoDeLasLetras: FontWeight.w700,
                 onTap: () => context

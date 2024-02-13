@@ -1,6 +1,7 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
@@ -354,6 +355,8 @@ class ElementoLista extends StatelessWidget {
   }) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return ElementoLista(
       altura: 40.ph,
       borderRadius: 50.sw,
@@ -368,12 +371,14 @@ class ElementoLista extends StatelessWidget {
       widgetLateralDerecho: Padding(
         padding: EdgeInsets.only(right: 10.pw),
         child: Text(
-          fechaDeCarga == null ? 'Sin Enviar' : fechaDeCarga.formatear,
+          fechaDeCarga == null
+              ? l10n.pageComissionSupervisionUnsent
+              : fechaDeCarga.formatear,
           textAlign: TextAlign.center,
           style: TextStyle(
             color: fechaDeCarga == null
                 ? colores.secondary
-                : fechaDeCarga.colorDeFechaDeEnvio(context),
+                : colores.segunVencimientoFecha(fechaDeCarga.day),
             fontSize: 15.pf,
             fontWeight: FontWeight.w600,
           ),

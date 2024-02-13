@@ -166,9 +166,15 @@
     "@pageComissionSupervisionNoComissions": {
         "description": "Indicates that there are no commissions."
     },
+    
+    "pageComissionSupervisionUnsent": "Sin Enviar",
+    "@pageComissionSupervisionUnsent": {
+        "description": "Indicates that the item has not been sent."
+    },
+    
     "pageComissionSupervisionGradesUpLoadSuccessfullyRequested": "Carga de Calificaciones enviadas correctamente.",
     "@pageComissionSupervisionGradesUpLoadSuccessfullyRequested": {
-        "description": "Indicates that the grades have been successfully requested and uploaded."
+        "description": "Indicates that the requested grades have been successfully uploaded."
     },
 
     "pageComissionSupervisionGradesSentSuccessfully": "Calificaciones enviadas correctamente.",
