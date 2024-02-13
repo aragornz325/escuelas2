@@ -34,6 +34,13 @@ class BlocSupervisionEnvioCalificacionesEstado {
 
   /// Id de la comision
   final int idComision;
+
+  bool get exitosoAlEnviarCalificaciones => this
+      is BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones;
+
+  bool get exitosoAlSolicitarCargaDeCalificaciones => this
+      // ignore: lines_longer_than_80_chars
+      is BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes;
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoInicial}
@@ -75,6 +82,34 @@ class BlocSupervisionEnvioCalificacionesEstadoExitoso
     super.listaAsignaturas,
     super.fecha,
   }) : super.desde();
+}
+
+// ignore: lines_longer_than_80_chars
+/// {@template BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes}
+/// Estado exitoso al solicitar las calificaciones faltantes para que los
+/// docentes puedan cargarlas.
+/// {@endtemplate}
+class BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes
+    extends BlocSupervisionEnvioCalificacionesEstado {
+  // ignore: lines_longer_than_80_chars
+  /// {@macro BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes}
+  BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes.desde(
+    super.otro,
+  ) : super.desde();
+}
+
+// ignore: lines_longer_than_80_chars
+/// {@template BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones}
+/// Estado exitoso cuando se envia las calificaciones a los tutores/padres de
+/// los alumnos
+/// {@endtemplate}
+class BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones
+    extends BlocSupervisionEnvioCalificacionesEstado {
+  // ignore: lines_longer_than_80_chars
+  /// {@macro BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones}
+  BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones.desde(
+    super.otro,
+  ) : super.desde();
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoFallido}

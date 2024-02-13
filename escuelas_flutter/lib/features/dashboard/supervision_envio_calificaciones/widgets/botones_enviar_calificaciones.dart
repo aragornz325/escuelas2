@@ -42,8 +42,10 @@ class BotonesEnviarCalificaciones extends StatelessWidget {
                 width: 340.pw,
                 height: max(40.ph, 40.sh),
                 estaHabilitado: state.listaAsignaturas.any(
-                  (asignatura) => asignatura.fechaRealizacionSolicitud == null,
-                ),
+                      (asignatura) =>
+                          asignatura.fechaRealizacionSolicitud == null,
+                    ) &&
+                    state.listaAsignaturas.isNotEmpty,
                 onTap: () =>
                     context.read<BlocSupervisionEnvioCalificaciones>().add(
                           eventoSolicitarCaliFaltantes,
@@ -61,8 +63,10 @@ class BotonesEnviarCalificaciones extends StatelessWidget {
                 width: 340.pw,
                 height: max(40.ph, 40.sh),
                 estaHabilitado: state.listaAsignaturas.every(
-                  (asignatura) => asignatura.fechaRealizacionSolicitud != null,
-                ),
+                      (asignatura) =>
+                          asignatura.fechaRealizacionSolicitud != null,
+                    ) &&
+                    state.listaAsignaturas.isNotEmpty,
                 tamanioFuente: 16.pf,
                 anchoDeLasLetras: FontWeight.w700,
                 onTap: () => context

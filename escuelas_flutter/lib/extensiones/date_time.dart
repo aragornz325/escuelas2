@@ -38,11 +38,11 @@ extension DateTimeX on DateTime {
   Color colorDeFechaDeEnvio(BuildContext context) {
     final colores = context.colores;
 
-    if (month >= 1 && month <= 4) {
+    if (day >= 1 && day <= 4) {
       return colores.fechaReciente;
-    } else if (month >= 5 && month <= 6) {
+    } else if (day >= 5 && day <= 6) {
       return colores.fechaModeradamenteReciente;
-    } else if (month >= 7 && month <= 8) {
+    } else if (day >= 7 && day <= 8) {
       return colores.fechaTardia;
     } else {
       return colores.fechaMuyTardia;

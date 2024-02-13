@@ -1,7 +1,11 @@
+import 'dart:math';
+
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/bloc/bloc_supervision_envio_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
@@ -16,12 +20,68 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
   /// {@macro VistaCelularSupervisionEnvioCalificaciones}
   const VistaCelularSupervisionEnvioCalificaciones({super.key});
 
+  void _dialogExitosoAlEnviarCalificaciones(BuildContext context) {
+    final colores = context.colores;
+
+    final l10n = context.l10n;
+
+    showDialog<void>(
+      context: context,
+      builder: (context) => EscuelasDialog.exitoso(
+        altura: max(70.ph, 70.sh),
+        context: context,
+        onTap: () => Navigator.of(context).pop(),
+        content: Text(
+          l10n.pageComissionSupervisionGradesSentSuccessfully,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colores.azul,
+            fontSize: 16.pf,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _dialogSolicitarCargaDeCalificaciones(BuildContext context) {
+    final colores = context.colores;
+
+    final l10n = context.l10n;
+
+    showDialog<void>(
+      context: context,
+      builder: (context) => EscuelasDialog.exitoso(
+        altura: max(80.ph, 80.sh),
+        context: context,
+        onTap: () => Navigator.of(context).pop(),
+        content: Text(
+          l10n.pageComissionSupervisionGradesUpLoadSuccessfullyRequested,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colores.azul,
+            fontSize: 16.pf,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    return BlocBuilder<BlocSupervisionEnvioCalificaciones,
+    return BlocConsumer<BlocSupervisionEnvioCalificaciones,
         BlocSupervisionEnvioCalificacionesEstado>(
+      listener: (context, state) {
+        if (state.exitosoAlSolicitarCargaDeCalificaciones) {
+          _dialogSolicitarCargaDeCalificaciones(context);
+        }
+        if (state.exitosoAlEnviarCalificaciones) {
+          _dialogExitosoAlEnviarCalificaciones(context);
+        }
+      },
       builder: (context, state) {
         if (state is BlocSupervisionEnvioCalificacionesEstadoCargando) {
           return const Center(

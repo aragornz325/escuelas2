@@ -21,6 +21,7 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
           ),
         ) {
     on<BlocSupervisionEnvioCalificacionesEventoInicializar>(_onInicializar);
+
     on<BlocSupervisionEnvioCalificacionesEventoSolicitarCaliFaltantes>(
       _onSolicitarCalificacionesFaltantes,
     );
@@ -70,10 +71,17 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
   ) async {
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) {
-        client.solicitudNotaMensual.enviarSolicitudADocentes();
+      callback: (client) async {
+        final respuesta =
+            await client.solicitudNotaMensual.enviarSolicitudADocentes();
 
-        emit(BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(state));
+        if (respuesta) {
+          emit(
+            // ignore: lines_longer_than_80_chars
+            BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes
+                .desde(state),
+          );
+        }
       },
       onError: (e, st) => emit(
         BlocSupervisionEnvioCalificacionesEstadoError.desde(state),
@@ -88,14 +96,22 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
   ) async {
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) {
-        client.calificacion.enviarCalificacionesPorMesYAnio(
+      callback: (client) async {
+        final respuesta =
+            await client.calificacion.enviarCalificacionesPorMesYAnio(
           anio: state.fecha?.year ?? 0,
           mes: state.fecha?.month ?? 0,
           filtroDeEnvio: EnvioCalificaciones.porComision,
+          idComisiones: [
+            state.idComision,
+          ],
         );
-
-        emit(BlocSupervisionEnvioCalificacionesEstadoExitoso.desde(state));
+        if (respuesta) {
+          emit(
+            BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones
+                .desde(state),
+          );
+        }
       },
       onError: (e, st) => emit(
         BlocSupervisionEnvioCalificacionesEstadoError.desde(state),

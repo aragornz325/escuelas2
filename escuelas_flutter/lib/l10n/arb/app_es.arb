@@ -164,17 +164,26 @@
 
     "pageComissionSupervisionNoComissions": "No hay comisiones para mostrar",
     "@pageComissionSupervisionNoComissions": {
-        "description": ""
+        "description": "Indicates that there are no commissions."
+    },
+    "pageComissionSupervisionGradesUpLoadSuccessfullyRequested": "Carga de Calificaciones enviadas correctamente.",
+    "@pageComissionSupervisionGradesUpLoadSuccessfullyRequested": {
+        "description": "Indicates that the grades have been successfully requested and uploaded."
+    },
+
+    "pageComissionSupervisionGradesSentSuccessfully": "Calificaciones enviadas correctamente.",
+    "@pageComissionSupervisionGradesSentSuccessfully": {
+        "description": "Indicates that the grades have been sent successfully."
     },
 
     "pageComissionSupervisionNotAvailable": "No disponible",
     "@pageComissionSupervisionNotAvailable": {
-        "description": ""
+        "description": "Indicates that the information is not available."
     },
 
     "pageComissionSupervisionSendingDate": "Fecha de envío: {date}",
     "@pageComissionSupervisionSendingDate": {
-        "description": "",
+        "description": "Indicates the sending date.",
           "placeholders" :{
             "date" : {
                 "type": "String"
@@ -184,7 +193,7 @@
 
     "pageComissionSupervisionProportionOfLoadedsubjects": "{numbreOfLoadedGrades} de {numberOfGrades}",
     "@pageComissionSupervisionProportionOfLoadedsubjects": {
-        "description": "",
+        "description": "Indicates the proportion of loaded grades.",
         "placeholders" :{
             "numbreOfLoadedGrades" : {
                 "type": "int"
