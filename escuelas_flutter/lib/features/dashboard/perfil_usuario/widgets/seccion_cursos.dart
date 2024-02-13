@@ -1,8 +1,7 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
-import 'package:escuelas_flutter/features/auth/kyc/formulario/widgets/formularios/dialogs/dialog_seleccionar_asignatura_por_comision.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/dialog_elegir_asignatura.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
@@ -12,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 // TODO(anyone): HACER FACTORY
-//! TODO(anyone): Extraer widget HDMP
+//! TODO(anyone): Extraer widget
 
 /// {@template SeccionCursos}
 /// Seccion de cursos del perfil de usuario donde se puede ver a que cursos esta
@@ -43,6 +42,7 @@ class SeccionCursos extends StatelessWidget {
           ),
           child: switch (state.tipoUsuario) {
             Tipo.docenteAprobado => _DesplegableCurso(
+                idUsuario: state.usuario?.id ?? 0,
                 asignaturas: state.listaAsignaturasUsuario,
                 contenido: Column(
                   children: state.listaAsignaturasUsuario
@@ -75,6 +75,7 @@ class SeccionCursos extends StatelessWidget {
             Tipo.docentePendiente => state
                     .listaAsignaturasSolicitadasUsuarioPendiente.isNotEmpty
                 ? _DesplegableCurso(
+                    idUsuario: state.usuario?.id ?? 0,
                     asignaturas: state.listaAsignaturasUsuario,
                     contenido: Column(
                       children: state
@@ -190,12 +191,15 @@ class _DesplegableCurso extends StatefulWidget {
   const _DesplegableCurso({
     required this.contenido,
     required this.asignaturas,
+    required this.idUsuario,
   });
 
   /// Contenido
   final Widget contenido;
 
   final List<RelacionAsignaturaUsuario> asignaturas;
+
+  final int idUsuario;
 
   @override
   State<_DesplegableCurso> createState() => _DesplegableCursoState();
@@ -208,68 +212,26 @@ class _DesplegableCursoState extends State<_DesplegableCurso> {
       context: context,
       builder: (_) {
         return BlocProvider.value(
-          value: BlocPerfilUsuario(),
-          child: const SeleccionarAsignaturaPorComision(),
+          value: context.read<BlocPerfilUsuario>(),
+          child: SeleccionarAsignaturaParaDocente(
+            idUsuario: widget.idUsuario,
+          ),
         );
       },
     );
   }
 
   Future<void> _quitarAsignatura(BuildContext context) {
-    final colores = context.colores;
-    final l10n = context.l10n;
-    final state = context.read<BlocPerfilUsuario>().state;
-    RelacionAsignaturaUsuario? selectedAsignatura;
-
     return showDialog<void>(
       context: context,
-      builder: (_) => EscuelasDialog.solicitudDeAccion(
-        context: context,
-        onTapConfirmar: () {
-          context.read<BlocPerfilUsuario>().add(
-                BlocPerfilUsuarioEventoQuitarAsignatura(
-                  idUsuario: state.usuario?.id ?? 0,
-                  idAsignatura: selectedAsignatura?.asignaturaId ?? 0,
-                  idComision: selectedAsignatura?.comisionId ?? 0,
-                ),
-              );
-        },
-        content: Column(
-          children: [
-            Text(
-              l10n.pageUserProfileSelectTheSubjectToDelete,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: context.colores.onBackground,
-                fontSize: 16.pf,
-                fontWeight: FontWeight.w900,
-              ),
-            ),
-            const Divider(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(l10n.commonSubject),
-                Text(l10n.commonCourse),
-                Icon(
-                  Icons.delete_outline_outlined,
-                  color: colores.error,
-                  size: 20.sw,
-                ),
-              ],
-            ),
-            const Divider(),
-            RadioListTileAsignaturaComision(
-              asignaturas: widget.asignaturas,
-              onChanged: (p0) {
-                setState(() {
-                  selectedAsignatura = p0;
-                });
-              },
-            ),
-          ],
-        ),
-      ),
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: DialogQuitarAsignatura(
+            asignaturas: widget.asignaturas,
+          ),
+        );
+      },
     );
   }
 
@@ -455,6 +417,83 @@ class GrillaAsignaturaComision extends StatelessWidget {
           const Spacer(),
           Text(comision),
           SizedBox(width: 60.pw),
+        ],
+      ),
+    );
+  }
+}
+
+class DialogQuitarAsignatura extends StatefulWidget {
+  const DialogQuitarAsignatura({
+    required this.asignaturas,
+    super.key,
+  });
+
+  final List<RelacionAsignaturaUsuario> asignaturas;
+  @override
+  State<DialogQuitarAsignatura> createState() => _DialogQuitarAsignaturaState();
+}
+
+class _DialogQuitarAsignaturaState extends State<DialogQuitarAsignatura> {
+  RelacionAsignaturaUsuario? selectedAsignatura;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final colores = context.colores;
+    final state = context.read<BlocPerfilUsuario>().state;
+
+    return EscuelasDialog.solicitudDeAccion(
+      context: context,
+      onTapConfirmar: () {
+        context.read<BlocPerfilUsuario>().add(
+              BlocPerfilUsuarioEventoQuitarAsignatura(
+                asignatura: state.listaAsignaturas.firstWhere(
+                  (element) => element.id == selectedAsignatura?.asignaturaId,
+                ),
+                comision: state.listaComisiones.firstWhere(
+                  (element) => element.id == selectedAsignatura?.comisionId,
+                ),
+                idUsuario: state.usuario?.id ?? 0,
+                idAsignatura: selectedAsignatura?.asignaturaId ?? 0,
+                idComision: selectedAsignatura?.comisionId ?? 0,
+              ),
+            );
+        Navigator.of(context).pop();
+      },
+      content: Column(
+        children: [
+          Text(
+            l10n.pageUserProfileSelectTheSubjectToDelete,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: context.colores.onBackground,
+              fontSize: 16.pf,
+              fontWeight: FontWeight.w900,
+            ),
+          ),
+          const Divider(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(l10n.commonSubject),
+              Text(l10n.commonCourse),
+              Icon(
+                Icons.delete_outline_outlined,
+                color: colores.error,
+                size: 20.sw,
+              ),
+            ],
+          ),
+          const Divider(),
+          RadioListTileAsignaturaComision(
+            asignaturas: widget.asignaturas,
+            onChanged: (p0) {
+              setState(() {
+                selectedAsignatura = p0;
+              });
+            },
+          ),
         ],
       ),
     );

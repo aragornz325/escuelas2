@@ -36,8 +36,11 @@ class BlocPerfilUsuarioEventoTraerAsignaturasComisiones
 class BlocPerfilUsuarioEventoAgregarAsignatura extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoAgregarAsignatura}
   const BlocPerfilUsuarioEventoAgregarAsignatura({
+    required this.idUsuario,
     required this.idAsignaturaSeleccionada,
     required this.idComisionSeleccionada,
+    this.asignatura,
+    this.comision,
   });
 
   /// Id de la asignatura seleccionada
@@ -45,6 +48,12 @@ class BlocPerfilUsuarioEventoAgregarAsignatura extends BlocPerfilUsuarioEvento {
 
   /// Id de la comision seleccionada
   final int idComisionSeleccionada;
+
+  final int idUsuario;
+
+  final Asignatura? asignatura;
+
+  final ComisionDeCurso? comision;
 }
 
 /// {@template BlocPerfilUsuarioEventoQuitarAsignatura}
@@ -56,6 +65,8 @@ class BlocPerfilUsuarioEventoQuitarAsignatura extends BlocPerfilUsuarioEvento {
     required this.idUsuario,
     required this.idAsignatura,
     required this.idComision,
+    this.asignatura,
+    this.comision,
   });
 
   /// Id del docente al que se le quita la asignatura
@@ -66,6 +77,10 @@ class BlocPerfilUsuarioEventoQuitarAsignatura extends BlocPerfilUsuarioEvento {
 
   /// Id de la comision de la asignatura a quitar
   final int idComision;
+
+  final Asignatura? asignatura;
+
+  final ComisionDeCurso? comision;
 }
 
 /// {@template BlocPerfilUsuarioEventoEliminarDocente}

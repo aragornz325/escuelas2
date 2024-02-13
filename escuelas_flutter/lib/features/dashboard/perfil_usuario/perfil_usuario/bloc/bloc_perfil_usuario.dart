@@ -11,6 +11,7 @@ import 'package:rolemissions/rolemissions.dart';
 part 'bloc_perfil_usuario_estado.dart';
 part 'bloc_perfil_usuario_evento.dart';
 
+//! TODO(Anyone): Quitar UsuarioPendiente y arreglar lo que se rompe
 /// {@template BlocPerfilUsuario}
 /// Bloc que maneja los estados y lógica de la pagina de [PaginaPerfilUsuario]
 /// {@endtemplate}
@@ -99,15 +100,15 @@ class BlocPerfilUsuario
     emit(BlocPerfilUsuarioEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // Crea una lista de objetos y espera a que todas las llamadas
-        // que se hacen el mismo tiempo y cuando se terminan todas continua.
+        /// Crea una lista de objetos y espera a que todas las llamadas
+        /// que se hacen el mismo tiempo y cuando se terminan todas continua.
         final listaObjetos = await Future.wait([
           client.asignatura.obtenerAsignaturas(),
           client.comision.obtenerComisiones(),
         ]);
 
-        // Luego para acceder a cada item de la lista como ya se que me va a
-        // devolver el endpoint lo casteo.
+        /// Luego para acceder a cada item de la lista como ya se que me va a
+        /// devolver el endpoint lo casteo.
         final asignaturas = List<Asignatura>.from(listaObjetos[0]);
 
         final comisiones = List<ComisionDeCurso>.from(listaObjetos[1]);
@@ -134,14 +135,25 @@ class BlocPerfilUsuario
     emit(BlocPerfilUsuarioEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
+        final usuario = state.usuario;
+        if (usuario?.asignaturas?.any(
+              (element) =>
+                  element.asignaturaId == event.idAsignaturaSeleccionada,
+            ) ??
+            false) {
+          return emit(
+            BlocPerfilUsuarioEstadoError.desde(state),
+          );
+        }
         await client.asignatura.asignarDocenteAAsignatura(
           idsAsignaturas: [event.idAsignaturaSeleccionada],
-          idDocente: state.usuario?.id ?? 0,
+          idDocente: event.idUsuario,
           idComision: event.idComisionSeleccionada,
         );
-
-        state.usuario?.asignaturas?.add(
+        usuario?.asignaturas?.add(
           RelacionAsignaturaUsuario(
+            asignatura: event.asignatura,
+            comision: event.comision,
             asignaturaId: event.idAsignaturaSeleccionada,
             usuarioId: state.usuario?.id ?? 0,
             id: event.idAsignaturaSeleccionada,
@@ -150,7 +162,12 @@ class BlocPerfilUsuario
             fechaCreacion: DateTime.now(),
           ),
         );
-        emit(BlocPerfilUsuarioEstadoExitoso.desde(state));
+        emit(
+          BlocPerfilUsuarioEstadoExitosoAltraerUsuario.desde(
+            state,
+            usuario: usuario,
+          ),
+        );
       },
       onError: (e, st) {
         emit(BlocPerfilUsuarioEstadoError.desde(state));
@@ -170,6 +187,18 @@ class BlocPerfilUsuario
           idDocente: event.idUsuario,
           comisionId: event.idComision,
           asignaturaId: event.idAsignatura,
+        );
+        final usuario = state.usuario;
+        usuario?.asignaturas?.removeWhere(
+          (element) =>
+              element.asignaturaId == event.idAsignatura &&
+              element.comisionId == event.idComision,
+        );
+        emit(
+          BlocPerfilUsuarioEstadoExitosoAltraerUsuario.desde(
+            state,
+            usuario: usuario,
+          ),
         );
         emit(BlocPerfilUsuarioEstadoExitoso.desde(state));
       },

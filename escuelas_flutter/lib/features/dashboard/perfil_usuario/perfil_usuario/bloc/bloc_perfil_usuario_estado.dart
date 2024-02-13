@@ -1,5 +1,7 @@
 part of 'bloc_perfil_usuario.dart';
 
+//! TODO(Anyone): Quitar UsuarioPendiente y arreglar lo que se rompe
+
 /// {@template BlocPerfilUsuarioEstado}
 /// Maneja los distintos estados y variables guardadas en los mismos
 /// {@endtemplate}
