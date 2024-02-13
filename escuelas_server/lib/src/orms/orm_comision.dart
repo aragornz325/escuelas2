@@ -105,6 +105,7 @@ class OrmComision extends ORM {
               id: comision['curso']['curso_id'],
               nombre: comision['curso']['nombre_curso'],
             ),
+            ultimaModificacion: DateTime.now(),
           ),
           asignaturas: comision['asignaturas']
               .map<Asignatura>(
