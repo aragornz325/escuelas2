@@ -10,7 +10,6 @@ import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
-import 'package:test/test.dart';
 
 import 'server_test.dart';
 
@@ -51,14 +50,14 @@ Future<void> main() async {
       ),
     );
     await ServicioRol().asignarRolAUsuario(
-        session,
-        idUsuario: usuarioCreado.id!,
-        idRol: usuariosACrear.indexOf(usuario) <= 6 ? 1 : 2,
-        // TODO(anyone):
-        // Por ahora el id de organizacion siempre va a ser 1
-        // ese id va a ser referente a la organizacion de la escuela
-        // `Redemptoris Missio`
-        idOrganizacion: 1,
-      );
+      session,
+      idUsuario: usuarioCreado.id!,
+      idRol: usuariosACrear.indexOf(usuario) <= 6 ? 1 : 2,
+      // TODO(anyone):
+      // Por ahora el id de organizacion siempre va a ser 1
+      // ese id va a ser referente a la organizacion de la escuela
+      // `Redemptoris Missio`
+      idOrganizacion: 1,
+    );
   }
 }

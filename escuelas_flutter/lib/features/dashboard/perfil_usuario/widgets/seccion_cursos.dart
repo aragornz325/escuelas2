@@ -1,7 +1,8 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
-import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/dialog_elegir_asignatura.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/dialog_seleccionar_asignatura_docente.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/dialog_quitar_asignatura.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
@@ -197,8 +198,10 @@ class _DesplegableCurso extends StatefulWidget {
   /// Contenido
   final Widget contenido;
 
+  /// Lista de asignaturas que tiene el usuario
   final List<RelacionAsignaturaUsuario> asignaturas;
 
+  /// Id del usuario
   final int idUsuario;
 
   @override
@@ -221,6 +224,8 @@ class _DesplegableCursoState extends State<_DesplegableCurso> {
     );
   }
 
+  /// Muestra un Dialog para selecciona una asignatura a desasignar de la lista
+  /// del docente
   Future<void> _quitarAsignatura(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -335,167 +340,4 @@ enum Tipo {
   docentePendiente,
   alumnoAprobado,
   alumnoPendiente;
-}
-
-/// {@template RadioListTileAsignaturaComision}
-/// RadioListTile para el popup de seleccionar una asignatura y quitarla del
-/// docente
-/// {@endtemplate}
-class RadioListTileAsignaturaComision extends StatefulWidget {
-  /// {@macro RadioListTileAsignaturaComision}
-  const RadioListTileAsignaturaComision({
-    required this.asignaturas,
-    super.key,
-    this.onChanged,
-  });
-
-  /// Lista de asignaturas que tiene el usuario
-  final List<RelacionAsignaturaUsuario> asignaturas;
-
-  final void Function(RelacionAsignaturaUsuario?)? onChanged;
-  @override
-  _RadioListTileAsignaturaComisionState createState() =>
-      _RadioListTileAsignaturaComisionState();
-}
-
-class _RadioListTileAsignaturaComisionState
-    extends State<RadioListTileAsignaturaComision> {
-  /// Asignatura seleccionada
-  RelacionAsignaturaUsuario? selectedAsignatura;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: widget.asignaturas
-          .map(
-            (relacionAsignaturaUsuario) => RadioListTile(
-              contentPadding: EdgeInsets.zero,
-              controlAffinity: ListTileControlAffinity.trailing,
-              title: GrillaAsignaturaComision(
-                asignatura: relacionAsignaturaUsuario.asignatura?.nombre ?? '',
-                comision: relacionAsignaturaUsuario.comision?.nombre ?? '',
-              ),
-              value: relacionAsignaturaUsuario,
-              groupValue: selectedAsignatura,
-              onChanged: (value) {
-                widget.onChanged?.call(value);
-                setState(() {
-                  selectedAsignatura = value;
-                });
-              },
-            ),
-          )
-          .toList(),
-    );
-  }
-}
-
-/// {@template GrillaAsignaturaComision}
-/// Grilla de asignatura y comision utilizada para el popup de quitar asignatura
-/// {@endtemplate}
-class GrillaAsignaturaComision extends StatelessWidget {
-  /// {@macro GrillaAsignaturaComision}
-  const GrillaAsignaturaComision({
-    required this.asignatura,
-    required this.comision,
-    super.key,
-  });
-
-  /// Refiere al nombre de la asignatura
-  final String asignatura;
-
-  /// Refiere a la comision que corresponde la asignatura
-  final String comision;
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 135.pw,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Text(asignatura),
-          const Spacer(),
-          Text(comision),
-          SizedBox(width: 60.pw),
-        ],
-      ),
-    );
-  }
-}
-
-class DialogQuitarAsignatura extends StatefulWidget {
-  const DialogQuitarAsignatura({
-    required this.asignaturas,
-    super.key,
-  });
-
-  final List<RelacionAsignaturaUsuario> asignaturas;
-  @override
-  State<DialogQuitarAsignatura> createState() => _DialogQuitarAsignaturaState();
-}
-
-class _DialogQuitarAsignaturaState extends State<DialogQuitarAsignatura> {
-  RelacionAsignaturaUsuario? selectedAsignatura;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final colores = context.colores;
-    final state = context.read<BlocPerfilUsuario>().state;
-
-    return EscuelasDialog.solicitudDeAccion(
-      context: context,
-      onTapConfirmar: () {
-        context.read<BlocPerfilUsuario>().add(
-              BlocPerfilUsuarioEventoQuitarAsignatura(
-                asignatura: state.listaAsignaturas.firstWhere(
-                  (element) => element.id == selectedAsignatura?.asignaturaId,
-                ),
-                comision: state.listaComisiones.firstWhere(
-                  (element) => element.id == selectedAsignatura?.comisionId,
-                ),
-                idUsuario: state.usuario?.id ?? 0,
-                idAsignatura: selectedAsignatura?.asignaturaId ?? 0,
-                idComision: selectedAsignatura?.comisionId ?? 0,
-              ),
-            );
-        Navigator.of(context).pop();
-      },
-      content: Column(
-        children: [
-          Text(
-            l10n.pageUserProfileSelectTheSubjectToDelete,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: context.colores.onBackground,
-              fontSize: 16.pf,
-              fontWeight: FontWeight.w900,
-            ),
-          ),
-          const Divider(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(l10n.commonSubject),
-              Text(l10n.commonCourse),
-              Icon(
-                Icons.delete_outline_outlined,
-                color: colores.error,
-                size: 20.sw,
-              ),
-            ],
-          ),
-          const Divider(),
-          RadioListTileAsignaturaComision(
-            asignaturas: widget.asignaturas,
-            onChanged: (p0) {
-              setState(() {
-                selectedAsignatura = p0;
-              });
-            },
-          ),
-        ],
-      ),
-    );
-  }
 }

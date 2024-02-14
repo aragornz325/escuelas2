@@ -4,11 +4,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/dialog_eliminar_docente.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
-import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -45,30 +45,14 @@ class TarjetaPerfil extends StatelessWidget {
 
   /// Dialog de confirmacion para eliminar el usuario
   Future<void> _confirmarEliminado(BuildContext context) {
-    final l10n = context.l10n;
-    final usuario = context.read<BlocPerfilUsuario>().state.usuario;
-
     return showDialog<void>(
       context: context,
-      builder: (_) => EscuelasDialog.solicitudDeAccion(
-        context: context,
-        onTapConfirmar: () {
-          Navigator.of(context).pop();
-          context.read<BlocPerfilUsuario>().add(
-                BlocPerfilUsuarioEventoEliminarDocente(
-                  idUsuario: idUsuario!,
-                ),
-              );
-        },
-        titulo: l10n.commonAttention.toUpperCase(),
-        content: Column(
-          children: [
-            Text(
-                '${l10n.pageUserProfileConfirmDeleteQuestion}${usuario?.nombre.toUpperCase()} ${usuario?.apellido.toUpperCase()} ${l10n.pageUserProfileTeacherList}'),
-            Text(l10n.commonWantToContinue),
-          ],
-        ),
-      ),
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: DialogEliminarDocente(idUsuario: idUsuario),
+        );
+      },
     );
   }
 

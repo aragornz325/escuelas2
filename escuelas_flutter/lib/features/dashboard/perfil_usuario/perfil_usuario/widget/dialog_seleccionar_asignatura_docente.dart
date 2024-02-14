@@ -19,6 +19,7 @@ class SeleccionarAsignaturaParaDocente extends StatefulWidget {
     super.key,
   });
 
+  /// Id del usuario
   final int idUsuario;
 
   @override
