@@ -2,10 +2,12 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:escuelas_flutter/isar/isar_servicio.dart';
+import 'package:escuelas_flutter/one_signal/one_signal_servicio.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+
 import 'package:path_provider/path_provider.dart';
 
 class AppBlocObserver extends BlocObserver {
@@ -37,6 +39,9 @@ Future<void> bootstrap(
 
   WidgetsFlutterBinding.ensureInitialized();
 
+  /// One Signal(push notifications)
+  await OneSignalServicio.inicializarOneSignal();
+
   /// Se instancia el objeto de la base de datos local Isar
   if (!kIsWeb) {
     await IsarServicio.abrirDB();
@@ -63,3 +68,6 @@ enum EntornosDeDesarrollo {
   development,
   production,
 }
+
+
+ 
