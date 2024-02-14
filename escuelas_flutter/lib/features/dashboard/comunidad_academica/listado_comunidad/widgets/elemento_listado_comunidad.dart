@@ -28,7 +28,10 @@ class ElementoListadoComunidad extends StatelessWidget {
   /// Verifica si es del listado nombre para enviar o no widget derecho
   final OrdenarPor ordenarPor;
 
+  /// Funcion que se ejecuta al presionar el elemento en caso contrario te
+  /// redirije al perfil
   final VoidCallback? onTap;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;

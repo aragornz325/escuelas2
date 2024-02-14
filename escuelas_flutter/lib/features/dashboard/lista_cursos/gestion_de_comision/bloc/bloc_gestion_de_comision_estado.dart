@@ -1,7 +1,11 @@
 part of 'bloc_gestion_de_comision.dart';
 
-@immutable
+/// {@template BlocGestionDeComisionEstado}
+/// Maneja los estados y variables generales de la pantalla
+/// 'Gestion de comisiones'
+/// {@endtemplate}
 class BlocGestionDeComisionEstado {
+  /// {@macro BlocGestionDeComisionEstado}
   const BlocGestionDeComisionEstado._({
     this.listaAlumnos,
   });
@@ -12,6 +16,8 @@ class BlocGestionDeComisionEstado {
           listaAlumnos: listaAlumnos ?? otro.listaAlumnos,
         );
 
+  // TODO(mati): esta lista por ahora esta hardcodeada cuando se implemente
+  // nuevo endpoint se cambiara
   final UsuariosOrdenados? listaAlumnos;
 
   List<Object?> get props => [

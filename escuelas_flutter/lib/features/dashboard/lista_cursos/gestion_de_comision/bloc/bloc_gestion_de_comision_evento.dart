@@ -4,7 +4,7 @@ part of 'bloc_gestion_de_comision.dart';
 /// Maneja los eventos generales de la pantalla 'Gestion de comisiones'
 /// {@endtemplate}
 @immutable
-sealed class BlocGestionDeComisionEvento {
+class BlocGestionDeComisionEvento {
   /// {@macro BlocGestionDeComisionEvento}
   const BlocGestionDeComisionEvento();
 
