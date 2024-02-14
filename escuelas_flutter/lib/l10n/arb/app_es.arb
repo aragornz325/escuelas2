@@ -249,6 +249,21 @@
         "description": "Text in button to Add a new subject for the current teacher"
     },
 
+    "pageManagementOfCourseAssignTeacher": "Asignar docente",
+    "@pageManagementOfCourseAssignTeacher": {
+        "description": "Label indicating the action to assign a teacher to a course."
+    },
+
+    "pageManagementOfCourseAddStudent": "Añadir Alumno",
+    "@pageManagementOfCourseAddStudent": {
+        "description": "Label indicating the action to add a student to a course."
+    },
+
+    "pageManagementOfCourseThereAreNoTeachersAssigned": "No hay ningún docente asignado a esta asignatura",
+    "@pageManagementOfCourseThereAreNoTeachersAssigned": {
+        "description": "Message indicating that there are no teachers assigned to a specific subject or course."
+    },
+
     "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
     "@dialogErrorToSendGrades": {
         "description": "Label indicating an error when sending notes."
@@ -634,5 +649,17 @@
     "commonDeleteAll": "Borrar todos",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+
+    "commonTeacher": "Docente",
+    "@commonTeacher": {
+        "description": "Teacher or instructor in an educational context."
+    },
+
+    "commonStudent": "Alumno",
+    "@commonStudent": {
+        "description": "Student or learner in an educational context."
     }
+    
+
 }

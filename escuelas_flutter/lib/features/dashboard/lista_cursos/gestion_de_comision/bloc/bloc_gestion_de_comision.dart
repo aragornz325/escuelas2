@@ -6,12 +6,18 @@ import 'package:meta/meta.dart';
 part 'bloc_gestion_de_comision_evento.dart';
 part 'bloc_gestion_de_comision_estado.dart';
 
+/// {@template BlocGestionDeComision}
+/// Bloc que maneja los estados y lógica de la '[PaginaGestionDeComision]'
+/// {@endtemplate}
 class BlocGestionDeComision
     extends Bloc<BlocGestionDeComisionEvento, BlocGestionDeComisionEstado> {
-  BlocGestionDeComision() : super(BlocGestionDeComisionEstadoInicial()) {
+  /// {@macro BlocGestionDeComisionEvento}
+  BlocGestionDeComision() : super(const BlocGestionDeComisionEstadoInicial()) {
     on<BlocGestionDeComisionEventoInicializar>(_onInicializar);
   }
 
+  /// Evento inicial para obtener el docente de la asignatura
+  /// y los alumnos de una comision
   Future<void> _onInicializar(
     BlocGestionDeComisionEventoInicializar event,
     Emitter<BlocGestionDeComisionEstado> emit,
@@ -23,10 +29,15 @@ class BlocGestionDeComision
         // esa comision y el profesor asignado a esta asignatura.
         final listaAlumnos =
             await client.usuario.obtenerUsuariosPorRolSorteados(
-          idRol: 1,
+          idRol: 1, // TODO(mati): rol alumno
           ordenarUsuariosPor: OrdenarPor.apellido,
         );
 
+        // TODO(mati): hacer el filtrado de los usuario cual es el docente.
+        // y el id de la asignatura
+        // final asignatura = await client.asignatura.obtenerAsignaturaPorId(
+        //   id: 1,
+        // );
         emit(
           BlocGestionDeComisionEstadoExitoso.desde(
             state,

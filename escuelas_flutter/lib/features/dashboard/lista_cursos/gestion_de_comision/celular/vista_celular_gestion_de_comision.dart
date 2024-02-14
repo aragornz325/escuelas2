@@ -27,13 +27,16 @@ class VistaCelularGestionDeComision extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 20.pw),
       child: Column(
         children: [
-          Componente(
-            tituloDeRol: 'Docente:', // TODO(mati): traducciones
+          ComponenteDependiendoElRol(
+            tituloDeRol: '${l10n.commonTeacher}:',
             onTap: () {
-              // TODO(mati): agregarle funcionalidad
+              // TODO(mati): agregarle funcionalidad de asignar docente
             },
-            tituloBoton: 'Asignar Docente', // TODO(mati): traducciones
+            tituloBoton: l10n.pageManagementOfCourseAssignTeacher,
           ),
+          // TODO(mati): agregarle Condicion de que si no hay docente
+          // asignado a esta asignatura mostrar el texto sino el nombre
+          // del docente con la imagen.
           Row(
             children: [
               CircleAvatar(
@@ -41,11 +44,8 @@ class VistaCelularGestionDeComision extends StatelessWidget {
                 backgroundColor: colores.secondary,
               ),
               SizedBox(width: 10.pw),
-              // TODO(mati): agregarle Condicion de que si no hay docente
-              // asignado a esta asignatura mostrar el texto sino el nombre
-              // del docente con la imagen.
               Text(
-                'No hay ningun docente asignado a esta asignatura',
+                l10n.pageManagementOfCourseThereAreNoTeachersAssigned,
                 style: TextStyle(
                   fontSize: 13.pf,
                   fontWeight: FontWeight.w400,
@@ -54,13 +54,12 @@ class VistaCelularGestionDeComision extends StatelessWidget {
               ),
             ],
           ),
-          //* alumnos
-          Componente(
-            tituloDeRol: 'Alumno:', // TODO(mati): traducciones
+          ComponenteDependiendoElRol(
+            tituloDeRol: '${l10n.commonStudent}:',
             onTap: () {
-              // TODO(mati): agregarle funcionalidad
+              // TODO(mati): agregarle funcionalidad de agregar alumno
             },
-            tituloBoton: 'Añadir Alumno', // TODO(mati): traducciones
+            tituloBoton: l10n.pageManagementOfCourseAddStudent,
           ),
           BlocBuilder<BlocGestionDeComision, BlocGestionDeComisionEstado>(
             builder: (context, state) {
@@ -109,9 +108,9 @@ class VistaCelularGestionDeComision extends StatelessWidget {
 /// {@template Componente}
 /// TODO(mati): documentar.
 /// {@endtemplate}
-class Componente extends StatelessWidget {
+class ComponenteDependiendoElRol extends StatelessWidget {
   /// {@macro Componente}
-  const Componente({
+  const ComponenteDependiendoElRol({
     required this.tituloDeRol,
     required this.tituloBoton,
     required this.onTap,

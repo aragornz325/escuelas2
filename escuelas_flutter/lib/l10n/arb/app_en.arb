@@ -283,6 +283,22 @@
         "description": "There are no options available in the menu"
     },
 
+    
+    "pageManagementOfCourseAssignTeacher": "assign teacher",
+    "@pageManagementOfCourseAssignTeacher": {
+        "description": "Label indicating the action to assign a teacher to a course."
+    },
+
+    "pageManagementOfCourseAddStudent": "Add Student",
+    "@pageManagementOfCourseAddStudent": {
+        "description": "Label indicating the action to add a student to a course."
+    },
+
+    "pageManagementOfCourseThereAreNoTeachersAssigned": "There are no teachers assigned to this subject",
+    "@pageManagementOfCourseThereAreNoTeachersAssigned": {
+        "description": "Message indicating that there are no teachers assigned to a specific subject or course."
+    },
+
     "dialogAbsencesSentCorrectly": "absences sent correctly",
     "@dialogAbsencesSentCorrectly": {
         "description": "Text to be displayed in the title of the dialog when absences to sent correctly"
@@ -636,6 +652,16 @@
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+
+    "commonTeacher": "Teacher",
+    "@commonTeacher": {
+        "description": "Teacher or instructor in an educational context."
+    },
+
+    "commonStudent": "Student",
+    "@commonStudent": {
+        "description": "Student or learner in an educational context."
     }
 
 }
