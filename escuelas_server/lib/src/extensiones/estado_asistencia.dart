@@ -1,4 +1,4 @@
-import 'package:escuelas_server/src/generated/protocol/asistencia/estado_asistencia.dart';
+import 'package:escuelas_server/src/generated/protocol.dart';
 
 /// Extensiones para el estado de asistencia.
 /// Funciones:

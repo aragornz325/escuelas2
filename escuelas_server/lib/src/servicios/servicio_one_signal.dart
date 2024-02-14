@@ -1,6 +1,6 @@
 import 'package:escuelas_commons/modelo_notificacion/notificacion_data.dart';
 import 'package:escuelas_server/src/extensiones/estado_asistencia.dart';
-import 'package:escuelas_server/src/generated/protocol/asistencia/asistencia_diaria.dart';
+import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/handlers/manejador_one_signal.dart';
 
 class ServicioOneSignal {
