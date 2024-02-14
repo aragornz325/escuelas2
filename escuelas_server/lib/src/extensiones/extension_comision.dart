@@ -3,8 +3,7 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 extension ComisionDeCursoX on ComisionDeCurso {
   String get nombreDelCurso => curso?.nombre ?? '';
 
-  String get nombreDelCursoYLaComision =>
-      curso != null ? '${curso!.nombre} $nombre' : '';
+  String get nombreDelCursoYLaComision => '$nombreDelCurso $nombre';
 
   List<Asignatura> get listaDeAsignaturas => curso?.asignaturas ?? [];
 
@@ -15,9 +14,9 @@ extension ComisionDeCursoX on ComisionDeCurso {
                 e.usuario ??
                 Usuario(
                   idUserInfo: 0,
-                  nombre: 'nombre',
-                  apellido: 'apellido',
-                  urlFotoDePerfil: 'urlFotoDePerfil',
+                  nombre: '',
+                  apellido: '',
+                  urlFotoDePerfil: '',
                 ),
           )
           .where((element) => element.id != null)
