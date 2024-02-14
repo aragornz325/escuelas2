@@ -8,6 +8,7 @@ import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
+import 'package:escuelas_server/utils/plantilla_mail_escuelas.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioCalificacion extends Servicio<OrmCalificacion> {
@@ -322,6 +323,7 @@ WHERE rau."usuarioId" = $idUsuario
         return;
       });
 
+  /// TODO(Juanjo): Re-factorizar, eliminar código duplicado, etc.
   Future<bool> enviarCalificacionesPorMesYAnio(
     Session session, {
     required EnvioCalificaciones filtroDeEnvio,
@@ -402,13 +404,20 @@ WHERE rau."usuarioId" = $idUsuario
           );
         }
 
-        await ServicioComunicaciones().enviarEmail(session,
-            direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
-                .map((e) => e.direccionDeEmail)
-                .toList(),
-            asuntoDelCorreo:
-                '${estudiante.nombre}, ¡tus calificaciones llegaron!',
-            contenidoHtmlDelCorreo: '$asignaturasCalificaciones');
+        await ServicioComunicaciones().enviarEmail(
+          session,
+          direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
+              .map((e) => e.direccionDeEmail)
+              .toList(),
+          asuntoDelCorreo:
+              '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+          contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+            nombre: estudiante.nombre,
+            apellido: estudiante.apellido,
+            curso: '${curso.nombre} ${comision.nombre}',
+            calificaciones: asignaturasCalificaciones.toString(),
+          ).html(),
+        );
       }
     }
     return true;
@@ -445,13 +454,20 @@ WHERE rau."usuarioId" = $idUsuario
           );
         }
 
-        await ServicioComunicaciones().enviarEmail(session,
-            direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
-                .map((e) => e.direccionDeEmail)
-                .toList(),
-            asuntoDelCorreo:
-                '${estudiante.nombre}, ¡tus calificaciones llegaron!',
-            contenidoHtmlDelCorreo: '$asignaturasCalificaciones');
+        await ServicioComunicaciones().enviarEmail(
+          session,
+          direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
+              .map((e) => e.direccionDeEmail)
+              .toList(),
+          asuntoDelCorreo:
+              '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+          contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+            nombre: estudiante.nombre,
+            apellido: estudiante.apellido,
+            curso: '${curso.nombre} ${comision.nombre}',
+            calificaciones: asignaturasCalificaciones.toString(),
+          ).html(),
+        );
       }
     }
     return true;
@@ -488,13 +504,20 @@ WHERE rau."usuarioId" = $idUsuario
           );
         }
 
-        await ServicioComunicaciones().enviarEmail(session,
-            direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
-                .map((e) => e.direccionDeEmail)
-                .toList(),
-            asuntoDelCorreo:
-                '${estudiante.nombre}, ¡tus calificaciones llegaron!',
-            contenidoHtmlDelCorreo: '$asignaturasCalificaciones');
+        await ServicioComunicaciones().enviarEmail(
+          session,
+          direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
+              .map((e) => e.direccionDeEmail)
+              .toList(),
+          asuntoDelCorreo:
+              '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+          contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+            nombre: estudiante.nombre,
+            apellido: estudiante.apellido,
+            curso: '${curso.nombre} ${comision.nombre}',
+            calificaciones: asignaturasCalificaciones.toString(),
+          ).html(),
+        );
       }
     }
     return true;
@@ -539,13 +562,20 @@ WHERE rau."usuarioId" = $idUsuario
           );
         }
 
-        await ServicioComunicaciones().enviarEmail(session,
-            direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
-                .map((e) => e.direccionDeEmail)
-                .toList(),
-            asuntoDelCorreo:
-                '${estudiante.nombre}, ¡tus calificaciones llegaron!',
-            contenidoHtmlDelCorreo: '$asignaturasCalificaciones');
+        await ServicioComunicaciones().enviarEmail(
+          session,
+          direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
+              .map((e) => e.direccionDeEmail)
+              .toList(),
+          asuntoDelCorreo:
+              '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+          contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+            nombre: estudiante.nombre,
+            apellido: estudiante.apellido,
+            curso: '${curso.nombre} ${comision.nombre}',
+            calificaciones: asignaturasCalificaciones.toString(),
+          ).html(),
+        );
       }
     }
     return true;
