@@ -16,6 +16,8 @@ import 'src/generated/endpoints.dart';
 // only need to make additions to this file if you add future calls,  are
 // configuring Relic (Serverpod's web-server), or need custom setup work.
 
+late final Serverpod pod;
+
 void run(List<String> args) async {
   final ServicioComunicaciones _servicioComunicaciones =
       ServicioComunicaciones();
@@ -24,7 +26,7 @@ void run(List<String> args) async {
   );
   // Initialize Serverpod and connect it with your generated code.
   inicializarLogger(); // Initialize Serverpod and connect it with your generated code.
-  final pod = Serverpod(
+  pod = Serverpod(
     args,
     Protocol(),
     Endpoints(),
@@ -46,11 +48,11 @@ void run(List<String> args) async {
   // TODO(anyone): Obtener esta data de las configs (Las que estan aca son las de dev)
   final rolePermissions = Rolemissions(
     persistanceDelegate: PostgresStrategy(
-      host: 'aws-0-sa-east-1.pooler.supabase.com',
-      databaseName: 'postgres',
-      userName: 'postgres.mvdsvzvejhmrnxgdfdwz',
-      dbPassword: 'L86Grm9pso3LyUdA',
-      port: 5432,
+      host: pod.config.database.host,
+      databaseName: pod.config.database.name,
+      userName: pod.config.database.user,
+      dbPassword: pod.config.database.password,
+      port: pod.config.database.port,
     ),
   );
 
@@ -61,7 +63,7 @@ void run(List<String> args) async {
       sendValidationEmail: (session, email, validationCode) async {
         final enviarEmail = await _servicioComunicaciones.enviarEmail(
           session,
-          direccionEmailDestinatario: email,
+          direccionEmailDestinatarios: [email],
           asuntoDelCorreo: asuntoDeCorreoVerificacionDeCuenta,
           contenidoHtmlDelCorreo:
               '<p>Tu código de validación es $validationCode.</p>',
@@ -86,7 +88,7 @@ void run(List<String> args) async {
 
         final enviarEmail = await _servicioComunicaciones.enviarEmail(
           session,
-          direccionEmailDestinatario: userInfo.email!,
+          direccionEmailDestinatarios: [userInfo.email!],
           asuntoDelCorreo: asuntoDeCorreoRecuperacionDePassword,
           contenidoHtmlDelCorreo:
               '<p>Tu código de validación es $validationCode.</p>',

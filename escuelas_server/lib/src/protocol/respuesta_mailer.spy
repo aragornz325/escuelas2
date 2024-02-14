@@ -1,6 +1,6 @@
 class: RespuestaMailer
 fields:
-  direccionEmailDestinatario: String
+  direccionEmailDestinatarios: List<String>
   asuntoDelCorreo: String
   contenidoHtmlDelCorreo: String
   conexionAbierta: DateTime?

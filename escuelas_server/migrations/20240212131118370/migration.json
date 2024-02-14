@@ -1,0 +1,47 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "usuarios",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "contactoDeEmergenciaId"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [
+          "usuario_contacto_de_emergencia_unique_idx"
+        ],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [
+          "usuarios_fk_1"
+        ],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"contactoDeEmergenciaId\" of table \"usuarios\" will be dropped.",
+            "table": "usuarios",
+            "columns": [
+              "contactoDeEmergenciaId"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"contactoDeEmergenciaId\" of table \"usuarios\" will be dropped.",
+      "table": "usuarios",
+      "columns": [
+        "contactoDeEmergenciaId"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

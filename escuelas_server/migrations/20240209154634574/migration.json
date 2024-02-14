@@ -1,0 +1,113 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "numeros_de_telefono"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "numeros_de_telefono",
+        "dartName": "NumeroDeTelefono",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('numeros_de_telefono_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "usuarioId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "numeroDeTelefono",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "tipoDeTelefono",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "protocol:TipoDeTelefono"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "numeros_de_telefono_fk_0",
+            "columns": [
+              "usuarioId"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "numeros_de_telefono_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"_usuariosNumerosdetelefonoUsuariosId\" of table \"numeros_de_telefono\" will be dropped.",
+      "table": "numeros_de_telefono",
+      "columns": [
+        "_usuariosNumerosdetelefonoUsuariosId"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"numeros_de_telefono\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "numeros_de_telefono",
+      "columns": [
+        "usuarioId"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

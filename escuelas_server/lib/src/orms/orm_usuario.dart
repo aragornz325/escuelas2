@@ -5,7 +5,7 @@ import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
 
 class OrmUsuario extends ORM {
-  Future<Usuario> crearUsuario( 
+  Future<Usuario> crearUsuario(
     Session session, {
     required Usuario nuevoUsuario,
   }) async {
@@ -222,36 +222,49 @@ class OrmUsuario extends ORM {
     );
   }
 
+  ///devuelve una lista de [Usuario]s dependiendo de los parametros que se le pasen
   Future<List<Usuario>> obtenerUsuarios(
     Session session, {
     int? idRol,
+    String? nombre,
+    String? apellido,
   }) async {
     return await ejecutarOperacionOrm(
       session,
       (session) async => await Usuario.db.find(
         session,
         where: (t) {
+          Expression condicion = t.fechaEliminacion.equals(null);
+
           if (idRol != null) {
-            return Expression(
-              '''
-              "id" IN (
-                SELECT "userId" FROM "user_role_relation" WHERE "roleId" = $idRol
-              )''',
-            );
+            condicion = condicion &
+                Expression(
+                  '''
+            "id" IN (
+              SELECT "userId" FROM "user_role_relation" WHERE "roleId" = $idRol
+            )''',
+                );
+          }
+          if (nombre != null) {
+            condicion = condicion & t.nombre.equals(nombre);
+          }
+          if (apellido != null) {
+            condicion = condicion & t.apellido.equals(apellido);
           }
 
-          return t.id.notEquals(
-                null,
-              ) &
-              t.fechaEliminacion.equals(
-                null,
-              );
+          return condicion;
         },
         include: Usuario.include(
           comisiones: RelacionComisionUsuario.includeList(
             include: RelacionComisionUsuario.include(
               comision: ComisionDeCurso.include(),
             ),
+          ),
+          numerosDeTelefono: NumeroDeTelefono.includeList(
+            include: NumeroDeTelefono.include(),
+          ),
+          direccionesDeEmail: DireccionDeEmail.includeList(
+            include: DireccionDeEmail.include(),
           ),
           asignaturas: RelacionAsignaturaUsuario.includeList(
             include: RelacionAsignaturaUsuario.include(
@@ -266,9 +279,15 @@ class OrmUsuario extends ORM {
   Future<List<int>> obtenerIdsDeUsuariosDocentes(
     Session session,
   ) async {
-    final usuarios = await RelacionAsignaturaUsuario.db
-        .find(session, orderBy: (t) => t.usuarioId);
-    final ids = usuarios.map((e) => e.usuarioId).toList();
+    final usuarios = await RelacionAsignaturaUsuario.db.find(
+      session,
+      orderBy: (t) => t.usuarioId,
+    );
+    final ids = usuarios
+        .map(
+          (e) => e.usuarioId,
+        )
+        .toList();
 
     return ids;
   }

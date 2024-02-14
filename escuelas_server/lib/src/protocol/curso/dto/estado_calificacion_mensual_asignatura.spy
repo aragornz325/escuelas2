@@ -1,0 +1,8 @@
+class: EstadoCalificacionesAsignatura
+fields:
+    idAsignatura: int
+    nombreAsignatura: String
+    idUsuario: int
+    nombreDocente: String
+    idSolicitud: int
+    fechaRealizacionSolicitud: DateTime?

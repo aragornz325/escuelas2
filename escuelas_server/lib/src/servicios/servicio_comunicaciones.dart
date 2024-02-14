@@ -9,12 +9,12 @@ class ServicioComunicaciones extends Servicio {
   
   Future<RespuestaMailer> enviarEmail(
     Session session, {
-    required String direccionEmailDestinatario,
+    required List<String> direccionEmailDestinatarios,
     required String asuntoDelCorreo,
     required String contenidoHtmlDelCorreo,
   }) async {
     final RespuestaMailer respuesta = RespuestaMailer(
-      direccionEmailDestinatario: direccionEmailDestinatario,
+      direccionEmailDestinatarios: direccionEmailDestinatarios,
       asuntoDelCorreo: asuntoDelCorreo,
       contenidoHtmlDelCorreo: contenidoHtmlDelCorreo,
       huboUnError: false,
@@ -22,7 +22,7 @@ class ServicioComunicaciones extends Servicio {
 
     final message = Message()
       ..from = Address(EnvDev.direccionEmailGmail, nombreEnCorreosElectronicos)
-      ..recipients.add(direccionEmailDestinatario)
+      ..recipients.addAll(direccionEmailDestinatarios)
       ..subject = asuntoDelCorreo
       ..html = contenidoHtmlDelCorreo;
 

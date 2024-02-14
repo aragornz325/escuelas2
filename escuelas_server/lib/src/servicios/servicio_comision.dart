@@ -2,11 +2,13 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_comision.dart';
 import 'package:escuelas_server/src/orms/orm_usuario_comision.dart';
 import 'package:escuelas_server/src/servicio.dart';
+import 'package:escuelas_server/src/servicios/servicio_asignatura.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioComision extends Servicio<OrmComision> {
   @override
   OrmComision get orm => OrmComision();
+  ServicioAsignatura get servicioAsignatura => ServicioAsignatura();
 
   final _ormUsuarioComision = OrmUsuarioComision();
 
@@ -75,5 +77,86 @@ class ServicioComision extends Servicio<OrmComision> {
         .toList();
 
     return supervisionDeCursos;
+  }
+
+  /// Obtiene las [ComisionDeCurso] con las asignaturas que tienen.
+  Future<List<ComisionConAsignaturas>> listarComisionesConAsignaturas(
+    Session session,
+  ) async {
+    final comisiones = await ejecutarOperacion(
+      () => orm.obtenerComisionesConAsignaturas(
+        session,
+      ),
+    );
+
+    return comisiones;
+  }
+
+  /// cambia un usuario de una [ComisionDeCurso] a otra
+  /// si el usuario no tiene asignada una comision previa lo asigna a la nueva
+  Future<bool> cambiarUsuarioDeComision(
+    Session session, {
+    required int idComision,
+    required int idUsuario,
+  }) async {
+    final relacionPrevia =
+        await _ormUsuarioComision.obtenerRelacionConCursoDeUnUsuario(
+      session,
+      idUsuario: idUsuario,
+    );
+
+    final relacion = RelacionComisionUsuario(
+      comisionId: idComision,
+      usuarioId: idUsuario,
+    );
+
+    if (relacionPrevia.isEmpty) {
+      await _ormUsuarioComision.crearRelacionUsuarioAComision(
+        session,
+        idComision: idComision,
+        idUsuario: idUsuario,
+      );
+    } else {
+      await session.dbNext.transaction((transaction) async {
+        await RelacionComisionUsuario.db.deleteWhere(
+          session,
+          where: (t) =>
+              t.comisionId.equals(
+                relacionPrevia.first.comisionId,
+              ) &
+              t.usuarioId.equals(
+                relacionPrevia.first.usuarioId,
+              ),
+          transaction: transaction,
+        );
+        await RelacionComisionUsuario.db.insertRow(
+          session,
+          relacion,
+          transaction: transaction,
+        );
+
+        return true;
+      });
+    }
+
+    return true;
+
+  }
+  
+  /// Obtiene una lista de las asignaturas dentro de una comisión, junto al nombre del docente,
+  /// y la fecha en que las calificaciones del mes y el año indicados fueron cargadas.
+  Future<List<EstadoCalificacionesAsignatura>> obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+    Session session, {
+    required int idComision,
+    required int mes,
+    required int anio,
+  }) async {
+    return await ejecutarOperacion(
+        () => orm.obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+              session,
+              idComision: idComision,
+              mes: mes,
+              anio: anio,
+            ));
   }
 }

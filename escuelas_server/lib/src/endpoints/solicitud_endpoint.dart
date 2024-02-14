@@ -15,7 +15,7 @@ class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
   ) async {
     return await ejecutarOperacionControlador(
       session,
-      'crearSolicitu',
+      'crearSolicitud',
       () => servicio.crearSolicitud(
         session,
         solicitud: solicitud,

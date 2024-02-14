@@ -28,6 +28,17 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
         () => servicio.obtenerComisiones(session),
       );
 
+  Future<List<ComisionConAsignaturas>> listarComisionesConAsignaturas(
+    Session session,
+  ) async =>
+      ejecutarOperacionControlador(
+        session,
+        'listarComisionesConAsignaturas',
+        () => servicio.listarComisionesConAsignaturas(
+          session,
+        ),
+      );
+
   Future<ComisionDeCurso> obtenerComisionesDeCursoPorId(
     Session session, {
     required int idComision,
@@ -62,4 +73,40 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
               anio: anio,
             ),
           );
+
+  Future<bool> cambiarUsuarioDeComision(
+    Session session,
+    int idComision,
+    int idUsuario,
+  ) async =>
+      ejecutarOperacionControlador(
+        session,
+        'cambiarUsuarioDeComision',
+        () => servicio.cambiarUsuarioDeComision(
+          session,
+          idComision: idComision,
+          idUsuario: idUsuario,
+        ),
+      );
+
+  /// Obtiene una lista de las asignaturas dentro de una comisión, junto al nombre del docente,
+  /// y la fecha en que las calificaciones del mes y el año indicados fueron cargadas.
+  Future<List<EstadoCalificacionesAsignatura>>
+      obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+    Session session, {
+    required int idComision,
+    required int mes,
+    required int anio,
+  }) async {
+    return await ejecutarOperacionControlador(
+      session,
+      'obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes',
+      () => servicio.obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+        session,
+        idComision: idComision,
+        mes: mes,
+        anio: anio,
+      ),
+    );
+  }
 }

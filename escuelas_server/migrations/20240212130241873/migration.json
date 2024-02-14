@@ -1,0 +1,75 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "usuarios",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "contactoDeEmergenciaId",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [
+          {
+            "indexName": "usuario_contacto_de_emergencia_unique_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "contactoDeEmergenciaId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "deleteIndexes": [],
+        "addForeignKeys": [
+          {
+            "constraintName": "usuarios_fk_1",
+            "columns": [
+              "contactoDeEmergenciaId"
+            ],
+            "referenceTable": "contactos_de_emergencia",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"usuario_contacto_de_emergencia_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios",
+            "columns": [
+              "contactoDeEmergenciaId"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"usuario_contacto_de_emergencia_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "usuarios",
+      "columns": [
+        "contactoDeEmergenciaId"
+      ],
+      "destrucive": false
+    }
+  ],
+  "migrationApiVersion": 1
+}

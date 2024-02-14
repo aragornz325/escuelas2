@@ -1,0 +1,9 @@
+### Enum para distinguir el nivel de filtrado del envío de calificaciones. Ya sea a todos los 
+### estudiantes de las comisiones activas de la institución o a cursos, comisiones o estudiantes
+### indicados.
+enum: EnvioCalificaciones
+values:
+    - todos
+    - porCurso
+    - porComision
+    - porEstudiante
