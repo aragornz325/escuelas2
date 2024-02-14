@@ -36,7 +36,9 @@ class DialogEliminarDocente extends StatelessWidget {
       content: Column(
         children: [
           Text(
-              '${l10n.pageUserProfileConfirmDeleteQuestion}${usuario?.nombre.toUpperCase()} ${usuario?.apellido.toUpperCase()} ${l10n.pageUserProfileTeacherList}'),
+            '${l10n.pageUserProfileConfirmDeleteQuestion}${usuario?.nombre.toUpperCase()} ${usuario?.apellido.toUpperCase()} ${l10n.pageUserProfileTeacherList}',
+            textAlign: TextAlign.center,
+          ),
           Text(l10n.commonWantToContinue),
         ],
       ),
