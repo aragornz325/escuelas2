@@ -48,11 +48,11 @@ void run(List<String> args) async {
   // TODO(anyone): Obtener esta data de las configs (Las que estan aca son las de dev)
   final rolePermissions = Rolemissions(
     persistanceDelegate: PostgresStrategy(
-      host: 'aws-0-sa-east-1.pooler.supabase.com',
-      databaseName: 'postgres',
-      userName: 'postgres.mvdsvzvejhmrnxgdfdwz',
-      dbPassword: 'L86Grm9pso3LyUdA',
-      port: 5432,
+      host: pod.config.database.host,
+      databaseName: pod.config.database.name,
+      userName: pod.config.database.user,
+      dbPassword: pod.config.database.password,
+      port: pod.config.database.port,
     ),
   );
 
