@@ -91,6 +91,10 @@ class AppRouter extends $AppRouter {
                   page: RutaCargaDeCalificaciones.page,
                   path: 'upload-grades',
                 ),
+                AutoRoute(
+                  page: RutaGestionDeComision.page,
+                  path: 'management-of-course',
+                ),
               ],
             ),
             CustomRoute(

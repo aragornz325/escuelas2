@@ -5,7 +5,6 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
-import 'package:rolemissions/rolemissions.dart';
 
 ///{@template ElementoListadoComunidad}
 ///Elemento del listado de la comunidad academica
@@ -16,7 +15,7 @@ class ElementoListadoComunidad extends StatelessWidget {
     required this.titulo,
     required this.usuariosListados,
     required this.ordenarPor,
-    required this.rolElegido,
+    this.onTap,
     super.key,
   });
 
@@ -29,8 +28,7 @@ class ElementoListadoComunidad extends StatelessWidget {
   /// Verifica si es del listado nombre para enviar o no widget derecho
   final OrdenarPor ordenarPor;
 
-  /// Rol de usuario elegido previamente
-  final Role? rolElegido;
+  final VoidCallback? onTap;
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -59,11 +57,12 @@ class ElementoListadoComunidad extends StatelessWidget {
                         child: ElementoLista.usuarioComunidadAcademica(
                           usuario: usuario,
                           ordenarPor: ordenarPor,
-                          onTap: () => context.router.push(
-                            RutaPerfilUsuario(
-                              idUsuario: usuario.id ?? 0,
-                            ),
-                          ),
+                          onTap: onTap ??
+                              () => context.router.push(
+                                    RutaPerfilUsuario(
+                                      idUsuario: usuario.id ?? 0,
+                                    ),
+                                  ),
                           avatar: usuario.urlFotoDePerfil,
                           nombreUsuario: usuario.nombre,
                           context: context,

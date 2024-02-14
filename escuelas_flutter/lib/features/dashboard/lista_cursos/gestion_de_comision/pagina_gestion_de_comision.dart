@@ -1,0 +1,28 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/gestion_de_comision/bloc/bloc_gestion_de_comision.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/gestion_de_comision/celular/vista_celular_gestion_de_comision.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/gestion_de_comision/escritorio/vista_escritorio_gestion_de_comision.dart';
+import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+/// {@template PaginaGestionDeComision}
+/// TODO(mati): documentar
+/// {@endtemplate}
+@RoutePage()
+class PaginaGestionDeComision extends StatelessWidget {
+  /// {@macro PaginaGestionDeComision}
+  const PaginaGestionDeComision({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<BlocGestionDeComision>(
+      create: (context) => BlocGestionDeComision()
+        ..add(const BlocGestionDeComisionEventoInicializar()),
+      child: const FullResponsiveScreen(
+        celular: VistaCelularGestionDeComision(),
+        escritorio: VistaEscritorioGestionDeComision(),
+      ),
+    );
+  }
+}
