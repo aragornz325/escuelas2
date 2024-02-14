@@ -1,5 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
+import 'package:escuelas_server/env/env.dart';
+import 'package:escuelas_server/src/servicios/handlers/manejador_one_signal.dart';
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/utils/logger.dart';
 import 'package:escuelas_server/utils/constants.dart';
@@ -30,6 +32,13 @@ void run(List<String> args) async {
     args,
     Protocol(),
     Endpoints(),
+  );
+
+// Inicializar el Singleton Handler de OneSignal,
+// pasandole las variables apiKey y appId de OneSignal.
+  ManejadorOneSignal(
+    apiKey: EnvProd.apiKeyEscuelasApp,
+    appId: EnvProd.oneSignalAppId,
   );
 
   // If you are using any future calls, they need to be registered here.
