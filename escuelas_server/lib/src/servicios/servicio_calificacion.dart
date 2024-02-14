@@ -1,4 +1,6 @@
 import 'package:escuelas_server/constants/config.dart';
+import 'package:escuelas_server/src/extensiones/extension_comision.dart';
+import 'package:escuelas_server/src/extensiones/extension_usuario.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion_mensual.dart';
@@ -389,32 +391,26 @@ WHERE rau."usuarioId" = $idUsuario
     );
 
     for (var comision in comisiones) {
-      final curso = comision.curso;
-      final asignaturasCurso = curso!.asignaturas;
-      final estudiantesComision =
-          comision.estudiantes!.map((e) => e.usuario).toList();
-
-      for (var estudiante in estudiantesComision) {
+      for (var estudiante in comision.listaDeEstudiantes) {
         Map<String, dynamic> asignaturasCalificaciones = {};
-        for (var asignatura in asignaturasCurso!) {
+        for (var asignatura in comision.listaDeAsignaturas) {
           asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
             (element) =>
                 element.idAsignatura == asignatura.id &&
-                element.estudianteId == estudiante!.id,
+                element.estudianteId == estudiante.id,
           );
         }
 
         await ServicioComunicaciones().enviarEmail(
           session,
-          direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
-              .map((e) => e.direccionDeEmail)
-              .toList(),
+          direccionEmailDestinatarios:
+              estudiante.listaDireccionesDeEmailStrings,
           asuntoDelCorreo:
               '${estudiante.nombre}, ¡tus calificaciones llegaron!',
           contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
             nombre: estudiante.nombre,
             apellido: estudiante.apellido,
-            curso: '${curso.nombre} ${comision.nombre}',
+            curso: comision.nombreDelCursoYLaComision,
             calificaciones: asignaturasCalificaciones.toString(),
           ).html(),
         );
@@ -439,32 +435,26 @@ WHERE rau."usuarioId" = $idUsuario
         idComisiones: comisiones.map((e) => e.id!).toList());
 
     for (var comision in comisiones) {
-      final curso = comision.curso;
-      final asignaturasCurso = curso!.asignaturas;
-      final estudiantesComision =
-          comision.estudiantes!.map((e) => e.usuario).toList();
-
-      for (var estudiante in estudiantesComision) {
+      for (var estudiante in comision.listaDeEstudiantes) {
         Map<String, dynamic> asignaturasCalificaciones = {};
-        for (var asignatura in asignaturasCurso!) {
+        for (var asignatura in comision.listaDeAsignaturas) {
           asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
             (element) =>
                 element.idAsignatura == asignatura.id &&
-                element.estudianteId == estudiante!.id,
+                element.estudianteId == estudiante.id,
           );
         }
 
         await ServicioComunicaciones().enviarEmail(
           session,
-          direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
-              .map((e) => e.direccionDeEmail)
-              .toList(),
+          direccionEmailDestinatarios:
+              estudiante.listaDireccionesDeEmailStrings,
           asuntoDelCorreo:
               '${estudiante.nombre}, ¡tus calificaciones llegaron!',
           contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
             nombre: estudiante.nombre,
             apellido: estudiante.apellido,
-            curso: '${curso.nombre} ${comision.nombre}',
+            curso: comision.nombreDelCursoYLaComision,
             calificaciones: asignaturasCalificaciones.toString(),
           ).html(),
         );
@@ -489,32 +479,26 @@ WHERE rau."usuarioId" = $idUsuario
         idComisiones: comisiones.map((e) => e.id!).toList());
 
     for (var comision in comisiones) {
-      final curso = comision.curso;
-      final asignaturasCurso = curso!.asignaturas;
-      final estudiantesComision =
-          comision.estudiantes!.map((e) => e.usuario).toList();
-
-      for (var estudiante in estudiantesComision) {
+      for (var estudiante in comision.listaDeEstudiantes) {
         Map<String, dynamic> asignaturasCalificaciones = {};
-        for (var asignatura in asignaturasCurso!) {
+        for (var asignatura in comision.listaDeAsignaturas) {
           asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
             (element) =>
                 element.idAsignatura == asignatura.id &&
-                element.estudianteId == estudiante!.id,
+                element.estudianteId == estudiante.id,
           );
         }
 
         await ServicioComunicaciones().enviarEmail(
           session,
-          direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
-              .map((e) => e.direccionDeEmail)
-              .toList(),
+          direccionEmailDestinatarios:
+              estudiante.listaDireccionesDeEmailStrings,
           asuntoDelCorreo:
               '${estudiante.nombre}, ¡tus calificaciones llegaron!',
           contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
             nombre: estudiante.nombre,
             apellido: estudiante.apellido,
-            curso: '${curso.nombre} ${comision.nombre}',
+            curso: comision.nombreDelCursoYLaComision,
             calificaciones: asignaturasCalificaciones.toString(),
           ).html(),
         );
@@ -533,46 +517,35 @@ WHERE rau."usuarioId" = $idUsuario
       session,
       idEstudiantesFiltrados: idEstudiantes,
     );
-    final calificaciones = await _ormCalificacion.obtenerCalificaciones(session,
-        mes: mes,
-        anio: anio,
-        idComisiones: comisiones
-            .where((element) => element.estudiantes!.isNotEmpty)
-            .map((e) => e.id!)
-            .toList());
+    final calificaciones = await _ormCalificacion.obtenerCalificaciones(
+      session,
+      mes: mes,
+      anio: anio,
+      idEstudiantes: idEstudiantes,
+    );
 
     for (var comision
         in comisiones.where((element) => element.estudiantes!.isNotEmpty)) {
-      final curso = comision.curso;
-      final asignaturasCurso = curso!.asignaturas;
-      final estudiantesComision =
-          comision.estudiantes!.map((e) => e.usuario).toList();
-
-      if (estudiantesComision.isEmpty) {
-        continue;
-      }
-
-      for (var estudiante in estudiantesComision) {
+      for (var estudiante in comision.listaDeEstudiantes) {
         Map<String, dynamic> asignaturasCalificaciones = {};
-        for (var asignatura in asignaturasCurso!) {
+        for (var asignatura in comision.listaDeAsignaturas) {
           asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
             (element) =>
                 element.idAsignatura == asignatura.id &&
-                element.estudianteId == estudiante!.id,
+                element.estudianteId == estudiante.id,
           );
         }
 
         await ServicioComunicaciones().enviarEmail(
           session,
-          direccionEmailDestinatarios: estudiante!.direccionesDeEmail!
-              .map((e) => e.direccionDeEmail)
-              .toList(),
+          direccionEmailDestinatarios:
+              estudiante.listaDireccionesDeEmailStrings,
           asuntoDelCorreo:
               '${estudiante.nombre}, ¡tus calificaciones llegaron!',
           contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
             nombre: estudiante.nombre,
             apellido: estudiante.apellido,
-            curso: '${curso.nombre} ${comision.nombre}',
+            curso: comision.nombreDelCursoYLaComision,
             calificaciones: asignaturasCalificaciones.toString(),
           ).html(),
         );
