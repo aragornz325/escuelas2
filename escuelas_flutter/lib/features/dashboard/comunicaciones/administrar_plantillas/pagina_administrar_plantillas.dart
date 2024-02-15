@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/bloc/bloc_administrar_plantillas.dart';
-import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/celular/vista_celular_Administrar_plantillas.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/celular/vista_celular_administrar_plantillas.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 
 import 'package:flutter/material.dart';

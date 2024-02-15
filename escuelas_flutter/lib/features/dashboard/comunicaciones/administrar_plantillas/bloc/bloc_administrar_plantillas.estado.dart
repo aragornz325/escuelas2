@@ -7,7 +7,9 @@ class BlocAdministrarPlantillasEstado {
   /// {@macro BlocAdministrarPlantillasEstado}
   const BlocAdministrarPlantillasEstado._();
 
-  BlocAdministrarPlantillasEstado.desde() : this._();
+  BlocAdministrarPlantillasEstado.desde(
+    BlocAdministrarPlantillasEstado otro,
+  ) : this._();
 }
 
 /// {@template BlocAdministrarPlantillasEstadoInicial}
@@ -25,7 +27,7 @@ class BlocAdministrarPlantillasEstadoInicial
 class BlocAdministrarPlantillasEstadoCargando
     extends BlocAdministrarPlantillasEstado {
   /// {@macro BlocAdministrarPlantillasEstadoCargando}
-  const BlocAdministrarPlantillasEstadoCargando() : super._();
+  BlocAdministrarPlantillasEstadoCargando.desde(super.otro) : super.desde();
 }
 
 /// {@template BlocAdministrarPlantillasEstadoError}
@@ -34,7 +36,7 @@ class BlocAdministrarPlantillasEstadoCargando
 class BlocAdministrarPlantillasEstadoError
     extends BlocAdministrarPlantillasEstado {
   /// {@macro BlocAdministrarPlantillasEstadoError}
-  const BlocAdministrarPlantillasEstadoError() : super._();
+  BlocAdministrarPlantillasEstadoError.desde(super.otro) : super.desde();
 }
 
 /// {@template BlocAdministrarPlantillasEstadoExitoso}
@@ -43,5 +45,5 @@ class BlocAdministrarPlantillasEstadoError
 class BlocAdministrarPlantillasEstadoExitoso
     extends BlocAdministrarPlantillasEstado {
   /// {@macro BlocAdministrarPlantillasEstadoExitoso}
-  const BlocAdministrarPlantillasEstadoExitoso() : super._();
+  BlocAdministrarPlantillasEstadoExitoso.desde(super.otro) : super.desde();
 }

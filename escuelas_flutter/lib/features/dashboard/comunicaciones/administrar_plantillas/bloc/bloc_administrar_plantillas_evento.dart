@@ -26,13 +26,13 @@ class BlocAdministrarPlantillasEventoAgregarPlantilla
   const BlocAdministrarPlantillasEventoAgregarPlantilla();
 }
 
-/// {@template BlocAdministrarPlantillasEventoEliminarPlantilla}
-/// Evento para Eliminar una plantilla
+/// {@template BlocAdministrarPlantillasEventoEliminarPlantillas}
+/// Evento para Eliminar plantillas
 /// {@endtemplate}
-class BlocAdministrarPlantillasEventoEliminarPlantilla
+class BlocAdministrarPlantillasEventoEliminarPlantillas
     extends BlocAdministrarPlantillasEvento {
-  /// {@macro BlocAdministrarPlantillasEventoEliminarPlantilla}
-  const BlocAdministrarPlantillasEventoEliminarPlantilla();
+  /// {@macro BlocAdministrarPlantillasEventoEliminarPlantillas}
+  const BlocAdministrarPlantillasEventoEliminarPlantillas();
 }
 
 /// {@template BlocAdministrarPlantillasEventoEditarPlantilla}
