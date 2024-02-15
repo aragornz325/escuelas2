@@ -3,6 +3,8 @@ import 'dart:math';
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/kyc_edicion_usuario/widgets/dialog_guardar_cambios.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/kyc_edicion_usuario/widgets/dialog_usuario_editado.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -91,39 +93,27 @@ class _VistaCelularKyCEdicionUsuarioState
 
   /// Muestra dialog para permitirle al usuario guardar los cambios.
   Future<void> _showDialogGuardarCambios(BuildContext context) {
-    final usuario = context.read<BlocPerfilUsuario>().state.usuario;
-    final l10n = context.l10n;
-
     return showDialog<void>(
       context: context,
-      builder: (_) => EscuelasDialog.solicitudDeAccion(
-        onTapConfirmar: () {
-          context
-              .read<BlocPerfilUsuario>()
-              .add(BlocPerfilUsuarioEventoInsertarInformacionDeKyc());
-          _showDialogUsuarioEditado;
-        },
-        content: Text(
-          '${l10n.pageUserProfileKyCConfirmationSaveChanges} ${usuario?.nombre ?? ''} ${usuario?.apellido ?? ''}?',
-        ),
-        context: context,
-      ),
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: const DialogGuardarCambios(),
+        );
+      },
     );
   }
 
   /// Dialog que notifica que el usuario ha sido editado exitosamente
   Future<void> _showDialogUsuarioEditado(BuildContext context) {
-    final l10n = context.l10n;
-    final usuario = context.read<BlocPerfilUsuario>().state.usuario;
-
     return showDialog<void>(
       context: context,
-      builder: (_) => EscuelasDialog.exitoso(
-        context: context,
-        onTap: () =>
-            context.router.push(RutaPerfilUsuario(idUsuario: usuario?.id ?? 0)),
-        content: Text(l10n.pageUserProfileKyCSuccessfulEdition),
-      ),
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: const DialogUsuarioEditado(),
+        );
+      },
     );
   }
 
@@ -146,7 +136,12 @@ class _VistaCelularKyCEdicionUsuarioState
           ),
         );
 
-    return BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
+    return BlocConsumer<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
+      listener: (context, state) {
+        if (state is BlocPerfilUsuarioEstadoExitosoAlEditarUsuario) {
+          _showDialogUsuarioEditado(context);
+        }
+      },
       builder: (context, state) {
         if (state is BlocPerfilUsuarioEstadoCargando) {
           return const Center(

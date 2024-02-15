@@ -228,6 +228,16 @@ class BlocPerfilUsuarioEstadoExitosoAlEliminarUsuario
       : super.desde();
 }
 
+/// {@template BlocPerfilUsuarioEstadoExitosoAlEditarUsuario}
+/// Estado exitoso al editar usuario
+/// {@endtemplate}
+class BlocPerfilUsuarioEstadoExitosoAlEditarUsuario
+    extends BlocPerfilUsuarioEstado {
+  /// {@macro BlocPerfilUsuarioEstadoExitosoAlEditarUsuario}
+  BlocPerfilUsuarioEstadoExitosoAlEditarUsuario.desde(super.otro)
+      : super.desde();
+}
+
 /// {@template BlocPerfilUsuarioEstadoExitosoAltraerUsuarioPendiente}
 /// Estado exitoso al traer los datos del usuario pendiente
 /// {@endtemplate}
