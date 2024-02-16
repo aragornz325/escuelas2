@@ -433,6 +433,17 @@
         "description": ""
     },
 
+    "pageManageTemplatesTitle": "Templates",
+    "@pageManageTemplatesTitle": {
+        "description": "Text to be displayed in the title of the page"
+    },
+
+    "pageManageTemplatesAddNew": "Add new",
+    "@pageManageTemplatesAddNew": {
+        "description": "Text to be displayed in the button to add new template"
+    },
+
+
     "commonWelcome": "Welcome!",
     "@commonWelcome": {
         "description": "Welcoming text"
@@ -636,6 +647,10 @@
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+    "commonDelete": "Delete",
+    "@commonDelete": {
+        "description": "Label indicating to delete"
     }
 
 }

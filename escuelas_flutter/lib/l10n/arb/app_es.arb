@@ -535,6 +535,16 @@
         "description": "text in the dialog in the status of absent students"
        
     },
+
+    "pageManageTemplatesTitle": "Plantillas",
+    "@pageManageTemplatesTitle": {
+        "description": "Text to be displayed in the title of the page"
+    },
+
+    "pageManageTemplatesAddNew": "Agregar nueva",
+    "@pageManageTemplatesAddNew": {
+        "description": "Text to be displayed in the button to add new template"
+    },
     
     "dialogSeeMore": "Ver más",
     "@dialogSeeMore": {
@@ -644,5 +654,9 @@
     "commonDeleteAll": "Borrar todos",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+    "commonDelete": "Eliminar",
+    "@commonDelete": {
+        "description": "Label indicating to delete"
     }
 }

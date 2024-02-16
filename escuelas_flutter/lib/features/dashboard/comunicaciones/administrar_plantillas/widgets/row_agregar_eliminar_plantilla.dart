@@ -7,20 +7,38 @@ import 'package:full_responsive/full_responsive.dart';
 /// Row que contiene el boton para agregar una nueva plantilla y el boton
 /// para entrar en modo eliminacion
 /// {@endtemplate}
-class RowAgregarEliminarPlantilla extends StatelessWidget {
+class RowAgregarEliminarPlantilla extends StatefulWidget {
   /// {@macro RowAgregarEliminarPlantilla}
   const RowAgregarEliminarPlantilla({super.key});
+
+  @override
+  State<RowAgregarEliminarPlantilla> createState() =>
+      _RowAgregarEliminarPlantillaState();
+}
+
+class _RowAgregarEliminarPlantillaState
+    extends State<RowAgregarEliminarPlantilla> {
+  bool modoEliminar = false;
+
+  void onCambioDeModo() {
+    setState(() {
+      modoEliminar = !modoEliminar;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 20.pw),
-      child: const Row(
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          BotonAgregarPlantilla(),
-          // if(modoEliminar)
-          RowModoEliminar(),
+          const BotonAgregarPlantilla(),
+          RowModoEliminar(
+            onEliminar: () {},
+            modoEliminar: modoEliminar,
+            onCambioDeModo: onCambioDeModo,
+          ),
         ],
       ),
     );
@@ -36,12 +54,13 @@ class BotonAgregarPlantilla extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+    final l10n = context.l10n;
 
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          'Agregar nueva',
+          l10n.pageManageTemplatesAddNew,
           style: TextStyle(
             color: colores.primary,
             fontSize: 16.pf,
@@ -63,53 +82,112 @@ class BotonAgregarPlantilla extends StatelessWidget {
 /// {@endtemplate}
 class RowModoEliminar extends StatelessWidget {
   /// {@macro RowModoEliminar}
-  const RowModoEliminar({super.key});
+  const RowModoEliminar({
+    required this.modoEliminar,
+    required this.onEliminar,
+    required this.onCambioDeModo,
+    super.key,
+  });
+
+  /// Determina la composicion del componente
+  final bool modoEliminar;
+
+  /// Accion para cambiar a modo eliminar o cancelar
+  final VoidCallback onCambioDeModo;
+
+  /// Accion para eliminar las plantillas
+  final VoidCallback onEliminar;
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colores = context.colores;
 
-    return Row(
-      children: [
-        Text(
-          l10n.commonCancel,
-          style: TextStyle(
-            color: colores.error,
-            fontSize: 14.pf,
-          ),
-        ),
-        SizedBox(width: 8.sw),
-        GestureDetector(
-          onTap: () {},
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.all(
-                Radius.circular(8.sw),
+    return modoEliminar
+        ? Row(
+            children: [
+              InkWell(
+                onTap: onCambioDeModo,
+                child: Text(
+                  l10n.commonCancel,
+                  style: TextStyle(
+                    color: colores.error,
+                    fontSize: 14.pf,
+                  ),
+                ),
               ),
+              SizedBox(width: 8.sw),
+              GestureDetector(
+                onTap: onEliminar,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(8.sw),
+                    ),
+                    color: colores.error,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: .1,
+                        blurRadius: 2,
+                        offset: const Offset(-2, 2),
+                      ),
+                    ],
+                  ),
+                  child: Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 5.pw, vertical: 2.ph),
+                    child: Text(
+                      l10n.commonDelete,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 14.pf,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+        : InkWell(
+            onTap: onCambioDeModo,
+            child: Icon(
+              Icons.delete_outline,
               color: colores.error,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.withOpacity(0.5),
-                  spreadRadius: .1,
-                  blurRadius: 2,
-                  offset: const Offset(-2, 2),
-                ),
-              ],
+              size: 24.sw,
             ),
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 5.pw, vertical: 2.ph),
-              child: Text(
-                //! TODO(Manu): l10n
-                'Eliminar',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 14.pf,
-                ),
-              ),
-            ),
-          ),
+          );
+  }
+}
+
+class DesplegablePlantilla extends StatelessWidget {
+  const DesplegablePlantilla({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final colores = context.colores;
+    return ExpansionTile(
+      backgroundColor: colores.tertiary,
+      collapsedBackgroundColor: colores.tertiary,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sw)),
+      collapsedShape:
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sw)),
+      title: Text(
+        'Plantilla',
+        style: TextStyle(
+          color: colores.onBackground,
+          fontSize: 16.pf,
+          fontWeight: FontWeight.w700,
         ),
-      ],
+      ),
+      subtitle: Text(
+        DateTime.now().toString(),
+        style: TextStyle(
+          color: colores.onBackground,
+          fontSize: 8.pf,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 }
