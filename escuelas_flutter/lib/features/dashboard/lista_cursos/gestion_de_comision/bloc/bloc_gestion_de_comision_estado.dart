@@ -7,21 +7,62 @@ part of 'bloc_gestion_de_comision.dart';
 class BlocGestionDeComisionEstado {
   /// {@macro BlocGestionDeComisionEstado}
   const BlocGestionDeComisionEstado._({
+    required this.idAsignatura,
+    required this.idComision,
+    this.usuarios = const [],
     this.listaAlumnos,
+    this.asignatura,
+    this.comision,
   });
   BlocGestionDeComisionEstado.desde(
     BlocGestionDeComisionEstado otro, {
     UsuariosOrdenados? listaAlumnos,
+    ComisionDeCurso? comision,
+    List<Usuario>? usuarios,
+    Asignatura? asignatura,
+    int? idAsignatura,
+    int? idComision,
   }) : this._(
           listaAlumnos: listaAlumnos ?? otro.listaAlumnos,
+          idAsignatura: idAsignatura ?? otro.idAsignatura,
+          idComision: idComision ?? otro.idComision,
+          asignatura: asignatura ?? otro.asignatura,
+          usuarios: usuarios ?? otro.usuarios,
+          comision: comision ?? otro.comision,
         );
 
-  // TODO(mati): esta lista por ahora esta hardcodeada cuando se implemente
-  // nuevo endpoint se cambiara
+  /// Id de la asignatura
+  final int idAsignatura;
+
+  /// Id de la comision a obtener
+  final int idComision;
+
+  /// Lista de alumnos de la comision.
   final UsuariosOrdenados? listaAlumnos;
+
+  /// Lista de alumnos de la comision.
+  final List<Usuario> usuarios;
+
+  /// Comision actual.
+  final ComisionDeCurso? comision;
+
+  /// Asignatura actual.
+  final Asignatura? asignatura;
+
+  /// Estado en caso de que se asigne un docente correctamente.
+  bool get exitoAlAsignarDocente =>
+      this is BlocGestionDeComisionEstadoExitosoAlAsignarDocente;
+
+  /// Estado en caso de que se agregue un nuevo alumno correctamente.
+  bool get exitoAlAgregarAlumnoAComision =>
+      this is BlocGestionDeComisionEstadoExitosoAlAgregarAlumnoAComision;
 
   List<Object?> get props => [
         listaAlumnos,
+        usuarios,
+        asignatura,
+        idAsignatura,
+        idComision,
       ];
 }
 
@@ -30,7 +71,10 @@ class BlocGestionDeComisionEstado {
 /// {@endtemplate}
 class BlocGestionDeComisionEstadoInicial extends BlocGestionDeComisionEstado {
   /// {@macro BlocGestionDeComisionEstadoInicial}
-  const BlocGestionDeComisionEstadoInicial() : super._();
+  const BlocGestionDeComisionEstadoInicial({
+    required super.idAsignatura,
+    required super.idComision,
+  }) : super._();
 }
 
 /// {@template BlocGestionDeComisionEstadoCargando}
@@ -51,6 +95,9 @@ class BlocGestionDeComisionEstadoExitoso extends BlocGestionDeComisionEstado {
   BlocGestionDeComisionEstadoExitoso.desde(
     super.otro, {
     super.listaAlumnos,
+    super.asignatura,
+    super.usuarios,
+    super.comision,
   }) : super.desde();
 }
 
@@ -61,4 +108,29 @@ class BlocGestionDeComisionEstadoExitoso extends BlocGestionDeComisionEstado {
 class BlocGestionDeComisionEstadoFallido extends BlocGestionDeComisionEstado {
   /// {@macro BlocGestionDeComisionEstadoFallido}
   BlocGestionDeComisionEstadoFallido.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocGestionDeComisionEstadoExitosoAlAsignarDocente}
+/// Estado `exitoso` al asignar docente a la asignatura mostrara un popup/alert
+/// dialog.
+/// {@endtemplate}
+class BlocGestionDeComisionEstadoExitosoAlAsignarDocente
+    extends BlocGestionDeComisionEstado {
+  /// {@macro BlocGestionDeComisionEstadoExitosoAlAsignarDocente}
+  BlocGestionDeComisionEstadoExitosoAlAsignarDocente.desde(
+    super.otro,
+  ) : super.desde();
+}
+
+/// {@template BlocGestionDeComisionEstadoExitosoAlAgregarAlumnoAComision}
+/// Estado `exitoso` al agregar un nuevo alumno a esa comision mostrara un
+/// popup/alert dialog.
+/// {@endtemplate}
+class BlocGestionDeComisionEstadoExitosoAlAgregarAlumnoAComision
+    extends BlocGestionDeComisionEstado {
+  /// {@macro BlocGestionDeComisionEstadoExitosoAlAgregarAlumnoAComision}
+  BlocGestionDeComisionEstadoExitosoAlAgregarAlumnoAComision.desde(
+    super.otro, {
+    super.listaAlumnos,
+  }) : super.desde();
 }

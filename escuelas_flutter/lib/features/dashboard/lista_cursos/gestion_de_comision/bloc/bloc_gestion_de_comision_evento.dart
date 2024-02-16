@@ -19,3 +19,49 @@ class BlocGestionDeComisionEventoInicializar
   /// {@macro BlocGestionDeComisionEventoInicializar}
   const BlocGestionDeComisionEventoInicializar();
 }
+
+/// {@template BlocGestionDeComisionEventoFiltrarPorNombre}
+/// TODO (mati): documentar
+/// {@endtemplate}
+class BlocGestionDeComisionEventoFiltrarPorNombre
+    extends BlocGestionDeComisionEvento {
+  /// {@macro BlocGestionDeComisionEventoFiltrarPorNombre}
+  const BlocGestionDeComisionEventoFiltrarPorNombre({
+    required this.idRol,
+    this.nombre,
+  });
+
+  /// Id del rol a filtrar
+  final int idRol;
+
+  /// nombre con el que se va a filtrar
+  final String? nombre;
+}
+
+/// {@template BlocGestionDeComisionEventoAsignarDocente}
+/// Evento para asignar un docente a la asignatura.
+/// {@endtemplate}
+class BlocGestionDeComisionEventoAsignarDocente
+    extends BlocGestionDeComisionEvento {
+  /// {@macro BlocGestionDeComisionEventoAsignarDocente}
+  const BlocGestionDeComisionEventoAsignarDocente({
+    required this.idDocente,
+  });
+
+  /// Id del docente a asignar
+  final int idDocente;
+}
+
+/// {@template BlocGestionDeComisionEventoAsignarDocente}
+/// Evento para agregar un alumno a la comision.
+/// {@endtemplate}
+class BlocGestionDeComisionEventoAgregarAlumno
+    extends BlocGestionDeComisionEvento {
+  /// {@macro BlocGestionDeComisionEventoAsignarDocente}
+  const BlocGestionDeComisionEventoAgregarAlumno({
+    required this.alumno,
+  });
+
+  /// Id del alumno a asignar a esta comision
+  final Usuario alumno;
+}
