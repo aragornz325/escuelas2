@@ -16,12 +16,13 @@ class OrmPlantillaComunicacion extends ORM {
         ),
       );
 
-  Future<PlantillaComunicacion> modificarPlantillaComunicacion(
+  /// Editar
+  Future<PlantillaComunicacion> actualizarPlantillaComunicacion(
     Session session, {
     List<Column<dynamic>> Function(PlantillaComunicacionTable)? columns,
     required PlantillaComunicacion plantillaComunicacion,
   }) async {
-    return ejecutarOperacionOrm(
+    return await ejecutarOperacionOrm(
       session,
       (session) => PlantillaComunicacion.db.updateRow(
         session,
@@ -31,42 +32,17 @@ class OrmPlantillaComunicacion extends ORM {
     );
   }
 
+  /// trae la lista de plantillas
   Future<List<PlantillaComunicacion>> listarPlantillasComunicacion(
     Session session,
   ) async {
-    return ejecutarOperacionOrm(
+    return await ejecutarOperacionOrm(
         session,
         (session) => PlantillaComunicacion.db
             .find(session, where: (t) => t.fechaEliminacion.equals(null)));
   }
 
-  // Future<bool> eliminarPlantillaComunicacion(
-  //   Session session, {
-  //   required int id,
-  // }) async {
-  //   final ahora = DateTime.now();
-  //   final eliminado = await ejecutarOperacionOrm(
-  //     session,
-  //     (session) => modificarPlantillaComunicacion(
-  //       session,
-  //       plantillaComunicacion: PlantillaComunicacion(
-  //         id: id,
-  //         titulo: '',
-  //         nota: '',
-  //         necesitaSupervision: false,
-  //         ultimaModificacion: ahora,
-  //         fechaEliminacion: ahora,
-  //         fechaCreacion: ahora,
-  //       ),
-  //       columns: (t) => [
-  //         t.ultimaModificacion,
-  //         t.fechaEliminacion,
-  //       ],
-  //     ),
-  //   );
-  //   return eliminado.id != null;
-  // }
-
+  /// Actualiza lista de plantillas
   Future<List<PlantillaComunicacion>> actualizarPlantillasComunicacion(
     Session session, {
     required List<PlantillaComunicacion> plantillasComunicacion,
@@ -79,30 +55,7 @@ class OrmPlantillaComunicacion extends ORM {
     );
   }
 
-  // Future<bool> eliminarPlantillasComunicacion(
-  //   Session session, {
-  //   required List<PlantillaComunicacion> plantillasComunicacion,
-  // }) async {
-  //   final ahora = DateTime.now();
-
-  //   final actualizarPlantillas = await actualizarPlantillasComunicacion(
-  //     session,
-  //     plantillasComunicacion: plantillasComunicacion
-  //         .map(
-  //           (e) => e
-  //             ..ultimaModificacion = ahora
-  //             ..fechaEliminacion = ahora,
-  //         )
-  //         .toList(),
-  //     columnas: (t) => [
-  //       t.ultimaModificacion,
-  //       t.fechaEliminacion,
-  //     ],
-  //   );
-
-  //   return actualizarPlantillas.length == plantillasComunicacion.length;
-  // }
-
+  /// Elimina lista de plantillas
   Future<bool> eliminarPlantillasComunicaciones(
     Session session, {
     required List<int> idPlantillasComunicacion,
