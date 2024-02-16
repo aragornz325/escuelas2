@@ -34,6 +34,9 @@ dependencies:
   rolemissions:
     path: ../rolemissions
 
+  #Deep linking
+   
+  app_links: ^3.5.0
  
 
   #server pod
@@ -43,7 +46,8 @@ dependencies:
   serverpod_auth_google_flutter: 1.2.3
   flutter_inset_box_shadow: ^1.0.8
 
- 
+  #push notificactions
+  onesignal_flutter: ^5.1.0
 
   meta: ^1.9.1
   collection: ^1.17.2
@@ -55,7 +59,7 @@ dev_dependencies:
   auto_route_generator: ^7.3.2
   # archivos auto generados
   build_runner: ^2.4.7
-
+  freezed: ^2.4.7  
   bloc_test: ^9.1.4
   flutter_test:
     sdk: flutter

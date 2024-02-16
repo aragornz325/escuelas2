@@ -15,50 +15,12 @@ import 'package:test/test.dart';
 import 'server_test.dart';
 
 Future<void> main() async {
-  final ahora = DateTime.now();
+  // final ahora = DateTime.now();
 
-  await runServerTesting([]);
+  // await runServerTesting([]);
 
-  final session = await podTesting.createSession();
+  // final session = await podTesting.createSession();
 
-  final authKey = await session.auth.signInUser(11, 'email');
+  // final authKey = await session.auth.signInUser(11, 'email');
 
-  final mes = ahora.month;
-
-  final anio = ahora.year;
-
-  final idEstudiantes = [51];
-
-  final usuariosACrear = List.generate(
-      10,
-      (index) => Usuario(
-          idUserInfo: 990 + index,
-          nombre: 'User',
-          apellido: '$index',
-          urlFotoDePerfil: 'about:blank'));
-
-  for (var usuario in usuariosACrear) {
-    final usuarioCreado = await OrmUsuario().crearUsuario(
-      session,
-      nuevoUsuario: usuario,
-    );
-    await OrmDireccionesdeEmail().crearDireccionDeEmail(
-      session,
-      direccionDeMail: DireccionDeEmail(
-        usuarioId: usuarioCreado.id!,
-        direccionDeEmail:
-            'test${usuarioCreado.idUserInfo}@escuelas2wasawasa.com',
-      ),
-    );
-    await ServicioRol().asignarRolAUsuario(
-        session,
-        idUsuario: usuarioCreado.id!,
-        idRol: usuariosACrear.indexOf(usuario) <= 6 ? 1 : 2,
-        // TODO(anyone):
-        // Por ahora el id de organizacion siempre va a ser 1
-        // ese id va a ser referente a la organizacion de la escuela
-        // `Redemptoris Missio`
-        idOrganizacion: 1,
-      );
-  }
 }

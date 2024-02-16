@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario_pendiente/bloc/bloc_perfil_usuario_pendiente.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario_pendiente/celular/vista_celular_perfil_usuario_pendiente.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario_pendiente/escritorio/vista_escritorio_perfil_usuario_pendiente.dart';
@@ -23,13 +24,25 @@ class PaginaPerfilUsuarioPendiente extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<BlocPerfilUsuarioPendiente>(
-      create: (context) => BlocPerfilUsuarioPendiente()
-        ..add(
-          BlocPerfilUsuarioPendienteEventoTraerUsuarioPendiente(
-            idUsuarioPendiente: idUsuarioPendiente,
-          ),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<BlocPerfilUsuarioPendiente>(
+          create: (context) => BlocPerfilUsuarioPendiente()
+            ..add(
+              BlocPerfilUsuarioPendienteEventoTraerUsuarioPendiente(
+                idUsuarioPendiente: idUsuarioPendiente,
+              ),
+            ),
         ),
+        BlocProvider<BlocPerfilUsuario>(
+          create: (context) => BlocPerfilUsuario()
+            ..add(
+              BlocPerfilUsuarioEventoTraerUsuario(
+                idUsuario: idUsuarioPendiente,
+              ),
+            ),
+        ),
+      ],
       child: const FullResponsiveScreen(
         celular: VistaCelularPerfilUsuarioPendiente(),
         escritorio: VistaEscritorioPerfilUsuarioPendiente(),
