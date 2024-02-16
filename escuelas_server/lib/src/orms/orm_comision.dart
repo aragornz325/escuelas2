@@ -64,6 +64,7 @@ class OrmComision extends ORM {
         comisiones."anioLectivo" AS anio_lectivo,
         cursos.id AS curso_id,
         cursos.nombre AS nombre_curso,
+        
         json_agg(
             json_build_object(
                 'asignatura_id', asignaturas.id,

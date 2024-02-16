@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -39,6 +41,29 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
       EstadoDeAsistencia.cuartoDeInasistencia => l10n.commonFourthMissing,
       _ => l10n.commonUndefined,
     };
+  }
+
+  /// Devuelve el nombre del estado sin pasarle context por parametro.
+  String nombreEstadoSinContext() {
+    final currentLocale = PlatformDispatcher.instance.locale;
+    // TODO(ANYONE): Agregar otros idiomas en el caso de que haya
+    switch (this) {
+      case EstadoDeAsistencia.presente:
+        return (currentLocale.languageCode == 'en') ? 'Present' : 'Presente';
+      case EstadoDeAsistencia.ausente:
+        return (currentLocale.languageCode == 'en') ? 'Absent' : 'Ausente';
+      case EstadoDeAsistencia.mediaInasistencia:
+        return (currentLocale.languageCode == 'en')
+            ? 'Half Absence'
+            : 'Media Inasistencia';
+      case EstadoDeAsistencia.cuartoDeInasistencia:
+        return (currentLocale.languageCode == 'en')
+            ? 'Fourth Missing'
+            : 'Cuarto de Inasistencia';
+
+      case EstadoDeAsistencia.sinEstado:
+        return '';
+    }
   }
 
   /// Cambia el estado Dependiendo de la anterior Asistencia/Inasistencia.

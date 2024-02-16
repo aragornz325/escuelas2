@@ -1,6 +1,7 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/isar/isar_servicio.dart';
+import 'package:escuelas_flutter/one_signal/one_signal_servicio.dart';
 import 'package:escuelas_flutter/utilidades/funciones/cerrar_sesion_usuario.dart';
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -109,6 +110,9 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
             final usuario = await client.usuario.obtenerDatosDelUsuario();
 
             await IsarServicio.guardarUsuario(usuario);
+
+            await OneSignalServicio.loguearUsuario(usuario.id ?? 0);
+
             emit(
               BlocLoginEstadoSolicitudAceptada.desde(
                 state,

@@ -67,9 +67,19 @@ class OrmAsignatura extends ORM {
   }) async {
     final asignatura = await ejecutarOperacionOrm(
       session,
-      (session) =>
-          Asignatura.db.findById(session, id, include: Asignatura.include()),
+      (session) => Asignatura.db.findById(
+        session,
+        id,
+        include: Asignatura.include(
+          usuarios: RelacionAsignaturaUsuario.includeList(
+            include: RelacionAsignaturaUsuario.include(
+              usuario: Usuario.include(),
+            ),
+          ),
+        ),
+      ),
     );
+
     if (asignatura == null) {
       throw Exception(
         'Asignatura no encontrada',

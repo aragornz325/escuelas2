@@ -2,7 +2,7 @@ import 'package:escuelas_server/src/extensiones/expresiones_en_columnas.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
-import 'package:serverpod_auth_server/module.dart';
+
 
 class OrmUsuario extends ORM {
   Future<Usuario> crearUsuario(
@@ -246,10 +246,10 @@ class OrmUsuario extends ORM {
                 );
           }
           if (nombre != null) {
-            condicion = condicion & t.nombre.equals(nombre);
+            condicion = condicion & t.nombre.ilike('$nombre%');
           }
           if (apellido != null) {
-            condicion = condicion & t.apellido.equals(apellido);
+            condicion = condicion & t.apellido.equals('$apellido%');
           }
 
           return condicion;
