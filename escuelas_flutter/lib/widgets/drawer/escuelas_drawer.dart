@@ -43,6 +43,12 @@ class EscuelasDrawer extends StatelessWidget {
     Navigator.pop(context);
   }
 
+//! TODO(anyone): esto va aca para probar hasta qye esten las features previas
+  void _redireccionPlantillas(BuildContext context) {
+    context.replaceRoute(const RutaAdministrarPlantillas());
+    Navigator.pop(context);
+  }
+
   /// Navega a la ruta inicio y cierra el drawer.
   void _redireccionHome(BuildContext context) {
     context.replaceRoute(
@@ -184,6 +190,13 @@ class EscuelasDrawer extends StatelessWidget {
                         icon: Icons.person_outline,
                         title: l10n.drawerMyProfile,
                         onTap: () => _redireccionPerfil(context),
+                      ),
+                      //! TODO(anyone): esto va aca para probar hasta qye esten las features previas
+
+                      _EscuelasListTile(
+                        icon: Icons.looks,
+                        title: 'plantillas',
+                        onTap: () => _redireccionPlantillas(context),
                       ),
                       const Spacer(),
                       // TODO(anyone): Eliminar este widget
