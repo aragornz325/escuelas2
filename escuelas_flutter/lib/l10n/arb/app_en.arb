@@ -662,6 +662,10 @@
     "commonStudent": "Student",
     "@commonStudent": {
         "description": "Student or learner in an educational context."
-    }
+    },
 
+    "commonAccept": "Accept",
+    "@commonAccept": {
+        "description": "Button label used to confirm or accept an action."
+    }
 }

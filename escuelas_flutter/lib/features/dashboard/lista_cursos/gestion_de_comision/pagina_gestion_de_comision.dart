@@ -12,13 +12,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 @RoutePage()
 class PaginaGestionDeComision extends StatelessWidget {
   /// {@macro PaginaGestionDeComision}
-  const PaginaGestionDeComision({super.key});
+  const PaginaGestionDeComision({
+    @PathParam('idAsignatura') required this.idAsignatura,
+    @PathParam('idAsignatura') required this.idComision,
+    super.key,
+  });
+
+  /// Id de la asignatura
+  final int idAsignatura;
+
+  /// Id de la comision a obtener
+  final int idComision;
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocGestionDeComision>(
-      create: (context) => BlocGestionDeComision()
-        ..add(const BlocGestionDeComisionEventoInicializar()),
+      create: (context) => BlocGestionDeComision(
+        idAsignatura: idAsignatura,
+        idComision: idComision,
+      )..add(const BlocGestionDeComisionEventoInicializar()),
       child: const FullResponsiveScreen(
         celular: VistaCelularGestionDeComision(),
         escritorio: VistaEscritorioGestionDeComision(),
