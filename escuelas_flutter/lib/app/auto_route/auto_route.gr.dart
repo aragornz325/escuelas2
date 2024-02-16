@@ -104,9 +104,19 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       );
     },
     RutaGestionDeComision.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<RutaGestionDeComisionArgs>(
+          orElse: () => RutaGestionDeComisionArgs(
+                idAsignatura: pathParams.getInt('idAsignatura'),
+                idComision: pathParams.getInt('idAsignatura'),
+              ));
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i6.PaginaGestionDeComision(),
+        child: _i6.PaginaGestionDeComision(
+          idAsignatura: args.idAsignatura,
+          idComision: args.idComision,
+          key: args.key,
+        ),
       );
     },
     RutaInasistencia.name: (routeData) {
@@ -368,16 +378,47 @@ class RutaFormulario extends _i21.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i6.PaginaGestionDeComision]
-class RutaGestionDeComision extends _i21.PageRouteInfo<void> {
-  const RutaGestionDeComision({List<_i21.PageRouteInfo>? children})
-      : super(
+class RutaGestionDeComision
+    extends _i21.PageRouteInfo<RutaGestionDeComisionArgs> {
+  RutaGestionDeComision({
+    required int idAsignatura,
+    required int idComision,
+    _i22.Key? key,
+    List<_i21.PageRouteInfo>? children,
+  }) : super(
           RutaGestionDeComision.name,
+          args: RutaGestionDeComisionArgs(
+            idAsignatura: idAsignatura,
+            idComision: idComision,
+            key: key,
+          ),
+          rawPathParams: {'idAsignatura': idComision},
           initialChildren: children,
         );
 
   static const String name = 'RutaGestionDeComision';
 
-  static const _i21.PageInfo<void> page = _i21.PageInfo<void>(name);
+  static const _i21.PageInfo<RutaGestionDeComisionArgs> page =
+      _i21.PageInfo<RutaGestionDeComisionArgs>(name);
+}
+
+class RutaGestionDeComisionArgs {
+  const RutaGestionDeComisionArgs({
+    required this.idAsignatura,
+    required this.idComision,
+    this.key,
+  });
+
+  final int idAsignatura;
+
+  final int idComision;
+
+  final _i22.Key? key;
+
+  @override
+  String toString() {
+    return 'RutaGestionDeComisionArgs{idAsignatura: $idAsignatura, idComision: $idComision, key: $key}';
+  }
 }
 
 /// generated route for

@@ -16,6 +16,7 @@ class EscuelasTextfield extends StatefulWidget {
     required this.hintText,
     required this.controller,
     required this.esPassword,
+    this.fillColor,
     this.focusNode,
     super.key,
     this.width,
@@ -153,6 +154,9 @@ class EscuelasTextfield extends StatefulWidget {
   /// Al apretar siguiente en el teclado ejecuta esa accion.
   final void Function(String)? onFieldSubmitted;
 
+  /// Color de relleno.
+  final Color? fillColor;
+
   @override
   State<EscuelasTextfield> createState() => _EscuelasTextfieldState();
 }
@@ -182,7 +186,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
               prefixIcon: Icon(widget.prefixIcon),
               contentPadding: EdgeInsets.symmetric(horizontal: 15.sw),
               filled: true,
-              fillColor: colores.tertiary,
+              fillColor: widget.fillColor ?? colores.tertiary,
               hintText: widget.hintText,
               hintStyle: TextStyle(
                 fontSize: 16.pf,

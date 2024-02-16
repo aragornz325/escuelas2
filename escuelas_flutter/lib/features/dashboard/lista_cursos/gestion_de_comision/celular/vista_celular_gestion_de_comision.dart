@@ -1,11 +1,9 @@
-import 'dart:math';
-
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/comunidad_academica/listado_comunidad/widgets/elemento_listado_comunidad.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/gestion_de_comision/bloc/bloc_gestion_de_comision.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_cursos/gestion_de_comision/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
-import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -16,6 +14,34 @@ import 'package:full_responsive/full_responsive.dart';
 class VistaCelularGestionDeComision extends StatelessWidget {
   /// {@macro VistaCelularGestionDeComision}
   const VistaCelularGestionDeComision({super.key});
+
+  /// dialog que se va a mostrar en caso de exito al asignar docente a una
+  /// asignatura o agregar un nuevo alumno a una comision
+  void _dialogExitoso(BuildContext context, String titulo) => showDialog<void>(
+        context: context,
+        builder: (context) => DialogExitoso(
+          titulo: titulo,
+        ),
+      );
+
+  /// bottomsheet que se va a mostrar en caso de filtrar por nombre, y para
+  /// asignar docente a una asignatura o agregar un alumno a una comision
+  void _bottomSheetAsignarOAgregarUsuario({
+    required BuildContext context,
+    required int idRol,
+    bool esAsignarDocente = false,
+  }) =>
+      showModalBottomSheet<void>(
+        context: context,
+        isScrollControlled: true,
+        builder: (_) => BlocProvider.value(
+          value: context.read<BlocGestionDeComision>()
+            ..add(
+              BlocGestionDeComisionEventoFiltrarPorNombre(idRol: idRol),
+            ),
+          child: BottomSheetFiltrado(esAsignarDocente: esAsignarDocente),
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -29,49 +55,54 @@ class VistaCelularGestionDeComision extends StatelessWidget {
         children: [
           ComponenteDependiendoElRol(
             tituloDeRol: '${l10n.commonTeacher}:',
-            onTap: () {
-              // TODO(mati): agregarle funcionalidad de asignar docente
-            },
+            onTap: () => _bottomSheetAsignarOAgregarUsuario(
+              esAsignarDocente: true,
+              context: context,
+              idRol: 2,
+            ),
             tituloBoton: l10n.pageManagementOfCourseAssignTeacher,
           ),
-          // TODO(mati): agregarle Condicion de que si no hay docente
-          // asignado a esta asignatura mostrar el texto sino el nombre
-          // del docente con la imagen.
-          Row(
-            children: [
-              CircleAvatar(
-                radius: 18.sw,
-                backgroundColor: colores.secondary,
-              ),
-              SizedBox(width: 10.pw),
-              Text(
-                l10n.pageManagementOfCourseThereAreNoTeachersAssigned,
-                style: TextStyle(
-                  fontSize: 13.pf,
-                  fontWeight: FontWeight.w400,
-                  color: colores.secondary,
-                ),
-              ),
-            ],
-          ),
+          const DocenteDeLaAsignatura(),
           ComponenteDependiendoElRol(
             tituloDeRol: '${l10n.commonStudent}:',
-            onTap: () {
-              // TODO(mati): agregarle funcionalidad de agregar alumno
-            },
+            onTap: () => _bottomSheetAsignarOAgregarUsuario(
+              context: context,
+              idRol: 1,
+            ),
             tituloBoton: l10n.pageManagementOfCourseAddStudent,
           ),
-          BlocBuilder<BlocGestionDeComision, BlocGestionDeComisionEstado>(
+          BlocConsumer<BlocGestionDeComision, BlocGestionDeComisionEstado>(
+            listener: (context, state) {
+              if (state.exitoAlAsignarDocente) {
+                // TODO(mati): traduccion
+                _dialogExitoso(context, '¡Docente asignado con exito!');
+              }
+
+              if (state.exitoAlAgregarAlumnoAComision) {
+                // TODO(mati): traduccion
+                _dialogExitoso(context, '¡Alumno agregado con exito!');
+              }
+            },
             builder: (context, state) {
+              // TODO(mati): hacer vista de no usuarios
               if (state.listaAlumnos?.usuariosListados.isEmpty ?? false) {
                 return Center(
-                  child: Text(
-                    l10n.pageAcademicCommunityNoUsersToShow,
-                    style: TextStyle(
-                      color: colores.onBackground,
-                      fontSize: 16.pf,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.groups_3_outlined,
+                        size: 100.pw,
+                        color: colores.secondary,
+                      ),
+                      Text(
+                        l10n.pageAcademicCommunityNoUsersToShow,
+                        style: TextStyle(
+                          color: colores.secondary,
+                          fontSize: 16.pf,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
                   ),
                 );
               }
@@ -87,9 +118,6 @@ class VistaCelularGestionDeComision extends StatelessWidget {
                                       titulo: e.etiquetaDelIndexListado
                                           .toUpperCase(),
                                       usuariosListados: e,
-                                      onTap: () {
-                                        // TODO(mati) : hacer un bottonshit
-                                      },
                                     ),
                             )
                             .toList() ??
@@ -101,62 +129,6 @@ class VistaCelularGestionDeComision extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-/// {@template Componente}
-/// TODO(mati): documentar.
-/// {@endtemplate}
-class ComponenteDependiendoElRol extends StatelessWidget {
-  /// {@macro Componente}
-  const ComponenteDependiendoElRol({
-    required this.tituloDeRol,
-    required this.tituloBoton,
-    required this.onTap,
-    super.key,
-  });
-
-  /// Titulo del rol ej: Docente o Alumno.
-  final String tituloDeRol;
-
-  /// Titulo del boton.
-  final String tituloBoton;
-
-  /// Funcion que se ejecuta al presionar el boton.
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    final colores = context.colores;
-
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              tituloDeRol,
-              style: TextStyle(
-                color: colores.secondary,
-                fontSize: 13.pf,
-                fontWeight: FontWeight.w800,
-              ),
-            ),
-            EscuelasBoton.textoEIcono(
-              color: colores.primary,
-              onTap: onTap,
-              texto: tituloBoton,
-              context: context,
-              icono: Icons.person_add_alt_outlined,
-            ),
-          ],
-        ),
-        Divider(
-          color: colores.secondary,
-          height: max(5.ph, 5.sh),
-        ),
-      ],
     );
   }
 }
