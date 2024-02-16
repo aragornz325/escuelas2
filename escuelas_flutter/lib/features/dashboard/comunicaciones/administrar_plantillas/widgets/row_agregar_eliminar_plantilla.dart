@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -7,25 +9,17 @@ import 'package:full_responsive/full_responsive.dart';
 /// Row que contiene el boton para agregar una nueva plantilla y el boton
 /// para entrar en modo eliminacion
 /// {@endtemplate}
-class RowAgregarEliminarPlantilla extends StatefulWidget {
+class RowAgregarEliminarPlantilla extends StatelessWidget {
   /// {@macro RowAgregarEliminarPlantilla}
-  const RowAgregarEliminarPlantilla({super.key});
+  const RowAgregarEliminarPlantilla({
+    required this.onCambioDeModo,
+    this.modoEliminar = false,
+    super.key,
+  });
 
-  @override
-  State<RowAgregarEliminarPlantilla> createState() =>
-      _RowAgregarEliminarPlantillaState();
-}
+  final bool modoEliminar;
 
-class _RowAgregarEliminarPlantillaState
-    extends State<RowAgregarEliminarPlantilla> {
-  bool modoEliminar = false;
-
-  void onCambioDeModo() {
-    setState(() {
-      modoEliminar = !modoEliminar;
-    });
-  }
-
+  final VoidCallback onCambioDeModo;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -160,8 +154,24 @@ class RowModoEliminar extends StatelessWidget {
   }
 }
 
+/// {@template DesplegablePlantilla}
+/// Desplegable que muestra los datos de la plantilla
+/// {@endtemplate}
 class DesplegablePlantilla extends StatelessWidget {
-  const DesplegablePlantilla({super.key});
+  /// {@macro DesplegablePlantilla}
+  const DesplegablePlantilla({
+    required this.necesitaSupervision,
+    required this.modoEliminar,
+    super.key,
+  });
+
+  /// Verifica si la plantilla necesita supervisión, de ser true, se agrega
+  /// el icono de supervisión
+  final bool necesitaSupervision;
+
+  /// Verifica si se encuentra en modoEliminar, de ser true, se agrega el
+  /// checkbox para seleccionar la plantilla
+  final bool modoEliminar;
 
   @override
   Widget build(BuildContext context) {
@@ -172,22 +182,87 @@ class DesplegablePlantilla extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sw)),
       collapsedShape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sw)),
-      title: Text(
-        'Plantilla',
-        style: TextStyle(
-          color: colores.onBackground,
-          fontSize: 16.pf,
-          fontWeight: FontWeight.w700,
-        ),
+      leading: modoEliminar
+          ? Icon(
+              Icons.check_circle_outline,
+              color: colores.error,
+            )
+          : null,
+      title: Row(
+        children: [
+          Text(
+            'Plantilla',
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: colores.onBackground,
+              fontSize: 16.pf,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          const Spacer(),
+          if (necesitaSupervision)
+            Icon(
+              Icons.supervised_user_circle_outlined,
+              color: colores.onBackground,
+              size: 24.sw,
+            ),
+          IconButton(
+            //!TODO(Manu): Dar funcion
+            onPressed: () {},
+            icon: Icon(
+              Icons.edit_outlined,
+              color: colores.onBackground,
+            ),
+          ),
+        ],
       ),
-      subtitle: Text(
-        DateTime.now().toString(),
-        style: TextStyle(
-          color: colores.onBackground,
-          fontSize: 8.pf,
-          fontWeight: FontWeight.w700,
+      childrenPadding: EdgeInsets.symmetric(vertical: max(10.ph, 10.sh)),
+      children: [
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.pw),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Fecha de creacion: 10/12}',
+                style: TextStyle(
+                  color: colores.onBackground,
+                  fontSize: 8.pf,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              Text(
+                'ultima edicion: 27/12}',
+                style: TextStyle(
+                  color: colores.onBackground,
+                  fontSize: 8.pf,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
+        const Divider(),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.pw),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Necesita supervicion'),
+              if (necesitaSupervision)
+                Icon(
+                  Icons.check_box_sharp,
+                  color: colores.primary,
+                )
+              else
+                Icon(
+                  Icons.check_box_outline_blank_outlined,
+                  color: colores.primary,
+                ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
