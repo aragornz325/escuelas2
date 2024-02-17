@@ -545,7 +545,18 @@
     "@pageManageTemplatesAddNew": {
         "description": "Text to be displayed in the button to add new template"
     },
-    
+    "pageManageTemplatesNeedSupervision": "Necesita supervisión",
+    "@pageManageTemplatesNeedSupervision": {
+        "description": "Text to be displayed in the bottom of the template"
+    },
+    "pageManageTemplatesCreatedAt": "Creado el",
+    "@pageManageTemplatesCreatedAt": {
+        "description": "Text to be displayed in the template for the creation date"
+    },
+    "pageManageTemplatesUpdateAt": "Editado el",
+    "@pageManageTemplatesUpdateAt": {
+        "description": "Text to be displayed in the template for the date of the last update"
+    },
     "dialogSeeMore": "Ver más",
     "@dialogSeeMore": {
         "description": "text on a button to see less"

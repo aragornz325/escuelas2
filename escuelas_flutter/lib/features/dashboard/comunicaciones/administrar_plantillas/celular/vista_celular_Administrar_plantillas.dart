@@ -1,10 +1,16 @@
+import 'dart:math';
+
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/bloc/bloc_administrar_plantillas.dart';
-import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/widgets/row_agregar_eliminar_plantilla.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
+/// {@template VistaCelularAdministrarPlantillas}
+/// Vista para administrar las plantillas de comunicaciones
+/// {@endtemplate}
 class VistaCelularAdministrarPlantillas extends StatefulWidget {
+  /// {@macro VistaCelularAdministrarPlantillas}
   const VistaCelularAdministrarPlantillas({super.key});
 
   @override
@@ -15,9 +21,17 @@ class VistaCelularAdministrarPlantillas extends StatefulWidget {
 class _VistaCelularAdministrarPlantillasState
     extends State<VistaCelularAdministrarPlantillas> {
   bool modoEliminar = false;
-  void onCambioDeModo() {
+  bool modoEditar = false;
+
+  void onCambioDeModoEliminar() {
     setState(() {
       modoEliminar = !modoEliminar;
+    });
+  }
+
+  void onCambioDeModoEditar() {
+    setState(() {
+      modoEditar = !modoEditar;
     });
   }
 
@@ -30,12 +44,21 @@ class _VistaCelularAdministrarPlantillasState
           children: [
             RowAgregarEliminarPlantilla(
               modoEliminar: modoEliminar,
-              onCambioDeModo: onCambioDeModo,
+              onCambioDeModo: onCambioDeModoEliminar,
             ),
-            SizedBox(height: 15.ph),
+            SizedBox(height: max(15.ph, 15.sh)),
             DesplegablePlantilla(
+              onCancelarEdicion: onCambioDeModoEditar,
+              onConfirmarEdicion: () {},
+              onEditar: onCambioDeModoEditar,
+              onModoEditar: modoEditar,
               necesitaSupervision: true,
               modoEliminar: modoEliminar,
+              fechaCreacion: '27/12',
+              ultimaEdicion: '10/12',
+              descripcionDePlantilla:
+                  'ultima edicion: 27/12}ultima edicion: 27/12}ultima edicion: 27/12}ultima edicion: 27/12}ultima edicion: 27/12}ultima edicion: 27/12}ultima edicion: 27/12}ultima edicion: 27/12}ultima edicion: 27/12}ultima edicion: 27/12}ultima edicion: 27/12}',
+              tituloPlantilla: 'Este es el titulo',
             ),
           ],
         );

@@ -442,6 +442,18 @@
     "@pageManageTemplatesAddNew": {
         "description": "Text to be displayed in the button to add new template"
     },
+    "pageManageTemplatesNeedSupervision": "Needs supervision",
+    "@pageManageTemplatesNeedSupervision": {
+        "description": "Text to be displayed in the bottom of the template"
+    },
+    "pageManageTemplatesCreatedAt": "Created at",
+    "@pageManageTemplatesCreatedAt": {
+        "description": "Text to be displayed in the template for the creation date"
+    },
+    "pageManageTemplatesUpdateAt": "Updated on",
+    "@pageManageTemplatesUpdateAt": {
+        "description": "Text to be displayed in the template for the date of the last update"
+    },
 
 
     "commonWelcome": "Welcome!",
