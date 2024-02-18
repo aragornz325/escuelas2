@@ -14,6 +14,8 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
       : super(const BlocAdministrarPlantillasEstadoInicial()) {
     on<BlocAdministrarPlantillasEventoInicializar>(_onInicializar);
     on<BlocAdministrarPlantillasEventoAgregarPlantilla>(_onAgregarPlantilla);
+    on<BlocAdministrarPlantillasEventoCambiarModoEliminar>(
+        _onCambiarModoEliminar);
     on<BlocAdministrarPlantillasEventoEliminarPlantillas>(
       _onEliminarPlantillas,
     );
@@ -45,6 +47,19 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
       onError: (e, st) {
         emit(BlocAdministrarPlantillasEstadoError.desde(state));
       },
+    );
+  }
+
+/// Cambia de modo, al ser true se mostrara el checkbox a la izquierda
+  Future<void> _onCambiarModoEliminar(
+    BlocAdministrarPlantillasEventoCambiarModoEliminar event,
+    Emitter<BlocAdministrarPlantillasEstado> emit,
+  ) async {
+    emit(
+      BlocAdministrarPlantillasEstadoExitoso.desde(
+        state,
+        modoEliminar: event.modoEliminar,
+      ),
     );
   }
 

@@ -5,11 +5,20 @@ part of 'bloc_administrar_plantillas.dart';
 /// {@endtemplate}
 class BlocAdministrarPlantillasEstado {
   /// {@macro BlocAdministrarPlantillasEstado}
-  const BlocAdministrarPlantillasEstado._();
+  const BlocAdministrarPlantillasEstado._(
+    {this.modoEliminar = false,}
+  );
 
   BlocAdministrarPlantillasEstado.desde(
-    BlocAdministrarPlantillasEstado otro,
-  ) : this._();
+    BlocAdministrarPlantillasEstado otro,{
+      bool? modoEliminar,
+    }
+  ) : this._(
+    modoEliminar: modoEliminar ?? otro.modoEliminar,
+  );
+
+/// Bool para identificar si se encuentra en modo eliminar
+  final bool modoEliminar;
 }
 
 /// {@template BlocAdministrarPlantillasEstadoInicial}
@@ -45,5 +54,5 @@ class BlocAdministrarPlantillasEstadoError
 class BlocAdministrarPlantillasEstadoExitoso
     extends BlocAdministrarPlantillasEstado {
   /// {@macro BlocAdministrarPlantillasEstadoExitoso}
-  BlocAdministrarPlantillasEstadoExitoso.desde(super.otro) : super.desde();
+  BlocAdministrarPlantillasEstadoExitoso.desde(super.otro,{super.modoEliminar}) : super.desde();
 }

@@ -26,6 +26,18 @@ class BlocAdministrarPlantillasEventoAgregarPlantilla
   const BlocAdministrarPlantillasEventoAgregarPlantilla();
 }
 
+/// {@template BlocAdministrarPlantillasEventoCambiarModoEliminar}
+/// Evento para cambiar a modo eliminar
+/// {@endtemplate}
+class BlocAdministrarPlantillasEventoCambiarModoEliminar
+    extends BlocAdministrarPlantillasEvento {
+      /// {@macro BlocAdministrarPlantillasEventoCambiarModoEliminar}
+  BlocAdministrarPlantillasEventoCambiarModoEliminar({required this.modoEliminar});
+ 
+ /// Identifica si se encuentra en modo eliminar
+  final bool modoEliminar;
+}
+
 /// {@template BlocAdministrarPlantillasEventoEliminarPlantillas}
 /// Evento para Eliminar plantillas
 /// {@endtemplate}

@@ -2,17 +2,18 @@ import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/widgets/escuelas_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template DesplegablePlantilla}
 /// Desplegable que muestra los datos de la plantilla
 /// {@endtemplate}
-class DesplegablePlantilla extends StatelessWidget {
+class DesplegablePlantilla extends StatefulWidget {
   /// {@macro DesplegablePlantilla}
   const DesplegablePlantilla({
     required this.necesitaSupervision,
-    required this.modoEliminar,
+    required this.onModoEliminar,
     required this.fechaCreacion,
     required this.ultimaEdicion,
     required this.descripcionDePlantilla,
@@ -30,7 +31,7 @@ class DesplegablePlantilla extends StatelessWidget {
 
   /// Verifica si se encuentra en modoEliminar, de ser true, se agrega el
   /// checkbox para seleccionar la plantilla
-  final bool modoEliminar;
+  final bool onModoEliminar;
 
   /// Verifica si se encuentra en modo editar
   final bool onModoEditar;
@@ -57,6 +58,30 @@ class DesplegablePlantilla extends StatelessWidget {
   final VoidCallback onCancelarEdicion;
 
   @override
+  State<DesplegablePlantilla> createState() => _DesplegablePlantillaState();
+}
+
+class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
+  late TextEditingController controllerTitulo;
+  late TextEditingController controllerDescripcion;
+
+  @override
+  void initState() {
+    controllerTitulo = TextEditingController(text: widget.tituloPlantilla);
+    controllerDescripcion =
+        TextEditingController(text: widget.descripcionDePlantilla);
+
+    super.initState();
+  }
+
+@override
+  void dispose() {
+    controllerTitulo.dispose();
+    controllerDescripcion.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colores = context.colores;
@@ -67,7 +92,7 @@ class DesplegablePlantilla extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sw)),
       collapsedShape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sw)),
-      leading: modoEliminar
+      leading: widget.onModoEliminar
           ? Icon(
               Icons.check_circle_outline,
               color: colores.error,
@@ -75,8 +100,14 @@ class DesplegablePlantilla extends StatelessWidget {
           : null,
       title: Row(
         children: [
+          if (widget.onModoEditar)
+            EscuelasTextfield(
+              hintText: 'hintText',
+              controller: controllerTitulo,
+              esPassword: false,
+            ),
           Text(
-            tituloPlantilla,
+            widget.tituloPlantilla,
             overflow: TextOverflow.ellipsis,
             style: TextStyle(
               color: colores.onBackground,
@@ -85,17 +116,17 @@ class DesplegablePlantilla extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          if (necesitaSupervision)
+          if (widget.necesitaSupervision)
             Icon(
               Icons.supervised_user_circle_outlined,
               color: colores.onBackground,
               size: 24.sw,
             ),
-          if (onModoEditar)
+          if (widget.onModoEditar)
             Row(
               children: [
                 IconButton(
-                  onPressed: onCancelarEdicion,
+                  onPressed: widget.onCancelarEdicion,
                   icon: Icon(
                     Icons.close_rounded,
                     color: colores.onBackground,
@@ -103,7 +134,7 @@ class DesplegablePlantilla extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                  onPressed: onConfirmarEdicion,
+                  onPressed: widget.onConfirmarEdicion,
                   icon: Icon(
                     Icons.check_rounded,
                     color: colores.onBackground,
@@ -114,7 +145,7 @@ class DesplegablePlantilla extends StatelessWidget {
             )
           else
             IconButton(
-              onPressed: onEditar,
+              onPressed: widget.onEditar,
               icon: Icon(
                 Icons.edit_outlined,
                 color: colores.onBackground,
@@ -132,7 +163,7 @@ class DesplegablePlantilla extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${l10n.pageManageTemplatesCreatedAt} $fechaCreacion',
+                    '${l10n.pageManageTemplatesCreatedAt} ${widget.fechaCreacion}',
                     style: TextStyle(
                       color: colores.onBackground,
                       fontSize: 10.pf,
@@ -140,7 +171,7 @@ class DesplegablePlantilla extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    '${l10n.pageManageTemplatesUpdateAt} $ultimaEdicion',
+                    '${l10n.pageManageTemplatesUpdateAt} ${widget.ultimaEdicion}',
                     style: TextStyle(
                       color: colores.onBackground,
                       fontSize: 10.pf,
@@ -150,9 +181,16 @@ class DesplegablePlantilla extends StatelessWidget {
                 ],
               ),
               SizedBox(height: max(10.ph, 10.sh)),
+              
+              if (widget.onModoEditar)
+            EscuelasTextfield(
+              hintText: 'hintText',
+              controller: controllerDescripcion,
+              esPassword: false,
+            ),
               IntrinsicHeight(
                 child: Text(
-                  descripcionDePlantilla,
+                  widget.descripcionDePlantilla,
                   textAlign: TextAlign.start,
                 ),
               ),
@@ -166,7 +204,7 @@ class DesplegablePlantilla extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(l10n.pageManageTemplatesNeedSupervision),
-              if (necesitaSupervision)
+              if (widget.necesitaSupervision)
                 Icon(
                   Icons.check_box_sharp,
                   color: colores.primary,

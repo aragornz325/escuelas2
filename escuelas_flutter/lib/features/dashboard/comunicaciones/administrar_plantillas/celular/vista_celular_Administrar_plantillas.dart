@@ -20,18 +20,18 @@ class VistaCelularAdministrarPlantillas extends StatefulWidget {
 
 class _VistaCelularAdministrarPlantillasState
     extends State<VistaCelularAdministrarPlantillas> {
-  bool modoEliminar = false;
-  bool modoEditar = false;
+  bool onModoEliminar = false;
+  bool onModoEditar = false;
 
   void onCambioDeModoEliminar() {
     setState(() {
-      modoEliminar = !modoEliminar;
+      onModoEliminar = !onModoEliminar;
     });
   }
 
   void onCambioDeModoEditar() {
     setState(() {
-      modoEditar = !modoEditar;
+      onModoEditar = !onModoEditar;
     });
   }
 
@@ -43,7 +43,7 @@ class _VistaCelularAdministrarPlantillasState
         return Column(
           children: [
             RowAgregarEliminarPlantilla(
-              modoEliminar: modoEliminar,
+              modoEliminar: onModoEliminar,
               onCambioDeModo: onCambioDeModoEliminar,
             ),
             SizedBox(height: max(15.ph, 15.sh)),
@@ -51,9 +51,9 @@ class _VistaCelularAdministrarPlantillasState
               onCancelarEdicion: onCambioDeModoEditar,
               onConfirmarEdicion: () {},
               onEditar: onCambioDeModoEditar,
-              onModoEditar: modoEditar,
+              onModoEditar: onModoEditar,
               necesitaSupervision: true,
-              modoEliminar: modoEliminar,
+              onModoEliminar: onModoEliminar,
               fechaCreacion: '27/12',
               ultimaEdicion: '10/12',
               descripcionDePlantilla:
