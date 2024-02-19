@@ -299,7 +299,7 @@
         "description": "Message indicating that there are no teachers assigned to a specific subject or course."
     },
 
-    "pageCourseManagementStudentAddSuccessfully": "Student add successfully!",
+    "pageCourseManagementStudentAddSuccessfully": "Student added successfully!",
     "@pageCourseManagementStudentAddSuccessfully": {
         "description": "Message displayed when a teacher is successfully assigned to a course."
     },
@@ -344,6 +344,11 @@
                 "type": "String"
             }
         }
+    },
+    
+    "pageCoursesThereAreNoCourses": "There are no commissions with subjects",
+    "@pageCoursesThereAreNoCourses": {
+        "description": "There are no commissions with subjects"
     },
 
     "dialogAbsencesSentCorrectly": "absences sent correctly",

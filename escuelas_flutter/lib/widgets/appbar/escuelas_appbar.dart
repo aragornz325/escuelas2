@@ -110,11 +110,16 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
             title: Center(
               child: BlocBuilder<BlocDashboard, BlocDashboardEstado>(
                 builder: (context, state) {
+                  if (state is BlocDashboardEstadoCargando) {
+                    return const CircularProgressIndicator();
+                  }
                   if (state.asignatura != null &&
+                      state.comision != null &&
                       context.router.topMatch.name ==
                           RutaGestionDeComision.name) {
                     return Text(
-                      state.asignatura!.nombre.toUpperCase(),
+                      '${state.asignatura!.nombre.toUpperCase()}'
+                      ' ${state.comision!.nombre.toUpperCase()}',
                     );
                   }
                   return Text(

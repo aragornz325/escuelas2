@@ -20,10 +20,17 @@ class BlocDashboardEventoInicializar extends BlocDashboardEvento {
 /// {@template BlocDashboardEventoObtenerAsignatura}
 /// Evento para obtener una asignatura y mostrarlo en el appbar.
 /// {@endtemplate}
-class BlocDashboardEventoObtenerAsignatura extends BlocDashboardEvento {
+class BlocDashboardEventoObtenerAsignaturaYComision
+    extends BlocDashboardEvento {
   /// {@macro BlocDashboardEventoObtenerAsignatura}
-  const BlocDashboardEventoObtenerAsignatura({required this.idAsignatura});
+  const BlocDashboardEventoObtenerAsignaturaYComision({
+    required this.idAsignatura,
+    required this.idComision,
+  });
 
   /// id de la asignatura.
   final int idAsignatura;
+
+  /// id de la comision.
+  final int idComision;
 }
