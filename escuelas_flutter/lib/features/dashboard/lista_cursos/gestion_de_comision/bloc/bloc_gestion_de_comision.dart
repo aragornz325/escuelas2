@@ -12,6 +12,7 @@ part 'bloc_gestion_de_comision_estado.dart';
 class BlocGestionDeComision
     extends Bloc<BlocGestionDeComisionEvento, BlocGestionDeComisionEstado> {
   /// {@macro BlocGestionDeComisionEvento}
+
   BlocGestionDeComision({
     required int idAsignatura,
     required int idComision,
@@ -39,13 +40,21 @@ class BlocGestionDeComision
       callback: (client) async {
         /// TODO(mati): hablar con louka sobre los docentes asignados a una
         /// asignatura si hay mas de dos.
-        final asignatura = await client.asignatura
-            .obtenerAsignaturaPorId(id: state.idAsignatura);
+
+        final listaObjetos = await Future.wait([
+          client.asignatura.obtenerAsignaturaPorId(id: state.idAsignatura),
+          client.usuario.obtenerListaDeEstudiantesDeComision(
+            idComision: state.idComision,
+          ),
+          client.comision
+              .obtenerComisionesDeCursoPorId(idComision: state.idComision),
+        ]);
+        final asignatura = listaObjetos[0] as Asignatura;
 
         final alumnos =
-            await client.usuario.obtenerListaDeEstudiantesDeComision(
-          idComision: state.idComision,
-        );
+            List<RelacionComisionUsuario>.from(listaObjetos[1] as List);
+
+        final comision = listaObjetos[2] as ComisionDeCurso;
 
         final listaAlumnos =
             _devolverUsuariosOrdenadosDependiendoDelNombre(alumnos);
@@ -55,6 +64,7 @@ class BlocGestionDeComision
             state,
             asignatura: asignatura,
             listaAlumnos: listaAlumnos,
+            comision: comision,
           ),
         );
       },
@@ -67,7 +77,6 @@ class BlocGestionDeComision
     BlocGestionDeComisionEventoFiltrarPorNombre event,
     Emitter<BlocGestionDeComisionEstado> emit,
   ) async {
-    emit(BlocGestionDeComisionEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
         /// TODO(mati): hablar con louka por que nose como sacar el idRol
@@ -95,26 +104,43 @@ class BlocGestionDeComision
     emit(BlocGestionDeComisionEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(mati): hacer que se asigne un nuevo docente y reemplazar
-        //el que este en el estado
-        // TODO(mati): verificar si hay un docente asignado a una asignatura
-        // y si hay que reemplazarlo
-        // if () {
+        if ((state.asignatura?.usuarios ?? []).isNotEmpty) {
+          await client.asignatura.desasignarUsuarioAAsignatura(
+            idDocente: state.asignatura?.usuarios?.last.usuarioId ?? 0,
+            comisionId: state.idComision,
+            asignaturaId: state.idAsignatura,
+          );
+        }
 
-        // await client.asignatura.desasignarUsuarioAAsignatura(
-        //   idDocente: event.idDocente,
-        //   comisionId: state.idComision,
-        //   asignaturaId: state.idAsignatura,
-        // );
-        // }
         await client.asignatura.asignarDocenteAAsignatura(
           idsAsignaturas: [state.idAsignatura],
-          idDocente: event.idDocente,
+          idDocente: event.docente?.id ?? 0,
           idComision: state.idComision,
         );
+
+        final asignatura = state.asignatura;
+
+        if (event.docente != null) {
+          asignatura?.usuarios?.add(
+            RelacionAsignaturaUsuario(
+              usuarioId: event.docente?.idUserInfo ?? 0,
+              asignaturaId: state.idAsignatura,
+              comisionId: state.idComision,
+              ultimaModificacion: DateTime.now(),
+              fechaCreacion: DateTime.now(),
+              usuario: Usuario(
+                idUserInfo: event.docente?.idUserInfo ?? 0,
+                nombre: event.docente?.nombre ?? '',
+                apellido: event.docente?.apellido ?? '',
+                urlFotoDePerfil: event.docente?.urlFotoDePerfil ?? '',
+              ),
+            ),
+          );
+        }
         emit(
           BlocGestionDeComisionEstadoExitosoAlAsignarDocente.desde(
             state,
+            asignatura: asignatura,
           ),
         );
       },

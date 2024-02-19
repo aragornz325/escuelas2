@@ -108,7 +108,7 @@ abstract class $AppRouter extends _i21.RootStackRouter {
       final args = routeData.argsAs<RutaGestionDeComisionArgs>(
           orElse: () => RutaGestionDeComisionArgs(
                 idAsignatura: pathParams.getInt('idAsignatura'),
-                idComision: pathParams.getInt('idAsignatura'),
+                idComision: pathParams.getInt('idComision'),
               ));
       return _i21.AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -392,7 +392,10 @@ class RutaGestionDeComision
             idComision: idComision,
             key: key,
           ),
-          rawPathParams: {'idAsignatura': idComision},
+          rawPathParams: {
+            'idAsignatura': idAsignatura,
+            'idComision': idComision,
+          },
           initialChildren: children,
         );
 

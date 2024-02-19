@@ -93,7 +93,7 @@ class AppRouter extends $AppRouter {
                 ),
                 AutoRoute(
                   page: RutaGestionDeComision.page,
-                  path: 'management-of-course',
+                  path: 'course-management/:idComision/:idAsignatura',
                 ),
               ],
             ),

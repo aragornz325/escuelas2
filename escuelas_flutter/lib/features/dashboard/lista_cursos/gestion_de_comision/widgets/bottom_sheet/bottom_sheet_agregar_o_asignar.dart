@@ -19,9 +19,13 @@ import 'package:full_responsive/full_responsive.dart';
 class BottomSheetFiltrado extends StatefulWidget {
   /// {@macro BottomSheetFiltrado}
   const BottomSheetFiltrado({
+    required this.idRol,
     this.esAsignarDocente = false,
     super.key,
   });
+
+  /// Id del rol a filtrar en el buscador.
+  final int idRol;
 
   /// Indica si es para asignar un docente o agregar un alumno a una comision.
   final bool esAsignarDocente;
@@ -36,6 +40,16 @@ class _BottomSheetFiltradoState extends State<BottomSheetFiltrado> {
 
   /// FocusNode para el campo de texto.
   final _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<BlocGestionDeComision>().add(
+          BlocGestionDeComisionEventoFiltrarPorNombre(
+            idRol: widget.idRol,
+          ),
+        );
+  }
 
   @override
   void dispose() {
@@ -89,7 +103,7 @@ class _BottomSheetFiltradoState extends State<BottomSheetFiltrado> {
     final l10n = context.l10n;
 
     return SizedBox(
-      height: max(500.ph, 500.sh),
+      height: 75.hp,
       child: Column(
         children: [
           Container(
@@ -114,7 +128,7 @@ class _BottomSheetFiltradoState extends State<BottomSheetFiltrado> {
               child: EscuelasTextfield(
                 focusNode: _focusNode,
                 fillColor: colores.background,
-                hintText: 'Escribe un nombre', // TODO(mati): traducir
+                hintText: l10n.commonSearchName,
                 controller: _controllerNombre,
                 prefixIcon: Icons.search,
                 esPassword: false,

@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template DialogExitoso}
-/// TODO(mati): documentar
+/// Dialog de exito al emitir un estado dando un mensaje que salio
+/// correctamente.
 /// {@endtemplate}
 class DialogExitoso extends StatelessWidget {
   /// {@macro DialogExitoso}

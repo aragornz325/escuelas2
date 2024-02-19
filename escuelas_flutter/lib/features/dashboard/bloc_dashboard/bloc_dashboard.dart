@@ -23,6 +23,7 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
           ),
         ) {
     on<BlocDashboardEventoInicializar>(_onInicializar);
+    on<BlocDashboardEventoObtenerAsignatura>(_onObtenerAsignatura);
   }
 
   /// Evento inicial donde trae todos los cursos del usuario.
@@ -42,6 +43,35 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
           BlocDashboardEstadoExitoso.desde(
             state,
             usuario: usuario,
+          ),
+        );
+      },
+      onError: (e, st) {
+        emit(
+          BlocDashboardEstadoFallido.desde(state),
+        );
+      },
+    );
+  }
+
+  /// Evento para obtener la asignatura y la comision.
+  Future<void> _onObtenerAsignatura(
+    BlocDashboardEventoObtenerAsignatura event,
+    Emitter<BlocDashboardEstado> emit,
+  ) async {
+    emit(BlocDashboardEstadoCargando.desde(state));
+
+    await operacionBloc(
+      callback: (client) async {
+        // TODO: hacer funcion par abtener la comision.
+        final asignatura = await client.asignatura
+            .obtenerAsignaturaPorId(id: event.idAsignatura);
+
+        emit(
+          BlocDashboardEstadoExitoso.desde(
+            state,
+            usuario: state.usuario,
+            asignatura: asignatura,
           ),
         );
       },

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioGestionDeComision}
-/// TODO(mati): documentar
+/// Vista escritorio de la pantalla Gestion de Comisiones.
 /// {@endtemplate}
 class VistaEscritorioGestionDeComision extends StatelessWidget {
   /// {@macro VistaEscritorioGestionDeComision}

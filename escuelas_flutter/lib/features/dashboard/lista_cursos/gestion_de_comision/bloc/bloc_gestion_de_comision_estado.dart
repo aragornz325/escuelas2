@@ -1,3 +1,5 @@
+// ignore_for_file: overridden_fields
+
 part of 'bloc_gestion_de_comision.dart';
 
 /// {@template BlocGestionDeComisionEstado}
@@ -118,8 +120,9 @@ class BlocGestionDeComisionEstadoExitosoAlAsignarDocente
     extends BlocGestionDeComisionEstado {
   /// {@macro BlocGestionDeComisionEstadoExitosoAlAsignarDocente}
   BlocGestionDeComisionEstadoExitosoAlAsignarDocente.desde(
-    super.otro,
-  ) : super.desde();
+    super.otro, {
+    super.asignatura,
+  }) : super.desde();
 }
 
 /// {@template BlocGestionDeComisionEstadoExitosoAlAgregarAlumnoAComision}

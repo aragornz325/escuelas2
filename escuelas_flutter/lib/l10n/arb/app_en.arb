@@ -284,19 +284,66 @@
     },
 
     
-    "pageManagementOfCourseAssignTeacher": "assign teacher",
-    "@pageManagementOfCourseAssignTeacher": {
+    "pageCourseManagementAssignTeacher": "assign teacher",
+    "@pageCourseManagementAssignTeacher": {
         "description": "Label indicating the action to assign a teacher to a course."
     },
 
-    "pageManagementOfCourseAddStudent": "Add Student",
-    "@pageManagementOfCourseAddStudent": {
+    "pageCourseManagementAddStudent": "Add Student",
+    "@pageCourseManagementAddStudent": {
         "description": "Label indicating the action to add a student to a course."
     },
 
-    "pageManagementOfCourseThereAreNoTeachersAssigned": "There are no teachers assigned to this subject",
-    "@pageManagementOfCourseThereAreNoTeachersAssigned": {
+    "pageCourseManagementThereAreNoTeachersAssigned": "There are no teachers assigned to this subject",
+    "@pageCourseManagementThereAreNoTeachersAssigned": {
         "description": "Message indicating that there are no teachers assigned to a specific subject or course."
+    },
+
+    "pageCourseManagementStudentAddSuccessfully": "Student add successfully!",
+    "@pageCourseManagementStudentAddSuccessfully": {
+        "description": "Message displayed when a teacher is successfully assigned to a course."
+    },
+    "pageCourseManagementTeacherAsignedSuccessfully": "Teacher assigned successfully!",
+    "@pageCourseManagementTeacherAsignedSuccessfully": {
+        "description": "Message displayed when a student is successfully added to a course."
+    },
+
+    "pageCourseManagementAddStudentConfirmation": "Are you sure you want to add to {nameStudent} {nameComision}?",
+    "@pageCourseManagementAddStudentConfirmation": {
+        "description": "Confirmation message displayed when the user attempts to add a student to a course.",
+        "placeholders" :{
+            "nameComision" : {
+                "type": "String"
+            },"nameStudent" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageCourseManagementAddStudentConfirmationThisRemove": "This will permanently remove it from {nameComision}",
+    "@pageCourseManagementAddStudentConfirmationThisRemove": {
+        "description": "Confirmation message displayed when the user attempts to add a student to a course and explains that it will remove the student from another course if they were previously enrolled.",
+        "placeholders" :{
+            "nameComision" : {
+                "type": "String"
+            }
+        }
+    },
+
+    "pageCourseManagementAssignTeacherConfirmation": "Are you sure you want to assign to {nameTeacher} as a {nameComision} {nameSubject} techer?",
+    "@pageCourseManagementAssignTeacherConfirmation": {
+        "description": "Confirmation message displayed when the user attempts to assign a teacher to a course.",
+        "placeholders" :{
+            "nameTeacher" : {
+                "type": "String"
+            },
+            "nameComision" : {
+                "type": "String"
+            },
+            "nameSubject" : {
+                "type": "String"
+            }
+        }
     },
 
     "dialogAbsencesSentCorrectly": "absences sent correctly",
@@ -667,5 +714,10 @@
     "commonAccept": "Accept",
     "@commonAccept": {
         "description": "Button label used to confirm or accept an action."
+    },
+
+    "commonSearchName": "Write a name",
+    "@commonSearchName": {
+        "description": "Prompt or placeholder text displayed in a search field indicating that the user should input a name."
     }
 }
