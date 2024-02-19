@@ -1,6 +1,7 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/gestion_de_comision/bloc/bloc_gestion_de_comision.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,16 +24,21 @@ class DialogConfirmarAgregarAlumnoAComision extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return EscuelasDialog.solicitudDeAccion(
       context: context,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.sw),
       ),
-      onTapConfirmar: () => context.read<BlocGestionDeComision>().add(
-            BlocGestionDeComisionEventoAgregarAlumno(
-              alumno: usuario,
-            ),
-          ),
+      onTapConfirmar: () {
+        context.read<BlocGestionDeComision>().add(
+              BlocGestionDeComisionEventoAgregarAlumno(
+                alumno: usuario,
+              ),
+            );
+        Navigator.of(context).pop();
+      },
       content: BlocBuilder<BlocGestionDeComision, BlocGestionDeComisionEstado>(
         builder: (context, state) {
           return SizedBox(
@@ -46,15 +52,18 @@ class DialogConfirmarAgregarAlumnoAComision extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    // TODO(mati): traduccion
-                    '¿Estás seguro que deseas agregar a'
-                    ' ${usuario.nombre.toUpperCase()} a ${state.idComision}?',
+                    l10n.pageCourseManagementAddStudentConfirmation(
+                      state.comision?.nombre.toUpperCase() ?? '',
+                      usuario.nombre.toUpperCase(),
+                    ),
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    // TODO(mati): traduccion
-                    ' Esto lo quitará permanentemente de '
-                    '${usuario.comisiones?.first.comision?.nombre}',
+                    // TODO(mati): hablar con louka para saber en que comision
+                    // estaba el alumno
+                    l10n.pageCourseManagementAddStudentConfirmationThisRemove(
+                      usuario.comisiones?.last.comision?.nombre ?? '',
+                    ),
                     textAlign: TextAlign.center,
                   ),
                 ],

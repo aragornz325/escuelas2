@@ -1,8 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template EscuelasAppBar}
 /// Componente de navegacion estatico en conjunto con EscuelasDrawer
@@ -106,8 +108,19 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
               },
             ),
             title: Center(
-              child: Text(
-                nombreRutaActual,
+              child: BlocBuilder<BlocDashboard, BlocDashboardEstado>(
+                builder: (context, state) {
+                  if (state.asignatura != null &&
+                      context.router.topMatch.name ==
+                          RutaGestionDeComision.name) {
+                    return Text(
+                      state.asignatura!.nombre.toUpperCase(),
+                    );
+                  }
+                  return Text(
+                    nombreRutaActual,
+                  );
+                },
               ),
             ),
             actions: <Widget>[

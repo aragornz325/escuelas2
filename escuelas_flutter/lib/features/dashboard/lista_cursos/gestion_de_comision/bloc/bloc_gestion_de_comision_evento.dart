@@ -45,11 +45,11 @@ class BlocGestionDeComisionEventoAsignarDocente
     extends BlocGestionDeComisionEvento {
   /// {@macro BlocGestionDeComisionEventoAsignarDocente}
   const BlocGestionDeComisionEventoAsignarDocente({
-    required this.idDocente,
+    required this.docente,
   });
 
   /// Id del docente a asignar
-  final int idDocente;
+  final Usuario? docente;
 }
 
 /// {@template BlocGestionDeComisionEventoAsignarDocente}

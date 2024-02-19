@@ -26,7 +26,7 @@ class DocenteDeLaAsignatura extends StatelessWidget {
       builder: (context, state) {
         /// TODO(anyone) horrible logica pero funciona
         final docente = (state.asignatura?.usuarios ?? []).isNotEmpty
-            ? state.asignatura?.usuarios?.first.usuario
+            ? state.asignatura?.usuarios?.last.usuario
             : null;
 
         if (docente != null) {
@@ -57,7 +57,7 @@ class DocenteDeLaAsignatura extends StatelessWidget {
             ),
             SizedBox(width: 10.pw),
             Text(
-              l10n.pageManagementOfCourseThereAreNoTeachersAssigned,
+              l10n.pageCourseManagementThereAreNoTeachersAssigned,
               style: TextStyle(
                 fontSize: 13.pf,
                 fontWeight: FontWeight.w400,
