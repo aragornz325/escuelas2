@@ -34,3 +34,12 @@ class BlocMisCursosEventoCambiarMes extends BlocMisCursosEvento {
   /// PeriodoSeleccionado
   final DateTime periodoSeleccionada;
 }
+
+/// {@template BlocMisCursosEventoInicializarDirectivo}
+/// incializa la pagina,donde si es directivo llama a este evento y trae
+/// todas las comisiones de la institucion y sus asignatura
+/// {@endtemplate}
+class BlocMisCursosEventoInicializarDirectivo extends BlocMisCursosEvento {
+  /// {@macro BlocMisCursosEventoInicializarDirectivo}
+  const BlocMisCursosEventoInicializarDirectivo();
+}

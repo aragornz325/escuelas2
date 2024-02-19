@@ -26,9 +26,11 @@ class _VistaCelularGestionDeComisionState
 
     final state = context.read<BlocGestionDeComision>().state;
 
+    /// Se obtienen las asignaturas y comisiones para el appbar.
     context.read<BlocDashboard>().add(
-          BlocDashboardEventoObtenerAsignatura(
+          BlocDashboardEventoObtenerAsignaturaYComision(
             idAsignatura: state.idAsignatura,
+            idComision: state.idComision,
           ),
         );
   }

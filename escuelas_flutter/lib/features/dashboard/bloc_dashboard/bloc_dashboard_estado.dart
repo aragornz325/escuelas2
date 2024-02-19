@@ -12,6 +12,7 @@ class BlocDashboardEstado {
     required this.usuario,
     required this.infoUsuario,
     this.asignatura,
+    this.comision,
   });
 
   BlocDashboardEstado.desde(
@@ -19,8 +20,10 @@ class BlocDashboardEstado {
     Usuario? usuario,
     UserInfo? infoUsuario,
     Asignatura? asignatura,
+    ComisionDeCurso? comision,
   }) : this._(
           usuario: usuario ?? otro.usuario,
+          comision: comision ?? otro.comision,
           asignatura: asignatura ?? otro.asignatura,
           infoUsuario: infoUsuario ?? otro.infoUsuario,
         );
@@ -35,6 +38,10 @@ class BlocDashboardEstado {
   /// Asignatura para mostrar en el appbar.En caso de que sea nulo no se
   /// muestra el titulo de la ruta
   final Asignatura? asignatura;
+
+  /// Asignatura para mostrar en el appbar.En caso de que sea nulo no se
+  /// muestra el titulo de la ruta.
+  final ComisionDeCurso? comision;
 }
 
 /// {@template BlocDashboardEstadoInicial}
@@ -66,6 +73,7 @@ class BlocDashboardEstadoExitoso extends BlocDashboardEstado {
     super.otro, {
     required super.usuario,
     super.asignatura,
+    super.comision,
   }) : super.desde();
 }
 

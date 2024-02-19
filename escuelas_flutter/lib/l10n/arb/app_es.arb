@@ -321,6 +321,12 @@
         }
     },
 
+    
+    "pageCoursesThereAreNoCourses": "No hay comisiones con asignaturas",
+    "@pageCoursesThereAreNoCourses": {
+        "description": "There are no commissions with subjects"
+    },
+
     "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
     "@dialogErrorToSendGrades": {
         "description": "Label indicating an error when sending notes."
