@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route_observer.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/one_signal/one_signal_servicio.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_app.g.dart';
 import 'package:escuelas_flutter/theming/tema/tema_default_light_escuelas.dart';
 
@@ -35,23 +37,37 @@ class _AppViewState extends State<AppView> {
 
   @override
   void initState() {
-    appRouter = AppRouter();
-
     super.initState();
+    appRouter = AppRouter();
+    OneSignalServicio.notificationHandler(appRouter: appRouter);
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      routerDelegate: AutoRouterDelegate(
+        appRouter,
+        navigatorObservers: () => [RouterObserver()],
+        // TODO(ANYONE): Carry over, por el momento este builder no esta funcionando 
+        // (redirigir a la ruta o frenar con breakpoint)
+        // Es posible que sea por GitHub pages y con un link real si ande, 
+        // habria que testear en un dispositivo real.
+        // Tambien una vez que ande probar de agregar Switch.
+        deepLinkBuilder: (deepLink) {
+          // Redirige a esa ruta si empieza con /absences
+          if (deepLink.path.startsWith('/absences')) {
+            return deepLink;
+          } else {
+            // Ruta default del deeplink
+            return const DeepLink([RutaLogin()]);
+          }
+        },
+      ),
       theme: temaPorDefectoEscuelas,
       debugShowCheckedModeBanner: false,
       builder: (context, child) => ScrollConfiguration(
         behavior: NoGlowBehavior(),
         child: child!,
-      ),
-      routerDelegate: AutoRouterDelegate(
-        appRouter,
-        navigatorObservers: () => [RouterObserver()],
       ),
       routeInformationParser: appRouter.defaultRouteParser(),
       localizationsDelegates: const [

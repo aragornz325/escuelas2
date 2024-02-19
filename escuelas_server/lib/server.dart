@@ -1,5 +1,7 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
+import 'package:escuelas_server/env/env.dart';
+import 'package:escuelas_server/src/servicios/handlers/manejador_one_signal.dart';
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/utils/logger.dart';
 import 'package:escuelas_server/utils/constants.dart';
@@ -32,6 +34,13 @@ void run(List<String> args) async {
     Endpoints(),
   );
 
+// Inicializar el Singleton Handler de OneSignal,
+// pasandole las variables apiKey y appId de OneSignal.
+  ManejadorOneSignal(
+    apiKey: EnvProd.apiKeyEscuelasApp,
+    appId: EnvProd.oneSignalAppId,
+  );
+
   // If you are using any future calls, they need to be registered here.
   // pod.registerFutureCall(ExampleFutureCall(), 'exampleFutureCall');
 
@@ -48,11 +57,11 @@ void run(List<String> args) async {
   // TODO(anyone): Obtener esta data de las configs (Las que estan aca son las de dev)
   final rolePermissions = Rolemissions(
     persistanceDelegate: PostgresStrategy(
-      host: 'aws-0-sa-east-1.pooler.supabase.com',
-      databaseName: 'postgres',
-      userName: 'postgres.mvdsvzvejhmrnxgdfdwz',
-      dbPassword: 'L86Grm9pso3LyUdA',
-      port: 5432,
+      host: pod.config.database.host,
+      databaseName: pod.config.database.name,
+      userName: pod.config.database.user,
+      dbPassword: pod.config.database.password,
+      port: pod.config.database.port,
     ),
   );
 

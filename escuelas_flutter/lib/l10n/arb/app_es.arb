@@ -36,6 +36,11 @@
         }
     },
 
+   "pageKycFormWhichGradeIsYourSubject": "¿De qué año es tu materia?",
+    "@pageKycFormWhichGradeIsYourSubject": {
+        "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+    },
+
     "pageKycAwaitApprovalDescription": "Tu cuenta y rol están pendientes a aprobar por los directivos.\n Te informaremos mediante un mail.",
     "@pageKycAwaitApprovalDescription": {
         "description": "Text of the page Await Approval where it informs the user that his role and account are pending for approval and will contact him with a mail."
@@ -137,7 +142,7 @@
         "description": "Error message displayed when a user attempts to select an option that has already been chosen in the KYC form."
     },
 
-    "pageKycNoSubjectsRelated": "There are no subjects from this commission",
+    "pageKycNoSubjectsRelated": "No hay materias de este curso",
     "@pageKycNoSubjectsRelated": {
         "description": ""
     },
@@ -210,7 +215,12 @@
         }
     },
 
-    "pageGradeSubmissionSupervisionButton": "Solicitar calificaciones faltantes ({numberOfGrades})",
+    "pageGradesNoGrades": "No hay calificaciones",
+    "@pageGradesNoGrades": {
+        "description": "Text to be displayed if there are no grades"
+    },
+
+    "pageGradeSubmissionSupervisionButton": "Solicitar calificaciones faltantes({numberOfGrades})",
     "@pageGradeSubmissionSupervisionButton": {
         "description": "Represents the text for a button that is used to request missing grades. The {numberOfGrades} placeholder is used to dynamically indicate the number of missing grades.",
         "placeholders" :{
