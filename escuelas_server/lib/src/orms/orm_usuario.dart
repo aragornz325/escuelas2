@@ -246,10 +246,10 @@ class OrmUsuario extends ORM {
                 );
           }
           if (nombre != null) {
-            condicion = condicion & t.nombre.equals(nombre);
+            condicion = condicion & t.nombre.ilike('$nombre%');
           }
           if (apellido != null) {
-            condicion = condicion & t.apellido.equals(apellido);
+            condicion = condicion & t.apellido.equals('$apellido%');
           }
 
           return condicion;
