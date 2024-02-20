@@ -230,8 +230,9 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
               Text(l10n.pageManageTemplatesNeedSupervision),
               if (widget.onModoEditar)
                 Checkbox(
-                    value: widget.necesitaSupervision == false,
-                    onChanged: widget.onChanged)
+                  value: widget.necesitaSupervision,
+                  onChanged: widget.onChanged,
+                )
               else if (widget.necesitaSupervision)
                 Icon(
                   Icons.check_box_sharp,

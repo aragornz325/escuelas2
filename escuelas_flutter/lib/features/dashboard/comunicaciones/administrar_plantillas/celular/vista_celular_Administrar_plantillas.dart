@@ -22,6 +22,7 @@ class _VistaCelularAdministrarPlantillasState
     extends State<VistaCelularAdministrarPlantillas> {
   bool onModoEliminar = false;
   bool onModoEditar = false;
+  bool necesitaSupervicion = false;
 
   void onCambioDeModoEliminar() {
     setState(() {
@@ -32,6 +33,12 @@ class _VistaCelularAdministrarPlantillasState
   void onCambioDeModoEditar() {
     setState(() {
       onModoEditar = !onModoEditar;
+    });
+  }
+
+  void onCambiarNecesitaSupervision(bool? value) {
+    setState(() {
+      necesitaSupervicion = !necesitaSupervicion;
     });
   }
 
@@ -48,11 +55,12 @@ class _VistaCelularAdministrarPlantillasState
             ),
             SizedBox(height: max(15.ph, 15.sh)),
             DesplegablePlantilla(
+              onChanged: onCambiarNecesitaSupervision,
               onCancelarEdicion: onCambioDeModoEditar,
               onConfirmarEdicion: () {},
               onEditar: onCambioDeModoEditar,
               onModoEditar: onModoEditar,
-              necesitaSupervision: true,
+              necesitaSupervision: necesitaSupervicion,
               onModoEliminar: onModoEliminar,
               fechaCreacion: '27/12',
               ultimaEdicion: '10/12',
