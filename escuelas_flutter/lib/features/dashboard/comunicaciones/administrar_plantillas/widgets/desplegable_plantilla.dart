@@ -23,6 +23,7 @@ class DesplegablePlantilla extends StatefulWidget {
     required this.onConfirmarEdicion,
     required this.onCancelarEdicion,
     super.key,
+    this.onChanged,
   });
 
   /// Verifica si la plantilla necesita supervisión, de ser true, se agrega
@@ -57,6 +58,8 @@ class DesplegablePlantilla extends StatefulWidget {
   /// Accion para cancelar la edicion
   final VoidCallback onCancelarEdicion;
 
+  final void Function(bool?)? onChanged;
+
   @override
   State<DesplegablePlantilla> createState() => _DesplegablePlantillaState();
 }
@@ -74,7 +77,7 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
     super.initState();
   }
 
-@override
+  @override
   void dispose() {
     controllerTitulo.dispose();
     controllerDescripcion.dispose();
@@ -102,19 +105,29 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
         children: [
           if (widget.onModoEditar)
             EscuelasTextfield(
+              maxLines: 1,
+              width: 200.pw,
+              height: 35.ph,
               hintText: 'hintText',
               controller: controllerTitulo,
               esPassword: false,
+              decoration: InputDecoration(
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 10.pw,
+                ),
+                border: const OutlineInputBorder(),
+              ),
+            )
+          else
+            Text(
+              widget.tituloPlantilla,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: colores.onBackground,
+                fontSize: 16.pf,
+                fontWeight: FontWeight.w700,
+              ),
             ),
-          Text(
-            widget.tituloPlantilla,
-            overflow: TextOverflow.ellipsis,
-            style: TextStyle(
-              color: colores.onBackground,
-              fontSize: 16.pf,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
           const Spacer(),
           if (widget.necesitaSupervision)
             Icon(
@@ -180,20 +193,31 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
                   ),
                 ],
               ),
-              SizedBox(height: max(10.ph, 10.sh)),
-              
+              SizedBox(height: max(30.ph, 30.sh)),
               if (widget.onModoEditar)
-            EscuelasTextfield(
-              hintText: 'hintText',
-              controller: controllerDescripcion,
-              esPassword: false,
-            ),
-              IntrinsicHeight(
-                child: Text(
-                  widget.descripcionDePlantilla,
-                  textAlign: TextAlign.start,
+                IntrinsicHeight(
+                  child: SizedBox(
+                    child: TextFormField(
+                      maxLines: 4,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
+                        contentPadding: EdgeInsets.symmetric(
+                          horizontal: 10.pw,
+                          vertical: 5.ph,
+                        ),
+                      ),
+                      style: TextStyle(fontSize: 14.pf),
+                      controller: controllerDescripcion,
+                    ),
+                  ),
+                )
+              else
+                IntrinsicHeight(
+                  child: Text(
+                    widget.descripcionDePlantilla,
+                    textAlign: TextAlign.start,
+                  ),
                 ),
-              ),
             ],
           ),
         ),
@@ -204,7 +228,11 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(l10n.pageManageTemplatesNeedSupervision),
-              if (widget.necesitaSupervision)
+              if (widget.onModoEditar)
+                Checkbox(
+                    value: widget.necesitaSupervision == false,
+                    onChanged: widget.onChanged)
+              else if (widget.necesitaSupervision)
                 Icon(
                   Icons.check_box_sharp,
                   color: colores.primary,
