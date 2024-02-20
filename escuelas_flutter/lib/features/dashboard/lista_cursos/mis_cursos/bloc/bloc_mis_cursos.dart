@@ -13,8 +13,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
   BlocMisCursos() : super(const BlocMisCursosEstadoInicial()) {
     on<BlocMisCursosEventoInicializar>(_inicializar);
     on<BlocMisCursosEventoCambiarMes>(_cambiarMes);
-
-    on<BlocMisCursosEventoInicializarDirectivo>(_inicializarDirectivo);
   }
 
   /// Trae las materias asignadas al usuario y las ordena por curso
@@ -62,30 +60,6 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
           BlocMisCursosEstadoExitoso.desde(
             state,
             comisiones: comisiones,
-          ),
-        );
-      },
-      onError: (e, st) {
-        emit(BlocMisCursosEstadoError.desde(state));
-      },
-    );
-  }
-
-  /// Trae las materias asignadas al usuario y las ordena por curso
-  Future<void> _inicializarDirectivo(
-    BlocMisCursosEventoInicializarDirectivo event,
-    Emitter<BlocMisCursosEstado> emit,
-  ) async {
-    emit(BlocMisCursosEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (client) async {
-        final comisionesConAsignaturas =
-            await client.comision.listarComisionesConAsignaturas();
-
-        emit(
-          BlocMisCursosEstadoExitoso.desde(
-            state,
-            comisionesConAsignaturas: comisionesConAsignaturas,
           ),
         );
       },

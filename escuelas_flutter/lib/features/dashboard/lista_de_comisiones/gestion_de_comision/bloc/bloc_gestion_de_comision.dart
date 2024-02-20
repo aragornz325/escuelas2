@@ -38,7 +38,8 @@ class BlocGestionDeComision
     emit(BlocGestionDeComisionEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        /// TODO(mati): hablar con louka sobre los docentes asignados a una
+        /// TODO(mati): decirle a chivo que siempre va a ver 1 solo docente.
+        /// hablar con louka sobre los docentes asignados a una
         /// asignatura si hay mas de dos.
 
         final listaObjetos = await Future.wait([
@@ -79,7 +80,7 @@ class BlocGestionDeComision
   ) async {
     await operacionBloc(
       callback: (client) async {
-        /// TODO(mati): hablar con louka por que nose como sacar el idRol
+        /// TODO(mati): para identificar docente con asignatura y alumno por comision
         final usuarios = await client.usuario.obtenerUsuariosSegunRol(
           idRol: event.idRol,
           nombre: event.nombre,

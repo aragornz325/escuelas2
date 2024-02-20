@@ -66,6 +66,7 @@ enum PermisoDeComision {
   editarComision,
   eliminarComision,
   crearComision,
+  asignarAlumnosAComision,
 }
 
 enum PermisoDeAsignatura {
@@ -73,6 +74,7 @@ enum PermisoDeAsignatura {
   editarAsignatura,
   eliminarAsignatura,
   crearAsignatura,
+  asignarDocenteAAsignatura,
 }
 
 enum PermisoDeSolicitud {

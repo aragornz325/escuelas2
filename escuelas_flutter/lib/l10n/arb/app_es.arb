@@ -455,6 +455,12 @@
         "description": ""
     },
 
+    "routeNameCommission": "Comisiones",
+    "@routeNameCommission": {
+        "description": ""
+    },
+
+
     "routeNameGradeSubmissionSupervision": "Supervisión de envío de calificaciones",
     "@routeNameGradeSubmissionSupervision": {
         "description": ""

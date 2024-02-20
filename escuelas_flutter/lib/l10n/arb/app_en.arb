@@ -494,7 +494,13 @@
     "routeNameCommissionSupervision": "Commission supervision",
     "@routeNameCommissionSupervision": {
         "description": ""
+    }, 
+    
+    "routeNameCommission": "Commission",
+    "@routeNameCommission": {
+        "description": ""
     },
+
 
     "routeNameGradeSubmissionSupervision": "Grade submission supervision",
     "@routeNameGradeSubmissionSupervision": {
