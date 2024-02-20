@@ -44,11 +44,11 @@ class ServicioPlantillaComunicacion extends Servicio<OrmPlantillaComunicacion> {
   }
 
   /// Elimina lista de plantillas
-  Future<bool> eliminarPlantillasComunicaciones(
+  Future<bool> eliminarPlantillasComunicacion(
     Session session, {
     required List<int> idPlantillasComunicacion,
   }) async {
-    return await ejecutarOperacion(() => orm.eliminarPlantillasComunicaciones(
+    return await ejecutarOperacion(() => orm.eliminarPlantillasComunicacion(
         session,
         idPlantillasComunicacion: idPlantillasComunicacion));
   }

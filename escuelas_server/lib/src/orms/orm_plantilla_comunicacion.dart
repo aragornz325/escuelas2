@@ -56,7 +56,7 @@ class OrmPlantillaComunicacion extends ORM {
   }
 
   /// Elimina lista de plantillas
-  Future<bool> eliminarPlantillasComunicaciones(
+  Future<bool> eliminarPlantillasComunicacion(
     Session session, {
     required List<int> idPlantillasComunicacion,
   }) async {
