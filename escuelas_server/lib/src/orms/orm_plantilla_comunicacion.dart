@@ -26,7 +26,7 @@ class OrmPlantillaComunicacion extends ORM {
       session,
       (session) => PlantillaComunicacion.db.updateRow(
         session,
-        plantillaComunicacion,
+        plantillaComunicacion..ultimaModificacion = DateTime.now(),
         columns: columns,
       ),
     );
@@ -48,9 +48,10 @@ class OrmPlantillaComunicacion extends ORM {
     required List<PlantillaComunicacion> plantillasComunicacion,
     List<Column<dynamic>> Function(PlantillaComunicacionTable)? columnas,
   }) async {
+    final ahora = DateTime.now();
     return await PlantillaComunicacion.db.update(
       session,
-      plantillasComunicacion,
+      plantillasComunicacion.map((e) => e..ultimaModificacion = ahora).toList(),
       columns: columnas,
     );
   }

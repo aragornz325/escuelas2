@@ -4,6 +4,10 @@ import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioPlantillaComunicacion extends Servicio<OrmPlantillaComunicacion> {
+
+  @override
+  OrmPlantillaComunicacion get orm => OrmPlantillaComunicacion();
+  
   /// Crea la plantilla de comunicacion en la base de datos.
   Future<PlantillaComunicacion> crearPlantillaComunicacion(
     Session session, {
