@@ -31,11 +31,27 @@ class BlocAdministrarPlantillasEventoAgregarPlantilla
 /// {@endtemplate}
 class BlocAdministrarPlantillasEventoCambiarModoEliminar
     extends BlocAdministrarPlantillasEvento {
-      /// {@macro BlocAdministrarPlantillasEventoCambiarModoEliminar}
-  BlocAdministrarPlantillasEventoCambiarModoEliminar({required this.modoEliminar});
- 
- /// Identifica si se encuentra en modo eliminar
+  /// {@macro BlocAdministrarPlantillasEventoCambiarModoEliminar}
+  BlocAdministrarPlantillasEventoCambiarModoEliminar({
+    required this.modoEliminar,
+  });
+
+  /// Identifica si se encuentra en modo eliminar
   final bool modoEliminar;
+}
+
+/// {@template BlocAdministrarPlantillasEventoCambiarModoEliminar}
+/// Evento para cambiar a modo eliminar
+/// {@endtemplate}
+class BlocAdministrarPlantillasEventoCambiarModoEditar
+    extends BlocAdministrarPlantillasEvento {
+  /// {@macro BlocAdministrarPlantillasEventoCambiarModoEditar}
+  BlocAdministrarPlantillasEventoCambiarModoEditar({
+    required this.modoEditar,
+  });
+
+  /// Identifica si se encuentra en modo editar
+  final bool modoEditar;
 }
 
 /// {@template BlocAdministrarPlantillasEventoEliminarPlantillas}
@@ -54,4 +70,10 @@ class BlocAdministrarPlantillasEventoEditarPlantilla
     extends BlocAdministrarPlantillasEvento {
   /// {@macro BlocAdministrarPlantillasEventoEditarPlantilla}
   const BlocAdministrarPlantillasEventoEditarPlantilla();
+}
+
+class BlocAdministrarPlantillasEventoCambioSeleccionado
+    extends BlocAdministrarPlantillasEvento {
+  /// {@macro BlocAdministrarPlantillasEventoCambioSeleccionado}
+  const BlocAdministrarPlantillasEventoCambioSeleccionado();
 }

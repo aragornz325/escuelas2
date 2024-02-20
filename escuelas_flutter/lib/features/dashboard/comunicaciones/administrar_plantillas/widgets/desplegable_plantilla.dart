@@ -215,7 +215,6 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
                 IntrinsicHeight(
                   child: Text(
                     widget.descripcionDePlantilla,
-                    textAlign: TextAlign.start,
                   ),
                 ),
             ],
@@ -227,7 +226,9 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(l10n.pageManageTemplatesNeedSupervision),
+              Text(
+                l10n.pageManageTemplatesNeedSupervision,
+              ),
               if (widget.onModoEditar)
                 Checkbox(
                   value: widget.necesitaSupervision,

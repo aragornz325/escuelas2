@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/celular/vista_celular_Administrar_plantillas.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_administrar_plantillas.estado.dart';
@@ -15,7 +16,11 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
     on<BlocAdministrarPlantillasEventoInicializar>(_onInicializar);
     on<BlocAdministrarPlantillasEventoAgregarPlantilla>(_onAgregarPlantilla);
     on<BlocAdministrarPlantillasEventoCambiarModoEliminar>(
-        _onCambiarModoEliminar);
+      _onCambiarModoEliminar,
+    );
+    on<BlocAdministrarPlantillasEventoCambiarModoEditar>(
+      _onCambiarModoEditar,
+    );
     on<BlocAdministrarPlantillasEventoEliminarPlantillas>(
       _onEliminarPlantillas,
     );
@@ -50,7 +55,7 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
     );
   }
 
-/// Cambia de modo, al ser true se mostrara el checkbox a la izquierda
+  /// Cambia de modo, al ser true se mostrara el checkbox a la izquierda
   Future<void> _onCambiarModoEliminar(
     BlocAdministrarPlantillasEventoCambiarModoEliminar event,
     Emitter<BlocAdministrarPlantillasEstado> emit,
@@ -59,6 +64,19 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
       BlocAdministrarPlantillasEstadoExitoso.desde(
         state,
         modoEliminar: event.modoEliminar,
+      ),
+    );
+  }
+
+  /// Cambia de modo, al ser true se daran las herramientas de edicion
+  Future<void> _onCambiarModoEditar(
+    BlocAdministrarPlantillasEventoCambiarModoEditar event,
+    Emitter<BlocAdministrarPlantillasEstado> emit,
+  ) async {
+    emit(
+      BlocAdministrarPlantillasEstadoExitoso.desde(
+        state,
+        modoEliminar: event.modoEditar,
       ),
     );
   }
