@@ -1,6 +1,6 @@
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
-import 'package:escuelas_flutter/features/dashboard/lista_cursos/gestion_de_comision/bloc/bloc_gestion_de_comision.dart';
-import 'package:escuelas_flutter/features/dashboard/lista_cursos/gestion_de_comision/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_de_comisiones/gestion_de_comision/bloc/bloc_gestion_de_comision.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_de_comisiones/gestion_de_comision/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,5 +1,3 @@
-// ignore_for_file: overridden_fields
-
 part of 'bloc_gestion_de_comision.dart';
 
 /// {@template BlocGestionDeComisionEstado}

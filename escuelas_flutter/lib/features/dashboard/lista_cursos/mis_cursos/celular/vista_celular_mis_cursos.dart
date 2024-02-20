@@ -1,7 +1,7 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/mis_cursos/bloc/bloc_mis_cursos.dart';
-import 'package:escuelas_flutter/features/dashboard/lista_cursos/mis_cursos/widgets/lista_asignatura_por_comision.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_de_comisiones/comisiones/widgets/lista_asignatura_por_comision.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
 import 'package:flutter/material.dart';

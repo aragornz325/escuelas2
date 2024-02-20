@@ -69,6 +69,8 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
         RutaPerfilUsuario.name => l10n.routeNameUserProfile,
         RutaPerfilUsuarioPendiente.name => l10n.routeNamePendingUserProfile,
         RutaListaCursos.name => l10n.routeNameCourses,
+        RutaComisiones.name => l10n.commonComissions,
+        RutaListaDeComisiones.name => l10n.commonComissions,
         RutaCargaDeCalificaciones.name => l10n.routeUploadGrades,
         RutaUsuariosPendientes.name => l10n.routeNamePendingUsers,
         RutaMenuComunidadAcademica.name => l10n.routeAcademicCommunityMenu,

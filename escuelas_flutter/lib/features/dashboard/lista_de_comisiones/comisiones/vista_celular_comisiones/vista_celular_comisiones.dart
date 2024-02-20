@@ -1,6 +1,6 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/lista_cursos/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/mis_cursos/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/dashboard/lista_de_comisiones/comisiones/bloc/bloc_comisiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,9 +11,9 @@ import 'package:full_responsive/full_responsive.dart';
 /// donde el directivo puede ver todos las comisiones de la institucion con sus
 /// asignatura y navegar a dicha vista.
 /// {@endtemplate}
-class VistaCelularDirectivoCursos extends StatelessWidget {
+class VistaCelularComisiones extends StatelessWidget {
   /// {@macro VistaCelularDirectivoCursos}
-  const VistaCelularDirectivoCursos({super.key});
+  const VistaCelularComisiones({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +21,9 @@ class VistaCelularDirectivoCursos extends StatelessWidget {
 
     final l10n = context.l10n;
 
-    return BlocBuilder<BlocMisCursos, BlocMisCursosEstado>(
+    return BlocBuilder<BlocComisiones, BlocComisionesEstado>(
       builder: (context, state) {
-        if (state is BlocMisCursosEstadoCargando) {
+        if (state is BlocComisionesEstadoCargando) {
           return const Center(
             child: CircularProgressIndicator(),
           );
