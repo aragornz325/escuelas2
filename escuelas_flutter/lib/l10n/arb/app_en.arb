@@ -442,6 +442,14 @@
     "@pageManageTemplatesAddNew": {
         "description": "Text to be displayed in the button to add new template"
     },
+    "pageManageTemplatesDialogItle": "Title",
+    "@pageManageTemplatesDialogItle": {
+        "description": "Text to be displayed in the textfield of the dialog to add new template"
+    },
+    "pageManageTemplatesDialogWriteHere": "Write here...",
+    "@pageManageTemplatesDialogWriteHere": {
+        "description": "Text to be displayed in the textfield of the dialog to add new template"
+    },
     "pageManageTemplatesNeedSupervision": "Needs supervision",
     "@pageManageTemplatesNeedSupervision": {
         "description": "Text to be displayed in the bottom of the template"
