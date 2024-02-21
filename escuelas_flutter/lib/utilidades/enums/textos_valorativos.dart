@@ -55,7 +55,7 @@ enum RITE {
 RITE devolverRITE(double promedio) {
   if (promedio <= 4.0) {
     return RITE.ted;
-  } else if (promedio >= 5.0 && promedio <= 6.0) {
+  } else if (promedio > 4.0 && promedio < 7.0) {
     return RITE.tep;
   } else if (promedio >= 7.0 && promedio <= 10.0) {
     return RITE.tea;

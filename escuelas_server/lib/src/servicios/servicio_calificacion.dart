@@ -10,6 +10,7 @@ import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
+import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:escuelas_server/utils/plantilla_mail_escuelas.dart';
 import 'package:serverpod/serverpod.dart';
 
@@ -306,8 +307,7 @@ WHERE rau."usuarioId" = $idUsuario
     required List<CalificacionMensual> calificacionesMensuales,
   }) =>
       ejecutarOperacion(() async {
-        final calificacionMensual = await _ormCalificacionMensual
-            .actualizarCalificacionesMensualesEnLote(
+        await _ormCalificacionMensual.actualizarCalificacionesMensualesEnLote(
           session,
           calificacionesMensuales: calificacionesMensuales,
         );
@@ -396,7 +396,7 @@ WHERE rau."usuarioId" = $idUsuario
         for (var asignatura in comision.listaDeAsignaturas) {
           asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
             (element) =>
-                element.idAsignatura == asignatura.id &&
+                element.asignaturaId == asignatura.id &&
                 element.estudianteId == estudiante.id,
           );
         }
@@ -440,7 +440,7 @@ WHERE rau."usuarioId" = $idUsuario
         for (var asignatura in comision.listaDeAsignaturas) {
           asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
             (element) =>
-                element.idAsignatura == asignatura.id &&
+                element.asignaturaId == asignatura.id &&
                 element.estudianteId == estudiante.id,
           );
         }
@@ -484,7 +484,7 @@ WHERE rau."usuarioId" = $idUsuario
         for (var asignatura in comision.listaDeAsignaturas) {
           asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
             (element) =>
-                element.idAsignatura == asignatura.id &&
+                element.asignaturaId == asignatura.id &&
                 element.estudianteId == estudiante.id,
           );
         }
@@ -531,7 +531,7 @@ WHERE rau."usuarioId" = $idUsuario
         for (var asignatura in comision.listaDeAsignaturas) {
           asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
             (element) =>
-                element.idAsignatura == asignatura.id &&
+                element.asignaturaId == asignatura.id &&
                 element.estudianteId == estudiante.id,
           );
         }
@@ -552,5 +552,37 @@ WHERE rau."usuarioId" = $idUsuario
       }
     }
     return true;
+  }
+
+  Future<List<CalificacionMensual>> listarMisCalificacionesMensualesPorMes(
+    Session session, {
+    required int mes,
+    required int anio,
+  }) async {
+    final usuario = await ServicioUsuario().obtenerDatosDelUsuario(session);
+
+    return await OrmCalificacionMensual()
+        .listarMisCalificacionesMensualesPorMes(
+      session,
+      idUsuario: usuario.id!,
+      numeroDeMes: mes,
+      anio: anio,
+    );
+  }
+
+  Future<List<CalificacionMensual>> listarMisCalificacionesAnualesPorAsignatura(
+    Session session, {
+    required idAsignatura,
+    required int anio,
+  }) async {
+    final usuario = await ServicioUsuario().obtenerDatosDelUsuario(session);
+
+    return await OrmCalificacionMensual()
+        .listarMisCalificacionesAnualesPorAsignatura(
+      session,
+      idUsuario: usuario.id!,
+      idAsignatura: idAsignatura,
+      anio: anio,
+    );
   }
 }

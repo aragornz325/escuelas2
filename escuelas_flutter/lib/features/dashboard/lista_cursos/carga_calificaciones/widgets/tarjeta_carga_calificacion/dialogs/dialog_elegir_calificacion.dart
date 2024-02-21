@@ -1,6 +1,6 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
-import 'package:escuelas_flutter/utilidades/constantes/textos_valorativos.dart';
+import 'package:escuelas_flutter/utilidades/enums/textos_valorativos.dart';
 import 'package:flutter/material.dart';
 
 /// {@template DialogElegirCalificacion}
