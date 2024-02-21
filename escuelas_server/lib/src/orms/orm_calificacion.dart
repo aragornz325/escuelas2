@@ -120,7 +120,7 @@ class OrmCalificacion extends ORM {
       (session) => Calificacion.db.find(
         session,
         where: (t) {
-          return t.idAsignatura.equals(idAsignatura) &
+          return t.asignaturaId.equals(idAsignatura) &
               t.fechaCreacion.between(
                 periodo.fechaInicio,
                 periodo.fechaFin,

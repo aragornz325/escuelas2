@@ -65,7 +65,6 @@ class OrmRelacionAsignaturaUsuario extends ORM {
     required int asignaturaId,
     required int comisionId,
   }) async {
-    final ahora = DateTime.now();
     logger.info('Buscando relacion entre usuario y asignatura');
     final relacion = await ejecutarOperacionOrm(
       session,

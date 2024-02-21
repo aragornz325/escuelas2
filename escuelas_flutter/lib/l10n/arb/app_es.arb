@@ -240,6 +240,11 @@
         "description": "Text to be displayed if there are no grades"
     },
 
+    "pageStudentGradesTitle": "Calificaciones",
+    "@pageStudentGrades": {
+        "description": "Title of the page Grades for a student"
+    },
+
     "pageGradesStudentCardAverage": "Promedio: ",
     "@pageGradesStudentCardAverage": {
         "description": "Text to be displayed next to the average of the student grades."
@@ -272,11 +277,6 @@
     "dropdownErrorMustCompleteField": "You must complete this field!",
     "@dropdownErrorMustCompleteField": {
         "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
-    },
-
-    "commonWelcome": "¡Bienvenido!",
-    "@commonWelcome": {
-        "description": "Welcoming text"
     },
 
     "drawerMyProfile": "Mi perfil",
@@ -390,6 +390,76 @@
     "routeNameGradeSubmissionSupervision": "Supervisión de envío de calificaciones",
     "@routeNameGradeSubmissionSupervision": {
         "description": ""
+    },
+
+    "commonWelcome": "¡Bienvenido!",
+    "@commonWelcome": {
+        "description": "Welcoming text"
+    },
+
+   "commonJanuary": "Enero",
+   "@commonJanuary": {
+    "description": "Text displaying the first month January"
+   },
+
+   "commonFebruary": "Febrero",
+   "@commonFebruary": {
+    "description": "Text displaying the second month February"
+  },
+
+   "commonMarch": "Marzo",
+   "@commonMarch": {
+    "description": "Text displaying the third month March"
+  },
+
+   "commonApril": "Abril",
+   "@commonApril": {
+    "description": "Text displaying the fourth month April"
+  },
+
+   "commonMay": "Mayo",
+   "@commonMay": {
+    "description": "Text displaying the fifth month May"
+  },
+
+   "commonJune": "Junio",
+   "@commonJune": {
+    "description": "Text displaying the sixth month June"
+  },
+
+   "commonJuly": "Julio",
+   "@commonJuly": {
+    "description": "Text displaying the seventh month July"
+  },
+
+   "commonAugust": "Agosto",
+   "@commonAugust": {
+    "description": "Text displaying the eighth month August"
+  },
+
+   "commonSeptember": "Septiembre",
+   "@commonSeptember": {
+    "description": "Text displaying the ninth month September"
+  },
+
+   "commonOctober": "Octubre",
+   "@commonOctober": {
+    "description": "Text displaying the tenth month October"
+  },
+
+   "commonNovember": "Noviembre",
+  "@commonNovember": {
+    "description": "Text displaying the eleventh month November"
+  },
+
+   "commonDecember": "Diciembre",
+   "@commonDecember": {
+    "description": "Text displaying the twelfth month December"
+  },
+
+    "commonUnrated": "S/C",
+    "@commonUnrated": {
+        "description": "Text showing the grade is unrated."
     },
 
     "commonMail": "Mail",
