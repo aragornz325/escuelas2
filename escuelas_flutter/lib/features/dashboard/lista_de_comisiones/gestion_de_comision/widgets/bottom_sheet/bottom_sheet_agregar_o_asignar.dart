@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template BottomSheetFiltrado}
-/// BottomSheet para filtrar por nombre.
+/// BottomSheet para filtrar por nombre, donde
 /// muestra una lista de usuarios para asignar o agregar.
 /// dependiendo de si es para asignar o agregar.
 /// y tiene un buscador donde podes filtrar por nombre del usuario.

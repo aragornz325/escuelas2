@@ -7,7 +7,7 @@ import 'package:full_responsive/full_responsive.dart';
 
 /// {@template DocenteDeLaAsignatura}
 /// Docente de la asignatura muestra la informacion del docente en caso de que
-/// exista uno asignado a esa asignatura osino muestra un circulo vacio con un
+/// exista uno asignado a esa asignatura o muestra un circulo vacio con un
 /// mensaje indicando que no hay docente.
 /// {@endtemplate}
 class DocenteDeLaAsignatura extends StatelessWidget {
@@ -24,9 +24,10 @@ class DocenteDeLaAsignatura extends StatelessWidget {
 
     return BlocBuilder<BlocGestionDeComision, BlocGestionDeComisionEstado>(
       builder: (context, state) {
-        /// TODO(anyone) horrible logica pero funciona
-        final docente = (state.asignatura?.usuarios ?? []).isNotEmpty
-            ? state.asignatura?.usuarios?.last.usuario
+        final usuarios = state.asignatura?.usuarios;
+
+        final docente = usuarios != null && usuarios.isNotEmpty
+            ? usuarios.last.usuario
             : null;
 
         if (docente != null) {

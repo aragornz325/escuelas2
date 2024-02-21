@@ -6,13 +6,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template VistaCelularDirectivoCursos}
+/// {@template VistaCelularComisiones}
 /// Vista para celulares del directivo de cursos.
 /// donde el directivo puede ver todos las comisiones de la institucion con sus
 /// asignatura y navegar a dicha vista.
 /// {@endtemplate}
 class VistaCelularComisiones extends StatelessWidget {
-  /// {@macro VistaCelularDirectivoCursos}
+  /// {@macro VistaCelularComisiones}
   const VistaCelularComisiones({super.key});
 
   @override

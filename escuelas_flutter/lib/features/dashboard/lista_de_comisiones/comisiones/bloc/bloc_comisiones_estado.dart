@@ -49,7 +49,7 @@ class BlocComisionesEstadoExitoso extends BlocComisionesEstado {
   }) : super.desde();
 }
 
-/// {@template BlocComisionesEstadoFallido}
+/// {@template BlocComisionesEstadoError}
 /// Estado de error de los componentes de la pantalla 'Comisiones'
 /// {@endtemplate}
 class BlocComisionesEstadoError extends BlocComisionesEstado {

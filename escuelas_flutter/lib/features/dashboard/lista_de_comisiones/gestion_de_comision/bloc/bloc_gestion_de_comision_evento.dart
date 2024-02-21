@@ -21,7 +21,7 @@ class BlocGestionDeComisionEventoInicializar
 }
 
 /// {@template BlocGestionDeComisionEventoFiltrarPorNombre}
-/// TODO (mati): documentar
+/// Evento que filtra por nombre.ya sea para un docente o para los alumnos
 /// {@endtemplate}
 class BlocGestionDeComisionEventoFiltrarPorNombre
     extends BlocGestionDeComisionEvento {
@@ -52,16 +52,16 @@ class BlocGestionDeComisionEventoAsignarDocente
   final Usuario? docente;
 }
 
-/// {@template BlocGestionDeComisionEventoAsignarDocente}
+/// {@template BlocGestionDeComisionEventoAgregarAlumno}
 /// Evento para agregar un alumno a la comision.
 /// {@endtemplate}
 class BlocGestionDeComisionEventoAgregarAlumno
     extends BlocGestionDeComisionEvento {
-  /// {@macro BlocGestionDeComisionEventoAsignarDocente}
+  /// {@macro BlocGestionDeComisionEventoAgregarAlumno}
   const BlocGestionDeComisionEventoAgregarAlumno({
     required this.alumno,
   });
 
-  /// Id del alumno a asignar a esta comision
+  /// Alumno a asignar a esta comision
   final Usuario alumno;
 }

@@ -8,11 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template VistaCelularGestionDeComision}
+/// {@template ListaDeAlumnosOrdenadasAlfabeticamente}
 /// Lista de alumnos ordenados alfabeticamente.
 /// {@endtemplate}
 class ListaDeAlumnosOrdenadasAlfabeticamente extends StatelessWidget {
-  /// {@macro VistaCelularGestionDeComision}
+  /// {@macro ListaDeAlumnosOrdenadasAlfabeticamente}
   const ListaDeAlumnosOrdenadasAlfabeticamente({super.key});
 
   /// dialog que se va a mostrar en caso de exito al asignar docente a una
