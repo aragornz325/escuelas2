@@ -1,5 +1,5 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/celular/vista_celular_Administrar_plantillas.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_administrar_plantillas.estado.dart';
@@ -34,7 +34,17 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
   ) async {
     emit(BlocAdministrarPlantillasEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) async {},
+      callback: (client) async {
+        final plantillas =
+            await client.plantillaComunicacion.listarPlantillasComunicacion();
+
+        emit(
+          BlocAdministrarPlantillasEstadoExitoso.desde(
+            state,
+            plantillas: plantillas,
+          ),
+        );
+      },
       onError: (e, st) {
         emit(BlocAdministrarPlantillasEstadoError.desde(state));
       },

@@ -10,6 +10,7 @@ class RowAgregarEliminarPlantilla extends StatelessWidget {
   /// {@macro RowAgregarEliminarPlantilla}
   const RowAgregarEliminarPlantilla({
     required this.onCambioDeModo,
+    required this.onAgregarPlantilla,
     this.modoEliminar = false,
     super.key,
   });
@@ -20,6 +21,9 @@ class RowAgregarEliminarPlantilla extends StatelessWidget {
   /// Funcion para cambiar a modo eliminar o cancelar
   final VoidCallback onCambioDeModo;
 
+  /// Funcion para agregar una nueva plantilla
+  final VoidCallback onAgregarPlantilla;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -27,7 +31,7 @@ class RowAgregarEliminarPlantilla extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const BotonAgregarPlantilla(),
+          BotonAgregarPlantilla(onAgregarPlantilla: onAgregarPlantilla),
           RowModoEliminar(
             onEliminar: () {},
             modoEliminar: modoEliminar,

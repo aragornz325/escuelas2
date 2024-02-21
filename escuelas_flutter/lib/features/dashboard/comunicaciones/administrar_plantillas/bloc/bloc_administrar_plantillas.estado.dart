@@ -9,7 +9,7 @@ class BlocAdministrarPlantillasEstado {
     this.modoEliminar = false,
     this.modoEditar = false,
     this.seleccionado = false,
-    this.plantillas = const [],
+    this.listaDePlantillas = const [],
   });
 
   BlocAdministrarPlantillasEstado.desde(
@@ -17,11 +17,11 @@ class BlocAdministrarPlantillasEstado {
     bool? modoEliminar,
     bool? modoEditar,
     bool? seleccionado,
-    List<PlantillaDeComunicaciones>? plantillas,
+    List<PlantillaComunicacion>? plantillas,
   }) : this._(
           modoEliminar: modoEliminar ?? otro.modoEliminar,
           modoEditar: modoEditar ?? otro.modoEditar,
-          plantillas: plantillas ?? otro.plantillas,
+          listaDePlantillas: plantillas ?? otro.listaDePlantillas,
           seleccionado: seleccionado ?? otro.seleccionado,
         );
 
@@ -36,7 +36,7 @@ class BlocAdministrarPlantillasEstado {
   final bool seleccionado;
 
   /// Lista de plantillas
-  final List<PlantillaDeComunicaciones> plantillas;
+  final List<PlantillaComunicacion> listaDePlantillas;
 }
 
 /// {@template BlocAdministrarPlantillasEstadoInicial}

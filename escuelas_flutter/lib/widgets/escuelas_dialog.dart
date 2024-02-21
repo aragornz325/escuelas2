@@ -174,12 +174,14 @@ class EscuelasDialog extends StatelessWidget {
     String? titulo,
     double? altura,
     double? ancho,
+    bool? estaHabilitado,
   }) {
     final colores = context.colores;
 
     final l10n = context.l10n;
 
     return EscuelasDialog(
+      estaHabilitado: estaHabilitado ?? true,
       ancho: ancho,
       altura: altura,
       onTapConfirmar: onTapConfirmar,
