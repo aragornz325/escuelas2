@@ -9,5 +9,5 @@ fields:
   fechaEliminacion: DateTime?
 indexes:
   r_usuario_asignatura_index_idx:
-    fields: usuarioId, asignaturaId, comisionId
+    fields: usuarioId, asignaturaId
     unique: true
