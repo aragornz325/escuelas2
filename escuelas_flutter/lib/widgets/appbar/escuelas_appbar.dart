@@ -3,6 +3,7 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:full_responsive/full_responsive.dart';
 
 /// {@template EscuelasAppBar}
 /// Componente de navegacion estatico en conjunto con EscuelasDrawer
@@ -69,6 +70,8 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
         RutaListaCursos.name => l10n.routeNameCourses,
         RutaCargaDeCalificaciones.name => l10n.routeUploadGrades,
         RutaUsuariosPendientes.name => l10n.routeNamePendingUsers,
+        RutaCalificacionesMensuales.name => l10n.pageStudentGradesTitle,
+        RutaCalificacionesAnuales.name => l10n.pageStudentGradesTitle,
         RutaMenuComunidadAcademica.name => l10n.routeAcademicCommunityMenu,
         RutaListadoComunidad.name => l10n.routeAcademicCommunityList,
         RutaSupervisionComisiones.name => l10n.routeNameCommissionSupervision,
@@ -108,6 +111,10 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
             title: Center(
               child: Text(
                 nombreRutaActual,
+                style: TextStyle(
+                  fontSize: 22.pf,
+                  fontWeight: FontWeight.w800,
+                ),
               ),
             ),
             actions: <Widget>[

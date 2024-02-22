@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "r_asignaturas_usuarios",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [
+          {
+            "indexName": "r_asignatura_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "asignaturaId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"r_asignatura_idx\" is added to table \"r_asignaturas_usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "r_asignaturas_usuarios",
+            "columns": [
+              "asignaturaId"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"r_asignatura_idx\" is added to table \"r_asignaturas_usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "r_asignaturas_usuarios",
+      "columns": [
+        "asignaturaId"
+      ],
+      "destrucive": false
+    }
+  ],
+  "migrationApiVersion": 1
+}

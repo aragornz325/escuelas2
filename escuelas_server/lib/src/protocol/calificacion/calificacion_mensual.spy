@@ -3,3 +3,4 @@ table: calificaciones_mensuales
 fields:
   calificacion: Calificacion?, relation(onDelete=Cascade)
   numeroDeMes: int
+  numeroDeAnio: int

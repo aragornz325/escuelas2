@@ -1,0 +1,105 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "calificaciones_mensuales"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "calificaciones_mensuales",
+        "dartName": "CalificacionMensual",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('calificaciones_mensuales_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "calificacionId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "numeroDeMes",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "numeroDeAnio",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "_solicitudesCalificacionesMensualesCalificacionesSolicitu3ef6Id",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "calificaciones_mensuales_fk_0",
+            "columns": [
+              "calificacionId"
+            ],
+            "referenceTable": "calificaciones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 4
+          },
+          {
+            "constraintName": "calificaciones_mensuales_fk_1",
+            "columns": [
+              "_solicitudesCalificacionesMensualesCalificacionesSolicitu3ef6Id"
+            ],
+            "referenceTable": "solicitudes_calificaciones_mensuales",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "calificaciones_mensuales_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"calificaciones_mensuales\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "calificaciones_mensuales",
+      "columns": [
+        "numeroDeAnio"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}
