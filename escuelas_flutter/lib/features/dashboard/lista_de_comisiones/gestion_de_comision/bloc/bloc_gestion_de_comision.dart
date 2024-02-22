@@ -38,8 +38,6 @@ class BlocGestionDeComision
     emit(BlocGestionDeComisionEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        /// TODO(mati): decirle a chivo que siempre va a ver 1 solo docente.
-
         final listaObjetos = await Future.wait([
           client.asignatura.obtenerAsignaturaPorId(id: state.idAsignatura),
           client.usuario.obtenerListaDeEstudiantesDeComision(
@@ -78,8 +76,8 @@ class BlocGestionDeComision
   ) async {
     await operacionBloc(
       callback: (client) async {
-        /// TODO(mati): hablado con chivo para que me modifique el endpoint por
-        ///  que no le tengo que pasar el id rol
+        // TODO (anyone):soportar la customizacion de roles mas adelante por
+        // ahora viene hardcodeado el id del rol
         final usuarios = await client.usuario.obtenerUsuariosSegunRol(
           idRol: event.idRol,
           nombre: event.nombre,

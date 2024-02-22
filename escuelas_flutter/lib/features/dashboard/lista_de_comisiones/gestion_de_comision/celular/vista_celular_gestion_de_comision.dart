@@ -67,6 +67,9 @@ class _VistaCelularGestionDeComisionState
             onTap: () => _bottomSheetAsignarOAgregarUsuario(
               esAsignarDocente: true,
               context: context,
+
+              // TODO(mati): cambiar el hardcodeo de idRol del docente cuando
+              // se soporte la customizacion de roles
               idRol: 2,
             ),
             tituloBoton: l10n.pageCourseManagementAssignTeacher,
@@ -76,6 +79,8 @@ class _VistaCelularGestionDeComisionState
             tituloDeRol: '${l10n.commonStudent}:',
             onTap: () => _bottomSheetAsignarOAgregarUsuario(
               context: context,
+              // TODO(mati): cambiar el hardcodeo de idRol del alumno cuando
+              // se soporte la customizacion de roles
               idRol: 1,
             ),
             tituloBoton: l10n.pageCourseManagementAddStudent,
