@@ -442,8 +442,13 @@
     "@pageManageTemplatesAddNew": {
         "description": "Text to be displayed in the button to add new template"
     },
-    "pageManageTemplatesDialogItle": "Title",
-    "@pageManageTemplatesDialogItle": {
+    "pageManageTemplatesNew": "New template",
+    "@pageManageTemplatesNew": {
+        "description": "Text to be displayed in the dialog to add new template"
+    },
+
+    "pageManageTemplatesDialogTitle": "Title",
+    "@pageManageTemplatesDialogTitle": {
         "description": "Text to be displayed in the textfield of the dialog to add new template"
     },
     "pageManageTemplatesDialogWriteHere": "Write here...",
@@ -461,6 +466,23 @@
     "pageManageTemplatesUpdateAt": "Updated on",
     "@pageManageTemplatesUpdateAt": {
         "description": "Text to be displayed in the template for the date of the last update"
+    },
+    "pageManageTemplatesWantContinue": "Do you want to continue?",
+    "@pageManageTemplatesWantContinue": {
+        "description": "Text to be displayed in the dialog to question if the user wants to continue"
+    },
+    "pageManageTemplatesWillCreate": "You will create a\n default template called",
+    "@pageManageTemplatesWillCreate": {
+        "description": "Text to be displayed in the dialog to notify that you will create a new template"
+    },
+
+    "pageManageTemplatesDialogSuccessPartOne": "Template",
+    "@pageManageTemplatesDialogSuccessPartOne": {
+        "description": "Text to be displayed in the first part of the dialog of notify that the template has been created"
+    },
+    "pageManageTemplatesDialogSuccessPartTwo": " created successfully",
+    "@pageManageTemplatesDialogSuccessPartTwo": {
+        "description": "Text to be displayed in the last part of the dialog of notify that the template has been created"
     },
 
 
@@ -671,6 +693,10 @@
     "commonDelete": "Delete",
     "@commonDelete": {
         "description": "Label indicating to delete"
+    },
+    "commonAttention": "Atención",
+    "@commonAttention": {
+        "description": "Label indicating to Attention"
     }
 
 }

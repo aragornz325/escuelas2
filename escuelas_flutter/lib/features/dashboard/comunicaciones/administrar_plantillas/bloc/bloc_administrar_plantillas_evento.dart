@@ -23,7 +23,20 @@ class BlocAdministrarPlantillasEventoInicializar
 class BlocAdministrarPlantillasEventoAgregarPlantilla
     extends BlocAdministrarPlantillasEvento {
   /// {@macro BlocAdministrarPlantillasEventoAgregarPlantilla}
-  const BlocAdministrarPlantillasEventoAgregarPlantilla();
+  const BlocAdministrarPlantillasEventoAgregarPlantilla({
+    required this.nombrePlantilla,
+    required this.descripcionPlantilla,
+    required this.necesitaSupervicion,
+  });
+
+  /// Nombre de la plantilla
+  final String nombrePlantilla;
+
+  /// Descripción de la plantilla
+  final String descripcionPlantilla;
+
+  /// Verifica si la plantilla necesita supervisión
+  final bool necesitaSupervicion;
 }
 
 /// {@template BlocAdministrarPlantillasEventoCambiarModoEliminar}

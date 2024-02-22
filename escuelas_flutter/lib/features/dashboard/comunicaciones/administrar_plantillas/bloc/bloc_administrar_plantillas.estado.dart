@@ -6,6 +6,7 @@ part of 'bloc_administrar_plantillas.dart';
 class BlocAdministrarPlantillasEstado {
   /// {@macro BlocAdministrarPlantillasEstado}
   const BlocAdministrarPlantillasEstado._({
+    this.plantilla,
     this.modoEliminar = false,
     this.modoEditar = false,
     this.seleccionado = false,
@@ -18,10 +19,12 @@ class BlocAdministrarPlantillasEstado {
     bool? modoEditar,
     bool? seleccionado,
     List<PlantillaComunicacion>? plantillas,
+    PlantillaComunicacion? plantilla,
   }) : this._(
           modoEliminar: modoEliminar ?? otro.modoEliminar,
           modoEditar: modoEditar ?? otro.modoEditar,
           listaDePlantillas: plantillas ?? otro.listaDePlantillas,
+          plantilla: plantilla ?? otro.plantilla,
           seleccionado: seleccionado ?? otro.seleccionado,
         );
 
@@ -37,6 +40,9 @@ class BlocAdministrarPlantillasEstado {
 
   /// Lista de plantillas
   final List<PlantillaComunicacion> listaDePlantillas;
+
+  /// Plantilla
+  final PlantillaComunicacion? plantilla;
 }
 
 /// {@template BlocAdministrarPlantillasEstadoInicial}
@@ -78,5 +84,22 @@ class BlocAdministrarPlantillasEstadoExitoso
     super.modoEditar,
     super.plantillas,
     super.seleccionado,
+    super.plantilla,
+  }) : super.desde();
+}
+
+/// {@template BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla}
+/// Estado exitoso para [PaginaAdministrarPlantillas]
+/// {@endtemplate}
+class BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla
+    extends BlocAdministrarPlantillasEstado {
+  /// {@macro BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla}
+  BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla.desde(
+    super.otro, {
+    super.modoEliminar,
+    super.modoEditar,
+    super.plantillas,
+    super.seleccionado,
+    super.plantilla,
   }) : super.desde();
 }

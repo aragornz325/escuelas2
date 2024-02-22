@@ -1,9 +1,11 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/date_time.dart';
+import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/bloc/bloc_administrar_plantillas.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:escuelas_flutter/widgets/escuelas_textfield.dart';
 import 'package:flutter/material.dart';
@@ -71,46 +73,38 @@ class _VistaCelularAdministrarPlantillasState
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocAdministrarPlantillas>(),
-        child: DialogAgregarPlantilla(),
+        child: const DialogAgregarPlantilla(),
       ),
     );
   }
 
-  final plantillas = [
-    PlantillaDeComunicaciones(
-      necesitaSupervision: true,
-      titulo: 'Hola',
-      descripcion: ' descripcion 1',
-      fechaCreacion: DateTime.now(),
-      ultimaEdicion: DateTime.now(),
-    ),
-    PlantillaDeComunicaciones(
-      necesitaSupervision: true,
-      titulo: 'Hola',
-      descripcion: ' descripcion 1',
-      fechaCreacion: DateTime.now(),
-      ultimaEdicion: DateTime.now(),
-    ),
-    PlantillaDeComunicaciones(
-      necesitaSupervision: false,
-      titulo: ' titulo',
-      descripcion: '2',
-      fechaCreacion: DateTime.now(),
-      ultimaEdicion: DateTime.now(),
-    ),
-    PlantillaDeComunicaciones(
-      necesitaSupervision: true,
-      titulo: 'kakak',
-      descripcion: ' descripcion 3',
-      fechaCreacion: DateTime.now(),
-      ultimaEdicion: DateTime.now(),
-    ),
-  ];
+  Future<void> _onPlantillaCreadaConExito(
+    BuildContext context, {
+    required String tituloPlantilla,
+  }) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocAdministrarPlantillas>(),
+        child: DialogPlantillaCreadaConExito(
+          tituloPlantilla: tituloPlantilla,
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BlocAdministrarPlantillas,
+    return BlocConsumer<BlocAdministrarPlantillas,
         BlocAdministrarPlantillasEstado>(
+      listener: (context, state) {
+        if (state is BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla) {
+          _onPlantillaCreadaConExito(
+            context,
+            tituloPlantilla: state.plantilla?.titulo ?? '',
+          );
+        }
+      },
       builder: (context, state) {
         return Column(
           children: [
@@ -124,7 +118,7 @@ class _VistaCelularAdministrarPlantillasState
               height: max(610.ph, 610.sh),
               child: SingleChildScrollView(
                 child: Column(
-                  children: plantillas
+                  children: state.listaDePlantillas
                       .map(
                         (e) => Padding(
                           padding: EdgeInsets.symmetric(
@@ -139,8 +133,8 @@ class _VistaCelularAdministrarPlantillasState
                             necesitaSupervision: e.necesitaSupervision,
                             onModoEliminar: state.modoEliminar,
                             fechaCreacion: e.fechaCreacion.formatear,
-                            ultimaEdicion: e.ultimaEdicion.formatear,
-                            descripcionDePlantilla: e.descripcion,
+                            ultimaEdicion: e.ultimaModificacion.formatear,
+                            descripcionDePlantilla: e.nota,
                             tituloPlantilla: e.titulo,
                           ),
                         ),
@@ -156,49 +150,59 @@ class _VistaCelularAdministrarPlantillasState
   }
 }
 
-class PlantillaDeComunicaciones {
-  PlantillaDeComunicaciones({
-    required this.necesitaSupervision,
-    required this.titulo,
-    required this.descripcion,
-    required this.ultimaEdicion,
-    required this.fechaCreacion,
-  });
-
-  final bool necesitaSupervision;
-  final String titulo;
-  final String descripcion;
-  final DateTime fechaCreacion;
-  final DateTime ultimaEdicion;
-}
-
 /// {@template DialogAgregarPlantilla}
 /// Dialogo para agregar una nueva plantilla
 /// {@endtemplate}
 class DialogAgregarPlantilla extends StatefulWidget {
   /// {@macro DialogAgregarPlantilla}
-  const DialogAgregarPlantilla({
-    super.key,
-  });
+  const DialogAgregarPlantilla({super.key});
 
   @override
   State<DialogAgregarPlantilla> createState() => _DialogAgregarPlantillaState();
 }
 
-final controllerNuevaPlantillaTitulo = TextEditingController();
-final controllerNuevaPlantillaDescripcion = TextEditingController();
-
 class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
+  final controllerNuevaPlantillaTitulo = TextEditingController();
+  final controllerNuevaPlantillaDescripcion = TextEditingController();
+  bool necesitaSupervicion = false;
+
+  Future<void> _onConfirmarPlantilla(
+    BuildContext context, {
+    required String tituloPlantilla,
+    required String descripcionPlantilla,
+    required bool necesitaSupervicionn,
+  }) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocAdministrarPlantillas>(),
+        child: DialogConfirmarCreacionPlantilla(
+          tituloPlantilla: tituloPlantilla,
+          descripcionPlantilla: descripcionPlantilla,
+          necesitaSupervicion: necesitaSupervicionn,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
     return EscuelasDialog.solicitudDeAccion(
-      titulo: 'Nueva plantilla',
+      titulo: l10n.pageManageTemplatesNew,
       estaHabilitado: (controllerNuevaPlantillaTitulo.text.isNotEmpty &&
           controllerNuevaPlantillaDescripcion.text.isNotEmpty),
       context: context,
-      onTapConfirmar: () {},
+      onTapConfirmar: () {
+        Navigator.of(context).pop();
+        _onConfirmarPlantilla(
+          context,
+          tituloPlantilla: controllerNuevaPlantillaTitulo.text,
+          descripcionPlantilla: controllerNuevaPlantillaDescripcion.text,
+          necesitaSupervicionn: necesitaSupervicion,
+        );
+      },
       content: Column(
         children: [
           EscuelasTextfield(
@@ -213,7 +217,7 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
                 horizontal: 10.pw,
                 vertical: 8.ph,
               ),
-              hintText: 'Título',
+              hintText: l10n.pageManageTemplatesTitle,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -233,7 +237,7 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
                   horizontal: 10.pw,
                   vertical: 8.ph,
                 ),
-                hintText: 'Escribe aquí...',
+                hintText: l10n.pageManageTemplatesDialogWriteHere,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -251,12 +255,130 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
                   Text(l10n.pageManageTemplatesNeedSupervision),
                 ],
               ),
-              //! TODO: terminar
               Checkbox(
-                value: true,
-                onChanged: (value) {},
+                value: necesitaSupervicion,
+                onChanged: (value) {
+                  setState(() {
+                    necesitaSupervicion = value!;
+                  });
+                },
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+/// {@template DialogConfirmarCreacionPlantilla}
+/// Dialogo para confirmar la creacion de una nueva plantilla
+/// {@endtemplate}
+class DialogConfirmarCreacionPlantilla extends StatelessWidget {
+  /// {@macro DialogConfirmarCreacionPlantilla}
+  const DialogConfirmarCreacionPlantilla({
+    required this.tituloPlantilla,
+    required this.descripcionPlantilla,
+    required this.necesitaSupervicion,
+    super.key,
+  });
+
+  /// titulo de la plantilla
+  final String tituloPlantilla;
+  final String descripcionPlantilla;
+  final bool necesitaSupervicion;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
+    return EscuelasDialog.solicitudDeAccion(
+      estaHabilitado: true,
+      titulo: l10n.commonAttention,
+      context: context,
+      onTapConfirmar: () {
+        context.read<BlocAdministrarPlantillas>().add(
+              BlocAdministrarPlantillasEventoAgregarPlantilla(
+                nombrePlantilla: tituloPlantilla,
+                descripcionPlantilla: descripcionPlantilla,
+                necesitaSupervicion: necesitaSupervicion,
+              ),
+            );
+        Navigator.of(context).pop();
+      },
+      content: Column(
+        children: [
+          Text(
+            textAlign: TextAlign.center,
+            l10n.pageManageTemplatesWillCreate,
+          ),
+          Text(
+            '"$tituloPlantilla"',
+            style: const TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          Text(l10n.pageManageTemplatesWantContinue),
+        ],
+      ),
+    );
+  }
+}
+
+/// {@template DialogPlantillaCreadaConExito}
+/// Dialog a mostrarse para notificar que la plantilla fue creada con exito
+/// {@endtemplate}
+class DialogPlantillaCreadaConExito extends StatelessWidget {
+  /// {@macro DialogPlantillaCreadaConExito}
+  const DialogPlantillaCreadaConExito({
+    required this.tituloPlantilla,
+    super.key,
+  });
+
+  /// titulo de la plantilla
+  final String tituloPlantilla;
+
+  @override
+  Widget build(BuildContext context) {
+    final colores = context.colores;
+    final l10n = context.l10n;
+
+    return EscuelasDialog.exitoso(
+      altura: max(100.ph, 100.sh),
+      context: context,
+      onTap: () => Navigator.of(context).pop(),
+      content: Column(
+        children: [
+          SizedBox(height: max(30.ph, 30.sh)),
+          RichText(
+            maxLines: 2,
+            textAlign: TextAlign.end,
+            text: TextSpan(
+              children: [
+                TextSpan(
+                  text: l10n.pageManageTemplatesDialogSuccessPartOne,
+                  style: TextStyle(
+                    color: colores.grisSC,
+                    fontSize: 16.pf,
+                  ),
+                ),
+                TextSpan(
+                  text: ' "$tituloPlantilla"',
+                  style: TextStyle(
+                    color: colores.onBackground,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16.pf,
+                  ),
+                ),
+                TextSpan(
+                  text: l10n.pageManageTemplatesDialogSuccessPartTwo,
+                  style: TextStyle(
+                    color: colores.grisSC,
+                    fontSize: 16.pf,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

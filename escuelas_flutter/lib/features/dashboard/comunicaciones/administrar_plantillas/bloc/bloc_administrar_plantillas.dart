@@ -58,7 +58,41 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
   ) async {
     emit(BlocAdministrarPlantillasEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) async {},
+      callback: (client) async {
+        final plantilla =
+            await client.plantillaComunicacion.crearPlantillaComunicacion(
+          plantillaComunicacion: PlantillaComunicacion(
+            titulo: event.nombrePlantilla,
+            nota: event.descripcionPlantilla,
+            necesitaSupervision: event.necesitaSupervicion,
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
+        );
+        final nuevaListaDePlantillas =
+            List<PlantillaComunicacion>.from(state.listaDePlantillas)
+              ..add(
+                PlantillaComunicacion(
+                  titulo: plantilla.titulo,
+                  nota: plantilla.nota,
+                  necesitaSupervision: plantilla.necesitaSupervision,
+                  ultimaModificacion: plantilla.ultimaModificacion,
+                  fechaCreacion: plantilla.fechaCreacion,
+                ),
+              );
+        emit(
+          BlocAdministrarPlantillasEstadoExitoso.desde(
+            state,
+            plantillas: nuevaListaDePlantillas,
+          ),
+        );
+        emit(
+          BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla.desde(
+            state,
+            plantilla: plantilla,
+          ),
+        );
+      },
       onError: (e, st) {
         emit(BlocAdministrarPlantillasEstadoError.desde(state));
       },
