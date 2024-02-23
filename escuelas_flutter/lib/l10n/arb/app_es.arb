@@ -244,6 +244,11 @@
     "@pageStudentGrades": {
         "description": "Title of the page Grades for a student"
     },
+  
+    "pageCommunicationsTitle": "Comunicaciones",
+    "@pageCommunicationsTitle": {
+        "description": "Title of the page Communications"
+    },
 
     "pageGradesStudentCardAverage": "Promedio: ",
     "@pageGradesStudentCardAverage": {
@@ -371,6 +376,29 @@
     "routeNamePendingUsers": "Usuarios pendientes",
     "@routeNamePendingUsers": {
         "description": ""
+    },
+
+
+    "routeNameMenuCommunications": "Comunicaciones",
+    "@routeNameMenuCommunications": {
+        "description": "Name of the route"
+    },
+
+    
+    "routeNamePendingCommunications": "Pendientes",
+    "@routeNamePendingCommunications": {
+        "description": "Name of the route"
+    },
+
+    
+    "routeNameGeneralCommunications": "General",
+    "@routeNameGeneralCommunications": {
+        "description": "Name of the route"
+    },
+
+    "routeNameCourseCommunications": "Cursos",
+    "@routeNameCourseCommunications": {
+        "description": "Name of the route"
     },
 
     "routeAcademicCommunityMenu": "Menú",
