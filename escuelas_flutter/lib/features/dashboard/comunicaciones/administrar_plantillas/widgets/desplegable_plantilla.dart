@@ -1,9 +1,12 @@
 import 'dart:math';
 
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/bloc/bloc_administrar_plantillas.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template DesplegablePlantilla}
@@ -14,15 +17,11 @@ class DesplegablePlantilla extends StatefulWidget {
   const DesplegablePlantilla({
     required this.necesitaSupervision,
     required this.onModoEliminar,
-    required this.fechaCreacion,
-    required this.ultimaEdicion,
-    required this.descripcionDePlantilla,
-    required this.tituloPlantilla,
     required this.onModoEditar,
     required this.onEditar,
-    required this.onConfirmarEdicion,
     required this.onCancelarEdicion,
     required this.estaSeleccionado,
+    required this.plantilla,
     super.key,
     this.onChanged,
     this.onChangedEliminar,
@@ -39,23 +38,8 @@ class DesplegablePlantilla extends StatefulWidget {
   /// Verifica si se encuentra en modo editar
   final bool onModoEditar;
 
-  /// Fecha de creacion de la plantilla
-  final String fechaCreacion;
-
-  /// Fecha de la ultima edicion
-  final String ultimaEdicion;
-
-  /// Descripción de la plantilla
-  final String descripcionDePlantilla;
-
-  /// Titulo de la plantilla
-  final String tituloPlantilla;
-
   /// Accion para cambiar a modo editar o cancelar
   final VoidCallback onEditar;
-
-  /// Accion para confirmar la edicion
-  final VoidCallback onConfirmarEdicion;
 
   /// Accion para cancelar la edicion
   final VoidCallback onCancelarEdicion;
@@ -68,6 +52,9 @@ class DesplegablePlantilla extends StatefulWidget {
   /// Callback para seleccionar la plantilla a eliminar
   final void Function(bool?)? onChangedEliminar;
 
+  /// plantilla que otorgara los datos
+  final PlantillaComunicacion plantilla;
+
   @override
   State<DesplegablePlantilla> createState() => _DesplegablePlantillaState();
 }
@@ -78,9 +65,8 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
 
   @override
   void initState() {
-    controllerTitulo = TextEditingController(text: widget.tituloPlantilla);
-    controllerDescripcion =
-        TextEditingController(text: widget.descripcionDePlantilla);
+    controllerTitulo = TextEditingController(text: widget.plantilla.titulo);
+    controllerDescripcion = TextEditingController(text: widget.plantilla.nota);
 
     super.initState();
   }
@@ -130,7 +116,7 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
             SizedBox(
               width: widget.onModoEliminar ? 180.pw : 220.pw,
               child: Text(
-                widget.tituloPlantilla,
+                widget.plantilla.titulo,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   color: colores.onBackground,
@@ -158,7 +144,17 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
                   ),
                 ),
                 IconButton(
-                  onPressed: widget.onConfirmarEdicion,
+                  onPressed: () {
+                    context.read<BlocAdministrarPlantillas>().add(
+                          BlocAdministrarPlantillasEventoEditarPlantilla(
+                            idPlantilla: widget.plantilla.id ?? 0,
+                            plantilla: widget.plantilla,
+                            nuevoNombre: controllerTitulo.text,
+                            nuevaDescripcion: controllerDescripcion.text,
+                            nuevaNecesitaSupervision: true,
+                          ),
+                        );
+                  },
                   icon: Icon(
                     Icons.check_rounded,
                     color: colores.onBackground,
@@ -187,7 +183,7 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    '${l10n.pageManageTemplatesCreatedAt} ${widget.fechaCreacion}',
+                    '${l10n.pageManageTemplatesCreatedAt} ${widget.plantilla.fechaCreacion.formatear}',
                     style: TextStyle(
                       color: colores.onBackground,
                       fontSize: 10.pf,
@@ -195,7 +191,7 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
                     ),
                   ),
                   Text(
-                    '${l10n.pageManageTemplatesUpdateAt} ${widget.ultimaEdicion}',
+                    '${l10n.pageManageTemplatesUpdateAt} ${widget.plantilla.ultimaModificacion.formatear}',
                     style: TextStyle(
                       color: colores.onBackground,
                       fontSize: 10.pf,
@@ -225,7 +221,7 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
               else
                 IntrinsicHeight(
                   child: Text(
-                    widget.descripcionDePlantilla,
+                    widget.plantilla.nota,
                   ),
                 ),
             ],

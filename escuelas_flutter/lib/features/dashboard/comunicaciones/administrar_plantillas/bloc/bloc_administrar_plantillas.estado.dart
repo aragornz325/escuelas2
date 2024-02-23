@@ -88,6 +88,20 @@ class BlocAdministrarPlantillasEstadoExitoso
   }) : super.desde();
 }
 
+/// {@template BlocAdministrarPlantillasEstadoExitoso}
+/// Estado exitoso para [PaginaAdministrarPlantillas]
+/// {@endtemplate}
+class BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla
+    extends BlocAdministrarPlantillasEstado {
+  /// {@macro BlocAdministrarPlantillasEstadoExitoso}
+  BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla.desde(
+    super.otro, {
+    super.modoEditar,
+    super.plantillas,
+    super.plantilla,
+  }) : super.desde();
+}
+
 /// {@template BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla}
 /// Estado exitoso para [PaginaAdministrarPlantillas]
 /// {@endtemplate}

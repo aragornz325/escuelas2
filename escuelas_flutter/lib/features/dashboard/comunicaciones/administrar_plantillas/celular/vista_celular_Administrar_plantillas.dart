@@ -138,6 +138,16 @@ class _VistaCelularAdministrarPlantillasState
     );
   }
 
+  Future<void> _onPlantillaEditadaConExito(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocAdministrarPlantillas>(),
+        child: const DialogPlantillaEditadaConExito(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BlocAdministrarPlantillas,
@@ -148,6 +158,9 @@ class _VistaCelularAdministrarPlantillasState
             context,
             tituloPlantilla: state.plantilla?.titulo ?? '',
           );
+        }
+        if (state is BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla) {
+          _onPlantillaEditadaConExito(context);
         }
       },
       builder: (context, state) {
@@ -174,28 +187,11 @@ class _VistaCelularAdministrarPlantillasState
                             onChangedEliminar: (p0) {},
                             onChanged: onCambiarNecesitaSupervision,
                             onCancelarEdicion: onCambioModoEditar,
-                            onConfirmarEdicion: () {
-                              context.read<BlocAdministrarPlantillas>().add(
-                                    BlocAdministrarPlantillasEventoEditarPlantilla(
-                                      plantilla: e,
-                                      nuevoNombre: ' controllerTitulo.text',
-                                      nuevaDescripcion:
-                                          'controllerDescripcion.text',
-                                      nuevaNecesitaSupervision: true,
-                                    ),
-                                  );
-                              print(e.ultimaModificacion);
-                              print(e.titulo);
-                              print(e.nota);
-                            },
                             onEditar: onCambioModoEditar,
                             onModoEditar: state.modoEditar,
                             necesitaSupervision: e.necesitaSupervision,
                             onModoEliminar: state.modoEliminar,
-                            fechaCreacion: e.fechaCreacion.formatear,
-                            ultimaEdicion: e.ultimaModificacion.formatear,
-                            descripcionDePlantilla: e.nota,
-                            tituloPlantilla: e.titulo,
+                            plantilla: e,
                           ),
                         ),
                       )
@@ -443,5 +439,22 @@ class DialogPlantillaCreadaConExito extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+/// {@template DialogPlantillaEditadaConExito}
+/// Dialog a mostrarse para notificar que la plantilla fue editada con exito
+/// {@endtemplate}
+class DialogPlantillaEditadaConExito extends StatelessWidget {
+  /// {@macro DialogPlantillaEditadaConExito}
+  const DialogPlantillaEditadaConExito({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return EscuelasDialog.exitoso(
+        context: context,
+        onTap: () => Navigator.of(context).pop(),
+        //! TODO(Manu): l10n
+        content: Text('Plantilla editada con exito'));
   }
 }

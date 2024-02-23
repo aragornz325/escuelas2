@@ -92,6 +92,7 @@ class BlocAdministrarPlantillasEventoEditarPlantilla
     required this.nuevaDescripcion,
     required this.nuevaNecesitaSupervision,
     required this.plantilla,
+    required this.idPlantilla,
   });
 
   /// Plantilla a editar
@@ -99,6 +100,7 @@ class BlocAdministrarPlantillasEventoEditarPlantilla
   final String nuevoNombre;
   final String nuevaDescripcion;
   final bool nuevaNecesitaSupervision;
+  final int idPlantilla;
 }
 
 // class BlocAdministrarPlantillasEventoCambioSeleccionado

@@ -177,22 +177,32 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
     emit(BlocAdministrarPlantillasEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final plantillaEditada =
-            await client.plantillaComunicacion.actualizarPlantillaComunicacion(
-          plantillaComunicacion: event.plantilla,
+        final plantillaEditada = PlantillaComunicacion(
+          id: event.idPlantilla,
+          titulo: event.nuevoNombre,
+          nota: event.nuevaDescripcion,
+          necesitaSupervision: event.nuevaNecesitaSupervision,
+          ultimaModificacion: DateTime.now(),
+          fechaCreacion: DateTime.now(),
         );
-        // final lista = List<PlantillaComunicacion>.from(state.listaDePlantillas);
 
-        // final editada = lista
-        //   ..removeWhere(
-        //     (element) => element.id == event.plantilla.id,
-        //   )
-        //   ..add(event.plantilla);
+        final plantillaModificada =
+            await client.plantillaComunicacion.actualizarPlantillaComunicacion(
+          plantillaComunicacion: plantillaEditada,
+        );
+        final lista = List<PlantillaComunicacion>.from(state.listaDePlantillas);
+
+        final listaEditada = lista
+          ..removeWhere(
+            (element) => element.id == event.plantilla.id,
+          )
+          ..add(plantillaModificada);
         emit(
-          BlocAdministrarPlantillasEstadoExitoso.desde(
+          BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla.desde(
             state,
-            // plantillas: editada,
-            plantilla: plantillaEditada,
+            plantillas: listaEditada,
+            plantilla: plantillaModificada,
+            modoEditar: false,
           ),
         );
       },
