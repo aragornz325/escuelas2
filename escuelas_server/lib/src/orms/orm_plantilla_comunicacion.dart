@@ -24,11 +24,15 @@ class OrmPlantillaComunicacion extends ORM {
   }) async {
     return await ejecutarOperacionOrm(
       session,
-      (session) => PlantillaComunicacion.db.updateRow(
+      (session) {
+        final ahora = DateTime.now();
+
+        return PlantillaComunicacion.db.updateRow(
         session,
-        plantillaComunicacion..ultimaModificacion = DateTime.now(),
+        plantillaComunicacion..ultimaModificacion = ahora,
         columns: columns,
-      ),
+      );
+      },
     );
   }
 
