@@ -73,7 +73,12 @@ class BlocAdministrarPlantillasEventoCambiarModoEditar
 class BlocAdministrarPlantillasEventoEliminarPlantillas
     extends BlocAdministrarPlantillasEvento {
   /// {@macro BlocAdministrarPlantillasEventoEliminarPlantillas}
-  const BlocAdministrarPlantillasEventoEliminarPlantillas();
+  const BlocAdministrarPlantillasEventoEliminarPlantillas({
+    required this.idPlantilla,
+  });
+
+  /// Id de la plantilla a eliminar
+  final int idPlantilla;
 }
 
 /// {@template BlocAdministrarPlantillasEventoEditarPlantilla}
@@ -82,11 +87,26 @@ class BlocAdministrarPlantillasEventoEliminarPlantillas
 class BlocAdministrarPlantillasEventoEditarPlantilla
     extends BlocAdministrarPlantillasEvento {
   /// {@macro BlocAdministrarPlantillasEventoEditarPlantilla}
-  const BlocAdministrarPlantillasEventoEditarPlantilla();
+  const BlocAdministrarPlantillasEventoEditarPlantilla({
+    required this.nuevoNombre,
+    required this.nuevaDescripcion,
+    required this.nuevaNecesitaSupervision,
+    required this.plantilla,
+  });
+
+  /// Plantilla a editar
+  final PlantillaComunicacion plantilla;
+  final String nuevoNombre;
+  final String nuevaDescripcion;
+  final bool nuevaNecesitaSupervision;
 }
 
-class BlocAdministrarPlantillasEventoCambioSeleccionado
-    extends BlocAdministrarPlantillasEvento {
-  /// {@macro BlocAdministrarPlantillasEventoCambioSeleccionado}
-  const BlocAdministrarPlantillasEventoCambioSeleccionado();
-}
+// class BlocAdministrarPlantillasEventoCambioSeleccionado
+//     extends BlocAdministrarPlantillasEvento {
+//   /// {@macro BlocAdministrarPlantillasEventoCambioSeleccionado}
+//   const BlocAdministrarPlantillasEventoCambioSeleccionado({
+//     required this.plantillaSeleccionada,
+//   });
+
+//   final bool plantillaSeleccionada;
+// }

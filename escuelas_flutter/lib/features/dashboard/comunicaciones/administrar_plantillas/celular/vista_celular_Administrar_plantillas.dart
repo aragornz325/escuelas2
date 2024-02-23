@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:escuelas_flutter/extensiones/date_time.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/bloc/bloc_administrar_plantillas.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/widgets/widgets.dart';
@@ -27,6 +26,7 @@ class VistaCelularAdministrarPlantillas extends StatefulWidget {
 class _VistaCelularAdministrarPlantillasState
     extends State<VistaCelularAdministrarPlantillas> {
   bool necesitaSupervicion = false;
+  bool estaSeleccionado = false;
 
   void onCambioModoEliminar() {
     final state = context.read<BlocAdministrarPlantillas>().state;
@@ -62,11 +62,56 @@ class _VistaCelularAdministrarPlantillasState
     }
   }
 
+  // void onEditarPlantilla() {
+  //   final state = context.read<BlocAdministrarPlantillas>().state;
+  //   context.read<BlocAdministrarPlantillas>().add(
+  //         BlocAdministrarPlantillasEventoEditarPlantilla(
+  //           plantilla: state.plantilla!,
+  //         ),
+  //       );
+  // }
+  // void onCambioSeleccionEliminar(PlantillaComunicacion plantilla) {
+  //   final state = context.read<BlocAdministrarPlantillas>().state;
+  //   if (state.seleccionado == false) {
+  //     context.read<BlocAdministrarPlantillas>().add(
+  //           BlocAdministrarPlantillasEventoCambioSeleccionado(
+  //             plantillaSeleccionada: true,
+  //             plantilla: plantilla,
+  //           ),
+  //         );
+  //   } else {
+  //     context.read<BlocAdministrarPlantillas>().add(
+  //           BlocAdministrarPlantillasEventoCambioSeleccionado(
+  //             plantillaSeleccionada: true,
+  //             plantilla: plantilla,
+  //           ),
+  //         );
+  //   }
+  // }
+
   void onCambiarNecesitaSupervision(bool? value) {
     setState(() {
       necesitaSupervicion = !necesitaSupervicion;
     });
   }
+
+  // void onCambioSeleccionEliminar(bool? value) {
+  //   final state = context.read<BlocAdministrarPlantillas>().state;
+
+  //   if (state.seleccionado == false) {
+  //     context.read<BlocAdministrarPlantillas>().add(
+  //           const BlocAdministrarPlantillasEventoCambioSeleccionado(
+  //             plantillaSeleccionada: true,
+  //           ),
+  //         );
+  //   } else {
+  //     context.read<BlocAdministrarPlantillas>().add(
+  //           const BlocAdministrarPlantillasEventoCambioSeleccionado(
+  //             plantillaSeleccionada: false,
+  //           ),
+  //         );
+  //   }
+  // }
 
   Future<void> _onAgregarPlantilla(BuildContext context) {
     return showDialog<void>(
@@ -125,9 +170,24 @@ class _VistaCelularAdministrarPlantillasState
                             vertical: max(10.ph, 10.sh),
                           ),
                           child: DesplegablePlantilla(
+                            estaSeleccionado: state.seleccionado,
+                            onChangedEliminar: (p0) {},
                             onChanged: onCambiarNecesitaSupervision,
                             onCancelarEdicion: onCambioModoEditar,
-                            onConfirmarEdicion: () {},
+                            onConfirmarEdicion: () {
+                              context.read<BlocAdministrarPlantillas>().add(
+                                    BlocAdministrarPlantillasEventoEditarPlantilla(
+                                      plantilla: e,
+                                      nuevoNombre: ' controllerTitulo.text',
+                                      nuevaDescripcion:
+                                          'controllerDescripcion.text',
+                                      nuevaNecesitaSupervision: true,
+                                    ),
+                                  );
+                              print(e.ultimaModificacion);
+                              print(e.titulo);
+                              print(e.nota);
+                            },
                             onEditar: onCambioModoEditar,
                             onModoEditar: state.modoEditar,
                             necesitaSupervision: e.necesitaSupervision,

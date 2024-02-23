@@ -22,8 +22,10 @@ class DesplegablePlantilla extends StatefulWidget {
     required this.onEditar,
     required this.onConfirmarEdicion,
     required this.onCancelarEdicion,
+    required this.estaSeleccionado,
     super.key,
     this.onChanged,
+    this.onChangedEliminar,
   });
 
   /// Verifica si la plantilla necesita supervisión, de ser true, se agrega
@@ -59,6 +61,12 @@ class DesplegablePlantilla extends StatefulWidget {
   final VoidCallback onCancelarEdicion;
 
   final void Function(bool?)? onChanged;
+
+  /// Verifica si esta checked la plantilla
+  final bool estaSeleccionado;
+
+  /// Callback para seleccionar la plantilla a eliminar
+  final void Function(bool?)? onChangedEliminar;
 
   @override
   State<DesplegablePlantilla> createState() => _DesplegablePlantillaState();
@@ -96,9 +104,9 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
       collapsedShape:
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sw)),
       leading: widget.onModoEliminar
-          ? Icon(
-              Icons.check_circle_outline,
-              color: colores.error,
+          ? Checkbox(
+              value: widget.estaSeleccionado,
+              onChanged: widget.onChangedEliminar,
             )
           : null,
       title: Row(
@@ -119,13 +127,16 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
               ),
             )
           else
-            Text(
-              widget.tituloPlantilla,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: colores.onBackground,
-                fontSize: 16.pf,
-                fontWeight: FontWeight.w700,
+            SizedBox(
+              width: widget.onModoEliminar ? 180.pw : 220.pw,
+              child: Text(
+                widget.tituloPlantilla,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(
+                  color: colores.onBackground,
+                  fontSize: 16.pf,
+                  fontWeight: FontWeight.w700,
+                ),
               ),
             ),
           const Spacer(),

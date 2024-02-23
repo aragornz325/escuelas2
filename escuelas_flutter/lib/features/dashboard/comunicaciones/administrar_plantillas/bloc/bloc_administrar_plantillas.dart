@@ -15,15 +15,18 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
       : super(const BlocAdministrarPlantillasEstadoInicial()) {
     on<BlocAdministrarPlantillasEventoInicializar>(_onInicializar);
     on<BlocAdministrarPlantillasEventoAgregarPlantilla>(_onAgregarPlantilla);
-    on<BlocAdministrarPlantillasEventoCambiarModoEliminar>(
-      _onCambiarModoEliminar,
-    );
     on<BlocAdministrarPlantillasEventoCambiarModoEditar>(
       _onCambiarModoEditar,
     );
-    on<BlocAdministrarPlantillasEventoEliminarPlantillas>(
-      _onEliminarPlantillas,
+    on<BlocAdministrarPlantillasEventoCambiarModoEliminar>(
+      _onCambiarModoEliminar,
     );
+    // on<BlocAdministrarPlantillasEventoCambioSeleccionado>(
+    //   _onCambiaSeleccionPlantilla,
+    // );
+    // on<BlocAdministrarPlantillasEventoEliminarPlantillas>(
+    //   _onEliminarPlantillas,
+    // );
     on<BlocAdministrarPlantillasEventoEditarPlantilla>(_onEditarPlantilla);
   }
 
@@ -120,24 +123,51 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
     emit(
       BlocAdministrarPlantillasEstadoExitoso.desde(
         state,
-        modoEliminar: event.modoEditar,
+        modoEditar: event.modoEditar,
       ),
     );
   }
 
+  // Future<void> _onCambiaSeleccionPlantilla(
+  //   BlocAdministrarPlantillasEventoCambioSeleccionado event,
+  //   Emitter<BlocAdministrarPlantillasEstado> emit,
+  // ) async {
+  //   emit(
+  //     BlocAdministrarPlantillasEstadoExitoso.desde(
+  //       state,
+  //       seleccionado: event.plantillaSeleccionada,
+  //     ),
+  //   );
+  // }
+
   /// Accion para eliminar una o varias plantillas de la lista
-  Future<void> _onEliminarPlantillas(
-    BlocAdministrarPlantillasEventoEliminarPlantillas event,
-    Emitter<BlocAdministrarPlantillasEstado> emit,
-  ) async {
-    emit(BlocAdministrarPlantillasEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (client) async {},
-      onError: (e, st) {
-        emit(BlocAdministrarPlantillasEstadoError.desde(state));
-      },
-    );
-  }
+  // Future<void> _onEliminarPlantillas(
+  //   BlocAdministrarPlantillasEventoEliminarPlantillas event,
+  //   Emitter<BlocAdministrarPlantillasEstado> emit,
+  // ) async {
+  //   emit(BlocAdministrarPlantillasEstadoCargando.desde(state));
+  //   await operacionBloc(
+  //     callback: (client) async {
+  //       await client.plantillaComunicacion.eliminarPlantillasComunicacion(
+  //         idPlantillasComunicacion: [event.idPlantilla],
+  //       );
+  //       final nuevaListaDePlantillas =
+  //           List<PlantillaComunicacion>.from(state.listaDePlantillas)
+  //             ..removeWhere(
+  //               (element) => element.id == event.idPlantilla,
+  //             );
+  //       emit(
+  //         BlocAdministrarPlantillasEstadoExitoso.desde(
+  //           state,
+  //           plantillas: nuevaListaDePlantillas,
+  //         ),
+  //       );
+  //     },
+  //     onError: (e, st) {
+  //       emit(BlocAdministrarPlantillasEstadoError.desde(state));
+  //     },
+  //   );
+  // }
 
   /// Accion para editar una plantilla ya creada
   Future<void> _onEditarPlantilla(
@@ -146,7 +176,26 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
   ) async {
     emit(BlocAdministrarPlantillasEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) async {},
+      callback: (client) async {
+        final plantillaEditada =
+            await client.plantillaComunicacion.actualizarPlantillaComunicacion(
+          plantillaComunicacion: event.plantilla,
+        );
+        // final lista = List<PlantillaComunicacion>.from(state.listaDePlantillas);
+
+        // final editada = lista
+        //   ..removeWhere(
+        //     (element) => element.id == event.plantilla.id,
+        //   )
+        //   ..add(event.plantilla);
+        emit(
+          BlocAdministrarPlantillasEstadoExitoso.desde(
+            state,
+            // plantillas: editada,
+            plantilla: plantillaEditada,
+          ),
+        );
+      },
       onError: (e, st) {
         emit(BlocAdministrarPlantillasEstadoError.desde(state));
       },
