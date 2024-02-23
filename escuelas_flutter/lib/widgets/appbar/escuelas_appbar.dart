@@ -75,6 +75,13 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
         RutaMenuComunidadAcademica.name => l10n.routeAcademicCommunityMenu,
         RutaListadoComunidad.name => l10n.routeAcademicCommunityList,
         RutaSupervisionComisiones.name => l10n.routeNameCommissionSupervision,
+        RutaMenuComunicaciones.name => l10n.routeNameMenuCommunications,
+        RutaComunicaciones.name => l10n.routeNameMenuCommunications,
+        RutaComunicacionesPendientes.name =>
+          l10n.routeNamePendingCommunications,
+        // TODO(SAM): Preguntar a Gon como es para poner en el app bar
+        RutaComunicacionesGeneral.name => l10n.routeNameGeneralCommunications,
+        RutaComunicacionesCursos.name => l10n.routeNameCourseCommunications,
         RutaSupervisionEnvioCalificaciones.name =>
           l10n.routeNameGradeSubmissionSupervision,
         _ => '',
