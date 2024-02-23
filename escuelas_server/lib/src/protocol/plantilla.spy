@@ -1,0 +1,9 @@
+class: PlantillaComunicacion
+table: plantillas_comunicacion
+fields:
+    titulo: String
+    nota: String
+    necesitaSupervision: bool
+    ultimaModificacion: DateTime
+    fechaCreacion: DateTime
+    fechaEliminacion: DateTime?

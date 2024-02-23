@@ -204,6 +204,10 @@
         "description": "Text to be displayed if there are no grades"
     },
 
+    "pageStudentGradesTitle": "Grades",
+    "@pageStudentGrades": {
+        "description": "Title of the page Grades for a student"
+    },
 
     "pageGradesStudentCardAverage": "Average: ",
     "@pageGradesStudentCardAverage": {
@@ -517,6 +521,66 @@
         "description": "Hint text in textformfield to indicate that ID must be entered"
     },
 
+    "commonJanuary": "January",
+    "@commonJanuary": {
+    "description": "Text displaying the first month January"
+  },
+
+    "commonFebruary": "February",
+    "@commonFebruary": {
+    "description": "Text displaying the second month February"
+  },
+
+    "commonMarch": "March",
+    "@commonMarch": {
+    "description": "Text displaying the third month March"
+  },
+
+    "commonApril": "April",
+    "@commonApril": {
+    "description": "Text displaying the fourth month April"
+  },
+
+    "commonMay": "May",
+    "@commonMay": {
+    "description": "Text displaying the fifth month May"
+  },
+
+    "commonJune": "June",
+    "@commonJune": {
+    "description": "Text displaying the sixth month June"
+  },
+
+    "commonJuly": "July",
+    "@commonJuly": {
+    "description": "Text displaying the seventh month July"
+  },
+
+    "commonAugust": "August",
+    "@commonAugust": {
+    "description": "Text displaying the eighth month August"
+  },
+
+    "commonSeptember": "September",
+    "@commonSeptember": {
+    "description": "Text displaying the ninth month September"
+  },
+
+    "commonOctober": "October",
+    "@commonOctober": {
+    "description": "Text displaying the tenth month October"
+  },
+
+    "commonNovember": "November",
+    "@commonNovember": {
+    "description": "Text displaying the eleventh month November"
+  },
+
+    "commonDecember": "December",
+    "@commonDecember": {
+    "description": "Text displaying the twelfth month December"
+  },
+
     "commonMail": "Mail",
     "@commonMail": {
         "description": "Text to be displayed in common places"
@@ -535,6 +599,11 @@
     "commonEnterAValidEmail": "Enter a valid email",
     "@commonEnterAValidEmail": {
         "description": "Text to indicate that the email is invalid"
+    },
+
+    "commonUnrated": "N/A",
+    "@commonUnrated": {
+        "description": "Text showing the grade is unrated."
     },
 
     "commonPassword": "Password",

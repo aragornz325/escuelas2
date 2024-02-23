@@ -67,9 +67,9 @@ class TarjetaCargaCalificacion extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        InformacionAlumno(
+        InformacionAlumnoOAsignatura(
           promedio: _promedioDeCalificacionesRestantesYActual(),
-          nombreAlumno: alumno?.nombre ?? '',
+          tituloTarjeta: alumno?.nombre ?? '',
         ),
         BotonCargaCalificacion(
           calificacion: calificacion ?? 'S/C',
