@@ -121,3 +121,14 @@ class BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla
     super.plantilla,
   }) : super.desde();
 }
+
+class BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar
+    extends BlocAdministrarPlantillasEstado {
+  /// {@macro BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar}
+  BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar.desde(
+    super.otro, {
+    super.listaDePlantillasAEliminar,
+    super.modoEliminar,
+    super.seleccionado,
+  }) : super.desde();
+}

@@ -23,7 +23,13 @@ class VistaCelularAdministrarPlantillas extends StatefulWidget {
 class _VistaCelularAdministrarPlantillasState
     extends State<VistaCelularAdministrarPlantillas> {
   bool necesitaSupervicion = false;
-  bool estaSeleccionadoz = false;
+  bool estaSeleccionada = false;
+
+  @override
+  void initState() {
+    estaSeleccionada = false;
+    super.initState();
+  }
 
   void onCambioModoEliminar() {
     final state = context.read<BlocAdministrarPlantillas>().state;
@@ -41,7 +47,7 @@ class _VistaCelularAdministrarPlantillasState
           );
     }
   }
-
+//! TODO(Manu): Esto depende de la resolucion del problema de modo editar
   // void onCambioModoEditar() {
   //   final state = context.read<BlocAdministrarPlantillas>().state;
   //   if (state.modoEditar == false) {
@@ -67,48 +73,12 @@ class _VistaCelularAdministrarPlantillasState
   //         ),
   //       );
   // }
-  // void onCambioSeleccionEliminar(PlantillaComunicacion plantilla) {
-  //   final state = context.read<BlocAdministrarPlantillas>().state;
-  //   if (state.seleccionado == false) {
-  //     context.read<BlocAdministrarPlantillas>().add(
-  //           BlocAdministrarPlantillasEventoCambioSeleccionado(
-  //             plantillaSeleccionada: true,
-  //             plantilla: plantilla,
-  //           ),
-  //         );
-  //   } else {
-  //     context.read<BlocAdministrarPlantillas>().add(
-  //           BlocAdministrarPlantillasEventoCambioSeleccionado(
-  //             plantillaSeleccionada: true,
-  //             plantilla: plantilla,
-  //           ),
-  //         );
-  //   }
-  // }
 
   void onCambiarNecesitaSupervision(bool? value) {
     setState(() {
       necesitaSupervicion = !necesitaSupervicion;
     });
   }
-
-  // void onCambioSeleccionEliminar(bool? value) {
-  //   final state = context.read<BlocAdministrarPlantillas>().state;
-
-  //   if (state.seleccionado == false) {
-  //     context.read<BlocAdministrarPlantillas>().add(
-  //           const BlocAdministrarPlantillasEventoCambioSeleccionado(
-  //             plantillaSeleccionada: true,
-  //           ),
-  //         );
-  //   } else {
-  //     context.read<BlocAdministrarPlantillas>().add(
-  //           const BlocAdministrarPlantillasEventoCambioSeleccionado(
-  //             plantillaSeleccionada: false,
-  //           ),
-  //         );
-  //   }
-  // }
 
   Future<void> _onAgregarPlantilla(BuildContext context) {
     return showDialog<void>(
@@ -179,7 +149,15 @@ class _VistaCelularAdministrarPlantillasState
         return Column(
           children: [
             RowAgregarEliminarPlantilla(
-              // onEliminarPlantillas: () {},
+              onCancelarModoEliminar: () {
+                context.read<BlocAdministrarPlantillas>().add(
+                      const BlocAministrarPlantillasEventoCancelarModoEliminar(
+                        select: false,
+                        modoEliminar: false,
+                      ),
+                    );
+                estaSeleccionada = false;
+              },
               modoEliminar: state.modoEliminar,
               onCambioDeModo: onCambioModoEliminar,
               onAgregarPlantilla: () => _onAgregarPlantilla(context),
@@ -196,29 +174,7 @@ class _VistaCelularAdministrarPlantillasState
                             vertical: max(10.ph, 10.sh),
                           ),
                           child: DesplegablePlantilla(
-                            checkBoxValue: estaSeleccionadoz,
-
-                            // context.read<BlocAdministrarPlantillas>().add(
-                            //       BlocAdministrarPlantillasEventoCambioSeleccionado(
-                            //         plantillaSeleccionada: e,
-                            //         select: true,
-                            //       ),
-                            //     );
-                            // estaSeleccionado: estaSeleccionado
-                            // // state.listaDePlantillasAEliminar.contains(e),
-                            // ,
-                            // onChangedEliminar: (value) {
-                            //   setState(() {
-                            //     estaSeleccionado = value;
-                            //   });
-
-                            //   // context.read<BlocAdministrarPlantillas>().add(
-                            //   //       BlocAdministrarPlantillasEventoCambioSeleccionado(
-                            //   //         plantillaSeleccionada: e,
-                            //   //         select: true,
-                            //   //       ),
-                            //   //     );
-                            // },
+                            estaSeleccionada: estaSeleccionada,
                             onChanged: onCambiarNecesitaSupervision,
                             //! TODO(Manu): Verificar si me lo admiten, ya que no pude mantener orden de lista ni hacer que un solo expansiontile entre en modoedicion
                             onCancelarEdicion: () {},

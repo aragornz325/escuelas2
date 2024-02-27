@@ -13,7 +13,7 @@ class RowAgregarEliminarPlantilla extends StatelessWidget {
   const RowAgregarEliminarPlantilla({
     required this.onCambioDeModo,
     required this.onAgregarPlantilla,
-    // required this.onEliminarPlantillas,
+    required this.onCancelarModoEliminar,
     this.modoEliminar = false,
     super.key,
   });
@@ -27,8 +27,8 @@ class RowAgregarEliminarPlantilla extends StatelessWidget {
   /// Funcion para agregar una nueva plantilla
   final VoidCallback onAgregarPlantilla;
 
-  /// Funcion para el boton de eliminar plantillas
-  // final VoidCallback onEliminarPlantillas;
+  /// Funcion para el boton de cancelar modo eliminar
+  final VoidCallback onCancelarModoEliminar;
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +49,7 @@ class RowAgregarEliminarPlantilla extends StatelessWidget {
                     );
               }
             },
+            onCancelModoEliminar: onCancelarModoEliminar,
             modoEliminar: modoEliminar,
             onCambioDeModo: onCambioDeModo,
           ),

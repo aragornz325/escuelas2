@@ -21,8 +21,14 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
     on<BlocAdministrarPlantillasEventoCambiarModoEliminar>(
       _onCambiarModoEliminar,
     );
-    on<BlocAdministrarPlantillasEventoCambioSeleccionado>(
-      _onCambiaSeleccionPlantilla,
+    on<BlocAministrarPlantillasEventoCancelarModoEliminar>(
+      _onCancelarModoEliminar,
+    );
+    on<BlocAdministrarPlantillasEventoPlantillaSeleccionada>(
+      _onSeleccionPlantilla,
+    );
+    on<BlocAdministrarPlantillasEventoPlantillaNoSeleccionada>(
+      _onDeseleccionPlantilla,
     );
     on<BlocAdministrarPlantillasEventoEliminarPlantillas>(
       _onEliminarPlantillas,
@@ -115,27 +121,49 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
     );
   }
 
-  /// Cambia de modo, al ser true se daran las herramientas de edicion
-  Future<void> _onCambiarModoEditar(
-    BlocAdministrarPlantillasEventoCambiarModoEditar event,
+  /// Cancela el modo eliminar, llevando la lista de plantillas a vacia
+  Future<void> _onCancelarModoEliminar(
+    BlocAministrarPlantillasEventoCancelarModoEliminar event,
     Emitter<BlocAdministrarPlantillasEstado> emit,
   ) async {
+    final plantillasAEliminar = state.listaDePlantillasAEliminar..clear();
     emit(
-      BlocAdministrarPlantillasEstadoExitoso.desde(
+      BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar.desde(
         state,
-        modoEditar: event.modoEditar,
+        listaDePlantillasAEliminar: plantillasAEliminar,
+        modoEliminar: false,
+        seleccionado: event.select,
       ),
     );
   }
 
-  Future<void> _onCambiaSeleccionPlantilla(
-    BlocAdministrarPlantillasEventoCambioSeleccionado event,
+  /// Selecciona una plantilla y la guarda en la lista de plantillas a eliminar
+  Future<void> _onSeleccionPlantilla(
+    BlocAdministrarPlantillasEventoPlantillaSeleccionada event,
     Emitter<BlocAdministrarPlantillasEstado> emit,
   ) async {
-    // final plantillasAEliminar = state.listaDePlantillasAEliminar
-    //   ..add(event.plantillaSeleccionada);
     final plantillasAEliminar = List.of(state.listaDePlantillasAEliminar)
       ..add(event.plantillaSeleccionada);
+
+    emit(
+      BlocAdministrarPlantillasEstadoExitoso.desde(
+        state,
+        listaDePlantillasAEliminar: plantillasAEliminar,
+        seleccionado: event.select,
+      ),
+    );
+  }
+
+  /// Accion para deseleccionar una o varias plantillas de la lista
+  /// removiendolas de la lista de plantillas a eliminar
+  Future<void> _onDeseleccionPlantilla(
+    BlocAdministrarPlantillasEventoPlantillaNoSeleccionada event,
+    Emitter<BlocAdministrarPlantillasEstado> emit,
+  ) async {
+    final plantillasAEliminar = List.of(state.listaDePlantillasAEliminar)
+      ..removeWhere(
+        (e) => e.id == event.plantilla.id,
+      );
 
     emit(
       BlocAdministrarPlantillasEstadoExitoso.desde(
@@ -179,6 +207,19 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
       onError: (e, st) {
         emit(BlocAdministrarPlantillasEstadoError.desde(state));
       },
+    );
+  }
+
+  /// Cambia de modo, al ser true se daran las herramientas de edicion
+  Future<void> _onCambiarModoEditar(
+    BlocAdministrarPlantillasEventoCambiarModoEditar event,
+    Emitter<BlocAdministrarPlantillasEstado> emit,
+  ) async {
+    emit(
+      BlocAdministrarPlantillasEstadoExitoso.desde(
+        state,
+        modoEditar: event.modoEditar,
+      ),
     );
   }
 

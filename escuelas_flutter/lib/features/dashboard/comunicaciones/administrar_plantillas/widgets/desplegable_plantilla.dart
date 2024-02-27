@@ -20,12 +20,10 @@ class DesplegablePlantilla extends StatefulWidget {
     required this.onModoEditar,
     required this.onEditar,
     required this.onCancelarEdicion,
-    // required this.estaSeleccionado,
+    required this.estaSeleccionada,
     required this.plantilla,
     super.key,
     this.onChanged,
-    required this.checkBoxValue,
-    this.checkBoxCallback,
     // this.onChangedEliminar,
   });
 
@@ -46,22 +44,13 @@ class DesplegablePlantilla extends StatefulWidget {
   /// Accion para cancelar la edicion
   final VoidCallback onCancelarEdicion;
 
+  ///  OnChanged del checkbox de supervision
   final void Function(bool?)? onChanged;
-
-  /// Verifica si esta checked la plantilla
-  // final bool estaSeleccionado;
-
-  /// Callback para seleccionar la plantilla a eliminar
-  // final void Function(bool?)? onChangedEliminar;
 
   /// plantilla que otorgara los datos
   final PlantillaComunicacion plantilla;
 
-  // final void Function()? callback;
-
-  final bool checkBoxValue;
-
-  final void Function(bool? value)? checkBoxCallback;
+  final bool estaSeleccionada;
 
   @override
   State<DesplegablePlantilla> createState() => _DesplegablePlantillaState();
@@ -76,7 +65,7 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
   void initState() {
     controllerTitulo = TextEditingController(text: widget.plantilla.titulo);
     controllerDescripcion = TextEditingController(text: widget.plantilla.nota);
-    _estaSeleccionado = widget.checkBoxValue;
+    _estaSeleccionado = widget.estaSeleccionada;
 
     super.initState();
   }
@@ -92,7 +81,6 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colores = context.colores;
-    final state = context.watch<BlocAdministrarPlantillas>().state;
 
     return ExpansionTile(
       backgroundColor: colores.tertiary,
@@ -104,22 +92,28 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
           ? Checkbox(
               value: _estaSeleccionado,
               onChanged: (value) {
+                _estaSeleccionado = value!;
+                if (_estaSeleccionado == true) {
+                  context.read<BlocAdministrarPlantillas>().add(
+                        BlocAdministrarPlantillasEventoPlantillaSeleccionada(
+                          plantillaSeleccionada: widget.plantilla,
+                          select: true,
+                        ),
+                      );
+                }
+                if (_estaSeleccionado == false) {
+                  context.read<BlocAdministrarPlantillas>().add(
+                        BlocAdministrarPlantillasEventoPlantillaNoSeleccionada(
+                          plantilla: widget.plantilla,
+                          select: false,
+                        ),
+                      );
+                }
                 setState(() {
-                  _estaSeleccionado = value!;
-                  widget.checkBoxCallback?.call(value);
-                  if (widget.checkBoxCallback != null) {
+                  if (widget.onModoEliminar == false) {
                     _estaSeleccionado = false;
                   }
-                  if (_estaSeleccionado == true) {
-                    context.read<BlocAdministrarPlantillas>().add(
-                          BlocAdministrarPlantillasEventoCambioSeleccionado(
-                            plantillaSeleccionada: widget.plantilla,
-                            select: true,
-                          ),
-                        );
-                  }
                 });
-                print(state.listaDePlantillasAEliminar);
               },
             )
           : null,

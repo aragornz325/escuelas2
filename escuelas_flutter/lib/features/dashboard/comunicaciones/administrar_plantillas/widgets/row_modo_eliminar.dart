@@ -13,6 +13,7 @@ class RowModoEliminar extends StatelessWidget {
     required this.modoEliminar,
     required this.onEliminar,
     required this.onCambioDeModo,
+    required this.onCancelModoEliminar,
     super.key,
   });
 
@@ -25,6 +26,9 @@ class RowModoEliminar extends StatelessWidget {
   /// Accion para eliminar las plantillas
   final VoidCallback onEliminar;
 
+  /// Accion que cancela el modo eliminar
+  final VoidCallback onCancelModoEliminar;
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -34,7 +38,7 @@ class RowModoEliminar extends StatelessWidget {
         ? Row(
             children: [
               InkWell(
-                onTap: onCambioDeModo,
+                onTap: onCancelModoEliminar,
                 child: Text(
                   l10n.commonCancel,
                   style: TextStyle(
