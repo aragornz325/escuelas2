@@ -55,8 +55,8 @@ class _AppViewState extends State<AppView> {
         // Tambien una vez que ande probar de agregar Switch.
         deepLinkBuilder: (deepLink) {
           // Redirige a esa ruta si empieza con /absences
-          if (deepLink.path.endsWith(
-              'https://sebasamontero.github.io/.well-known/assetlinks.json')) {
+          if (deepLink.path.contains('absences')) {
+            // TODO(ANYONE): Poner la ruta a la cual redirigir, por el momento no permite ir a inasistencia pero si a KYC.
             return const DeepLink([RutaInasistencia()]);
           } else {
             // Ruta default del deeplink
