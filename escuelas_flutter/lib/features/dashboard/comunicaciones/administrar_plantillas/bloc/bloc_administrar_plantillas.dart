@@ -21,12 +21,12 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
     on<BlocAdministrarPlantillasEventoCambiarModoEliminar>(
       _onCambiarModoEliminar,
     );
-    // on<BlocAdministrarPlantillasEventoCambioSeleccionado>(
-    //   _onCambiaSeleccionPlantilla,
-    // );
-    // on<BlocAdministrarPlantillasEventoEliminarPlantillas>(
-    //   _onEliminarPlantillas,
-    // );
+    on<BlocAdministrarPlantillasEventoCambioSeleccionado>(
+      _onCambiaSeleccionPlantilla,
+    );
+    on<BlocAdministrarPlantillasEventoEliminarPlantillas>(
+      _onEliminarPlantillas,
+    );
     on<BlocAdministrarPlantillasEventoEditarPlantilla>(_onEditarPlantilla);
   }
 
@@ -44,7 +44,7 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
         emit(
           BlocAdministrarPlantillasEstadoExitoso.desde(
             state,
-            plantillas: plantillas,
+            listaDePlantillas: plantillas,
           ),
         );
       },
@@ -86,7 +86,7 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
         emit(
           BlocAdministrarPlantillasEstadoExitoso.desde(
             state,
-            plantillas: nuevaListaDePlantillas,
+            listaDePlantillas: nuevaListaDePlantillas,
           ),
         );
         emit(
@@ -128,46 +128,59 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
     );
   }
 
-  // Future<void> _onCambiaSeleccionPlantilla(
-  //   BlocAdministrarPlantillasEventoCambioSeleccionado event,
-  //   Emitter<BlocAdministrarPlantillasEstado> emit,
-  // ) async {
-  //   emit(
-  //     BlocAdministrarPlantillasEstadoExitoso.desde(
-  //       state,
-  //       seleccionado: event.plantillaSeleccionada,
-  //     ),
-  //   );
-  // }
+  Future<void> _onCambiaSeleccionPlantilla(
+    BlocAdministrarPlantillasEventoCambioSeleccionado event,
+    Emitter<BlocAdministrarPlantillasEstado> emit,
+  ) async {
+    // final plantillasAEliminar = state.listaDePlantillasAEliminar
+    //   ..add(event.plantillaSeleccionada);
+    final plantillasAEliminar = List.of(state.listaDePlantillasAEliminar)
+      ..add(event.plantillaSeleccionada);
+
+    emit(
+      BlocAdministrarPlantillasEstadoExitoso.desde(
+        state,
+        listaDePlantillasAEliminar: plantillasAEliminar,
+        seleccionado: event.select,
+      ),
+    );
+  }
 
   /// Accion para eliminar una o varias plantillas de la lista
-  // Future<void> _onEliminarPlantillas(
-  //   BlocAdministrarPlantillasEventoEliminarPlantillas event,
-  //   Emitter<BlocAdministrarPlantillasEstado> emit,
-  // ) async {
-  //   emit(BlocAdministrarPlantillasEstadoCargando.desde(state));
-  //   await operacionBloc(
-  //     callback: (client) async {
-  //       await client.plantillaComunicacion.eliminarPlantillasComunicacion(
-  //         idPlantillasComunicacion: [event.idPlantilla],
-  //       );
-  //       final nuevaListaDePlantillas =
-  //           List<PlantillaComunicacion>.from(state.listaDePlantillas)
-  //             ..removeWhere(
-  //               (element) => element.id == event.idPlantilla,
-  //             );
-  //       emit(
-  //         BlocAdministrarPlantillasEstadoExitoso.desde(
-  //           state,
-  //           plantillas: nuevaListaDePlantillas,
-  //         ),
-  //       );
-  //     },
-  //     onError: (e, st) {
-  //       emit(BlocAdministrarPlantillasEstadoError.desde(state));
-  //     },
-  //   );
-  // }
+  Future<void> _onEliminarPlantillas(
+    BlocAdministrarPlantillasEventoEliminarPlantillas event,
+    Emitter<BlocAdministrarPlantillasEstado> emit,
+  ) async {
+    emit(BlocAdministrarPlantillasEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        await client.plantillaComunicacion.eliminarPlantillasComunicacion(
+          idPlantillasComunicacion:
+              state.listaDePlantillasAEliminar.map((e) => e.id ?? 0).toList(),
+        );
+        final indexAEliminar = state.listaDePlantillasAEliminar
+            .indexWhere((e) => e.id == event.idPlantilla);
+        final nuevaListaDePlantillas =
+            List<PlantillaComunicacion>.from(state.listaDePlantillas)
+              ..removeWhere(
+                (element) =>
+                    element.id ==
+                    state.listaDePlantillasAEliminar[indexAEliminar].id,
+              );
+        emit(
+          BlocAdministrarPlantillasEstadoExitoso.desde(
+            state,
+            listaDePlantillas: nuevaListaDePlantillas,
+            seleccionado: false,
+            modoEliminar: false,
+          ),
+        );
+      },
+      onError: (e, st) {
+        emit(BlocAdministrarPlantillasEstadoError.desde(state));
+      },
+    );
+  }
 
   /// Accion para editar una plantilla ya creada
   Future<void> _onEditarPlantilla(
@@ -192,15 +205,15 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
         );
         final lista = List<PlantillaComunicacion>.from(state.listaDePlantillas);
 
-        final listaEditada = lista
-          ..removeWhere(
-            (element) => element.id == event.plantilla.id,
-          )
-          ..add(plantillaModificada);
+        final indicePlantilla =
+            lista.indexWhere((element) => element.id == event.plantilla.id);
+
+        lista[indicePlantilla] = plantillaModificada;
+
         emit(
           BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla.desde(
             state,
-            plantillas: listaEditada,
+            listaDePlantillas: lista,
             plantilla: plantillaModificada,
             modoEditar: false,
           ),

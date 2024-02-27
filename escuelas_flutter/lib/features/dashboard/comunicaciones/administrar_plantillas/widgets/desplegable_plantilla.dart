@@ -20,11 +20,13 @@ class DesplegablePlantilla extends StatefulWidget {
     required this.onModoEditar,
     required this.onEditar,
     required this.onCancelarEdicion,
-    required this.estaSeleccionado,
+    // required this.estaSeleccionado,
     required this.plantilla,
     super.key,
     this.onChanged,
-    this.onChangedEliminar,
+    required this.checkBoxValue,
+    this.checkBoxCallback,
+    // this.onChangedEliminar,
   });
 
   /// Verifica si la plantilla necesita supervisión, de ser true, se agrega
@@ -47,13 +49,19 @@ class DesplegablePlantilla extends StatefulWidget {
   final void Function(bool?)? onChanged;
 
   /// Verifica si esta checked la plantilla
-  final bool estaSeleccionado;
+  // final bool estaSeleccionado;
 
   /// Callback para seleccionar la plantilla a eliminar
-  final void Function(bool?)? onChangedEliminar;
+  // final void Function(bool?)? onChangedEliminar;
 
   /// plantilla que otorgara los datos
   final PlantillaComunicacion plantilla;
+
+  // final void Function()? callback;
+
+  final bool checkBoxValue;
+
+  final void Function(bool? value)? checkBoxCallback;
 
   @override
   State<DesplegablePlantilla> createState() => _DesplegablePlantillaState();
@@ -62,11 +70,13 @@ class DesplegablePlantilla extends StatefulWidget {
 class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
   late TextEditingController controllerTitulo;
   late TextEditingController controllerDescripcion;
+  late bool _estaSeleccionado;
 
   @override
   void initState() {
     controllerTitulo = TextEditingController(text: widget.plantilla.titulo);
     controllerDescripcion = TextEditingController(text: widget.plantilla.nota);
+    _estaSeleccionado = widget.checkBoxValue;
 
     super.initState();
   }
@@ -82,6 +92,7 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colores = context.colores;
+    final state = context.watch<BlocAdministrarPlantillas>().state;
 
     return ExpansionTile(
       backgroundColor: colores.tertiary,
@@ -91,18 +102,36 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.sw)),
       leading: widget.onModoEliminar
           ? Checkbox(
-              value: widget.estaSeleccionado,
-              onChanged: widget.onChangedEliminar,
+              value: _estaSeleccionado,
+              onChanged: (value) {
+                setState(() {
+                  _estaSeleccionado = value!;
+                  widget.checkBoxCallback?.call(value);
+                  if (widget.checkBoxCallback != null) {
+                    _estaSeleccionado = false;
+                  }
+                  if (_estaSeleccionado == true) {
+                    context.read<BlocAdministrarPlantillas>().add(
+                          BlocAdministrarPlantillasEventoCambioSeleccionado(
+                            plantillaSeleccionada: widget.plantilla,
+                            select: true,
+                          ),
+                        );
+                  }
+                });
+                print(state.listaDePlantillasAEliminar);
+              },
             )
           : null,
       title: Row(
         children: [
+//! TODO(Manu): Verificar si me lo admiten, ya que no pude mantener orden de lista ni hacer que un solo expansiontile entre en modoedicion
+
           if (widget.onModoEditar)
             EscuelasTextfield(
               maxLines: 1,
               width: 200.pw,
               height: 35.ph,
-              hintText: 'hintText',
               controller: controllerTitulo,
               esPassword: false,
               decoration: InputDecoration(

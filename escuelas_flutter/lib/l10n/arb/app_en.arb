@@ -484,6 +484,14 @@
     "@pageManageTemplatesDialogSuccessPartTwo": {
         "description": "Text to be displayed in the last part of the dialog of notify that the template has been created"
     },
+    "pageManageTemplatesDialogEditTemplate": "Edit template",
+    "@pageManageTemplatesDialogEditTemplate": {
+        "description": "Text to be displayed in the dialog to edit template"
+    },
+    "pageManageTemplatesDialogEditedSuccessfully": "Template edited successfully",
+    "@pageManageTemplatesDialogEditedSuccessfully": {
+        "description": "Text to be displayed in the dialog to notify the edited was successfully"
+    },
 
 
     "commonWelcome": "Welcome!",

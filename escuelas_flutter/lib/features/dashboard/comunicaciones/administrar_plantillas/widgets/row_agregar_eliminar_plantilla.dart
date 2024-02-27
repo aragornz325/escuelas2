@@ -1,5 +1,7 @@
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/bloc/bloc_administrar_plantillas.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template RowAgregarEliminarPlantilla}
@@ -11,6 +13,7 @@ class RowAgregarEliminarPlantilla extends StatelessWidget {
   const RowAgregarEliminarPlantilla({
     required this.onCambioDeModo,
     required this.onAgregarPlantilla,
+    // required this.onEliminarPlantillas,
     this.modoEliminar = false,
     super.key,
   });
@@ -24,6 +27,9 @@ class RowAgregarEliminarPlantilla extends StatelessWidget {
   /// Funcion para agregar una nueva plantilla
   final VoidCallback onAgregarPlantilla;
 
+  /// Funcion para el boton de eliminar plantillas
+  // final VoidCallback onEliminarPlantillas;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -33,7 +39,16 @@ class RowAgregarEliminarPlantilla extends StatelessWidget {
         children: [
           BotonAgregarPlantilla(onAgregarPlantilla: onAgregarPlantilla),
           RowModoEliminar(
-            onEliminar: () {},
+            onEliminar: () {
+              final state = context.read<BlocAdministrarPlantillas>().state;
+              for (final plantilla in state.listaDePlantillasAEliminar) {
+                context.read<BlocAdministrarPlantillas>().add(
+                      BlocAdministrarPlantillasEventoEliminarPlantillas(
+                        idPlantilla: plantilla.id ?? 0,
+                      ),
+                    );
+              }
+            },
             modoEliminar: modoEliminar,
             onCambioDeModo: onCambioDeModo,
           ),

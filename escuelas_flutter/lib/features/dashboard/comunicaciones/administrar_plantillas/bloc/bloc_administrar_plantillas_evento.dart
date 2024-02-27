@@ -103,12 +103,14 @@ class BlocAdministrarPlantillasEventoEditarPlantilla
   final int idPlantilla;
 }
 
-// class BlocAdministrarPlantillasEventoCambioSeleccionado
-//     extends BlocAdministrarPlantillasEvento {
-//   /// {@macro BlocAdministrarPlantillasEventoCambioSeleccionado}
-//   const BlocAdministrarPlantillasEventoCambioSeleccionado({
-//     required this.plantillaSeleccionada,
-//   });
+class BlocAdministrarPlantillasEventoCambioSeleccionado
+    extends BlocAdministrarPlantillasEvento {
+  /// {@macro BlocAdministrarPlantillasEventoCambioSeleccionado}
+  const BlocAdministrarPlantillasEventoCambioSeleccionado({
+    required this.plantillaSeleccionada,
+    required this.select,
+  });
 
-//   final bool plantillaSeleccionada;
-// }
+  final bool select;
+  final PlantillaComunicacion plantillaSeleccionada;
+}

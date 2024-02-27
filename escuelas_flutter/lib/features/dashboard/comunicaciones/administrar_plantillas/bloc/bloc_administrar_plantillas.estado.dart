@@ -11,6 +11,7 @@ class BlocAdministrarPlantillasEstado {
     this.modoEditar = false,
     this.seleccionado = false,
     this.listaDePlantillas = const [],
+    this.listaDePlantillasAEliminar = const [],
   });
 
   BlocAdministrarPlantillasEstado.desde(
@@ -18,12 +19,15 @@ class BlocAdministrarPlantillasEstado {
     bool? modoEliminar,
     bool? modoEditar,
     bool? seleccionado,
-    List<PlantillaComunicacion>? plantillas,
+    List<PlantillaComunicacion>? listaDePlantillas,
+    List<PlantillaComunicacion>? listaDePlantillasAEliminar,
     PlantillaComunicacion? plantilla,
   }) : this._(
           modoEliminar: modoEliminar ?? otro.modoEliminar,
           modoEditar: modoEditar ?? otro.modoEditar,
-          listaDePlantillas: plantillas ?? otro.listaDePlantillas,
+          listaDePlantillas: listaDePlantillas ?? otro.listaDePlantillas,
+          listaDePlantillasAEliminar:
+              listaDePlantillasAEliminar ?? otro.listaDePlantillasAEliminar,
           plantilla: plantilla ?? otro.plantilla,
           seleccionado: seleccionado ?? otro.seleccionado,
         );
@@ -33,13 +37,13 @@ class BlocAdministrarPlantillasEstado {
 
   /// Bool para identificar si se encuentra en modo editar
   final bool modoEditar;
-
-  /// Bool para identificar si la plantilla se encuentra seleccionada en modo
-  /// eliminar
   final bool seleccionado;
 
   /// Lista de plantillas
   final List<PlantillaComunicacion> listaDePlantillas;
+
+  /// Lista de plantillas a eliminar
+  final List<PlantillaComunicacion> listaDePlantillasAEliminar;
 
   /// Plantilla
   final PlantillaComunicacion? plantilla;
@@ -82,9 +86,10 @@ class BlocAdministrarPlantillasEstadoExitoso
     super.otro, {
     super.modoEliminar,
     super.modoEditar,
-    super.plantillas,
-    super.seleccionado,
+    super.listaDePlantillas,
+    super.listaDePlantillasAEliminar,
     super.plantilla,
+    super.seleccionado,
   }) : super.desde();
 }
 
@@ -97,7 +102,7 @@ class BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla
   BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla.desde(
     super.otro, {
     super.modoEditar,
-    super.plantillas,
+    super.listaDePlantillas,
     super.plantilla,
   }) : super.desde();
 }
@@ -112,8 +117,7 @@ class BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla
     super.otro, {
     super.modoEliminar,
     super.modoEditar,
-    super.plantillas,
-    super.seleccionado,
+    super.listaDePlantillas,
     super.plantilla,
   }) : super.desde();
 }

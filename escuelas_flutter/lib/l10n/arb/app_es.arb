@@ -586,7 +586,14 @@
     "@pageManageTemplatesDialogSuccessPartTwo": {
         "description": "Text to be displayed in the last part of the dialog of notify that the template has been created"
     },
-
+    "pageManageTemplatesDialogEditTemplate": "Editar plantilla",
+    "@pageManageTemplatesDialogEditTemplate": {
+        "description": "Text to be displayed in the dialog to edit template"
+    },
+    "pageManageTemplatesDialogEditedSuccessfully": "Platilla editada con exito",
+    "@pageManageTemplatesDialogEditedSuccessfully": {
+        "description": "Text to be displayed in the dialog to notify the edited was successfully"
+    },
     "dialogSeeMore": "Ver más",
     "@dialogSeeMore": {
         "description": "text on a button to see less"
