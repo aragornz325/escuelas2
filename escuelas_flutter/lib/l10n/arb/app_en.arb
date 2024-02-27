@@ -209,6 +209,11 @@
         "description": "Title of the page Grades for a student"
     },
 
+    "pageCommunicationsTitle": "Communications",
+    "@pageCommunicationsTitle": {
+        "description": "Title of the page Communications"
+    },
+
     "pageGradesStudentCardAverage": "Average: ",
     "@pageGradesStudentCardAverage": {
         "description": "Text to be displayed next to the average of the student grades."
@@ -415,6 +420,28 @@
     "routeNamePendingUsers": "Pending users",
     "@routeNamePendingUsers": {
         "description": ""
+    },
+
+    "routeNameMenuCommunications": "Communications",
+    "@routeNameMenuCommunications": {
+        "description": "Name of the route"
+    },
+
+    
+    "routeNamePendingCommunications": "Pendings",
+    "@routeNamePendingCommunications": {
+        "description": "Name of the route"
+    },
+
+    
+    "routeNameGeneralCommunications": "General",
+    "@routeNameGeneralCommunications": {
+        "description": "Name of the route"
+    },
+
+    "routeNameCourseCommunications": "Courses",
+    "@routeNameCourseCommunications": {
+        "description": "Name of the route"
     },
 
     "routeAcademicCommunityMenu": "Menu",
