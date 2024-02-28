@@ -108,12 +108,13 @@ class BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla
   }) : super.desde();
 }
 
-class BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar
+/// {@template BlocAdministrarPlantillasEstadoExitosoAlEliminarPlantilla}
+/// Estado exitoso para [PaginaAdministrarPlantillas]
+/// {@endtemplate}
+class BlocAdministrarPlantillasEstadoExitosoAlEliminarPlantilla
     extends BlocAdministrarPlantillasEstado {
-  /// {@macro BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar}
-  BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar.desde(
-    super.otro, {
-    super.listaDePlantillasConCheckbox,
-    super.modoEliminar,
-  }) : super.desde();
+  /// {@macro BlocAdministrarPlantillasEstadoExitosoAlEliminarPlantilla}
+  BlocAdministrarPlantillasEstadoExitosoAlEliminarPlantilla.desde(
+    super.otro,
+  ) : super.desde();
 }

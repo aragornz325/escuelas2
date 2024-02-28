@@ -22,41 +22,6 @@ class VistaCelularAdministrarPlantillas extends StatefulWidget {
 
 class _VistaCelularAdministrarPlantillasState
     extends State<VistaCelularAdministrarPlantillas> {
-  bool necesitaSupervicion = false;
-
-//! TODO(Manu): Esto depende de la resolucion del problema de modo editar
-  // void onCambioModoEditar() {
-  //   final state = context.read<BlocAdministrarPlantillas>().state;
-  //   if (state.modoEditar == false) {
-  //     context.read<BlocAdministrarPlantillas>().add(
-  //           BlocAdministrarPlantillasEventoCambiarModoEditar(
-  //             modoEditar: true,
-  //           ),
-  //         );
-  //   } else {
-  //     context.read<BlocAdministrarPlantillas>().add(
-  //           BlocAdministrarPlantillasEventoCambiarModoEditar(
-  //             modoEditar: false,
-  //           ),
-  //         );
-  //   }
-  // }
-
-  // void onEditarPlantilla() {
-  //   final state = context.read<BlocAdministrarPlantillas>().state;
-  //   context.read<BlocAdministrarPlantillas>().add(
-  //         BlocAdministrarPlantillasEventoEditarPlantilla(
-  //           plantilla: state.plantilla!,
-  //         ),
-  //       );
-  // }
-
-  void onCambiarNecesitaSupervision(bool? value) {
-    setState(() {
-      necesitaSupervicion = !necesitaSupervicion;
-    });
-  }
-
   Future<void> _onAgregarPlantilla(BuildContext context) {
     return showDialog<void>(
       context: context,
@@ -107,6 +72,16 @@ class _VistaCelularAdministrarPlantillasState
     );
   }
 
+  Future<void> _onPlantillaEliminadaConExito(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocAdministrarPlantillas>(),
+        child: const DialogEliminadoExitosamente(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<BlocAdministrarPlantillas,
@@ -120,6 +95,10 @@ class _VistaCelularAdministrarPlantillasState
         }
         if (state is BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla) {
           _onPlantillaEditadaConExito(context);
+        }
+        if (state
+            is BlocAdministrarPlantillasEstadoExitosoAlEliminarPlantilla) {
+          _onPlantillaEliminadaConExito(context);
         }
       },
       builder: (context, state) {
@@ -140,10 +119,6 @@ class _VistaCelularAdministrarPlantillasState
                             vertical: max(10.ph, 10.sh),
                           ),
                           child: DesplegablePlantilla(
-                            onChanged: onCambiarNecesitaSupervision,
-                            //! TODO(Manu): Verificar si me lo admiten, ya que no pude mantener orden de lista ni hacer que un solo expansiontile entre en modoedicion
-                            onCancelarEdicion: () {},
-
                             onEditar: () =>
                                 onEditar(context, plantilla: e.plantilla),
                             necesitaSupervision:

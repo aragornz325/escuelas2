@@ -16,10 +16,8 @@ class DesplegablePlantilla extends StatefulWidget {
   const DesplegablePlantilla({
     required this.necesitaSupervision,
     required this.onEditar,
-    required this.onCancelarEdicion,
     required this.plantillaConCheckbox,
     super.key,
-    this.onChanged,
   });
 
   /// Verifica si la plantilla necesita supervisión, de ser true, se agrega
@@ -28,12 +26,6 @@ class DesplegablePlantilla extends StatefulWidget {
 
   /// Accion para cambiar a modo editar o cancelar
   final VoidCallback onEditar;
-
-  /// Accion para cancelar la edicion
-  final VoidCallback onCancelarEdicion;
-
-  ///  OnChanged del checkbox de supervision
-  final void Function(bool?)? onChanged;
 
   /// plantilla que otorgara los datos
   final PlantillaConCheckbox plantillaConCheckbox;

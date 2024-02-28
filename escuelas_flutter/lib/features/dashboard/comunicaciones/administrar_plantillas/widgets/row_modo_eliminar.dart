@@ -1,5 +1,6 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/bloc/bloc_administrar_plantillas.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_plantillas/dialog/dialog.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,6 +15,16 @@ class RowModoEliminar extends StatelessWidget {
   const RowModoEliminar({
     super.key,
   });
+
+  Future<void> onConfirmarEliminado(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocAdministrarPlantillas>(),
+        child: const DialogConfirmarEliminado(),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,9 +51,7 @@ class RowModoEliminar extends StatelessWidget {
                   ),
                   SizedBox(width: 8.sw),
                   GestureDetector(
-                    onTap: () => context.read<BlocAdministrarPlantillas>().add(
-                          BlocAdministrarPlantillasEventoEliminarPlantillas(),
-                        ),
+                    onTap: () => onConfirmarEliminado(context),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(

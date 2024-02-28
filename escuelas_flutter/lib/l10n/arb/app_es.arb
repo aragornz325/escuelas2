@@ -664,6 +664,19 @@
     "@pageManageTemplatesDialogEditedSuccessfully": {
         "description": "Text to be displayed in the dialog to notify the edited was successfully"
     },
+    "pageManageTemplatesDialogYouWillEliminate": "Eliminaras",
+    "@pageManageTemplatesDialogYouWillEliminate": {
+        "description": "Text to be displayed in the dialog to question for delete template"
+    },
+    "pageManageTemplatesDialogFromYourTemplatesList": "de tu lista de plantillas",
+    "@pageManageTemplatesDialogFromYourTemplatesList": {
+        "description": "Text to be displayed in the dialog to question for delete template"
+    },
+    "pageManageTemplatesDialogDeletedSuccessfully": "Eliminado exitosamente",
+    "@pageManageTemplatesDialogDeletedSuccessfully": {
+        "description": "Text to be displayed in the dialog to notify for deleted successfully"
+    },
+
     "dialogSeeMore": "Ver más",
     "@dialogSeeMore": {
         "description": "text on a button to see less"

@@ -185,6 +185,11 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
             modoEliminar: false,
           ),
         );
+        emit(
+          BlocAdministrarPlantillasEstadoExitosoAlEliminarPlantilla.desde(
+            state,
+          ),
+        );
       },
       onError: (e, st) {
         emit(BlocAdministrarPlantillasEstadoError.desde(state));
@@ -235,7 +240,11 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
   }
 }
 
+/// {@template PlantillaConCheckbox}
+/// Plantilla con checkbox utilizada para el modo eliminar
+/// {@endtemplate}
 class PlantillaConCheckbox {
+  /// {@macro PlantillaConCheckbox}
   PlantillaConCheckbox({
     required this.plantilla,
     required this.seleccionado,
