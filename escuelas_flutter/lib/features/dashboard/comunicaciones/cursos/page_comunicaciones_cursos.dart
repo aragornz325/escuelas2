@@ -1,11 +1,14 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/features/dashboard/comunicaciones/menu_comunicaciones/celular/vista_celular_comunicaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/comunicaciones/menu_comunicaciones/escritorio/vista_escritorio_comunicaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/bloc/bloc_comunicaciones_cursos.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/celular/vista_celular_comunicaciones_cursos.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/escritorio/vista_escritorio_comunicaciones_cursos.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template PaginaComunicacionesCursos}
-// TODO(ANYONE): Add docu
+/// Pagina de 'Comunicaciones de cursos' donde aparece la lista de cursos y sus
+/// alumnos.
 /// {@endtemplate}
 @RoutePage()
 class PaginaComunicacionesCursos extends StatelessWidget {
@@ -14,10 +17,13 @@ class PaginaComunicacionesCursos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const FullResponsiveScreen(
-      // TODO(ANYONE): Cambiar vistas
-      celular: VistaCelularMenuComunicaciones(),
-      escritorio: VistaEscritorioMenuComunicaciones(),
+    return BlocProvider<BlocComunicacionesCursos>(
+      create: (context) => BlocComunicacionesCursos()
+        ..add(const BlocComunicacionesCursosEventoInicializar()),
+      child: const FullResponsiveScreen(
+        celular: VistaCelularComunicacionesCursos(),
+        escritorio: VistaEscritorioComunicacionesCursos(),
+      ),
     );
   }
 }
