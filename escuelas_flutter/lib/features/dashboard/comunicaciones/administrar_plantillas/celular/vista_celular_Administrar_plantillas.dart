@@ -23,30 +23,7 @@ class VistaCelularAdministrarPlantillas extends StatefulWidget {
 class _VistaCelularAdministrarPlantillasState
     extends State<VistaCelularAdministrarPlantillas> {
   bool necesitaSupervicion = false;
-  bool estaSeleccionada = false;
 
-  @override
-  void initState() {
-    estaSeleccionada = false;
-    super.initState();
-  }
-
-  void onCambioModoEliminar() {
-    final state = context.read<BlocAdministrarPlantillas>().state;
-    if (state.modoEliminar == false) {
-      context.read<BlocAdministrarPlantillas>().add(
-            BlocAdministrarPlantillasEventoCambiarModoEliminar(
-              modoEliminar: true,
-            ),
-          );
-    } else {
-      context.read<BlocAdministrarPlantillas>().add(
-            BlocAdministrarPlantillasEventoCambiarModoEliminar(
-              modoEliminar: false,
-            ),
-          );
-    }
-  }
 //! TODO(Manu): Esto depende de la resolucion del problema de modo editar
   // void onCambioModoEditar() {
   //   final state = context.read<BlocAdministrarPlantillas>().state;
@@ -149,17 +126,6 @@ class _VistaCelularAdministrarPlantillasState
         return Column(
           children: [
             RowAgregarEliminarPlantilla(
-              onCancelarModoEliminar: () {
-                context.read<BlocAdministrarPlantillas>().add(
-                      const BlocAministrarPlantillasEventoCancelarModoEliminar(
-                        select: false,
-                        modoEliminar: false,
-                      ),
-                    );
-                estaSeleccionada = false;
-              },
-              modoEliminar: state.modoEliminar,
-              onCambioDeModo: onCambioModoEliminar,
               onAgregarPlantilla: () => _onAgregarPlantilla(context),
             ),
             SizedBox(height: max(15.ph, 15.sh)),
@@ -167,23 +133,22 @@ class _VistaCelularAdministrarPlantillasState
               height: max(610.ph, 610.sh),
               child: SingleChildScrollView(
                 child: Column(
-                  children: state.listaDePlantillas
+                  children: state.listaDePlantillasConCheckbox
                       .map(
                         (e) => Padding(
                           padding: EdgeInsets.symmetric(
                             vertical: max(10.ph, 10.sh),
                           ),
                           child: DesplegablePlantilla(
-                            estaSeleccionada: estaSeleccionada,
                             onChanged: onCambiarNecesitaSupervision,
                             //! TODO(Manu): Verificar si me lo admiten, ya que no pude mantener orden de lista ni hacer que un solo expansiontile entre en modoedicion
                             onCancelarEdicion: () {},
 
-                            onEditar: () => onEditar(context, plantilla: e),
-                            onModoEditar: state.modoEditar,
-                            necesitaSupervision: e.necesitaSupervision,
-                            onModoEliminar: state.modoEliminar,
-                            plantilla: e,
+                            onEditar: () =>
+                                onEditar(context, plantilla: e.plantilla),
+                            necesitaSupervision:
+                                e.plantilla.necesitaSupervision,
+                            plantillaConCheckbox: e,
                           ),
                         ),
                       )

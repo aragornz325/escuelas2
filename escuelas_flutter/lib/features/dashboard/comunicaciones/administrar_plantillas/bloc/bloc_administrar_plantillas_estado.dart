@@ -8,42 +8,32 @@ class BlocAdministrarPlantillasEstado {
   const BlocAdministrarPlantillasEstado._({
     this.plantilla,
     this.modoEliminar = false,
-    this.modoEditar = false,
-    this.seleccionado = false,
     this.listaDePlantillas = const [],
-    this.listaDePlantillasAEliminar = const [],
+    this.listaDePlantillasConCheckbox = const [],
   });
 
   BlocAdministrarPlantillasEstado.desde(
     BlocAdministrarPlantillasEstado otro, {
     bool? modoEliminar,
-    bool? modoEditar,
-    bool? seleccionado,
     List<PlantillaComunicacion>? listaDePlantillas,
-    List<PlantillaComunicacion>? listaDePlantillasAEliminar,
+    List<PlantillaConCheckbox>? listaDePlantillasConCheckbox,
     PlantillaComunicacion? plantilla,
   }) : this._(
           modoEliminar: modoEliminar ?? otro.modoEliminar,
-          modoEditar: modoEditar ?? otro.modoEditar,
           listaDePlantillas: listaDePlantillas ?? otro.listaDePlantillas,
-          listaDePlantillasAEliminar:
-              listaDePlantillasAEliminar ?? otro.listaDePlantillasAEliminar,
+          listaDePlantillasConCheckbox:
+              listaDePlantillasConCheckbox ?? otro.listaDePlantillasConCheckbox,
           plantilla: plantilla ?? otro.plantilla,
-          seleccionado: seleccionado ?? otro.seleccionado,
         );
 
   /// Bool para identificar si se encuentra en modo eliminar
   final bool modoEliminar;
 
-  /// Bool para identificar si se encuentra en modo editar
-  final bool modoEditar;
-  final bool seleccionado;
-
   /// Lista de plantillas
   final List<PlantillaComunicacion> listaDePlantillas;
 
   /// Lista de plantillas a eliminar
-  final List<PlantillaComunicacion> listaDePlantillasAEliminar;
+  final List<PlantillaConCheckbox> listaDePlantillasConCheckbox;
 
   /// Plantilla
   final PlantillaComunicacion? plantilla;
@@ -85,11 +75,9 @@ class BlocAdministrarPlantillasEstadoExitoso
   BlocAdministrarPlantillasEstadoExitoso.desde(
     super.otro, {
     super.modoEliminar,
-    super.modoEditar,
     super.listaDePlantillas,
-    super.listaDePlantillasAEliminar,
+    super.listaDePlantillasConCheckbox,
     super.plantilla,
-    super.seleccionado,
   }) : super.desde();
 }
 
@@ -101,7 +89,6 @@ class BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla
   /// {@macro BlocAdministrarPlantillasEstadoExitoso}
   BlocAdministrarPlantillasEstadoExitosoAlEditarPlantilla.desde(
     super.otro, {
-    super.modoEditar,
     super.listaDePlantillas,
     super.plantilla,
   }) : super.desde();
@@ -116,7 +103,6 @@ class BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla
   BlocAdministrarPlantillasEstadoExitosoAlCrearPlantilla.desde(
     super.otro, {
     super.modoEliminar,
-    super.modoEditar,
     super.listaDePlantillas,
     super.plantilla,
   }) : super.desde();
@@ -127,8 +113,7 @@ class BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar
   /// {@macro BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar}
   BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar.desde(
     super.otro, {
-    super.listaDePlantillasAEliminar,
+    super.listaDePlantillasConCheckbox,
     super.modoEliminar,
-    super.seleccionado,
   }) : super.desde();
 }

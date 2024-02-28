@@ -2,7 +2,7 @@ import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'bloc_administrar_plantillas.estado.dart';
+part 'bloc_administrar_plantillas_estado.dart';
 part 'bloc_administrar_plantillas_evento.dart';
 
 /// {@template BlocAdministrarPlantillas}
@@ -15,20 +15,12 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
       : super(const BlocAdministrarPlantillasEstadoInicial()) {
     on<BlocAdministrarPlantillasEventoInicializar>(_onInicializar);
     on<BlocAdministrarPlantillasEventoAgregarPlantilla>(_onAgregarPlantilla);
-    on<BlocAdministrarPlantillasEventoCambiarModoEditar>(
-      _onCambiarModoEditar,
+
+    on<BlocAdministrarPlantillasEventoAlternarModoEliminar>(
+      _onAlternarModoEliminar,
     );
-    on<BlocAdministrarPlantillasEventoCambiarModoEliminar>(
-      _onCambiarModoEliminar,
-    );
-    on<BlocAministrarPlantillasEventoCancelarModoEliminar>(
-      _onCancelarModoEliminar,
-    );
-    on<BlocAdministrarPlantillasEventoPlantillaSeleccionada>(
-      _onSeleccionPlantilla,
-    );
-    on<BlocAdministrarPlantillasEventoPlantillaNoSeleccionada>(
-      _onDeseleccionPlantilla,
+    on<BlocAdministrarPlantillasEventoAlternarSeleccionPlantilla>(
+      _onAlternarSeleccionPlantilla,
     );
     on<BlocAdministrarPlantillasEventoEliminarPlantillas>(
       _onEliminarPlantillas,
@@ -51,6 +43,14 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
           BlocAdministrarPlantillasEstadoExitoso.desde(
             state,
             listaDePlantillas: plantillas,
+            listaDePlantillasConCheckbox: plantillas
+                .map(
+                  (e) => PlantillaConCheckbox(
+                    plantilla: e,
+                    seleccionado: false,
+                  ),
+                )
+                .toList(),
           ),
         );
       },
@@ -80,19 +80,21 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
         );
         final nuevaListaDePlantillas =
             List<PlantillaComunicacion>.from(state.listaDePlantillas)
+              ..add(plantilla);
+
+        final nuevaListaDePlantillasConCheckbox =
+            List<PlantillaConCheckbox>.from(state.listaDePlantillasConCheckbox)
               ..add(
-                PlantillaComunicacion(
-                  titulo: plantilla.titulo,
-                  nota: plantilla.nota,
-                  necesitaSupervision: plantilla.necesitaSupervision,
-                  ultimaModificacion: plantilla.ultimaModificacion,
-                  fechaCreacion: plantilla.fechaCreacion,
+                PlantillaConCheckbox(
+                  plantilla: plantilla,
+                  seleccionado: false,
                 ),
               );
         emit(
           BlocAdministrarPlantillasEstadoExitoso.desde(
             state,
             listaDePlantillas: nuevaListaDePlantillas,
+            listaDePlantillasConCheckbox: nuevaListaDePlantillasConCheckbox,
           ),
         );
         emit(
@@ -109,67 +111,48 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
   }
 
   /// Cambia de modo, al ser true se mostrara el checkbox a la izquierda
-  Future<void> _onCambiarModoEliminar(
-    BlocAdministrarPlantillasEventoCambiarModoEliminar event,
+  Future<void> _onAlternarModoEliminar(
+    BlocAdministrarPlantillasEventoAlternarModoEliminar event,
     Emitter<BlocAdministrarPlantillasEstado> emit,
   ) async {
+    final nuevaListaPlantillasConCheckbox = state.listaDePlantillasConCheckbox
+        .map(
+          (e) => PlantillaConCheckbox(
+            plantilla: e.plantilla,
+            seleccionado: false,
+          ),
+        )
+        .toList();
+
     emit(
       BlocAdministrarPlantillasEstadoExitoso.desde(
         state,
-        modoEliminar: event.modoEliminar,
-      ),
-    );
-  }
-
-  /// Cancela el modo eliminar, llevando la lista de plantillas a vacia
-  Future<void> _onCancelarModoEliminar(
-    BlocAministrarPlantillasEventoCancelarModoEliminar event,
-    Emitter<BlocAdministrarPlantillasEstado> emit,
-  ) async {
-    final plantillasAEliminar = state.listaDePlantillasAEliminar..clear();
-    emit(
-      BlocAdministrarPlantillasEstadoExitosoAlCancelarModoEliminar.desde(
-        state,
-        listaDePlantillasAEliminar: plantillasAEliminar,
-        modoEliminar: false,
-        seleccionado: event.select,
+        modoEliminar: !state.modoEliminar,
+        listaDePlantillasConCheckbox: nuevaListaPlantillasConCheckbox,
       ),
     );
   }
 
   /// Selecciona una plantilla y la guarda en la lista de plantillas a eliminar
-  Future<void> _onSeleccionPlantilla(
-    BlocAdministrarPlantillasEventoPlantillaSeleccionada event,
+  Future<void> _onAlternarSeleccionPlantilla(
+    BlocAdministrarPlantillasEventoAlternarSeleccionPlantilla event,
     Emitter<BlocAdministrarPlantillasEstado> emit,
   ) async {
-    final plantillasAEliminar = List.of(state.listaDePlantillasAEliminar)
-      ..add(event.plantillaSeleccionada);
+    final listaDePlantillasConCheckbox = state.listaDePlantillasConCheckbox
+        .map(
+          (e) => e.plantilla.id == event.idPlantillaSeleccionada
+              ? PlantillaConCheckbox(
+                  plantilla: e.plantilla,
+                  seleccionado: !e.seleccionado,
+                )
+              : e,
+        )
+        .toList();
 
     emit(
       BlocAdministrarPlantillasEstadoExitoso.desde(
         state,
-        listaDePlantillasAEliminar: plantillasAEliminar,
-        seleccionado: event.select,
-      ),
-    );
-  }
-
-  /// Accion para deseleccionar una o varias plantillas de la lista
-  /// removiendolas de la lista de plantillas a eliminar
-  Future<void> _onDeseleccionPlantilla(
-    BlocAdministrarPlantillasEventoPlantillaNoSeleccionada event,
-    Emitter<BlocAdministrarPlantillasEstado> emit,
-  ) async {
-    final plantillasAEliminar = List.of(state.listaDePlantillasAEliminar)
-      ..removeWhere(
-        (e) => e.id == event.plantilla.id,
-      );
-
-    emit(
-      BlocAdministrarPlantillasEstadoExitoso.desde(
-        state,
-        listaDePlantillasAEliminar: plantillasAEliminar,
-        seleccionado: event.select,
+        listaDePlantillasConCheckbox: listaDePlantillasConCheckbox,
       ),
     );
   }
@@ -182,24 +165,23 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
     emit(BlocAdministrarPlantillasEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
+        final plantillasAEliminar = state.listaDePlantillasConCheckbox
+            .where((element) => element.seleccionado)
+            .map((e) => e.plantilla.id!)
+            .toList();
+
         await client.plantillaComunicacion.eliminarPlantillasComunicacion(
-          idPlantillasComunicacion:
-              state.listaDePlantillasAEliminar.map((e) => e.id ?? 0).toList(),
+          idPlantillasComunicacion: plantillasAEliminar,
         );
-        final indexAEliminar = state.listaDePlantillasAEliminar
-            .indexWhere((e) => e.id == event.idPlantilla);
+
         final nuevaListaDePlantillas =
-            List<PlantillaComunicacion>.from(state.listaDePlantillas)
-              ..removeWhere(
-                (element) =>
-                    element.id ==
-                    state.listaDePlantillasAEliminar[indexAEliminar].id,
-              );
+            List<PlantillaConCheckbox>.from(state.listaDePlantillasConCheckbox)
+              ..removeWhere((element) => element.seleccionado);
+
         emit(
           BlocAdministrarPlantillasEstadoExitoso.desde(
             state,
-            listaDePlantillas: nuevaListaDePlantillas,
-            seleccionado: false,
+            listaDePlantillasConCheckbox: nuevaListaDePlantillas,
             modoEliminar: false,
           ),
         );
@@ -207,19 +189,6 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
       onError: (e, st) {
         emit(BlocAdministrarPlantillasEstadoError.desde(state));
       },
-    );
-  }
-
-  /// Cambia de modo, al ser true se daran las herramientas de edicion
-  Future<void> _onCambiarModoEditar(
-    BlocAdministrarPlantillasEventoCambiarModoEditar event,
-    Emitter<BlocAdministrarPlantillasEstado> emit,
-  ) async {
-    emit(
-      BlocAdministrarPlantillasEstadoExitoso.desde(
-        state,
-        modoEditar: event.modoEditar,
-      ),
     );
   }
 
@@ -256,7 +225,6 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
             state,
             listaDePlantillas: lista,
             plantilla: plantillaModificada,
-            modoEditar: false,
           ),
         );
       },
@@ -265,4 +233,13 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
       },
     );
   }
+}
+
+class PlantillaConCheckbox {
+  PlantillaConCheckbox({
+    required this.plantilla,
+    required this.seleccionado,
+  });
+  final PlantillaComunicacion plantilla;
+  final bool seleccionado;
 }

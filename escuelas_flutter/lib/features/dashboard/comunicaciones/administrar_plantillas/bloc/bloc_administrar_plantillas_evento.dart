@@ -42,44 +42,14 @@ class BlocAdministrarPlantillasEventoAgregarPlantilla
 /// {@template BlocAdministrarPlantillasEventoCambiarModoEliminar}
 /// Evento para cambiar a modo eliminar
 /// {@endtemplate}
-class BlocAdministrarPlantillasEventoCambiarModoEliminar
-    extends BlocAdministrarPlantillasEvento {
-  /// {@macro BlocAdministrarPlantillasEventoCambiarModoEliminar}
-  BlocAdministrarPlantillasEventoCambiarModoEliminar({
-    required this.modoEliminar,
-  });
-
-  /// Identifica si se encuentra en modo eliminar
-  final bool modoEliminar;
-}
-
-/// {@template BlocAdministrarPlantillasEventoCambiarModoEliminar}
-/// Evento para cambiar a modo eliminar
-/// {@endtemplate}
-class BlocAdministrarPlantillasEventoCambiarModoEditar
-    extends BlocAdministrarPlantillasEvento {
-  /// {@macro BlocAdministrarPlantillasEventoCambiarModoEditar}
-  BlocAdministrarPlantillasEventoCambiarModoEditar({
-    required this.modoEditar,
-  });
-
-  /// Identifica si se encuentra en modo editar
-  final bool modoEditar;
-}
+class BlocAdministrarPlantillasEventoAlternarModoEliminar
+    extends BlocAdministrarPlantillasEvento {}
 
 /// {@template BlocAdministrarPlantillasEventoEliminarPlantillas}
 /// Evento para Eliminar plantillas
 /// {@endtemplate}
 class BlocAdministrarPlantillasEventoEliminarPlantillas
-    extends BlocAdministrarPlantillasEvento {
-  /// {@macro BlocAdministrarPlantillasEventoEliminarPlantillas}
-  const BlocAdministrarPlantillasEventoEliminarPlantillas({
-    required this.idPlantilla,
-  });
-
-  /// Id de la plantilla a eliminar
-  final int idPlantilla;
-}
+    extends BlocAdministrarPlantillasEvento {}
 
 /// {@template BlocAdministrarPlantillasEventoEditarPlantilla}
 /// Evento para Editar una plantilla
@@ -115,54 +85,13 @@ class BlocAdministrarPlantillasEventoEditarPlantilla
 /// Evento para seleccionar una plantilla y agregarla al estado
 /// listaDePlantillasAEliminar
 /// {@endtemplate}
-class BlocAdministrarPlantillasEventoPlantillaSeleccionada
+class BlocAdministrarPlantillasEventoAlternarSeleccionPlantilla
     extends BlocAdministrarPlantillasEvento {
   /// {@macro BlocAdministrarPlantillasEventoPlantillaSeleccionada}
-  const BlocAdministrarPlantillasEventoPlantillaSeleccionada({
-    required this.plantillaSeleccionada,
-    required this.select,
+  const BlocAdministrarPlantillasEventoAlternarSeleccionPlantilla({
+    required this.idPlantillaSeleccionada,
   });
-
-  /// Bool que verifica si la plantilla esta seleccionada
-  final bool select;
 
   /// Plantilla seleccionada
-  final PlantillaComunicacion plantillaSeleccionada;
-}
-
-/// {@template BlocAdministrarPlantillasEventoPlantillaNoSeleccionada}
-/// Evento para deseleccionar una plantilla y eliminarla del estado
-/// listaDePlantillasAEliminar
-/// {@endtemplate}
-class BlocAdministrarPlantillasEventoPlantillaNoSeleccionada
-    extends BlocAdministrarPlantillasEvento {
-  /// {@macro BlocAdministrarPlantillasEventoPlantillaNoSeleccionada}
-  const BlocAdministrarPlantillasEventoPlantillaNoSeleccionada({
-    required this.plantilla,
-    required this.select,
-  });
-
-  /// Bool que verifica si la plantilla esta seleccionada
-  final bool select;
-
-  /// Plantilla
-  final PlantillaComunicacion plantilla;
-}
-
-/// {@template BlocAministrarPlantillasEventoCancelarModoEliminar}
-/// Evento para cancelar el modo eliminar
-/// {@endtemplate}
-class BlocAministrarPlantillasEventoCancelarModoEliminar
-
-    /// {@macro BlocAministrarPlantillasEventoCancelarModoEliminar}
-    extends BlocAdministrarPlantillasEvento {
-  const BlocAministrarPlantillasEventoCancelarModoEliminar({
-    required this.modoEliminar,
-    required this.select,
-  });
-
-  final bool modoEliminar;
-
-  /// Bool que verifica si la plantilla esta seleccionada
-  final bool select;
+  final int idPlantillaSeleccionada;
 }
