@@ -42,7 +42,7 @@
                 <data
                 android:scheme="http"
                 android:host="sebasamontero.github.io" />
-                <data android:scheme="https" />  
+                <data android:scheme="https"  android:host="sebasamontero.github.io"/>  
             </intent-filter>
          
         </activity>

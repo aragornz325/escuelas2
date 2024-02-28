@@ -71,7 +71,7 @@ class BlocCargaCalificaciones
               comision.estudiantes?.map((relacionComisionUsuario) {
                     return CalificacionMensual(
                       calificacion: Calificacion(
-                        idAsignatura: event.idAsignatura,
+                        asignaturaId: event.idAsignatura,
                         idComision: event.idComision,
                         estudianteId: relacionComisionUsuario.usuarioId,
                         fechaCreacion: DateTime.now(),
@@ -82,6 +82,7 @@ class BlocCargaCalificaciones
                         index: 0,
                         diferencial: '0',
                       ),
+                      numeroDeAnio: DateTime.now().year,
                       numeroDeMes: event.fecha?.month ?? fecha.month,
                       calificacionId: 0,
                     );

@@ -118,6 +118,14 @@ class AppRouter extends $AppRouter {
               path: 'absences',
             ),
             AutoRoute(
+              page: RutaCalificacionesMensuales.page,
+              path: 'grades',
+            ),
+            AutoRoute(
+              page: RutaCalificacionesAnuales.page,
+              path: 'anual-grades/:idAsignatura',
+            ),
+            AutoRoute(
               page: RutaSupervisionComisiones.page,
               path: 'course-supervision',
             ),

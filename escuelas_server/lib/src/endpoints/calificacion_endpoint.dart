@@ -54,6 +54,36 @@ class CalificacionEndpoint extends Endpoint with Controller {
         () => servicio.obtenerConceptosDeCalificacion(session),
       );
 
+  Future<List<CalificacionMensual>> listarMisCalificacionesAnualesPorAsignatura(
+    Session session, {
+    required int idAsignatura,
+    required int anio,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'listarMisCalificacionesAnualesPorAsignatura',
+        () => servicio.listarMisCalificacionesAnualesPorAsignatura(
+          session,
+          idAsignatura: idAsignatura,
+          anio: anio,
+        ),
+      );
+
+  Future<List<CalificacionMensual>> listarMisCalificacionesMensualesPorMes(
+    Session session, {
+    required int mes,
+    required int anio,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'listarMisCalificacionesMensualesPorMes',
+        () => servicio.listarMisCalificacionesMensualesPorMes(
+          session,
+          mes: mes,
+          anio: anio,
+        ),
+      );
+
   Future<List<ComisionOverview>> obtenerInformacionDeVistaGeneralDeComisiones(
     Session session, {
     required int idUsuario,

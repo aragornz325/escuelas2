@@ -8,6 +8,9 @@ fields:
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
 indexes:
+  r_asignatura_idx:
+    fields: asignaturaId
+    unique: true
   r_usuario_asignatura_index_idx:
     fields: usuarioId, asignaturaId, comisionId
     unique: true

@@ -28,12 +28,12 @@ class OrmCalificacionMensual extends ORM {
           where: (t) {
             if (numeroDeMes != null) {
               return t.calificacion.idComision.equals(idComision) &
-                  t.calificacion.idAsignatura.equals(idAsignatura) &
+                  t.calificacion.asignaturaId.equals(idAsignatura) &
                   t.numeroDeMes.equals(numeroDeMes);
             }
 
             return t.calificacion.idComision.equals(idComision) &
-                t.calificacion.idAsignatura.equals(idAsignatura);
+                t.calificacion.asignaturaId.equals(idAsignatura);
           },
           include: CalificacionMensual.include(
             calificacion: Calificacion.include(
@@ -42,10 +42,6 @@ class OrmCalificacionMensual extends ORM {
           ),
         ),
       );
-
-
-
-
 
   Future<List<CalificacionMensual>> actualizarCalificacionesMensualesEnLote(
     Session session, {
@@ -59,7 +55,6 @@ class OrmCalificacionMensual extends ORM {
             session,
             calificacionesMensuales,
           );
-
 
           // if (calificacionMensual.isEmpty) {
           //   throw ExcepcionCustom(
@@ -84,4 +79,51 @@ class OrmCalificacionMensual extends ORM {
           calificaciones,
         ),
       );
+
+  Future<List<CalificacionMensual>> listarMisCalificacionesAnualesPorAsignatura(
+    Session session, {
+    required int idUsuario,
+    required int idAsignatura,
+    required int anio,
+  }) async {
+    return ejecutarOperacionOrm(
+      session,
+      (session) => CalificacionMensual.db.find(
+        session,
+        where: (t) {
+          return t.calificacion.estudianteId.equals(idUsuario) &
+              t.numeroDeAnio.equals(anio) &
+              t.calificacion.asignaturaId.equals(idAsignatura);
+        },
+        include: CalificacionMensual.include(
+          calificacion: Calificacion.include(
+            asignatura: Asignatura.include(),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Future<List<CalificacionMensual>> listarMisCalificacionesMensualesPorMes(
+    Session session, {
+    required int idUsuario,
+    required int numeroDeMes,
+    required int anio,
+  }) async {
+    return ejecutarOperacionOrm(
+      session,
+      (session) => CalificacionMensual.db.find(
+        session,
+        where: (t) {
+          return t.calificacion.estudianteId.equals(idUsuario) &
+              t.numeroDeMes.equals(numeroDeMes);
+        },
+        include: CalificacionMensual.include(
+          calificacion: Calificacion.include(
+            asignatura: Asignatura.include(),
+          ),
+        ),
+      ),
+    );
+  }
 }
