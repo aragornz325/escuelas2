@@ -11,4 +11,4 @@ escuelas_server/lib/env/.env
 escuelas_server/lib/env/env.g.dart
 escuelas_server/lib/src/generated/
 
-
+pubspec.lock
