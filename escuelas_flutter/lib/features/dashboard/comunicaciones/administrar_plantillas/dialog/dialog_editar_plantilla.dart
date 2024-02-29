@@ -26,14 +26,14 @@ class DialogEditarPlantilla extends StatefulWidget {
 }
 
 class _DialogEditarPlantillaState extends State<DialogEditarPlantilla> {
-  late TextEditingController controllerNuevoTitulo;
-  late TextEditingController controllerNuevaDescripcion;
+  late TextEditingController _controllerNuevoTitulo;
+  late TextEditingController _controllerNuevaDescripcion;
 
   @override
   void initState() {
-    controllerNuevoTitulo =
+    _controllerNuevoTitulo =
         TextEditingController(text: widget.plantilla.titulo);
-    controllerNuevaDescripcion =
+    _controllerNuevaDescripcion =
         TextEditingController(text: widget.plantilla.nota);
 
     super.initState();
@@ -41,8 +41,8 @@ class _DialogEditarPlantillaState extends State<DialogEditarPlantilla> {
 
   @override
   void dispose() {
-    controllerNuevoTitulo.dispose();
-    controllerNuevaDescripcion.dispose();
+    _controllerNuevoTitulo.dispose();
+    _controllerNuevaDescripcion.dispose();
     super.dispose();
   }
 
@@ -52,8 +52,8 @@ class _DialogEditarPlantillaState extends State<DialogEditarPlantilla> {
 
     return EscuelasDialog.solicitudDeAccion(
       titulo: l10n.pageManageTemplatesDialogEditTemplate,
-      estaHabilitado: (controllerNuevoTitulo.text.isNotEmpty &&
-          controllerNuevaDescripcion.text.isNotEmpty),
+      estaHabilitado: (_controllerNuevoTitulo.text.isNotEmpty &&
+          _controllerNuevaDescripcion.text.isNotEmpty),
       context: context,
       onTapConfirmar: () {
         Navigator.of(context).pop();
@@ -61,8 +61,8 @@ class _DialogEditarPlantillaState extends State<DialogEditarPlantilla> {
               BlocAdministrarPlantillasEventoEditarPlantilla(
                 idPlantilla: widget.plantilla.id ?? 0,
                 plantilla: widget.plantilla,
-                nuevoNombre: controllerNuevoTitulo.text,
-                nuevaDescripcion: controllerNuevaDescripcion.text,
+                nuevoNombre: _controllerNuevoTitulo.text,
+                nuevaDescripcion: _controllerNuevaDescripcion.text,
                 nuevaNecesitaSupervision: widget.plantilla.necesitaSupervision,
               ),
             );
@@ -74,7 +74,7 @@ class _DialogEditarPlantillaState extends State<DialogEditarPlantilla> {
               setState(() {});
             },
             width: 265.pw,
-            controller: controllerNuevoTitulo,
+            controller: _controllerNuevoTitulo,
             esPassword: false,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
@@ -82,7 +82,7 @@ class _DialogEditarPlantillaState extends State<DialogEditarPlantilla> {
                 vertical: 8.ph,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.sw),
               ),
             ),
           ),
@@ -94,14 +94,14 @@ class _DialogEditarPlantillaState extends State<DialogEditarPlantilla> {
                 setState(() {});
               },
               maxLines: 5,
-              controller: controllerNuevaDescripcion,
+              controller: _controllerNuevaDescripcion,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: 10.pw,
                   vertical: 8.ph,
                 ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
+                  borderRadius: BorderRadius.circular(10.sw),
                 ),
               ),
             ),

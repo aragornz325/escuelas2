@@ -47,7 +47,7 @@ class _VistaCelularAdministrarPlantillasState
     );
   }
 
-  Future<void> onEditar(
+  Future<void> _onEditar(
     BuildContext context, {
     required PlantillaComunicacion plantilla,
   }) {
@@ -120,7 +120,7 @@ class _VistaCelularAdministrarPlantillasState
                           ),
                           child: DesplegablePlantilla(
                             onEditar: () =>
-                                onEditar(context, plantilla: e.plantilla),
+                                _onEditar(context, plantilla: e.plantilla),
                             necesitaSupervision:
                                 e.plantilla.necesitaSupervision,
                             plantillaConCheckbox: e,

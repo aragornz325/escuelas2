@@ -21,9 +21,16 @@ class DialogAgregarPlantilla extends StatefulWidget {
 }
 
 class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
-  final controllerNuevaPlantillaTitulo = TextEditingController();
-  final controllerNuevaPlantillaDescripcion = TextEditingController();
-  bool necesitaSupervicion = false;
+  final _controllerNuevaPlantillaTitulo = TextEditingController();
+  final _controllerNuevaPlantillaDescripcion = TextEditingController();
+  bool _necesitaSupervicion = false;
+
+  @override
+  void dispose() {
+    _controllerNuevaPlantillaTitulo.dispose();
+    _controllerNuevaPlantillaDescripcion.dispose();
+    super.dispose();
+  }
 
   Future<void> _onConfirmarPlantilla(
     BuildContext context, {
@@ -50,16 +57,16 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
 
     return EscuelasDialog.solicitudDeAccion(
       titulo: l10n.pageManageTemplatesNew,
-      estaHabilitado: (controllerNuevaPlantillaTitulo.text.isNotEmpty &&
-          controllerNuevaPlantillaDescripcion.text.isNotEmpty),
+      estaHabilitado: (_controllerNuevaPlantillaTitulo.text.isNotEmpty &&
+          _controllerNuevaPlantillaDescripcion.text.isNotEmpty),
       context: context,
       onTapConfirmar: () {
         Navigator.of(context).pop();
         _onConfirmarPlantilla(
           context,
-          tituloPlantilla: controllerNuevaPlantillaTitulo.text,
-          descripcionPlantilla: controllerNuevaPlantillaDescripcion.text,
-          necesitaSupervicionn: necesitaSupervicion,
+          tituloPlantilla: _controllerNuevaPlantillaTitulo.text,
+          descripcionPlantilla: _controllerNuevaPlantillaDescripcion.text,
+          necesitaSupervicionn: _necesitaSupervicion,
         );
       },
       content: Column(
@@ -69,7 +76,7 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
               setState(() {});
             },
             width: 265.pw,
-            controller: controllerNuevaPlantillaTitulo,
+            controller: _controllerNuevaPlantillaTitulo,
             esPassword: false,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(
@@ -78,7 +85,7 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
               ),
               hintText: l10n.pageManageTemplatesTitle,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: BorderRadius.circular(10.sw),
               ),
             ),
           ),
@@ -90,7 +97,7 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
                 setState(() {});
               },
               maxLines: 5,
-              controller: controllerNuevaPlantillaDescripcion,
+              controller: _controllerNuevaPlantillaDescripcion,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.symmetric(
                   horizontal: 10.pw,
@@ -115,10 +122,10 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
                 ],
               ),
               Checkbox(
-                value: necesitaSupervicion,
+                value: _necesitaSupervicion,
                 onChanged: (value) {
                   setState(() {
-                    necesitaSupervicion = value!;
+                    _necesitaSupervicion = value!;
                   });
                 },
               ),

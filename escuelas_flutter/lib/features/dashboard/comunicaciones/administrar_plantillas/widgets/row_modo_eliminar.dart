@@ -16,7 +16,7 @@ class RowModoEliminar extends StatelessWidget {
     super.key,
   });
 
-  Future<void> onConfirmarEliminado(BuildContext context) {
+  Future<void> _onConfirmarEliminado(BuildContext context) {
     return showDialog<void>(
       context: context,
       builder: (_) => BlocProvider.value(
@@ -51,7 +51,7 @@ class RowModoEliminar extends StatelessWidget {
                   ),
                   SizedBox(width: 8.sw),
                   GestureDetector(
-                    onTap: () => onConfirmarEliminado(context),
+                    onTap: () => _onConfirmarEliminado(context),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.all(
