@@ -13,9 +13,9 @@ import 'package:full_responsive/full_responsive.dart';
 class EscuelasTextfield extends StatefulWidget {
   /// {@macro EscuelasTextfield}
   const EscuelasTextfield({
-    required this.hintText,
     required this.controller,
     required this.esPassword,
+    this.hintText,
     this.focusNode,
     super.key,
     this.width,
@@ -105,7 +105,7 @@ class EscuelasTextfield extends StatefulWidget {
   final InputDecoration? decoration;
 
   /// Texto interno del TextFormField
-  final String hintText;
+  final String? hintText;
 
   /// Tipo de teclado
   final TextInputType? keyboardType;
@@ -183,7 +183,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
               contentPadding: EdgeInsets.symmetric(horizontal: 15.sw),
               filled: true,
               fillColor: colores.tertiary,
-              hintText: widget.hintText,
+              hintText: widget.hintText ?? '',
               hintStyle: TextStyle(
                 fontSize: 16.pf,
                 color: colores.onSecondary,

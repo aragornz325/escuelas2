@@ -133,6 +133,10 @@ class AppRouter extends $AppRouter {
               page: RutaSupervisionEnvioCalificaciones.page,
               path: 'grade-submission-supervision/:idComision/:fecha',
             ),
+            AutoRoute(
+              page: RutaAdministrarPlantillas.page,
+              path: 'manage-templates',
+            ),
           ],
         ),
       ];

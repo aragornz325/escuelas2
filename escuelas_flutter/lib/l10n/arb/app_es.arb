@@ -605,7 +605,78 @@
         "description": "text in the dialog in the status of absent students"
        
     },
-    
+
+    "pageManageTemplatesTitle": "Plantillas",
+    "@pageManageTemplatesTitle": {
+        "description": "Text to be displayed in the title of the page"
+    },
+
+    "pageManageTemplatesAddNew": "Agregar nueva",
+    "@pageManageTemplatesAddNew": {
+        "description": "Text to be displayed in the button to add new template"
+    },
+    "pageManageTemplatesNew": "Nueva plantilla",
+    "@pageManageTemplatesNew": {
+        "description": "Text to be displayed in the dialog to add new template"
+    },
+    "pageManageTemplatesDialogTitle": "Título",
+    "@pageManageTemplatesDialogTitle": {
+        "description": "Text to be displayed in the textfield of the dialog to add new template"
+    },
+
+    "pageManageTemplatesDialogWriteHere": "Escríbe aquí...",
+    "@pageManageTemplatesDialogWriteHere": {
+        "description": "Text to be displayed in the textfield of the dialog to add new template"
+    },
+    "pageManageTemplatesNeedSupervision": "Necesita supervisión",
+    "@pageManageTemplatesNeedSupervision": {
+        "description": "Text to be displayed in the bottom of the template"
+    },
+    "pageManageTemplatesCreatedAt": "Creado el",
+    "@pageManageTemplatesCreatedAt": {
+        "description": "Text to be displayed in the template for the creation date"
+    },
+    "pageManageTemplatesUpdateAt": "Editado el",
+    "@pageManageTemplatesUpdateAt": {
+        "description": "Text to be displayed in the template for the date of the last update"
+    },
+    "pageManageTemplatesWantContinue": "¿Deseas continuar?",
+    "@pageManageTemplatesWantContinue": {
+        "description": "Text to be displayed in the dialog to question if the user wants to continue"
+    },
+    "pageManageTemplatesWillCreate": "Crearás una plantilla\n predeterminada llamada",
+    "@pageManageTemplatesWillCreate": {
+        "description": "Text to be displayed in the dialog to notify that you will create a new template"
+    },
+    "pageManageTemplatesDialogSuccessPartOne": "Plantilla",
+    "@pageManageTemplatesDialogSuccessPartOne": {
+        "description": "Text to be displayed in the first part of the dialog of notify that the template has been created"
+    },
+    "pageManageTemplatesDialogSuccessPartTwo": " creada con éxito",
+    "@pageManageTemplatesDialogSuccessPartTwo": {
+        "description": "Text to be displayed in the last part of the dialog of notify that the template has been created"
+    },
+    "pageManageTemplatesDialogEditTemplate": "Editar plantilla",
+    "@pageManageTemplatesDialogEditTemplate": {
+        "description": "Text to be displayed in the dialog to edit template"
+    },
+    "pageManageTemplatesDialogEditedSuccessfully": "Platilla editada con exito",
+    "@pageManageTemplatesDialogEditedSuccessfully": {
+        "description": "Text to be displayed in the dialog to notify the edited was successfully"
+    },
+    "pageManageTemplatesDialogYouWillEliminate": "Eliminaras",
+    "@pageManageTemplatesDialogYouWillEliminate": {
+        "description": "Text to be displayed in the dialog to question for delete template"
+    },
+    "pageManageTemplatesDialogFromYourTemplatesList": "de tu lista de plantillas",
+    "@pageManageTemplatesDialogFromYourTemplatesList": {
+        "description": "Text to be displayed in the dialog to question for delete template"
+    },
+    "pageManageTemplatesDialogDeletedSuccessfully": "Eliminado exitosamente",
+    "@pageManageTemplatesDialogDeletedSuccessfully": {
+        "description": "Text to be displayed in the dialog to notify for deleted successfully"
+    },
+
     "dialogSeeMore": "Ver más",
     "@dialogSeeMore": {
         "description": "text on a button to see less"
@@ -714,5 +785,13 @@
     "commonDeleteAll": "Borrar todos",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+    "commonDelete": "Eliminar",
+    "@commonDelete": {
+        "description": "Label indicating to delete"
+    },
+    "commonAttention": "Atención",
+    "@commonAttention": {
+        "description": "Label indicating to Attention"
     }
 }

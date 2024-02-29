@@ -24,7 +24,8 @@ class ServicioPlantillaComunicacion extends Servicio<OrmPlantillaComunicacion> {
   }) async {
     return await ejecutarOperacion(() => orm.actualizarPlantillaComunicacion(
         session,
-        plantillaComunicacion: plantillaComunicacion));
+        plantillaComunicacion: plantillaComunicacion,
+        columns: (t) => [t.titulo, t.nota, t.necesitaSupervision, t.ultimaModificacion],));
   }
 
   /// trae la lista de plantillas

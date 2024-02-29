@@ -48,15 +48,16 @@ class _AppViewState extends State<AppView> {
       routerDelegate: AutoRouterDelegate(
         appRouter,
         navigatorObservers: () => [RouterObserver()],
-        // TODO(ANYONE): Carry over, por el momento este builder no esta funcionando 
+        // TODO(ANYONE): Carry over, por el momento este builder no esta funcionando
         // (redirigir a la ruta o frenar con breakpoint)
-        // Es posible que sea por GitHub pages y con un link real si ande, 
+        // Es posible que sea por GitHub pages y con un link real si ande,
         // habria que testear en un dispositivo real.
         // Tambien una vez que ande probar de agregar Switch.
         deepLinkBuilder: (deepLink) {
           // Redirige a esa ruta si empieza con /absences
-          if (deepLink.path.startsWith('/absences')) {
-            return deepLink;
+          if (deepLink.path.contains('absences')) {
+            // TODO(ANYONE): Poner la ruta a la cual redirigir, por el momento no permite ir a inasistencia pero si a KYC.
+            return const DeepLink([RutaInasistencia()]);
           } else {
             // Ruta default del deeplink
             return const DeepLink([RutaLogin()]);
