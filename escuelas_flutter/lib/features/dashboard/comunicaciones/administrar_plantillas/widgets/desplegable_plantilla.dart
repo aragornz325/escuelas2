@@ -59,6 +59,8 @@ class _DesplegablePlantillaState extends State<DesplegablePlantilla> {
           ),
           leading: state.modoEliminar
               ? Checkbox(
+                  shape: const CircleBorder(),
+                  activeColor: colores.error,
                   value: _estaSeleccionado,
                   onChanged: (value) {
                     _estaSeleccionado = value!;
