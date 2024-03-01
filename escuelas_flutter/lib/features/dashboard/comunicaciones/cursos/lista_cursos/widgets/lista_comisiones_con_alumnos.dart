@@ -1,13 +1,15 @@
 import 'dart:math';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ListaComisionesConAlumnos}
-/// Lista de comisiones con sus alumnos y podes navegar al cuaderno de 
+/// Lista de comisiones con sus alumnos y podes navegar al cuaderno de
 /// comunicado del alumno que clickeas.
 /// {@endtemplate}
 class ListaComisionesConAlumnos extends StatelessWidget {
@@ -77,6 +79,9 @@ class ListaComisionesConAlumnos extends StatelessWidget {
                                 return ListTile(
                                   onTap: () {
                                     // TODO(mati): Dar funcionalidad
+                                    context.pushRoute(
+                                      RutaPerfilComunicados(idUsuario: 1),
+                                    );
                                   },
                                   title: Text(
                                     '${e.usuario?.nombre ?? ''}'

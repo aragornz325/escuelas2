@@ -23,7 +23,7 @@ class PaginaPerfilComunicados extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocPerfilComunicados>(
-      create: (context) => BlocPerfilComunicados(),
+      create: (context) => BlocPerfilComunicados(idUsuario: idUsuario),
       child: const FullResponsiveScreen(
         celular: VistaCelularPerfilComunicados(),
         escritorio: VistaEscritorioPerfilComunicados(),

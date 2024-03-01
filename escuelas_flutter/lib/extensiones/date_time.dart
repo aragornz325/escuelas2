@@ -1,3 +1,4 @@
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -19,6 +20,26 @@ extension DateTimeX on DateTime {
   String nombreDia(BuildContext context) =>
       DateFormat('EEEE', Localizations.localeOf(context).languageCode)
           .format(this);
+
+  /// TODO(mati) add docu
+  String periodoFechaEnviada(BuildContext context) {
+    final l10n = context.l10n;
+
+    if (mismaFecha(this)) {
+      final fecha =
+          DateFormat('HH:mm', Localizations.localeOf(context).languageCode)
+              .format(this);
+      return '$fecha Hoy'; // TODO(mati):traducir${l10n.commonToday}';
+    }
+    return DateFormat('E dd/M', Localizations.localeOf(context).languageCode)
+        .format(this);
+  }
+
+  /// Devuelve la hora formateada como xx:xx
+  String horaFechaEnviada(BuildContext context) {
+    return DateFormat('HH:mm', Localizations.localeOf(context).languageCode)
+        .format(this);
+  }
 
   // TODO(anyone): Agregar traducciones.
   String devolverEtiqueta() {
