@@ -233,11 +233,14 @@ abstract class $AppRouter extends _i29.RootStackRouter {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<RutaPerfilComunicadosArgs>(
           orElse: () => RutaPerfilComunicadosArgs(
-              idUsuario: pathParams.getInt('idUsuario')));
+                idUsuario: pathParams.getInt('idUsuario'),
+                nombreUsuario: pathParams.getString('nombreUsuario'),
+              ));
       return _i29.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i22.PaginaPerfilComunicados(
           idUsuario: args.idUsuario,
+          nombreUsuario: args.nombreUsuario,
           key: args.key,
         ),
       );
@@ -726,15 +729,20 @@ class RutaPerfilComunicados
     extends _i29.PageRouteInfo<RutaPerfilComunicadosArgs> {
   RutaPerfilComunicados({
     required int idUsuario,
+    required String nombreUsuario,
     _i30.Key? key,
     List<_i29.PageRouteInfo>? children,
   }) : super(
           RutaPerfilComunicados.name,
           args: RutaPerfilComunicadosArgs(
             idUsuario: idUsuario,
+            nombreUsuario: nombreUsuario,
             key: key,
           ),
-          rawPathParams: {'idUsuario': idUsuario},
+          rawPathParams: {
+            'idUsuario': idUsuario,
+            'nombreUsuario': nombreUsuario,
+          },
           initialChildren: children,
         );
 
@@ -747,16 +755,19 @@ class RutaPerfilComunicados
 class RutaPerfilComunicadosArgs {
   const RutaPerfilComunicadosArgs({
     required this.idUsuario,
+    required this.nombreUsuario,
     this.key,
   });
 
   final int idUsuario;
 
+  final String nombreUsuario;
+
   final _i30.Key? key;
 
   @override
   String toString() {
-    return 'RutaPerfilComunicadosArgs{idUsuario: $idUsuario, key: $key}';
+    return 'RutaPerfilComunicadosArgs{idUsuario: $idUsuario, nombreUsuario: $nombreUsuario, key: $key}';
   }
 }
 

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template FotosYFechasDelComentario}
-/// TODO(mati) add docu
+/// Son la fotos del usuario del comentario con el nombre y la fecha en la que
+/// envio el comentario.
 /// {@endtemplate}
 class FotosYFechasDelComentario extends StatelessWidget {
   /// {@macro FotosYFechasDelComentario}
@@ -47,9 +48,10 @@ class FotosYFechasDelComentario extends StatelessWidget {
           ],
         ),
         Text(
+          //TODO(mati): aca va la fecha del ultimo comentario?
           DateTime.now().periodoFechaEnviada(
             context,
-          ), //TODO(mati): aca va la fecha del ultimo comentario?
+          ),
           style: TextStyle(
             color: colores.onBackground,
             fontSize: 8.pf,

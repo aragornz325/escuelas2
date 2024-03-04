@@ -1,39 +1,49 @@
 part of 'bloc_perfil_comunicados.dart';
 
 /// {@template BlocPerfilComunicadosEstado}
-/// TODO(mati) add docu
+/// Estado principal de la pagina de 'Perfil de Comunicados'.
 /// {@endtemplate}
 @immutable
 sealed class BlocPerfilComunicadosEstado {
   /// {@macro BlocPerfilComunicadosEstado}
-  const BlocPerfilComunicadosEstado._({required this.idUsuario});
+  const BlocPerfilComunicadosEstado._({
+    required this.idUsuario,
+    required this.nombreUsuario,
+  });
 
   BlocPerfilComunicadosEstado.desde(
     BlocPerfilComunicadosEstado otro,
   ) : this._(
           idUsuario: otro.idUsuario,
+          nombreUsuario: otro.nombreUsuario,
         );
 
   /// Id del usuario a traer sus notificaciones.
   final int idUsuario;
 
+  /// Nombre del usuario/alumno
+  final String nombreUsuario;
+
   List<Object> get props => [
         idUsuario,
+        nombreUsuario,
       ];
 }
 
 /// {@template BlocPerfilComunicadosEstadoInicial}
-/// TODO(mati) add docu
+/// Estado `inicial` de la pagina de 'Perfil de Comunicados'.
 /// {@endtemplate}
 final class BlocPerfilComunicadosEstadoInicial
     extends BlocPerfilComunicadosEstado {
   /// {@macro BlocPerfilComunicadosEstadoInicial}
-  const BlocPerfilComunicadosEstadoInicial(int idUsuario)
-      : super._(idUsuario: idUsuario);
+  const BlocPerfilComunicadosEstadoInicial({
+    required super.idUsuario,
+    required super.nombreUsuario,
+  }) : super._();
 }
 
 /// {@template BlocPerfilComunicadosEstadoCargando}
-/// TODO(mati) add docu
+/// Estado `Cargando` de la pagina de 'Perfil de Comunicados'.
 /// {@endtemplate}
 class BlocPerfilComunicadosEstadoCargando extends BlocPerfilComunicadosEstado {
   /// {@macro BlocPerfilComunicadosEstadoCargando}
@@ -41,7 +51,7 @@ class BlocPerfilComunicadosEstadoCargando extends BlocPerfilComunicadosEstado {
 }
 
 /// {@template BlocPerfilComunicadosEstadoExitoso}
-/// TODO(mati) add docu
+/// Estado `Exitoso` de la pagina de 'Perfil de Comunicados'.
 /// {@endtemplate}
 class BlocPerfilComunicadosEstadoExitoso extends BlocPerfilComunicadosEstado {
   /// {@macro BlocPerfilComunicadosEstadoExitoso}
@@ -51,9 +61,25 @@ class BlocPerfilComunicadosEstadoExitoso extends BlocPerfilComunicadosEstado {
 }
 
 /// {@template BlocPerfilComunicadosEstadoFallido}
-/// TODO(mati) add docu
+/// Estado `Fallido` de la pagina de 'Perfil de Comunicados'.
 /// {@endtemplate}
 class BlocPerfilComunicadosEstadoFallido extends BlocPerfilComunicadosEstado {
   /// {@macro BlocPerfilComunicadosEstadoFallido}
   BlocPerfilComunicadosEstadoFallido.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion}
+/// Estado `Exitoso` al crear notificacion de la pagina de
+/// 'Perfil de Comunicados'.
+/// {@endtemplate}
+class BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion
+    extends BlocPerfilComunicadosEstado {
+  /// {@macro BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion}
+  BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion.desde(
+    super.otro, {
+    this.tituloPlantilla,
+  }) : super.desde();
+
+  ///
+  final String? tituloPlantilla;
 }

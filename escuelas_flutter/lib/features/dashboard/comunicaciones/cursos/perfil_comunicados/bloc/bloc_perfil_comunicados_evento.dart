@@ -1,7 +1,7 @@
 part of 'bloc_perfil_comunicados.dart';
 
 /// {@template BlocPerfilComunicadosEvento}
-/// TODO(mati) add docu
+/// Evento principal de la pagina de 'Perfil de Comunicados'.
 /// {@endtemplate}
 @immutable
 class BlocPerfilComunicadosEvento {
@@ -9,7 +9,7 @@ class BlocPerfilComunicadosEvento {
 }
 
 /// {@template BlocPerfilComunicadosEventoInicializar}
-/// TODO(mati) add docu
+/// Evento `incializar` de la pagina de 'Perfil de Comunicados'.
 /// {@endtemplate}
 class BlocPerfilComunicadosEventoInicializar
     extends BlocPerfilComunicadosEvento {
@@ -17,15 +17,21 @@ class BlocPerfilComunicadosEventoInicializar
 }
 
 /// {@template BlocPerfilComunicadosEventoCrearNotificacion}
-/// TODO(mati) add docu
+/// Evento para crear una nueva notificacion.
 /// {@endtemplate}
 class BlocPerfilComunicadosEventoCrearNotificacion
     extends BlocPerfilComunicadosEvento {
   /// {@macro BlocPerfilComunicadosEventoCrearNotificacion}
+  BlocPerfilComunicadosEventoCrearNotificacion({
+    this.tituloPlantilla,
+  });
+
+  ///
+  final String? tituloPlantilla;
 }
 
 /// {@template BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas}
-/// TODO(mati) add docu
+/// Evento para marcar una notificacion como leida.
 /// {@endtemplate}
 class BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas
     extends BlocPerfilComunicadosEvento {
@@ -33,7 +39,7 @@ class BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas
 }
 
 /// {@template BlocPerfilComunicadosEventoCrearComentario}
-/// TODO(mati) add docu
+/// Evento para crear un comentario en una notificacion.
 /// {@endtemplate}
 class BlocPerfilComunicadosEventoCrearComentario
     extends BlocPerfilComunicadosEvento {
@@ -41,7 +47,7 @@ class BlocPerfilComunicadosEventoCrearComentario
 }
 
 /// {@template BlocPerfilComunicadosEventoNotificacionMarcarTodasComoLeidas}
-/// TODO(mati) add docu
+/// Evento para marcar todas las notificaciones como leidas.
 /// {@endtemplate}
 class BlocPerfilComunicadosEventoNotificacionMarcarTodasComoLeidas
     extends BlocPerfilComunicadosEvento {

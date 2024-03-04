@@ -10,6 +10,7 @@ import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ListaComisionesConAlumnos}
 /// Lista de comisiones con sus alumnos y podes navegar al cuaderno de
+/// Lista de comisiones con sus alumnos y podes navegar al cuaderno de
 /// comunicado del alumno que clickeas.
 /// {@endtemplate}
 class ListaComisionesConAlumnos extends StatelessWidget {
@@ -66,7 +67,7 @@ class ListaComisionesConAlumnos extends StatelessWidget {
                       ),
                     ),
                     children: (comision.estudiantes?.map(
-                              (e) {
+                              (alumno) {
                                 if ((comision.estudiantes ?? []).isEmpty) {
                                   return ListTile(
                                     title: Text(
@@ -77,15 +78,17 @@ class ListaComisionesConAlumnos extends StatelessWidget {
                                   );
                                 }
                                 return ListTile(
-                                  onTap: () {
-                                    // TODO(mati): Dar funcionalidad
-                                    context.pushRoute(
-                                      RutaPerfilComunicados(idUsuario: 1),
-                                    );
-                                  },
+                                  onTap: () => context.pushRoute(
+                                    RutaPerfilComunicados(
+                                      idUsuario:
+                                          alumno.usuario?.idUserInfo ?? 0,
+                                      nombreUsuario:
+                                          alumno.usuario?.nombre ?? '',
+                                    ),
+                                  ),
                                   title: Text(
-                                    '${e.usuario?.nombre ?? ''}'
-                                    ' ${e.usuario?.apellido ?? ''}',
+                                    '${alumno.usuario?.nombre ?? ''}'
+                                    ' ${alumno.usuario?.apellido ?? ''}',
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,
                                   ),

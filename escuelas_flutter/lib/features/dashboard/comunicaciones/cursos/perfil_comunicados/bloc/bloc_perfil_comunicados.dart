@@ -6,14 +6,20 @@ part 'bloc_perfil_comunicados_evento.dart';
 part 'bloc_perfil_comunicados_estado.dart';
 
 /// {@template BlocPerfilComunicados}
-/// TODO(mati) add docu
+// Bloc que maneja la lógica de la pagina de 'Perfil de Comunicados'.
 /// {@endtemplate}
 class BlocPerfilComunicados
     extends Bloc<BlocPerfilComunicadosEvento, BlocPerfilComunicadosEstado> {
   /// {@macro BlocPerfilComunicados}
   BlocPerfilComunicados({
     required int idUsuario,
-  }) : super(BlocPerfilComunicadosEstadoInicial(idUsuario)) {
+    required String nombreUsuario,
+  }) : super(
+          BlocPerfilComunicadosEstadoInicial(
+            idUsuario: idUsuario,
+            nombreUsuario: nombreUsuario,
+          ),
+        ) {
     on<BlocPerfilComunicadosEventoInicializar>(_onInicializar);
     on<BlocPerfilComunicadosEventoCrearNotificacion>(_onCrearNotificacion);
     on<BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas>(
@@ -25,7 +31,7 @@ class BlocPerfilComunicados
     );
   }
 
-  ///
+  /// Al inicializar trae las notificaciones y las plantillas
   Future<void> _onInicializar(
     BlocPerfilComunicadosEventoInicializar event,
     Emitter<BlocPerfilComunicadosEstado> emit,
@@ -46,7 +52,7 @@ class BlocPerfilComunicados
     );
   }
 
-  ///
+  /// Crea una nueva notificacion.
   Future<void> _onCrearNotificacion(
     BlocPerfilComunicadosEventoCrearNotificacion event,
     Emitter<BlocPerfilComunicadosEstado> emit,
@@ -58,7 +64,12 @@ class BlocPerfilComunicados
         /// TODO(mati) llamar a crear notificacion
         /// await client.crearNotificacion();
 
-        emit(BlocPerfilComunicadosEstadoExitoso.desde(state));
+        emit(
+          BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion.desde(
+            state,
+            tituloPlantilla: event.tituloPlantilla,
+          ),
+        );
       },
       onError: (e, st) => emit(
         BlocPerfilComunicadosEstadoFallido.desde(state),
@@ -66,7 +77,7 @@ class BlocPerfilComunicados
     );
   }
 
-  ///
+  /// Marcar una notificacion como leida.
   Future<void> _onMarcarComoLeidaUnaNotificacion(
     BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas event,
     Emitter<BlocPerfilComunicadosEstado> emit,
@@ -86,7 +97,7 @@ class BlocPerfilComunicados
     );
   }
 
-  ///
+  /// Crea un nuevo Comentario en una notificacion.
   Future<void> _onCrearComentario(
     BlocPerfilComunicadosEventoCrearComentario event,
     Emitter<BlocPerfilComunicadosEstado> emit,
@@ -106,7 +117,7 @@ class BlocPerfilComunicados
     );
   }
 
-  ///
+  /// Marcar todas las notificaciones como leidas
   Future<void> _onMarcarComoLeidasTodasLasNotificaciones(
     BlocPerfilComunicadosEventoNotificacionMarcarTodasComoLeidas event,
     Emitter<BlocPerfilComunicadosEstado> emit,

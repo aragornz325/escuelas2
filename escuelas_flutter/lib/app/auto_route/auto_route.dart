@@ -149,7 +149,7 @@ class AppRouter extends $AppRouter {
                     ),
                     AutoRoute(
                       page: RutaPerfilComunicados.page,
-                      path: 'communications/:idUsuario',
+                      path: 'communication-profile/:nombreUsuario/:idUsuario',
                     ),
                   ],
                 ),

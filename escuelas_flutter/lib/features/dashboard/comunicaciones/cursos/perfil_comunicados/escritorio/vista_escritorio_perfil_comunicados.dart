@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioPerfilComunicados}
-/// TODO(mati) add docu
+/// Vista de escritorio de la pantalla 'Perfil de comunicados'
 /// {@endtemplate}
 class VistaEscritorioPerfilComunicados extends StatelessWidget {
   /// {@macro VistaEscritorioPerfilComunicados}

@@ -1,11 +1,12 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template TextFieldComentario}
-/// TODO(mati) add docu
+/// TextField para agregar un nuevo comentario.
 /// {@endtemplate}
 class TextFieldComentario extends StatelessWidget {
   /// {@macro TextFieldComentario}
@@ -15,15 +16,17 @@ class TextFieldComentario extends StatelessWidget {
     super.key,
   });
 
-  ///
+  /// Funcion para agregar un nuevo comentario.
   final void Function(String)? onFieldSubmitted;
 
-  ///
+  /// Controller del textfield.
   final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
 
     return Padding(
       padding: EdgeInsets.symmetric(
@@ -51,9 +54,10 @@ class TextFieldComentario extends StatelessWidget {
                     width: 230.pw,
                     height: max(100.ph, 100.sh),
                     child: TextFormField(
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Escriba aqui...', //TODO (mati) agregar l10n
+                        hintText: l10n
+                            .commonSearchWithDots, 
                       ),
                       textInputAction: TextInputAction.send,
                       onFieldSubmitted: onFieldSubmitted,

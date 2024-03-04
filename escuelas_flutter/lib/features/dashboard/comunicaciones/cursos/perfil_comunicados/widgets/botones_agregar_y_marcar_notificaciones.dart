@@ -1,9 +1,14 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/bloc/bloc_perfil_comunicados.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/widgets/widgets.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template BotonesAgregarNuevaYMarcarTodosComoLeidos}
-/// TODO(mati) add docu
+/// Son los botones para agregar una nueva notificacion y marcar todas como
+/// leidas.
 /// {@endtemplate}
 class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
   /// {@macro BotonesAgregarNuevaYMarcarTodosComoLeidos}
@@ -11,21 +16,32 @@ class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
     super.key,
   });
 
+  /// dialog para crear una nueva notificacion.
+  void _dialogAgregarNuevaNotificacion(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocPerfilComunicados>(),
+        child: const DialgoCrearNotificacion(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         InkWell(
-          onTap: () {
-            // TODO(mati): hacer que habra el popup de agregar nueva notificacion.
-          },
+          onTap: () => _dialogAgregarNuevaNotificacion(context),
           child: Row(
             children: [
               Text(
-                'Agregar nueva', //TODO (mati): traducciones
+                l10n.pageCommunicationProfileAddNewNotification,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 16.pf,
@@ -42,12 +58,15 @@ class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            // TODO(mati): hacer que habra el popup de agregar nueva notificacion.
+            // TODO(mati): funcion para marcar todas las notificacion como leidas
+            context.read<BlocPerfilComunicados>().add(
+                  BlocPerfilComunicadosEventoNotificacionMarcarTodasComoLeidas(),
+                );
           },
           child: Row(
             children: [
               Text(
-                'Marcaar todo como leido', //TODO (mati): traducciones
+                l10n.pageCommunicationProfileMarkAllRead,
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 10.pf,

@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ExpansionTileNotificaciones}
-/// TODO(mati) add docu
+/// Es la expansion tile de las notificaciones donde se muestran los comentarios
+/// de la notificacion y el boton para agregar un nuevo comentario a la
+/// notificacion.
 /// {@endtemplate}
 class ExpansionTileNotificaciones extends StatefulWidget {
   /// {@macro ExpansionTileNotificaciones}
@@ -21,10 +23,15 @@ class ExpansionTileNotificaciones extends StatefulWidget {
 
 class _ExpansionTileNotificacionesState
     extends State<ExpansionTileNotificaciones> {
+  /// para saber si esta expandido el expansion tile en caso de que este
+  /// expandido oculta las primeras 2 fotos de los comentarios.
   bool _estaExpandido = false;
 
+  /// para saber si se agrego un nuevo comentario a la notificacion en caso de
+  /// este en true oculta el boton para agregar un nuevo comentario.
   bool _agregarComentario = false;
 
+  /// Controller para agregar un nuevo comentario.
   final _controllerComentario = TextEditingController();
 
   @override
