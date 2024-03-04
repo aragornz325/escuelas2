@@ -3,7 +3,7 @@ import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil
 import 'package:flutter/material.dart';
 
 /// {@template ListaDeComentarios}
-/// TODO(mati) add docu
+/// Lista de comentarios de una notificacion.
 /// {@endtemplate}
 class ListaDeComentarios extends StatelessWidget {
   /// {@macro ListaDeComentarios}
@@ -15,16 +15,17 @@ class ListaDeComentarios extends StatelessWidget {
     super.key,
   });
 
-  ///
+  /// Es para saber si se agrega un nuevo comentario oculta el boton de agregar
+  /// un nuevo comentario.
   final bool agregarComentario;
 
-  ///
+  /// Controller del textfield para agregar un nuevo comentario.
   final TextEditingController controller;
 
-  ///
+  /// Funcion para agregar un nuevo comentario.
   final void Function(String)? onFieldSubmitted;
 
-  ///
+  /// Funcion para el boton de agregar un nuevo comentario y ocultarlo.
   final VoidCallback onPressed;
 
   @override

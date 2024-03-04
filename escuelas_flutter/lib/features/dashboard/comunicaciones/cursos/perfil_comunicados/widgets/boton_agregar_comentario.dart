@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template BotonAgregarComentario}
-/// TODO(mati) add docu
+/// Boton para agregar un nuevo comentario a una notificacion.
 /// {@endtemplate}
 class BotonAgregarComentario extends StatelessWidget {
   /// {@macro BotonAgregarComentario}

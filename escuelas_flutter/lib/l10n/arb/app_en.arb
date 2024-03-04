@@ -292,6 +292,66 @@
         "description": "There are no options available in the menu"
     },
 
+    "pageCommunicationProfileAddNewNotification": "Add new",
+    "@pageCommunicationProfileAddNewNotification": {
+    "description": "Add new"
+    },
+
+    "pageCommunicationProfileMarkAllRead": "Mark all as read",
+    "@pageCommunicationProfileMarkAllRead": {
+    "description": "Mark all as read"
+    },
+
+    "dialogCreationNotificationWasTemplate": "was\n created as a template.",
+    "@dialogCreationNotificationWasTemplate": {
+        "description": "was created as a template."
+    },
+
+    "dialogCreationNotificationConfimationSend": "By confirming you will send it as a notification.",
+    "@dialogCreationNotificationConfimationSend": {
+        "description": "Upon confirmation, it will be sent as a notification."
+    },
+
+    "dialogCreationNotificationWillCreateNotification": "You will create a notification",
+    "@dialogCreationNotificationWillCreateNotification": {
+        "description": "You will create a notification"
+    },
+
+    "dialogCreationNotificationWantToContinue": "Do you want to continue?",
+    "@dialogCreationNotificationWantToContinue": {
+        "description": "Do you want to continue?"
+    },
+    
+    "dialogCreationNotificationTooltip": "If supervision is required, any user attempting to send a communication will be previously accepted (or edited and discarded) by a supervisor.",
+    "@dialogCreationNotificationTooltip": {
+        "description": "If supervision is required, any user attempting to send a communication will be reviewed (or edited and discarded) by a supervisor."
+    },
+
+    "dialogCreationNotificationNeedsupervision": "Need supervision",
+    "@dialogCreationNotificationNeedsupervision": {
+        "description": "Needs supervision"
+    },
+
+    "dialogCreationNotificationCreateNotification": "Create notification",
+    "@dialogCreationNotificationCreateNotification": {
+        "description": "Create notification"
+    },
+
+    "dialogCreationNotificationTitleTextfield": "Title",
+    "@dialogCreationNotificationTitleTextfield": {
+        "description": "Title"
+    },
+    
+    "dialogCreationNotificationWithTemplateDefault": "Create as default template",
+    "@dialogCreationNotificationWithTemplateDefault": {
+        "description": "Create as default template"
+    },
+
+    "dialogCreationNotificationCreatedSuccess": "Notification created successfully",
+    "@dialogCreationNotificationCreatedSuccess": {
+        "description": "Notification created successfully"
+    },
+
     "dialogAbsencesSentCorrectly": "absences sent correctly",
     "@dialogAbsencesSentCorrectly": {
         "description": "Text to be displayed in the title of the dialog when absences to sent correctly"
@@ -732,6 +792,16 @@
     "commonDeleteAll": "Delete All",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+    
+    "commonAttention": "Attention",
+    "@commonAttention": {
+        "description": "Attention"
+    },
+    
+    "commonTemplate": "Template",
+    "@commonTemplate": {
+        "description": "Template"
     }
 
 }

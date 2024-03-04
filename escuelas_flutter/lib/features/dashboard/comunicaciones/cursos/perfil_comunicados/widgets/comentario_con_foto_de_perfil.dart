@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ComentarioConFotoDePerfil}
-/// TODO(mati) add docu
+/// Esto es un comentario en una notificacion con la foto del usuario y la fecha
+/// de creacion con el nombre del usuario.
 /// {@endtemplate}
 class ComentarioConFotoDePerfil extends StatelessWidget {
   /// {@macro ComentarioConFotoDePerfil}

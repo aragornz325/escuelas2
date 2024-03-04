@@ -623,6 +623,66 @@
         "description": "Text to be displayed when there are no absent students"
     },
 
+    "pageCommunicationProfileAddNewNotification": "Agregar nueva",
+    "@pageCommunicationProfileAddNewNotification": {
+        "description": "Add new"
+    },
+
+    "pageCommunicationProfileMarkAllRead": "Marcar todo como leído",
+    "@pageCommunicationProfileMarkAllRead": {
+        "description": "Mark all as read"
+    },
+
+    "dialogCreationNotificationWasTemplate": "fue\n creado como plantilla.",
+    "@dialogCreationNotificationWasTemplate": {
+        "description": "was created as a template."
+    },
+
+    "dialogCreationNotificationConfimationSend": "Al confirmar la enviarás como notificación.",
+    "@dialogCreationNotificationConfimationSend": {
+        "description": "Upon confirmation, it will be sent as a notification."
+    },
+
+    "dialogCreationNotificationWillCreateNotification": "Crearas una notificación",
+    "@dialogCreationNotificationWillCreateNotification": {
+        "description": "You will create a notification"
+    },
+
+    "dialogCreationNotificationWantToContinue": "¿Deseas continuar?",
+    "@dialogCreationNotificationWantToContinue": {
+        "description": "Do you want to continue?"
+    },
+    
+    "dialogCreationNotificationTooltip": "Si requiere supervisión, cualquier usuario que intente enviar una comunicación será previamente aceptada (o editada y descartada) por un supervisor.",
+    "@dialogCreationNotificationTooltip": {
+        "description": "If supervision is required, any user attempting to send a communication will be reviewed (or edited and discarded) by a supervisor."
+    },
+
+    "dialogCreationNotificationNeedsupervision": "Necesita supervisión",
+    "@dialogCreationNotificationNeedsupervision": {
+        "description": "Needs supervision"
+    },
+
+    "dialogCreationNotificationCreateNotification": "Crear notificación",
+    "@dialogCreationNotificationCreateNotification": {
+        "description": "Create notification"
+    },
+
+    "dialogCreationNotificationTitleTextfield": "Título",
+    "@dialogCreationNotificationTitleTextfield": {
+        "description": "Title"
+    },
+    
+    "dialogCreationNotificationWithTemplateDefault": "Crear como plantilla predeterminada",
+    "@dialogCreationNotificationWithTemplateDefault": {
+        "description": "Create as default template"
+    },
+
+    "dialogCreationNotificationCreatedSuccess": "Notificación creada con exito",
+    "@dialogCreationNotificationCreatedSuccess": {
+        "description": "Notification created successfully"
+    },
+
     "dialogAttendanceOfDay": "Asistencias del día",
     "@dialogAttendanceOfDay": {
         "description": "Text to be displayed in the title of the dialog"
@@ -742,5 +802,15 @@
     "commonDeleteAll": "Borrar todos",
     "@commonDeleteAll": {
         "description": "Label indicating to delete all items"
+    },
+
+    "commonAttention": "Atención",
+    "@commonAttention": {
+        "description": "Attention"
+    },
+    
+    "commonTemplate": "Plantilla",
+    "@commonTemplate": {
+        "description": "Template"
     }
 }

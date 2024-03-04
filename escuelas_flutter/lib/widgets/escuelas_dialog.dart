@@ -37,6 +37,7 @@ class EscuelasDialog extends StatelessWidget {
     this.conBotonOutline = false,
     this.conIconoCerrar = true,
     this.estaHabilitado = true,
+    this.shape,
     this.ancho,
     this.titulo,
     this.content,
@@ -58,6 +59,7 @@ class EscuelasDialog extends StatelessWidget {
     required BuildContext context,
     required VoidCallback onTap,
     required Widget content,
+    ShapeBorder? shape,
     String? titulo,
     double altura = 100,
     double? ancho,
@@ -65,6 +67,7 @@ class EscuelasDialog extends StatelessWidget {
     final l10n = context.l10n;
 
     return EscuelasDialog(
+      shape: shape,
       ancho: ancho,
       altura: altura,
       onTapConfirmar: onTap,
@@ -171,6 +174,7 @@ class EscuelasDialog extends StatelessWidget {
     required BuildContext context,
     required VoidCallback onTapConfirmar,
     required Widget content,
+    ShapeBorder? shape,
     String? titulo,
     double? altura,
     double? ancho,
@@ -180,6 +184,7 @@ class EscuelasDialog extends StatelessWidget {
     final l10n = context.l10n;
 
     return EscuelasDialog(
+      shape: shape,
       ancho: ancho,
       altura: altura,
       onTapConfirmar: onTapConfirmar,
@@ -263,7 +268,11 @@ class EscuelasDialog extends StatelessWidget {
   /// Color de fondo del botón de `Cancelar` o `Rechazar` de [EscuelasDialog].
   final Color? colorDeFondoDelBotonSecundario;
 
+  /// Indica si el dialogo se encuentra habilitado o no.
   final bool estaHabilitado;
+
+  /// Shape/Borderes del dialogo de [EscuelasDialog].
+  final ShapeBorder? shape;
 
   @override
   Widget build(BuildContext context) {
@@ -274,6 +283,7 @@ class EscuelasDialog extends StatelessWidget {
     final l10n = context.l10n;
 
     return AlertDialog(
+      shape: shape,
       content: SizedBox(
         height: altura,
         width: ancho,

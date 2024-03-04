@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template NombreNotificacionYMarcarComoLeido}
-/// TODO(mati) add docu
+/// es la parte superior de la notificacion donde muestra el nombre de la
+/// notificacion y el boton para marcar como leido.
 /// {@endtemplate}
 class NombreNotificacionYMarcarComoLeido extends StatelessWidget {
   /// {@macro NombreNotificacionYMarcarComoLeido}
@@ -12,7 +13,8 @@ class NombreNotificacionYMarcarComoLeido extends StatelessWidget {
     super.key,
   });
 
-  ///
+  /// Indica si la notificacion esta expandida o no en caso de que este
+  /// expandido oculta las primeras 2 fotos de los comentarios.
   final bool estaExpandido;
 
   @override
