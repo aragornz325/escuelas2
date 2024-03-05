@@ -7,6 +7,23 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
   @override
   OrmUserInfo get orm => OrmUserInfo();
 
+  /// Crea un user info con un nombre de usuario, correo electrónico y contraseña.
+  Future<UserInfo?> crearUserInfo(
+    Session session,
+    String userName,
+    String email,
+    String password,
+  ) async {
+    try {
+      final userInfo = await ejecutarOperacion(
+        () => Emails.createUser(session, userName, email, password),
+      );
+      return userInfo;
+    } catch (e) {
+      return null;
+    }
+  }
+
   /// La función `traerInformacionDeUsuario` recupera un usuario por su ID usando una sesión y un ORM.
   ///
   /// Args:
