@@ -1,13 +1,12 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
-import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@templates EscuelasBoton}
+/// {@template EscuelasBoton}
 /// Boton personalizado para utilizar
-/// {@endtemplates}
+/// {@endtemplate}
 class EscuelasBoton extends StatelessWidget {
   /// {@macro EscuelasBoton}
   const EscuelasBoton({
@@ -126,14 +125,16 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Contexto para utilizar l10n y colores del tema
     required BuildContext context,
+    required String texto,
+    double? width,
   }) {
     final colores = context.colores;
-
-    final l10n = context.l10n;
 
     return EscuelasBoton(
       estaHabilitado: true,
       onTap: onTap,
+      width: width,
+      height: 40.ph,
       color: colores.azul,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -144,7 +145,7 @@ class EscuelasBoton extends StatelessWidget {
           ),
           SizedBox(width: 15.pw),
           Text(
-            l10n.pageLoginLoginWithGoogle,
+            texto,
             style: TextStyle(
               fontSize: 15.pf,
               color: colores.background,
