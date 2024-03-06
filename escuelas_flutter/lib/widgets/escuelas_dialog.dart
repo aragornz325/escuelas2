@@ -85,7 +85,7 @@ class EscuelasDialog extends StatelessWidget {
     required VoidCallback onTap,
     required Widget content,
     String? titulo,
-    double altura = 100,
+    double? altura,
     double? ancho,
     String? tituloDelBoton,
   }) {

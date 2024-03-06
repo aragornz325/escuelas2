@@ -46,6 +46,14 @@ class BlocRegistroEstadoExitosoGeneral extends BlocRegistroEstado {
   BlocRegistroEstadoExitosoGeneral.desde(super.otro) : super.desde();
 }
 
+/// {@template BlocRegistroEstadoExitosoAlRegistrar}
+/// Estado exitoso al registrar un usuario
+/// {@endtemplate}
+class BlocRegistroEstadoExitosoAlRegistrar extends BlocRegistroEstado {
+  /// {@macro BlocRegistroEstadoExitosoAlRegistrar}
+  BlocRegistroEstadoExitosoAlRegistrar.desde(super.otro) : super.desde();
+}
+
 /// {@template BlocRegistroEstadoErrorGeneral}
 /// Estado de error de los componentes de la pantalla 'Registro'
 /// {@endtemplate}

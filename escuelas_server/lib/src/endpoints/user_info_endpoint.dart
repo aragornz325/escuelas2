@@ -1,26 +1,29 @@
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/servicios/servicio_user_info.dart';
 import 'package:serverpod/serverpod.dart';
-import 'package:serverpod_auth_server/module.dart';
 
 class UserInfoEndpoint extends Endpoint with Controller<ServicioUserInfo> {
   @override
   ServicioUserInfo get servicio => ServicioUserInfo();
 
-  Future<UserInfo?> registrarUserInfo(
-    Session session,
-    String userName,
-    String email,
-    String password,
-  ) =>
+  Future<bool> registrarUserInfo(
+    Session session, {
+    required String nombre,
+    required String apellido,
+    required String email,
+    required String password,
+    required String dni,
+  }) =>
       ejecutarOperacionControlador(
         session,
-        'crearUserInfo',
-        () => servicio.crearUserInfo(
+        'registrarUserInfo',
+        () => servicio.registrarUsuario(
           session,
-          userName,
-          email,
-          password,
+          nombre: nombre,
+          apellido: apellido,
+          email: email,
+          password: password,
+          dni: dni,
         ),
       );
 }
