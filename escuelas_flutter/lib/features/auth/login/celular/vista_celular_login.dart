@@ -90,6 +90,22 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
             alignment: AlignmentDirectional.bottomCenter,
             children: [
               Positioned(
+                top: 20.ph,
+                right: 10.pw,
+                child: GestureDetector(
+                  onTap: () => context.router.push(const RutaRegistro()),
+                  child: Text(
+                    l10n.pageRegisterTitle,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      fontSize: 18.pf,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
                 top: 60.ph,
                 child: Column(
                   children: [
@@ -137,6 +153,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                       ),
                     ),
                     EscuelasTextFieldPassword(
+                      onValidate: (value) {},
                       controller: controllerPassword,
                       onChanged: (_) => _habilitarBoton(),
                     ),
@@ -162,6 +179,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                       ),
                     ),
                     EscuelasBoton.loginGoogle(
+                      texto: l10n.pageLoginLoginWithGoogle,
                       onTap: _onPressedLoginConGoogle,
                       context: context,
                     ),

@@ -234,7 +234,7 @@ class _EscuelasDropdownState<T> extends State<EscuelasDropdown<T>> {
                                   hintText: l10n.commonSearchWithDots,
                                   focusNode: _focusNode,
                                   controller: _controller,
-                                  prefixIcon: Icons.search,
+                                  prefixIcon: const Icon(Icons.search),
                                   esPassword: false,
                                   onEditingComplete: _focusNode.unfocus,
                                   onFieldSubmitted: (_) => _focusNode.unfocus(),
