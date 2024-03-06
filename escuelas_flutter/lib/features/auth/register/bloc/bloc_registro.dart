@@ -30,19 +30,28 @@ class BlocRegistro extends Bloc<BlocRegistroEvento, BlocRegistroEstado> {
   ) async {
     emit(BlocRegistroEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) {
-        // TODO(Gon): registrar al usuario
-        emit(
-          BlocRegistroEstadoExitosoGeneral.desde(
-            state,
-          ),
+      callback: (client) async {
+        final response = await client.userInfo.registrarUserInfo(
+          nombre: event.nombre,
+          apellido: event.apellido,
+          email: event.email,
+          password: event.contrasenia,
+          dni: event.documento,
         );
+
+        if (response) {
+          emit(
+            BlocRegistroEstadoExitosoAlRegistrar.desde(state),
+          );
+        } else {
+          emit(
+            BlocRegistroEstadoErrorGeneral.desde(state),
+          );
+        }
       },
       onError: (e, st) {
         emit(
-          BlocRegistroEstadoErrorGeneral.desde(
-            state,
-          ),
+          BlocRegistroEstadoErrorGeneral.desde(state),
         );
       },
     );

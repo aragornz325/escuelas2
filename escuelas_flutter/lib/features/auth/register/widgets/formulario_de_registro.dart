@@ -48,6 +48,13 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
       confirmarContraseniaController.text.length >= 12 &&
       contraseniaController.text.length >= 12;
 
+  bool get lasContraseniasNoCoinciden =>
+      contraseniaController.text.isNotEmpty &&
+      confirmarContraseniaController.text.isNotEmpty &&
+      contraseniaController.text == confirmarContraseniaController.text &&
+      confirmarContraseniaController.text.length !=
+          contraseniaController.text.length;
+
   bool get lasContraseniasContienen12Caracteres =>
       contraseniaController.text.isNotEmpty &&
       confirmarContraseniaController.text.isNotEmpty &&
@@ -85,7 +92,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
               Flexible(
                 child: TextfieldConValidacion(
                   controller: nombreController,
-                  onChanged: () => _formKey.currentState?.validate(),
+                  onChanged: () => setState(() {}),
                   hintText: l10n.commonName,
                   icon: Icons.person_outline,
                 ),
@@ -94,7 +101,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
               Flexible(
                 child: TextfieldConValidacion(
                   controller: apellidoController,
-                  onChanged: () => _formKey.currentState?.validate(),
+                  onChanged: () => setState(() {}),
                   hintText: l10n.commonLastname,
                   icon: Icons.person_outline,
                 ),
@@ -104,7 +111,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
           SizedBox(height: 15.ph),
           TextfieldConValidacionMail(
             controller: emailController,
-            onChanged: () => _formKey.currentState?.validate(),
+            onChanged: () => setState(() {}),
             hintText: l10n.commonEmail,
             icon: Icons.email_outlined,
           ),
@@ -113,8 +120,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
             onValidate: (value) => contraseniaValido = value,
             controller: contraseniaController,
             hintText: l10n.commonPassword,
-            onChanged: (value) =>
-                setState(() => _formKey.currentState?.validate()),
+            onChanged: (value) => setState(() {}),
             backgroundColor: contraseniaValido ?? true
                 ? colores.tertiary
                 : colores.error.withOpacity(.3),
@@ -147,8 +153,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
             onValidate: (value) => confirmarContraseniaValida = value,
             controller: confirmarContraseniaController,
             hintText: l10n.pageRegisterConfirmPassword,
-            onChanged: (value) =>
-                setState(() => _formKey.currentState?.validate()),
+            onChanged: (value) => setState(() {}),
             backgroundColor: confirmarContraseniaValida ?? true
                 ? colores.tertiary
                 : colores.error.withOpacity(.3),
@@ -167,7 +172,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
                 ),
               ),
             ),
-          if (!lasContraseniasCoinciden)
+          if (lasContraseniasNoCoinciden)
             Padding(
               padding: EdgeInsets.only(left: 15.pw),
               child: Align(
@@ -185,17 +190,23 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
           TextfieldConValidacion(
             keyboardType: TextInputType.number,
             controller: documentoController,
-            onChanged: () => _formKey.currentState?.validate(),
+            onChanged: () => setState(() {}),
             hintText: l10n.commonDNI,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             icon: Icons.credit_card_outlined,
           ),
           SizedBox(height: 45.ph),
           EscuelasBoton.texto(
-            estaHabilitado: true,
+            estaHabilitado: nombreController.text.isNotEmpty &&
+                apellidoController.text.isNotEmpty &&
+                emailController.text.isNotEmpty &&
+                contraseniaController.text.isNotEmpty &&
+                confirmarContraseniaController.text.isNotEmpty &&
+                documentoController.text.isNotEmpty,
             width: 100.wp - 40.pw,
             height: 40.ph,
             onTap: () {
+              setState(() {});
               if (_formKey.currentState?.validate() ?? false) {
                 context.read<BlocRegistro>().add(
                       BlocRegistroEventoRegistrarUsuario(
