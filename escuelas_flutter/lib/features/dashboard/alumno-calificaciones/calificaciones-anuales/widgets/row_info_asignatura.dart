@@ -48,6 +48,8 @@ class RowInfoAsignatura extends StatelessWidget {
               const SizedBox(width: 8),
               Tooltip(
                 message: rite.valorativoSegunRITE(),
+                triggerMode: TooltipTriggerMode.tap,
+                showDuration: const Duration(seconds: 5),
                 margin: EdgeInsets.symmetric(horizontal: 80.pw),
                 decoration: BoxDecoration(
                   color: colores.tooltipBackground,
