@@ -89,6 +89,7 @@ class BlocSupervisionComisionEstadoExitoso
   BlocSupervisionComisionEstadoExitoso.desde(
     super.otro, {
     super.listaSupervisionComisiones,
+    super.fecha,
   }) : super.desde();
 }
 
