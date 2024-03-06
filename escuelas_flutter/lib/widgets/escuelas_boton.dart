@@ -17,8 +17,9 @@ class EscuelasBoton extends StatelessWidget {
     this.borderRadius,
     this.width,
     this.height,
-    super.key,
+    this.backgroundColorDeshabilitado,
     this.esOutlined = false,
+    super.key,
   });
 
   factory EscuelasBoton.texto({
@@ -45,6 +46,9 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Altura del boton, por defecto es 30
     double? height,
+
+    /// Color del boton cuando esta deshabilitado
+    Color? backgroundColorDeshabilitado,
   }) {
     final colores = context.colores;
 
@@ -54,6 +58,7 @@ class EscuelasBoton extends StatelessWidget {
       estaHabilitado: estaHabilitado,
       onTap: onTap,
       color: color,
+      backgroundColorDeshabilitado: backgroundColorDeshabilitado,
       child: Text(
         texto,
         style: TextStyle(
@@ -223,6 +228,8 @@ class EscuelasBoton extends StatelessWidget {
   /// Widget que va a contener el boton, puede ser un texto o texto e iconos
   final Widget child;
 
+  final Color? backgroundColorDeshabilitado;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -240,7 +247,7 @@ class EscuelasBoton extends StatelessWidget {
                   ? colores.background
                   : estaHabilitado
                       ? color
-                      : colores.secondary,
+                      : backgroundColorDeshabilitado ?? colores.secondary,
               border:
                   esOutlined ? Border.all(color: colores.onSecondary) : null,
             ),

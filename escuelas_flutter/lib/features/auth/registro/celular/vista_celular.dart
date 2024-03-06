@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
-import 'package:escuelas_flutter/features/auth/register/bloc/bloc_registro.dart';
-import 'package:escuelas_flutter/features/auth/register/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/auth/registro/bloc/bloc_registro.dart';
+import 'package:escuelas_flutter/features/auth/registro/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';

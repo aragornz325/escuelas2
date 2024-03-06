@@ -6,7 +6,7 @@ import 'package:serverpod_auth_server/module.dart';
 class ServicioUserInfo extends Servicio<OrmUserInfo> {
   @override
   OrmUserInfo get orm => OrmUserInfo();
-  Future<bool> registrarUsuario(
+  Future<bool> registrarUserInfo(
     Session session, {
     required String nombre,
     required String apellido,

@@ -1,7 +1,7 @@
 import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/auth/register/bloc/bloc_registro.dart';
-import 'package:escuelas_flutter/features/auth/register/widgets/widgets.dart';
+import 'package:escuelas_flutter/features/auth/registro/bloc/bloc_registro.dart';
+import 'package:escuelas_flutter/features/auth/registro/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
@@ -205,6 +205,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
                 documentoController.text.isNotEmpty,
             width: 100.wp - 40.pw,
             height: 40.ph,
+            backgroundColorDeshabilitado: colores.botonRegistroDeshabilitado,
             onTap: () {
               setState(() {});
               if (_formKey.currentState?.validate() ?? false) {
@@ -219,7 +220,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
                     );
               }
             },
-            color: Colors.blue,
+            color: colores.primary,
             texto: l10n.pageRegisterRegisterButton,
             context: context,
           ),

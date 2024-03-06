@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/features/auth/register/bloc/bloc_registro.dart';
-import 'package:escuelas_flutter/features/auth/register/celular/vista_celular.dart';
-import 'package:escuelas_flutter/features/auth/register/escritorio/vista_escritorio.dart';
+import 'package:escuelas_flutter/features/auth/registro/bloc/bloc_registro.dart';
+import 'package:escuelas_flutter/features/auth/registro/celular/vista_celular.dart';
+import 'package:escuelas_flutter/features/auth/registro/escritorio/vista_escritorio.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:escuelas_flutter/widgets/escuelas_scaffold.dart';
 import 'package:flutter/material.dart';

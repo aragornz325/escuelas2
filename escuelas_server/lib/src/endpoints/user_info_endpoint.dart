@@ -17,7 +17,7 @@ class UserInfoEndpoint extends Endpoint with Controller<ServicioUserInfo> {
       ejecutarOperacionControlador(
         session,
         'registrarUserInfo',
-        () => servicio.registrarUsuario(
+        () => servicio.registrarUserInfo(
           session,
           nombre: nombre,
           apellido: apellido,

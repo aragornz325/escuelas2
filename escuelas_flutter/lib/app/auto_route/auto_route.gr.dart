@@ -18,7 +18,7 @@ import 'package:escuelas_flutter/features/auth/kyc/pagina_kyc.dart' as _i11;
 import 'package:escuelas_flutter/features/auth/kyc/seleccion_de_roles/pagina_seleccion_de_rol.dart'
     as _i20;
 import 'package:escuelas_flutter/features/auth/login/pagina_login.dart' as _i14;
-import 'package:escuelas_flutter/features/auth/register/pagina_registro.dart'
+import 'package:escuelas_flutter/features/auth/registro/pagina_registro.dart'
     as _i19;
 import 'package:escuelas_flutter/features/dashboard/alumno-calificaciones/calificaciones-anuales/pagina_calificaciones_anuales.dart'
     as _i2;
