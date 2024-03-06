@@ -71,24 +71,27 @@ class BlocRegistroEstadoErrorAlRegistrarseConGoogle extends BlocRegistroEstado {
       : super.desde();
 }
 
-/// {@template BlocRegistroEstadoErrorAlRegistrarseConGoogle}
-/// Estado de error al registrarse con google
+/// {@template BlocRegistroEstadoFaltaCompletarKyc}
+/// Falta completar el KYC
 /// {@endtemplate}
 class BlocRegistroEstadoFaltaCompletarKyc extends BlocRegistroEstado {
-  /// {@macro BlocRegistroEstadoErrorAlRegistrarseConGoogle}
+  /// {@macro BlocRegistroEstadoFaltaCompletarKyc}
   BlocRegistroEstadoFaltaCompletarKyc.desde(super.otro) : super.desde();
 }
 
-/// {@template BlocRegistroEstadoErrorAlRegistrarseConGoogle}
-/// Estado de error al registrarse con google
+/// {@template BlocRegistroEstadoSolicitudRechazada}
+/// La solicitud de registro está rechazada
 /// {@endtemplate}
 class BlocRegistroEstadoSolicitudRechazada extends BlocRegistroEstado {
-  /// {@macro BlocRegistroEstadoErrorAlRegistrarseConGoogle}
+  /// {@macro BlocRegistroEstadoSolicitudRechazada}
   BlocRegistroEstadoSolicitudRechazada.desde(super.otro) : super.desde();
 }
 
+/// {@template BlocRegistroEstadoSolicitudPendiente}
+/// La solicitud de registro está pendiente
+/// {@endtemplate}
 class BlocRegistroEstadoSolicitudPendiente extends BlocRegistroEstado {
-  /// {@macro BlocRegistroEstadoErrorAlRegistrarseConGoogle}
+  /// {@macro BlocRegistroEstadoSolicitudPendiente}
   BlocRegistroEstadoSolicitudPendiente.desde(
     super.otro, {
     required this.usuarioPendiente,
@@ -96,8 +99,11 @@ class BlocRegistroEstadoSolicitudPendiente extends BlocRegistroEstado {
   final UsuarioPendiente? usuarioPendiente;
 }
 
+/// {@template BlocRegistroEstadoSolicitudAceptada}
+/// La solicitud de registro está aceptada
+/// {@endtemplate}
 class BlocRegistroEstadoSolicitudAceptada extends BlocRegistroEstado {
-  /// {@macro BlocRegistroEstadoErrorAlRegistrarseConGoogle}
+  /// {@macro BlocRegistroEstadoSolicitudAceptada}
   BlocRegistroEstadoSolicitudAceptada.desde(
     super.otro, {
     required this.userInfo,

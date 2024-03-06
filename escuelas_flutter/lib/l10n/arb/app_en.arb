@@ -40,8 +40,8 @@
   "@pageRegisterInvalidPassword": {
     "description": ""
   },
-  "pageRegisterMinimucCaractersForPassword": "The password must have at least {numberOfCaracters} characters",
-  "@pageRegisterMinimucCaractersForPassword": {
+  "pageRegisterMinimumCaractersForPassword": "The password must have at least {numberOfCaracters} characters",
+  "@pageRegisterMinimumCaractersForPassword": {
     "description": "",
     "placeholders": {
       "numberOfCaracters": {

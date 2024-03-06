@@ -6,10 +6,7 @@ import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/one_signal/one_signal_servicio.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_app.g.dart';
 import 'package:escuelas_flutter/theming/tema/tema_default_light_escuelas.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:serverpod_auth_email_flutter/serverpod_auth_email_flutter.dart';
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -17,11 +14,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FullResponsiveApp(
-      child: RepositoryProvider<EmailAuthController>(
-        create: (BuildContext context) =>
-            EmailAuthController(client.modules.auth),
-        child: const AppView(),
-      ),
+      child: const AppView(),
     );
   }
 }

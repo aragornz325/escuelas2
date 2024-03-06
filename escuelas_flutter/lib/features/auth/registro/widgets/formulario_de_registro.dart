@@ -26,48 +26,48 @@ class FormularioRegistro extends StatefulWidget {
 }
 
 class _FormularioRegistroState extends State<FormularioRegistro> {
-  final TextEditingController nombreController = TextEditingController();
+  final TextEditingController _nombreController = TextEditingController();
 
-  final TextEditingController apellidoController = TextEditingController();
+  final TextEditingController _apellidoController = TextEditingController();
 
-  final TextEditingController emailController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
 
-  final TextEditingController contraseniaController = TextEditingController();
+  final TextEditingController _contraseniaController = TextEditingController();
 
-  final TextEditingController confirmarContraseniaController =
+  final TextEditingController _confirmarContraseniaController =
       TextEditingController();
 
-  final TextEditingController documentoController = TextEditingController();
+  final TextEditingController _documentoController = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
 
   bool get lasContraseniasCoinciden =>
-      contraseniaController.text.isNotEmpty &&
-      confirmarContraseniaController.text.isNotEmpty &&
-      contraseniaController.text == confirmarContraseniaController.text &&
-      confirmarContraseniaController.text.length >= 12 &&
-      contraseniaController.text.length >= 12;
+      _contraseniaController.text.isNotEmpty &&
+      _confirmarContraseniaController.text.isNotEmpty &&
+      _contraseniaController.text == _confirmarContraseniaController.text &&
+      _confirmarContraseniaController.text.length >= 12 &&
+      _contraseniaController.text.length >= 12;
 
   bool get lasContraseniasNoCoinciden =>
-      contraseniaController.text.isNotEmpty &&
-      confirmarContraseniaController.text.isNotEmpty &&
-      contraseniaController.text == confirmarContraseniaController.text &&
-      confirmarContraseniaController.text.length !=
-          contraseniaController.text.length;
+      _contraseniaController.text.isNotEmpty &&
+      _confirmarContraseniaController.text.isNotEmpty &&
+      _contraseniaController.text == _confirmarContraseniaController.text &&
+      _confirmarContraseniaController.text.length !=
+          _contraseniaController.text.length;
 
   bool get lasContraseniasContienen12Caracteres =>
-      contraseniaController.text.isNotEmpty &&
-      confirmarContraseniaController.text.isNotEmpty &&
-      contraseniaController.text.length >= 12 &&
-      confirmarContraseniaController.text.length >= 12;
+      _contraseniaController.text.isNotEmpty &&
+      _confirmarContraseniaController.text.isNotEmpty &&
+      _contraseniaController.text.length >= 12 &&
+      _confirmarContraseniaController.text.length >= 12;
 
   @override
   void dispose() {
-    nombreController.dispose();
-    apellidoController.dispose();
-    emailController.dispose();
-    contraseniaController.dispose();
-    confirmarContraseniaController.dispose();
+    _nombreController.dispose();
+    _apellidoController.dispose();
+    _emailController.dispose();
+    _contraseniaController.dispose();
+    _confirmarContraseniaController.dispose();
 
     super.dispose();
   }
@@ -91,7 +91,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
             children: [
               Flexible(
                 child: TextfieldConValidacion(
-                  controller: nombreController,
+                  controller: _nombreController,
                   onChanged: () => setState(() {}),
                   hintText: l10n.commonName,
                   icon: Icons.person_outline,
@@ -100,7 +100,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
               SizedBox(width: 15.pw),
               Flexible(
                 child: TextfieldConValidacion(
-                  controller: apellidoController,
+                  controller: _apellidoController,
                   onChanged: () => setState(() {}),
                   hintText: l10n.commonLastname,
                   icon: Icons.person_outline,
@@ -110,7 +110,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
           ),
           SizedBox(height: 15.ph),
           TextfieldConValidacionMail(
-            controller: emailController,
+            controller: _emailController,
             onChanged: () => setState(() {}),
             hintText: l10n.commonEmail,
             icon: Icons.email_outlined,
@@ -118,7 +118,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
           SizedBox(height: 15.ph),
           EscuelasTextFieldPassword(
             onValidate: (value) => contraseniaValido = value,
-            controller: contraseniaController,
+            controller: _contraseniaController,
             hintText: l10n.commonPassword,
             onChanged: (value) => setState(() {}),
             backgroundColor: contraseniaValido ?? true
@@ -136,7 +136,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
                     size: 14.pf,
                   ),
                   Text(
-                    l10n.pageRegisterMinimucCaractersForPassword(
+                    l10n.pageRegisterMinimumCaractersForPassword(
                       const RedemptorisMissioConfigs()
                           .minimoDeCaracteresPassword,
                     ),
@@ -151,7 +151,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
           SizedBox(height: 15.ph),
           EscuelasTextFieldPassword(
             onValidate: (value) => confirmarContraseniaValida = value,
-            controller: confirmarContraseniaController,
+            controller: _confirmarContraseniaController,
             hintText: l10n.pageRegisterConfirmPassword,
             onChanged: (value) => setState(() {}),
             backgroundColor: confirmarContraseniaValida ?? true
@@ -189,7 +189,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
           SizedBox(height: 15.ph),
           TextfieldConValidacion(
             keyboardType: TextInputType.number,
-            controller: documentoController,
+            controller: _documentoController,
             onChanged: () => setState(() {}),
             hintText: l10n.commonDNI,
             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
@@ -197,12 +197,12 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
           ),
           SizedBox(height: 45.ph),
           EscuelasBoton.texto(
-            estaHabilitado: nombreController.text.isNotEmpty &&
-                apellidoController.text.isNotEmpty &&
-                emailController.text.isNotEmpty &&
-                contraseniaController.text.isNotEmpty &&
-                confirmarContraseniaController.text.isNotEmpty &&
-                documentoController.text.isNotEmpty,
+            estaHabilitado: _nombreController.text.isNotEmpty &&
+                _apellidoController.text.isNotEmpty &&
+                _emailController.text.isNotEmpty &&
+                _contraseniaController.text.isNotEmpty &&
+                _confirmarContraseniaController.text.isNotEmpty &&
+                _documentoController.text.isNotEmpty,
             width: 100.wp - 40.pw,
             height: 40.ph,
             backgroundColorDeshabilitado: colores.botonRegistroDeshabilitado,
@@ -211,11 +211,11 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
               if (_formKey.currentState?.validate() ?? false) {
                 context.read<BlocRegistro>().add(
                       BlocRegistroEventoRegistrarUsuario(
-                        nombre: nombreController.text,
-                        apellido: apellidoController.text,
-                        email: emailController.text,
-                        contrasenia: contraseniaController.text,
-                        documento: documentoController.text,
+                        nombre: _nombreController.text,
+                        apellido: _apellidoController.text,
+                        email: _emailController.text,
+                        contrasenia: _contraseniaController.text,
+                        documento: _documentoController.text,
                       ),
                     );
               }

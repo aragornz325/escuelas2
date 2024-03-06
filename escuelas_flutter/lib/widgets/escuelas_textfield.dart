@@ -111,7 +111,11 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Icono de sufijo
     required Widget suffixIcon,
+
+    /// Funcion de validacion
     required ValueChanged<bool> onValidate,
+
+    /// Formateadores de texto para ponerle restricciones a el usuario
     required List<TextInputFormatter>? inputFormatters,
 
     /// Texto de error
@@ -340,6 +344,7 @@ class EscuelasTextFieldPassword extends StatefulWidget {
   /// Texto interno del TextFormField
   final String? hintText;
 
+  /// Color del fondo del campo de texto
   final Color? backgroundColor;
 
   /// Funcion onChanged del textfield
@@ -391,7 +396,7 @@ class _EscuelasTextFieldPasswordState extends State<EscuelasTextFieldPassword> {
 
         if ((value?.length ?? 0) < 12) {
           widget.onValidate(false);
-          return l10n.pageRegisterMinimucCaractersForPassword(
+          return l10n.pageRegisterMinimumCaractersForPassword(
             const RedemptorisMissioConfigs().minimoDeCaracteresPassword,
           );
         }
