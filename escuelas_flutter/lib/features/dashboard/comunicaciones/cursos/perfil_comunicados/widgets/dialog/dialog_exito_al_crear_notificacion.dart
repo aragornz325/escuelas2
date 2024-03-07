@@ -17,7 +17,7 @@ class DialogExitoAlCrearNotificacion extends StatelessWidget {
     super.key,
   });
 
-  ///
+  /// Titulo de la plantilla al crear una nueva notificacion.
   final String? tituloPlantilla;
 
   @override
@@ -41,7 +41,7 @@ class DialogExitoAlCrearNotificacion extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: '${l10n.commonTemplate} ',
+                    text: l10n.commonTemplate,
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 16.pf,
@@ -49,7 +49,7 @@ class DialogExitoAlCrearNotificacion extends StatelessWidget {
                     ),
                   ),
                   TextSpan(
-                    text: '“$tituloPlantilla“',
+                    text: ' “$tituloPlantilla“',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 16.pf,

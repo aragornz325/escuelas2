@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/bloc/bloc_perfil_comunicados.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/widgets/widgets.dart';
@@ -11,19 +12,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template DialgoCrearNotificacion}
+/// {@template DialogCrearNotificacion}
 /// Dialog para crear una nueva notificacion con o sin una plantilla.
 /// {@endtemplate}
-class DialgoCrearNotificacion extends StatefulWidget {
-  /// {@macro DialgoCrearNotificacion}
-  const DialgoCrearNotificacion({super.key});
+class DialogCrearNotificacion extends StatefulWidget {
+  /// {@macro DialogCrearNotificacion}
+  const DialogCrearNotificacion({super.key});
 
   @override
-  State<DialgoCrearNotificacion> createState() =>
-      _DialgoCrearNotificacionState();
+  State<DialogCrearNotificacion> createState() =>
+      _DialogCrearNotificacionState();
 }
 
-class _DialgoCrearNotificacionState extends State<DialgoCrearNotificacion> {
+class _DialogCrearNotificacionState extends State<DialogCrearNotificacion> {
   /// Controller del titulo de la notificacion
   final _controllerTitulo = TextEditingController();
 
@@ -33,6 +34,9 @@ class _DialgoCrearNotificacionState extends State<DialgoCrearNotificacion> {
   /// Indica si quiere crear la notificacion con una plantilla predeterminada.
   bool _crearConPlantillaPredeterminada = false;
 
+  /// Plantilla de la notificacion para crear una notificacion.
+  late PlantillaComunicacion? plantilla;
+
   /// Muestra el proximo dialog de crear notificacion para confirmar la creacion
   /// de la notificacion
   void _dialogConfimarCreacionNotificacion(BuildContext context) {
@@ -41,10 +45,14 @@ class _DialgoCrearNotificacionState extends State<DialgoCrearNotificacion> {
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocPerfilComunicados>(),
-        child: const DialogConfirmarCreacionNotificacion(
-            // TODO(mati): nombre de la plantilla en caso de que elija una predeterminada.
-            // tituloPlantilla: 'ejemplo 1',
-            ),
+        child: DialogConfirmarCreacionNotificacion(
+          tituloPlantilla:
+              _controllerTitulo.text != '' && _crearConPlantillaPredeterminada
+                  ? _controllerTitulo.text
+                  : null,
+          descripcion: _controllerContenido.text,
+          crearConPlantillaPredeterminada: _crearConPlantillaPredeterminada,
+        ),
       ),
     );
   }
@@ -155,18 +163,45 @@ class _DialgoCrearNotificacionState extends State<DialgoCrearNotificacion> {
               ],
             ),
             SizedBox(height: max(10.ph, 10.sh)),
-            SizedBox(
-              height: max(50.ph, 50.sh),
-              width: 300.pw,
-              child: EscuelasDropdownPopup(
-                // TODO (mati): reemplazar por la lista de plantillas del bloc
-                list: const [
-                  PopupOption(id: 1, name: 'Crear Nueva Plantilla'),
-                  PopupOption(id: 2, name: 'Falta de respeto'),
-                  PopupOption(id: 3, name: 'Uso de recursos inapropiados'),
-                ],
-                onChanged: (value) {},
-              ),
+            BlocBuilder<BlocPerfilComunicados, BlocPerfilComunicadosEstado>(
+              builder: (context, state) {
+                final lista = <PopupOption>[
+                  PopupOption(id: 0, name: l10n.commonNoPlantilla),
+                  ...state.plantillas.map(
+                    (e) => PopupOption(
+                      id: e.id ?? 0,
+                      name: e.titulo,
+                    ),
+                  ),
+                ];
+
+                return SizedBox(
+                  height: max(50.ph, 50.sh),
+                  width: 300.pw,
+                  child: EscuelasDropdownPopup(
+                    hintText: l10n.commonTemplates,
+                    selectedOptionColor: colores.grisClaroSombreado,
+                    list: lista,
+                    onChanged: (value) {
+                      setState(() {
+                        if (value.first.id == 0) {
+                          _controllerContenido.clear();
+                          _controllerTitulo.clear();
+                        } else {
+                          // Buscar la plantilla seleccionada
+                          plantilla = state.plantillas.firstWhere(
+                            (element) => element.id == value.first.id,
+                          );
+
+                          // Actualizar los controladores con la nueva plantilla
+                          _controllerTitulo.text = plantilla!.titulo;
+                          _controllerContenido.text = plantilla!.nota;
+                        }
+                      });
+                    },
+                  ),
+                );
+              },
             ),
           ],
         ),

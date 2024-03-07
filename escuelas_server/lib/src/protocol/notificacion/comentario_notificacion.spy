@@ -1,0 +1,10 @@
+class: ComentarioHiloDeNotificaciones
+table: comentarios_hilo_de_notificaciones
+fields:
+  contenido: String
+  idHiloDeNotificaciones: int,relation(parent=hilos_de_notificaciones)
+  autor: Usuario?, relation
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?
+  ultimaModificacion: DateTime
+  fechaLectura: DateTime?

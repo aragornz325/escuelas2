@@ -31,7 +31,7 @@ class PaginaPerfilComunicados extends StatelessWidget {
       create: (context) => BlocPerfilComunicados(
         idUsuario: idUsuario,
         nombreUsuario: nombreUsuario,
-      ),
+      )..add(BlocPerfilComunicadosEventoInicializar()),
       child: const FullResponsiveScreen(
         celular: VistaCelularPerfilComunicados(),
         escritorio: VistaEscritorioPerfilComunicados(),

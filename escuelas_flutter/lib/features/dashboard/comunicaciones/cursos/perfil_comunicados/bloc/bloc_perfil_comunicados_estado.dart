@@ -9,11 +9,17 @@ sealed class BlocPerfilComunicadosEstado {
   const BlocPerfilComunicadosEstado._({
     required this.idUsuario,
     required this.nombreUsuario,
+    this.plantillas = const [],
+    this.notificaciones = const [],
   });
 
   BlocPerfilComunicadosEstado.desde(
-    BlocPerfilComunicadosEstado otro,
-  ) : this._(
+    BlocPerfilComunicadosEstado otro, {
+    List<PlantillaComunicacion>? plantillas,
+    List<HiloDeNotificaciones>? notificaciones,
+  }) : this._(
+          plantillas: plantillas ?? otro.plantillas,
+          notificaciones: notificaciones ?? otro.notificaciones,
           idUsuario: otro.idUsuario,
           nombreUsuario: otro.nombreUsuario,
         );
@@ -24,9 +30,17 @@ sealed class BlocPerfilComunicadosEstado {
   /// Nombre del usuario/alumno
   final String nombreUsuario;
 
+  /// Lista de plantillas para la creacion de notificaciones.
+  final List<PlantillaComunicacion> plantillas;
+
+  /// Lista de notificaciones
+  final List<HiloDeNotificaciones> notificaciones;
+
   List<Object> get props => [
         idUsuario,
         nombreUsuario,
+        plantillas,
+        notificaciones,
       ];
 }
 
@@ -56,8 +70,10 @@ class BlocPerfilComunicadosEstadoCargando extends BlocPerfilComunicadosEstado {
 class BlocPerfilComunicadosEstadoExitoso extends BlocPerfilComunicadosEstado {
   /// {@macro BlocPerfilComunicadosEstadoExitoso}
   BlocPerfilComunicadosEstadoExitoso.desde(
-    super.otro,
-  ) : super.desde();
+    super.otro, {
+    super.plantillas,
+    super.notificaciones,
+  }) : super.desde();
 }
 
 /// {@template BlocPerfilComunicadosEstadoFallido}
@@ -78,8 +94,9 @@ class BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion
   BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion.desde(
     super.otro, {
     this.tituloPlantilla,
+    super.notificaciones,
   }) : super.desde();
 
-  ///
+  /// Titulo de la plantilla al crear una nueva notificacion.
   final String? tituloPlantilla;
 }

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -30,7 +31,7 @@ class BotonAgregarComentario extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           CircleAvatar(
-            backgroundColor: colores.primary.withOpacity(.3),
+            backgroundColor: colores.grisBotonPresionado,
             radius: 20.sw,
             child: IconButton(
               onPressed: onPressed,

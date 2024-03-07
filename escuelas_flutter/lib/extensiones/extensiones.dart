@@ -4,5 +4,6 @@ export 'comision_de_curso.dart';
 export 'curso.dart';
 export 'date_time.dart';
 export 'estado_asistencia.dart';
+export 'hilo_de_notificacion.dart';
 export 'string.dart';
 export 'tema.dart';

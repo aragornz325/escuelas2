@@ -251,10 +251,6 @@
   "@pageStudentGrades": {
     "description": "Title of the page Grades for a student"
   },
-      "pageCommunicationsTitle": "Comunicaciones",
-    "@pageCommunicationsTitle": {
-        "description": "Title of the page Communications"
-    },
 
   "pageGradesStudentCardAverage": "Promedio: ",
   "@pageGradesStudentCardAverage": {
@@ -271,6 +267,18 @@
   "pageUserProfileButtonAddSubject": "Añadir asignatura",
   "@pageUserProfileButtonAddSubject": {
     "description": "Text in button to Add a new subject for the current teacher"
+  },
+  "pageCommunicationsTitle": "Comunicaciones",
+  "@pageCommunicationsTitle": {
+      "description": "Title of the page Communications"
+  },
+  "pageCommunicationProfileAddNewNotification": "Agregar nueva",
+  "@pageCommunicationProfileAddNewNotification": {
+      "description": "Add new"
+  },
+  "pageCommunicationProfileMarkAllRead": "Marcar todo como leído",
+  "@pageCommunicationProfileMarkAllRead": {
+      "description": "Mark all as read"
   },
   "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
   "@dialogErrorToSendGrades": {
@@ -303,6 +311,10 @@
   "drawerLogOut": "Cerrar sesión",
   "@drawerLogOut": {
     "description": "Text of the button in the logout item"
+  },
+  "routeNameMenuCommunications": "Comunicaciones",
+  "@routeNameMenuCommunications": {
+      "description": "Name of the route"
   },
   "routeNameHome": "Inicio",
   "@routeNameHome": {
@@ -359,29 +371,20 @@
   "routeNamePendingUsers": "Usuarios pendientes",
   "@routeNamePendingUsers": {
     "description": ""
+  },    
+  "routeNamePendingCommunications": "Pendientes",
+  "@routeNamePendingCommunications": {
+      "description": "Name of the route"
+  },
+  "routeNameGeneralCommunications": "General",
+  "@routeNameGeneralCommunications": {
+      "description": "Name of the route"
   },
 
-    "routeNameMenuCommunications": "Comunicaciones",
-    "@routeNameMenuCommunications": {
-        "description": "Name of the route"
-    },
-
-    
-    "routeNamePendingCommunications": "Pendientes",
-    "@routeNamePendingCommunications": {
-        "description": "Name of the route"
-    },
-
-    
-    "routeNameGeneralCommunications": "General",
-    "@routeNameGeneralCommunications": {
-        "description": "Name of the route"
-    },
-
-    "routeNameCourseCommunications": "Cursos",
-    "@routeNameCourseCommunications": {
-        "description": "Name of the route"
-    },
+  "routeNameCourseCommunications": "Cursos",
+  "@routeNameCourseCommunications": {
+      "description": "Name of the route"
+  },
 
   "routeAcademicCommunityMenu": "Menú",
   "@routeAcademicCommunityMenu": {
@@ -567,66 +570,6 @@
   "@pageAttendanceNotAbsentStudents": {
     "description": "Text to be displayed when there are no absent students"
   },
-
-    "pageCommunicationProfileAddNewNotification": "Agregar nueva",
-    "@pageCommunicationProfileAddNewNotification": {
-        "description": "Add new"
-    },
-
-    "pageCommunicationProfileMarkAllRead": "Marcar todo como leído",
-    "@pageCommunicationProfileMarkAllRead": {
-        "description": "Mark all as read"
-    },
-
-    "dialogCreationNotificationWasTemplate": "fue\n creado como plantilla.",
-    "@dialogCreationNotificationWasTemplate": {
-        "description": "was created as a template."
-    },
-
-    "dialogCreationNotificationConfimationSend": "Al confirmar la enviarás como notificación.",
-    "@dialogCreationNotificationConfimationSend": {
-        "description": "Upon confirmation, it will be sent as a notification."
-    },
-
-    "dialogCreationNotificationWillCreateNotification": "Crearas una notificación",
-    "@dialogCreationNotificationWillCreateNotification": {
-        "description": "You will create a notification"
-    },
-
-    "dialogCreationNotificationWantToContinue": "¿Deseas continuar?",
-    "@dialogCreationNotificationWantToContinue": {
-        "description": "Do you want to continue?"
-    },
-    
-    "dialogCreationNotificationTooltip": "Si requiere supervisión, cualquier usuario que intente enviar una comunicación será previamente aceptada (o editada y descartada) por un supervisor.",
-    "@dialogCreationNotificationTooltip": {
-        "description": "If supervision is required, any user attempting to send a communication will be reviewed (or edited and discarded) by a supervisor."
-    },
-
-    "dialogCreationNotificationNeedsupervision": "Necesita supervisión",
-    "@dialogCreationNotificationNeedsupervision": {
-        "description": "Needs supervision"
-    },
-
-    "dialogCreationNotificationCreateNotification": "Crear notificación",
-    "@dialogCreationNotificationCreateNotification": {
-        "description": "Create notification"
-    },
-
-    "dialogCreationNotificationTitleTextfield": "Título",
-    "@dialogCreationNotificationTitleTextfield": {
-        "description": "Title"
-    },
-    
-    "dialogCreationNotificationWithTemplateDefault": "Crear como plantilla predeterminada",
-    "@dialogCreationNotificationWithTemplateDefault": {
-        "description": "Create as default template"
-    },
-
-    "dialogCreationNotificationCreatedSuccess": "Notificación creada con exito",
-    "@dialogCreationNotificationCreatedSuccess": {
-        "description": "Notification created successfully"
-    },
   "dialogAttendanceOfDay": "Asistencias del día",
   "@dialogAttendanceOfDay": {
     "description": "Text to be displayed in the title of the dialog"
@@ -702,6 +645,54 @@
   "pageManageTemplatesDialogDeletedSuccessfully": "Eliminado exitosamente",
   "@pageManageTemplatesDialogDeletedSuccessfully": {
     "description": "Text to be displayed in the dialog to notify for deleted successfully"
+  },
+  "dialogCreationNotificationCreateNotification": "Crear notificación",
+  "@dialogCreationNotificationCreateNotification": {
+      "description": "Create notification"
+  },
+
+  "dialogCreationNotificationCreatedSuccess": "Notificación creada con exito",
+  "@dialogCreationNotificationCreatedSuccess": {
+      "description": "Notification created successfully"
+  },
+  "dialogCreationNotificationTitleTextfield": "Título",
+  "@dialogCreationNotificationTitleTextfield": {
+      "description": "Title"
+  },
+  
+  "dialogCreationNotificationWasTemplate": "fue\n creado como plantilla.",
+  "@dialogCreationNotificationWasTemplate": {
+      "description": "was created as a template."
+  },
+
+  "dialogCreationNotificationConfimationSend": "Al confirmar la enviarás como notificación.",
+  "@dialogCreationNotificationConfimationSend": {
+      "description": "Upon confirmation, it will be sent as a notification."
+  },
+
+  "dialogCreationNotificationWillCreateNotification": "crearás una notificación",
+  "@dialogCreationNotificationWillCreateNotification": {
+      "description": "You will create a notification"
+  },
+
+  "dialogCreationNotificationWantToContinue": "¿Deseas continuar?",
+  "@dialogCreationNotificationWantToContinue": {
+      "description": "Do you want to continue?"
+  },
+  
+  "dialogCreationNotificationTooltip": "Si requiere supervisión, cualquier usuario que intente enviar una comunicación será previamente aceptada (o editada y descartada) por un supervisor.",
+  "@dialogCreationNotificationTooltip": {
+      "description": "If supervision is required, any user attempting to send a communication will be reviewed (or edited and discarded) by a supervisor."
+  },
+
+  "dialogCreationNotificationNeedsupervision": "Necesita supervisión",
+  "@dialogCreationNotificationNeedsupervision": {
+      "description": "Needs supervision"
+  },
+
+  "dialogCreationNotificationWithTemplateDefault": "Crear como plantilla predeterminada",
+  "@dialogCreationNotificationWithTemplateDefault": {
+      "description": "Create as default template"
   },
   "dialogSeeMore": "Ver más",
   "@dialogSeeMore": {
@@ -802,14 +793,30 @@
 
   "commonTemplate": "Plantilla",
   "@commonTemplate": {
-        "description": "Template"
+      "description": "Template"
+  },
+  "commonTemplates": "Plantillas",
+  "@commonTemplates": {
+      "description": "Templates"
   },
   "commonDelete": "Eliminar",
   "@commonDelete": {
-    "description": "Label indicating to delete"
+      "description": "Label indicating to delete"
   },
-  "commonAttention": "Atención",
-  "@commonAttention": {
-    "description": "Label indicating to Attention"
+
+  "commonToday": "Hoy",
+  "@commonToday": {
+      "description": "Text today"
+  },
+
+  "commonNow": "Ahora",
+  "@commonNow": {
+      "description": "Text now"
+  },
+  
+  "commonNoPlantilla": "Sin template",
+  "@commonNoPlantilla": {
+      "description": "Text no template"
   }
+
 }
