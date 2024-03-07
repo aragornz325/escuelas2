@@ -1,8 +1,11 @@
 import 'dart:math';
 
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/bloc/bloc_perfil_comunicados.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ExpansionTileNotificaciones}
@@ -13,8 +16,12 @@ import 'package:full_responsive/full_responsive.dart';
 class ExpansionTileNotificaciones extends StatefulWidget {
   /// {@macro ExpansionTileNotificaciones}
   const ExpansionTileNotificaciones({
+    required this.notificacion,
     super.key,
   });
+
+  /// Notificacion a mostrar.
+  final HiloDeNotificaciones notificacion;
 
   @override
   State<ExpansionTileNotificaciones> createState() =>
@@ -23,11 +30,11 @@ class ExpansionTileNotificaciones extends StatefulWidget {
 
 class _ExpansionTileNotificacionesState
     extends State<ExpansionTileNotificaciones> {
-  /// para saber si esta expandido el expansion tile en caso de que este
+  /// Para saber si esta expandido el expansion tile en caso de que este
   /// expandido oculta las primeras 2 fotos de los comentarios.
   bool _estaExpandido = false;
 
-  /// para saber si se agrego un nuevo comentario a la notificacion en caso de
+  /// Para saber si se agrego un nuevo comentario a la notificacion en caso de
   /// este en true oculta el boton para agregar un nuevo comentario.
   bool _agregarComentario = false;
 
@@ -56,23 +63,33 @@ class _ExpansionTileNotificacionesState
           borderRadius: BorderRadius.circular(10.sw),
           side: BorderSide(color: colores.secondary, width: 1.pw),
         ),
-        leading: _estaExpandido ? null : const FotosYFechasDelComentario(),
+        leading: _estaExpandido
+            ? null
+            : FotosYFechasDelComentario(
+                notificacion: widget.notificacion,
+              ),
         title: NombreNotificacionYMarcarComoLeido(
+          notificacion: widget.notificacion,
           estaExpandido: _estaExpandido,
         ),
         children: [
           ListaDeComentarios(
+            comentarios: widget.notificacion.comentarios ?? [],
             agregarComentario: _agregarComentario,
             controller: _controllerComentario,
-            onPressed: () {
-              // TODO(mati): funcionamiento para agregar un nuevo
-              // comentario.
-              setState(() {
-                _agregarComentario = !_agregarComentario;
-              });
-            },
+            onPressed: () =>
+                setState(() => _agregarComentario = !_agregarComentario),
             onFieldSubmitted: (value) {
-              // TODO(mati): funcionamiento para agregar un nuevo comentario
+              if (value.trim().isNotEmpty &&
+                  _controllerComentario.text.isNotEmpty) {
+                context.read<BlocPerfilComunicados>().add(
+                      BlocPerfilComunicadosEventoCrearComentario(
+                        idHiloDeNotificacion: widget.notificacion.id ?? 0,
+                        comentario: _controllerComentario.text,
+                      ),
+                    );
+              }
+
               setState(() {
                 _agregarComentario = !_agregarComentario;
                 _controllerComentario.clear();

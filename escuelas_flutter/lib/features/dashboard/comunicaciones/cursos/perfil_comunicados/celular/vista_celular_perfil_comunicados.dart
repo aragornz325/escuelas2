@@ -34,44 +34,46 @@ class VistaCelularPerfilComunicados extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.pw),
       child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            BlocBuilder<BlocPerfilComunicados, BlocPerfilComunicadosEstado>(
-              builder: (context, state) {
-                return Text(
+        child: BlocConsumer<BlocPerfilComunicados, BlocPerfilComunicadosEstado>(
+          listener: (context, state) {
+            if (state
+                is BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion) {
+              _dialogExitoAlCrearNotificacion(
+                context,
+                state.tituloPlantilla,
+              );
+            }
+          },
+          builder: (context, state) {
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   state.nombreUsuario,
                   style: TextStyle(
                     fontWeight: FontWeight.w800,
                     fontSize: 16.pf,
                     color: colores.onBackground,
                   ),
-                );
-              },
-            ),
-            SizedBox(height: max(5.ph, 5.sh)),
-            Divider(height: 0, color: colores.secondary),
-            SizedBox(height: max(10.ph, 10.sh)),
-            BlocConsumer<BlocPerfilComunicados, BlocPerfilComunicadosEstado>(
-              listener: (context, state) {
-                if (state
-                    is BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion) {
-                  _dialogExitoAlCrearNotificacion(
-                    context,
-                    state.tituloPlantilla,
-                  );
-                }
-              },
-              builder: (context, state) {
-                return const BotonesAgregarNuevaYMarcarTodosComoLeidos();
-              },
-            ),
-
-            /// TODO(mati): agregar lista de notificaciones
-            const ExpansionTileNotificaciones(),
-            const ExpansionTileNotificaciones(),
-            const ExpansionTileNotificaciones(),
-          ],
+                ),
+                SizedBox(height: max(5.ph, 5.sh)),
+                Divider(height: 0, color: colores.secondary),
+                SizedBox(height: max(10.ph, 10.sh)),
+                BotonesAgregarNuevaYMarcarTodosComoLeidos(
+                  notificaciones: state.notificaciones,
+                ),
+                Column(
+                  children: state.notificaciones
+                      .map(
+                        (notificacion) => ExpansionTileNotificaciones(
+                          notificacion: notificacion,
+                        ),
+                      )
+                      .toList(),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

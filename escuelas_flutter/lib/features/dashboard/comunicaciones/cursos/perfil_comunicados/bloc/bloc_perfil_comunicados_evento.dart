@@ -23,11 +23,24 @@ class BlocPerfilComunicadosEventoCrearNotificacion
     extends BlocPerfilComunicadosEvento {
   /// {@macro BlocPerfilComunicadosEventoCrearNotificacion}
   BlocPerfilComunicadosEventoCrearNotificacion({
+    required this.descripcion,
+    required this.necesitaSupervision,
+    required this.crearNuevaPlantilla,
     this.tituloPlantilla,
   });
 
-  ///
+  /// El titulo de la plantilla
   final String? tituloPlantilla;
+
+
+  /// Descripcion de la notificacion
+  final String descripcion;
+
+  /// Indica si la notificacion necesita supervision.
+  final bool necesitaSupervision;
+
+  /// Indica si la notificacion necesita crear una plantilla
+  final bool crearNuevaPlantilla;
 }
 
 /// {@template BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas}
@@ -36,6 +49,12 @@ class BlocPerfilComunicadosEventoCrearNotificacion
 class BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas
     extends BlocPerfilComunicadosEvento {
   /// {@macro BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas}
+  BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas({
+    required this.notificacion,
+  });
+
+  /// Notificacion a marcar como leida
+  final HiloDeNotificaciones notificacion;
 }
 
 /// {@template BlocPerfilComunicadosEventoCrearComentario}
@@ -44,6 +63,16 @@ class BlocPerfilComunicadosEventoMarcarNotificacionComoLeidas
 class BlocPerfilComunicadosEventoCrearComentario
     extends BlocPerfilComunicadosEvento {
   /// {@macro BlocPerfilComunicadosEventoCrearComentario}
+  BlocPerfilComunicadosEventoCrearComentario({
+    required this.idHiloDeNotificacion,
+    required this.comentario,
+  });
+
+  /// Id de la notificacion
+  final int idHiloDeNotificacion;
+
+  /// Comentario
+  final String comentario;
 }
 
 /// {@template BlocPerfilComunicadosEventoNotificacionMarcarTodasComoLeidas}
@@ -52,4 +81,5 @@ class BlocPerfilComunicadosEventoCrearComentario
 class BlocPerfilComunicadosEventoNotificacionMarcarTodasComoLeidas
     extends BlocPerfilComunicadosEvento {
   /// {@macro BlocPerfilComunicadosEventoNotificacionMarcarTodasComoLeidas}
+  BlocPerfilComunicadosEventoNotificacionMarcarTodasComoLeidas();
 }

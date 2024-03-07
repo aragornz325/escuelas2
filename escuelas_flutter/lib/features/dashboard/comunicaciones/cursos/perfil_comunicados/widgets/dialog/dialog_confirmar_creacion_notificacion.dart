@@ -15,6 +15,8 @@ import 'package:full_responsive/full_responsive.dart';
 class DialogConfirmarCreacionNotificacion extends StatefulWidget {
   /// {@macro DialogConfirmarCreacionNotificacion}
   const DialogConfirmarCreacionNotificacion({
+    required this.crearConPlantillaPredeterminada,
+    required this.descripcion,
     this.tituloPlantilla,
     super.key,
   });
@@ -22,6 +24,12 @@ class DialogConfirmarCreacionNotificacion extends StatefulWidget {
   /// Titulo de la plantilla en caso de que el usuario quiera crear una
   /// notificacion con una plantilla predeterminada.
   final String? tituloPlantilla;
+
+  /// Crear una notificacion con una plantilla predeterminada.
+  final bool crearConPlantillaPredeterminada;
+
+  /// Descripcion de la notificacion o primer mensaje a enviar.
+  final String descripcion;
 
   @override
   State<DialogConfirmarCreacionNotificacion> createState() =>
@@ -43,7 +51,10 @@ class _DialogConfirmarCreacionNotificacionState
       onTapConfirmar: () {
         context.read<BlocPerfilComunicados>().add(
               BlocPerfilComunicadosEventoCrearNotificacion(
+                crearNuevaPlantilla: widget.crearConPlantillaPredeterminada,
                 tituloPlantilla: widget.tituloPlantilla,
+                necesitaSupervision: false,
+                descripcion: '',
               ),
             );
       },

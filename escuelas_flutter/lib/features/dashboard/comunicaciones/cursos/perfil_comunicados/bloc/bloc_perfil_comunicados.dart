@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:meta/meta.dart';
 
@@ -40,11 +41,21 @@ class BlocPerfilComunicados
 
     await operacionBloc(
       callback: (client) async {
-        /// TODO(mati) llamar a las notificaciones y a las plantillas por defecto
-        // await client.getNotificacionesPorIdUsuario(idUsuario:
-        // state.idUsuario);
+        final plantillas =
+            await client.plantillaComunicacion.listarPlantillasComunicacion();
 
-        emit(BlocPerfilComunicadosEstadoExitoso.desde(state));
+        final notificaciones = await client.cuadernoDeComunicaciones
+            .listarHilosDeNotificacionesPorUsuario(
+          idUsuario: state.idUsuario,
+        );
+
+        emit(
+          BlocPerfilComunicadosEstadoExitoso.desde(
+            state,
+            plantillas: plantillas,
+            notificaciones: notificaciones,
+          ),
+        );
       },
       onError: (e, st) => emit(
         BlocPerfilComunicadosEstadoFallido.desde(state),
@@ -61,13 +72,22 @@ class BlocPerfilComunicados
 
     await operacionBloc(
       callback: (client) async {
-        /// TODO(mati) llamar a crear notificacion
-        /// await client.crearNotificacion();
+        final notificacion =
+            await client.cuadernoDeComunicaciones.crearHiloDeNotificaciones(
+          idEstudiante: state.idUsuario,
+          titulo: event.tituloPlantilla ?? '',
+          mensaje: event.descripcion,
+          crearNuevaPlantilla: event.crearNuevaPlantilla,
+          necesitaSupervision: event.necesitaSupervision,
+        );
+
+        state.notificaciones.add(notificacion);
 
         emit(
           BlocPerfilComunicadosEstadoExitosoAlCrearNotificacion.desde(
             state,
             tituloPlantilla: event.tituloPlantilla,
+            notificaciones: state.notificaciones,
           ),
         );
       },
@@ -86,8 +106,11 @@ class BlocPerfilComunicados
 
     await operacionBloc(
       callback: (client) async {
-        /// TODO(mati) llamar marcar o modificar una notificacion
-        /// await client.moficarNotificacion();
+        // TODO(anyone): todavia no esta muy bien planteado como marcar las notificaciones como leidas
+        // final notificacion = event.notificacion;
+
+        // await client.cuadernoDeComunicaciones
+        //     .modificarHiloDeNotificaciones(hiloDeNotificaciones: notificacion);
 
         emit(BlocPerfilComunicadosEstadoExitoso.desde(state));
       },
@@ -103,13 +126,27 @@ class BlocPerfilComunicados
     Emitter<BlocPerfilComunicadosEstado> emit,
   ) async {
     emit(BlocPerfilComunicadosEstadoCargando.desde(state));
-
     await operacionBloc(
       callback: (client) async {
-        /// TODO(mati) Crear Comentario para una notificacion
-        /// await client.CrearComentarioEnNotificacion();
+        final nuevoComentario = await client.cuadernoDeComunicaciones
+            .agregarComentarioEnHiloDeNotificaciones(
+          idHiloDeNotificaciones: event.idHiloDeNotificacion,
+          comentario: event.comentario,
+        );
+        state.notificaciones
+            .firstWhere(
+              (notificaciones) =>
+                  notificaciones.id == event.idHiloDeNotificacion,
+            )
+            .comentarios
+            ?.add(nuevoComentario);
 
-        emit(BlocPerfilComunicadosEstadoExitoso.desde(state));
+        emit(
+          BlocPerfilComunicadosEstadoExitoso.desde(
+            state,
+            notificaciones: state.notificaciones,
+          ),
+        );
       },
       onError: (e, st) => emit(
         BlocPerfilComunicadosEstadoFallido.desde(state),
@@ -123,14 +160,20 @@ class BlocPerfilComunicados
     Emitter<BlocPerfilComunicadosEstado> emit,
   ) async {
     emit(BlocPerfilComunicadosEstadoCargando.desde(state));
-
     await operacionBloc(
       callback: (client) async {
-        /// TODO(mati) Marcar como leidas todas las notificaciones que tenga el
-        /// usuario
-        /// await client.CrearComentarioEnNotificacion();
+        // TODO(anyone): todavia no es muy bien planteado como marcar las notificaciones como leidas
+        // final notificacion = await client.cuadernoDeComunicaciones
+        //     .marcarTodosLosHilosDeNotificacionesesDelUsuarioComoLeidos(
+        //   idUsuario: state.idUsuario,
+        // );
 
-        emit(BlocPerfilComunicadosEstadoExitoso.desde(state));
+        emit(
+          BlocPerfilComunicadosEstadoExitoso.desde(
+            state,
+            // notificaciones: notificacion,
+          ),
+        );
       },
       onError: (e, st) => emit(
         BlocPerfilComunicadosEstadoFallido.desde(state),

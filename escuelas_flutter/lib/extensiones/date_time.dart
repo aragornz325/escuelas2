@@ -21,7 +21,8 @@ extension DateTimeX on DateTime {
       DateFormat('EEEE', Localizations.localeOf(context).languageCode)
           .format(this);
 
-  /// TODO(mati) add docu
+  /// Devuelve la fecha formateada como xx/xx y hoy en caso de que sea igual
+  /// a la fecha actual
   String periodoFechaEnviada(BuildContext context) {
     final l10n = context.l10n;
 
@@ -29,14 +30,19 @@ extension DateTimeX on DateTime {
       final fecha =
           DateFormat('HH:mm', Localizations.localeOf(context).languageCode)
               .format(this);
-      return '$fecha Hoy'; // TODO(mati):traducir${l10n.commonToday}';
+      return '$fecha ${l10n.commonToday}';
     }
     return DateFormat('E dd/M', Localizations.localeOf(context).languageCode)
         .format(this);
   }
 
-  /// Devuelve la hora formateada como xx:xx
+  /// Devuelve la hora formateada como xx:xx y ahora en caso de que sea igual.
   String horaFechaEnviada(BuildContext context) {
+    final l10n = context.l10n;
+
+    if (mismaFechayHorario(this)) {
+      return l10n.commonNow;
+    }
     return DateFormat('HH:mm', Localizations.localeOf(context).languageCode)
         .format(this);
   }
@@ -57,4 +63,11 @@ extension DateTimeX on DateTime {
   /// Compara si dos fechas son iguales
   bool mismaFecha(DateTime other) =>
       year == other.year && month == other.month && day == other.day;
+
+  /// Compara si dos fechas y el horario son iguales
+  bool mismaFechayHorario(DateTime other) =>
+      year == other.year &&
+      month == other.month &&
+      day == other.day &&
+      hour == other.hour;
 }

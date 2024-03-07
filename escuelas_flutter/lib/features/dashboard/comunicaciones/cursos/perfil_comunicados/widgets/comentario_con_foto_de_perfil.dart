@@ -1,6 +1,8 @@
 import 'dart:math';
 
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -11,8 +13,12 @@ import 'package:full_responsive/full_responsive.dart';
 class ComentarioConFotoDePerfil extends StatelessWidget {
   /// {@macro ComentarioConFotoDePerfil}
   const ComentarioConFotoDePerfil({
+    required this.comentario,
     super.key,
   });
+
+  /// Comentario de una notificacion.
+  final ComentarioHiloDeNotificaciones comentario;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +37,7 @@ class ComentarioConFotoDePerfil extends StatelessWidget {
               width: 80.pw,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.sw),
-                color: colores.primary.withOpacity(.2),
+                color: colores.grisBotonPresionado,
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -41,18 +47,15 @@ class ComentarioConFotoDePerfil extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Hero(
-                      tag: 'hero 1',
-                      child: CircleAvatar(
-                        backgroundColor: colores.secondary,
-                        backgroundImage: NetworkImage(
-                          'https://picsum.photos/200',
-                        ), // TODO(mati): hacer que reciba la imagen del usuario/alumno de una notificacion
-                        radius: 15.sw,
+                    CircleAvatar(
+                      backgroundColor: colores.secondary,
+                      backgroundImage: NetworkImage(
+                        comentario.autor?.urlFotoDePerfil ?? '',
                       ),
+                      radius: 15.sw,
                     ),
                     Text(
-                      DateTime.now().horaFechaEnviada(context),
+                      comentario.ultimaModificacion.horaFechaEnviada(context),
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 8.pf,
@@ -60,7 +63,10 @@ class ComentarioConFotoDePerfil extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      'Menem Garcia', // TODO(mati): nombre del mensaje recibido.
+                      '${comentario.autor?.nombre ?? ''}'
+                      ' ${comentario.autor?.apellido ?? ''}',
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 8.pf,
@@ -77,7 +83,7 @@ class ComentarioConFotoDePerfil extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.sw),
-                color: colores.primary.withOpacity(.2),
+                color: colores.grisBotonPresionado,
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -85,7 +91,7 @@ class ComentarioConFotoDePerfil extends StatelessWidget {
                   vertical: max(5.ph, 5.sh),
                 ),
                 child: Text(
-                  'asdasdsdadd \nasdsaasdads\nasdasdsdadd \nasdsaasdads\nasdasdsdadd \nasdsaasdads\nasdasdsdadd \nasdsaasdads\nasdasdsdadd \nasdsaasdads\nsdasdsada',
+                  comentario.contenido,
                   style: TextStyle(
                     fontWeight: FontWeight.w400,
                     color: colores.onBackground,

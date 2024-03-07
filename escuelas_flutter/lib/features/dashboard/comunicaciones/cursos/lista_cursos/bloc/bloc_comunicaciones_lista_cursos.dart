@@ -6,13 +6,13 @@ import 'package:meta/meta.dart';
 part 'bloc_comunicaciones_lista_cursos_evento.dart';
 part 'bloc_comunicaciones_lista_cursos_estado.dart';
 
-/// {@template BlocComunicacionesCursos}
+/// {@template BlocComunicacionesListaCursos}
 // Bloc que maneja la lógica de la pagina de 'Comunicaciones de
 // cursos'.
 /// {@endtemplate}
 class BlocComunicacionesListaCursos extends Bloc<
     BlocComunicacionesListaCursosEvento, BlocComunicacionesListaCursosEstado> {
-  /// {@macro BlocComunicacionesCursos}
+  /// {@macro BlocComunicacionesListaCursos}
   BlocComunicacionesListaCursos()
       : super(const BlocComunicacionesListaCursosEstadoInicial()) {
     on<BlocComunicacionesListaCursosEventoInicializar>(_onInicializar);

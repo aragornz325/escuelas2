@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -42,7 +43,7 @@ class TextFieldComentario extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10.sw),
-                color: colores.primary.withOpacity(.2),
+                color: colores.grisBotonPresionado,
               ),
               child: Padding(
                 padding: EdgeInsets.symmetric(
@@ -56,9 +57,9 @@ class TextFieldComentario extends StatelessWidget {
                     child: TextFormField(
                       decoration: InputDecoration(
                         border: InputBorder.none,
-                        hintText: l10n
-                            .commonSearchWithDots, 
+                        hintText: l10n.commonSearchWithDots,
                       ),
+                      textAlign: TextAlign.right,
                       textInputAction: TextInputAction.send,
                       onFieldSubmitted: onFieldSubmitted,
                       controller: controller,

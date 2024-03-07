@@ -10,7 +10,6 @@ import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ListaComisionesConAlumnos}
 /// Lista de comisiones con sus alumnos y podes navegar al cuaderno de
-/// Lista de comisiones con sus alumnos y podes navegar al cuaderno de
 /// comunicado del alumno que clickeas.
 /// {@endtemplate}
 class ListaComisionesConAlumnos extends StatelessWidget {
