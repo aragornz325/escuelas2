@@ -6,7 +6,6 @@ import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/one_signal/one_signal_servicio.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_app.g.dart';
 import 'package:escuelas_flutter/theming/tema/tema_default_light_escuelas.dart';
-
 import 'package:flutter/material.dart';
 
 class App extends StatelessWidget {

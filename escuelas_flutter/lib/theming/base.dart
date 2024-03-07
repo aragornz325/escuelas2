@@ -91,6 +91,10 @@ extension EscuelasColorScheme on ColorScheme {
   /// la fecha de carga de calificaciones
   Color get fechaMuyTardia => const Color(0xffE43939);
 
+  /// Color utilizado para el fondo de los botones de registro cuando estan
+  /// deshabilitados
+  Color get botonRegistroDeshabilitado => const Color(0xff8B86B3);
+
   /// Devuelve un color que tan tarde se cargaron las calificaciones
   Color segunVencimientoFecha(int dia) {
     if (dia > 0 && dia <= 4) {

@@ -37,6 +37,11 @@ class AppRouter extends $AppRouter {
           initial: true,
         ),
         AutoRoute(
+          page: RutaRegistro.page,
+          path: '/registro',
+          guards: [initialGuard],
+        ),
+        AutoRoute(
           page: RutaKyc.page,
           path: '/kyc',
           // TODO(anyone): Agregar guard para que solo los usuarios no aprobados
@@ -166,6 +171,10 @@ class AppRouter extends $AppRouter {
             AutoRoute(
               page: RutaSupervisionEnvioCalificaciones.page,
               path: 'grade-submission-supervision/:idComision/:fecha',
+            ),
+            AutoRoute(
+              page: RutaAdministrarPlantillas.page,
+              path: 'manage-templates',
             ),
           ],
         ),
