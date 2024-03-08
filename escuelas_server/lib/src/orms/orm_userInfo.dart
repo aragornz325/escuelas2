@@ -20,6 +20,28 @@ class OrmUserInfo extends ORM {
     return userInfo;
   }
 
+  Future<String?> traerEmailDeUsuarioConUseridentifier(
+    Session session, {
+    required String userIdentifier,
+  }) async {
+    final userInfo = await ejecutarOperacionOrm(
+      session,
+      (session) => UserInfo.db.find(
+        session,
+        where: (t) => t.userIdentifier.equals(userIdentifier),
+      ),
+    );
+    if (userInfo.isEmpty) {
+      throw ExcepcionCustom(
+        titulo: 'no se encontro',
+        mensaje: 'no se encontro el usuario solicitado',
+        tipoDeError: TipoExcepcion.noEncontrado,
+        codigoError: 404,
+      );
+    }
+    return userInfo.first.email;
+  }
+
   Future<UserInfo> actualizarUserInfo(
       Session session, UserInfo userInfo) async {
     final userInfoActualizado = await ejecutarOperacionOrm(
