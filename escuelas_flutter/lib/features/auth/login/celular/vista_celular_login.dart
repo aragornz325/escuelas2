@@ -22,14 +22,14 @@ class VistaCelularLogin extends StatefulWidget {
 
 class _VistaCelularLoginState extends State<VistaCelularLogin> {
   /// Controller para el textfield de dni
-  final _controllerDnioEmail = TextEditingController();
+  final _controllerDniOEmail = TextEditingController();
 
   /// Controller para el textfield de contraseña
   final _controllerPassword = TextEditingController();
 
   @override
   void dispose() {
-    _controllerDnioEmail.dispose();
+    _controllerDniOEmail.dispose();
     _controllerPassword.dispose();
     super.dispose();
   }
@@ -136,7 +136,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                           padding: EdgeInsets.only(bottom: 20.ph),
                           child: EscuelasTextfield.soloNumero(
                             onChanged: (value) {},
-                            controller: _controllerDnioEmail,
+                            controller: _controllerDniOEmail,
                             hintText: l10n.commonDNI,
                             context: context,
                           ),
@@ -150,11 +150,11 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                           padding: EdgeInsets.symmetric(vertical: 30.ph),
                           child: EscuelasBoton.texto(
                             estaHabilitado:
-                                _controllerDnioEmail.text.isNotEmpty &&
+                                _controllerDniOEmail.text.isNotEmpty &&
                                     _controllerPassword.text.isNotEmpty,
                             onTap: () => context.read<BlocLogin>().add(
                                   BlocLoginEventoIniciarSesionConCredenciales(
-                                    dniOEmail: _controllerDnioEmail.text,
+                                    dniOEmail: _controllerDniOEmail.text,
                                     password: _controllerPassword.text,
                                   ),
                                 ),

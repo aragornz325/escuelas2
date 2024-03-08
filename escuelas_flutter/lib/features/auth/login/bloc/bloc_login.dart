@@ -30,6 +30,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
   /// Repo de los llamados a server pod
   final EmailAuthController emailAuth;
 
+  /// Permite al usuario iniciar sesion con Email o DNI
   Future<void> _iniciarSesionConCredenciales(
     BlocLoginEventoIniciarSesionConCredenciales event,
     Emitter<BlocLoginEstado> emit,
