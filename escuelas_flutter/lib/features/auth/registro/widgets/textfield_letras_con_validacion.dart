@@ -2,21 +2,17 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_textfield.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 /// {@template TextfieldConValidacion}
 /// Textfield con validaciones.
 /// {@endtemplate}
-class TextfieldConValidacion extends StatefulWidget {
+class TextfieldLetrasConValidacion extends StatefulWidget {
   /// {@macro TextfieldConValidacion}
-  const TextfieldConValidacion({
+  const TextfieldLetrasConValidacion({
     required this.onChanged,
     required this.hintText,
     required this.controller,
     required this.icon,
-    this.keyboardType = TextInputType.text,
-    this.inputFormatters,
-    this.width,
     super.key,
   });
 
@@ -26,40 +22,30 @@ class TextfieldConValidacion extends StatefulWidget {
   /// Texto que se muestra como placeholder.
   final String hintText;
 
-  /// Ancho del textfield.
-  final double? width;
-
   /// Icono que se muestra al final del textfield.
   final IconData icon;
 
   /// Controlador del textfield.
   final TextEditingController controller;
 
-  /// Tipo de teclado que se muestra.
-  final TextInputType? keyboardType;
-
-  /// Formateadores que se aplican al texto.
-  final List<TextInputFormatter>? inputFormatters;
-
   @override
-  State<TextfieldConValidacion> createState() => _TextfieldConValidacionState();
+  State<TextfieldLetrasConValidacion> createState() =>
+      _TextfieldLetrasConValidacionState();
 }
 
-class _TextfieldConValidacionState extends State<TextfieldConValidacion> {
+class _TextfieldLetrasConValidacionState
+    extends State<TextfieldLetrasConValidacion> {
   bool? valido;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    return EscuelasTextfield.conIcono(
+    return EscuelasTextfield.soloLetrasConIcono(
       onValidate: (value) => valido = value,
       controller: widget.controller,
-      keyboardType: widget.keyboardType,
-      inputFormatters: widget.inputFormatters,
       hintText: widget.hintText,
       context: context,
-      width: widget.width,
       onChanged: (value) => setState(() => widget.onChanged?.call()),
       suffixIcon: Icon(
         valido == null

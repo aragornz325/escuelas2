@@ -40,6 +40,10 @@
   "@pageRegisterInvalidPassword": {
     "description": ""
   },
+  "pageRegisterInvalidDni": "Invalid dni",
+  "@pageRegisterInvalidDni": {
+    "description": ""
+  },
   "pageRegisterMinimumCaractersForPassword": "The password must have at least {numberOfCaracters} characters",
   "@pageRegisterMinimumCaractersForPassword": {
     "description": "",
