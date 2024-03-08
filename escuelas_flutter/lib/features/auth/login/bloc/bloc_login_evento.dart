@@ -32,11 +32,11 @@ class BlocLoginEventoIniciarSesionConCredenciales extends BlocLoginEvento {
   /// {@macro BlocLoginEventoIniciarSesionConCredenciales}
   const BlocLoginEventoIniciarSesionConCredenciales({
     required this.password,
-    required this.dni,
+    required this.dniOEmail,
   });
 
   /// Dni del usuario
-  final String dni;
+  final String dniOEmail;
 
   /// Contraseña del usuario
   final String password;

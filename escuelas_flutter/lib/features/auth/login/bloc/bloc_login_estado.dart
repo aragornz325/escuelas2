@@ -5,51 +5,9 @@ part of 'bloc_login.dart';
 /// {@endtemplate}
 class BlocLoginEstado {
   /// {@macro BlocLoginEstado}
-  const BlocLoginEstado._({
-    this.dni = '',
-    this.password = '',
-    this.botonIngresarHabilitado = false,
-    this.estaIniciandoSesion = false,
-    this.estaIniciandoSesionConGoogle = false,
-  });
+  const BlocLoginEstado._();
 
-  BlocLoginEstado.desde(
-    BlocLoginEstado otro, {
-    String? dni,
-    String? password,
-    bool? botonIngresarHabilitado,
-    bool estaIniciandoSesion = false,
-    bool estaIniciandoSesionConGoogle = false,
-  }) : this._(
-          dni: dni ?? otro.dni,
-          password: password ?? otro.password,
-          botonIngresarHabilitado:
-              botonIngresarHabilitado ?? otro.botonIngresarHabilitado,
-          estaIniciandoSesion: estaIniciandoSesion,
-          estaIniciandoSesionConGoogle: estaIniciandoSesionConGoogle,
-        );
-
-  /// DNI del usuario a guardar
-  final String dni;
-
-  /// Password del usuario a guardar
-  final String password;
-
-  /// Bool para habilitar el boton o no dependiendo del contenido
-  /// de los textfields
-  final bool botonIngresarHabilitado;
-
-  /// Bool para el estado de iniciando sesión
-  final bool estaIniciandoSesion;
-
-  /// Bool para el estado de iniciando sesión con google
-  final bool estaIniciandoSesionConGoogle;
-
-  /// Getter que verifica si el estado actual es el estado cargando
-  /// y apreto el boton de iniciar sesion o login con google
-  bool get estaCargandoInicioDeSesion =>
-      estaIniciandoSesion ||
-      estaIniciandoSesionConGoogle && this is BlocLoginEstadoCargando;
+  BlocLoginEstado.desde() : this._();
 
   /// Getter que verifica si el estado actual es de error y el error es
   /// desconocido.
@@ -59,13 +17,7 @@ class BlocLoginEstado {
   bool get esErrorAlIniciarSesion =>
       this is BlocLoginEstadoErrorAlIniciarSesion;
 
-  List<Object> get props => [
-        dni,
-        password,
-        botonIngresarHabilitado,
-        estaIniciandoSesion,
-        estaIniciandoSesionConGoogle,
-      ];
+  List<Object> get props => [];
 }
 
 /// {@template BlocLoginEstadoInicial}
@@ -81,10 +33,7 @@ class BlocLoginEstadoInicial extends BlocLoginEstado {
 /// {@endtemplate}
 class BlocLoginEstadoCargando extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoCargando}
-  BlocLoginEstadoCargando.desde(
-    super.otro, {
-    super.estaIniciandoSesion,
-  }) : super.desde();
+  BlocLoginEstadoCargando.desde() : super.desde();
 }
 
 /// {@template BlocLoginEstadoExitosoGeneral}
@@ -92,12 +41,7 @@ class BlocLoginEstadoCargando extends BlocLoginEstado {
 /// {@endtemplate}
 class BlocLoginEstadoExitosoGeneral extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoExitosoGeneral}
-  BlocLoginEstadoExitosoGeneral.desde(
-    super.otro, {
-    super.dni,
-    super.password,
-    super.botonIngresarHabilitado,
-  }) : super.desde();
+  BlocLoginEstadoExitosoGeneral.desde() : super.desde();
 }
 
 /// {@template BlocLoginEstadoErrorAlIniciarSesion}
@@ -105,7 +49,7 @@ class BlocLoginEstadoExitosoGeneral extends BlocLoginEstado {
 /// {@endtemplate}
 class BlocLoginEstadoErrorAlIniciarSesion extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoErrorAlIniciarSesion}
-  BlocLoginEstadoErrorAlIniciarSesion.desde(super.otro) : super.desde();
+  BlocLoginEstadoErrorAlIniciarSesion.desde() : super.desde();
 }
 
 /// {@template BlocLoginEstadoErrorGeneral}
@@ -113,13 +57,7 @@ class BlocLoginEstadoErrorAlIniciarSesion extends BlocLoginEstado {
 /// {@endtemplate}
 class BlocLoginEstadoErrorGeneral extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoErrorGeneral}
-  BlocLoginEstadoErrorGeneral.desde(
-    super.otro, {
-    required this.mensajeDeError,
-  }) : super.desde();
-
-  /// Mensaje de error que se muestra al usuario
-  final String mensajeDeError;
+  BlocLoginEstadoErrorGeneral.desde() : super.desde();
 }
 
 /// {@template BlocLoginEstadoFaltaCompletarKyc}
@@ -131,7 +69,7 @@ class BlocLoginEstadoErrorGeneral extends BlocLoginEstado {
 /// {@endtemplate}
 class BlocLoginEstadoFaltaCompletarKyc extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoFaltaCompletarKyc}
-  BlocLoginEstadoFaltaCompletarKyc.desde(super.otro) : super.desde();
+  BlocLoginEstadoFaltaCompletarKyc.desde() : super.desde();
 }
 
 /// {@template BlocLoginEstadoSolicitudRechazada}
@@ -140,7 +78,7 @@ class BlocLoginEstadoFaltaCompletarKyc extends BlocLoginEstado {
 /// {@endtemplate}
 class BlocLoginEstadoSolicitudRechazada extends BlocLoginEstado {
   /// {@macro  BlocLoginEstadoSolicitudRechazada}
-  BlocLoginEstadoSolicitudRechazada.desde(super.otro) : super.desde();
+  BlocLoginEstadoSolicitudRechazada.desde() : super.desde();
 }
 
 /// {@template BlocLoginEstadoSolicitudPendiente}
@@ -150,8 +88,7 @@ class BlocLoginEstadoSolicitudRechazada extends BlocLoginEstado {
 /// {@endtemplate}
 class BlocLoginEstadoSolicitudPendiente extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoSolicitudPendiente}
-  BlocLoginEstadoSolicitudPendiente.desde(
-    super.otro, {
+  BlocLoginEstadoSolicitudPendiente.desde({
     required this.usuarioPendiente,
   }) : super.desde();
   final UsuarioPendiente usuarioPendiente;
@@ -162,8 +99,7 @@ class BlocLoginEstadoSolicitudPendiente extends BlocLoginEstado {
 /// {@endtemplate}
 class BlocLoginEstadoSolicitudAceptada extends BlocLoginEstado {
   /// {@macro BlocLoginEstadoSolicitudAceptada}
-  BlocLoginEstadoSolicitudAceptada.desde(
-    super.otro, {
+  BlocLoginEstadoSolicitudAceptada.desde({
     required this.usuario,
     required this.userInfo,
   }) : super.desde();
