@@ -144,9 +144,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                         Padding(
                           padding: EdgeInsets.only(bottom: 20.ph),
                           child: EscuelasTextfield.letrasYNumerosConIcono(
-                            onChanged: (value) {
-                              setState(() {});
-                            },
+                            onChanged: (value) => setState(() {}),
                             onValidate: (value) {},
                             controller: _controllerDniOEmail,
                             hintText: l10n.commonDNI,
@@ -164,9 +162,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                         EscuelasTextFieldPassword(
                           onValidate: (value) => contraseniaValido = value,
                           controller: _controllerPassword,
-                          onChanged: (value) {
-                            setState(() {});
-                          },
+                          onChanged: (value) => setState(() {}),
                           backgroundColor: state
                                   is! BlocLoginEstadoErrorAlLogearseConCredenciales
                               ? colores.tertiary
@@ -175,7 +171,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                         if (state
                             is BlocLoginEstadoErrorAlLogearseConCredenciales)
                           Text(
-                            'Los datos ingresados no son correctos',
+                            l10n.pageLoginIncorrectCredentials,
                             style: TextStyle(
                               color: colores.error,
                               fontSize: 14.pf,
@@ -185,7 +181,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                           Row(
                             children: [
                               Text(
-                                'Recuperar contraseña',
+                                l10n.pageLoginRecoverPassword,
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   color: colores.grisDato,

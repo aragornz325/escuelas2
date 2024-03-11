@@ -185,6 +185,14 @@
   "@pageLoginTextOr": {
     "description": "text to indicate the the options of login"
   },
+  "pageLoginRecoverPassword": "Recuperar contraseña",
+  "@pageLoginRecoverPassword": {
+    "description": "Text to indicate the action to recover the password"
+  },
+  "pageLoginIncorrectCredentials": "Los datos ingresados no son correctos",
+  "@pageLoginIncorrectCredentials": {
+    "description": "Text to indicate the action to recover the password"
+  },
   "pageLoginDialogAnErrorOccurred": "An error occurred while registering.",
   "@pageLoginDialogAnErrorOccurred": {
     "description": "Text in the dialog to indicate that an error ocurred"
