@@ -35,7 +35,6 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
     BlocLoginEventoIniciarSesionConCredenciales event,
     Emitter<BlocLoginEstado> emit,
   ) async {
-    emit(BlocLoginEstadoCargando.desde());
     await operacionBloc(
       callback: (client) async {
         final UserInfo? userInfo;
@@ -43,14 +42,14 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
           final email =
               await client.usuario.obtenerEmailConDni(dni: event.dniOEmail);
           if (email == null) {
-            return emit(BlocLoginEstadoErrorAlIniciarSesion.desde());
+            return emit(BlocLoginEstadoErrorAlLogearseConCredenciales.desde());
           }
           userInfo = await emailAuth.signIn(email, event.password);
         } else {
           userInfo = await emailAuth.signIn(event.dniOEmail, event.password);
         }
         if (userInfo == null) {
-          return emit(BlocLoginEstadoErrorAlIniciarSesion.desde());
+          return emit(BlocLoginEstadoErrorAlLogearseConCredenciales.desde());
         }
         final usuarioPendiente =
             await client.usuario.obtenerDatosDeSolicitudDelUsuario();
@@ -90,7 +89,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
         }
       },
       onError: (e, st) {
-        emit(BlocLoginEstadoErrorAlIniciarSesion.desde());
+        emit(BlocLoginEstadoErrorAlLogearseConCredenciales.desde());
       },
     );
   }

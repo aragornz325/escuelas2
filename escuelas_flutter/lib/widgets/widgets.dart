@@ -1,4 +1,11 @@
 export 'elemento_lista.dart';
+export 'escuelas_boton.dart';
+export 'escuelas_bottom_navigation_bar.dart';
 export 'escuelas_dialog.dart';
+export 'escuelas_dropdown.dart';
+export 'escuelas_dropdown_popup.dart';
 export 'escuelas_scaffold.dart';
 export 'escuelas_textfield.dart';
+export 'textfield_con_validacion_mail.dart';
+export 'textfield_letras_con_validacion.dart';
+export 'textfield_numeros_con_validacion.dart';
