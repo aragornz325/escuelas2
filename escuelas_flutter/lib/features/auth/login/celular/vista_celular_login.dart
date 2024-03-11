@@ -3,7 +3,8 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/login/bloc/bloc_login.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
-import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
+import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -27,6 +28,13 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
   /// Controller para el textfield de contraseña
   final _controllerPassword = TextEditingController();
 
+  bool get emailODNIValido =>
+      ExpresionesRegulares.numerosUnicamente.hasMatch(_controllerDniOEmail.text)
+          ? _controllerDniOEmail.text.length >= 7
+          : ExpresionesRegulares.email.hasMatch(
+              _controllerDniOEmail.text,
+            );
+
   @override
   void dispose() {
     _controllerDniOEmail.dispose();
@@ -34,6 +42,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
     super.dispose();
   }
 
+  bool? contraseniaValido;
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -134,24 +143,57 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                         ),
                         Padding(
                           padding: EdgeInsets.only(bottom: 20.ph),
-                          child: EscuelasTextfield.soloNumero(
-                            onChanged: (value) {},
+                          child: EscuelasTextfield.letrasYNumerosConIcono(
+                            onChanged: (value) => setState(() {}),
+                            onValidate: (value) {},
                             controller: _controllerDniOEmail,
                             hintText: l10n.commonDNI,
+                            suffixIcon: Icon(
+                              Icons.person_outline,
+                              color: colores.grisDato,
+                            ),
+                            backgroundColor: state
+                                    is! BlocLoginEstadoErrorAlLogearseConCredenciales
+                                ? colores.tertiary
+                                : colores.error.withOpacity(.3),
                             context: context,
                           ),
                         ),
                         EscuelasTextFieldPassword(
-                          onValidate: (value) {},
+                          onValidate: (value) => contraseniaValido = value,
                           controller: _controllerPassword,
-                          onChanged: (value) {},
+                          onChanged: (value) => setState(() {}),
+                          backgroundColor: state
+                                  is! BlocLoginEstadoErrorAlLogearseConCredenciales
+                              ? colores.tertiary
+                              : colores.error.withOpacity(.3),
                         ),
+                        if (state
+                            is BlocLoginEstadoErrorAlLogearseConCredenciales)
+                          Text(
+                            l10n.pageLoginIncorrectCredentials,
+                            style: TextStyle(
+                              color: colores.error,
+                              fontSize: 14.pf,
+                            ),
+                          ),
+                        if (emailODNIValido)
+                          Row(
+                            children: [
+                              Text(
+                                l10n.pageLoginRecoverPassword,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: colores.grisDato,
+                                  fontSize: 14.pf,
+                                ),
+                              ),
+                            ],
+                          ),
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.ph),
                           child: EscuelasBoton.texto(
-                            estaHabilitado:
-                                _controllerDniOEmail.text.isNotEmpty &&
-                                    _controllerPassword.text.isNotEmpty,
+                            estaHabilitado: emailODNIValido,
                             onTap: () => context.read<BlocLogin>().add(
                                   BlocLoginEventoIniciarSesionConCredenciales(
                                     dniOEmail: _controllerDniOEmail.text,

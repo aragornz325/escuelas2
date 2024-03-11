@@ -60,6 +60,14 @@ class BlocLoginEstadoErrorGeneral extends BlocLoginEstado {
   BlocLoginEstadoErrorGeneral.desde() : super.desde();
 }
 
+/// {@template BlocLoginEstadoErrorAlLogearseConCredenciales}
+/// Estado de error al logearse con credenciales
+/// {@endtemplate}
+class BlocLoginEstadoErrorAlLogearseConCredenciales extends BlocLoginEstado {
+  /// {@macro BlocLoginEstadoErrorAlLogearseConCredenciales}
+  BlocLoginEstadoErrorAlLogearseConCredenciales.desde() : super.desde();
+}
+
 /// {@template BlocLoginEstadoFaltaCompletarKyc}
 /// Este estado ocurre cuando el usuario hizo el login con google,
 /// se averigua si en la db el usuario actual ya completo el

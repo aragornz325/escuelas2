@@ -149,6 +149,59 @@ class EscuelasTextfield extends StatefulWidget {
   }
 
   /// Requiere un texto y un icono para el sufijo.
+  factory EscuelasTextfield.letrasYNumerosConIcono({
+    /// Controller del TextFormField eMail
+    required TextEditingController controller,
+
+    /// Texto guía
+    required String hintText,
+
+    /// Contexto para traducciones
+    required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    required void Function(String)? onChanged,
+
+    /// Icono de sufijo
+    required Widget suffixIcon,
+
+    /// Funcion de validacion
+    required ValueChanged<bool> onValidate,
+
+    /// Texto de error
+    String? invalidText,
+
+    /// Color del fondo del campo de texto
+    Color? backgroundColor,
+  }) {
+    final l10n = context.l10n;
+
+    return EscuelasTextfield(
+      hintText: hintText,
+      maxLines: 1,
+      controller: controller,
+      backgroundColor: backgroundColor,
+      esPassword: false,
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(
+          RegExp(r'[^a-zA-Z0-9\sñóäáéíóúüÜÁÉÍÓÚÑäÄöÖß]'),
+        ),
+      ],
+      onChanged: onChanged,
+      keyboardType: TextInputType.text,
+      suffixIcon: suffixIcon,
+      validator: (value) {
+        if (value?.isEmpty ?? false) {
+          onValidate(false);
+          return invalidText ?? l10n.commonCompleteTheField;
+        }
+        onValidate(true);
+        return null;
+      },
+    );
+  }
+
+  /// Requiere un texto y un icono para el sufijo.
   factory EscuelasTextfield.soloNumerosConIcono({
     /// Controller del TextFormField eMail
     required TextEditingController controller,
