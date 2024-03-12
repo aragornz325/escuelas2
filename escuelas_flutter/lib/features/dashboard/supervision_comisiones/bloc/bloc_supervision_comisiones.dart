@@ -34,6 +34,7 @@ class BlocSupervisionComisiones extends Bloc<BlocSupervisionComisionesEvento,
         emit(
           BlocSupervisionComisionEstadoExitoso.desde(
             state,
+            fecha: event.fecha,
             listaSupervisionComisiones: listaComisiones,
           ),
         );

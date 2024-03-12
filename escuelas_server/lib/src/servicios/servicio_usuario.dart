@@ -1,4 +1,5 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
+import 'package:escuelas_server/src/orms/orm_userInfo.dart';
 import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_usuario_comision.dart';
 import 'package:escuelas_server/src/orms/orm_usuario_pendiente.dart';
@@ -11,12 +12,15 @@ import 'package:escuelas_server/src/servicios/servicio_user_info.dart';
 import 'package:escuelas_server/src/utils/listado_alfabetico.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
-import 'package:serverpod_auth_server/module.dart';
 
 class ServicioUsuario extends Servicio<OrmUsuario> {
   @override
   OrmUsuario get orm => OrmUsuario();
+
+  OrmUserInfo get ormUserInfo => OrmUserInfo();
+
   ServicioUserInfo get userInfo => ServicioUserInfo();
+
   ServicioDireccionDeMail get servicioDeEmail => ServicioDireccionDeMail();
 
   final OrmUsuarioPendiente _ormUsuarioPendiente = OrmUsuarioPendiente();
@@ -36,6 +40,16 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         session,
         idUserInfo: idUserInfo,
       ),
+    );
+  }
+
+  Future<String?> obtenerEmailConDni(
+    Session session, {
+    required String dni,
+  }) async {
+    return ormUserInfo.traerEmailDeUsuarioConUseridentifier(
+      session,
+      userIdentifier: dni,
     );
   }
 
@@ -593,7 +607,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       logger.info(
         'creando userInfo a partir de usuario: $usuario',
       );
-      final userInfoADb = UserInfo(
+      final userInfoADb = auth.UserInfo(
         id: userInfoData.id,
         userIdentifier: email,
         userName: usuario.nombre,
@@ -618,7 +632,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
             ],
             transaction: transaction,
           );
-          await UserInfo.db.update(
+          await auth.UserInfo.db.update(
             session,
             [userInfoADb],
             transaction: transaction,

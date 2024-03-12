@@ -130,7 +130,9 @@ class _BottomSheetFiltradoState extends State<BottomSheetFiltrado> {
                 fillColor: colores.background,
                 hintText: l10n.commonSearchName,
                 controller: _controllerNombre,
-                prefixIcon: Icons.search,
+                prefixIcon: const Icon(
+                  Icons.search,
+                ),
                 esPassword: false,
                 onChanged: (value) {
                   if (value.isEmpty) {

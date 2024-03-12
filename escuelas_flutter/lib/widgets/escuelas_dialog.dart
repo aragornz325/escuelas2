@@ -90,7 +90,7 @@ class EscuelasDialog extends StatelessWidget {
     required VoidCallback onTap,
     required Widget content,
     String? titulo,
-    double altura = 100,
+    double? altura,
     double? ancho,
     String? tituloDelBoton,
   }) {
@@ -180,12 +180,14 @@ class EscuelasDialog extends StatelessWidget {
     String? titulo,
     double? altura,
     double? ancho,
+    bool? estaHabilitado,
   }) {
     final colores = context.colores;
 
     final l10n = context.l10n;
 
     return EscuelasDialog(
+      estaHabilitado: estaHabilitado ?? true,
       ancho: ancho,
       altura: altura,
       shape: shape,
