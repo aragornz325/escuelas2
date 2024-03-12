@@ -836,6 +836,26 @@
     "commonSearchName": "Write a name",
     "@commonSearchName": {
         "description": "Prompt or placeholder text displayed in a search field indicating that the user should input a name."
+    },
+    "commonDelete": "Delete",
+    "@commonDelete": {
+      "description": "Label indicating to delete"
+    },
+    "commonLastname": "Lastname",
+    "@commonLastname": {
+      "description": "Label indicating the lastname of something"
+    },
+    "commonEmail": "Email",
+    "@commonEmail": {
+      "description": "Label indicating the email of the user"
+    },
+    "commonPhoneNumber": "Phone number",
+    "@commonPhoneNumber": {
+      "description": "Label used to represent the phone field in personal data."
+    },
+    "commonAttention": "Atención",
+    "@commonAttention": {
+      "description": "Label indicating to Attention"
     }
 
 }
