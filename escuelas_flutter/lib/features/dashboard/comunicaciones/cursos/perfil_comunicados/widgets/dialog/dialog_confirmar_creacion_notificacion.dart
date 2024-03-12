@@ -49,12 +49,13 @@ class _DialogConfirmarCreacionNotificacionState
     return EscuelasDialog.solicitudDeAccion(
       context: context,
       onTapConfirmar: () {
+        Navigator.of(context).pop();
         context.read<BlocPerfilComunicados>().add(
               BlocPerfilComunicadosEventoCrearNotificacion(
                 crearNuevaPlantilla: widget.crearConPlantillaPredeterminada,
                 tituloPlantilla: widget.tituloPlantilla,
-                necesitaSupervision: false,
-                descripcion: '',
+                descripcion: widget.descripcion,
+                necesitaSupervision: _necesitaSupervision,
               ),
             );
       },
@@ -63,7 +64,7 @@ class _DialogConfirmarCreacionNotificacionState
       ),
       content: Column(
         children: [
-          if (widget.tituloPlantilla != null) ...[
+          if (widget.crearConPlantillaPredeterminada) ...[
             RichText(
               text: TextSpan(
                 children: [
@@ -113,7 +114,7 @@ class _DialogConfirmarCreacionNotificacionState
               ),
             ),
           ],
-          if (widget.tituloPlantilla == null)
+          if (widget.crearConPlantillaPredeterminada)
             Text(
               l10n.dialogCreationNotificationWillCreateNotification,
               textAlign: TextAlign.center,

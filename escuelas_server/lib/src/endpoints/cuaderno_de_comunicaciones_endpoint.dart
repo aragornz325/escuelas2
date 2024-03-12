@@ -59,6 +59,31 @@ class CuadernoDeComunicacionesEndpoint extends Endpoint with Controller {
       );
 
   // TODO (anyone): Definir mejor y terminar la lógica de marcar como leído (Hilos y comentarios en general y en particular).
+  Future<HiloDeNotificaciones> marcarComoLeidoHiloDeNotificaciones(
+    Session session, {
+    required HiloDeNotificaciones hiloDeNotificaciones,
+  }) async =>
+      await ejecutarOperacionControlador(
+        session,
+        'marcarComoLeidoHiloDeNotificaciones',
+        () => servicio.marcarComoLeidoHiloDeNotificaciones(
+          session,
+          hiloDeNotificaciones: hiloDeNotificaciones,
+        ),
+      );
+  Future<List<HiloDeNotificaciones>>
+      marcarComoLeidosTodosComentariosHiloDeNotificaciones(
+    Session session, {
+    required List<HiloDeNotificaciones> hiloDeNotificaciones,
+  }) async =>
+          await ejecutarOperacionControlador(
+            session,
+            'marcarComoLeidosTodosComentariosHiloDeNotificaciones',
+            () => servicio.marcarComoLeidosTodosComentariosHiloDeNotificaciones(
+              session,
+              hiloDeNotificaciones: hiloDeNotificaciones,
+            ),
+          );
 
   /// Crea un nuevo comentario de notificacion
   Future<ComentarioHiloDeNotificaciones>

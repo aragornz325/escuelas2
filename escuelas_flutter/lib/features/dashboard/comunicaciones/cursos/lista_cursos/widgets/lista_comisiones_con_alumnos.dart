@@ -82,7 +82,8 @@ class ListaComisionesConAlumnos extends StatelessWidget {
                                       idUsuario:
                                           alumno.usuario?.idUserInfo ?? 0,
                                       nombreUsuario:
-                                          alumno.usuario?.nombre ?? '',
+                                          '${alumno.usuario?.nombre ?? ''}'
+                                          ' ${alumno.usuario?.apellido ?? ''}',
                                     ),
                                   ),
                                   title: Text(

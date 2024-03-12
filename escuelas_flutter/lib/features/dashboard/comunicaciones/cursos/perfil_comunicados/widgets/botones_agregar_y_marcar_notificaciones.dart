@@ -25,7 +25,7 @@ class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
   /// Getter para saber si todas las notificaciones estan leidas.
   bool get estanTodasLeidas => notificaciones.any(
         (notificacion) => notificacion.comentarios!
-            .any((comentario) => comentario.fechaLectura != null),
+            .any((comentario) => comentario.fechaLectura == null),
       );
 
   /// Dialog para crear una nueva notificacion.

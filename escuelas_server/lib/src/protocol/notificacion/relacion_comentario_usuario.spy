@@ -1,0 +1,10 @@
+class: RelacionComentarioHiloDeNotificacionesUsuario
+table: r_comentario_hilo_de_notificacion_usuario
+fields:
+  usuario: Usuario?, relation
+  comentario: ComentarioHiloDeNotificaciones?, relation
+  fechaDeLectura: DateTime?
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?
+  

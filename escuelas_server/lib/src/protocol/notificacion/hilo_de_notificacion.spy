@@ -10,3 +10,4 @@ fields:
   comentarios: List<ComentarioHiloDeNotificaciones>?, relation
   necesitaSupervision: bool
   mensajesSinLeer: bool?, !persist
+  relacionHiloDeNotificacionesUsuario: List<RelacionHiloDeNotificacionesUsuario>?, relation

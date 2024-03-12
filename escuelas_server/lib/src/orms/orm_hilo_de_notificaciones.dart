@@ -51,7 +51,8 @@ class OrmHiloDeNotificaciones extends ORM {
           include: HiloDeNotificaciones.include(
             estudiante: Usuario.include(),
             autor: Usuario.include(),
-            comentarios: ComentarioHiloDeNotificaciones.includeList(where: (t) => t.fechaEliminacion.equals(null),
+            comentarios: ComentarioHiloDeNotificaciones.includeList(
+              where: (t) => t.fechaEliminacion.equals(null),
               include: ComentarioHiloDeNotificaciones.include(
                 autor: Usuario.include(),
               ),
@@ -67,16 +68,19 @@ class OrmHiloDeNotificaciones extends ORM {
   }) async {
     final ahora = DateTime.now();
 
-    hiloDeNotificaciones.forEach((hilo) async {
-      await ejecutarOperacionOrm(
-        session,
-        (session) => ComentarioHiloDeNotificaciones.db.update(
+    hiloDeNotificaciones.forEach(
+      (hilo) async {
+        await ejecutarOperacionOrm(
+          session,
+          (session) => ComentarioHiloDeNotificaciones.db.update(
             session,
-            hilo.comentarios != null
+            hilo.comentarios == null
                 ? hilo.comentarios!.map((e) => e..fechaLectura = ahora).toList()
-                : <ComentarioHiloDeNotificaciones>[]),
-      );
-    });
+                : <ComentarioHiloDeNotificaciones>[],
+          ),
+        );
+      },
+    );
 
     return [];
   }

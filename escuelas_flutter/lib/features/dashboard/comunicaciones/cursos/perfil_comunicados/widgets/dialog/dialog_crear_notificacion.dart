@@ -46,10 +46,7 @@ class _DialogCrearNotificacionState extends State<DialogCrearNotificacion> {
       builder: (_) => BlocProvider.value(
         value: context.read<BlocPerfilComunicados>(),
         child: DialogConfirmarCreacionNotificacion(
-          tituloPlantilla:
-              _controllerTitulo.text != '' && _crearConPlantillaPredeterminada
-                  ? _controllerTitulo.text
-                  : null,
+          tituloPlantilla: _controllerTitulo.text,
           descripcion: _controllerContenido.text,
           crearConPlantillaPredeterminada: _crearConPlantillaPredeterminada,
         ),
@@ -166,7 +163,7 @@ class _DialogCrearNotificacionState extends State<DialogCrearNotificacion> {
             BlocBuilder<BlocPerfilComunicados, BlocPerfilComunicadosEstado>(
               builder: (context, state) {
                 final lista = <PopupOption>[
-                  PopupOption(id: 0, name: l10n.commonNoPlantilla),
+                  PopupOption(id: 0, name: l10n.commonNoTemplate),
                   ...state.plantillas.map(
                     (e) => PopupOption(
                       id: e.id ?? 0,
@@ -192,7 +189,6 @@ class _DialogCrearNotificacionState extends State<DialogCrearNotificacion> {
                           plantilla = state.plantillas.firstWhere(
                             (element) => element.id == value.first.id,
                           );
-
                           // Actualizar los controladores con la nueva plantilla
                           _controllerTitulo.text = plantilla!.titulo;
                           _controllerContenido.text = plantilla!.nota;

@@ -9,10 +9,13 @@ extension HiloDeNotificacionesX on HiloDeNotificaciones {
   /// Fecha mas reciente del ultimo comentario
   String fechaRecienteComentario(BuildContext context) {
     if ((comentarios ?? []).isEmpty && comentarios != null) {
-      return ultimaModificacion.periodoFechaEnviada(context);
+      return ultimaModificacion.toUtc().periodoFechaEnviada(context);
     }
-    comentarios!.sort((a, b) => b.fechaCreacion.compareTo(a.fechaCreacion));
+    comentarios!
+        .sort((a, b) => b.fechaCreacion.toUtc().compareTo(a.fechaCreacion));
 
-    return comentarios!.first.fechaCreacion.periodoFechaEnviada(context);
+    return comentarios!.first.fechaCreacion
+        .toUtc()
+        .periodoFechaEnviada(context);
   }
 }

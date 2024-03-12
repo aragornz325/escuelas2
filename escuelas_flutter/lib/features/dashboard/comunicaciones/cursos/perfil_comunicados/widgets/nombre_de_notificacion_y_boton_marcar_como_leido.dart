@@ -35,35 +35,26 @@ class NombreNotificacionYMarcarComoLeido extends StatelessWidget {
       children: [
         Row(
           children: [
-            SizedBox(
-              width: estaExpandido ? null : 110.pw,
-              child: Text(
-                notificacion.titulo,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 14.pf,
-                  color: colores.onBackground,
-                ),
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: estaExpandido ? 215.pw : 150.pw,
               ),
-            ),
-            SizedBox(
-              width: estaExpandido ? null : 50.pw,
-              child: Text(
-                '(notificacion)', // TODO(mati): aca va el tipo de plantilla que uso/ nombre de la plantilla
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 14.pf,
-                  color: colores.secondary,
+              child: IntrinsicWidth(
+                child: Text(
+                  notificacion.titulo,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.pf,
+                    color: colores.onBackground,
+                  ),
                 ),
               ),
             ),
           ],
         ),
-        if (estaExpandido) SizedBox(width: 10.pw),
+        SizedBox(width: 10.pw),
         if (hayComentariosSinLeer)
           CircleAvatar(
             backgroundColor: colores.primaryContainer.withOpacity(.7),

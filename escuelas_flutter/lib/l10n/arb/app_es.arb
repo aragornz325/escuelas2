@@ -814,8 +814,8 @@
       "description": "Text now"
   },
   
-  "commonNoPlantilla": "Sin template",
-  "@commonNoPlantilla": {
+  "commonNoTemplate": "Sin plantilla",
+  "@commonNoTemplate": {
       "description": "Text no template"
   }
 

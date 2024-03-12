@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -29,45 +27,46 @@ class DialogExitoAlCrearNotificacion extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.sw),
       ),
-      altura: tituloPlantilla != null ? max(70.ph, 70.sh) : max(50.ph, 50.sh),
       ancho: 300.pw,
       context: context,
       onTap: () => Navigator.of(context).pop(),
-      content: Column(
-        children: [
-          if (tituloPlantilla != null)
-            RichText(
-              textAlign: TextAlign.center,
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: l10n.commonTemplate,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16.pf,
-                      color: colores.grisSC,
+      content: IntrinsicHeight(
+        child: Column(
+          children: [
+            if (tituloPlantilla != null)
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: l10n.commonTemplate,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.pf,
+                        color: colores.grisSC,
+                      ),
                     ),
-                  ),
-                  TextSpan(
-                    text: ' “$tituloPlantilla“',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w700,
-                      fontSize: 16.pf,
-                      color: colores.grisSC,
+                    TextSpan(
+                      text: ' “$tituloPlantilla“',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16.pf,
+                        color: colores.grisSC,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
+              ),
+            Text(
+              l10n.dialogCreationNotificationCreatedSuccess,
+              style: TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 16.pf,
+                color: colores.grisSC,
               ),
             ),
-          Text(
-            l10n.dialogCreationNotificationCreatedSuccess,
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 16.pf,
-              color: colores.grisSC,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

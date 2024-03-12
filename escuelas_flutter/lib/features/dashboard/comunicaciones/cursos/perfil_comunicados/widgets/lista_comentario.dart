@@ -46,7 +46,7 @@ class _ListaDeComentariosState extends State<ListaDeComentarios> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Divider(color: colores.secondary),
-        ...widget.comentarios.map(
+        ...widget.comentarios.reversed.map(
           (comentario) => ComentarioConFotoDePerfil(
             comentario: comentario,
           ),

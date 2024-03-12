@@ -106,13 +106,20 @@ class BlocPerfilComunicados
 
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): todavia no esta muy bien planteado como marcar las notificaciones como leidas
-        // final notificacion = event.notificacion;
+        // TODO(anyone): todavia no esta muy bien planteado como marcar las
+        // notificaciones como leidas por cada usuario que lo ve
+        final notificacion = event.notificacion;
 
-        // await client.cuadernoDeComunicaciones
-        //     .modificarHiloDeNotificaciones(hiloDeNotificaciones: notificacion);
+        final a = await client.cuadernoDeComunicaciones
+            .marcarComoLeidoHiloDeNotificaciones(
+          hiloDeNotificaciones: notificacion,
+        );
 
-        emit(BlocPerfilComunicadosEstadoExitoso.desde(state));
+        print(a);
+
+        emit(BlocPerfilComunicadosEstadoExitoso.desde(
+          state,
+        ));
       },
       onError: (e, st) => emit(
         BlocPerfilComunicadosEstadoFallido.desde(state),
@@ -139,7 +146,7 @@ class BlocPerfilComunicados
                   notificaciones.id == event.idHiloDeNotificacion,
             )
             .comentarios
-            ?.add(nuevoComentario);
+            ?.insert(0, nuevoComentario);
 
         emit(
           BlocPerfilComunicadosEstadoExitoso.desde(
@@ -162,16 +169,25 @@ class BlocPerfilComunicados
     emit(BlocPerfilComunicadosEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): todavia no es muy bien planteado como marcar las notificaciones como leidas
-        // final notificacion = await client.cuadernoDeComunicaciones
-        //     .marcarTodosLosHilosDeNotificacionesesDelUsuarioComoLeidos(
-        //   idUsuario: state.idUsuario,
-        // );
+        // TODO(anyone): todavia no es muy bien planteado como marcar las
+        // notificaciones como leidas por cada usuario que lo ve
+        final notificaciones =
+            List<HiloDeNotificaciones>.from(state.notificaciones);
+        await client.cuadernoDeComunicaciones
+            .marcarComoLeidosTodosComentariosHiloDeNotificaciones(
+          hiloDeNotificaciones: notificaciones,
+        );
+
+        for (final notificacion in notificaciones) {
+          notificacion.comentarios?.forEach((comentario) {
+            comentario.fechaLectura = DateTime.now();
+          });
+        }
 
         emit(
           BlocPerfilComunicadosEstadoExitoso.desde(
             state,
-            // notificaciones: notificacion,
+            notificaciones: notificaciones,
           ),
         );
       },

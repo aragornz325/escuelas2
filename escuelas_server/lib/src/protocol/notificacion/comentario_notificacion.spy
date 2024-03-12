@@ -8,3 +8,4 @@ fields:
   fechaEliminacion: DateTime?
   ultimaModificacion: DateTime
   fechaLectura: DateTime?
+  relacionComentarioHiloDeNotificacionesUsuario: RelacionComentarioHiloDeNotificacionesUsuario?, relation()

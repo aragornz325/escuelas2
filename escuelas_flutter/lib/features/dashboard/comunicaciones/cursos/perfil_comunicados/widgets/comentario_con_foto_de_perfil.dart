@@ -55,7 +55,9 @@ class ComentarioConFotoDePerfil extends StatelessWidget {
                       radius: 15.sw,
                     ),
                     Text(
-                      comentario.ultimaModificacion.horaFechaEnviada(context),
+                      comentario.ultimaModificacion
+                          .toUtc()
+                          .horaFechaEnviada(context),
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 8.pf,

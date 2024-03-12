@@ -3,6 +3,8 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_comentario_hilo_notificaciones.dart';
 import 'package:escuelas_server/src/orms/orm_hilo_de_notificaciones.dart';
 import 'package:escuelas_server/src/orms/orm_plantilla_comunicacion.dart';
+import 'package:escuelas_server/src/orms/orm_relacion_comentario_usuario.dart';
+import 'package:escuelas_server/src/orms/orm_relacion_hilo_de_notificacion_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
@@ -14,6 +16,12 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
       OrmComentariosHiloDeNotificaciones();
 
   final _ormPlantillaComunicacion = OrmPlantillaComunicacion();
+
+  final _ormRelacionHiloDeNotificacionesUsuario =
+      OrmRelacionHiloDeNotificacionesUsuario();
+
+  final _ormOrmRelacionComentarioHiloDeNotificacionesUsuario =
+      OrmRelacionComentarioHiloDeNotificacionesUsuario();
 
   /// Crea la Notificación en la base de datos.
   Future<HiloDeNotificaciones> crearHiloDeNotificaciones(
@@ -51,6 +59,7 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
       () => _ormHiloDeNotificaciones.crearHiloDeNotificaciones(
         session,
         hiloDeNotificaciones: HiloDeNotificaciones(
+          autor: autor,
           titulo: titulo,
           ultimaModificacion: ahora,
           fechaCreacion: ahora,
@@ -58,6 +67,19 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
           autorId: autor.id!,
           necesitaSupervision: necesitaSupervision,
         ),
+      ),
+    );
+
+    await ejecutarOperacion(
+      () => _ormRelacionHiloDeNotificacionesUsuario.crearRelacion(
+        session,
+        relacion: RelacionHiloDeNotificacionesUsuario(
+          usuarioId: autor.id!,
+          hiloDeNotificacionesId: nuevoHiloDeNotificaciones.id!,
+          ultimaModificacion: ahora,
+          fechaCreacion: ahora,
+        ),
+        usuarioId: autor.id!,
       ),
     );
 
@@ -70,6 +92,7 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
           .crearComentarioHiloDeNotificaciones(
         session,
         comentario: ComentarioHiloDeNotificaciones(
+          relacionComentarioHiloDeNotificacionesUsuarioId: 0,
           contenido: mensaje,
           idHiloDeNotificaciones: nuevoHiloDeNotificaciones.id!,
           autorId: autor.id!,
@@ -78,8 +101,26 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
         ),
       ),
     );
-
-    return nuevoHiloDeNotificaciones..comentarios = [nuevoComentario];
+    final nuevaRelacion = await ejecutarOperacion(
+      () => _ormOrmRelacionComentarioHiloDeNotificacionesUsuario.crearRelacion(
+        session,
+        relacion: RelacionComentarioHiloDeNotificacionesUsuario(
+          usuarioId: autor.id!,
+          comentarioId: nuevoComentario.id!,
+          ultimaModificacion: ahora,
+          fechaCreacion: ahora,
+        ),
+        usuarioId: autor.id!,
+      ),
+    );
+    if (nuevaRelacion.id == null) {
+      throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
+    }
+    return nuevoHiloDeNotificaciones
+      ..comentarios = [
+        nuevoComentario
+          ..relacionComentarioHiloDeNotificacionesUsuarioId = nuevaRelacion.id!
+      ];
   }
 
   /// Trae la lista de Notificacioneses
@@ -106,6 +147,44 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
         ),
       );
 
+  Future<HiloDeNotificaciones> marcarComoLeidoHiloDeNotificaciones(
+    Session session, {
+    required HiloDeNotificaciones hiloDeNotificaciones,
+  }) async {
+    final ahora = DateTime.now();
+
+    if (hiloDeNotificaciones.comentarios == null) {
+      throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
+    }
+    await ComentarioHiloDeNotificaciones.db.update(
+        session,
+        hiloDeNotificaciones.comentarios == null
+            ? hiloDeNotificaciones.comentarios!
+                .map((e) => e..fechaLectura = ahora)
+                .toList()
+            : <ComentarioHiloDeNotificaciones>[]);
+
+    return await ejecutarOperacion(
+      () => _ormHiloDeNotificaciones.modificarHiloDeNotificaciones(
+        session,
+        hiloDeNotificaciones: hiloDeNotificaciones,
+      ),
+    );
+  }
+
+  Future<List<HiloDeNotificaciones>>
+      marcarComoLeidosTodosComentariosHiloDeNotificaciones(
+    Session session, {
+    required List<HiloDeNotificaciones> hiloDeNotificaciones,
+  }) async {
+    return await ejecutarOperacion(
+      () => _ormHiloDeNotificaciones.marcarTodaslosHiloDeNotificacionesLeidas(
+        session,
+        hiloDeNotificaciones: hiloDeNotificaciones,
+      ),
+    );
+  }
+
   /// Crea un nuevo comentario de notificacion
   Future<ComentarioHiloDeNotificaciones>
       agregarComentarioEnHiloDeNotificaciones(
@@ -121,11 +200,13 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
       throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
     }
 
-    return await ejecutarOperacion(
+    final nuevoComentario = await ejecutarOperacion(
       () => _ormComentariosHiloDeNotificaciones
           .crearComentarioHiloDeNotificaciones(
         session,
         comentario: ComentarioHiloDeNotificaciones(
+          relacionComentarioHiloDeNotificacionesUsuarioId: 0,
+          autor: autor,
           contenido: comentario,
           idHiloDeNotificaciones: idHiloDeNotificaciones,
           autorId: autor.id!,
@@ -134,6 +215,24 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
         ),
       ),
     );
+
+    final nuevaRelacion =
+        await _ormOrmRelacionComentarioHiloDeNotificacionesUsuario
+            .crearRelacion(
+      session,
+      relacion: RelacionComentarioHiloDeNotificacionesUsuario(
+        usuarioId: autor.id!,
+        comentarioId: nuevoComentario.id!,
+        ultimaModificacion: ahora,
+        fechaCreacion: ahora,
+      ),
+      usuarioId: autor.id!,
+    );
+    if (nuevaRelacion.id == null) {
+      throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
+    }
+    return nuevoComentario
+      ..relacionComentarioHiloDeNotificacionesUsuarioId = nuevaRelacion.id!;
   }
 
   /// Elimina un comentario de la notificacion.
