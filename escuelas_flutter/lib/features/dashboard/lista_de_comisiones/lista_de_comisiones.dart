@@ -2,13 +2,14 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:flutter/material.dart';
 
-/// {@template PaginaListaCursos}
-/// Pagina para que el usuario pueda ver sus cursos
+/// {@template PaginaListaDeComisiones}
+/// Pagina para que un usuario con los permisos necesarios pueda ver todas las
+/// comisiones de la institucion.
 /// {@endtemplate}
 @RoutePage()
-class PaginaListaCursos extends StatelessWidget {
-  /// {@macro PaginaListaCursos}
-  const PaginaListaCursos({super.key});
+class PaginaListaDeComisiones extends StatelessWidget {
+  /// {@macro PaginaListaDeComisiones}
+  const PaginaListaDeComisiones({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,9 +18,8 @@ class PaginaListaCursos extends StatelessWidget {
     return AutoRouter(
       builder: (context, content) {
         return switch (context.router.current.name) {
+          RutaComisiones.name => content,
           RutaGestionDeComision.name => content,
-          RutaMisCursos.name => content,
-          RutaCargaDeCalificaciones.name => content,
           _ => const SizedBox.shrink()
         };
       },

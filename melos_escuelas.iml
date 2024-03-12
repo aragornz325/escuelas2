@@ -19,6 +19,12 @@
       <excludeFolder url="file://$MODULE_DIR$/escuelas_flutter/build" />
       <excludeFolder url="file://$MODULE_DIR$/escuelas_flutter/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/escuelas_flutter/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/escuelas_commons/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/escuelas_commons/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/escuelas_commons/build" />
+      <excludeFolder url="file://$MODULE_DIR$/rolemissions/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/rolemissions/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/rolemissions/build" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Dart SDK" level="project" />

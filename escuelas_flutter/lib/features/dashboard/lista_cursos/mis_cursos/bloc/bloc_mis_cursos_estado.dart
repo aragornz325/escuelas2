@@ -4,7 +4,6 @@ part of 'bloc_mis_cursos.dart';
 /// Maneja los distintos estados y variables guardadas en los mismos
 /// {@endtemplate}
 class BlocMisCursosEstado {
-  /// {@macro BlocMisCursosEstado}
   const BlocMisCursosEstado._({
     this.comisiones = const [],
   });

@@ -44,6 +44,7 @@ class EscuelasDialog extends StatelessWidget {
     this.tituloBotonPrincipal,
     this.tituloDelBotonSecundario,
     this.colorDeFondoDelBotonSecundario,
+    this.shape,
     super.key,
   });
 
@@ -61,14 +62,18 @@ class EscuelasDialog extends StatelessWidget {
     String? titulo,
     double altura = 100,
     double? ancho,
+    ShapeBorder? shape,
+    String? tituloBotonPrincipal,
   }) {
     final l10n = context.l10n;
 
     return EscuelasDialog(
+      shape: shape,
       ancho: ancho,
       altura: altura,
       onTapConfirmar: onTap,
-      tituloBotonPrincipal: l10n.commonConfirm.toUpperCase(),
+      tituloBotonPrincipal:
+          tituloBotonPrincipal ?? l10n.commonConfirm.toUpperCase(),
       titulo: titulo,
       content: content,
     );
@@ -171,6 +176,7 @@ class EscuelasDialog extends StatelessWidget {
     required BuildContext context,
     required VoidCallback onTapConfirmar,
     required Widget content,
+    ShapeBorder? shape,
     String? titulo,
     double? altura,
     double? ancho,
@@ -184,6 +190,7 @@ class EscuelasDialog extends StatelessWidget {
       estaHabilitado: estaHabilitado ?? true,
       ancho: ancho,
       altura: altura,
+      shape: shape,
       onTapConfirmar: onTapConfirmar,
       conIconoCerrar: false,
       conBotonCancelar: true,
@@ -265,7 +272,11 @@ class EscuelasDialog extends StatelessWidget {
   /// Color de fondo del botón de `Cancelar` o `Rechazar` de [EscuelasDialog].
   final Color? colorDeFondoDelBotonSecundario;
 
+  /// Indica si el dialogo es habilitado o no de [EscuelasDialog].
   final bool estaHabilitado;
+
+  /// Shape del dialogo de [EscuelasDialog].
+  final ShapeBorder? shape;
 
   @override
   Widget build(BuildContext context) {
@@ -276,6 +287,7 @@ class EscuelasDialog extends StatelessWidget {
     final l10n = context.l10n;
 
     return AlertDialog(
+      shape: shape,
       content: SizedBox(
         height: altura,
         width: ancho,

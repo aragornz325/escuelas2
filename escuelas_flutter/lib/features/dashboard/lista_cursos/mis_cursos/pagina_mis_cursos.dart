@@ -9,7 +9,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template VistaEscritorioMisCursos}
 /// Pagina para que el usuario pueda ver sus materias asignadas ordenadas por
-/// curso
+/// curso.
 /// {@endtemplate}
 @RoutePage()
 class PaginaMisCursos extends StatelessWidget {
@@ -18,11 +18,14 @@ class PaginaMisCursos extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usuarioId = context.read<BlocDashboard>().state.usuario.id ?? 0;
-
+    final idUsuario = context.read<BlocDashboard>().state.usuario.id;
     return BlocProvider(
       create: (context) => BlocMisCursos()
-        ..add(BlocMisCursosEventoInicializar(usuarioId: usuarioId)),
+        ..add(
+          BlocMisCursosEventoInicializar(
+            usuarioId: idUsuario ?? 0,
+          ),
+        ),
       child: const FullResponsiveScreen(
         celular: VistaCelularMisCursos(),
         escritorio: VistaEscritorioMisCursos(),
