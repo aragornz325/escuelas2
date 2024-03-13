@@ -15,6 +15,7 @@ class EscuelasTextfield extends StatefulWidget {
     required this.controller,
     required this.esPassword,
     this.hintText,
+    this.fillColor,
     this.focusNode,
     super.key,
     this.width,
@@ -96,7 +97,7 @@ class EscuelasTextfield extends StatefulWidget {
   }
 
   /// Requiere un texto y un icono para el sufijo.
-  factory EscuelasTextfield.conIcono({
+  factory EscuelasTextfield.soloLetrasConIcono({
     /// Controller del TextFormField eMail
     required TextEditingController controller,
 
@@ -115,38 +116,140 @@ class EscuelasTextfield extends StatefulWidget {
     /// Funcion de validacion
     required ValueChanged<bool> onValidate,
 
-    /// Formateadores de texto para ponerle restricciones a el usuario
-    required List<TextInputFormatter>? inputFormatters,
+    /// Texto de error
+    String? invalidText,
+
+    /// Color del fondo del campo de texto
+    Color? backgroundColor,
+  }) {
+    final l10n = context.l10n;
+
+    return EscuelasTextfield(
+      hintText: hintText,
+      maxLines: 1,
+      controller: controller,
+      backgroundColor: backgroundColor,
+      esPassword: false,
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(
+          RegExp(r'[^a-zA-Z\sñóäáéíóúüÜÁÉÍÓÚÑäÄöÖß]'),
+        ),
+      ],
+      onChanged: onChanged,
+      keyboardType: TextInputType.text,
+      suffixIcon: suffixIcon,
+      validator: (value) {
+        if (value?.isEmpty ?? false) {
+          onValidate(false);
+          return invalidText ?? l10n.commonCompleteTheField;
+        }
+        onValidate(true);
+        return null;
+      },
+    );
+  }
+
+  /// Requiere un texto y un icono para el sufijo.
+  factory EscuelasTextfield.letrasYNumerosConIcono({
+    /// Controller del TextFormField eMail
+    required TextEditingController controller,
+
+    /// Texto guía
+    required String hintText,
+
+    /// Contexto para traducciones
+    required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    required void Function(String)? onChanged,
+
+    /// Icono de sufijo
+    required Widget suffixIcon,
+
+    /// Funcion de validacion
+    required ValueChanged<bool> onValidate,
 
     /// Texto de error
     String? invalidText,
 
     /// Color del fondo del campo de texto
     Color? backgroundColor,
-
-    /// Tipo de teclado
-    TextInputType? keyboardType,
-
-    /// Ancho del campo de texto.
-    double? width,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
       hintText: hintText,
-      width: width,
+      maxLines: 1,
       controller: controller,
       backgroundColor: backgroundColor,
       esPassword: false,
-      inputFormatters: inputFormatters ??
-          [FilteringTextInputFormatter.deny(RegExp(r'[^a-zA-Z\s]'))],
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(
+          RegExp(r'[^a-zA-Z0-9\sñóäáéíóúüÜÁÉÍÓÚÑäÄöÖß]'),
+        ),
+      ],
       onChanged: onChanged,
-      keyboardType: keyboardType,
+      keyboardType: TextInputType.text,
       suffixIcon: suffixIcon,
       validator: (value) {
         if (value?.isEmpty ?? false) {
           onValidate(false);
           return invalidText ?? l10n.commonCompleteTheField;
+        }
+        onValidate(true);
+        return null;
+      },
+    );
+  }
+
+  /// Requiere un texto y un icono para el sufijo.
+  factory EscuelasTextfield.soloNumerosConIcono({
+    /// Controller del TextFormField eMail
+    required TextEditingController controller,
+
+    /// Texto guía
+    required String hintText,
+
+    /// Contexto para traducciones
+    required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    required void Function(String)? onChanged,
+
+    /// Icono de sufijo
+    required Widget suffixIcon,
+
+    /// Funcion de validacion
+    required ValueChanged<bool> onValidate,
+
+    /// Texto de error
+    String? invalidText,
+
+    /// Color del fondo del campo de texto
+    Color? backgroundColor,
+  }) {
+    final l10n = context.l10n;
+
+    return EscuelasTextfield(
+      hintText: hintText,
+      maxLines: 1,
+      controller: controller,
+      backgroundColor: backgroundColor,
+      esPassword: false,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
+      onChanged: onChanged,
+      keyboardType: TextInputType.number,
+      suffixIcon: suffixIcon,
+      validator: (value) {
+        if (value?.isEmpty ?? false) {
+          onValidate(false);
+          return invalidText ?? l10n.commonCompleteTheField;
+        }
+        if ((value?.length ?? 0) < 7) {
+          onValidate(false);
+          return invalidText ?? l10n.pageRegisterInvalidDni;
         }
         onValidate(true);
         return null;
@@ -265,6 +368,9 @@ class EscuelasTextfield extends StatefulWidget {
   /// Al apretar siguiente en el teclado ejecuta esa accion.
   final void Function(String)? onFieldSubmitted;
 
+  /// Color de relleno.
+  final Color? fillColor;
+
   @override
   State<EscuelasTextfield> createState() => _EscuelasTextfieldState();
 }
@@ -293,7 +399,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
             InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 15.sw),
               filled: true,
-              fillColor: widget.backgroundColor ?? colores.tertiary,
+              fillColor: widget.backgroundColor ?? widget.fillColor ?? colores.tertiary,
               hintText: widget.hintText ?? '',
               hintStyle: TextStyle(
                 fontSize: 16.pf,

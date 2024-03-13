@@ -1,13 +1,10 @@
 import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/registro/bloc/bloc_registro.dart';
-import 'package:escuelas_flutter/features/auth/registro/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -86,27 +83,18 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
       key: _formKey,
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Flexible(
-                child: TextfieldConValidacion(
-                  controller: _nombreController,
-                  onChanged: () => setState(() {}),
-                  hintText: l10n.commonName,
-                  icon: Icons.person_outline,
-                ),
-              ),
-              SizedBox(width: 15.pw),
-              Flexible(
-                child: TextfieldConValidacion(
-                  controller: _apellidoController,
-                  onChanged: () => setState(() {}),
-                  hintText: l10n.commonLastname,
-                  icon: Icons.person_outline,
-                ),
-              ),
-            ],
+          TextfieldLetrasConValidacion(
+            controller: _nombreController,
+            onChanged: () => setState(() {}),
+            hintText: l10n.commonName,
+            icon: Icons.person_outline,
+          ),
+          SizedBox(height: 15.ph),
+          TextfieldLetrasConValidacion(
+            controller: _apellidoController,
+            onChanged: () => setState(() {}),
+            hintText: l10n.commonLastname,
+            icon: Icons.person_outline,
           ),
           SizedBox(height: 15.ph),
           TextfieldConValidacionMail(
@@ -187,13 +175,11 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
               ),
             ),
           SizedBox(height: 15.ph),
-          TextfieldConValidacion(
-            keyboardType: TextInputType.number,
+          TextfieldNumerosConValidacion(
             controller: _documentoController,
             onChanged: () => setState(() {}),
             hintText: l10n.commonDNI,
-            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            icon: Icons.credit_card_outlined,
+            icon: Icons.person_pin_outlined,
           ),
           SizedBox(height: 45.ph),
           EscuelasBoton.texto(

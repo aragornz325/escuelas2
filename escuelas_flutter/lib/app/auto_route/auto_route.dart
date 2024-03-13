@@ -98,6 +98,21 @@ class AppRouter extends $AppRouter {
                 ),
               ],
             ),
+            AutoRoute(
+              page: RutaListaDeComisiones.page,
+              path: 'list-commissions',
+              children: [
+                AutoRoute(
+                  page: RutaComisiones.page,
+                  path: 'commissions',
+                  initial: true,
+                ),
+                AutoRoute(
+                  page: RutaGestionDeComision.page,
+                  path: 'commission-management/:idComision/:idAsignatura',
+                ),
+              ],
+            ),
             CustomRoute(
               page: RutaUsuariosPendientes.page,
               path: 'pending-users',

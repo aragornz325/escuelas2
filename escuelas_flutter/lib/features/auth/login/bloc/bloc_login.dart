@@ -7,6 +7,7 @@ import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:serverpod_auth_client/module.dart';
+import 'package:serverpod_auth_email_flutter/serverpod_auth_email_flutter.dart';
 import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
 
 part 'bloc_login_estado.dart';
@@ -17,76 +18,45 @@ part 'bloc_login_evento.dart';
 /// {@endtemplate}
 class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
   /// {@macro BlocLogin}
-  BlocLogin() : super(const BlocLoginEstadoInicial()) {
-    on<BlocLoginEventoHabilitarBotonIngresar>(_habilitarBotonIngresar);
-    // TODO(Manu): descomentar cuando este el endpoint
-    // on<BlocLoginEventoIniciarSesionConCredenciales>(
-    //   _iniciarSesionConCredenciales,
-    // );
+  BlocLogin({
+    required this.emailAuth,
+  }) : super(const BlocLoginEstadoInicial()) {
+    on<BlocLoginEventoIniciarSesionConCredenciales>(
+      _iniciarSesionConCredenciales,
+    );
     on<BlocLoginEventoIniciarSesionConGoogle>(_iniciarSesionConGoogle);
   }
 
-  /// Verifica si el correo dni y contraseña son válidos, y emite
-  /// un estado exitoso para habilitar el botón de "Ingresar".
-  void _habilitarBotonIngresar(
-    BlocLoginEventoHabilitarBotonIngresar event,
-    Emitter<BlocLoginEstado> emit,
-  ) {
-    if (ExpresionesRegulares.numerosUnicamente.hasMatch(event.dni) &&
-        event.password.length >= 8) {
-      emit(
-        BlocLoginEstadoExitosoGeneral.desde(
-          state,
-          dni: event.dni,
-          password: event.password,
-          botonIngresarHabilitado: true,
-        ),
-      );
-    } else {
-      emit(
-        BlocLoginEstadoExitosoGeneral.desde(
-          state,
-          botonIngresarHabilitado: false,
-        ),
-      );
-    }
-    emit(
-      BlocLoginEstadoExitosoGeneral.desde(
-        state,
-        dni: event.dni,
-        password: event.password,
-      ),
-    );
-  }
+  /// Repo de los llamados a server pod
+  final EmailAuthController emailAuth;
 
-  /// Inicia sesión con cuenta de google, en caso de ser exitoso redirige a la
-  /// pagina correspondiente, en caso de error devuelve el error correspondiente
-  Future<void> _iniciarSesionConGoogle(
-    BlocLoginEventoIniciarSesionConGoogle event,
+  /// Permite al usuario iniciar sesion con Email o DNI
+  Future<void> _iniciarSesionConCredenciales(
+    BlocLoginEventoIniciarSesionConCredenciales event,
     Emitter<BlocLoginEstado> emit,
   ) async {
-    emit(BlocLoginEstadoCargando.desde(state, estaIniciandoSesion: true));
     await operacionBloc(
       callback: (client) async {
-        //? Aca tira error en Unicamente en debug mode, no sucede en produccion.
-        //? https://stackoverflow.com/questions/51914691/flutter-platform-exception-upon-cancelling-google-sign-in-flow
-        final userInfo = await signInWithGoogle(
-          client.modules.auth,
-          clientId: dotenv.env['CLIENT_ID_GOOGLE_SIGNIN'],
-          serverClientId: dotenv.env['SERVER_CLIENT_ID_GOOGLE_SIGNIN'],
-          redirectUri: Uri.parse(dotenv.env['REDIRECT_URI_GOOGLE_SIGNIN']!),
-        );
-
-        if (userInfo == null) {
-          return emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
+        final UserInfo? userInfo;
+        if (ExpresionesRegulares.numerosUnicamente.hasMatch(event.dniOEmail)) {
+          final email =
+              await client.usuario.obtenerEmailConDni(dni: event.dniOEmail);
+          if (email == null) {
+            return emit(BlocLoginEstadoErrorAlLogearseConCredenciales.desde());
+          }
+          userInfo = await emailAuth.signIn(email, event.password);
+        } else {
+          userInfo = await emailAuth.signIn(event.dniOEmail, event.password);
         }
-
+        if (userInfo == null) {
+          return emit(BlocLoginEstadoErrorAlLogearseConCredenciales.desde());
+        }
         final usuarioPendiente =
             await client.usuario.obtenerDatosDeSolicitudDelUsuario();
 
         if (usuarioPendiente == null) {
           return emit(
-            BlocLoginEstadoFaltaCompletarKyc.desde(state),
+            BlocLoginEstadoFaltaCompletarKyc.desde(),
           );
         }
 
@@ -94,15 +64,12 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
           case EstadoDeSolicitud.rechazado:
             await IsarServicio.guardarUsuarioPendiente(usuarioPendiente);
             emit(
-              BlocLoginEstadoSolicitudRechazada.desde(
-                state,
-              ),
+              BlocLoginEstadoSolicitudRechazada.desde(),
             );
           case EstadoDeSolicitud.pendiente:
             await IsarServicio.guardarUsuarioPendiente(usuarioPendiente);
             emit(
               BlocLoginEstadoSolicitudPendiente.desde(
-                state,
                 usuarioPendiente: usuarioPendiente,
               ),
             );
@@ -115,7 +82,71 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
 
             emit(
               BlocLoginEstadoSolicitudAceptada.desde(
-                state,
+                usuario: usuario,
+                userInfo: userInfo,
+              ),
+            );
+        }
+      },
+      onError: (e, st) {
+        emit(BlocLoginEstadoErrorAlLogearseConCredenciales.desde());
+      },
+    );
+  }
+
+  /// Inicia sesión con cuenta de google, en caso de ser exitoso redirige a la
+  /// pagina correspondiente, en caso de error devuelve el error correspondiente
+  Future<void> _iniciarSesionConGoogle(
+    BlocLoginEventoIniciarSesionConGoogle event,
+    Emitter<BlocLoginEstado> emit,
+  ) async {
+    emit(BlocLoginEstadoCargando.desde());
+    await operacionBloc(
+      callback: (client) async {
+        //? Aca tira error en Unicamente en debug mode, no sucede en produccion.
+        //? https://stackoverflow.com/questions/51914691/flutter-platform-exception-upon-cancelling-google-sign-in-flow
+        final userInfo = await signInWithGoogle(
+          client.modules.auth,
+          clientId: dotenv.env['CLIENT_ID_GOOGLE_SIGNIN'],
+          serverClientId: dotenv.env['SERVER_CLIENT_ID_GOOGLE_SIGNIN'],
+          redirectUri: Uri.parse(dotenv.env['REDIRECT_URI_GOOGLE_SIGNIN']!),
+        );
+
+        if (userInfo == null) {
+          return emit(BlocLoginEstadoErrorAlIniciarSesion.desde());
+        }
+
+        final usuarioPendiente =
+            await client.usuario.obtenerDatosDeSolicitudDelUsuario();
+
+        if (usuarioPendiente == null) {
+          return emit(
+            BlocLoginEstadoFaltaCompletarKyc.desde(),
+          );
+        }
+
+        switch (usuarioPendiente.estadoDeSolicitud) {
+          case EstadoDeSolicitud.rechazado:
+            await IsarServicio.guardarUsuarioPendiente(usuarioPendiente);
+            emit(
+              BlocLoginEstadoSolicitudRechazada.desde(),
+            );
+          case EstadoDeSolicitud.pendiente:
+            await IsarServicio.guardarUsuarioPendiente(usuarioPendiente);
+            emit(
+              BlocLoginEstadoSolicitudPendiente.desde(
+                usuarioPendiente: usuarioPendiente,
+              ),
+            );
+          case EstadoDeSolicitud.aprobado:
+            final usuario = await client.usuario.obtenerDatosDelUsuario();
+
+            await IsarServicio.guardarUsuario(usuario);
+
+            await OneSignalServicio.loguearUsuario(usuario.id ?? 0);
+
+            emit(
+              BlocLoginEstadoSolicitudAceptada.desde(
                 usuario: usuario,
                 userInfo: userInfo,
               ),
@@ -124,21 +155,8 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
       },
       onError: (e, st) {
         cerrarSesionUsuario();
-        emit(BlocLoginEstadoErrorAlIniciarSesion.desde(state));
+        emit(BlocLoginEstadoErrorAlIniciarSesion.desde());
       },
     );
   }
-
-// TODO(manu): Hablar con back para ver como soportar credenciales en auth
-  // Future<void> _iniciarSesionConCredenciales(
-  //   BlocLoginEventoIniciarSesionConCredenciales event,
-  //   Emitter<BlocLoginEstado> emit,
-  // ) async {
-  //   emit(BlocLoginEstadoCargando.desde(state, estaIniciandoSesion: true));
-  //   await operacionBloc(
-  //       callback: (client) async {
-  //         final userInfo = await emailaut;
-  //       },
-  //       onError: onError);
-  // }
 }

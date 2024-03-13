@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_commons/permisos/permisos.dart';
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,11 @@ enum MenuOpcionesDeInicio {
   comunidadAcademica([PermisoDeUsuario.verUsuario]),
   supervisionComision([PermisoDeUsuario.verUsuario]),
   comunicaciones([PermisoDeUsuario.verUsuario]),
-  calificacionesAlumno([PermisoDeUsuario.verUsuario]);
+  calificacionesAlumno([PermisoDeUsuario.verUsuario]),
+  gestionDeComision([
+    PermisoDeComision.asignarAlumnosAComision,
+    PermisoDeAsignatura.asignarDocenteAAsignatura,
+  ]);
 
   const MenuOpcionesDeInicio(this.permisosRequeridos);
 
@@ -36,6 +40,8 @@ enum MenuOpcionesDeInicio {
         context.router.push(const RutaCalificacionesMensuales());
       case comunicaciones:
         context.router.push(const RutaComunicaciones());
+      case gestionDeComision:
+        context.router.push(const RutaComisiones());
     }
   }
 
@@ -58,6 +64,8 @@ enum MenuOpcionesDeInicio {
         return l10n.pageStudentGradesTitle.toUpperCase();
       case comunicaciones:
         return l10n.pageCommunicationsTitle.toUpperCase();
+      case gestionDeComision:
+        return l10n.commonComissions.toUpperCase();
     }
   }
 }
