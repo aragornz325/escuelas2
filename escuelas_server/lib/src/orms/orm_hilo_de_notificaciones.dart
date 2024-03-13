@@ -55,6 +55,11 @@ class OrmHiloDeNotificaciones extends ORM {
               where: (t) => t.fechaEliminacion.equals(null),
               include: ComentarioHiloDeNotificaciones.include(
                 autor: Usuario.include(),
+                relacionComentarioHiloDeNotificacionesUsuario:
+                    RelacionComentarioHiloDeNotificacionesUsuario.include(
+                  usuario: Usuario.include(),
+                  comentario: ComentarioHiloDeNotificaciones.include(),
+                ),
               ),
             ),
           ),
@@ -63,20 +68,23 @@ class OrmHiloDeNotificaciones extends ORM {
 
   /// Actualiza lista de notificaciones
   Future<List<HiloDeNotificaciones>> marcarTodaslosHiloDeNotificacionesLeidas(
-    Session session, {
-    required List<HiloDeNotificaciones> hiloDeNotificaciones,
-  }) async {
+      Session session,
+      {required List<HiloDeNotificaciones> hiloDeNotificaciones,
+      required int idUsuario}) async {
     final ahora = DateTime.now();
 
     hiloDeNotificaciones.forEach(
       (hilo) async {
         await ejecutarOperacionOrm(
           session,
-          (session) => ComentarioHiloDeNotificaciones.db.update(
+          (session) => RelacionComentarioHiloDeNotificacionesUsuario.db.update(
             session,
             hilo.comentarios == null
-                ? hilo.comentarios!.map((e) => e..fechaLectura = ahora).toList()
-                : <ComentarioHiloDeNotificaciones>[],
+                ? hilo.comentarios!
+                    .map((e) => e.relacionComentarioHiloDeNotificacionesUsuario!
+                      ..fechaDeLectura = ahora)
+                    .toList()
+                : <RelacionComentarioHiloDeNotificacionesUsuario>[],
           ),
         );
       },

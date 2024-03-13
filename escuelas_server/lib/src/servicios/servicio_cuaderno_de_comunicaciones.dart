@@ -79,7 +79,6 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
           ultimaModificacion: ahora,
           fechaCreacion: ahora,
         ),
-        usuarioId: autor.id!,
       ),
     );
 
@@ -101,21 +100,24 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
         ),
       ),
     );
+
     final nuevaRelacion = await ejecutarOperacion(
       () => _ormOrmRelacionComentarioHiloDeNotificacionesUsuario.crearRelacion(
         session,
         relacion: RelacionComentarioHiloDeNotificacionesUsuario(
+          
           usuarioId: autor.id!,
           comentarioId: nuevoComentario.id!,
           ultimaModificacion: ahora,
           fechaCreacion: ahora,
         ),
-        usuarioId: autor.id!,
       ),
     );
+
     if (nuevaRelacion.id == null) {
       throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
     }
+
     return nuevoHiloDeNotificaciones
       ..comentarios = [
         nuevoComentario
@@ -156,13 +158,60 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
     if (hiloDeNotificaciones.comentarios == null) {
       throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
     }
-    await ComentarioHiloDeNotificaciones.db.update(
+    final autor = await OrmUsuario().obtenerInfoBasicaUsuario(session,
+        idUserInfo: await obtenerIdDeUsuarioLogueado(session));
+
+    if (autor.id == null) {
+      throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
+    }
+
+    final relacion =
+        await RelacionComentarioHiloDeNotificacionesUsuario.db.find(
+      session,
+      where: (t) =>
+          t.comentario.relacionComentarioHiloDeNotificacionesUsuarioId
+              .equals(autor.id!) &
+          t.comentario.idHiloDeNotificaciones.equals(hiloDeNotificaciones.id),
+    );
+
+    if (relacion.isEmpty) {
+      final comentarios =
+          await RelacionComentarioHiloDeNotificacionesUsuario.db.find(
         session,
-        hiloDeNotificaciones.comentarios == null
-            ? hiloDeNotificaciones.comentarios!
-                .map((e) => e..fechaLectura = ahora)
-                .toList()
-            : <ComentarioHiloDeNotificaciones>[]);
+        where: (t) =>
+            t.comentario.idHiloDeNotificaciones.equals(hiloDeNotificaciones.id),
+      );
+
+      await ejecutarOperacion(
+        () =>
+            _ormOrmRelacionComentarioHiloDeNotificacionesUsuario.crearRelacion(
+          session,
+          relacion: RelacionComentarioHiloDeNotificacionesUsuario(
+            usuarioId: autor.id!,
+            comentarioId: comentarios.last.id!,
+            ultimaModificacion: ahora,
+            fechaCreacion: ahora,
+            fechaDeLectura: ahora,
+          ),
+        ),
+      );
+    } else {
+      await RelacionComentarioHiloDeNotificacionesUsuario.db.update(
+        session,
+        hiloDeNotificaciones.comentarios != null
+            ? hiloDeNotificaciones.comentarios!.map(
+                (e) {
+                  if (e.relacionComentarioHiloDeNotificacionesUsuarioId ==
+                      autor.id!) {
+                    return e.relacionComentarioHiloDeNotificacionesUsuario!
+                      ..fechaDeLectura = ahora;
+                  }
+                  return e.relacionComentarioHiloDeNotificacionesUsuario!;
+                },
+              ).toList()
+            : <RelacionComentarioHiloDeNotificacionesUsuario>[],
+      );
+    }
 
     return await ejecutarOperacion(
       () => _ormHiloDeNotificaciones.modificarHiloDeNotificaciones(
@@ -177,10 +226,65 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
     Session session, {
     required List<HiloDeNotificaciones> hiloDeNotificaciones,
   }) async {
+    final ahora = DateTime.now();
+
+    final autor = await OrmUsuario().obtenerInfoBasicaUsuario(session,
+        idUserInfo: await obtenerIdDeUsuarioLogueado(session));
+
+    if (autor.id == null) {
+      throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
+    }
+
+    if (hiloDeNotificaciones.isNotEmpty) {
+      for (var hiloDeNotificacion in hiloDeNotificaciones) {
+        final comentarios =
+            await RelacionComentarioHiloDeNotificacionesUsuario.db.find(
+          session,
+          where: (t) =>
+              t.comentario.relacionComentarioHiloDeNotificacionesUsuarioId
+                  .equals(autor.id!) &
+              t.comentario.idHiloDeNotificaciones.equals(hiloDeNotificacion.id),
+        );
+
+        if (comentarios.any((element) => element.usuarioId == autor.id)) {
+          await RelacionComentarioHiloDeNotificacionesUsuario.db.update(
+            session,
+            hiloDeNotificacion.comentarios != null
+                ? hiloDeNotificacion.comentarios!.map(
+                    (e) {
+                      if (e.relacionComentarioHiloDeNotificacionesUsuarioId ==
+                          autor.id!) {
+                        return e.relacionComentarioHiloDeNotificacionesUsuario!
+                          ..fechaDeLectura = ahora;
+                      }
+                      return e.relacionComentarioHiloDeNotificacionesUsuario!;
+                    },
+                  ).toList()
+                : <RelacionComentarioHiloDeNotificacionesUsuario>[],
+          );
+        } else {
+          await ejecutarOperacion(
+            () => _ormOrmRelacionComentarioHiloDeNotificacionesUsuario
+                .crearRelacion(
+              session,
+              relacion: RelacionComentarioHiloDeNotificacionesUsuario(
+                usuarioId: autor.id!,
+                comentarioId: comentarios.last.id!,
+                ultimaModificacion: ahora,
+                fechaCreacion: ahora,
+                fechaDeLectura: ahora,
+              ),
+            ),
+          );
+        }
+      }
+    }
+
     return await ejecutarOperacion(
       () => _ormHiloDeNotificaciones.marcarTodaslosHiloDeNotificacionesLeidas(
         session,
         hiloDeNotificaciones: hiloDeNotificaciones,
+        idUsuario: autor.id!,
       ),
     );
   }
@@ -225,12 +329,14 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
         comentarioId: nuevoComentario.id!,
         ultimaModificacion: ahora,
         fechaCreacion: ahora,
+        fechaDeLectura: ahora,
       ),
-      usuarioId: autor.id!,
     );
+
     if (nuevaRelacion.id == null) {
       throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
     }
+
     return nuevoComentario
       ..relacionComentarioHiloDeNotificacionesUsuarioId = nuevaRelacion.id!;
   }

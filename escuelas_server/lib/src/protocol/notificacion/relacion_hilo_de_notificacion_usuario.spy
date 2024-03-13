@@ -1,8 +1,8 @@
 class: RelacionHiloDeNotificacionesUsuario
 table: r_hilo_de_notificaciones_usuario
 fields:
-  usuario: Usuario?, relation
-  hiloDeNotificaciones: HiloDeNotificaciones?, relation
+  idUsuario: int, relation(parent=usuarios)
+  hiloDeNotificaciones: HiloDeNotificaciones?, relation(name:)
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?

@@ -7,7 +7,6 @@ class OrmRelacionComentarioHiloDeNotificacionesUsuario extends ORM {
   Future<RelacionComentarioHiloDeNotificacionesUsuario> crearRelacion(
     Session session, {
     required RelacionComentarioHiloDeNotificacionesUsuario relacion,
-    required int usuarioId,
   }) async {
     final ahora = DateTime.now();
 
