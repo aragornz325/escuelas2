@@ -1,0 +1,265 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "hilos_de_notificaciones",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [
+          "autorId"
+        ],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [
+          "hilos_de_notificaciones_fk_1"
+        ],
+        "warnings": [
+          {
+            "type": "columnDropped",
+            "message": "Column \"autorId\" of table \"hilos_de_notificaciones\" will be dropped.",
+            "table": "hilos_de_notificaciones",
+            "columns": [
+              "autorId"
+            ],
+            "destrucive": true
+          }
+        ]
+      }
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "r_comentario_hilo_de_notificacion_usuario",
+        "dartName": "RelacionComentarioHiloDeNotificacionesUsuario",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('r_comentario_hilo_de_notificacion_usuario_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "idUsuario",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "comentarioId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "fechaDeLectura",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "r_comentario_hilo_de_notificacion_usuario_fk_0",
+            "columns": [
+              "idUsuario"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "r_comentario_hilo_de_notificacion_usuario_fk_1",
+            "columns": [
+              "comentarioId"
+            ],
+            "referenceTable": "comentarios_hilo_de_notificaciones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "r_comentario_hilo_de_notificacion_usuario_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          },
+          {
+            "indexName": "r_usuario_comentario_index_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "idUsuario"
+              },
+              {
+                "type": 0,
+                "definition": "comentarioId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "r_hilo_de_notificaciones_usuario",
+        "dartName": "RelacionHiloDeNotificacionesUsuario",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('r_hilo_de_notificaciones_usuario_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "idUsuario",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "hiloDeNotificacionesId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "fechaEliminacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "r_hilo_de_notificaciones_usuario_fk_0",
+            "columns": [
+              "idUsuario"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "r_hilo_de_notificaciones_usuario_fk_1",
+            "columns": [
+              "hiloDeNotificacionesId"
+            ],
+            "referenceTable": "hilos_de_notificaciones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "r_hilo_de_notificaciones_usuario_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          },
+          {
+            "indexName": "r_usuario_hilo_index_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "idUsuario"
+              },
+              {
+                "type": 0,
+                "definition": "hiloDeNotificacionesId"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"autorId\" of table \"hilos_de_notificaciones\" will be dropped.",
+      "table": "hilos_de_notificaciones",
+      "columns": [
+        "autorId"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}
