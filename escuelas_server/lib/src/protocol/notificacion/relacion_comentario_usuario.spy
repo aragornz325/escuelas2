@@ -1,10 +1,13 @@
 class: RelacionComentarioHiloDeNotificacionesUsuario
 table: r_comentario_hilo_de_notificacion_usuario
 fields:
-  usuario: Usuario?, relation
-  comentario: ComentarioHiloDeNotificaciones?, relation
+  idUsuario: int, relation(parent=usuarios)
+  comentario: ComentarioHiloDeNotificaciones?, relation(name=comentario_destinatario)
   fechaDeLectura: DateTime?
   ultimaModificacion: DateTime
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
-  
+indexes:
+  r_usuario_comentario_index_idx:
+    fields: idUsuario, comentarioId
+    unique: true

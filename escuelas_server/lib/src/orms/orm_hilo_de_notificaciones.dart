@@ -2,7 +2,7 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
-class OrmHiloDeNotificaciones extends ORM {
+class OrmHiloDeNotificaciones extends ORM<HiloDeNotificaciones> {
   /// Crea la notificacion en la base de datos.
   Future<HiloDeNotificaciones> crearHiloDeNotificaciones(
     Session session, {
@@ -50,15 +50,16 @@ class OrmHiloDeNotificaciones extends ORM {
               t.estudianteId.equals(idUsuario),
           include: HiloDeNotificaciones.include(
             estudiante: Usuario.include(),
-            autor: Usuario.include(),
+            participantes: RelacionHiloDeNotificacionesUsuario.includeList(
+              include: RelacionHiloDeNotificacionesUsuario.include(),
+            ),
             comentarios: ComentarioHiloDeNotificaciones.includeList(
               where: (t) => t.fechaEliminacion.equals(null),
               include: ComentarioHiloDeNotificaciones.include(
                 autor: Usuario.include(),
-                relacionComentarioHiloDeNotificacionesUsuario:
-                    RelacionComentarioHiloDeNotificacionesUsuario.include(
-                  usuario: Usuario.include(),
-                  comentario: ComentarioHiloDeNotificaciones.include(),
+                destinatarios:
+                    RelacionComentarioHiloDeNotificacionesUsuario.includeList(
+                  include: RelacionComentarioHiloDeNotificacionesUsuario.include(comentario: ComentarioHiloDeNotificaciones.include()),
                 ),
               ),
             ),
@@ -81,7 +82,7 @@ class OrmHiloDeNotificaciones extends ORM {
             session,
             hilo.comentarios == null
                 ? hilo.comentarios!
-                    .map((e) => e.relacionComentarioHiloDeNotificacionesUsuario!
+                    .map((e) => e.destinatarios!.firstWhere((element) => element.idUsuario == idUsuario)
                       ..fechaDeLectura = ahora)
                     .toList()
                 : <RelacionComentarioHiloDeNotificacionesUsuario>[],
@@ -129,7 +130,6 @@ class OrmHiloDeNotificaciones extends ORM {
               hiloDeNotificaciones: idHiloDeNotificaciones.map((e) {
                 return HiloDeNotificaciones(
                   id: e,
-                  autorId: 0,
                   necesitaSupervision: false,
                   fechaEliminacion: ahora,
                   ultimaModificacion: ahora,

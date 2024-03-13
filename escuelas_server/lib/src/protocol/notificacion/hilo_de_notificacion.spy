@@ -6,8 +6,7 @@ fields:
   fechaCreacion: DateTime
   fechaEliminacion: DateTime?
   estudiante: Usuario?, relation
-  autor: Usuario?, relation
   comentarios: List<ComentarioHiloDeNotificaciones>?, relation
+  participantes: List<RelacionHiloDeNotificacionesUsuario>?, relation(name=hilo_participantes)
   necesitaSupervision: bool
   mensajesSinLeer: bool?, !persist
-  relacionHiloDeNotificacionesUsuario: List<RelacionHiloDeNotificacionesUsuario>?, relation(name:)

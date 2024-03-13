@@ -37,7 +37,7 @@ class OrmRelacionComentarioHiloDeNotificacionesUsuario extends ORM {
           session,
           where: (t) =>
               t.comentarioId.equals(idComentario) &
-              t.usuarioId.equals(idUsuario),
+              t.idUsuario.equals(idUsuario),
         );
       },
     );

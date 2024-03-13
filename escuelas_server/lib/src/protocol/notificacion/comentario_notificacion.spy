@@ -8,4 +8,4 @@ fields:
   fechaEliminacion: DateTime?
   ultimaModificacion: DateTime
   fechaLectura: DateTime?
-  relacionComentarioHiloDeNotificacionesUsuario: RelacionComentarioHiloDeNotificacionesUsuario?, relation()
+  destinatarios: List<RelacionComentarioHiloDeNotificacionesUsuario>?, relation(name=comentario_destinatario)

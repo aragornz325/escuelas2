@@ -9,7 +9,225 @@ typedef FuncionServerpodDb<T> = Future<T> Function(Session session);
 /// Objeto de session de Serverpod.
 
 /// Clase abstracta de ORM con metodo performOperation.
-abstract class ORM {
+abstract class ORM<T extends TableRow> {
+
+  static const columnaUltimaModificacion = 'ultimaModificacion';
+  static const columnaFechaEliminacion = 'fechaEliminacion';
+
+  Future<T> insertarUnRegistroEnDb(
+    Session session, {
+    required T nuevoRegistro,
+    Transaction? transaction,
+  }) =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => session.dbNext.insertRow<T>(
+          nuevoRegistro,
+          transaction: transaction,
+        ),
+      );
+
+  Future<List<T>> insertarVariosRegistrosEnDb(
+    Session session, {
+    required List<T> nuevosRegistros,
+    Transaction? transaction,
+  }) =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => session.dbNext.insert<T>(
+          nuevosRegistros,
+          transaction: transaction,
+        ),
+      );
+
+  Future<T?> obtenerUnRegistroEnDbPorId(
+    Session session, {
+    required int idDelRegistro,
+    Transaction? transaction,
+    Include? incluirObjetos,
+  }) async =>
+        await ejecutarOperacionOrm(
+          session,
+          (session) => session.dbNext.findById<T>(
+            idDelRegistro,
+            transaction: transaction,
+            include: incluirObjetos,
+          ),
+        );
+
+  Future<T?> obtenerUnRegistroEnDbPorFiltro(
+    Session session, {
+    Expression<dynamic>? filtroCondicional,
+    int? offset,
+    Column<dynamic>? ordenarPorColumna,
+    List<Order>? ordenarPorListaDeColumnas,
+    bool ordenDescendente = false,
+    Transaction? transaction,
+    Include? incluirObjetos,
+  }) async =>
+        await ejecutarOperacionOrm(
+          session,
+          (session) => session.dbNext.findFirstRow<T>(
+            where: filtroCondicional,
+            offset: offset,
+            orderBy: ordenarPorColumna,
+            orderByList: ordenarPorListaDeColumnas,
+            orderDescending: ordenDescendente,
+            transaction: transaction,
+            include: incluirObjetos,
+          ),
+        );
+
+  Future<List<T>> listarRegistrosEnDbPorFiltro(
+    Session session, {
+    Expression<dynamic>? filtroCondicional,
+    int? limit,
+    int? offset,
+    Column<dynamic>? ordenarPorColumna,
+    List<Order>? ordenarPorListaDeColumnas,
+    bool ordenDescendente = false,
+    Transaction? transaction,
+    Include? incluirObjetos,
+  }) =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => session.dbNext.find<T>(
+          where: filtroCondicional,
+          limit: limit,
+          offset: offset,
+          orderBy: ordenarPorColumna,
+          orderByList: ordenarPorListaDeColumnas,
+          orderDescending: ordenDescendente,
+          transaction: transaction,
+          include: incluirObjetos,
+        ),
+      );
+
+  Future<T> actualizarUnRegistroEnDb(
+    Session session, {
+    required T registroEnDb,
+    List<Column<dynamic>>? columnasAActualizar,
+    Transaction? transaction,
+  }) =>
+      ejecutarOperacionOrm(
+        session,
+        (session) => session.dbNext.updateRow<T>(
+          registroEnDb..setColumn(columnaUltimaModificacion, DateTime.now()),
+          columns: columnasAActualizar,
+          transaction: transaction,
+        ),
+      );
+
+  Future<List<T>> actualizarVariosRegistrosEnDb(
+    Session session, {
+    required List<T> registrosEnDb,
+    List<Column<dynamic>>? columnasAActualizar,
+    Transaction? transaction,
+  }) async {
+    final ahora = DateTime.now();
+
+    final registrosActualizados = await ejecutarOperacionOrm(
+      session,
+      (session) => session.dbNext.update<T>(
+        registrosEnDb
+            .map((e) => e..setColumn(columnaUltimaModificacion, ahora))
+            .toList(),
+        columns: columnasAActualizar,
+        transaction: transaction,
+      ),
+    );
+
+    return registrosActualizados;
+  }
+
+  Future<int> borrarLogicamenteVariosRegistrosEnDbPorId(
+    Session session, {
+    required List<int> idDeLosRegistrosABorrar,
+    required String nombreDeLaTabla,
+  }) async {
+    final ahora = DatabasePoolManager.encoder.convert(
+      DateTime.now(),
+    );
+
+    final cantidadDeRegistrosBorradosLogicamente = await ejecutarOperacionOrm(
+      session,
+      (session) => session.dbNext.unsafeExecute('''
+UPDATE "$nombreDeLaTabla" 
+SET "fechaEliminacion" = $ahora, "ultimaModificacion" = $ahora
+WHERE "id" IN (${idDeLosRegistrosABorrar.join(', ')});
+'''),
+    );
+
+    return cantidadDeRegistrosBorradosLogicamente;
+  }
+
+  Future<bool> borrarLogicamenteUnRegistroEnDbPorId(
+    Session session, {
+    required int idDelRegistroABorrar,
+    required String nombreDeLaTabla,
+  }) async {
+    final cantidadDeRegistrosBorradosLogicamente = await ejecutarOperacionOrm(
+      session,
+      (session) => borrarLogicamenteVariosRegistrosEnDbPorId(
+        session,
+        idDeLosRegistrosABorrar: [
+          idDelRegistroABorrar,
+        ],
+        nombreDeLaTabla: nombreDeLaTabla,
+      ),
+    );
+
+    return cantidadDeRegistrosBorradosLogicamente == 1;
+  }
+
+  Future<int> borrarFisicamenteUnRegistroEnDb(
+    Session session, {
+    required T registroABorrar,
+    Transaction? transaction,
+  }) async {
+    final idDelRegistroBorrado = await ejecutarOperacionOrm(
+      session,
+      (session) => session.dbNext.deleteRow<T>(
+        registroABorrar,
+        transaction: transaction,
+      ),
+    );
+
+    return idDelRegistroBorrado;
+  }
+
+  Future<List<int>> borrarFisicamenteVariosRegistrosEnDb(
+    Session session, {
+    required List<T> registrosABorrar,
+    Transaction? transaction,
+  }) async {
+    final idDeLosRegistrosBorrados = await ejecutarOperacionOrm(
+      session,
+      (session) => session.dbNext.delete<T>(
+        registrosABorrar,
+        transaction: transaction,
+      ),
+    );
+
+    return idDeLosRegistrosBorrados;
+  }
+
+  Future<List<int>> borrarFisicamenteVariosRegistrosEnDbPorFiltro(
+    Session session, {
+    required Expression<dynamic> filtroCondicional,
+    Transaction? transaction,
+  }) async {
+    final idDeLosRegistrosBorrados = await ejecutarOperacionOrm(
+      session,
+      (session) => session.dbNext.deleteWhere<T>(
+        where: filtroCondicional,
+        transaction: transaction,
+      ),
+    );
+
+    return idDeLosRegistrosBorrados;
+  }
+
   /// Sesion (clase de Serverpod).
   late Session? session;
 

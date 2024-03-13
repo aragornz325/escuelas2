@@ -3,25 +3,18 @@ import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
 class OrmRelacionHiloDeNotificacionesUsuario extends ORM {
-  Future<bool> crearRelacion(
+  Future<List<RelacionHiloDeNotificacionesUsuario>> crearRelacionesHiloDeNotificacionesUsuario(
     Session session, {
-    required RelacionHiloDeNotificacionesUsuario relacion,
-
+    required List<RelacionHiloDeNotificacionesUsuario> relaciones,
   }) async {
-    final ahora = DateTime.now();
-
-    await ejecutarOperacionOrm(
+    return await ejecutarOperacionOrm(
       session,
-      (session) async {
-        await RelacionHiloDeNotificacionesUsuario.db.insert(
+      (session) =>
+        RelacionHiloDeNotificacionesUsuario.db.insert(
           session,
-          [
-            relacion..fechaCreacion = ahora,
-          ],
-        );
-      },
+          relaciones,
+        ),
     );
-    return true;
   }
 
   Future<RelacionHiloDeNotificacionesUsuario?> obtenerRelacion(
@@ -36,7 +29,7 @@ class OrmRelacionHiloDeNotificacionesUsuario extends ORM {
           session,
           where: (t) =>
               t.hiloDeNotificacionesId.equals(idHilo) &
-              t.usuarioId.equals(idUsuario),
+              t.idUsuario.equals(idUsuario),
         );
       },
     );

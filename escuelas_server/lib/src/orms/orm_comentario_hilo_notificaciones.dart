@@ -75,7 +75,6 @@ WHERE ${ComentarioHiloDeNotificaciones.t.id.nombreCaseSensitive} = ${nuevoComent
           fechaEliminacion: ahora,
           ultimaModificacion: ahora,
           fechaCreacion: ahora,
-          relacionComentarioHiloDeNotificacionesUsuarioId: 0,
         ),
       ),
     );
