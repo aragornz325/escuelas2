@@ -111,16 +111,17 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
       throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
     }
 
-    await ejecutarOperacion(
-      () => _ormOrmRelacionComentarioHiloDeNotificacionesUsuario.crearRelacion(
-        session,
-        relacion: RelacionComentarioHiloDeNotificacionesUsuario(
-          idUsuario: idEstudiante,
-          comentarioId: nuevoComentario.id!,
-          ultimaModificacion: ahora,
-          fechaCreacion: ahora,
-        ),
-      ),
+    ejecutarOperacion(
+      () => _ormOrmRelacionComentarioHiloDeNotificacionesUsuario
+          .crearRelacionesComentarioHiloDeNotificacionesUsuario(session,
+              relaciones: [
+            RelacionComentarioHiloDeNotificacionesUsuario(
+              idUsuario: idEstudiante,
+              comentarioId: nuevoComentario.id!,
+              ultimaModificacion: ahora,
+              fechaCreacion: ahora,
+            ),
+          ]),
     );
 
     return nuevoHiloDeNotificaciones
@@ -162,13 +163,17 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
         idUserInfo: await obtenerIdDeUsuarioLogueado(session));
 
     final hiloDeNotificaciones =
-        await _ormHiloDeNotificaciones.obtenerUnRegistroEnDbPorId(session,
-            idDelRegistro: idHiloDeNotificaciones,
+        await _ormHiloDeNotificaciones.obtenerUnRegistroEnDbPorFiltro(session,
+            filtroCondicional:
+                HiloDeNotificaciones.t.id.equals(idHiloDeNotificaciones) &
+                    HiloDeNotificaciones.t.fechaEliminacion.equals(null),
             incluirObjetos: HiloDeNotificaciones.include(
               comentarios: ComentarioHiloDeNotificaciones.includeList(
-                  where: (p0) => p0.destinatarios.any(
+                  where: (p0) =>
+                      p0.destinatarios.any(
                         (p0) => p0.idUsuario.equals(usuario.id),
-                      ) & p0.fechaEliminacion.equals(null),
+                      ) &
+                      p0.fechaEliminacion.equals(null),
                   include: ComentarioHiloDeNotificaciones.include(
                     destinatarios: RelacionComentarioHiloDeNotificacionesUsuario
                         .includeList(
@@ -206,9 +211,11 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
                 .inSet(idHilosDeNotificaciones.toSet()),
             incluirObjetos: HiloDeNotificaciones.include(
               comentarios: ComentarioHiloDeNotificaciones.includeList(
-                  where: (p0) => p0.destinatarios.any(
+                  where: (p0) =>
+                      p0.destinatarios.any(
                         (p0) => p0.idUsuario.equals(usuario.id),
-                      ) & p0.fechaEliminacion.equals(null),
+                      ) &
+                      p0.fechaEliminacion.equals(null),
                   include: ComentarioHiloDeNotificaciones.include(
                     destinatarios: RelacionComentarioHiloDeNotificacionesUsuario
                         .includeList(
@@ -284,10 +291,10 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
       throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
     }
 
-    await _ormOrmRelacionComentarioHiloDeNotificacionesUsuario
-        .insertarVariosRegistrosEnDb(
+    _ormOrmRelacionComentarioHiloDeNotificacionesUsuario
+        .crearRelacionesComentarioHiloDeNotificacionesUsuario(
       session,
-      nuevosRegistros: hiloDeNotificaciones.participantes!
+      relaciones: hiloDeNotificaciones.participantes!
           .map(
             (e) => RelacionComentarioHiloDeNotificacionesUsuario(
               idUsuario: e.idUsuario,
