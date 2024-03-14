@@ -49,6 +49,7 @@ class _DialogCrearNotificacionState extends State<DialogCrearNotificacion> {
           tituloPlantilla: _controllerTitulo.text,
           descripcion: _controllerContenido.text,
           crearConPlantillaPredeterminada: _crearConPlantillaPredeterminada,
+          necesitaSupervision: plantilla?.necesitaSupervision ?? false,
         ),
       ),
     );

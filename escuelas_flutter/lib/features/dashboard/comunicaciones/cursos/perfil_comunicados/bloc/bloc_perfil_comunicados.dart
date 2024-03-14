@@ -110,16 +110,34 @@ class BlocPerfilComunicados
         // notificaciones como leidas por cada usuario que lo ve
         final notificacion = event.notificacion;
 
-        final a = await client.cuadernoDeComunicaciones
+        await client.cuadernoDeComunicaciones
             .marcarComoLeidoHiloDeNotificaciones(
-          hiloDeNotificaciones: notificacion,
+          idHiloDeNotificaciones: notificacion.id ?? 0,
+        );
+        final notificaciones =
+            List<HiloDeNotificaciones>.from(state.notificaciones);
+
+        notificaciones
+            .firstWhere(
+              (notificacion) => notificacion.id == notificacion.id,
+            )
+            .comentarios
+            ?.forEach(
+          (comentario) {
+            comentario.destinatarios?.forEach(
+              (destinatario) {
+                destinatario.fechaDeLectura = DateTime.now();
+              },
+            );
+          },
         );
 
-        print(a);
-
-        emit(BlocPerfilComunicadosEstadoExitoso.desde(
-          state,
-        ));
+        emit(
+          BlocPerfilComunicadosEstadoExitoso.desde(
+            state,
+            notificaciones: notificaciones,
+          ),
+        );
       },
       onError: (e, st) => emit(
         BlocPerfilComunicadosEstadoFallido.desde(state),
@@ -140,6 +158,7 @@ class BlocPerfilComunicados
           idHiloDeNotificaciones: event.idHiloDeNotificacion,
           comentario: event.comentario,
         );
+
         state.notificaciones
             .firstWhere(
               (notificaciones) =>
@@ -173,14 +192,19 @@ class BlocPerfilComunicados
         // notificaciones como leidas por cada usuario que lo ve
         final notificaciones =
             List<HiloDeNotificaciones>.from(state.notificaciones);
+
+        final idsNotificaciones = notificaciones.map((e) => e.id ?? 0).toList();
+
         await client.cuadernoDeComunicaciones
-            .marcarComoLeidosTodosComentariosHiloDeNotificaciones(
-          hiloDeNotificaciones: notificaciones,
+            .marcarComoLeidosTodosLosHilosDeNotificaciones(
+          idHilosDeNotificaciones: idsNotificaciones,
         );
 
         for (final notificacion in notificaciones) {
           notificacion.comentarios?.forEach((comentario) {
-            comentario.fechaLectura = DateTime.now();
+            comentario.destinatarios!
+                .map((e) => e.fechaDeLectura = DateTime.now())
+                .toList();
           });
         }
 

@@ -45,7 +45,6 @@ class EscuelasDialog extends StatelessWidget {
     this.tituloBotonPrincipal,
     this.tituloDelBotonSecundario,
     this.colorDeFondoDelBotonSecundario,
-    this.shape,
     super.key,
   });
 
@@ -64,7 +63,6 @@ class EscuelasDialog extends StatelessWidget {
     String? titulo,
     double altura = 100,
     double? ancho,
-    ShapeBorder? shape,
     String? tituloBotonPrincipal,
   }) {
     final l10n = context.l10n;
@@ -193,7 +191,6 @@ class EscuelasDialog extends StatelessWidget {
       shape: shape,
       ancho: ancho,
       altura: altura,
-      shape: shape,
       onTapConfirmar: onTapConfirmar,
       conIconoCerrar: false,
       conBotonCancelar: true,

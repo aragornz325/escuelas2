@@ -31,7 +31,7 @@ class FotosYFechasDelComentario extends StatelessWidget {
               child: CircleAvatar(
                 backgroundColor: colores.secondary,
                 backgroundImage: NetworkImage(
-                  notificacion.autor?.urlFotoDePerfil ?? '',
+                  notificacion.comentarios?.first.autor?.urlFotoDePerfil ?? '',
                 ),
                 radius: 15.sw,
               ),

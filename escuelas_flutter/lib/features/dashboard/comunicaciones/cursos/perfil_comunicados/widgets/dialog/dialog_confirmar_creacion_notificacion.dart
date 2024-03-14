@@ -16,6 +16,7 @@ class DialogConfirmarCreacionNotificacion extends StatefulWidget {
   /// {@macro DialogConfirmarCreacionNotificacion}
   const DialogConfirmarCreacionNotificacion({
     required this.crearConPlantillaPredeterminada,
+    required this.necesitaSupervision,
     required this.descripcion,
     this.tituloPlantilla,
     super.key,
@@ -31,6 +32,9 @@ class DialogConfirmarCreacionNotificacion extends StatefulWidget {
   /// Descripcion de la notificacion o primer mensaje a enviar.
   final String descripcion;
 
+  /// Indica si la notificacion necesita Supervision.
+  final bool necesitaSupervision;
+
   @override
   State<DialogConfirmarCreacionNotificacion> createState() =>
       _DialogConfirmarCreacionNotificacionState();
@@ -38,7 +42,13 @@ class DialogConfirmarCreacionNotificacion extends StatefulWidget {
 
 class _DialogConfirmarCreacionNotificacionState
     extends State<DialogConfirmarCreacionNotificacion> {
-  bool _necesitaSupervision = false;
+  late bool _necesitaSupervision;
+
+  @override
+  void initState() {
+    super.initState();
+    _necesitaSupervision = widget.necesitaSupervision;
+  }
 
   @override
   Widget build(BuildContext context) {

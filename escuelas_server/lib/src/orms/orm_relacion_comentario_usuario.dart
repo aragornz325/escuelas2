@@ -40,4 +40,25 @@ class OrmRelacionComentarioHiloDeNotificacionesUsuario extends ORM {
     }
     return relacion.first;
   }
+
+  Future<RelacionComentarioHiloDeNotificacionesUsuario?>
+      modificarRelacionComentarioHiloDeNotificacionesUsuario(
+    Session session, {
+    required RelacionComentarioHiloDeNotificacionesUsuario
+        relacionesComentarioHiloDeNotificacionesUsuario,
+  }) async {
+    final relacion = await ejecutarOperacionOrm(
+      session,
+      (session) async {
+        return RelacionComentarioHiloDeNotificacionesUsuario.db.updateRow(
+          session,
+          relacionesComentarioHiloDeNotificacionesUsuario,
+        );
+      },
+    );
+    // if (relacion) {
+    //   return null;
+    // }
+    return relacion;
+  }
 }
