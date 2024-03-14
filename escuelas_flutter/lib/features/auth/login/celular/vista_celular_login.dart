@@ -35,6 +35,8 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
               _controllerDniOEmail.text,
             );
 
+  bool get passwordValida => _controllerPassword.text.length >= 12;
+
   @override
   void dispose() {
     _controllerDniOEmail.dispose();
@@ -193,7 +195,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                         Padding(
                           padding: EdgeInsets.symmetric(vertical: 30.ph),
                           child: EscuelasBoton.texto(
-                            estaHabilitado: emailODNIValido,
+                            estaHabilitado: emailODNIValido && passwordValida,
                             onTap: () => context.read<BlocLogin>().add(
                                   BlocLoginEventoIniciarSesionConCredenciales(
                                     dniOEmail: _controllerDniOEmail.text,

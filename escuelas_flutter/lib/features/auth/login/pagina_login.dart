@@ -16,7 +16,6 @@ import 'package:serverpod_auth_email_flutter/serverpod_auth_email_flutter.dart';
 class PaginaLogin extends StatelessWidget {
   /// {@macro PaginaLogin}
   const PaginaLogin({super.key});
-
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocLogin>(
