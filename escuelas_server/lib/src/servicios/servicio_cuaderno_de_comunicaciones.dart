@@ -163,52 +163,40 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
         idUserInfo: await obtenerIdDeUsuarioLogueado(session));
 
     final hiloDeNotificaciones =
-        await _ormHiloDeNotificaciones.obtenerUnRegistroEnDbPorFiltro(
-      session,
-      filtroCondicional:
-          HiloDeNotificaciones.t.id.equals(idHiloDeNotificaciones) &
-              HiloDeNotificaciones.t.fechaEliminacion.equals(null),
-      incluirObjetos: HiloDeNotificaciones.include(
-        estudiante: Usuario.include(),
-        participantes: RelacionHiloDeNotificacionesUsuario.includeList(
-          include: RelacionHiloDeNotificacionesUsuario.include(),
-        ),
-        comentarios: ComentarioHiloDeNotificaciones.includeList(
-          where: (t) =>
-              t.fechaEliminacion.equals(null) &
-              t.destinatarios.any(
-                (d) => d.idUsuario.equals(usuario.id),
-              ),
-          include: ComentarioHiloDeNotificaciones.include(
-            autor: Usuario.include(),
-            destinatarios:
-                RelacionComentarioHiloDeNotificacionesUsuario.includeList(
-              include: RelacionComentarioHiloDeNotificacionesUsuario.include(
-                  comentario: ComentarioHiloDeNotificaciones.include()),
-            ),
+      await _ormHiloDeNotificaciones.obtenerUnRegistroEnDbPorFiltro(
+    session,
+    filtroCondicional:
+        HiloDeNotificaciones.t.id.equals(idHiloDeNotificaciones) &
+            HiloDeNotificaciones.t.fechaEliminacion.equals(null),
+    incluirObjetos: HiloDeNotificaciones.include(
+      comentarios: ComentarioHiloDeNotificaciones.includeList(
+        where: (t) =>
+            t.fechaEliminacion.equals(null),
+        include: ComentarioHiloDeNotificaciones.include(
+          destinatarios:
+              RelacionComentarioHiloDeNotificacionesUsuario.includeList(
+            where: (p0) => p0.idUsuario.equals(usuario.id) & p0.fechaDeLectura.equals(null) & p0.fechaEliminacion.equals(null),
+            include: RelacionComentarioHiloDeNotificacionesUsuario.include(),
           ),
         ),
       ),
-    );
+    ),
+  );
 
-    if (hiloDeNotificaciones == null ||
-        hiloDeNotificaciones.comentarios == null) {
-      throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
-    }
+  if (hiloDeNotificaciones == null ||
+      hiloDeNotificaciones.comentarios == null) {
+    throw ExcepcionCustom.fromJson(errorDesconocido, Protocol());
+  }
 
-    final relacion = hiloDeNotificaciones.comentarios!
-        .expand((e) => e.destinatarios!.map((e) => e..fechaDeLectura = ahora))
-        .toList();
+  final relacion = hiloDeNotificaciones.comentarios!
+      .expand((e) => e.destinatarios!.map((e) => e..fechaDeLectura = ahora))
+      .toList();
 
-    for (var element in relacion) {
-      element.fechaDeLectura = ahora;
-    }
-
-    await _ormOrmRelacionComentarioHiloDeNotificacionesUsuario
-        .actualizarVariosRegistrosEnDb(
-      session,
-      registrosEnDb: relacion,
-    );
+  _ormOrmRelacionComentarioHiloDeNotificacionesUsuario
+      .actualizarVariosRegistrosEnDb(
+    session,
+    registrosEnDb: relacion,
+  );
   }
 
   Future<void> marcarComoLeidosTodosLosHilosDeNotificaciones(
@@ -223,27 +211,19 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
         await _ormHiloDeNotificaciones.listarRegistrosEnDbPorFiltro(
       session,
       filtroCondicional:
-          HiloDeNotificaciones.t.id.inSet(idHilosDeNotificaciones.toSet()),
+          HiloDeNotificaciones.t.id.inSet(idHilosDeNotificaciones.toSet()) & HiloDeNotificaciones.t.fechaEliminacion.equals(null),
       incluirObjetos: HiloDeNotificaciones.include(
-        estudiante: Usuario.include(),
-        participantes: RelacionHiloDeNotificacionesUsuario.includeList(
-          include: RelacionHiloDeNotificacionesUsuario.include(),
-        ),
         comentarios: ComentarioHiloDeNotificaciones.includeList(
-          where: (t) =>
-              t.fechaEliminacion.equals(null) &
-              t.destinatarios.any(
-                (d) => d.idUsuario.equals(usuario.id),
-              ),
-          include: ComentarioHiloDeNotificaciones.include(
-            autor: Usuario.include(),
-            destinatarios:
-                RelacionComentarioHiloDeNotificacionesUsuario.includeList(
-              include: RelacionComentarioHiloDeNotificacionesUsuario.include(
-                  comentario: ComentarioHiloDeNotificaciones.include()),
-            ),
+        where: (t) =>
+            t.fechaEliminacion.equals(null),
+        include: ComentarioHiloDeNotificaciones.include(
+          destinatarios:
+              RelacionComentarioHiloDeNotificacionesUsuario.includeList(
+            where: (p0) => p0.idUsuario.equals(usuario.id) & p0.fechaDeLectura.equals(null) & p0.fechaEliminacion.equals(null),
+            include: RelacionComentarioHiloDeNotificacionesUsuario.include(),
           ),
         ),
+      ),
       ),
     );
 
@@ -258,10 +238,7 @@ class ServicioCuadernoDeComunicaciones extends Servicio {
             ),
           )
           .toList();
-      for (var element in relaciones) {
-        element.fechaDeLectura = ahora;
-      }
-      await _ormOrmRelacionComentarioHiloDeNotificacionesUsuario
+      _ormOrmRelacionComentarioHiloDeNotificacionesUsuario
           .actualizarVariosRegistrosEnDb(
         session,
         registrosEnDb: relaciones,
