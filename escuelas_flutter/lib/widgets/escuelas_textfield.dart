@@ -185,7 +185,7 @@ class EscuelasTextfield extends StatefulWidget {
       esPassword: false,
       inputFormatters: [
         FilteringTextInputFormatter.deny(
-          RegExp(r'[^a-zA-Z0-9\sñóäáéíóúüÜÁÉÍÓÚÑäÄöÖß]'),
+          RegExp(r'[^a-zA-Z0-9\sñóäáéíóúüÜÁÉÍÓÚÑäÄöÖß@.]'),
         ),
       ],
       onChanged: onChanged,
@@ -399,7 +399,9 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
             InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 15.sw),
               filled: true,
-              fillColor: widget.backgroundColor ?? widget.fillColor ?? colores.tertiary,
+              fillColor: widget.backgroundColor ??
+                  widget.fillColor ??
+                  colores.tertiary,
               hintText: widget.hintText ?? '',
               hintStyle: TextStyle(
                 fontSize: 16.pf,
