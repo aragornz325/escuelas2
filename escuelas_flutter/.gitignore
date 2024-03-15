@@ -45,14 +45,14 @@ unlinked_spec.ds
 **/android/**/gradle-wrapper.jar
 **/android/.gradle
 **/android/captures/
-**/android/local.properties
+
 **/android/**/GeneratedPluginRegistrant.java
-**/android/key.properties
+
 **/android/.idea/
 **/android/app/debug
 **/android/app/profile
 **/android/app/release
-*.jks
+
 
 # iOS/XCode related
 **/ios/**/*.mode1v3
