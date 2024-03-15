@@ -28,7 +28,7 @@ import 'package:escuelas_flutter/features/dashboard/comunicaciones/administrar_p
     as _i1;
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/lista_cursos/pagina_lista_cursos.dart'
     as _i9;
-import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/pagina_comunicaciones_cursos.dart'
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/page_comunicaciones_cursos.dart'
     as _i7;
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/pagina_perfil_comunicados.dart'
     as _i26;

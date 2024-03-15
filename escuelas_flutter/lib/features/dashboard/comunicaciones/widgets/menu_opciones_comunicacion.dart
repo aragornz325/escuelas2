@@ -1,10 +1,10 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/bloc_comunicaciones/bloc_comunicaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/utilidades/enum_menu_opciones_comunicaciones.dart';
-import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
-import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -32,39 +32,59 @@ class MenuOpcionesDeComunicaciones extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colores = context.colores;
-
-    final l10n = context.l10n;
-
     final menus = _menusPermitidos(context);
 
-    return Column(
-      children: menus
-          .map(
-            (menu) => Padding(
-              padding: EdgeInsets.symmetric(horizontal: 15.ph)
-                  .copyWith(bottom: 15.ph),
-              child: ElementoLista.menu(
-                // TODO(SAM): Agregar para notif circulo rojo
-                // widgetLateralDerecho:
-                //     menu.name == MenuOpcionesDeInicio.notifPendientes.name &&
-                //             state.hayUsuariosPendientes
-                //         ? Padding(
-                //             padding: EdgeInsets.only(right: 20.pw),
-                //             child: Icon(
-                //               Icons.circle,
-                //               color: colores.error,
-                //               size: 15.sw,
-                //             ),
-                //           )
-                //         : null,
-                nombreOpcion: menu.getTitulo(context),
-                context: context,
-                onTap: () => menu.redirigirAVista(context),
-              ),
-            ),
-          )
-          .toList(),
+    final colores = context.colores;
+
+    return BlocBuilder<BlocComunicaciones, BlocComunicacionesEstado>(
+      builder: (context, state) {
+        final cantidadNotificacionesPendientes = context
+                .read<BlocComunicaciones>()
+                .state
+                .cantidadNotificacionesPendientes ??
+            0;
+        return Column(
+          children: menus
+              .map(
+                (menu) => Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15.ph)
+                      .copyWith(bottom: 15.ph),
+                  child: ElementoLista.menu(
+                    nombreOpcion: menu.getTitulo(context),
+                    context: context,
+                    onTap: () => menu.redirigirAVista(context),
+                    widgetLateralDerecho: menu.name ==
+                                MenuOpcionesComunicaciones
+                                    .comunicacionesPendientes.name &&
+                            cantidadNotificacionesPendientes > 0
+                        ? Padding(
+                            padding: EdgeInsets.only(right: 20.pw),
+                            child: Container(
+                              width: 24.pw,
+                              height: 24.ph,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: colores.azulNotificacion,
+                              ),
+                              child: Center(
+                                child: Text(
+                                  cantidadNotificacionesPendientes.toString(),
+                                  style: TextStyle(
+                                    color: colores.marfilBackgroundDesktop,
+                                    fontSize: 16.pf,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          )
+                        : null,
+                  ),
+                ),
+              )
+              .toList(),
+        );
+      },
     );
   }
 }

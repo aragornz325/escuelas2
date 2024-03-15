@@ -2,7 +2,7 @@ import 'package:escuelas_flutter/features/dashboard/comunicaciones/widgets/menu_
 import 'package:flutter/material.dart';
 
 /// {@template PaginaMenuComunicaciones}
-/// Vista celular de MenuComunicaciones donde un directivo verificar
+/// Vista celular de MenuComunicaciones donde un directivo verifica
 /// las comunicaciones en general.
 /// {@endtemplate}
 class VistaCelularMenuComunicaciones extends StatelessWidget {

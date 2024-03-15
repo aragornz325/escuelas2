@@ -13,8 +13,14 @@ abstract class BlocComunicacionesEvento {
 /// {@endtemplate}
 class BlocComunicacionesEventoInicializar extends BlocComunicacionesEvento {
   /// {@macro BlocComunicacionesEventoInicializar}
-  const BlocComunicacionesEventoInicializar({required this.fecha});
+  const BlocComunicacionesEventoInicializar({
+    required this.fecha,
+    this.cantidadNotificacionesPendientes,
+  });
 
   /// Fecha de la fecha a tomar del calendario
   final DateTime fecha;
+
+  /// Cantidad de notificaciones pendientes
+  final int? cantidadNotificacionesPendientes;
 }

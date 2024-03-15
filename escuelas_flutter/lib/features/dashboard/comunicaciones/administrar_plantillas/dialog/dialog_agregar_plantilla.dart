@@ -23,7 +23,7 @@ class DialogAgregarPlantilla extends StatefulWidget {
 class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
   final _controllerNuevaPlantillaTitulo = TextEditingController();
   final _controllerNuevaPlantillaDescripcion = TextEditingController();
-  bool _necesitaSupervicion = false;
+  bool _necesitaSupervision = false;
 
   @override
   void dispose() {
@@ -36,7 +36,7 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
     BuildContext context, {
     required String tituloPlantilla,
     required String descripcionPlantilla,
-    required bool necesitaSupervicionn,
+    required bool necesitaSupervision,
   }) {
     return showDialog<void>(
       context: context,
@@ -45,7 +45,7 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
         child: DialogConfirmarCreacionPlantilla(
           tituloPlantilla: tituloPlantilla,
           descripcionPlantilla: descripcionPlantilla,
-          necesitaSupervicion: necesitaSupervicionn,
+          necesitaSupervision: necesitaSupervision,
         ),
       ),
     );
@@ -57,8 +57,8 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
 
     return EscuelasDialog.solicitudDeAccion(
       titulo: l10n.pageManageTemplatesNew,
-      estaHabilitado: (_controllerNuevaPlantillaTitulo.text.isNotEmpty &&
-          _controllerNuevaPlantillaDescripcion.text.isNotEmpty),
+      estaHabilitado: _controllerNuevaPlantillaTitulo.text.isNotEmpty &&
+          _controllerNuevaPlantillaDescripcion.text.isNotEmpty,
       context: context,
       onTapConfirmar: () {
         Navigator.of(context).pop();
@@ -66,7 +66,7 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
           context,
           tituloPlantilla: _controllerNuevaPlantillaTitulo.text,
           descripcionPlantilla: _controllerNuevaPlantillaDescripcion.text,
-          necesitaSupervicionn: _necesitaSupervicion,
+          necesitaSupervision: _necesitaSupervision,
         );
       },
       content: Column(
@@ -122,10 +122,10 @@ class _DialogAgregarPlantillaState extends State<DialogAgregarPlantilla> {
                 ],
               ),
               Checkbox(
-                value: _necesitaSupervicion,
+                value: _necesitaSupervision,
                 onChanged: (value) {
                   setState(() {
-                    _necesitaSupervicion = value!;
+                    _necesitaSupervision = value!;
                   });
                 },
               ),

@@ -24,12 +24,15 @@ class BlocComunicaciones
 
     await operacionBloc(
       callback: (client) async {
-        // TODO(SAM): Agregar esto en otro bloc anterior? maybe en dashboard
-        //  final notificacionesPendientes =
-        //     await client.usuario.obtenernotificacionesPendientes();
+        final solicitudesNotificacionesPendientes = await client
+            .solicitudNotificacion
+            .obtenerSolicitudesNotificacionesPendientes();
+
         emit(
           BlocComunicacionesEstadoExitoso.desde(
             state,
+            cantidadNotificacionesPendientes:
+                solicitudesNotificacionesPendientes.length,
             fechaActual: event.fecha,
           ),
         );

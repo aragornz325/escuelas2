@@ -73,7 +73,7 @@ class BlocAdministrarPlantillas extends Bloc<BlocAdministrarPlantillasEvento,
           plantillaComunicacion: PlantillaComunicacion(
             titulo: event.nombrePlantilla,
             nota: event.descripcionPlantilla,
-            necesitaSupervision: event.necesitaSupervicion,
+            necesitaSupervision: event.necesitaSupervision,
             ultimaModificacion: DateTime.now(),
             fechaCreacion: DateTime.now(),
           ),

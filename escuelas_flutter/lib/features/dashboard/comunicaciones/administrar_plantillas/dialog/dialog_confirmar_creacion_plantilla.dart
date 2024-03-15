@@ -12,7 +12,7 @@ class DialogConfirmarCreacionPlantilla extends StatelessWidget {
   const DialogConfirmarCreacionPlantilla({
     required this.tituloPlantilla,
     required this.descripcionPlantilla,
-    required this.necesitaSupervicion,
+    required this.necesitaSupervision,
     super.key,
   });
 
@@ -22,8 +22,8 @@ class DialogConfirmarCreacionPlantilla extends StatelessWidget {
   /// Descripcion de la plantilla
   final String descripcionPlantilla;
 
-  /// Verifica si Necesita Supervicion
-  final bool necesitaSupervicion;
+  /// Verifica si Necesita Supervision
+  final bool necesitaSupervision;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class DialogConfirmarCreacionPlantilla extends StatelessWidget {
               BlocAdministrarPlantillasEventoAgregarPlantilla(
                 nombrePlantilla: tituloPlantilla,
                 descripcionPlantilla: descripcionPlantilla,
-                necesitaSupervicion: necesitaSupervicion,
+                necesitaSupervision: necesitaSupervision,
               ),
             );
         Navigator.of(context).pop();

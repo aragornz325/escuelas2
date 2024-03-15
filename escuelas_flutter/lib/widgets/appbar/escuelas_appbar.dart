@@ -81,9 +81,9 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
         RutaSupervisionComisiones.name => l10n.routeNameCommissionSupervision,
         RutaMenuComunicaciones.name => l10n.routeNameMenuCommunications,
         RutaComunicaciones.name => l10n.routeNameMenuCommunications,
+        // TODO(SAM): Ver de cambiar nombre de ruta en el appbar
         RutaComunicacionesPendientes.name =>
           l10n.routeNamePendingCommunications,
-        // TODO(SAM): Preguntar a Gon como es para poner en el app bar
         RutaComunicacionesGeneral.name => l10n.routeNameGeneralCommunications,
         RutaComunicacionesCursos.name => l10n.routeNameCourseCommunications,
         RutaSupervisionEnvioCalificaciones.name =>

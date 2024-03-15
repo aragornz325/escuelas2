@@ -238,6 +238,22 @@
   "@pageStudentGrades": {
     "description": "Title of the page Grades for a student"
   },
+  "pageCommunicationsTitle": "Communications",
+    "@pageCommunicationsTitle": {
+        "description": "Title of the page Communications"
+    },
+  "pagePendingCommunicationsDialogDescription": "Are you sure you want to approve this notification?",
+    "@pagePendingCommunicationsDialogDescription": {
+        "description": "Description text of the alert dialog when the user taps button to approve the communication"
+  },
+  "pagePendingCommunicationsEmptyList": "There are no notification requests",
+    "@pagePendingCommunicationsEmptyList": {
+        "description": "Description text that appears instead of the notification requests when the list is empty."
+  },
+   "pagePendingCommunicationsDialogSuccess": "Notification successfully approved",
+    "@pagePendingCommunicationsDialogSuccess": {
+        "description": "Description text of the alert dialog to let the user know that the notification was successfully approved"
+  },
   "pageGradesStudentCardAverage": "Average: ",
   "@pageGradesStudentCardAverage": {
     "description": "Text to be displayed next to the average of the student grades."
@@ -545,6 +561,39 @@
   "@routeNamePendingUsers": {
     "description": ""
   },
+  "routeNameMenuCommunications": "Communications",
+    "@routeNameMenuCommunications": {
+        "description": "Name of the route"
+    },
+  "routeNamePendingCommunications": "Pendings",
+    "@routeNamePendingCommunications": {
+        "description": "Name of the route"
+    },
+  "routeNameGeneralCommunications": "General",
+  "@routeNameGeneralCommunications": {
+        "description": "Name of the route"
+    },
+  "routeNameCourseCommunications": "Courses",
+  "@routeNameCourseCommunications": {
+        "description": "Name of the route"
+    },
+  "routeNameMenuCommunications": "Communications",
+    "@routeNameMenuCommunications": {
+        "description": "Name of the route"
+    },
+    "routeNamePendingCommunications": "Pendings",
+    "@routeNamePendingCommunications": {
+        "description": "Name of the route"
+    },
+    "routeNameGeneralCommunications": "General",
+    "@routeNameGeneralCommunications": {
+        "description": "Name of the route"
+    },
+
+    "routeNameCourseCommunications": "Courses",
+    "@routeNameCourseCommunications": {
+        "description": "Name of the route"
+    },
   "routeAcademicCommunityMenu": "Menu",
   "@routeAcademicCommunityMenu": {
     "description": ""
@@ -785,7 +834,11 @@
         "description": "Label for a button or action indicating to proceed."
     },
 
-    "commonApply": "Request",
+    "commonApprove": "Approve",
+  "@commonApprove": {
+    "description": "Label for a button or action indicating to approve."
+  },
+  "commonApply": "Request",
     "@commonRequest": {
         "description": "Label for a button or action indicating to submit a request."
     }
@@ -875,7 +928,15 @@
         "description": "It is commonly used to refer to a specific academic course."
     },
 
-    "commonCourses": "Courses",
+    "commonButtonAccept": "Accept",
+    "@commonButtonAccept": {
+        "description": "It is commonly used in a button to accept"
+    },
+  "commonSave": "Save",
+  "@commonSave": {
+    "description": "Label for a button or action indicating to save."
+  },
+  "commonCourses": "Courses",
     "@commonCourses": {
         "description": "It is commonly used to refer to various academic courses."
     },
@@ -950,7 +1011,7 @@
     "@commonPhoneNumber": {
       "description": "Label used to represent the phone field in personal data."
     },
-    "commonAttention": "Atención",
+    "commonAttention": "Warning",
     "@commonAttention": {
       "description": "Label indicating to Attention"
     }

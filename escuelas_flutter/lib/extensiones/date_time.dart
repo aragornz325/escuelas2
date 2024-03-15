@@ -47,6 +47,14 @@ extension DateTimeX on DateTime {
         .format(this);
   }
 
+  /// Devuelve la fecha en este formato 'dia/mes/año - hora:minuto am/pm'.
+  String formatearFechaConHora(
+    BuildContext context,
+  ) {
+    final fechaFormateada = DateFormat('dd/MM/yyyy - hh:mm a').format(this);
+    return fechaFormateada;
+  }
+
   // TODO(anyone): Agregar traducciones.
   String devolverEtiqueta() {
     if (month >= 1 && month <= 3) {

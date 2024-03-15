@@ -52,7 +52,7 @@ class RowInfoAsignatura extends StatelessWidget {
                 showDuration: const Duration(seconds: 5),
                 margin: EdgeInsets.symmetric(horizontal: 80.pw),
                 decoration: BoxDecoration(
-                  color: colores.tooltipBackground,
+                  color: colores.grisSobreBackground,
                   borderRadius: BorderRadius.circular(
                     10.sw,
                   ),

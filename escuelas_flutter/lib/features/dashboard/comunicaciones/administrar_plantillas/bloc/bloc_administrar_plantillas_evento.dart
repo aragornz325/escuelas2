@@ -26,7 +26,7 @@ class BlocAdministrarPlantillasEventoAgregarPlantilla
   const BlocAdministrarPlantillasEventoAgregarPlantilla({
     required this.nombrePlantilla,
     required this.descripcionPlantilla,
-    required this.necesitaSupervicion,
+    required this.necesitaSupervision,
   });
 
   /// Nombre de la plantilla
@@ -36,7 +36,7 @@ class BlocAdministrarPlantillasEventoAgregarPlantilla
   final String descripcionPlantilla;
 
   /// Verifica si la plantilla necesita supervisión
-  final bool necesitaSupervicion;
+  final bool necesitaSupervision;
 }
 
 /// {@template BlocAdministrarPlantillasEventoCambiarModoEliminar}

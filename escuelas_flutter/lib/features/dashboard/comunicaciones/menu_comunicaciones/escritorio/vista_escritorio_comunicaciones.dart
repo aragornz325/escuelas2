@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioMenuComunicaciones}
-/// Vista escritorio de MenuComunicaciones donde un directivo verificar
+/// Vista escritorio de MenuComunicaciones donde un directivo verifica
 /// las comunicaciones en general.
 /// {@endtemplate}
 class VistaEscritorioMenuComunicaciones extends StatelessWidget {

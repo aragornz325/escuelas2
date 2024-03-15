@@ -13,13 +13,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 @RoutePage()
 class PaginaMenuComunicaciones extends StatelessWidget {
   /// {@macro PaginaMenuComunicaciones}
-  const PaginaMenuComunicaciones({super.key});
+  const PaginaMenuComunicaciones({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocComunicaciones>(
       create: (context) => BlocComunicaciones()
-        ..add(BlocComunicacionesEventoInicializar(fecha: DateTime.now())),
+        ..add(
+          BlocComunicacionesEventoInicializar(
+            fecha: DateTime.now(),
+          ),
+        ),
       child: const FullResponsiveScreen(
         celular: VistaCelularMenuComunicaciones(),
         escritorio: VistaEscritorioMenuComunicaciones(),

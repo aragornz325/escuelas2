@@ -10,7 +10,7 @@ Color getColorFromCalificacion({
   final colores = context.colores;
 
   if (calificacion == null) {
-    return colores.tooltipBackground;
+    return colores.grisSobreBackground;
   }
 
   switch (calificacion) {
@@ -27,6 +27,6 @@ Color getColorFromCalificacion({
       return colores.verdeTEA;
 
     default:
-      return colores.tooltipBackground;
+      return colores.grisSobreBackground;
   }   
 }
