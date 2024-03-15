@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 extension HiloDeNotificacionesX on HiloDeNotificaciones {
   /// Fecha mas reciente del ultimo comentario
   String fechaRecienteComentario(BuildContext context) {
-    if ((comentarios ?? []).isEmpty && comentarios != null) {
+    if ((comentarios ?? []).isEmpty && comentarios == null) {
       return ultimaModificacion.toUtc().periodoFechaEnviada(context);
     }
     comentarios!

@@ -26,7 +26,7 @@ extension DateTimeX on DateTime {
   String periodoFechaEnviada(BuildContext context) {
     final l10n = context.l10n;
 
-    if (mismaFecha(this)) {
+    if (mismaFecha(DateTime.now())) {
       final fecha =
           DateFormat('HH:mm', Localizations.localeOf(context).languageCode)
               .format(this);
@@ -40,7 +40,7 @@ extension DateTimeX on DateTime {
   String horaFechaEnviada(BuildContext context) {
     final l10n = context.l10n;
 
-    if (mismaFechayHorario(this)) {
+    if (mismaFechayHorario(DateTime.now())) {
       return l10n.commonNow;
     }
     return DateFormat('HH:mm', Localizations.localeOf(context).languageCode)

@@ -4,6 +4,7 @@ import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -25,8 +26,10 @@ class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
   /// Getter para saber si todas las notificaciones estan leidas.
   bool get estanTodasLeidas => notificaciones.any(
         (notificacion) => notificacion.comentarios!.any(
-          (comentario) => comentario.destinatarios!.any(
-            (element) => element.fechaDeLectura == null,
+          (comentario) => (comentario.destinatarios ?? []).any(
+            (element) =>
+                element.fechaDeLectura != null &&
+                element.idUsuario == sessionManager.signedInUser?.id,
           ),
         ),
       );
@@ -52,7 +55,7 @@ class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // TODO(mati): agregar notificacion dependiendo de los roles del usuario
-        // si es directivo/docente puede agregar una nueva notificacion.
+        // si es directivo/docente puede agregar una nueva notificacion.sino no.
         InkWell(
           onTap: () => _dialogAgregarNuevaNotificacion(context),
           child: Row(

@@ -1,6 +1,7 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/bloc/bloc_perfil_comunicados.dart';
+import 'package:escuelas_flutter/utilidades/utilidades.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -25,16 +26,18 @@ class NombreNotificacionYMarcarComoLeido extends StatelessWidget {
   final HiloDeNotificaciones notificacion;
 
   /// Indica si hay un comentario sin leer y muestra un circulo de color azul.
-  bool get hayComentariosSinLeer => !(notificacion.comentarios ?? []).every(
+  bool get hayComentariosSinLeer => !(notificacion.comentarios ?? []).any(
         (comentario) =>
-            comentario.destinatarios?.every((e) => e.fechaDeLectura != null) ??
+            comentario.destinatarios?.any(
+              (e) =>
+                  e.fechaDeLectura != null &&
+                  e.idUsuario == sessionManager.signedInUser?.id,
+            ) ??
             false,
       );
 
   @override
   Widget build(BuildContext context) {
-    print(hayComentariosSinLeer);
-
     final colores = context.colores;
     return Row(
       children: [
