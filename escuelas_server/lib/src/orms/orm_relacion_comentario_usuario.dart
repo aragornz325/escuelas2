@@ -4,14 +4,15 @@ import 'package:serverpod/serverpod.dart';
 import '../generated/protocol.dart';
 
 class OrmRelacionComentarioHiloDeNotificacionesUsuario extends ORM {
-  Future<void> crearRelacionesComentarioHiloDeNotificacionesUsuario(
+  Future<List<RelacionComentarioHiloDeNotificacionesUsuario>>
+      crearRelacionesComentarioHiloDeNotificacionesUsuario(
     Session session, {
     required List<RelacionComentarioHiloDeNotificacionesUsuario> relaciones,
   }) async {
-    await ejecutarOperacionOrm(
+    return await ejecutarOperacionOrm(
       session,
       (session) async {
-        await RelacionComentarioHiloDeNotificacionesUsuario.db.insert(
+        return await RelacionComentarioHiloDeNotificacionesUsuario.db.insert(
           session,
           relaciones,
         );

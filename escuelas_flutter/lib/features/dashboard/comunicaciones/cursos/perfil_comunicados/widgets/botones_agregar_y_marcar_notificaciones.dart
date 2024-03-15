@@ -24,12 +24,10 @@ class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
   final List<HiloDeNotificaciones> notificaciones;
 
   /// Getter para saber si todas las notificaciones estan leidas.
-  bool get estanTodasLeidas => notificaciones.any(
-        (notificacion) => notificacion.comentarios!.any(
-          (comentario) => (comentario.destinatarios ?? []).any(
-            (element) =>
-                element.fechaDeLectura != null &&
-                element.idUsuario == sessionManager.signedInUser?.id,
+  bool get estanTodasLeidas => notificaciones.every(
+        (notificacion) => notificacion.comentarios!.every(
+          (comentario) => (comentario.destinatarios ?? []).every(
+            (element) => element.fechaDeLectura != null,
           ),
         ),
       );
@@ -78,7 +76,7 @@ class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
         ),
         InkWell(
           onTap: () {
-            if (estanTodasLeidas) {
+            if (!estanTodasLeidas) {
               context.read<BlocPerfilComunicados>().add(
                     BlocPerfilComunicadosEventoNotificacionMarcarTodasComoLeidas(),
                   );
@@ -91,7 +89,7 @@ class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.w500,
                   fontSize: 10.pf,
-                  color: estanTodasLeidas
+                  color: !estanTodasLeidas
                       ? colores.primary
                       : colores.grisDeshabilitado,
                 ),
@@ -99,7 +97,7 @@ class BotonesAgregarNuevaYMarcarTodosComoLeidos extends StatelessWidget {
               Icon(
                 Icons.mark_email_read_outlined,
                 size: 20.sw,
-                color: estanTodasLeidas
+                color: !estanTodasLeidas
                     ? colores.primary
                     : colores.grisDeshabilitado,
               ),

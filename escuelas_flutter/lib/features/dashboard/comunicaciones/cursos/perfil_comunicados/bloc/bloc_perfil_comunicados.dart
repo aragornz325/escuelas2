@@ -114,15 +114,15 @@ class BlocPerfilComunicados
             .marcarComoLeidoHiloDeNotificaciones(
           idHiloDeNotificaciones: notificacion.id ?? 0,
         );
+
         final notificaciones =
             List<HiloDeNotificaciones>.from(state.notificaciones);
 
-        notificaciones
-            .firstWhere(
-              (notificacion) => notificacion.id == notificacion.id,
-            )
-            .comentarios
-            ?.forEach(
+        final notificacionEditada = notificaciones.firstWhere(
+          (notificacion) => notificacion.id == notificacion.id,
+        );
+
+        notificacionEditada.comentarios?.forEach(
           (comentario) {
             comentario.destinatarios?.forEach(
               (destinatario) {
@@ -131,6 +131,14 @@ class BlocPerfilComunicados
             );
           },
         );
+
+        final index = notificaciones.indexWhere(
+          (notificacion) => notificacion.id == notificacionEditada.id,
+        );
+
+        if (index != -1) {
+          notificaciones[index] = notificacionEditada;
+        }
 
         emit(
           BlocPerfilComunicadosEstadoExitoso.desde(

@@ -28,11 +28,7 @@ class NombreNotificacionYMarcarComoLeido extends StatelessWidget {
   /// Indica si hay un comentario sin leer y muestra un circulo de color azul.
   bool get hayComentariosSinLeer => !(notificacion.comentarios ?? []).any(
         (comentario) =>
-            comentario.destinatarios?.any(
-              (e) =>
-                  e.fechaDeLectura != null &&
-                  e.idUsuario == sessionManager.signedInUser?.id,
-            ) ??
+            comentario.destinatarios?.any((e) => e.fechaDeLectura != null) ??
             false,
       );
 
