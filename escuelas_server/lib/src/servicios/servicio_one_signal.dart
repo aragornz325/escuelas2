@@ -57,14 +57,23 @@ class ServicioOneSignal {
 
     final cantidadSolicitudesNotificaciones =
         listaSolicitudesNotificaciones.length.toString();
+    final nombreAlumno = listaSolicitudesNotificaciones[0].alumno?.nombre ?? '';
+    final nombreDocente =
+        listaSolicitudesNotificaciones[0].docente?.nombre ?? '';
+    final apellidoAlumno =
+        listaSolicitudesNotificaciones[0].alumno?.apellido ?? '';
+    final apellidoDocente =
+        listaSolicitudesNotificaciones[0].docente?.apellido ?? '';
+    final nombreComision =
+        listaSolicitudesNotificaciones[0].comision?.nombre ?? '';
 
     // TODO(ANYONE): Las notificaciones deberian estar guardadas en base de datos, carry over en esa HU.
     // https://tree.taiga.io/project/rodsevich-escuelas/us/208?kanban-status=7686844&kanban-swimlane=15087
     final notificationData = NotificacionData(
       titulo:
-          'Existen $cantidadSolicitudesNotificaciones solicitudes de notificaciones pendientes.',
+          'Tenés $cantidadSolicitudesNotificaciones solicitudes de notificación pendientes.',
       contenido:
-          'Presiona para redirigirse a aprobar o rechazar las solicitudes pendientes.',
+          '$nombreDocente $apellidoDocente quiere notificar a $nombreAlumno $apellidoAlumno de $nombreComision',
       pathRuta: 'communications',
       // TODO(ANYONE): Agregar ID notificacion una vez implementado el CRUD.
       idNotificacion: '2',
