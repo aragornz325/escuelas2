@@ -142,6 +142,29 @@ class AppRouter extends $AppRouter {
               path: 'grades',
             ),
             AutoRoute(
+              page: RutaComunicaciones.page,
+              path: 'communications',
+              children: [
+                AutoRoute(
+                  page: RutaMenuComunicaciones.page,
+                  path: 'menu-communications',
+                  initial: true,
+                ),
+                AutoRoute(
+                  page: RutaComunicacionesPendientes.page,
+                  path: 'pending-communications',
+                ),
+                AutoRoute(
+                  page: RutaComunicacionesGeneral.page,
+                  path: 'general-communications',
+                ),
+                AutoRoute(
+                  page: RutaComunicacionesCursos.page,
+                  path: 'course-communications',
+                ),
+              ],
+            ),
+            AutoRoute(
               page: RutaCalificacionesAnuales.page,
               path: 'anual-grades/:idAsignatura',
             ),

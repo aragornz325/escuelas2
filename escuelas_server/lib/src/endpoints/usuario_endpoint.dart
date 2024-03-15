@@ -198,7 +198,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
 
   /// La función `actualizarUsuario` actualiza un usuario en la base de datos.
   /// Devuelve el usuario actualizado.
-
   Future<Usuario> actualizarUsuario(
     Session session, {
     required Usuario usuario,

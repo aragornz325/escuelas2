@@ -24,6 +24,9 @@ extension EscuelasColorScheme on ColorScheme {
   /// Color utilizado de fondo en version Desktop.
   Color get marfilBackgroundDesktop => const Color(0xffe8e8e8);
 
+  /// Color utilizado de fondo de una notificacion.
+  Color get azulNotificacion => const Color(0xff5274FF);
+
   /// Se utiliza para el color del texto Sin Calificacion(SC) o la flecha de
   /// containers expandibles
   Color get grisSC => const Color(0xff6D6D6D);
@@ -51,8 +54,12 @@ extension EscuelasColorScheme on ColorScheme {
   /// Color utilizado en el drawer para hacer sombreado al background.
   Color get onSecondaryOpacidadTreinta => onSecondary.withOpacity(0.3);
 
-  /// Color utilizado en los tooltip background y en border de ElementoLista.
-  Color get tooltipBackground => const Color(0xffD9D9D9);
+  /// Color utilizado en los tooltip background, dividers y en border
+  /// de ElementoLista.
+  Color get grisSobreBackground => const Color(0xffD9D9D9);
+
+  /// Color gris utilizado en fechas y en otros iconos.
+  Color get grisDetalleFecha => const Color(0xff8C8C8C);
 
   /// Color utilizado en los tooltip.
   Color get onBackgroundOpacidadCincuenta => onBackground.withOpacity(0.5);
