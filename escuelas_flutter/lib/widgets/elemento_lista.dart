@@ -284,6 +284,7 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
 
     return ElementoLista(
+      borderRadius: 20.sw,
       tieneBoxShadow: estaPresionado,
       altura: 65.ph,
       padding: EdgeInsets.only(left: 20.pw),
@@ -563,7 +564,7 @@ class ElementoLista extends StatelessWidget {
           borderRadius: BorderRadius.circular(borderRadius),
           border: tieneBordeVisible
               ? Border.all(
-                  color: colores.tooltipBackground,
+                  color: colores.grisSobreBackground,
                 )
               : null,
           boxShadow: tieneBoxShadow

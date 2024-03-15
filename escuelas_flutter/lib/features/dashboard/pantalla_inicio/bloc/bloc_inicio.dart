@@ -22,13 +22,25 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
 
     await operacionBloc(
       callback: (client) async {
+        final usuarioLogueado = await client.usuario.obtenerDatosDelUsuario();
+
+        final idUsuario = usuarioLogueado.id.toString();
+
         final usuariosPendientes =
             await client.usuario.obtenerUsuariosPendientes();
+
+        final solicitudesNotificacionesPendientes = await client
+            .solicitudNotificacion
+            .obtenerSolicitudesNotificacionesPendientes(
+          userId: idUsuario,
+        );
 
         emit(
           BlocInicioEstadoExitoso.desde(
             state,
             hayUsuariosPendientes: usuariosPendientes.isNotEmpty,
+            cantidadNotificacionesPendientes:
+                solicitudesNotificacionesPendientes.length,
           ),
         );
       },

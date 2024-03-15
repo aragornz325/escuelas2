@@ -1,0 +1,11 @@
+class: Notificacion
+table: notificaciones
+fields:
+  titulo: String
+  cuerpo: String 
+  fueEditada: bool
+  idEstudiante: int, relation(parent=usuarios)
+  idCreadorNotificacion: int, relation(parent=usuarios)
+  fechaCreacion: DateTime
+  ultimaModificacion: DateTime?
+

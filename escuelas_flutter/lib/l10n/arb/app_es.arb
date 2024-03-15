@@ -263,6 +263,23 @@
   "@pageStudentGrades": {
     "description": "Title of the page Grades for a student"
   },
+  "pageCommunicationsTitle": "Comunicaciones",
+    "@pageCommunicationsTitle": {
+        "description": "Title of the page Communications"
+    },
+  "pagePendingCommunicationsDialogDescription": "¿Estás seguro que deseas aprobar esta notificación?",
+    "@pagePendingCommunicationsDialogDescription": {
+        "description": "Description text of the alert dialog when the user taps button to approve the communication"
+  },
+  "pagePendingCommunicationsEmptyList": "No hay solicitudes de notificaciones",
+    "@pagePendingCommunicationsEmptyList": {
+        "description": "Description text that appears instead of the notification requests when the list is empty."
+  },
+  "pagePendingCommunicationsDialogSuccess": "Notificación aprobada con éxito",
+    "@pagePendingCommunicationsDialogSuccess": {
+        "description": "Description text of the alert dialog to let the user know that the notification was successfully approved"
+  },
+
   "pageGradesStudentCardAverage": "Promedio: ",
   "@pageGradesStudentCardAverage": {
     "description": "Text to be displayed next to the average of the student grades."
@@ -435,6 +452,29 @@
   "@routeNamePendingUsers": {
     "description": ""
   },
+
+    "routeNameMenuCommunications": "Comunicaciones",
+    "@routeNameMenuCommunications": {
+        "description": "Name of the route"
+    },
+
+    
+    "routeNamePendingCommunications": "Pendientes",
+    "@routeNamePendingCommunications": {
+        "description": "Name of the route"
+    },
+
+    
+    "routeNameGeneralCommunications": "General",
+    "@routeNameGeneralCommunications": {
+        "description": "Name of the route"
+    },
+
+    "routeNameCourseCommunications": "Cursos",
+    "@routeNameCourseCommunications": {
+        "description": "Name of the route"
+    },
+
   "routeAcademicCommunityMenu": "Menú",
   "@routeAcademicCommunityMenu": {
     "description": ""
@@ -547,6 +587,10 @@
   "@commonContinue": {
     "description": "Label for a button or action indicating to proceed."
   },
+  "commonApprove": "Aprobar",
+  "@commonApprove": {
+    "description": "Label for a button or action indicating to approve."
+  },
   "commonDialogError": "Ha ocurrido un error",
   "@commonDialogError": {
     "description": "Description of the alert dialog error, informing the user of an error."
@@ -570,6 +614,10 @@
   "commonAge": "Edad",
   "@commonAge": {
     "description": "Label used to represent the age field in personal data."
+  },
+  "commonSave": "Guardar",
+  "@commonSave": {
+    "description": "Label for a button or action indicating to save."
   },
   "commonEmergencyContact": "Contacto de emergencia",
   "@commonEmergencyContact": {
@@ -751,6 +799,16 @@
   "@commonSubject": {
     "description": "It is commonly used to refer to a specific academic subject"
   },
+
+    "commonButtonAccept": "Aceptar",
+    "@commonButtonAccept": {
+        "description": "It is commonly used in a button to accept"
+    },
+
+    "commonButtonDecline": "Rechazar",
+    "@commonButtonDecline": {
+        "description": "It is commonly used in a button to decline"
+    },
   "commonCourse": "Curso",
   "@commonCourse": {
     "description": "It is commonly used to refer to a specific academic course."
