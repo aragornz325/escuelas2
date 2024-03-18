@@ -977,6 +977,9 @@
   "commonNoTemplate": "Sin plantilla",
   "@commonNoTemplate": {
       "description": "Text no template"
-  }
-
+  },
+  "commonWarning": "Atención",
+    "@commonWarning": {
+      "description": "Label indicating  warn the user"
+    }
 }

@@ -1011,9 +1011,9 @@
     "@commonPhoneNumber": {
       "description": "Label used to represent the phone field in personal data."
     },
-    "commonAttention": "Warning",
-    "@commonAttention": {
-      "description": "Label indicating to Attention"
+    "commonWarning": "Warning",
+    "@commonWarning": {
+      "description": "Label indicating  warn the user"
     }
 
 }
