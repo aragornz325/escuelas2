@@ -1,0 +1,12 @@
+class: HiloDeNotificaciones
+table: hilos_de_notificaciones
+fields:
+  titulo: String
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?
+  estudiante: Usuario?, relation
+  comentarios: List<ComentarioHiloDeNotificaciones>?, relation
+  participantes: List<RelacionHiloDeNotificacionesUsuario>?, relation(name=hilo_participantes)
+  necesitaSupervision: bool
+  mensajesSinLeer: bool?, !persist

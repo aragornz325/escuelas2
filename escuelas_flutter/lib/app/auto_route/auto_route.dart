@@ -161,6 +161,17 @@ class AppRouter extends $AppRouter {
                 AutoRoute(
                   page: RutaComunicacionesCursos.page,
                   path: 'course-communications',
+                  children: [
+                    AutoRoute(
+                      initial: true,
+                      page: RutaComunicacionesListaCursos.page,
+                      path: 'courses',
+                    ),
+                    AutoRoute(
+                      page: RutaPerfilComunicados.page,
+                      path: 'communication-profile/:nombreUsuario/:idUsuario',
+                    ),
+                  ],
                 ),
               ],
             ),

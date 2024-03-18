@@ -26,7 +26,10 @@ enum MenuOpcionesComunicaciones {
       case comunicacionesGeneral:
         context.router.push(const RutaComunicacionesGeneral());
       case comunicacionesCursos:
-        context.router.push(const RutaComunicacionesCursos());
+        // TODO(anyone) : verificar primero si el rol que tiene el usuario es
+        // directivo/docente va a la lista de cursos.si es alumno va a perfil
+        // comunicados.
+        context.router.push(const RutaComunicacionesListaCursos());
     }
   }
 

@@ -22,7 +22,9 @@ class PaginaMenuComunicaciones extends StatelessWidget {
     return BlocProvider<BlocComunicaciones>(
       create: (context) => BlocComunicaciones()
         ..add(
-          const BlocComunicacionesEventoInicializar(),
+          BlocComunicacionesEventoInicializar(
+            fecha: DateTime.now(),
+          ),
         ),
       child: const FullResponsiveScreen(
         celular: VistaCelularMenuComunicaciones(),

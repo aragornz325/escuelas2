@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_commons/permisos/permisos.dart';
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';

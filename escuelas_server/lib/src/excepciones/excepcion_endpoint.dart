@@ -133,3 +133,22 @@
 //                   'again later, should the issue persist please reach out.',
 //         );
 // }
+
+import 'package:escuelas_server/src/generated/protocol.dart';
+
+final errorDesconocido = {
+  'tipoDeError': TipoExcepcion.desconocido,
+           'codigoError': 570,
+           'titulo': 'Error Code: UNKNOWN',
+           'mensaje': 
+               'It seems that the server is not reachable at the moment, try '
+                   'again later, should the issue persist please reach out.',
+};
+
+final errorNoEncontrado = {
+  'tipoDeError': TipoExcepcion.noEncontrado,
+           'codigoError': 404,
+           'titulo': 'Error Code: NOT_FOUND',
+           'mensaje': 'It seems that the resource you are trying to access is '
+                   'not available at the moment, please try again later.',
+};

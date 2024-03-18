@@ -33,6 +33,7 @@ class BlocComunicaciones
             state,
             cantidadNotificacionesPendientes:
                 solicitudesNotificacionesPendientes.length,
+            fechaActual: event.fecha,
           ),
         );
       },

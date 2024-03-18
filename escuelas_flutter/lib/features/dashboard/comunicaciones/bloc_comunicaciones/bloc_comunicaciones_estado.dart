@@ -7,22 +7,29 @@ part of 'bloc_comunicaciones.dart';
 class BlocComunicacionesEstado {
   /// {@macro BlocComunicacionesEstado}
   const BlocComunicacionesEstado._({
+    this.fechaActual,
     this.cantidadNotificacionesPendientes,
   });
 
   BlocComunicacionesEstado.desde(
     BlocComunicacionesEstado otro, {
+    DateTime? fechaActual,
     int? cantidadNotificacionesPendientes,
   }) : this._(
           cantidadNotificacionesPendientes: cantidadNotificacionesPendientes ??
               otro.cantidadNotificacionesPendientes,
+          fechaActual: fechaActual ?? otro.fechaActual,
         );
+
+  /// Fecha en la que se finalizaron las Comunicaciones
+  final DateTime? fechaActual;
 
   /// Cantidad de notificaciones pendientes
   final int? cantidadNotificacionesPendientes;
 
   List<Object?> get props => [
         cantidadNotificacionesPendientes,
+        fechaActual,
       ];
 }
 
@@ -49,6 +56,7 @@ class BlocComunicacionesEstadoExitoso extends BlocComunicacionesEstado {
   /// {@macro BlocComunicacionesEstadoExitoso}
   BlocComunicacionesEstadoExitoso.desde(
     super.otro, {
+    super.fechaActual,
     super.cantidadNotificacionesPendientes,
   }) : super.desde();
 }

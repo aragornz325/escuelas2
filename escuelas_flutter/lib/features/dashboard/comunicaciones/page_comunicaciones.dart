@@ -5,23 +5,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 /// {@template PaginaComunicaciones}
-/// Pagina Comunicaciones donde un directivo verifica
+/// Pagina Comunicaciones donde un directivo verificar
 /// las comunicaciones en general.
 /// {@endtemplate}
 @RoutePage()
 class PaginaComunicaciones extends StatelessWidget {
   /// {@macro PaginaComunicaciones}
-  const PaginaComunicaciones({
-    super.key,
-  });
+  const PaginaComunicaciones({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<BlocComunicaciones>(
       create: (context) => BlocComunicaciones()
-        ..add(
-          const BlocComunicacionesEventoInicializar(),
-        ),
+        ..add(BlocComunicacionesEventoInicializar(fecha: DateTime.now())),
       child: AutoRouter(
         builder: (context, content) {
           return switch (context.router.current.name) {

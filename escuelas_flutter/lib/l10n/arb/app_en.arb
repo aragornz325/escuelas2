@@ -201,6 +201,10 @@
   "@pageComissionSupervisionNoComissions": {
     "description": ""
   },
+  "pageCommunicationsTitle": "Communications",
+  "@pageCommunicationsTitle": {
+      "description": "Title of the page Communications"
+  },
   "pageComissionSupervisionNotAvailable": "Not available",
   "@pageComissionSupervisionNotAvailable": {
     "description": ""
@@ -314,6 +318,59 @@
   "pageHomeNoOptionsMenu": "No menus available",
   "@pageHomeNoOptionsMenu": {
     "description": "There are no options available in the menu"
+  },
+  "pageCommunicationProfileAddNewNotification": "Add new",
+  "@pageCommunicationProfileAddNewNotification": {
+  "description": "Add new"
+  },
+  "pageCommunicationProfileMarkAllRead": "Mark all as read",
+  "@pageCommunicationProfileMarkAllRead": {
+  "description": "Mark all as read"
+  },
+  "dialogCreationNotificationCreatedSuccess": "Notification created successfully",
+  "@dialogCreationNotificationCreatedSuccess": {
+      "description": "Notification created successfully"
+  },
+  "dialogCreationNotificationCreateNotification": "Create notification",
+  "@dialogCreationNotificationCreateNotification": {
+      "description": "Create notification"
+  },
+  "dialogCreationNotificationTitleTextfield": "Title",
+  "@dialogCreationNotificationTitleTextfield": {
+      "description": "Title"
+  },
+  "dialogCreationNotificationWithTemplateDefault": "Create as default template",
+  "@dialogCreationNotificationWithTemplateDefault": {
+      "description": "Create as default template"
+  },
+      "dialogCreationNotificationWasTemplate": "was\n created as a template.",
+    "@dialogCreationNotificationWasTemplate": {
+        "description": "was created as a template."
+    },
+
+    "dialogCreationNotificationConfimationSend": "By confirming you will send it as a notification.",
+    "@dialogCreationNotificationConfimationSend": {
+        "description": "Upon confirmation, it will be sent as a notification."
+    },
+
+    "dialogCreationNotificationWillCreateNotification": "You will create a notification",
+    "@dialogCreationNotificationWillCreateNotification": {
+        "description": "You will create a notification"
+    },
+
+    "dialogCreationNotificationWantToContinue": "Do you want to continue?",
+    "@dialogCreationNotificationWantToContinue": {
+        "description": "Do you want to continue?"
+    },
+    
+    "dialogCreationNotificationTooltip": "If supervision is required, any user attempting to send a communication will be previously accepted (or edited and discarded) by a supervisor.",
+    "@dialogCreationNotificationTooltip": {
+        "description": "If supervision is required, any user attempting to send a communication will be reviewed (or edited and discarded) by a supervisor."
+    },
+
+    "dialogCreationNotificationNeedsupervision": "Need supervision",
+  "@dialogCreationNotificationNeedsupervision": {
+      "description": "Needs supervision"
   },
 
     
@@ -431,6 +488,11 @@
   "@dropdownErrorMustCompleteField": {
     "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
   },
+  "routeNameMenuCommunications": "Communications",
+  "@routeNameMenuCommunications": {
+      "description": "Name of the route"
+  },
+
   "routeNameHome": "Home",
   "@routeNameHome": {
     "description": ""
@@ -474,6 +536,18 @@
   "routeNamePendingUserProfile": "Pending user profile",
   "@routeNamePendingUserProfile": {
     "description": ""
+  },   
+  "routeNamePendingCommunications": "Pendings",
+  "@routeNamePendingCommunications": {
+      "description": "Name of the route"
+  }, 
+  "routeNameGeneralCommunications": "General",
+  "@routeNameGeneralCommunications": {
+      "description": "Name of the route"
+  },
+  "routeNameCourseCommunications": "Courses",
+  "@routeNameCourseCommunications": {
+      "description": "Name of the route"
   },
   "routeNameCourses": "Courses",
   "@routeNameCourses": {
@@ -665,6 +739,29 @@
   "commonDecember": "December",
   "@commonDecember": {
     "description": "Text displaying the twelfth month December"
+  },
+  "commonTemplate": "Template",
+  "@commonTemplate": {
+      "description": "Template"
+  },
+  "commonTemplates": "Templates",
+  "@commonTemplates": {
+      "description": "Templates"
+  },
+
+  "commonToday": "Today",
+  "@commonToday": {
+      "description": "Text today"
+  },
+
+  "commonNow": "Now",
+  "@commonNow": {
+      "description": "Text now"
+  },
+  
+  "commonNoTemplate": "No template",
+  "@commonNoTemplate": {
+      "description": "Text no template"
   },
 
     "commonMail": "Mail",
