@@ -347,9 +347,11 @@ packages:
   escuelas_commons:
     dependency: "direct main"
     description:
-      path: "../escuelas_commons"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: c240e3923b8f14361bc793b03163d235dff0fe4a
+      url: "https://github.com/juanjosegarcia98/escuelas_commons"
+    source: git
     version: "0.1.0+1"
   fake_async:
     dependency: transitive
@@ -1085,9 +1087,11 @@ packages:
   rolemissions:
     dependency: "direct main"
     description:
-      path: "../rolemissions"
-      relative: true
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "025dcfbab87f9e1787a78a8e6a3e8ba535ad0a48"
+      url: "https://github.com/Rodsevich/rolemissions"
+    source: git
     version: "0.1.0+1"
   rxdart:
     dependency: transitive
