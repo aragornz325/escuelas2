@@ -1,4 +1,6 @@
-part of 'bloc_comunicaciones_pendientes.dart';
+import 'package:escuelas_client/escuelas_client.dart';
+import 'package:flutter/material.dart';
+
 
 /// {@template BlocComunicacionesPendientesEstado}
 /// Bloc que maneja el estado de las ComunicacionesPendientes

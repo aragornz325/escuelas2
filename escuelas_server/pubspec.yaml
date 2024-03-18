@@ -27,9 +27,11 @@ dependencies:
   serverpod_auth_server: 1.2.3
   yaml_writer: ^1.0.3
   rolemissions:
-    path: ../rolemissions
+    git:
+      url: https://github.com/Rodsevich/rolemissions
   escuelas_commons:
-    path: ../escuelas_commons
+    git:
+      url: https://github.com/juanjosegarcia98/escuelas_commons
   http: ^0.13.6
 
 dev_dependencies:

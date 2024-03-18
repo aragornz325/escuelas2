@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/pendientes/bloc_comunicaciones_pendientes/bloc_comunicaciones_pendientes.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/pendientes/bloc_comunicaciones_pendientes/bloc_comunicaciones_pendientes_estado.dart';
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/pendientes/widgets/comision_con_notificaciones_pendientes.dart.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';

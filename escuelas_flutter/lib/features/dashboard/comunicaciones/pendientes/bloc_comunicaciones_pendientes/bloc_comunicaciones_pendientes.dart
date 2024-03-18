@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:flutter/material.dart';
+import 'package:escuelas_flutter/features/dashboard/comunicaciones/pendientes/bloc_comunicaciones_pendientes/bloc_comunicaciones_pendientes_estado.dart';
+
 
 part 'bloc_comunicaciones_pendientes_evento.dart';
-part 'bloc_comunicaciones_pendientes_estado.dart';
 
 /// {@template BlocComunicacionesPendientes}
 /// BLoC que maneja el estado y la lógica general de la pagina
