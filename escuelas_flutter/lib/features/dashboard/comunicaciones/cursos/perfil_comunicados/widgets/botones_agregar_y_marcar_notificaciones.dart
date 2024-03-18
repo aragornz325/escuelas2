@@ -4,7 +4,6 @@ import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil
 import 'package:escuelas_flutter/features/dashboard/comunicaciones/cursos/perfil_comunicados/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';

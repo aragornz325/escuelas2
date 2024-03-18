@@ -20,9 +20,7 @@ class PaginaComunicacionesPendientes extends StatelessWidget {
     return BlocProvider<BlocComunicacionesPendientes>(
       create: (context) => BlocComunicacionesPendientes()
         ..add(
-          BlocComunicacionesPendientesEventoInicializar(
-
-          ),
+          const BlocComunicacionesPendientesEventoInicializar(),
         ),
       child: const FullResponsiveScreen(
         celular: VistaCelularComunicacionesPendientes(),

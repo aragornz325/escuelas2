@@ -106,8 +106,6 @@ class BlocPerfilComunicados
 
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): todavia no esta muy bien planteado como marcar las
-        // notificaciones como leidas por cada usuario que lo ve
         final notificacion = event.notificacion;
 
         await client.cuadernoDeComunicaciones
@@ -119,7 +117,7 @@ class BlocPerfilComunicados
             List<HiloDeNotificaciones>.from(state.notificaciones);
 
         final notificacionEditada = notificaciones.firstWhere(
-          (notificacion) => notificacion.id == notificacion.id,
+          (noti) => noti.id == notificacion.id,
         );
 
         notificacionEditada.comentarios?.forEach(
@@ -196,8 +194,6 @@ class BlocPerfilComunicados
     emit(BlocPerfilComunicadosEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // TODO(anyone): todavia no es muy bien planteado como marcar las
-        // notificaciones como leidas por cada usuario que lo ve
         final notificaciones =
             List<HiloDeNotificaciones>.from(state.notificaciones);
 
