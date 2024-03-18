@@ -15,6 +15,10 @@ CREATE TABLE "notificaciones" (
 );
 
 --
+-- ACTION ALTER TABLE
+--
+DROP INDEX "r_asignatura_idx";
+--
 -- ACTION CREATE TABLE
 --
 CREATE TABLE "solicitudes_envio_notificacion" (
@@ -29,6 +33,12 @@ CREATE TABLE "solicitudes_envio_notificacion" (
     "estado" integer NOT NULL
 );
 
+--
+-- ACTION ALTER TABLE
+--
+CREATE UNIQUE INDEX "userinfo_unique_idx" ON "usuarios" USING btree ("idUserInfo");
+CREATE UNIQUE INDEX "dni_unique_idx" ON "usuarios" USING btree ("dni");
+CREATE UNIQUE INDEX "userinfo_dni_unique_idx" ON "usuarios" USING btree ("idUserInfo", "dni");
 --
 -- ACTION CREATE FOREIGN KEY
 --
@@ -84,9 +94,9 @@ ALTER TABLE ONLY "solicitudes_envio_notificacion"
 -- MIGRATION VERSION FOR escuelas
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('escuelas', '20240312135341352', now())
+    VALUES ('escuelas', '20240318183953876', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240312135341352', "timestamp" = now();
+    DO UPDATE SET "version" = '20240318183953876', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod
@@ -103,14 +113,6 @@ INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
     VALUES ('serverpod_auth', '20240115074239642', now())
     ON CONFLICT ("module")
     DO UPDATE SET "version" = '20240115074239642', "timestamp" = now();
-
---
--- MIGRATION VERSION FOR _repair
---
-INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('_repair', '20240312140258121', now())
-    ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240312140258121', "timestamp" = now();
 
 
 COMMIT;
