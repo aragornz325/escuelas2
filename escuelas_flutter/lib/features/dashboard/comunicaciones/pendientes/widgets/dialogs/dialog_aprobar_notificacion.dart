@@ -37,7 +37,7 @@ class DialogAprobarNotificacion extends StatelessWidget {
 
     return EscuelasDialog.solicitudDeAccion(
       estaHabilitado: true,
-      titulo: l10n.commonAttention.toUpperCase(),
+      titulo: l10n.commonWarning.toUpperCase(),
       context: context,
       onTapConfirmar: () {
         _onConfirmarExito(context);

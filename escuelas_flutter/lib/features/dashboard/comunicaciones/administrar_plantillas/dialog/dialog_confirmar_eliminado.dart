@@ -22,7 +22,7 @@ class DialogConfirmarEliminado extends StatelessWidget {
 
     return EscuelasDialog.solicitudDeAccion(
       estaHabilitado: true,
-      titulo: l10n.commonAttention,
+      titulo: l10n.commonWarning,
       context: context,
       onTapConfirmar: () => {
         context.read<BlocAdministrarPlantillas>().add(

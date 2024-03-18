@@ -79,7 +79,7 @@ class _DialogConfirmarCreacionNotificacionState
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: l10n.commonAttention,
+                    text: l10n.commonWarning,
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 16.pf,
