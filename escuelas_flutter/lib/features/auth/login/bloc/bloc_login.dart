@@ -35,6 +35,7 @@ class BlocLogin extends Bloc<BlocLoginEvento, BlocLoginEstado> {
     BlocLoginEventoIniciarSesionConCredenciales event,
     Emitter<BlocLoginEstado> emit,
   ) async {
+    emit(BlocLoginEstadoCargando.desde());
     await operacionBloc(
       callback: (client) async {
         final UserInfo? userInfo;
