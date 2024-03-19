@@ -57,7 +57,6 @@ class _PaginaKycState extends State<PaginaKyc> with WidgetsBindingObserver {
       child: AutoRouter(
         builder: (context, content) {
           return EscuelasScaffold(
-            tieneAppBar: context.router.current.name != RutaEspera.name,
             tieneDrawer: false,
             cuerpo: BlocListener<BlocKyc, BlocKycEstado>(
               listener: (context, state) {

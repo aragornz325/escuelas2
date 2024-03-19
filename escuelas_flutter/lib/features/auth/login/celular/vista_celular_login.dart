@@ -204,7 +204,9 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                               padding: EdgeInsets.symmetric(vertical: 30.ph),
                               child: EscuelasBoton.texto(
                                 estaHabilitado:
-                                    emailODNIValido && passwordValida,
+                                    state is! BlocLoginEstadoCargando &&
+                                        emailODNIValido &&
+                                        passwordValida,
                                 onTap: () => context.read<BlocLogin>().add(
                                       BlocLoginEventoIniciarSesionConCredenciales(
                                         dniOEmail: _controllerDniOEmail.text,

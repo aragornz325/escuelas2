@@ -182,33 +182,39 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
             icon: Icons.person_pin_outlined,
           ),
           SizedBox(height: 45.ph),
-          EscuelasBoton.texto(
-            estaHabilitado: _nombreController.text.isNotEmpty &&
-                _apellidoController.text.isNotEmpty &&
-                _emailController.text.isNotEmpty &&
-                _contraseniaController.text.isNotEmpty &&
-                _confirmarContraseniaController.text.isNotEmpty &&
-                _documentoController.text.isNotEmpty,
-            width: 100.wp - 40.pw,
-            height: 40.ph,
-            backgroundColorDeshabilitado: colores.botonRegistroDeshabilitado,
-            onTap: () {
-              setState(() {});
-              if (_formKey.currentState?.validate() ?? false) {
-                context.read<BlocRegistro>().add(
-                      BlocRegistroEventoRegistrarUsuario(
-                        nombre: _nombreController.text,
-                        apellido: _apellidoController.text,
-                        email: _emailController.text,
-                        contrasenia: _contraseniaController.text,
-                        documento: _documentoController.text,
-                      ),
-                    );
-              }
+          BlocBuilder<BlocRegistro, BlocRegistroEstado>(
+            builder: (context, state) {
+              return EscuelasBoton.texto(
+                estaHabilitado: state is! BlocRegistroEstadoCargando &&
+                    _nombreController.text.isNotEmpty &&
+                    _apellidoController.text.isNotEmpty &&
+                    _emailController.text.isNotEmpty &&
+                    _contraseniaController.text.isNotEmpty &&
+                    _confirmarContraseniaController.text.isNotEmpty &&
+                    _documentoController.text.isNotEmpty,
+                width: 100.wp - 40.pw,
+                height: 40.ph,
+                backgroundColorDeshabilitado:
+                    colores.botonRegistroDeshabilitado,
+                onTap: () {
+                  setState(() {});
+                  if (_formKey.currentState?.validate() ?? false) {
+                    context.read<BlocRegistro>().add(
+                          BlocRegistroEventoRegistrarUsuario(
+                            nombre: _nombreController.text,
+                            apellido: _apellidoController.text,
+                            email: _emailController.text,
+                            contrasenia: _contraseniaController.text,
+                            documento: _documentoController.text,
+                          ),
+                        );
+                  }
+                },
+                color: colores.primary,
+                texto: l10n.pageRegisterRegisterButton,
+                context: context,
+              );
             },
-            color: colores.primary,
-            texto: l10n.pageRegisterRegisterButton,
-            context: context,
           ),
           SizedBox(
             height: 30.ph,
