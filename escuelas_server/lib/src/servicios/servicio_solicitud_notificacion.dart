@@ -18,7 +18,7 @@ class ServicioSolicitudNotificacion extends Servicio<OrmSolicitudNotificacion> {
     final solicitudesNotificacionPendiente = await ejecutarOperacion(
       () => ormNotificacion.obtenerSolicitudesNotificacionesPendientes(session),
     );
-
+    // TODO(SAM): Verificar para q se mande 1 vez.
     if (userId != null && solicitudesNotificacionPendiente.isNotEmpty) {
       _servicioOneSignal
           .enviarNotificacionesDeSolicitudesNotificacionesPendientes(
@@ -26,6 +26,7 @@ class ServicioSolicitudNotificacion extends Servicio<OrmSolicitudNotificacion> {
         userId: userId,
       );
     }
+
     return solicitudesNotificacionPendiente;
   }
 
