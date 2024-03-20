@@ -55,25 +55,37 @@ class VistaCelularRegistro extends StatelessWidget {
         }
       },
       child: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.pw),
-                child: const EncabezadoDelRegistro(),
-              ),
-              Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.pw),
-                    child: const FormularioRegistro(),
+        child: BlocBuilder<BlocRegistro, BlocRegistroEstado>(
+          builder: (context, state) {
+            return Stack(
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.pw),
+                        child: const EncabezadoDelRegistro(),
+                      ),
+                      Column(
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.pw),
+                            child: const FormularioRegistro(),
+                          ),
+                          SizedBox(height: 40.ph),
+                          const TextoDerechosReservados(),
+                        ],
+                      ),
+                    ],
                   ),
-                  SizedBox(height: 40.ph),
-                  const TextoDerechosReservados(),
-                ],
-              ),
-            ],
-          ),
+                ),
+                if (state is BlocRegistroEstadoCargando)
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );

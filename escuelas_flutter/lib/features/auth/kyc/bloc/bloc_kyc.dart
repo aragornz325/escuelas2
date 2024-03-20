@@ -2,7 +2,6 @@ import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/asignatura.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/extensiones/comision_de_curso.dart';
-import 'package:escuelas_flutter/extensiones/user_info.dart';
 import 'package:escuelas_flutter/isar/isar_servicio.dart';
 import 'package:escuelas_flutter/utilidades/funciones/cerrar_sesion_usuario.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown.dart';
@@ -217,11 +216,13 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
       callback: (client) async {
         final usuario = event.userInfo;
 
+        // TODO(Gon): Ver como manejar un userinfo del logeo con googles
         final usuarioPendiente = UsuarioPendiente(
           idUserInfo: usuario?.id ?? 0,
-          nombre: usuario?.fullName ?? '',
-          apellido: usuario?.apellido ?? '',
+          nombre: usuario?.userName.split(';').first ?? '',
+          apellido: usuario?.userName.split(';').last ?? '',
           urlFotoDePerfil: usuario?.imageUrl ?? '',
+          dni: usuario?.userIdentifier ?? '',
           idRolSolicitado: state.rolElegido?.id ?? 0,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
         );
