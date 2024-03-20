@@ -9,7 +9,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i34;
-import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_client/escuelas_client.dart' as _i36;
 import 'package:escuelas_flutter/features/auth/kyc/espera/pagina_espera.dart'
     as _i13;
 import 'package:escuelas_flutter/features/auth/kyc/formulario/pagina_formulario.dart'
@@ -75,7 +75,7 @@ import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaci
 import 'package:escuelas_flutter/features/dashboard/usuarios_pendientes/pagina_usuarios_pendientes.dart'
     as _i33;
 import 'package:flutter/material.dart' as _i35;
-import 'package:serverpod_auth_client/module.dart' as _i36;
+import 'package:serverpod_auth_client/module.dart' as _i37;
 
 abstract class $AppRouter extends _i34.RootStackRouter {
   $AppRouter({super.navigatorKey});
@@ -582,8 +582,8 @@ class RutaComunidadAcademica extends _i34.PageRouteInfo<void> {
 /// [_i12.PaginaDashboard]
 class RutaDashboard extends _i34.PageRouteInfo<RutaDashboardArgs> {
   RutaDashboard({
-    required Usuario usuario,
-    required _i36.UserInfo userInfo,
+    required _i36.Usuario usuario,
+    required _i37.UserInfo userInfo,
     _i35.Key? key,
     List<_i34.PageRouteInfo>? children,
   }) : super(
@@ -609,9 +609,9 @@ class RutaDashboardArgs {
     this.key,
   });
 
-  final Usuario usuario;
+  final _i36.Usuario usuario;
 
-  final _i36.UserInfo userInfo;
+  final _i37.UserInfo userInfo;
 
   final _i35.Key? key;
 
