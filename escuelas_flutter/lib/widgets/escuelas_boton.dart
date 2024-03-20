@@ -138,8 +138,7 @@ class EscuelasBoton extends StatelessWidget {
     final colores = context.colores;
 
     return EscuelasBoton(
-      // TODO(Gon): Habilitar cuando funcione el login con google en railway
-      estaHabilitado: false,
+      estaHabilitado: true,
       onTap: onTap,
       width: width,
       height: 40.ph,
