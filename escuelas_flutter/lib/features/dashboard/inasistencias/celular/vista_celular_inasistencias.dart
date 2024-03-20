@@ -57,15 +57,19 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
             }
           },
           builder: (context, state) {
-            return Center(
-              child: Text(
-                state.fechaActual?.nombreMes(context) ?? '',
-                style: TextStyle(
-                  color: colores.onBackground,
-                  fontSize: 12.pf,
-                  fontWeight: FontWeight.w700,
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '${state.fechaActual?.nombreMes(context).toUpperCase() ?? ''}'
+                  ' - ${state.fechaActual?.year.toString() ?? ''}',
+                  style: TextStyle(
+                    color: colores.onSecondary,
+                    fontSize: 14.pf,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
+              ],
             );
           },
         ),

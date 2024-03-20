@@ -263,10 +263,6 @@
   "@pageStudentGrades": {
     "description": "Title of the page Grades for a student"
   },
-  "pageCommunicationsTitle": "Comunicaciones",
-    "@pageCommunicationsTitle": {
-        "description": "Title of the page Communications"
-    },
   "pagePendingCommunicationsDialogDescription": "¿Estás seguro que deseas aprobar esta notificación?",
     "@pagePendingCommunicationsDialogDescription": {
         "description": "Description text of the alert dialog when the user taps button to approve the communication"
@@ -307,7 +303,13 @@
   },
   "pageCommunicationProfileMarkAllRead": "Marcar todo como leído",
   "@pageCommunicationProfileMarkAllRead": {
-      "description": "Mark all as read"},
+      "description": "Mark all as read"
+  },
+
+  "pageCourseManagementReplaceTeacher": "Reemplazar docente",
+  "@pageCourseManagementReplaceTeacher": {
+      "description": "Label indicating the action to replace a teacher to a course."
+  },
 
   "pageCourseManagementAssignTeacher": "Asignar docente",
   "@pageCourseManagementAssignTeacher": {
@@ -408,10 +410,6 @@
   "@drawerLogOut": {
     "description": "Text of the button in the logout item"
   },
-  "routeNameMenuCommunications": "Comunicaciones",
-  "@routeNameMenuCommunications": {
-      "description": "Name of the route"
-  },
   "routeNameHome": "Inicio",
   "@routeNameHome": {
     "description": ""
@@ -468,19 +466,6 @@
   "@routeNamePendingUsers": {
     "description": ""
   },    
-  "routeNamePendingCommunications": "Pendientes",
-  "@routeNamePendingCommunications": {
-      "description": "Name of the route"
-  },
-  "routeNameGeneralCommunications": "General",
-  "@routeNameGeneralCommunications": {
-      "description": "Name of the route"
-  },
-
-  "routeNameCourseCommunications": "Cursos",
-  "@routeNameCourseCommunications": {
-      "description": "Name of the route"
-  },
 
 
     "routeNameMenuCommunications": "Comunicaciones",
@@ -493,7 +478,10 @@
     "@routeNamePendingCommunications": {
         "description": "Name of the route"
     },
-
+    "routeNameManageTemplates": "Administrar plantillas",
+    "@routeNameManageTemplates": {
+        "description": ""
+    },
     
     "routeNameGeneralCommunications": "General",
     "@routeNameGeneralCommunications": {

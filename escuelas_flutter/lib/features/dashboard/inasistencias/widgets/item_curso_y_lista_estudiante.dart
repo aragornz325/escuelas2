@@ -54,6 +54,7 @@ class _ItemCursoConListaDeEstudiantesState
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+
     final colores = context.colores;
 
     return Column(
@@ -147,7 +148,6 @@ class _ItemCursoConListaDeEstudiantesState
               },
             ),
           ),
-        const Spacer(),
         BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
           builder: (context, state) {
             return BotonFinalizarInasistencias(

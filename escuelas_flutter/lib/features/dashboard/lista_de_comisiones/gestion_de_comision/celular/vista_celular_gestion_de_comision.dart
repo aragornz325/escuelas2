@@ -62,24 +62,40 @@ class _VistaCelularGestionDeComisionState
       padding: EdgeInsets.symmetric(horizontal: 20.pw),
       child: Column(
         children: [
-          ComponenteDependiendoElRol(
-            tituloDeRol: '${l10n.commonTeacher}:',
-            onTap: () => _bottomSheetAsignarOAgregarUsuario(
-              esAsignarDocente: true,
-              context: context,
+          BlocBuilder<BlocGestionDeComision, BlocGestionDeComisionEstado>(
+            builder: (context, state) {
+              final usuarios = state.asignatura?.usuarios;
 
-              // TODO(mati): cambiar el hardcodeo de idRol del docente cuando
-              // se soporte la customizacion de roles
-              idRol: 2,
-            ),
-            tituloBoton: l10n.pageCourseManagementAssignTeacher,
+              final docente = usuarios != null && usuarios.isNotEmpty
+                  ? usuarios.last.usuario
+                  : null;
+
+              return ComponenteDependiendoElRol(
+                tituloDeRol: '${l10n.commonTeacher}:',
+                icono: docente != null
+                    ? Icons.edit
+                    : Icons.person_add_alt_outlined,
+                esOutline: docente != null,
+                onTap: () => _bottomSheetAsignarOAgregarUsuario(
+                  esAsignarDocente: true,
+                  context: context,
+
+                  // TODO(anyone): cambiar el hardcodeo de idRol del docente cuando
+                  // se soporte la customizacion de roles
+                  idRol: 2,
+                ),
+                tituloBoton: docente != null
+                    ? l10n.pageCourseManagementReplaceTeacher
+                    : l10n.pageCourseManagementAssignTeacher,
+              );
+            },
           ),
           const DocenteDeLaAsignatura(),
           ComponenteDependiendoElRol(
             tituloDeRol: '${l10n.commonStudent}:',
             onTap: () => _bottomSheetAsignarOAgregarUsuario(
               context: context,
-              // TODO(mati): cambiar el hardcodeo de idRol del alumno cuando
+              // TODO(anyone): cambiar el hardcodeo de idRol del alumno cuando
               // se soporte la customizacion de roles
               idRol: 1,
             ),

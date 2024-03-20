@@ -102,36 +102,39 @@ class _VistaCelularAdministrarPlantillasState
         }
       },
       builder: (context, state) {
-        return Column(
-          children: [
-            RowAgregarEliminarPlantilla(
-              onAgregarPlantilla: () => _onAgregarPlantilla(context),
-            ),
-            SizedBox(height: max(15.ph, 15.sh)),
-            SizedBox(
-              height: max(610.ph, 610.sh),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: state.listaDePlantillasConCheckbox
-                      .map(
-                        (e) => Padding(
-                          padding: EdgeInsets.symmetric(
-                            vertical: max(10.ph, 10.sh),
+        return Padding(
+          padding: EdgeInsets.symmetric(horizontal: 10.pw),
+          child: Column(
+            children: [
+              RowAgregarEliminarPlantilla(
+                onAgregarPlantilla: () => _onAgregarPlantilla(context),
+              ),
+              SizedBox(height: max(15.ph, 15.sh)),
+              SizedBox(
+                height: max(610.ph, 610.sh),
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: state.listaDePlantillasConCheckbox
+                        .map(
+                          (e) => Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: max(10.ph, 10.sh),
+                            ),
+                            child: DesplegablePlantilla(
+                              onEditar: () =>
+                                  _onEditar(context, plantilla: e.plantilla),
+                              necesitaSupervision:
+                                  e.plantilla.necesitaSupervision,
+                              plantillaConCheckbox: e,
+                            ),
                           ),
-                          child: DesplegablePlantilla(
-                            onEditar: () =>
-                                _onEditar(context, plantilla: e.plantilla),
-                            necesitaSupervision:
-                                e.plantilla.necesitaSupervision,
-                            plantillaConCheckbox: e,
-                          ),
-                        ),
-                      )
-                      .toList(),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

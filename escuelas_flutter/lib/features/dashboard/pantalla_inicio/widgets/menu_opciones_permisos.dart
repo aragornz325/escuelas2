@@ -73,8 +73,12 @@ class MenuOpcionesPermisos extends StatelessWidget {
             },
             builder: (context, state) {
               if (state is BlocInicioEstadoCargando) {
-                return const Center(
-                  child: CircularProgressIndicator(),
+                return Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(height: 150.ph),
+                    const Center(child: CircularProgressIndicator()),
+                  ],
                 );
               }
               if (state is BlocInicioEstadoExitoso && menus.isEmpty) {

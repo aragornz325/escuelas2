@@ -42,9 +42,9 @@ class DocenteDeLaAsignatura extends StatelessWidget {
               Text(
                 '${docente.nombre} ${docente.apellido}',
                 style: TextStyle(
-                  fontSize: 13.pf,
+                  fontSize: 14.pf,
                   fontWeight: FontWeight.w400,
-                  color: colores.secondary,
+                  color: colores.onBackground,
                 ),
               ),
             ],
@@ -60,7 +60,7 @@ class DocenteDeLaAsignatura extends StatelessWidget {
             Text(
               l10n.pageCourseManagementThereAreNoTeachersAssigned,
               style: TextStyle(
-                fontSize: 13.pf,
+                fontSize: 14.pf,
                 fontWeight: FontWeight.w400,
                 color: colores.secondary,
               ),

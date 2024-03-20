@@ -155,6 +155,10 @@ class AppRouter extends $AppRouter {
                   path: 'pending-communications',
                 ),
                 AutoRoute(
+                  page: RutaAdministrarPlantillas.page,
+                  path: 'manage-templates',
+                ),
+                AutoRoute(
                   page: RutaComunicacionesGeneral.page,
                   path: 'general-communications',
                 ),
