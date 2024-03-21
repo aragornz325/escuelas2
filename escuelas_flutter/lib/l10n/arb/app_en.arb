@@ -655,6 +655,15 @@
   "@pageCourseManagementReplaceTeacher": {
       "description": "Label indicating the action to replace a teacher to a course."
   },
+  "pageEditProfileButtonConfirmEditUser": "Are you sure you want\n to edit the personal data of\n {nameUser}?",
+  "@pageEditProfileButtonConfirmEditUser": {
+      "description": "Label indicating the action to replace a teacher to a course.",
+      "placeholders" :{
+          "nameUser" : {
+              "type": "String"
+          }
+      }
+  },
   "commonWelcome": "Welcome!",
   "@commonWelcome": {
     "description": "Welcoming text"
@@ -906,6 +915,10 @@
   "commonSave": "Save",
   "@commonSave": {
     "description": "Label for a button or action indicating to save."
+  },  
+  "commonSaveChange": "Save Change",
+  "@commonSaveChange": {
+    "description": "Label for a button or action indicating to save a change."
   },
   "commonCourses": "Courses",
     "@commonCourses": {

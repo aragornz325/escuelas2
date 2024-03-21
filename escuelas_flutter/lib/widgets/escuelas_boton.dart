@@ -291,10 +291,14 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Borde redondeado
     BorderRadius? borderRadius,
+
+    /// Color de los bordes.
+    Color? colorOutline,
   }) {
     final colores = context.colores;
 
     return EscuelasBoton(
+      colorOutline: colorOutline,
       esOutlined: true,
       borderRadius: borderRadius,
       estaHabilitado: estaHabilitado,

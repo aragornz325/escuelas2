@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/widgets/lista_de_cursos.dart';
@@ -47,7 +46,6 @@ class _VistaCelularInasistenciasState extends State<VistaCelularInasistencias> {
     final l10n = context.l10n;
 
     final colores = context.colores;
-
     return Column(
       children: [
         BlocConsumer<BlocInasistencias, BlocInasistenciasEstado>(

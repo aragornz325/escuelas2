@@ -13,8 +13,8 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     BlocSupervisionEnvioCalificacionesEvento,
     BlocSupervisionEnvioCalificacionesEstado> {
   /// {@macro BlocSupervision}
-  BlocSupervisionEnvioCalificaciones()
-      : super(const BlocSupervisionEnvioCalificacionesEstadoInicial()) {
+  BlocSupervisionEnvioCalificaciones(DateTime fecha)
+      : super(BlocSupervisionEnvioCalificacionesEstadoInicial(fecha)) {
     on<BlocSupervisionEnvioCalificacionesEventoInicializar>(_onInicializar);
   }
 

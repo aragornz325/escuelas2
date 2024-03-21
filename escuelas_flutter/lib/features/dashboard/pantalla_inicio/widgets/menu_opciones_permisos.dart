@@ -45,6 +45,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
   /// Devuelve de acuerdo al usuario su lista de vistas permitidas.
   List<MenuOpcionesDeInicio> _menusPermitidos(BuildContext context) {
     final usuario = context.read<BlocDashboard>().state.usuario;
+
     return MenuOpcionesDeInicio.values
         .where(
           (opcion) => opcion.permisosRequeridos.every(
@@ -103,7 +104,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
           );
         }
 
-        return Column(
+        return ListView(
           children: menus.map(
             (menu) {
               final tieneUsuariosPendientesYLaRutaTieneEseNombre =

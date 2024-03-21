@@ -378,6 +378,15 @@
   "@pageCoursesThereAreNoCourses": {
       "description": "There are no commissions with subjects"
   },
+  "pageEditProfileButtonConfirmEditUser": "Estás seguro que deseas\n editar los datos personales de\n {nameUser}?",
+  "@pageEditProfileButtonConfirmEditUser": {
+      "description": "Label indicating the action to replace a teacher to a course.",
+      "placeholders" :{
+          "nameUser" : {
+              "type": "String"
+          }
+      }
+  },
   "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
   "@dialogErrorToSendGrades": {
     "description": "Label indicating an error when sending notes."
@@ -636,6 +645,10 @@
   "commonSave": "Guardar",
   "@commonSave": {
     "description": "Label for a button or action indicating to save."
+  },  
+  "commonSaveChange": "Save Change",
+  "@commonSaveChange": {
+    "description": "Label for a button or action indicating to save a change."
   },
   "commonEmergencyContact": "Contacto de emergencia",
   "@commonEmergencyContact": {

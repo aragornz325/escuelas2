@@ -92,7 +92,7 @@ class BlocPerfilUsuarioEstado {
 }
 
 /// {@template BlocPerfilUsuarioEstadoInicial}
-/// Estado inicial de los componentes de la pa ntalla 'Perfil de usuario'
+/// Estado inicial de los componentes de la pantalla 'Perfil de usuario'
 /// {@endtemplate}
 class BlocPerfilUsuarioEstadoInicial extends BlocPerfilUsuarioEstado {
   /// {@macro BlocPerfilUsuarioEstadoInicial}
