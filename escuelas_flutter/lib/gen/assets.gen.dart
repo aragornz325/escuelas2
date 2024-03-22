@@ -19,8 +19,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/usuario.png
   AssetGenImage get usuario => const AssetGenImage('assets/images/usuario.png');
 
+  /// File path: assets/images/usuario.png
+  AssetGenImage get flechaLargaDerecha =>
+      const AssetGenImage('assets/images/flecha_larga_derecha.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [gGoogle, usuario];
+  List<AssetGenImage> get values => [gGoogle, usuario,  flechaLargaDerecha];
 }
 
 class Assets {

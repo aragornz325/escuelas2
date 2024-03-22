@@ -79,7 +79,6 @@ class _VistaCelularListadoComunidadState
                                     (e) => e.usuarios.isEmpty
                                         ? Container()
                                         : ElementoListadoComunidad(
-                                            rolElegido: state.rolElegido,
                                             ordenarPor: state.ordenarPor,
                                             titulo: e.etiquetaDelIndexListado
                                                 .toUpperCase(),

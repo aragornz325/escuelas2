@@ -1,0 +1,12 @@
+class: RelacionHiloDeNotificacionesUsuario
+table: r_hilo_de_notificaciones_usuario
+fields:
+  idUsuario: int, relation(parent=usuarios)
+  hiloDeNotificaciones: HiloDeNotificaciones?, relation(name=hilo_participantes)
+  ultimaModificacion: DateTime
+  fechaCreacion: DateTime
+  fechaEliminacion: DateTime?
+indexes:
+  r_usuario_hilo_index_idx:
+    fields: idUsuario, hiloDeNotificacionesId
+    unique: true

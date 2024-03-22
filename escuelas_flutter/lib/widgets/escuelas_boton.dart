@@ -1,13 +1,12 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
-import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@templates EscuelasBoton}
+/// {@template EscuelasBoton}
 /// Boton personalizado para utilizar
-/// {@endtemplates}
+/// {@endtemplate}
 class EscuelasBoton extends StatelessWidget {
   /// {@macro EscuelasBoton}
   const EscuelasBoton({
@@ -18,8 +17,11 @@ class EscuelasBoton extends StatelessWidget {
     this.borderRadius,
     this.width,
     this.height,
-    super.key,
+    this.backgroundColorDeshabilitado,
     this.esOutlined = false,
+    this.colorOutline,
+    this.widthOutline,
+    super.key,
   });
 
   factory EscuelasBoton.texto({
@@ -46,6 +48,9 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Altura del boton, por defecto es 30
     double? height,
+
+    /// Color del boton cuando esta deshabilitado
+    Color? backgroundColorDeshabilitado,
   }) {
     final colores = context.colores;
 
@@ -55,6 +60,7 @@ class EscuelasBoton extends StatelessWidget {
       estaHabilitado: estaHabilitado,
       onTap: onTap,
       color: color,
+      backgroundColorDeshabilitado: backgroundColorDeshabilitado,
       child: Text(
         texto,
         style: TextStyle(
@@ -91,33 +97,63 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Tamaño del icono por defecto 15
     double? tamanoIcono,
+
+    /// Indica si es outline o no el boton.
+    bool esOutline = false,
   }) {
     final colores = context.colores;
 
-    return EscuelasBoton(
-      estaHabilitado: true,
-      onTap: onTap,
-      color: color,
-      borderRadius: BorderRadius.circular(4.sw),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            texto,
-            style: TextStyle(
-              color: colorDeTexto ?? colores.background,
-              fontSize: fontSize ?? 10.pf,
+    return esOutline
+        ? EscuelasBoton.outlined(
+            onTap: onTap,
+            context: context,
+            estaHabilitado: true,
+            texto: texto,
+            color: color,
+            borderRadius: BorderRadius.circular(4.sw),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  texto,
+                  style: TextStyle(
+                    color: colorDeTexto ?? colores.background,
+                    fontSize: fontSize ?? 12.pf,
+                  ),
+                ),
+                SizedBox(width: 5.pw),
+                Icon(
+                  icono,
+                  color: colorDeTexto ?? colores.background,
+                  size: tamanoIcono ?? 15.sw,
+                ),
+              ],
             ),
-          ),
-          SizedBox(width: 5.pw),
-          Icon(
-            icono,
-            color: colores.background,
-            size: tamanoIcono ?? 15.sw,
-          ),
-        ],
-      ),
-    );
+          )
+        : EscuelasBoton(
+            estaHabilitado: true,
+            onTap: onTap,
+            color: color,
+            borderRadius: BorderRadius.circular(4.sw),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  texto,
+                  style: TextStyle(
+                    color: colorDeTexto ?? colores.background,
+                    fontSize: fontSize ?? 12.pf,
+                  ),
+                ),
+                SizedBox(width: 5.pw),
+                Icon(
+                  icono,
+                  color: colores.background,
+                  size: tamanoIcono ?? 15.sw,
+                ),
+              ],
+            ),
+          );
   }
 
   factory EscuelasBoton.loginGoogle({
@@ -126,14 +162,16 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Contexto para utilizar l10n y colores del tema
     required BuildContext context,
+    required String texto,
+    double? width,
   }) {
     final colores = context.colores;
-
-    final l10n = context.l10n;
 
     return EscuelasBoton(
       estaHabilitado: true,
       onTap: onTap,
+      width: width,
+      height: 40.ph,
       color: colores.azul,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -144,12 +182,82 @@ class EscuelasBoton extends StatelessWidget {
           ),
           SizedBox(width: 15.pw),
           Text(
-            l10n.pageLoginLoginWithGoogle,
+            texto,
             style: TextStyle(
               fontSize: 15.pf,
               color: colores.background,
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  /// Tiene borde customizable y permite recibir un icono.
+  factory EscuelasBoton.outlinedConIcono({
+    /// Funcion a realizarse accionando el boton.
+    required VoidCallback onTap,
+
+    /// Contexto para utilizar l10n y colores del tema
+    required BuildContext context,
+
+    /// Da funcionalidad al boton dependiendo de condicionales a cumplir.
+    required bool estaHabilitado,
+
+    /// Texto interno del boton
+    required String texto,
+
+    /// Icono del boton
+    required Icon icono,
+
+    /// Color del texto, por defecto blanco
+    Color? colorDeTexto,
+
+    /// Tamaño del texto por defecto 10, agregarle .pf
+    double? fontSize,
+
+    /// Ancho del boton
+    double? width,
+
+    /// Altura del boton
+    double? height,
+
+    /// Color del boton
+    Color? color,
+
+    /// Color outline del boton
+    Color? colorOutline,
+
+    /// Ancho del outline
+    double? widthOutline,
+  }) {
+    final colores = context.colores;
+
+    return EscuelasBoton(
+      borderRadius: BorderRadius.all(
+        Radius.circular(8.sw),
+      ),
+      colorOutline: colorOutline,
+      widthOutline: widthOutline,
+      estaHabilitado: estaHabilitado,
+      esOutlined: true,
+      onTap: onTap,
+      width: width,
+      height: height,
+      color: color ?? colores.background,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            texto,
+            style: TextStyle(
+              color: colorDeTexto ?? colores.background,
+              fontSize: fontSize ?? 14.pf,
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          SizedBox(width: 6.pw),
+          icono,
         ],
       ),
     );
@@ -177,6 +285,15 @@ class EscuelasBoton extends StatelessWidget {
     /// Color del boton
     Color? color,
 
+    /// Contenido a mostrar dentro del boton.
+    Widget? child,
+
+    /// Borde redondeado
+    BorderRadius? borderRadius,
+
+    /// Color de los bordes.
+    Color? colorOutline,
+
     /// Color de las letras del texto
     Color? colorTexto,
 
@@ -189,24 +306,27 @@ class EscuelasBoton extends StatelessWidget {
     final colores = context.colores;
 
     return EscuelasBoton(
+      colorOutline: colorOutline,
       esOutlined: true,
+      borderRadius: borderRadius,
       estaHabilitado: estaHabilitado,
       height: height,
       width: width,
       onTap: onTap,
       color: color ?? colores.background,
-      child: Center(
-        child: Text(
-          texto,
-          style: TextStyle(
-            color: estaHabilitado
+      child: child ??
+          Center(
+            child: Text(
+              texto,
+              style: TextStyle(
+                color: estaHabilitado
                 ? colorTexto ?? colores.onSecondary
                 : colores.secondary,
-            fontSize: tamanioFuente ?? 12.pf,
+                fontSize: tamanioFuente ?? 12.pf,
             fontWeight: anchoDeLasLetras,
+              ),
+            ),
           ),
-        ),
-      ),
     );
   }
 
@@ -234,6 +354,15 @@ class EscuelasBoton extends StatelessWidget {
   /// Widget que va a contener el boton, puede ser un texto o texto e iconos
   final Widget child;
 
+  /// Color de background para cuando esta deshabilitado
+  final Color? backgroundColorDeshabilitado;
+
+  /// Color del outline
+  final Color? colorOutline;
+
+  /// Ancho del outline
+  final double? widthOutline;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -252,9 +381,11 @@ class EscuelasBoton extends StatelessWidget {
                   : estaHabilitado
                       ? color
                       : colores.secondary,
+              
               border: esOutlined
                   ? Border.all(
                       color: estaHabilitado ? color : colores.secondary,
+                      width: widthOutline ?? 1.pw,
                     )
                   : null,
             ),

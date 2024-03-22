@@ -3,10 +3,24 @@ import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:serverpod/serverpod.dart';
+import 'package:serverpod_auth_server/module.dart';
 
 class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   @override
   ServicioUsuario get servicio => ServicioUsuario();
+
+  Future<String?> obtenerEmailConDni(
+    Session session, {
+    required String dni,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'obtenerEmailConDni',
+        () => servicio.obtenerEmailConDni(
+          session,
+          dni: dni,
+        ),
+      );
 
   Future<Usuario> obtenerDatosDelUsuario(Session session) =>
       ejecutarOperacionControlador(
@@ -184,7 +198,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
 
   /// La función `actualizarUsuario` actualiza un usuario en la base de datos.
   /// Devuelve el usuario actualizado.
-
   Future<Usuario> actualizarUsuario(
     Session session, {
     required Usuario usuario,

@@ -1,8 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:full_responsive/full_responsive.dart';
 
 /// {@template EscuelasAppBar}
 /// Componente de navegacion estatico en conjunto con EscuelasDrawer
@@ -67,11 +71,22 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
         RutaPerfilUsuario.name => l10n.routeNameUserProfile,
         RutaPerfilUsuarioPendiente.name => l10n.routeNamePendingUserProfile,
         RutaListaCursos.name => l10n.routeNameCourses,
+        RutaComisiones.name => l10n.commonComissions,
+        RutaListaDeComisiones.name => l10n.commonComissions,
         RutaCargaDeCalificaciones.name => l10n.routeUploadGrades,
         RutaUsuariosPendientes.name => l10n.routeNamePendingUsers,
+        RutaCalificacionesMensuales.name => l10n.pageStudentGradesTitle,
+        RutaCalificacionesAnuales.name => l10n.pageStudentGradesTitle,
         RutaMenuComunidadAcademica.name => l10n.routeAcademicCommunityMenu,
         RutaListadoComunidad.name => l10n.routeAcademicCommunityList,
         RutaSupervisionComisiones.name => l10n.routeNameCommissionSupervision,
+        RutaMenuComunicaciones.name => l10n.routeNameMenuCommunications,
+        RutaComunicaciones.name => l10n.routeNameMenuCommunications,
+        // TODO(SAM): Ver de cambiar nombre de ruta en el appbar
+        RutaComunicacionesPendientes.name =>
+          l10n.routeNamePendingCommunications,
+        RutaComunicacionesGeneral.name => l10n.routeNameGeneralCommunications,
+        RutaComunicacionesCursos.name => l10n.routeNameCourseCommunications,
         RutaSupervisionEnvioCalificaciones.name =>
           l10n.routeNameGradeSubmissionSupervision,
         _ => '',
@@ -106,8 +121,47 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
               },
             ),
             title: Center(
-              child: Text(
-                nombreRutaActual,
+              child: BlocBuilder<BlocDashboard, BlocDashboardEstado>(
+                builder: (context, state) {
+                  if (state is BlocDashboardEstadoCargando) {
+                    return const CircularProgressIndicator();
+                  }
+
+                  if (context.router.topMatch.name == RutaEditarPerfil.name) {
+                    // TODO(anyone): Ver de cambiar nombre de ruta en el appbar
+                    final stateEditarPerfil =
+                        context.watch<BlocEditarPerfil>().state;
+
+                    return Text(
+                      stateEditarPerfil.nombreUsuario.toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 22.pf,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    );
+                  }
+
+                  if (state.asignatura != null &&
+                      state.comision != null &&
+                      context.router.topMatch.name ==
+                          RutaGestionDeComision.name) {
+                    return Text(
+                      '${state.asignatura!.nombre.toUpperCase()}'
+                      ' ${state.comision!.nombre.toUpperCase()}',
+                      style: TextStyle(
+                        fontSize: 22.pf,
+                        fontWeight: FontWeight.w800,
+                      ),
+                    );
+                  }
+                  return Text(
+                    nombreRutaActual,
+                    style: TextStyle(
+                      fontSize: 22.pf,
+                      fontWeight: FontWeight.w800,
+                    ),
+                  );
+                },
               ),
             ),
             actions: <Widget>[

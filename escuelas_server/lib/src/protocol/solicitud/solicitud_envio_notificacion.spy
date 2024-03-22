@@ -1,0 +1,14 @@
+class: SolicitudEnvioNotificacion
+table: solicitudes_envio_notificacion
+fields:
+  ### La solicitud de la cual se deriva esta notificacion
+  solicitud: Solicitud?, relation(onDelete=Cascade)
+  ### Representa el mes al que corresponde la solicitud
+  mes: int
+  ### Representa el año al que corresponde la solicitud
+  anio: int
+  comision: ComisionDeCurso?, relation
+  docente: Usuario?, relation
+  alumno: Usuario?, relation
+  notificacion: Notificacion?, relation
+  estado: EstadoDeSolicitud

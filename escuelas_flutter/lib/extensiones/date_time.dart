@@ -1,3 +1,4 @@
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -20,6 +21,40 @@ extension DateTimeX on DateTime {
       DateFormat('EEEE', Localizations.localeOf(context).languageCode)
           .format(this);
 
+  /// Devuelve la fecha formateada como xx/xx y hoy en caso de que sea igual
+  /// a la fecha actual
+  String periodoFechaEnviada(BuildContext context) {
+    final l10n = context.l10n;
+
+    if (mismaFecha(DateTime.now())) {
+      final fecha =
+          DateFormat('HH:mm', Localizations.localeOf(context).languageCode)
+              .format(this);
+      return '$fecha ${l10n.commonToday}';
+    }
+    return DateFormat('E dd/M', Localizations.localeOf(context).languageCode)
+        .format(this);
+  }
+
+  /// Devuelve la hora formateada como xx:xx y ahora en caso de que sea igual.
+  String horaFechaEnviada(BuildContext context) {
+    final l10n = context.l10n;
+
+    if (mismaFechayHorario(DateTime.now())) {
+      return l10n.commonNow;
+    }
+    return DateFormat('HH:mm', Localizations.localeOf(context).languageCode)
+        .format(this);
+  }
+
+  /// Devuelve la fecha en este formato 'dia/mes/año - hora:minuto am/pm'.
+  String formatearFechaConHora(
+    BuildContext context,
+  ) {
+    final fechaFormateada = DateFormat('dd/MM/yyyy - hh:mm a').format(this);
+    return fechaFormateada;
+  }
+
   // TODO(anyone): Agregar traducciones.
   String devolverEtiqueta() {
     if (month >= 1 && month <= 3) {
@@ -36,4 +71,11 @@ extension DateTimeX on DateTime {
   /// Compara si dos fechas son iguales
   bool mismaFecha(DateTime other) =>
       year == other.year && month == other.month && day == other.day;
+
+  /// Compara si dos fechas y el horario son iguales
+  bool mismaFechayHorario(DateTime other) =>
+      year == other.year &&
+      month == other.month &&
+      day == other.day &&
+      hour == other.hour;
 }

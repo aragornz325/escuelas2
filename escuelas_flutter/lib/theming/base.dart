@@ -14,12 +14,18 @@ extension EscuelasColorScheme on ColorScheme {
   /// Color utilizado en list tile de materias, alumnos, etc.
   Color get violetaListTile => const Color(0xffB250FF);
 
+  /// Color utilizado en el botton navigation bar y en algunos botones.
+  Color get violetaOscuroBottomNav => const Color(0xff65558F);
+
   /// Color a utilizarse en botones de asistencia, datos personales,modificacion
   /// de cursos, etc.
   Color get coralBotones => const Color(0xffFF7B5E);
 
   /// Color utilizado de fondo en version Desktop.
   Color get marfilBackgroundDesktop => const Color(0xffe8e8e8);
+
+  /// Color utilizado de fondo de una notificacion.
+  Color get azulNotificacion => const Color(0xff5274FF);
 
   /// Se utiliza para el color del texto Sin Calificacion(SC) o la flecha de
   /// containers expandibles
@@ -48,8 +54,24 @@ extension EscuelasColorScheme on ColorScheme {
   /// Color utilizado en el drawer para hacer sombreado al background.
   Color get onSecondaryOpacidadTreinta => onSecondary.withOpacity(0.3);
 
+  /// Color utilizado en los tooltip background, dividers y en border
+  /// de ElementoLista.
+  Color get grisSobreBackground => const Color(0xffD9D9D9);
+
+  /// Color gris utilizado en fechas y en otros iconos.
+  Color get grisDetalleFecha => const Color(0xff8C8C8C);
+
+  /// Color utilizado en los tooltip.
+  Color get onBackgroundOpacidadCincuenta => onBackground.withOpacity(0.5);
+
   /// Este color es utilizable en los items del drawer cuando son seleccionados
   Color get primaryOpacidadVeinte => primary.withOpacity(0.2);
+
+  /// Color utilizado para señalizar una calificacion mayor a 4 y menor a 7
+  Color get amarilloCalificacionMediocre => const Color(0xffF9F36B);
+
+  /// Color utilizado para señalizar una calificacion mayor a 7 y menor a 10
+  Color get verdeCalificacionAprobada => const Color(0xff7FC068);
 
   /// Color utilizado en el promedio TEA
   Color get verdeTEA => const Color(0xff62B446);
@@ -75,6 +97,10 @@ extension EscuelasColorScheme on ColorScheme {
   /// Indica que la fecha es muy tardia, se usa para indicar el vencimiento de
   /// la fecha de carga de calificaciones
   Color get fechaMuyTardia => const Color(0xffE43939);
+
+  /// Color utilizado para el fondo de los botones de registro cuando estan
+  /// deshabilitados
+  Color get botonRegistroDeshabilitado => const Color(0xff8B86B3);
 
   /// Devuelve un color que tan tarde se cargaron las calificaciones
   Color segunVencimientoFecha(int dia) {

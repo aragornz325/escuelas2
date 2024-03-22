@@ -59,8 +59,8 @@ class SolicitudNotaMensualEndpoint extends Endpoint
     );
   }
 
-  /// La función `obtenerSolicitudesNotaMensual` obtiene una lista de solicitudes en una base de datos y
-  /// devuelve la lista.
+  /// La función `obtenerSolicitudesNotaMensual` obtiene una lista de solicitudes pendientes
+  /// en una base de datos y devuelve la lista.
   Future<List<SolicitudCalificacionMensual>> obtenerSolicitudesNotaMensual(
     Session session,
   ) async {

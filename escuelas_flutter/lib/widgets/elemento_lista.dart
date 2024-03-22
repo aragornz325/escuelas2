@@ -3,6 +3,7 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/utilidades/funciones/calcular_color_segun_calificacion.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter_inset_box_shadow/flutter_inset_box_shadow.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -25,6 +26,7 @@ class ElementoLista extends StatelessWidget {
     this.borderRadius = 20,
     this.widgetLateralDerecho,
     this.widgetLateralIzquierdo,
+    this.tieneBordeVisible = false,
     super.key,
   });
 
@@ -282,6 +284,7 @@ class ElementoLista extends StatelessWidget {
     final colores = context.colores;
 
     return ElementoLista(
+      borderRadius: 20.sw,
       tieneBoxShadow: estaPresionado,
       altura: 65.ph,
       padding: EdgeInsets.only(left: 20.pw),
@@ -432,6 +435,58 @@ class ElementoLista extends StatelessWidget {
     );
   }
 
+  /// Elemento de lista que muestra el promedio del alumno en la vista
+  /// calificaciones anuales
+  factory ElementoLista.promedioAlumno({
+    /// Contexto para utilizar colores del tema
+    required BuildContext context,
+
+    /// Promedio del alumno
+    required double promedio,
+
+    /// Resto de los parámetros que desees incluir
+  }) {
+    final colores = context.colores;
+    final l10n = context.l10n;
+
+    return ElementoLista(
+      colorFondo: colores.background,
+      tieneBordeVisible: true,
+      texto: Text(
+        l10n.pageGradesStudentCardAverage,
+        style: TextStyle(
+          fontSize: 16.pf,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
+      ancho: 150.pw,
+      altura: 33.ph,
+      widgetLateralDerecho: Container(
+        height: 33.ph,
+        width: 52.pw,
+        decoration: BoxDecoration(
+          color: getColorFromCalificacion(
+            calificacion: promedio,
+            context: context,
+          ),
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(15),
+            bottomRight: Radius.circular(15),
+          ),
+        ),
+        child: Center(
+          child: Text(
+            '$promedio',
+            style: TextStyle(
+              fontSize: 15.pf,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
   /// Elemento de lista para mostrar un texto y un [String] que dice 'Sin datos'
   factory ElementoLista.sinDatos({
     /// Contexto para utilizar colores del tema
@@ -491,6 +546,9 @@ class ElementoLista extends StatelessWidget {
   /// Espacio entre el contenido y el borde del [ElementoLista]
   final EdgeInsetsGeometry? padding;
 
+  /// Determina si se va a mostrar o no un borde gris alrededor del elemento.
+  final bool tieneBordeVisible;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -509,6 +567,11 @@ class ElementoLista extends StatelessWidget {
               ? colorFondo ?? colores.tertiary
               : colores.secondary,
           borderRadius: BorderRadius.circular(borderRadius),
+          border: tieneBordeVisible
+              ? Border.all(
+                  color: colores.grisSobreBackground,
+                )
+              : null,
           boxShadow: tieneBoxShadow
               ? [
                   BoxShadow(

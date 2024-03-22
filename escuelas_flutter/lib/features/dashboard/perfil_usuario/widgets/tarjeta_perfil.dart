@@ -1,9 +1,10 @@
 import 'dart:math';
-
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
@@ -19,21 +20,25 @@ class TarjetaPerfil extends StatelessWidget {
     required this.rolesAsignados,
     required this.nombreUsuario,
     required this.apellidoUsuario,
+    this.usuario,
     this.urlImage,
     super.key,
   });
 
-/// Rol del usuario seleccionado
+  /// Rol del usuario seleccionado
   final String rolesAsignados;
 
-/// Nombre del usuario seleccionado
+  /// Nombre del usuario seleccionado
   final String nombreUsuario;
 
-/// Apellido del usuario seleccionado
+  /// Apellido del usuario seleccionado
   final String apellidoUsuario;
 
-/// Url de la foto de perfil del usuario seleccionado
+  /// Url de la foto de perfil del usuario seleccionado
   final String? urlImage;
+
+  /// Usuario a verificar si corresponde al mio.
+  final Usuario? usuario;
 
   @override
   Widget build(BuildContext context) {
@@ -107,33 +112,42 @@ class TarjetaPerfil extends StatelessWidget {
                   ),
                   EscuelasBoton.texto(
                     width: 185.pw,
-                    estaHabilitado: true,
-                    //! TODO(Manu): Dar funcion
+                    estaHabilitado: false,
                     onTap: () => showDialog<void>(
                       context: context,
                       builder: (context) =>
                           EscuelasDialog.featNoDisponible(context: context),
                     ),
+                    // TODO(anyone): Dar funcion cuando esten los endpoints
+                    // onTap:
+                    // () => context.pushRoute(
+                    //   RutaEditarPerfil(
+                    //     idUsuario: usuario?.id ?? 0,
+                    //     nombreUsuario:
+                    //         '${usuario?.nombre} ${usuario?.apellido}',
+                    //   ),
+                    // ),
                     color: colores.primaryContainer,
                     texto: l10n.commonEdit,
                     fontSize: 12.pf,
                     context: context,
                   ),
                   SizedBox(height: max(8.ph, 8.sh)),
-                  EscuelasBoton.texto(
-                    width: 185.pw,
-                    estaHabilitado: true,
-                    //! TODO(Manu): Dar funcion
-                    onTap: () => showDialog<void>(
+                  if (usuario?.idUserInfo != sessionManager.signedInUser?.id)
+                    EscuelasBoton.texto(
+                      width: 185.pw,
+                      estaHabilitado: true,
+                      //! TODO(Manu): Dar funcion
+                      onTap: () => showDialog<void>(
+                        context: context,
+                        builder: (context) =>
+                            EscuelasDialog.featNoDisponible(context: context),
+                      ),
+                      color: colores.rojoTED,
+                      texto: l10n.pageUserProfileButtonDeleteTeacher,
+                      fontSize: 12.pf,
                       context: context,
-                      builder: (context) =>
-                          EscuelasDialog.featNoDisponible(context: context),
                     ),
-                    color: colores.rojoTED,
-                    texto: l10n.pageUserProfileButtonDeleteTeacher,
-                    fontSize: 12.pf,
-                    context: context,
-                  ),
                 ],
               ),
             ),

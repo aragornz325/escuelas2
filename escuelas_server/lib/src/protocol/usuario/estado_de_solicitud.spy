@@ -2,6 +2,8 @@
 ##
 ## Una vez que el usuario completa el KYC, el administrador
 ## puede aprobar o rechazar la solicitud de registro.
+## Tambien es usada para las solicitudes para enviar notificaciones custom
+## a los alumnos
 enum: EstadoDeSolicitud 
 values:
   - rechazado

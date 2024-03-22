@@ -11,15 +11,21 @@ class BlocDashboardEstado {
   const BlocDashboardEstado._({
     required this.usuario,
     required this.infoUsuario,
+    this.asignatura,
+    this.comision,
   });
 
   BlocDashboardEstado.desde(
     BlocDashboardEstado otro, {
-    UserInfo? infoUsuario,
     Usuario? usuario,
+    UserInfo? infoUsuario,
+    Asignatura? asignatura,
+    ComisionDeCurso? comision,
   }) : this._(
-          infoUsuario: infoUsuario ?? otro.infoUsuario,
           usuario: usuario ?? otro.usuario,
+          comision: comision ?? otro.comision,
+          asignatura: asignatura ?? otro.asignatura,
+          infoUsuario: infoUsuario ?? otro.infoUsuario,
         );
 
   /// Modelo de usuario de la base de datos que contiene info de los roles y
@@ -28,6 +34,14 @@ class BlocDashboardEstado {
 
   /// Modelo de usuario logueado por google que contiene info del cliente.
   final UserInfo infoUsuario;
+
+  /// Asignatura para mostrar en el appbar.En caso de que sea nulo no se
+  /// muestra el titulo de la ruta
+  final Asignatura? asignatura;
+
+  /// Asignatura para mostrar en el appbar.En caso de que sea nulo no se
+  /// muestra el titulo de la ruta.
+  final ComisionDeCurso? comision;
 }
 
 /// {@template BlocDashboardEstadoInicial}
@@ -58,6 +72,8 @@ class BlocDashboardEstadoExitoso extends BlocDashboardEstado {
   BlocDashboardEstadoExitoso.desde(
     super.otro, {
     required super.usuario,
+    super.asignatura,
+    super.comision,
   }) : super.desde();
 }
 

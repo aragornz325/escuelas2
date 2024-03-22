@@ -17,6 +17,7 @@ class PaginaListaCursos extends StatelessWidget {
     return AutoRouter(
       builder: (context, content) {
         return switch (context.router.current.name) {
+          RutaGestionDeComision.name => content,
           RutaMisCursos.name => content,
           RutaCargaDeCalificaciones.name => content,
           _ => const SizedBox.shrink()

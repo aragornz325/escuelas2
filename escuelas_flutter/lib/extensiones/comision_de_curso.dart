@@ -45,11 +45,19 @@ extension ComisionDeCursoX on ComisionDeCurso {
     final estudiantes = this.estudiantes ?? [];
 
     return estudiantes.every((estudiante) {
-      final asistenciasEstudiante = asistenciasDiarias.where(
-        (asistencia) => asistencia.estudiante?.id == estudiante.id,
+      return asistenciasDiarias.every(
+        (asistencia) =>
+            asistencia.estadoDeAsistencia != EstadoDeAsistencia.sinEstado,
       );
+    });
+  }
 
-      return asistenciasEstudiante.every(
+  /// Devuelve true si todos los alumnos tienen al menos una asistencia
+  bool seTomoAsistencia(List<AsistenciaDiaria> asistenciasDiarias) {
+    final estudiantes = this.estudiantes ?? [];
+
+    return estudiantes.any((estudiante) {
+      return asistenciasDiarias.any(
         (asistencia) =>
             asistencia.estadoDeAsistencia != EstadoDeAsistencia.sinEstado,
       );

@@ -23,7 +23,7 @@ class ServicioOneSignal {
 
       final apellidoUsuario = estudiante.apellido.toString();
 
-      // TODO(ANYONE): Las notificaciones deberian estar guardadas en base de datos.
+      // TODO(ANYONE): Las notificaciones deberian estar guardadas en base de datos, carry over en esa HU.
       // https://tree.taiga.io/project/rodsevich-escuelas/us/208?kanban-status=7686844&kanban-swimlane=15087
       final notificationData = NotificacionData(
         titulo: 'Inasistencia de $nombreUsuario $apellidoUsuario.',
@@ -42,6 +42,50 @@ class ServicioOneSignal {
 
       futures.add(notificationFuture);
     }
+
+    // Espera que todas las notificaciones se envien antes de avanzar.
+    await Future.wait(futures);
+  }
+
+  /// Envia notificaciones de solicitudes de comunicaciones/ notificaciones pendientes a resolver
+  /// por el directivo.
+  Future<void> enviarNotificacionesDeSolicitudesNotificacionesPendientes({
+    required List<SolicitudEnvioNotificacion> listaSolicitudesNotificaciones,
+    required String userId,
+  }) async {
+    final List<Future<void>> futures = [];
+
+    final cantidadSolicitudesNotificaciones =
+        listaSolicitudesNotificaciones.length.toString();
+    final nombreAlumno = listaSolicitudesNotificaciones[0].alumno?.nombre ?? '';
+    final nombreDocente =
+        listaSolicitudesNotificaciones[0].docente?.nombre ?? '';
+    final apellidoAlumno =
+        listaSolicitudesNotificaciones[0].alumno?.apellido ?? '';
+    final apellidoDocente =
+        listaSolicitudesNotificaciones[0].docente?.apellido ?? '';
+    final nombreComision =
+        listaSolicitudesNotificaciones[0].comision?.nombre ?? '';
+
+    // TODO(ANYONE): Las notificaciones deberian estar guardadas en base de datos, carry over en esa HU.
+    // https://tree.taiga.io/project/rodsevich-escuelas/us/208?kanban-status=7686844&kanban-swimlane=15087
+    final notificationData = NotificacionData(
+      titulo:
+          'Tenés $cantidadSolicitudesNotificaciones solicitudes de notificación pendientes.',
+      contenido:
+          '$nombreDocente $apellidoDocente quiere notificar a $nombreAlumno $apellidoAlumno de $nombreComision',
+      pathRuta: 'communications',
+      // TODO(ANYONE): Agregar ID notificacion una vez implementado el CRUD.
+      idNotificacion: '2',
+    );
+
+    final notificationFuture =
+        ManejadorOneSignal.instance.enviarPushNotification(
+      notificationData: notificationData,
+      includeExternalUserIds: [userId],
+    );
+
+    futures.add(notificationFuture);
 
     // Espera que todas las notificaciones se envien antes de avanzar.
     await Future.wait(futures);

@@ -25,6 +25,15 @@ fields:
   asignaturas: List<RelacionAsignaturaUsuario>?, relation(name=usuario_asignaturas)
   privileges: String?
 indexes:
+  userinfo_unique_idx:
+    fields: idUserInfo
+    unique: true
+  dni_unique_idx:
+    fields: dni
+    unique: true
+  userinfo_dni_unique_idx:
+    fields: idUserInfo, dni
+    unique: true
   usuarios_domicilios_de_usuario_unique_idx:
     fields: domicilioId
     unique: true

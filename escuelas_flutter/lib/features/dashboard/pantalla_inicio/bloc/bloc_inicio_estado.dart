@@ -7,17 +7,28 @@ class BlocInicioEstado {
   /// {@macro BlocInicioEstado}
   const BlocInicioEstado._({
     this.hayUsuariosPendientes = false,
+    this.cantidadNotificacionesPendientes = 0,
   });
 
   BlocInicioEstado.desde(
     BlocInicioEstado otro, {
     bool? hayUsuariosPendientes,
+    int? cantidadNotificacionesPendientes,
   }) : this._(
           hayUsuariosPendientes:
               hayUsuariosPendientes ?? otro.hayUsuariosPendientes,
+          cantidadNotificacionesPendientes:
+              cantidadNotificacionesPendientes ??
+                  otro.cantidadNotificacionesPendientes,
         );
 
+  /// Indica si hay usuarios pendientes para señalizar al usuario con un circulo
+  /// rojo.
   final bool hayUsuariosPendientes;
+
+  /// Cantidad de solicitudes de notificaciones pendientes para poder 
+  /// señalizarle al usuario la cantidad de las mismas en el menu inicio.
+  final int cantidadNotificacionesPendientes;
 }
 
 /// {@template BlocInicioEstadoInicial}
@@ -44,6 +55,7 @@ class BlocInicioEstadoExitoso extends BlocInicioEstado {
   BlocInicioEstadoExitoso.desde(
     super.otro, {
     super.hayUsuariosPendientes,
+    super.cantidadNotificacionesPendientes,
   }) : super.desde();
 }
 

@@ -22,20 +22,21 @@
               />
                   <!-- Deeplinking configuration -->
            
+                 
+              <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.MAIN"/>  
+                <category android:name="android.intent.category.LAUNCHER"/> 
+              </intent-filter>
             <meta-data
               android:name="flutter_deeplinking_enabled"
               android:value="true" /> 
-                 
-              <intent-filter android:autoVerify="true">
+              <intent-filter android:autoVerify="true"> 
                 <action android:name="android.intent.action.VIEW"/>
-                <action android:name="android.intent.action.MAIN"/>  
-                <category android:name="android.intent.category.LAUNCHER"/> 
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="http"
-                android:host="sebasamontero.github.io"/>
-                <data android:scheme="https" />  
-            </intent-filter>
+                <data android:scheme="http" android:host="sebasamontero.github.io"/>
+                <data android:scheme="https"  android:host="sebasamontero.github.io"/>  
+              </intent-filter>
          
         </activity>
         <!-- Don't delete the meta-data below.

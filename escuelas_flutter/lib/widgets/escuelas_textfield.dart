@@ -1,5 +1,4 @@
-import 'dart:math';
-
+import 'package:escuelas_commons/config/escuelas_config.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/utilidades/funciones/funciones.dart';
@@ -7,15 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@templates EscuelasTextfield}
+/// {@template EscuelasTextfield}
 /// Textfield custom del proyecto Escuelas
-/// {@endtemplates}
+/// {@endtemplate}
 class EscuelasTextfield extends StatefulWidget {
   /// {@macro EscuelasTextfield}
   const EscuelasTextfield({
-    required this.hintText,
     required this.controller,
     required this.esPassword,
+    this.hintText,
+    this.fillColor,
     this.focusNode,
     super.key,
     this.width,
@@ -33,6 +33,9 @@ class EscuelasTextfield extends StatefulWidget {
     this.prefixIcon,
     this.onEditingComplete,
     this.onFieldSubmitted,
+    this.backgroundColor,
+    this.borderSide,
+    this.borderRadius,
   });
 
   /// TextFormField de email con su expresion regular.
@@ -42,14 +45,30 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Contexto para traducciones
     required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    void Function(String)? onChanged,
+
+    /// Lineas maximas.
+    int? maxLines,
+
+    /// Border del textfield
+    BorderSide? borderSide,
+
+    /// Border radius del textfield
+    BorderRadius? borderRadius,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
+      borderRadius: borderRadius,
+      borderSide: borderSide,
+      maxLines: maxLines,
       hintText: l10n.commonMail,
       controller: controller,
       keyboardType: TextInputType.emailAddress,
       esPassword: false,
+      onChanged: onChanged,
       validator: (email) {
         if (email?.isEmpty ?? false) {
           return l10n.commonCompleteTheField;
@@ -73,10 +92,22 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Funcion onChanged del textfield
     required void Function(String)? onChanged,
+
+    /// Lineas maximas.
+    int? maxLines,
+
+    /// Border del textfield
+    BorderSide? borderSide,
+
+    /// Border radius del textfield
+    BorderRadius? borderRadius,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
+      borderRadius: borderRadius,
+      borderSide: borderSide,
+      maxLines: maxLines,
       hintText: hintText,
       controller: controller,
       esPassword: false,
@@ -95,6 +126,236 @@ class EscuelasTextfield extends StatefulWidget {
     );
   }
 
+  /// Requiere un texto y un icono para el sufijo.
+  factory EscuelasTextfield.soloLetrasConIcono({
+    /// Controller del TextFormField eMail
+    required TextEditingController controller,
+
+    /// Texto guía
+    required String hintText,
+
+    /// Contexto para traducciones
+    required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    required void Function(String)? onChanged,
+
+    /// Icono de sufijo
+    required Widget suffixIcon,
+
+    /// Funcion de validacion
+    ValueChanged<bool>? onValidate,
+
+    /// Texto de error
+    String? invalidText,
+
+    /// Color del fondo del campo de texto
+    Color? backgroundColor,
+
+    /// Lineas maximas.
+    int maxLines = 1,
+
+    /// Border del textfield
+    BorderSide? borderSide,
+
+    /// Border radius del textfield
+    BorderRadius? borderRadius,
+  }) {
+    final l10n = context.l10n;
+
+    return EscuelasTextfield(
+      borderRadius: borderRadius,
+      borderSide: borderSide,
+      hintText: hintText,
+      maxLines: maxLines,
+      controller: controller,
+      backgroundColor: backgroundColor,
+      esPassword: false,
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(
+          RegExp(r'[^a-zA-Z\sñóäáéíóúüÜÁÉÍÓÚÑäÄöÖß]'),
+        ),
+      ],
+      onChanged: onChanged,
+      keyboardType: TextInputType.text,
+      suffixIcon: suffixIcon,
+      validator: (value) {
+        if (value?.isEmpty ?? false) {
+          onValidate?.call(false);
+          return invalidText ?? l10n.commonCompleteTheField;
+        }
+        onValidate?.call(true);
+        return null;
+      },
+    );
+  }
+
+  /// Requiere un texto y un icono para el sufijo.
+  factory EscuelasTextfield.letrasYNumerosConIcono({
+    /// Controller del TextFormField eMail
+    required TextEditingController controller,
+
+    /// Texto guía
+    required String hintText,
+
+    /// Contexto para traducciones
+    required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    required void Function(String)? onChanged,
+
+    /// Icono de sufijo
+    required Widget suffixIcon,
+
+    /// Funcion de validacion
+    required ValueChanged<bool> onValidate,
+
+    /// Texto de error
+    String? invalidText,
+
+    /// Color del fondo del campo de texto
+    Color? backgroundColor,
+
+    /// Border del textfield
+    BorderSide? borderSide,
+
+    /// Border radius del textfield
+    BorderRadius? borderRadius,
+  }) {
+    final l10n = context.l10n;
+
+    return EscuelasTextfield(
+      borderRadius: borderRadius,
+      borderSide: borderSide,
+      hintText: hintText,
+      maxLines: 1,
+      controller: controller,
+      backgroundColor: backgroundColor,
+      esPassword: false,
+      inputFormatters: [
+        FilteringTextInputFormatter.deny(
+          RegExp(r'[^a-zA-Z0-9\sñóäáéíóúüÜÁÉÍÓÚÑäÄöÖß@.]'),
+        ),
+      ],
+      onChanged: onChanged,
+      keyboardType: TextInputType.text,
+      suffixIcon: suffixIcon,
+      validator: (value) {
+        if (value?.isEmpty ?? false) {
+          onValidate(false);
+          return invalidText ?? l10n.commonCompleteTheField;
+        }
+        onValidate(true);
+        return null;
+      },
+    );
+  }
+
+  /// Requiere un texto y un icono para el sufijo.
+  factory EscuelasTextfield.soloNumerosConIcono({
+    /// Controller del TextFormField eMail
+    required TextEditingController controller,
+
+    /// Texto guía
+    required String hintText,
+
+    /// Contexto para traducciones
+    required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    required void Function(String)? onChanged,
+
+    /// Icono de sufijo
+    required Widget suffixIcon,
+
+    /// Funcion de validacion
+    required ValueChanged<bool> onValidate,
+
+    /// Texto de error
+    String? invalidText,
+
+    /// Color del fondo del campo de texto
+    Color? backgroundColor,
+  }) {
+    final l10n = context.l10n;
+
+    return EscuelasTextfield(
+      hintText: hintText,
+      maxLines: 1,
+      controller: controller,
+      backgroundColor: backgroundColor,
+      esPassword: false,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+      ],
+      onChanged: onChanged,
+      keyboardType: TextInputType.number,
+      suffixIcon: suffixIcon,
+      validator: (value) {
+        if (value?.isEmpty ?? false) {
+          onValidate(false);
+          return invalidText ?? l10n.commonCompleteTheField;
+        }
+        if ((value?.length ?? 0) < 7) {
+          onValidate(false);
+          return invalidText ?? l10n.pageRegisterInvalidDni;
+        }
+        onValidate(true);
+        return null;
+      },
+    );
+  }
+
+  /// Requiere un texto y un icono para el sufijo con validación de email.
+  factory EscuelasTextfield.emailConIcono({
+    /// Controller del TextFormField eMail
+    required TextEditingController controller,
+
+    /// Texto guía
+    required String hintText,
+
+    /// Contexto para traducciones
+    required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    required void Function(String)? onChanged,
+
+    /// Icono de sufijo
+    required Widget suffixIcon,
+
+    /// Funcion de validacion
+    required ValueChanged<bool> onValidate,
+
+    /// Color del fondo del campo de texto
+    Color? backgroundColor,
+
+    /// Ancho del campo de texto.
+    double? width,
+  }) {
+    final l10n = context.l10n;
+
+    return EscuelasTextfield(
+      hintText: hintText,
+      width: width,
+      controller: controller,
+      backgroundColor: backgroundColor,
+      esPassword: false,
+      onChanged: onChanged,
+      suffixIcon: suffixIcon,
+      validator: (value) {
+        if (value?.isEmpty ?? false) {
+          onValidate(false);
+          return l10n.commonCompleteTheField;
+        } else if (!ExpresionesRegulares.email.hasMatch(value ?? '')) {
+          onValidate(false);
+          return l10n.commonEnterAValidEmail;
+        }
+        onValidate(true);
+        return null;
+      },
+    );
+  }
+
   /// Ancho del campo de texto.
   final double? width;
 
@@ -105,7 +366,7 @@ class EscuelasTextfield extends StatefulWidget {
   final InputDecoration? decoration;
 
   /// Texto interno del TextFormField
-  final String hintText;
+  final String? hintText;
 
   /// Tipo de teclado
   final TextInputType? keyboardType;
@@ -145,13 +406,25 @@ class EscuelasTextfield extends StatefulWidget {
   final FocusNode? focusNode;
 
   /// Icono de prefijo
-  final IconData? prefixIcon;
+  final Widget? prefixIcon;
+
+  /// Color del fondo del campo de texto
+  final Color? backgroundColor;
 
   /// Al completar el textfield ejecuta esa accion.
   final void Function()? onEditingComplete;
 
   /// Al apretar siguiente en el teclado ejecuta esa accion.
   final void Function(String)? onFieldSubmitted;
+
+  /// Color de relleno.
+  final Color? fillColor;
+
+  /// borderes Custom.
+  final BorderSide? borderSide;
+
+  /// border radius Custom.
+  final BorderRadius? borderRadius;
 
   @override
   State<EscuelasTextfield> createState() => _EscuelasTextfieldState();
@@ -164,7 +437,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
 
     return SizedBox(
       width: widget.width,
-      height: widget.height ?? max(40.ph, 40.sh),
+      height: widget.height,
       child: TextFormField(
         onEditingComplete: widget.onEditingComplete,
         onFieldSubmitted: widget.onFieldSubmitted,
@@ -179,24 +452,35 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
         style: TextStyle(color: colores.primary),
         decoration: widget.decoration ??
             InputDecoration(
-              prefixIcon: Icon(widget.prefixIcon),
               contentPadding: EdgeInsets.symmetric(horizontal: 15.sw),
               filled: true,
-              fillColor: colores.tertiary,
-              hintText: widget.hintText,
+              fillColor: widget.backgroundColor ??
+                  widget.fillColor ??
+                  colores.tertiary,
+              hintText: widget.hintText ?? '',
               hintStyle: TextStyle(
                 fontSize: 16.pf,
                 color: colores.onSecondary,
               ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius:
+                    widget.borderRadius ?? BorderRadius.circular(40.sw),
+                borderSide: widget.borderSide ?? BorderSide.none,
+              ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(40.sw),
-                borderSide: BorderSide.none,
+                borderRadius:
+                    widget.borderRadius ?? BorderRadius.circular(40.sw),
+                borderSide: widget.borderSide ?? BorderSide.none,
               ),
               errorStyle: TextStyle(color: colores.error),
               errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: colores.error),
+                borderSide:
+                    widget.borderSide ?? BorderSide(color: colores.error),
+                borderRadius:
+                    widget.borderRadius ?? BorderRadius.circular(40.sw),
               ),
-              suffixIcon: widget.esPassword ? widget.suffixIcon : null,
+              prefixIcon: widget.prefixIcon,
+              suffixIcon: widget.suffixIcon,
             ),
         validator: widget.validator,
         onChanged: (value) => setState(() => widget.onChanged?.call(value)),
@@ -205,17 +489,19 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
   }
 }
 
-/// {@templates EscuelasTextFieldPassword}
+/// {@template EscuelasTextFieldPassword}
 /// Textfield custom de Escuelas de uso exclusivo para contraseñas
-/// {endtemplate}
+/// {@endtemplate}
 class EscuelasTextFieldPassword extends StatefulWidget {
   /// {@macro EscuelasTextFieldPassword}
   const EscuelasTextFieldPassword({
     required this.controller,
-    super.key,
+    required this.onValidate,
     this.validator,
     this.hintText,
     this.onChanged,
+    this.backgroundColor,
+    super.key,
   });
 
   /// Controller del TextFormField eMail
@@ -224,8 +510,13 @@ class EscuelasTextFieldPassword extends StatefulWidget {
   /// Validator para contraseñas
   final String? Function(String? value)? validator;
 
+  final ValueChanged<bool> onValidate;
+
   /// Texto interno del TextFormField
   final String? hintText;
+
+  /// Color del fondo del campo de texto
+  final Color? backgroundColor;
 
   /// Funcion onChanged del textfield
   final void Function(String)? onChanged;
@@ -253,32 +544,39 @@ class _EscuelasTextFieldPasswordState extends State<EscuelasTextFieldPassword> {
         setState(() {});
         widget.onChanged?.call(value);
       },
-      suffixIcon: Padding(
-        padding: EdgeInsets.only(right: 10.sw),
-        child: IconButton(
-          icon: _obscureText
-              ? Icon(
-                  Icons.visibility_off_outlined,
-                  color: colores.onSecondary,
-                  size: 25.pw,
-                )
-              : Icon(
-                  Icons.visibility_outlined,
-                  color: colores.onSecondary,
-                  size: 25.pw,
-                ),
-          onPressed: () => setState(() => _obscureText = !_obscureText),
-        ),
+      backgroundColor: widget.backgroundColor,
+      suffixIcon: IconButton(
+        icon: _obscureText
+            ? Icon(
+                Icons.visibility_off_outlined,
+                color: colores.onSecondary,
+                size: 25.pw,
+              )
+            : Icon(
+                Icons.visibility_outlined,
+                color: colores.onSecondary,
+                size: 25.pw,
+              ),
+        onPressed: () => setState(() => _obscureText = !_obscureText),
       ),
       validator: (value) {
         if (value?.isEmpty ?? false) {
-          return l10n.commonCompleteTheField;
+          widget.onValidate(false);
+          return l10n.pageRegisterInvalidPassword;
+        }
+
+        if ((value?.length ?? 0) < 12) {
+          widget.onValidate(false);
+          return l10n.pageRegisterMinimumCaractersForPassword(
+            const RedemptorisMissioConfigs().minimoDeCaracteresPassword,
+          );
         }
 
         if (widget.validator != null) {
           return widget.validator?.call(value);
         }
 
+        widget.onValidate(true);
         return null;
       },
     );

@@ -28,7 +28,7 @@ class ItemUsuarioPendiente extends StatelessWidget {
         Expanded(
           child: ElementoLista.usuario(
             avatar: usuario.urlFotoDePerfil,
-            nombreUsuario: usuario.nombre,
+            nombreUsuario: '${usuario.nombre} ${usuario.apellido}',
             context: context,
             onTap: () => context.router.replace(
               RutaPerfilUsuarioPendiente(

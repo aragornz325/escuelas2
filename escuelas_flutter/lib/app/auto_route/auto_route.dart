@@ -37,6 +37,11 @@ class AppRouter extends $AppRouter {
           initial: true,
         ),
         AutoRoute(
+          page: RutaRegistro.page,
+          path: '/registro',
+          guards: [initialGuard],
+        ),
+        AutoRoute(
           page: RutaKyc.page,
           path: '/kyc',
           // TODO(anyone): Agregar guard para que solo los usuarios no aprobados
@@ -78,6 +83,11 @@ class AppRouter extends $AppRouter {
               path: 'pending-user-profile/:pendingUserId',
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
+            CustomRoute(
+              page: RutaEditarPerfil.page,
+              path: 'Edit-user-profile/:idUsuario',
+              transitionsBuilder: TransitionsBuilders.noTransition,
+            ),
             AutoRoute(
               page: RutaListaCursos.page,
               path: 'courses',
@@ -90,6 +100,21 @@ class AppRouter extends $AppRouter {
                 AutoRoute(
                   page: RutaCargaDeCalificaciones.page,
                   path: 'upload-grades',
+                ),
+              ],
+            ),
+            AutoRoute(
+              page: RutaListaDeComisiones.page,
+              path: 'list-commissions',
+              children: [
+                AutoRoute(
+                  page: RutaComisiones.page,
+                  path: 'commissions',
+                  initial: true,
+                ),
+                AutoRoute(
+                  page: RutaGestionDeComision.page,
+                  path: 'commission-management/:idComision/:idAsignatura',
                 ),
               ],
             ),
@@ -118,12 +143,62 @@ class AppRouter extends $AppRouter {
               path: 'absences',
             ),
             AutoRoute(
+              page: RutaCalificacionesMensuales.page,
+              path: 'grades',
+            ),
+            AutoRoute(
+              page: RutaComunicaciones.page,
+              path: 'communications',
+              children: [
+                AutoRoute(
+                  page: RutaMenuComunicaciones.page,
+                  path: 'menu-communications',
+                  initial: true,
+                ),
+                AutoRoute(
+                  page: RutaComunicacionesPendientes.page,
+                  path: 'pending-communications',
+                ),
+                AutoRoute(
+                  page: RutaAdministrarPlantillas.page,
+                  path: 'manage-templates',
+                ),
+                AutoRoute(
+                  page: RutaComunicacionesGeneral.page,
+                  path: 'general-communications',
+                ),
+                AutoRoute(
+                  page: RutaComunicacionesCursos.page,
+                  path: 'course-communications',
+                  children: [
+                    AutoRoute(
+                      initial: true,
+                      page: RutaComunicacionesListaCursos.page,
+                      path: 'courses',
+                    ),
+                    AutoRoute(
+                      page: RutaPerfilComunicados.page,
+                      path: 'communication-profile/:nombreUsuario/:idUsuario',
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            AutoRoute(
+              page: RutaCalificacionesAnuales.page,
+              path: 'anual-grades/:idAsignatura',
+            ),
+            AutoRoute(
               page: RutaSupervisionComisiones.page,
               path: 'course-supervision',
             ),
             AutoRoute(
               page: RutaSupervisionEnvioCalificaciones.page,
               path: 'grade-submission-supervision/:idComision/:fecha',
+            ),
+            AutoRoute(
+              page: RutaAdministrarPlantillas.page,
+              path: 'manage-templates',
             ),
           ],
         ),

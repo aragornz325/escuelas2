@@ -1,0 +1,417 @@
+{
+  "actions": [
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "notificaciones",
+        "dartName": "Notificacion",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('notificaciones_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "titulo",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "cuerpo",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "fueEditada",
+            "columnType": 1,
+            "isNullable": false,
+            "dartType": "bool"
+          },
+          {
+            "name": "idEstudiante",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "idCreadorNotificacion",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "fechaCreacion",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "ultimaModificacion",
+            "columnType": 4,
+            "isNullable": true,
+            "dartType": "DateTime?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "notificaciones_fk_0",
+            "columns": [
+              "idEstudiante"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "notificaciones_fk_1",
+            "columns": [
+              "idCreadorNotificacion"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "notificaciones_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "r_asignaturas_usuarios",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [
+          "r_asignatura_idx"
+        ],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"userinfo_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios",
+            "columns": [
+              "idUserInfo"
+            ],
+            "destrucive": false
+          },
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"dni_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios",
+            "columns": [
+              "dni"
+            ],
+            "destrucive": false
+          },
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"userinfo_dni_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios",
+            "columns": [
+              "idUserInfo",
+              "dni"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "solicitudes_envio_notificacion",
+        "dartName": "SolicitudEnvioNotificacion",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('solicitudes_envio_notificacion_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "solicitudId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "mes",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "anio",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "comisionId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "docenteId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "alumnoId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "notificacionId",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "estado",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "protocol:EstadoDeSolicitud"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "solicitudes_envio_notificacion_fk_0",
+            "columns": [
+              "solicitudId"
+            ],
+            "referenceTable": "solicitudes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 4
+          },
+          {
+            "constraintName": "solicitudes_envio_notificacion_fk_1",
+            "columns": [
+              "comisionId"
+            ],
+            "referenceTable": "comisiones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "solicitudes_envio_notificacion_fk_2",
+            "columns": [
+              "docenteId"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "solicitudes_envio_notificacion_fk_3",
+            "columns": [
+              "alumnoId"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          },
+          {
+            "constraintName": "solicitudes_envio_notificacion_fk_4",
+            "columns": [
+              "notificacionId"
+            ],
+            "referenceTable": "notificaciones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 3
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "solicitudes_envio_notificacion_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    },
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "usuarios",
+        "schema": "public",
+        "addColumns": [],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [
+          {
+            "indexName": "userinfo_unique_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "idUserInfo"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          },
+          {
+            "indexName": "dni_unique_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "dni"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          },
+          {
+            "indexName": "userinfo_dni_unique_idx",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "idUserInfo"
+              },
+              {
+                "type": 0,
+                "definition": "dni"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": false
+          }
+        ],
+        "deleteIndexes": [],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": [
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"userinfo_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios",
+            "columns": [
+              "idUserInfo"
+            ],
+            "destrucive": false
+          },
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"dni_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios",
+            "columns": [
+              "dni"
+            ],
+            "destrucive": false
+          },
+          {
+            "type": "uniqueIndexCreated",
+            "message": "Unique index \"userinfo_dni_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+            "table": "usuarios",
+            "columns": [
+              "idUserInfo",
+              "dni"
+            ],
+            "destrucive": false
+          }
+        ]
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"userinfo_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "usuarios",
+      "columns": [
+        "idUserInfo"
+      ],
+      "destrucive": false
+    },
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"dni_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "usuarios",
+      "columns": [
+        "dni"
+      ],
+      "destrucive": false
+    },
+    {
+      "type": "uniqueIndexCreated",
+      "message": "Unique index \"userinfo_dni_unique_idx\" is added to table \"usuarios\". If there are existing rows with duplicate values, this migration will fail.",
+      "table": "usuarios",
+      "columns": [
+        "idUserInfo",
+        "dni"
+      ],
+      "destrucive": false
+    }
+  ],
+  "migrationApiVersion": 1
+}

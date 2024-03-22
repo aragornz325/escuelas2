@@ -48,7 +48,7 @@ final class RedemptorisMissioConfigs extends ConfigsDeInstancia {
 
   @override
   int get diasDeAnticipacion => 5;
-
+  int get minimoDeCaracteresPassword => 12;
   @override
   DateTime fechaDeEnvio(DateTime primeroDeMes) =>
       primeroDeMes.subtract(Duration(days: diasDeAnticipacion));
