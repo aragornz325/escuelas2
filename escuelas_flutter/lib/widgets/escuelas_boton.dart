@@ -293,6 +293,15 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Color de los bordes.
     Color? colorOutline,
+
+    /// Color de las letras del texto
+    Color? colorTexto,
+
+    /// Tamaño de la fuente del texto
+    double? tamanioFuente,
+
+    /// Ancho de la letras del texto
+    FontWeight? anchoDeLasLetras,
   }) {
     final colores = context.colores;
 
@@ -310,8 +319,11 @@ class EscuelasBoton extends StatelessWidget {
             child: Text(
               texto,
               style: TextStyle(
-                color: colores.onSecondary,
-                fontSize: 12.pf,
+                color: estaHabilitado
+                ? colorTexto ?? colores.onSecondary
+                : colores.secondary,
+                fontSize: tamanioFuente ?? 12.pf,
+            fontWeight: anchoDeLasLetras,
               ),
             ),
           ),
@@ -368,10 +380,11 @@ class EscuelasBoton extends StatelessWidget {
                   ? colores.background
                   : estaHabilitado
                       ? color
-                      : backgroundColorDeshabilitado ?? colores.secondary,
+                      : colores.secondary,
+              
               border: esOutlined
                   ? Border.all(
-                      color: colorOutline ?? colores.onSecondary,
+                      color: estaHabilitado ? color : colores.secondary,
                       width: widthOutline ?? 1.pw,
                     )
                   : null,

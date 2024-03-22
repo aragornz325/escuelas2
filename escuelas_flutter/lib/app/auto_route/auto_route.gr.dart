@@ -355,13 +355,13 @@ abstract class $AppRouter extends _i35.RootStackRouter {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<RutaSupervisionEnvioCalificacionesArgs>(
           orElse: () => RutaSupervisionEnvioCalificacionesArgs(
-                idCurso: pathParams.getInt('idCurso'),
+                idComision: pathParams.getInt('idComision'),
                 fecha: pathParams.getString('fecha'),
               ));
       return _i35.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i33.PaginaSupervisionEnvioCalificaciones(
-          idCurso: args.idCurso,
+          idComision: args.idComision,
           fecha: args.fecha,
           key: args.key,
         ),
@@ -1102,19 +1102,19 @@ class RutaSupervisionComisiones extends _i35.PageRouteInfo<void> {
 class RutaSupervisionEnvioCalificaciones
     extends _i35.PageRouteInfo<RutaSupervisionEnvioCalificacionesArgs> {
   RutaSupervisionEnvioCalificaciones({
-    required int idCurso,
+    required int idComision,
     required String fecha,
     _i36.Key? key,
     List<_i35.PageRouteInfo>? children,
   }) : super(
           RutaSupervisionEnvioCalificaciones.name,
           args: RutaSupervisionEnvioCalificacionesArgs(
-            idCurso: idCurso,
+            idComision: idComision,
             fecha: fecha,
             key: key,
           ),
           rawPathParams: {
-            'idCurso': idCurso,
+            'idComision': idComision,
             'fecha': fecha,
           },
           initialChildren: children,
@@ -1128,12 +1128,12 @@ class RutaSupervisionEnvioCalificaciones
 
 class RutaSupervisionEnvioCalificacionesArgs {
   const RutaSupervisionEnvioCalificacionesArgs({
-    required this.idCurso,
+    required this.idComision,
     required this.fecha,
     this.key,
   });
 
-  final int idCurso;
+  final int idComision;
 
   final String fecha;
 
@@ -1141,7 +1141,7 @@ class RutaSupervisionEnvioCalificacionesArgs {
 
   @override
   String toString() {
-    return 'RutaSupervisionEnvioCalificacionesArgs{idCurso: $idCurso, fecha: $fecha, key: $key}';
+    return 'RutaSupervisionEnvioCalificacionesArgs{idComision: $idComision, fecha: $fecha, key: $key}';
   }
 }
 

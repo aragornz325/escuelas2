@@ -1,10 +1,11 @@
+import 'dart:math';
+
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/bloc/bloc_supervision_envio_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/utilidades/funciones/nombre_abreviado.dart';
-import 'package:escuelas_flutter/widgets/elemento_lista.dart';
-import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
+import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
@@ -19,14 +20,68 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
   /// {@macro VistaCelularSupervisionEnvioCalificaciones}
   const VistaCelularSupervisionEnvioCalificaciones({super.key});
 
-  @override
-  Widget build(BuildContext context) {
+  void _dialogExitosoAlEnviarCalificaciones(BuildContext context) {
     final colores = context.colores;
 
     final l10n = context.l10n;
 
-    return BlocBuilder<BlocSupervisionEnvioCalificaciones,
+    showDialog<void>(
+      context: context,
+      builder: (context) => EscuelasDialog.exitoso(
+        altura: max(70.ph, 70.sh),
+        context: context,
+        onTap: () => Navigator.of(context).pop(),
+        content: Text(
+          l10n.pageComissionSupervisionGradesSentSuccessfully,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colores.azul,
+            fontSize: 16.pf,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _dialogSolicitarCargaDeCalificaciones(BuildContext context) {
+    final colores = context.colores;
+
+    final l10n = context.l10n;
+
+    showDialog<void>(
+      context: context,
+      builder: (context) => EscuelasDialog.exitoso(
+        altura: max(80.ph, 80.sh),
+        context: context,
+        onTap: () => Navigator.of(context).pop(),
+        content: Text(
+          l10n.pageComissionSupervisionGradesUpLoadSuccessfullyRequested,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: colores.azul,
+            fontSize: 16.pf,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final colores = context.colores;
+
+    return BlocConsumer<BlocSupervisionEnvioCalificaciones,
         BlocSupervisionEnvioCalificacionesEstado>(
+      listener: (context, state) {
+        if (state.exitosoAlSolicitarCargaDeCalificaciones) {
+          _dialogSolicitarCargaDeCalificaciones(context);
+        }
+        if (state.exitosoAlEnviarCalificaciones) {
+          _dialogExitosoAlEnviarCalificaciones(context);
+        }
+      },
       builder: (context, state) {
         if (state is BlocSupervisionEnvioCalificacionesEstadoCargando) {
           return const Center(
@@ -57,82 +112,71 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                     fechaHasta: fechaHasta,
                   ),
                 ),
-                // TODO(anyone): Manejar seleccion de periodo
-                onSeleccionarPeriodo: (periodo) {},
+                onSeleccionarPeriodo: (periodo) =>
+                    context.read<BlocSupervisionEnvioCalificaciones>().add(
+                          BlocSupervisionEnvioCalificacionesEventoInicializar(
+                            fecha: periodo.fechaDesde,
+                          ),
+                        ),
                 decoration: BoxDecoration(
                   color: colores.tertiary,
                   borderRadius: BorderRadius.circular(40.sw),
                 ),
-                margin: EdgeInsets.symmetric(horizontal: 20.pw),
               ),
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 10.ph,
-                  horizontal: 10.pw,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      l10n.commonSubject,
-                      style: TextStyle(
-                        color: colores.onSecondary,
-                        fontSize: 12.pf,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Text(
-                      l10n.commonState,
-                      style: TextStyle(
-                        color: colores.onSecondary,
-                        fontSize: 12.pf,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              const _MateriaYEstado(),
               Expanded(
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: state.listaAsignaturas
-                        .map(
-                          (asignatura) => Padding(
-                            padding: EdgeInsets.only(bottom: 10.ph),
-                            child: ElementoLista.supervisionEnvioCalificaciones(
-                              context: context,
-                              // TODO(Gon): Cambiar por fecha de carga de
-                              // calificaciones (cuando se implemente)
-                              fechaDeCarga: DateTime.now(),
-                              nombreProfesor: obtenerNombreAbreviado(
-                                // asignatura.docentes.first.nombre,
-                                'Gonzalo Miguel Rigoni',
-                              ),
-                              nombreAsignatura: asignatura.nombre,
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ),
+                child: ListaDeAsignaturas(
+                  asignaturas: state.listaAsignaturas,
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(top: 15.ph),
-                child: EscuelasBoton.texto(
-                  estaHabilitado: true,
-                  // TODO(anyone): Implementar funcion
-                  onTap: () {},
-                  color: colores.azul,
-                  texto: l10n.pageGradeSubmissionSupervisionButton(
-                    state.asignaturasFaltantes.length,
-                  ),
-                  context: context,
-                ),
-              ),
+              const BotonesEnviarCalificaciones(),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+/// {@template _MateriaYEstado}
+/// Muestra dos textos uno de la materia y el otro del estado
+/// {@endtemplate}
+class _MateriaYEstado extends StatelessWidget {
+  /// {@macro _MateriaYEstado}
+  const _MateriaYEstado();
+
+  @override
+  Widget build(BuildContext context) {
+    final colores = context.colores;
+
+    final l10n = context.l10n;
+
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        vertical: 10.ph,
+        horizontal: 10.pw,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            l10n.commonSubject,
+            style: TextStyle(
+              color: colores.onSecondary,
+              fontSize: 12.pf,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            l10n.commonState,
+            style: TextStyle(
+              color: colores.onSecondary,
+              fontSize: 12.pf,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
