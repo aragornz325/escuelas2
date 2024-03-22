@@ -238,10 +238,6 @@
   "@pageStudentGrades": {
     "description": "Title of the page Grades for a student"
   },
-  "pageCommunicationsTitle": "Communications",
-    "@pageCommunicationsTitle": {
-        "description": "Title of the page Communications"
-    },
   "pagePendingCommunicationsDialogDescription": "Are you sure you want to approve this notification?",
     "@pagePendingCommunicationsDialogDescription": {
         "description": "Description text of the alert dialog when the user taps button to approve the communication"
@@ -488,10 +484,6 @@
   "@dropdownErrorMustCompleteField": {
     "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
   },
-  "routeNameMenuCommunications": "Communications",
-  "@routeNameMenuCommunications": {
-      "description": "Name of the route"
-  },
 
   "routeNameHome": "Home",
   "@routeNameHome": {
@@ -537,18 +529,6 @@
   "@routeNamePendingUserProfile": {
     "description": ""
   },   
-  "routeNamePendingCommunications": "Pendings",
-  "@routeNamePendingCommunications": {
-      "description": "Name of the route"
-  }, 
-  "routeNameGeneralCommunications": "General",
-  "@routeNameGeneralCommunications": {
-      "description": "Name of the route"
-  },
-  "routeNameCourseCommunications": "Courses",
-  "@routeNameCourseCommunications": {
-      "description": "Name of the route"
-  },
   "routeNameCourses": "Courses",
   "@routeNameCourses": {
     "description": ""
@@ -577,23 +557,6 @@
   "@routeNameCourseCommunications": {
         "description": "Name of the route"
     },
-  "routeNameMenuCommunications": "Communications",
-    "@routeNameMenuCommunications": {
-        "description": "Name of the route"
-    },
-    "routeNamePendingCommunications": "Pendings",
-    "@routeNamePendingCommunications": {
-        "description": "Name of the route"
-    },
-    "routeNameGeneralCommunications": "General",
-    "@routeNameGeneralCommunications": {
-        "description": "Name of the route"
-    },
-
-    "routeNameCourseCommunications": "Courses",
-    "@routeNameCourseCommunications": {
-        "description": "Name of the route"
-    },
   "routeAcademicCommunityMenu": "Menu",
   "@routeAcademicCommunityMenu": {
     "description": ""
@@ -611,6 +574,10 @@
     "@routeNameCommission": {
         "description": ""
     },
+   "routeNameManageTemplates": "Manage templates",
+  "@routeNameManageTemplates": {
+      "description": ""
+  },
 
   "routeNameGradeSubmissionSupervision": "Grade submission supervision",
   "@routeNameGradeSubmissionSupervision": {
@@ -683,6 +650,23 @@
   "pageManageTemplatesDialogDeletedSuccessfully": "Deleted successfully",
   "@pageManageTemplatesDialogDeletedSuccessfully": {
     "description": "Text to be displayed in the dialog to notify for deleted successfully"
+  },
+  "pageCourseManagementReplaceTeacher": "Replace teacher",
+  "@pageCourseManagementReplaceTeacher": {
+      "description": "Label indicating the action to replace a teacher to a course."
+  },
+  "pageEditProfileButtonSuccessEditUser": "Profile was edited successfully!",
+  "@pageEditProfileButtonSuccessEditUser": {
+    "description": "Label indicating successful editing of user profile."
+  },
+  "pageEditProfileButtonConfirmEditUser": "Are you sure you want\n to edit the personal data of\n {nameUser}?",
+  "@pageEditProfileButtonConfirmEditUser": {
+      "description": "Label indicating the action to replace a teacher to a course.",
+      "placeholders" :{
+          "nameUser" : {
+              "type": "String"
+          }
+      }
   },
   "commonWelcome": "Welcome!",
   "@commonWelcome": {
@@ -935,6 +919,10 @@
   "commonSave": "Save",
   "@commonSave": {
     "description": "Label for a button or action indicating to save."
+  },  
+  "commonSaveChange": "Save Change",
+  "@commonSaveChange": {
+    "description": "Label for a button or action indicating to save a change."
   },
   "commonCourses": "Courses",
     "@commonCourses": {

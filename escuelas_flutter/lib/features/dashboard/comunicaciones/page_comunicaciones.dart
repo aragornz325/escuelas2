@@ -24,6 +24,7 @@ class PaginaComunicaciones extends StatelessWidget {
             RutaMenuComunicaciones.name => content,
             RutaComunicacionesPendientes.name => content,
             RutaComunicacionesGeneral.name => content,
+            RutaAdministrarPlantillas.name => content,
             RutaComunicacionesCursos.name => content,
             _ => const SizedBox.shrink()
           };

@@ -57,8 +57,8 @@ class ItemCurso extends StatelessWidget {
               texto: Text(
                 comision.nombre.toUpperCase(),
                 style: TextStyle(
-                  color: comision.ultimaModificacion.mismaFecha(
-                    state.fechaActual ?? DateTime.now(),
+                  color: comision.seTomoAsistencia(
+                    comisionConAsistencias.inasistenciasDelCurso,
                   )
                       ? colores.onBackground
                       : colores.onSecondary,
@@ -73,7 +73,11 @@ class ItemCurso extends StatelessWidget {
                   '/${comision.estudiantes?.length ?? 0}',
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                    color: colores.onSecondary,
+                    color: comision.seTomoAsistencia(
+                      comisionConAsistencias.inasistenciasDelCurso,
+                    )
+                        ? colores.onBackground
+                        : colores.onSecondary,
                     fontSize: 16.pf,
                     fontWeight: FontWeight.w700,
                   ),

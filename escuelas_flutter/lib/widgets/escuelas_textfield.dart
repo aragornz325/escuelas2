@@ -34,6 +34,8 @@ class EscuelasTextfield extends StatefulWidget {
     this.onEditingComplete,
     this.onFieldSubmitted,
     this.backgroundColor,
+    this.borderSide,
+    this.borderRadius,
   });
 
   /// TextFormField de email con su expresion regular.
@@ -43,14 +45,30 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Contexto para traducciones
     required BuildContext context,
+
+    /// Funcion onChanged del textfield
+    void Function(String)? onChanged,
+
+    /// Lineas maximas.
+    int? maxLines,
+
+    /// Border del textfield
+    BorderSide? borderSide,
+
+    /// Border radius del textfield
+    BorderRadius? borderRadius,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
+      borderRadius: borderRadius,
+      borderSide: borderSide,
+      maxLines: maxLines,
       hintText: l10n.commonMail,
       controller: controller,
       keyboardType: TextInputType.emailAddress,
       esPassword: false,
+      onChanged: onChanged,
       validator: (email) {
         if (email?.isEmpty ?? false) {
           return l10n.commonCompleteTheField;
@@ -74,10 +92,22 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Funcion onChanged del textfield
     required void Function(String)? onChanged,
+
+    /// Lineas maximas.
+    int? maxLines,
+
+    /// Border del textfield
+    BorderSide? borderSide,
+
+    /// Border radius del textfield
+    BorderRadius? borderRadius,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
+      borderRadius: borderRadius,
+      borderSide: borderSide,
+      maxLines: maxLines,
       hintText: hintText,
       controller: controller,
       esPassword: false,
@@ -114,19 +144,30 @@ class EscuelasTextfield extends StatefulWidget {
     required Widget suffixIcon,
 
     /// Funcion de validacion
-    required ValueChanged<bool> onValidate,
+    ValueChanged<bool>? onValidate,
 
     /// Texto de error
     String? invalidText,
 
     /// Color del fondo del campo de texto
     Color? backgroundColor,
+
+    /// Lineas maximas.
+    int maxLines = 1,
+
+    /// Border del textfield
+    BorderSide? borderSide,
+
+    /// Border radius del textfield
+    BorderRadius? borderRadius,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
+      borderRadius: borderRadius,
+      borderSide: borderSide,
       hintText: hintText,
-      maxLines: 1,
+      maxLines: maxLines,
       controller: controller,
       backgroundColor: backgroundColor,
       esPassword: false,
@@ -140,10 +181,10 @@ class EscuelasTextfield extends StatefulWidget {
       suffixIcon: suffixIcon,
       validator: (value) {
         if (value?.isEmpty ?? false) {
-          onValidate(false);
+          onValidate?.call(false);
           return invalidText ?? l10n.commonCompleteTheField;
         }
-        onValidate(true);
+        onValidate?.call(true);
         return null;
       },
     );
@@ -174,10 +215,18 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Color del fondo del campo de texto
     Color? backgroundColor,
+
+    /// Border del textfield
+    BorderSide? borderSide,
+
+    /// Border radius del textfield
+    BorderRadius? borderRadius,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
+      borderRadius: borderRadius,
+      borderSide: borderSide,
       hintText: hintText,
       maxLines: 1,
       controller: controller,
@@ -371,6 +420,12 @@ class EscuelasTextfield extends StatefulWidget {
   /// Color de relleno.
   final Color? fillColor;
 
+  /// borderes Custom.
+  final BorderSide? borderSide;
+
+  /// border radius Custom.
+  final BorderRadius? borderRadius;
+
   @override
   State<EscuelasTextfield> createState() => _EscuelasTextfieldState();
 }
@@ -407,14 +462,22 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
                 fontSize: 16.pf,
                 color: colores.onSecondary,
               ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius:
+                    widget.borderRadius ?? BorderRadius.circular(40.sw),
+                borderSide: widget.borderSide ?? BorderSide.none,
+              ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(40.sw),
-                borderSide: BorderSide.none,
+                borderRadius:
+                    widget.borderRadius ?? BorderRadius.circular(40.sw),
+                borderSide: widget.borderSide ?? BorderSide.none,
               ),
               errorStyle: TextStyle(color: colores.error),
               errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: colores.error),
-                borderRadius: BorderRadius.circular(40.sw),
+                borderSide:
+                    widget.borderSide ?? BorderSide(color: colores.error),
+                borderRadius:
+                    widget.borderRadius ?? BorderRadius.circular(40.sw),
               ),
               prefixIcon: widget.prefixIcon,
               suffixIcon: widget.suffixIcon,

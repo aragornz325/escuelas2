@@ -9,7 +9,6 @@ import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/tarje
 import 'package:escuelas_flutter/gen/fonts.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
-import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

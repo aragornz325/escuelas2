@@ -31,6 +31,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
               nombreUsuario: state.usuario?.nombre ?? '',
               apellidoUsuario: state.usuario?.apellido ?? '',
               urlImage: state.usuario?.urlFotoDePerfil ?? '',
+              usuario: state.usuario,
             ),
             const Expanded(
               child: SingleChildScrollView(

@@ -45,6 +45,7 @@ class MenuOpcionesPermisos extends StatelessWidget {
   /// Devuelve de acuerdo al usuario su lista de vistas permitidas.
   List<MenuOpcionesDeInicio> _menusPermitidos(BuildContext context) {
     final usuario = context.read<BlocDashboard>().state.usuario;
+
     return MenuOpcionesDeInicio.values
         .where(
           (opcion) => opcion.permisosRequeridos.every(
@@ -70,8 +71,12 @@ class MenuOpcionesPermisos extends StatelessWidget {
       },
       builder: (context, state) {
         if (state is BlocInicioEstadoCargando) {
-          return const Center(
-            child: CircularProgressIndicator(),
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(height: 150.ph),
+              const Center(child: CircularProgressIndicator()),
+            ],
           );
         }
         if (state is BlocInicioEstadoExitoso && menus.isEmpty) {
@@ -99,65 +104,63 @@ class MenuOpcionesPermisos extends StatelessWidget {
           );
         }
 
-        return SingleChildScrollView(
-          child: Column(
-            children: menus.map(
-              (menu) {
-                final tieneUsuariosPendientesYLaRutaTieneEseNombre =
-                    menu.name == MenuOpcionesDeInicio.usuariosPendientes.name &&
-                        state.hayUsuariosPendientes;
+        return ListView(
+          children: menus.map(
+            (menu) {
+              final tieneUsuariosPendientesYLaRutaTieneEseNombre =
+                  menu.name == MenuOpcionesDeInicio.usuariosPendientes.name &&
+                      state.hayUsuariosPendientes;
 
-                final tieneMasDeUnaNotificacionPendiente =
-                    menu.name == MenuOpcionesDeInicio.comunicaciones.name &&
-                        state.cantidadNotificacionesPendientes > 0;
+              final tieneMasDeUnaNotificacionPendiente =
+                  menu.name == MenuOpcionesDeInicio.comunicaciones.name &&
+                      state.cantidadNotificacionesPendientes > 0;
 
-                return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 15.ph)
-                      .copyWith(bottom: 15.ph),
-                  child: ElementoLista.menu(
-                    widgetLateralDerecho:
-                        tieneUsuariosPendientesYLaRutaTieneEseNombre
-                            ? Padding(
-                                padding: EdgeInsets.only(right: 20.pw),
-                                child: Icon(
-                                  Icons.circle,
-                                  color: colores.error,
-                                  size: 15.sw,
-                                ),
-                              )
-                            : (tieneMasDeUnaNotificacionPendiente
-                                ? Padding(
-                                    padding: EdgeInsets.only(right: 20.pw),
-                                    child: Container(
-                                      width: 24.pw,
-                                      height: 24.ph,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: colores.azulNotificacion,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          state.cantidadNotificacionesPendientes
-                                              .toString(),
-                                          style: TextStyle(
-                                            color:
-                                                colores.marfilBackgroundDesktop,
-                                            fontSize: 16.pf,
-                                            fontWeight: FontWeight.w700,
-                                          ),
+              return Padding(
+                padding: EdgeInsets.symmetric(horizontal: 15.ph)
+                    .copyWith(bottom: 15.ph),
+                child: ElementoLista.menu(
+                  widgetLateralDerecho:
+                      tieneUsuariosPendientesYLaRutaTieneEseNombre
+                          ? Padding(
+                              padding: EdgeInsets.only(right: 20.pw),
+                              child: Icon(
+                                Icons.circle,
+                                color: colores.error,
+                                size: 15.sw,
+                              ),
+                            )
+                          : (tieneMasDeUnaNotificacionPendiente
+                              ? Padding(
+                                  padding: EdgeInsets.only(right: 20.pw),
+                                  child: Container(
+                                    width: 24.pw,
+                                    height: 24.ph,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: colores.azulNotificacion,
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        state.cantidadNotificacionesPendientes
+                                            .toString(),
+                                        style: TextStyle(
+                                          color:
+                                              colores.marfilBackgroundDesktop,
+                                          fontSize: 16.pf,
+                                          fontWeight: FontWeight.w700,
                                         ),
                                       ),
                                     ),
-                                  )
-                                : null),
-                    nombreOpcion: menu.getTitulo(context),
-                    context: context,
-                    onTap: () => menu.redirigirAVista(context),
-                  ),
-                );
-              },
-            ).toList(),
-          ),
+                                  ),
+                                )
+                              : null),
+                  nombreOpcion: menu.getTitulo(context),
+                  context: context,
+                  onTap: () => menu.redirigirAVista(context),
+                ),
+              );
+            },
+          ).toList(),
         );
       },
     );

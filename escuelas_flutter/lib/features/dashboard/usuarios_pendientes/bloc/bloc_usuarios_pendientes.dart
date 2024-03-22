@@ -35,6 +35,7 @@ class BlocUsuariosPendientes
         final usuariosPendientes =
             List<UsuarioPendiente>.from(rolesYUsuariosPendientes[0]);
         final roles = List<Role>.from(rolesYUsuariosPendientes[1]);
+
         emit(
           BlocUsuariosPendientesEstadoExitoso.desde(
             state,

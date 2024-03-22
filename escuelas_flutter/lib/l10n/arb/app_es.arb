@@ -263,10 +263,6 @@
   "@pageStudentGrades": {
     "description": "Title of the page Grades for a student"
   },
-  "pageCommunicationsTitle": "Comunicaciones",
-    "@pageCommunicationsTitle": {
-        "description": "Title of the page Communications"
-    },
   "pagePendingCommunicationsDialogDescription": "¿Estás seguro que deseas aprobar esta notificación?",
     "@pagePendingCommunicationsDialogDescription": {
         "description": "Description text of the alert dialog when the user taps button to approve the communication"
@@ -307,7 +303,13 @@
   },
   "pageCommunicationProfileMarkAllRead": "Marcar todo como leído",
   "@pageCommunicationProfileMarkAllRead": {
-      "description": "Mark all as read"},
+      "description": "Mark all as read"
+  },
+
+  "pageCourseManagementReplaceTeacher": "Reemplazar docente",
+  "@pageCourseManagementReplaceTeacher": {
+      "description": "Label indicating the action to replace a teacher to a course."
+  },
 
   "pageCourseManagementAssignTeacher": "Asignar docente",
   "@pageCourseManagementAssignTeacher": {
@@ -376,6 +378,20 @@
   "@pageCoursesThereAreNoCourses": {
       "description": "There are no commissions with subjects"
   },
+  
+  "pageEditProfileButtonSuccessEditUser": "¡El perfil fue editado correctamente!",
+  "@pageEditProfileButtonSuccessEditUser": {
+    "description": "Label indicating successful editing of user profile."
+  },
+  "pageEditProfileButtonConfirmEditUser": "Estás seguro que deseas\n editar los datos personales de\n {nameUser}?",
+  "@pageEditProfileButtonConfirmEditUser": {
+      "description": "Label indicating the action to replace a teacher to a course.",
+      "placeholders" :{
+          "nameUser" : {
+              "type": "String"
+          }
+      }
+  },
   "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
   "@dialogErrorToSendGrades": {
     "description": "Label indicating an error when sending notes."
@@ -407,10 +423,6 @@
   "drawerLogOut": "Cerrar sesión",
   "@drawerLogOut": {
     "description": "Text of the button in the logout item"
-  },
-  "routeNameMenuCommunications": "Comunicaciones",
-  "@routeNameMenuCommunications": {
-      "description": "Name of the route"
   },
   "routeNameHome": "Inicio",
   "@routeNameHome": {
@@ -468,19 +480,6 @@
   "@routeNamePendingUsers": {
     "description": ""
   },    
-  "routeNamePendingCommunications": "Pendientes",
-  "@routeNamePendingCommunications": {
-      "description": "Name of the route"
-  },
-  "routeNameGeneralCommunications": "General",
-  "@routeNameGeneralCommunications": {
-      "description": "Name of the route"
-  },
-
-  "routeNameCourseCommunications": "Cursos",
-  "@routeNameCourseCommunications": {
-      "description": "Name of the route"
-  },
 
 
     "routeNameMenuCommunications": "Comunicaciones",
@@ -493,7 +492,10 @@
     "@routeNamePendingCommunications": {
         "description": "Name of the route"
     },
-
+    "routeNameManageTemplates": "Administrar plantillas",
+    "@routeNameManageTemplates": {
+        "description": ""
+    },
     
     "routeNameGeneralCommunications": "General",
     "@routeNameGeneralCommunications": {
@@ -648,6 +650,10 @@
   "commonSave": "Guardar",
   "@commonSave": {
     "description": "Label for a button or action indicating to save."
+  },  
+  "commonSaveChange": "Save Change",
+  "@commonSaveChange": {
+    "description": "Label for a button or action indicating to save a change."
   },
   "commonEmergencyContact": "Contacto de emergencia",
   "@commonEmergencyContact": {
@@ -776,7 +782,7 @@
   "pageManageTemplatesDialogDeletedSuccessfully": "Eliminado exitosamente",
   "@pageManageTemplatesDialogDeletedSuccessfully": {
     "description": "Text to be displayed in the dialog to notify for deleted successfully"
-  },
+  },  
   "dialogCreationNotificationCreateNotification": "Crear notificación",
   "@dialogCreationNotificationCreateNotification": {
       "description": "Create notification"

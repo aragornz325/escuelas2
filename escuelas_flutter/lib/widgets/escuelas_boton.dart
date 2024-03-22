@@ -97,33 +97,63 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Tamaño del icono por defecto 15
     double? tamanoIcono,
+
+    /// Indica si es outline o no el boton.
+    bool esOutline = false,
   }) {
     final colores = context.colores;
 
-    return EscuelasBoton(
-      estaHabilitado: true,
-      onTap: onTap,
-      color: color,
-      borderRadius: BorderRadius.circular(4.sw),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            texto,
-            style: TextStyle(
-              color: colorDeTexto ?? colores.background,
-              fontSize: fontSize ?? 10.pf,
+    return esOutline
+        ? EscuelasBoton.outlined(
+            onTap: onTap,
+            context: context,
+            estaHabilitado: true,
+            texto: texto,
+            color: color,
+            borderRadius: BorderRadius.circular(4.sw),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  texto,
+                  style: TextStyle(
+                    color: colorDeTexto ?? colores.background,
+                    fontSize: fontSize ?? 12.pf,
+                  ),
+                ),
+                SizedBox(width: 5.pw),
+                Icon(
+                  icono,
+                  color: colorDeTexto ?? colores.background,
+                  size: tamanoIcono ?? 15.sw,
+                ),
+              ],
             ),
-          ),
-          SizedBox(width: 5.pw),
-          Icon(
-            icono,
-            color: colores.background,
-            size: tamanoIcono ?? 15.sw,
-          ),
-        ],
-      ),
-    );
+          )
+        : EscuelasBoton(
+            estaHabilitado: true,
+            onTap: onTap,
+            color: color,
+            borderRadius: BorderRadius.circular(4.sw),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  texto,
+                  style: TextStyle(
+                    color: colorDeTexto ?? colores.background,
+                    fontSize: fontSize ?? 12.pf,
+                  ),
+                ),
+                SizedBox(width: 5.pw),
+                Icon(
+                  icono,
+                  color: colores.background,
+                  size: tamanoIcono ?? 15.sw,
+                ),
+              ],
+            ),
+          );
   }
 
   factory EscuelasBoton.loginGoogle({
@@ -254,25 +284,37 @@ class EscuelasBoton extends StatelessWidget {
 
     /// Color del boton
     Color? color,
+
+    /// Contenido a mostrar dentro del boton.
+    Widget? child,
+
+    /// Borde redondeado
+    BorderRadius? borderRadius,
+
+    /// Color de los bordes.
+    Color? colorOutline,
   }) {
     final colores = context.colores;
 
     return EscuelasBoton(
+      colorOutline: colorOutline,
       esOutlined: true,
+      borderRadius: borderRadius,
       estaHabilitado: estaHabilitado,
       height: height,
       width: width,
       onTap: onTap,
       color: color ?? colores.background,
-      child: Center(
-        child: Text(
-          texto,
-          style: TextStyle(
-            color: colores.onSecondary,
-            fontSize: 12.pf,
+      child: child ??
+          Center(
+            child: Text(
+              texto,
+              style: TextStyle(
+                color: colores.onSecondary,
+                fontSize: 12.pf,
+              ),
+            ),
           ),
-        ),
-      ),
     );
   }
 

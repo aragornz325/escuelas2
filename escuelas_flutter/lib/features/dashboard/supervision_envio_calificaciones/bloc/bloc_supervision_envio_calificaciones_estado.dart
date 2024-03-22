@@ -37,7 +37,8 @@ class BlocSupervisionEnvioCalificacionesEstado {
 class BlocSupervisionEnvioCalificacionesEstadoInicial
     extends BlocSupervisionEnvioCalificacionesEstado {
   /// {@macro BlocSupervisionEnvioCalificacionesEstadoInicial}
-  const BlocSupervisionEnvioCalificacionesEstadoInicial() : super._();
+  const BlocSupervisionEnvioCalificacionesEstadoInicial(DateTime fecha)
+      : super._(fecha: fecha);
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoCargando}

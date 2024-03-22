@@ -23,7 +23,7 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
           ),
         ) {
     on<BlocDashboardEventoInicializar>(_onInicializar);
-    
+
     on<BlocDashboardEventoObtenerAsignaturaYComision>(
       _onObtenerAsignaturaYComision,
     );

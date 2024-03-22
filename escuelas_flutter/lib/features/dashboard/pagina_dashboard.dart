@@ -3,6 +3,7 @@ import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/widgets/drawer/bloc/bloc_drawer.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -60,6 +61,9 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
         ),
         BlocProvider<BlocKyc>(
           create: (context) => BlocKyc()..add(const BlocKycEventoInicializar()),
+        ),
+        BlocProvider<BlocEditarPerfil>(
+          create: (context) => BlocEditarPerfil(),
         ),
       ],
       child: BlocBuilder<BlocDashboard, BlocDashboardEstado>(

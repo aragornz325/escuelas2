@@ -12,7 +12,8 @@ enum MenuOpcionesComunicaciones {
   // TODO(ANYONE): Ajustar permisos cuando este, probablemente seria Directivo.
   comunicacionesPendientes([PermisoDeUsuario.verUsuario]),
   comunicacionesGeneral([PermisoDeUsuario.verUsuario]),
-  comunicacionesCursos([PermisoDeUsuario.verUsuario]);
+  comunicacionesCursos([PermisoDeUsuario.verUsuario]),
+  comunicacionesAdministrarPlantillas([PermisoDeUsuario.verUsuario]);
 
   const MenuOpcionesComunicaciones(this.permisosRequeridos);
 
@@ -25,6 +26,10 @@ enum MenuOpcionesComunicaciones {
         context.router.push(const RutaComunicacionesPendientes());
       case comunicacionesGeneral:
         context.router.push(const RutaComunicacionesGeneral());
+      case comunicacionesGeneral:
+        context.router.push(const RutaComunicacionesGeneral());
+      case comunicacionesAdministrarPlantillas:
+        context.router.push(const RutaAdministrarPlantillas());
       case comunicacionesCursos:
         // TODO(anyone) : verificar primero si el rol que tiene el usuario es
         // directivo/docente va a la lista de cursos.si es alumno va a perfil
@@ -43,6 +48,8 @@ enum MenuOpcionesComunicaciones {
         return l10n.routeNamePendingCommunications.toUpperCase();
       case comunicacionesGeneral:
         return l10n.routeNameGeneralCommunications.toUpperCase();
+      case comunicacionesAdministrarPlantillas:
+        return l10n.routeNameManageTemplates.toUpperCase();
       case comunicacionesCursos:
         return l10n.routeNameCourseCommunications.toUpperCase();
     }

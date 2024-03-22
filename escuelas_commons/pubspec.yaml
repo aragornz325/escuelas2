@@ -11,8 +11,6 @@ dependencies:
     git:
       url: https://github.com/juanjosegarcia98/escuelas_client
 
-  #Modelos
-
   freezed_annotation: ^2.4.1
   rolemissions:
     git:
