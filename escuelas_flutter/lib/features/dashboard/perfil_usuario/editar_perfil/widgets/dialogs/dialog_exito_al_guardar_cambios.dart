@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -17,6 +18,8 @@ class DialogExitoAlGuardarCambios extends StatelessWidget {
   Widget build(BuildContext context) {
     final colores = context.colores;
 
+    final l10n = context.l10n;
+
     return EscuelasDialog.exitoso(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.sw),
@@ -25,8 +28,7 @@ class DialogExitoAlGuardarCambios extends StatelessWidget {
       context: context,
       onTap: () => Navigator.of(context).pop(),
       content: Text(
-        // TODO(mati): l10n
-        '¡El perfil fue editado correctamente!',
+        l10n.pageEditProfileButtonSuccessEditUser,
         style: TextStyle(
           color: colores.secondary,
           fontSize: 14.pf,

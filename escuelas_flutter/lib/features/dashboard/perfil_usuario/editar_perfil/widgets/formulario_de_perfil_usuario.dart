@@ -248,7 +248,6 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               ),
               hintText: l10n.commonName,
               suffixIcon: const SizedBox.shrink(),
-              onValidate: (value) {},
               controller: _controllerNombreTutor,
               context: context,
               onChanged: (v) {
@@ -279,7 +278,6 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               ),
               hintText: l10n.commonLastname,
               suffixIcon: const SizedBox.shrink(),
-              onValidate: (value) {},
               controller: _controllerApellidoTutor,
               context: context,
               onChanged: (v) {
@@ -310,7 +308,6 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               ),
               hintText: l10n.commonBond,
               suffixIcon: const SizedBox.shrink(),
-              onValidate: (value) {},
               controller: _controllerVinculo,
               context: context,
               onChanged: (v) {
@@ -401,7 +398,6 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               maxLines: 3,
               hintText: l10n.commonObservations,
               suffixIcon: const SizedBox.shrink(),
-              onValidate: (value) {},
               controller: _controllerObservaciones,
               context: context,
               onChanged: (v) {

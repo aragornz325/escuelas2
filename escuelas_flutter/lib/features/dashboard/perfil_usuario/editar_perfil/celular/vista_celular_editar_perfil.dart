@@ -4,6 +4,7 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialogs.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/widgets.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -51,11 +52,13 @@ class VistaCelularEditarPerfil extends StatelessWidget {
 /// {@endtemplate}
 class _DatosPersonalesAEditar extends StatelessWidget {
   /// {@macro _DatosPersonalesAEditar}
-  const _DatosPersonalesAEditar({super.key});
+  const _DatosPersonalesAEditar();
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.pw),
@@ -72,8 +75,7 @@ class _DatosPersonalesAEditar extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.pw),
                 child: Text(
-                  // TODO (mati): hacer l10n
-                  'Datos Personales'.toUpperCase(),
+                  l10n.pageRoleAssigmentPersonalInformation.toUpperCase(),
                   style: TextStyle(
                     fontSize: 13.pf,
                     fontWeight: FontWeight.w700,

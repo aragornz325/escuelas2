@@ -378,6 +378,11 @@
   "@pageCoursesThereAreNoCourses": {
       "description": "There are no commissions with subjects"
   },
+  
+  "pageEditProfileButtonSuccessEditUser": "¡El perfil fue editado correctamente!",
+  "@pageEditProfileButtonSuccessEditUser": {
+    "description": "Label indicating successful editing of user profile."
+  },
   "pageEditProfileButtonConfirmEditUser": "Estás seguro que deseas\n editar los datos personales de\n {nameUser}?",
   "@pageEditProfileButtonConfirmEditUser": {
       "description": "Label indicating the action to replace a teacher to a course.",
@@ -777,7 +782,7 @@
   "pageManageTemplatesDialogDeletedSuccessfully": "Eliminado exitosamente",
   "@pageManageTemplatesDialogDeletedSuccessfully": {
     "description": "Text to be displayed in the dialog to notify for deleted successfully"
-  },
+  },  
   "dialogCreationNotificationCreateNotification": "Crear notificación",
   "@dialogCreationNotificationCreateNotification": {
       "description": "Create notification"

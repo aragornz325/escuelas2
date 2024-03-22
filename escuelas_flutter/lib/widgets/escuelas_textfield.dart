@@ -144,7 +144,7 @@ class EscuelasTextfield extends StatefulWidget {
     required Widget suffixIcon,
 
     /// Funcion de validacion
-    required ValueChanged<bool> onValidate,
+    ValueChanged<bool>? onValidate,
 
     /// Texto de error
     String? invalidText,
@@ -181,10 +181,10 @@ class EscuelasTextfield extends StatefulWidget {
       suffixIcon: suffixIcon,
       validator: (value) {
         if (value?.isEmpty ?? false) {
-          onValidate(false);
+          onValidate?.call(false);
           return invalidText ?? l10n.commonCompleteTheField;
         }
-        onValidate(true);
+        onValidate?.call(true);
         return null;
       },
     );

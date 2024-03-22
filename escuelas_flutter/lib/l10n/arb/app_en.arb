@@ -655,6 +655,10 @@
   "@pageCourseManagementReplaceTeacher": {
       "description": "Label indicating the action to replace a teacher to a course."
   },
+  "pageEditProfileButtonSuccessEditUser": "Profile was edited successfully!",
+  "@pageEditProfileButtonSuccessEditUser": {
+    "description": "Label indicating successful editing of user profile."
+  },
   "pageEditProfileButtonConfirmEditUser": "Are you sure you want\n to edit the personal data of\n {nameUser}?",
   "@pageEditProfileButtonConfirmEditUser": {
       "description": "Label indicating the action to replace a teacher to a course.",
