@@ -14,3 +14,13 @@ fields:
   fechaEliminacion: DateTime?, scope=serverOnly
   asignaturasSolicitadas: List<AsignaturaSolicitada>?, relation
   comisionSolicitada: ComisionDeCurso?, relation(optional, onDelete=SetNull)
+indexes:
+  userinfo_pendiente_unique_idx:
+    fields: idUserInfo
+    unique: true
+  dni_pendiente_unique_idx:
+    fields: dni
+    unique: true
+  userinfo_dni_pendiente_unique_idx:
+    fields: idUserInfo, dni
+    unique: true

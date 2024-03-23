@@ -102,7 +102,7 @@ INNER JOIN solicitudes s ON s."id" = snm."solicitudId"
 WHERE
 snm."idAsignatura" = a."id"
 AND snm."comisionId" = c."id"
-AND snm."numeroDeMes" = $numeroDeMes
+AND snm."mes" = $numeroDeMes
 ) IS NOT NULL THEN TRUE
 ELSE FALSE
 END
