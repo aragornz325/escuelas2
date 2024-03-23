@@ -82,6 +82,9 @@ flutter:
   generate: true
   assets:
     - assets/images/
+    - dev.env
+    - prod.env
+    - stg.env
 
   fonts:
     - family: Nunito
