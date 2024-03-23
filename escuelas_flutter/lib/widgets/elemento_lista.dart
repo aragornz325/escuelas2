@@ -354,9 +354,11 @@ class ElementoLista extends StatelessWidget {
     required String nombreProfesor,
 
     /// Fecha de carga de las calificaciones de la asignatura
-    required DateTime fechaDeCarga,
+    required DateTime? fechaDeCarga,
   }) {
     final colores = context.colores;
+
+    final l10n = context.l10n;
 
     return ElementoLista(
       altura: 40.ph,
@@ -372,11 +374,14 @@ class ElementoLista extends StatelessWidget {
       widgetLateralDerecho: Padding(
         padding: EdgeInsets.only(right: 10.pw),
         child: Text(
-          fechaDeCarga.formatear,
+          fechaDeCarga == null
+              ? l10n.pageComissionSupervisionUnsent
+              : fechaDeCarga.formatear,
           textAlign: TextAlign.center,
           style: TextStyle(
-            // TODO: Cambiar color dependiendo de la fecha
-            color: Colors.green,
+            color: fechaDeCarga == null
+                ? colores.secondary
+                : colores.segunVencimientoFecha(fechaDeCarga.day),
             fontSize: 15.pf,
             fontWeight: FontWeight.w600,
           ),

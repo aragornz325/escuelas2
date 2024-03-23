@@ -6,28 +6,59 @@ part of 'bloc_supervision_envio_calificaciones.dart';
 class BlocSupervisionEnvioCalificacionesEstado {
   /// {@macro BlocSupervisionEnvioCalificacionesEstado}
   const BlocSupervisionEnvioCalificacionesEstado._({
+    required this.idComision,
     this.fecha,
     this.listaAsignaturas = const [],
   });
 
   BlocSupervisionEnvioCalificacionesEstado.desde(
     BlocSupervisionEnvioCalificacionesEstado otro, {
-    List<Asignatura>? listaAsignaturas,
+    List<EstadoCalificacionesAsignatura>? listaAsignaturas,
     DateTime? fecha,
+    int? idComision,
   }) : this._(
+          idComision: idComision ?? otro.idComision,
           listaAsignaturas: listaAsignaturas ?? otro.listaAsignaturas,
           fecha: fecha ?? otro.fecha,
         );
 
   /// Lista de asignaturas del curso a supervisar
-  final List<Asignatura> listaAsignaturas;
+  final List<EstadoCalificacionesAsignatura> listaAsignaturas;
 
   /// Fecha del periodo a supervisar
   final DateTime? fecha;
 
-  List<Asignatura> get asignaturasFaltantes => [];
-  // TODO(anyone): Ver como saber si una asignatura no tiene fecha de envio
-  // listaAsignaturas.where((asignatura) => asignatura.fecha == null).toList();
+  int get asignaturasFaltantes => listaAsignaturas
+      .where((element) => element.fechaRealizacionSolicitud == null)
+      .length;
+
+  /// Id de la comision
+  final int idComision;
+
+  /// Estado del envio de calificaciones `a los padres/tutores` exitosamente
+  bool get exitosoAlEnviarCalificaciones => this
+      is BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones;
+
+  /// Estado del envio de `carga de calificaciones` exitosamente
+  bool get exitosoAlSolicitarCargaDeCalificaciones => this
+      // ignore: lines_longer_than_80_chars
+      is BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes;
+
+  /// Getter para habilitar el boton de carga de calificaciones a los docentes
+  /// faltantes.
+  bool get solicitarCargaDeCalificaciones =>
+      listaAsignaturas.any(
+        (asignatura) => asignatura.fechaRealizacionSolicitud == null,
+      ) &&
+      listaAsignaturas.isNotEmpty;
+
+  /// Getter para habilitar el boton de enviar calificaciones a los padres o
+  /// tutores.
+  bool get enviarCalificaciones =>
+      listaAsignaturas.every(
+        (asignatura) => asignatura.fechaRealizacionSolicitud != null,
+      ) &&
+      listaAsignaturas.isNotEmpty;
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoInicial}
@@ -37,8 +68,13 @@ class BlocSupervisionEnvioCalificacionesEstado {
 class BlocSupervisionEnvioCalificacionesEstadoInicial
     extends BlocSupervisionEnvioCalificacionesEstado {
   /// {@macro BlocSupervisionEnvioCalificacionesEstadoInicial}
-  const BlocSupervisionEnvioCalificacionesEstadoInicial(DateTime fecha)
-      : super._(fecha: fecha);
+  const BlocSupervisionEnvioCalificacionesEstadoInicial(
+    int idComision,
+    DateTime fecha,
+  ) : super._(
+          idComision: idComision,
+          fecha: fecha,
+        );
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoCargando}
@@ -64,6 +100,34 @@ class BlocSupervisionEnvioCalificacionesEstadoExitoso
     super.listaAsignaturas,
     super.fecha,
   }) : super.desde();
+}
+
+// ignore: lines_longer_than_80_chars
+/// {@template BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes}
+/// Estado exitoso al solicitar las calificaciones faltantes para que los
+/// docentes puedan cargarlas.
+/// {@endtemplate}
+class BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes
+    extends BlocSupervisionEnvioCalificacionesEstado {
+  // ignore: lines_longer_than_80_chars
+  /// {@macro BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes}
+  BlocSupervisionEnvioCalificacionesEstadoExitosoAlSolicitarCaliFaltantes.desde(
+    super.otro,
+  ) : super.desde();
+}
+
+// ignore: lines_longer_than_80_chars
+/// {@template BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones}
+/// Estado exitoso cuando se envia las calificaciones a los tutores/padres de
+/// los alumnos
+/// {@endtemplate}
+class BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones
+    extends BlocSupervisionEnvioCalificacionesEstado {
+  // ignore: lines_longer_than_80_chars
+  /// {@macro BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones}
+  BlocSupervisionEnvioCalificacionesEstadoExitosoAlEnviarCalificaciones.desde(
+    super.otro,
+  ) : super.desde();
 }
 
 /// {@template BlocSupervisionEnvioCalificacionesEstadoFallido}
