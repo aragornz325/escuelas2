@@ -37,94 +37,96 @@ class _VistaCelularSeleccionDeRolState
       builder: (context, state) {
         final rolPresionado = state.rolElegido;
 
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.pw),
-              child: Column(
-                children: [
-                  SizedBox(height: 20.ph),
-                  Text(
-                    l10n.pageKycRoleSelectionWelcome(
-                      sessionManager.signedInUser?.userName ?? '',
+        return SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.pw),
+                child: Column(
+                  children: [
+                    SizedBox(height: 60.ph),
+                    Text(
+                      l10n.pageKycRoleSelectionWelcome(
+                        sessionManager.signedInUser?.userName ?? '',
+                      ),
+                      style: TextStyle(
+                        color: colores.onBackground,
+                        fontSize: 14.pf,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                    style: TextStyle(
-                      color: colores.onBackground,
-                      fontSize: 14.pf,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  SizedBox(height: 20.ph),
-                  ...state.listaRoles.map(
-                    (rol) => Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(bottom: 20.ph),
-                        child: ElementoLista.menu(
-                          context: context,
-                          nombreOpcion: rol.name.toUpperCase(),
-                          estaPresionado: rol.id == rolPresionado?.id,
-                          onTap: () => context.read<BlocKyc>().add(
-                                BlocKycEventoSeleccionarRol(
-                                  rolElegido: rol,
-                                  eliminarRolSeleccionado:
-                                      rolPresionado?.id == rol.id &&
-                                          rolPresionado != null,
+                    SizedBox(height: 20.ph),
+                    ...state.listaRoles.map(
+                      (rol) => Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 20.ph),
+                          child: ElementoLista.menu(
+                            context: context,
+                            nombreOpcion: rol.name.toUpperCase(),
+                            estaPresionado: rol.id == rolPresionado?.id,
+                            onTap: () => context.read<BlocKyc>().add(
+                                  BlocKycEventoSeleccionarRol(
+                                    rolElegido: rol,
+                                    eliminarRolSeleccionado:
+                                        rolPresionado?.id == rol.id &&
+                                            rolPresionado != null,
+                                  ),
                                 ),
-                              ),
+                          ),
                         ),
                       ),
                     ),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 20.ph),
+                    child: EscuelasBoton.texto(
+                      context: context,
+                      estaHabilitado: rolPresionado != null,
+                      onTap: () {
+                        if (rolPresionado != null) {
+                          context.read<BlocKyc>().add(
+                                BlocKycEventoVaciarLista(),
+                              );
+                        }
+                        context.router.push(const RutaFormulario());
+                      },
+                      color: rolPresionado != null
+                          ? colores.azul
+                          : colores.grisDeshabilitado,
+                      texto: l10n.commonContinue.toUpperCase(),
+                    ),
                   ),
+                  if (rolPresionado != null)
+                    Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20.pw,
+                            vertical: 20.ph,
+                          ),
+                          child: Text(
+                            l10n.pageRoleConfirmationText(
+                              rolPresionado.name,
+                            ),
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              color: colores.onSecondary,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13.pf,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                 ],
               ),
-            ),
-            Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(bottom: 20.ph),
-                  child: EscuelasBoton.texto(
-                    context: context,
-                    estaHabilitado: rolPresionado != null,
-                    onTap: () {
-                      if (rolPresionado != null) {
-                        context.read<BlocKyc>().add(
-                              BlocKycEventoVaciarLista(),
-                            );
-                      }
-                      context.router.push(const RutaFormulario());
-                    },
-                    color: rolPresionado != null
-                        ? colores.azul
-                        : colores.grisDeshabilitado,
-                    texto: l10n.commonContinue.toUpperCase(),
-                  ),
-                ),
-                if (rolPresionado != null)
-                  Column(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 20.pw,
-                          vertical: 20.ph,
-                        ),
-                        child: Text(
-                          l10n.pageRoleConfirmationText(
-                            rolPresionado.name,
-                          ),
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: colores.onSecondary,
-                            fontWeight: FontWeight.w600,
-                            fontSize: 13.pf,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-              ],
-            ),
-          ],
+            ],
+          ),
         );
       },
     );
