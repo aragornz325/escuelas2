@@ -70,15 +70,19 @@ dev_dependencies:
   mocktail: ^1.0.0
   very_good_analysis: ^5.1.0
   isar_generator: ^3.1.0+1
+  flutter_launcher_icons: "^0.13.1"
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/redemptoris_missio.jpg"
 
 flutter:
   uses-material-design: true
   generate: true
   assets:
     - assets/images/
-    - stg.env
-    - dev.env
-    - prod.env
+
   fonts:
     - family: Nunito
       fonts:

@@ -95,7 +95,7 @@ BEGIN
             VALUE "InternalName", "escuelas_flutter" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2022 com.example.verygoodcore.escuelas-flutter. All rights reserved." "\0"
             VALUE "OriginalFilename", "escuelas_flutter.exe" "\0"
-            VALUE "ProductName", "Escuelas Flutter" "\0"
+            VALUE "ProductName", "Redemptoris Missio" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

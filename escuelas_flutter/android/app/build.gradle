@@ -110,17 +110,17 @@ android {
         production {
             dimension "default"
             applicationIdSuffix ""
-            manifestPlaceholders = [appName: "Escuelas Flutter"]
+            manifestPlaceholders = [appName: "Redemptoris Missio"]
         }
         staging {
             dimension "default"
             applicationIdSuffix ".stg"
-            manifestPlaceholders = [appName: "[STG] Escuelas Flutter"]
+            manifestPlaceholders = [appName: "[STG] Redemptoris Missio"]
         }
         development {
             dimension "default"
             applicationIdSuffix ".dev" 
-            manifestPlaceholders = [appName: "[DEV] Escuelas Flutter"]
+            manifestPlaceholders = [appName: "[DEV] Redemptoris Missio"]
         }
     }
 
