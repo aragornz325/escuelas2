@@ -91,6 +91,21 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         () => servicio.obtenerUsuariosPendientes(session),
       );
 
+  Future<UsuarioPendiente> enviarSolicitudRegistroDirectivo(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async {
+    final usuario = ejecutarOperacionControlador(
+      session,
+      'enviarSolicitudRegistroDirectivo',
+      () => servicio.enviarSolicitudRegistroDirectivo(
+        session,
+        usuarioPendiente: usuarioPendiente,
+      ),
+    );
+    return usuario;
+  }
+
   /// La función `enviarSolicitudRegistroDocente` envía una solicitud de registro para
   /// un usuario pendiente.
   ///

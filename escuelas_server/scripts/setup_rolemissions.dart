@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:rolemissions/rolemissions.dart';
 
 void main() async {
@@ -20,3 +21,65 @@ void main() async {
 
   exit(0);
 }
+
+final permisosDirectivo = [
+    PermisoDeAsignatura.values,
+    PermisoDeAsistencia.values,
+    PermisoDeCalificacion.values,
+    PermisoDeComision.values,
+    PermisoDeCurso.values,
+    PermisoDeRol.values,
+    PermisoDeSolicitud.values,
+    PermisoDeUsuario.values,
+  ];
+
+  final permisosDocente = [
+    [
+      PermisoDeAsignatura.verAsignatura,
+    ],
+    [PermisoDeAsistencia.crearAsistencia, PermisoDeAsistencia.verAsistencia],
+    [
+      PermisoDeCalificacion.crearCalificacion,
+      PermisoDeCalificacion.verCalificacion,
+    ],
+    [
+      PermisoDeComision.verComision,
+    ],
+    [
+      PermisoDeCurso.verCurso,
+    ],
+    [
+      PermisoDeRol.verRol,
+    ],
+    [
+      PermisoDeSolicitud.verSolicitud,
+    ],
+    [
+      PermisoDeUsuario.verUsuario,
+    ],
+  ];
+
+  final permisosEstudiante = [
+    [
+      PermisoDeAsignatura.verAsignatura,
+    ],
+    [PermisoDeAsistencia.verAsistencia],
+    [
+      PermisoDeCalificacion.verCalificacion,
+    ],
+    [
+      PermisoDeComision.verComision,
+    ],
+    [
+      PermisoDeCurso.verCurso,
+    ],
+    [
+      PermisoDeRol.verRol,
+    ],
+    [
+      PermisoDeSolicitud.verSolicitud,
+    ],
+    [
+      PermisoDeUsuario.verUsuario,
+    ],
+  ];
