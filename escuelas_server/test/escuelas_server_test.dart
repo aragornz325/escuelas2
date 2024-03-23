@@ -24,71 +24,7 @@ Future<void> main() async {
 
   final session = await podTesting.createSession();
 
-  final authKey = await session.auth.signInUser(11, 'email');
+  final authKey = await session.auth.signInUser(46, 'email');
 
-  final permisosDirectivo = [
-    PermisoDeAsignatura.values,
-    PermisoDeAsistencia.values,
-    PermisoDeCalificacion.values,
-    PermisoDeComision.values,
-    PermisoDeCurso.values,
-    PermisoDeRol.values,
-    PermisoDeSolicitud.values,
-    PermisoDeUsuario.values,
-  ];
-
-  final permisosDocente = [
-    [
-      PermisoDeAsignatura.verAsignatura,
-    ],
-    [PermisoDeAsistencia.crearAsistencia, PermisoDeAsistencia.verAsistencia],
-    [
-      PermisoDeCalificacion.crearCalificacion,
-      PermisoDeCalificacion.verCalificacion,
-    ],
-    [
-      PermisoDeComision.verComision,
-    ],
-    [
-      PermisoDeCurso.verCurso,
-    ],
-    [
-      PermisoDeRol.verRol,
-    ],
-    [
-      PermisoDeSolicitud.verSolicitud,
-    ],
-    [
-      PermisoDeUsuario.verUsuario,
-    ],
-  ];
-
-  final permisosEstudiante = [
-    [
-      PermisoDeAsignatura.verAsignatura,
-    ],
-    [PermisoDeAsistencia.verAsistencia],
-    [
-      PermisoDeCalificacion.verCalificacion,
-    ],
-    [
-      PermisoDeComision.verComision,
-    ],
-    [
-      PermisoDeCurso.verCurso,
-    ],
-    [
-      PermisoDeRol.verRol,
-    ],
-    [
-      PermisoDeSolicitud.verSolicitud,
-    ],
-    [
-      PermisoDeUsuario.verUsuario,
-    ],
-  ];
-
-  await RolEndpoint().crearRol(session,
-      name: 'directivo',
-      permisos: Permisos.fromEnumList(permisosDirectivo).toSerialization(),);
+  
 }

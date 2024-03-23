@@ -261,6 +261,52 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     return usuarioPendienteCreado;
   }
 
+  Future<UsuarioPendiente> enviarSolicitudRegistroDirectivo(
+    Session session, {
+    required UsuarioPendiente usuarioPendiente,
+  }) async {
+    final ahora = DateTime.now();
+
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+
+    final usuarioExistente = await ejecutarOperacion(
+      () => _ormUsuarioPendiente.obtenerUsuarioPendiente(
+        session,
+        idUserInfo: idUserInfo,
+      ),
+    );
+
+    if (usuarioExistente != null) {
+      throw ExcepcionCustom(
+        titulo: 'Usuario pendiente ya existe.',
+        mensaje: 'Usuario pendiente ya existe.',
+        tipoDeError: TipoExcepcion.solicitudIncorrecta,
+        codigoError: 400,
+      );
+    }
+
+    final usuarioPendienteCreado = await ejecutarOperacion(
+      () => _ormUsuarioPendiente.crearUsuarioPendiente(
+        session,
+        usuarioPendiente: usuarioPendiente
+          ..idUserInfo = idUserInfo
+          ..estadoDeSolicitud = EstadoDeSolicitud.pendiente
+          ..fechaCreacion = ahora
+          ..ultimaModificacion = ahora,
+      ),
+    );
+
+    if (usuarioPendienteCreado.id == null) {
+      throw ExcepcionCustom(
+        titulo: 'Error al crear solicitud.',
+        mensaje: 'Error al crear solicitud.',
+        tipoDeError: TipoExcepcion.desconocido,
+        codigoError: 500,
+      );
+    }
+    return usuarioPendienteCreado;
+  }
+
   /// La función `actualizarUsuarioPendiente` actualiza un usuario pendiente.
   Future<void> actualizarUsuarioPendiente(
     Session session, {
