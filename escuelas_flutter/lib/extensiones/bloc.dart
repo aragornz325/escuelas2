@@ -60,6 +60,6 @@ Future<void> operacionBloc({
 
     onDesconocido.call(st, ex);
 
-    if (kDebugMode)   debugger();
+    if (kDebugMode) debugger();
   }
 }

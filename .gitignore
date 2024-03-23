@@ -3,11 +3,11 @@ escuelas_client/lib/src/protocol/
 escuelas_flutter/linux/flutter
 escuelas_flutter/macos/Flutter
 escuelas_flutter/windows/flutter
-escuelas_flutter/*.env
+
 .dart_tool/package_config.json
 escuelas_server/config/passwords.yaml
 escuelas_server/config/google_client_secret.json
-escuelas_server/lib/env/.env
+
 escuelas_server/lib/env/env.g.dart
 escuelas_server/lib/src/generated/
 
