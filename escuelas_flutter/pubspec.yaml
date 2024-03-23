@@ -44,10 +44,10 @@ dependencies:
  
 
   #server pod
-  serverpod_flutter: 1.2.5
-  serverpod_auth_email_flutter: 1.2.5
-  serverpod_auth_shared_flutter: 1.2.5
-  serverpod_auth_google_flutter: 1.2.5
+  serverpod_flutter: ^1.2.5
+  serverpod_auth_email_flutter: ^1.2.5
+  serverpod_auth_shared_flutter: ^1.2.5
+  serverpod_auth_google_flutter: ^1.2.5
   flutter_inset_box_shadow: ^1.0.8
 
   #push notificactions
@@ -55,7 +55,7 @@ dependencies:
 
   meta: ^1.9.1
   collection: ^1.17.2
-  serverpod_auth_client: 1.2.3
+  serverpod_auth_client: ^1.2.5
   google_sign_in: ^6.2.1
 
 dev_dependencies:
