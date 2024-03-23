@@ -48,7 +48,7 @@ class BlocPerfilUsuarioPendienteEstado {
       '';
 
   /// Devuelve el [Tipo] de usuario segun su estado/rol
-  Tipo get tipoUsuario => nombreRolUsuarioPendiente == 'alumno'
+  Tipo get tipoUsuario => nombreRolUsuarioPendiente == 'estudiante'
       ? Tipo.alumnoPendiente
       : Tipo.docentePendiente;
 }
@@ -104,7 +104,8 @@ class BlocPerfilUsuarioPendienteEstadoUsuarioAceptado
 /// {@template BlocPerfilUsuarioPendienteEstadoFallido}
 /// Estado de error de los componentes de la pantalla 'Perfil de usuario'
 /// {@endtemplate}
-class BlocPerfilUsuarioPendienteEstadoError extends BlocPerfilUsuarioPendienteEstado {
+class BlocPerfilUsuarioPendienteEstadoError
+    extends BlocPerfilUsuarioPendienteEstado {
   /// {@macro BlocPerfilUsuarioPendienteEstadoError}
   BlocPerfilUsuarioPendienteEstadoError.desde(super.otro) : super.desde();
 }
