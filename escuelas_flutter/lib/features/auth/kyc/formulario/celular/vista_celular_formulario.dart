@@ -22,12 +22,14 @@ class VistaCelularFormulario extends StatelessWidget {
 
     final rol = state.rolElegido?.name;
 
-    return switch (rol) {
-      'estudiante' => const FormularioAlumno(),
-      'docente' => const FormularioDocente(),
-      _ => Center(
-          child: Text(l10n.commonFeatureNotAvailable),
-        )
-    };
+    return SafeArea(
+      child: switch (rol) {
+        'estudiante' => const FormularioAlumno(),
+        'docente' => const FormularioDocente(),
+        _ => Center(
+            child: Text(l10n.commonFeatureNotAvailable),
+          )
+      },
+    );
   }
 }
