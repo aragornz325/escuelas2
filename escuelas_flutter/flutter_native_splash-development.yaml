@@ -1,0 +1,15 @@
+flutter_native_splash:
+  color: "#eef0f5"
+  image: assets/images/redemptoris_missio.jpg
+  branding: assets/images/redemptoris_missio.jpg
+  color_dark: "#eef0f5"
+  image_dark: assets/images/redemptoris_missio.jpg
+  branding_dark: assets/images/redemptoris_missio.jpg
+
+  android_12:
+    image: assets/images/redemptoris_missio.jpg
+    icon_background_color: "#eef0f5"
+    image_dark: assets/images/redemptoris_missio.jpg
+    icon_background_color_dark: "#eef0f5"
+
+  web: false
