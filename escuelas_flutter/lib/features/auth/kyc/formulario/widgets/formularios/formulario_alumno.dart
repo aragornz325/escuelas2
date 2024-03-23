@@ -10,7 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template FormularioAlumno}
-/// Formulario para el rol 'Alumno'
+/// Formulario para el rol 'estudiante'
 /// {@endtemplate}
 class FormularioAlumno extends StatelessWidget {
   /// {@macro FormularioAlumno}

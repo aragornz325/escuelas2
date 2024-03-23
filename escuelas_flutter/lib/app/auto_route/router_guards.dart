@@ -64,7 +64,15 @@ class InitialGuard extends AutoRouteGuard {
         );
       }
 
-      final usuarioPendiente = await IsarServicio.traerUsuariosPendientes();
+      UsuarioPendiente usuarioPendiente;
+      try {
+        usuarioPendiente = await IsarServicio.traerUsuariosPendientes();
+      } catch (e) {
+        await cerrarSesionUsuario();
+        return router.replace<void>(
+          const RutaLogin(),
+        );
+      }
 
       switch (usuarioPendiente.estadoDeSolicitud) {
         case EstadoDeSolicitud.aprobado:

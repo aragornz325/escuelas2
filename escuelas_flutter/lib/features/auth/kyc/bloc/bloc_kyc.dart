@@ -72,7 +72,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         // TODO(anyone): Ver como manejar los roles que se muestran
 
         final rolesAMostrar = roles
-            .where((rol) => rol.name == 'alumno' || rol.name == 'docente')
+            .where((rol) => rol.name == 'estudiante' || rol.name == 'docente')
             .toList();
 
         emit(
@@ -250,7 +250,7 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
           await IsarServicio.guardarUsuarioPendiente(usuarioPendienteDocente);
         }
 
-        if (state.rolElegido?.name == 'alumno') {
+        if (state.rolElegido?.name == 'estudiante') {
           final usuarioPendienteAlumno =
               await client.usuario.enviarSolicitudRegistroAlumno(
             idComisionDeCursoSolicitada:

@@ -83,10 +83,11 @@ class BlocPerfilUsuarioEstado {
 
   /// Devuelve el [Tipo] de usuario segun su estado/rol
   Tipo get tipoUsuario => usuarioPendiente == null
-      ? nombreRolesDeUsuario.any((usuarioConRol) => usuarioConRol == 'alumno')
+      ? nombreRolesDeUsuario
+              .any((usuarioConRol) => usuarioConRol == 'estudiante')
           ? Tipo.alumnoAprobado
           : Tipo.docenteAprobado
-      : nombreRolUsuarioPendiente == 'alumno'
+      : nombreRolUsuarioPendiente == 'estudiante'
           ? Tipo.alumnoPendiente
           : Tipo.docentePendiente;
 }
@@ -140,8 +141,6 @@ class BlocPerfilUsuarioEstadoExitosoAltraerUsuarioPendiente
     super.listaRoles,
   }) : super.desde();
 }
-
-
 
 /// {@template BlocPerfilUsuarioEstadoFallido}
 /// Estado de error de los componentes de la pantalla 'Perfil de usuario'
