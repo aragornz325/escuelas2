@@ -1,3 +1,4 @@
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud_notificacion.dart';
@@ -13,35 +14,34 @@ class SolicitudNotificacionEndpoint extends Endpoint
   /// devuelve la lista.
   Future<List<SolicitudEnvioNotificacion>>
       obtenerSolicitudesNotificacionesPendientes(
-    Session session,{
-      String? userId, 
-    }
-  ) async {
-    return await ejecutarOperacionControlador(
-      session,
-      'obtenerSolicitudesNotificacionesPendientes',
-      () => servicio.obtenerSolicitudesNotificacionesPendientes(
-        session,
-        userId: userId,
-      ),
-    );
-  }
+    Session session, {
+    String? userId,
+  }) async =>
+          await ejecutarOperacionControlador(
+            session,
+            'obtenerSolicitudesNotificacionesPendientes',
+            () => servicio.obtenerSolicitudesNotificacionesPendientes(
+              session,
+              userId: userId,
+            ),
+            permisoRequerido: PermisoDeSolicitud.verSolicitud,
+          );
 
   /// La función `editarSolicitudNotificacionPendiente` actualiza una notificacion pendiente
   /// en la base de datos.
   Future<void> editarSolicitudNotificacionPendiente(
     Session session, {
     required Notificacion notificacionPendiente,
-  }) async {
-    return await ejecutarOperacionControlador(
-      session,
-      'editarSolicitudNotificacionPendiente',
-      () => servicio.editarSolicitudNotificacionPendiente(
+  }) async =>
+      await ejecutarOperacionControlador(
         session,
-        notificacionPendiente: notificacionPendiente,
-      ),
-    );
-  }
+        'editarSolicitudNotificacionPendiente',
+        () => servicio.editarSolicitudNotificacionPendiente(
+          session,
+          notificacionPendiente: notificacionPendiente,
+        ),
+        permisoRequerido: PermisoDeSolicitud.editarSolicitud,
+      );
 
   /// La función `responderSolicitudNotificacionPendiente` actualiza una notificacion pendiente
   /// en la base de datos, respondiendo a la solicitud aprobandola o rechazandola.
@@ -56,6 +56,7 @@ class SolicitudNotificacionEndpoint extends Endpoint
         session,
         solicitudEnvioNotificacion: solicitudEnvioNotificacion,
       ),
+      permisoRequerido: PermisoDeSolicitud.verSolicitud,
     );
   }
 }

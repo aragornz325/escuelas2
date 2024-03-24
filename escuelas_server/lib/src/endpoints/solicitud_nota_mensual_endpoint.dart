@@ -1,3 +1,4 @@
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud_nota_mensual.dart';
@@ -13,16 +14,16 @@ class SolicitudNotaMensualEndpoint extends Endpoint
   Future<SolicitudCalificacionMensual> crearSolicitudNotaMensual(
     Session session,
     SolicitudCalificacionMensual solicitudNotaMensual,
-  ) async {
-    return await ejecutarOperacionControlador(
-      session,
-      'crearSolicitudNotaMensual',
-      () => servicio.crearSolicitudNotaMensual(
+  ) async =>
+      await ejecutarOperacionControlador(
         session,
-        solicitudNotaMensual: solicitudNotaMensual,
-      ),
-    );
-  }
+        'crearSolicitudNotaMensual',
+        () => servicio.crearSolicitudNotaMensual(
+          session,
+          solicitudNotaMensual: solicitudNotaMensual,
+        ),
+        permisoRequerido: PermisoDeSolicitud.crearSolicitud,
+      );
 
   /// La función `actualizarSolicitudNotaMensual` actualiza un registro de solicitud en una base de datos y
   /// devuelve el registro actualizado.
@@ -32,16 +33,15 @@ class SolicitudNotaMensualEndpoint extends Endpoint
   Future<SolicitudCalificacionMensual> actualizarSolicitudNotaMensual(
     Session session,
     SolicitudCalificacionMensual solicitudNotaMensual,
-  ) async {
-    return await ejecutarOperacionControlador(
+  ) async => await ejecutarOperacionControlador(
       session,
       'actualizarSolicitudNotaMensual',
       () => servicio.actualizarSolicitudNotaMensual(
         session,
         solicitudNotaMensual: solicitudNotaMensual,
       ),
+      permisoRequerido: PermisoDeSolicitud.editarSolicitud,
     );
-  }
 
   /// La función `obtenerSolicitudNotaMensual` obtiene un registro de solicitud en una base de datos y
   /// devuelve el registro.
@@ -56,6 +56,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
         session,
         id: id,
       ),
+      permisoRequerido: PermisoDeSolicitud.verSolicitud,
     );
   }
 
@@ -63,31 +64,29 @@ class SolicitudNotaMensualEndpoint extends Endpoint
   /// en una base de datos y devuelve la lista.
   Future<List<SolicitudCalificacionMensual>> obtenerSolicitudesNotaMensual(
     Session session,
-  ) async {
-    return await ejecutarOperacionControlador(
+  ) async => await ejecutarOperacionControlador(
       session,
       'obtenerSolicitudesNotaMensual',
       () => servicio.obtenerSolicitudesNotaMensual(
         session,
       ),
+      permisoRequerido: PermisoDeSolicitud.verSolicitud,
     );
-  }
 
   /// La función `eliminarSolicitudNotaMensual` elimina un registro de solicitud en una base de datos y
   /// devuelve el id del registro eliminado.
   Future<int> eliminarSolicitudNotaMensual(
     Session session,
     int id,
-  ) async {
-    return await ejecutarOperacionControlador(
+  ) async => await ejecutarOperacionControlador(
       session,
       'eliminarSolicitudNotaMensual',
       () => servicio.eliminarSolicitudNotaMensual(
         session,
         id: id,
       ),
+      permisoRequerido: PermisoDeSolicitud.eliminarSolicitud,
     );
-  }
 
   Future<bool> enviarSolicitudADocentes(Session session) async {
     await ejecutarOperacionControlador(
@@ -96,6 +95,7 @@ class SolicitudNotaMensualEndpoint extends Endpoint
       () => servicio.enviarSolicitudADocentes(
         session,
       ),
+      permisoRequerido: PermisoDeSolicitud.crearSolicitud,
     );
     return true;
   }
@@ -113,5 +113,6 @@ class SolicitudNotaMensualEndpoint extends Endpoint
           numeroDeMes: numeroDeMes,
           numeroDeAnio: numeroDeAnio,
         ),
+        permisoRequerido: PermisoDeSolicitud.verSolicitud,
       );
 }

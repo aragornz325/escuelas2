@@ -1,3 +1,4 @@
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_comision.dart';
@@ -18,14 +19,14 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
           session,
           idComision: idComision,
           idUsuario: idUsuario,
-        ),
+        ),permisoRequerido: PermisoDeComision.asignarAlumnosAComision,
       );
 
   Future<List<ComisionDeCurso>> obtenerComisiones(Session session) async =>
       ejecutarOperacionControlador(
         session,
         'obtenerComisiones',
-        () => servicio.obtenerComisiones(session),
+        () => servicio.obtenerComisiones(session),permisoRequerido: PermisoDeComision.verComision,
       );
 
   Future<List<ComisionConAsignaturas>> listarComisionesConAsignaturas(
@@ -36,7 +37,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
         'listarComisionesConAsignaturas',
         () => servicio.listarComisionesConAsignaturas(
           session,
-        ),
+        ),permisoRequerido: PermisoDeComision.verComision,
       );
 
   Future<ComisionDeCurso> obtenerComisionesDeCursoPorId(
@@ -49,7 +50,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
         () => servicio.obtenerComisionesDeCursoPorId(
           session,
           idComision: idComision,
-        ),
+        ),permisoRequerido: PermisoDeComision.verComision,
       );
 
   /// Obtiene las comisiones que tienen solicitudes de calificación mensual
@@ -71,7 +72,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
               session,
               mes: mes,
               anio: anio,
-            ),
+            ),permisoRequerido: PermisoDeComision.verComision,
           );
 
   Future<bool> cambiarUsuarioDeComision(
@@ -86,7 +87,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
           session,
           idComision: idComision,
           idUsuario: idUsuario,
-        ),
+        ),permisoRequerido: PermisoDeComision.asignarAlumnosAComision,
       );
 
   /// Obtiene una lista de las asignaturas dentro de una comisión, junto al nombre del docente,
@@ -106,7 +107,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
         idComision: idComision,
         mes: mes,
         anio: anio,
-      ),
+      ),permisoRequerido: PermisoDeComision.verComision,
     );
   }
 }

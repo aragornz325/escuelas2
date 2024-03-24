@@ -1,3 +1,4 @@
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_calificacion.dart';
@@ -18,6 +19,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
           session,
           calificaciones: calificaciones,
         ),
+        permisoRequerido: PermisoDeCalificacion.crearCalificacion,
       );
 
   Future<ConceptoCalificacion> crearConceptoDeCalificacion(
@@ -31,6 +33,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
           session,
           etiqueta: etiqueta,
         ),
+        permisoRequerido: PermisoDeCalificacion.crearCalificacion,
       );
 
   Future<List<Calificacion>> obtenerCalificaciones(
@@ -44,6 +47,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
           session,
           periodo,
         ),
+        permisoRequerido: PermisoDeCalificacion.verCalificacion,
       );
 
   Future<List<ConceptoCalificacion>> obtenerConceptosDeCalificacion(
@@ -52,6 +56,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
         session,
         'obtenerConceptosDeCalificacion',
         () => servicio.obtenerConceptosDeCalificacion(session),
+        permisoRequerido: PermisoDeCalificacion.crearCalificacion,
       );
 
   Future<List<CalificacionMensual>> listarMisCalificacionesAnualesPorAsignatura(
@@ -67,6 +72,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
           idAsignatura: idAsignatura,
           anio: anio,
         ),
+        permisoRequerido: PermisoDeCalificacion.verCalificacion,
       );
 
   Future<List<CalificacionMensual>> listarMisCalificacionesMensualesPorMes(
@@ -82,6 +88,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
           mes: mes,
           anio: anio,
         ),
+        permisoRequerido: PermisoDeCalificacion.verCalificacion,
       );
 
   Future<List<ComisionOverview>> obtenerInformacionDeVistaGeneralDeComisiones(
@@ -97,6 +104,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
           idUsuario: idUsuario,
           numeroDeMes: numeroDeMes,
         ),
+        permisoRequerido: PermisoDeCalificacion.verCalificacion,
       );
 
   /// El método `obtenerCalificacionesPorAsignaturaPorPeriodo` es una función que recupera una lista de
@@ -121,6 +129,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
               numeroDeMes: numeroDeMes,
               idComision: idComision,
             ),
+            permisoRequerido: PermisoDeCalificacion.verCalificacion,
           );
 
   Future<void> cargarCalificacionesMensualesPorSolicitud(
@@ -136,6 +145,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
           calificacionesMensuales: calificacionesMensuales,
           idSolicitud: idSolicitud,
         ),
+        permisoRequerido: PermisoDeCalificacion.crearCalificacion,
       );
 
   Future<List<CalificacionMensual>> obtenerCalificacionesMensuales(
@@ -152,7 +162,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
           numeroDeMes: numeroDeMes,
           idAsignatura: idAsignatura,
           idComision: idComision,
-        ),
+        ),permisoRequerido: PermisoDeCalificacion.verCalificacion,
       );
 
   Future<void> actualizarCalificacionesMensualesEnLote(
@@ -165,7 +175,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
         () async => await servicio.actualizarCalificacionesMensualesEnLote(
           session,
           calificacionesMensuales: calificacionesMensuales,
-        ),
+        ),permisoRequerido: PermisoDeCalificacion.editarCalificacion,
       );
 
   Future<bool> enviarCalificacionesPorMesYAnio(
@@ -188,7 +198,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
         idCursos: idCursos,
         idComisiones: idComisiones,
         idEstudiantes: idEstudiantes,
-      ),
+      ),permisoRequerido: PermisoDeCalificacion.crearCalificacion,
     );
   }
 }
