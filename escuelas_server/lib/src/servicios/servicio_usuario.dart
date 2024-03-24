@@ -525,8 +525,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           () => _servicioComision.obtenerComisiones(session),
         );
 
-        print(comisiones);
-
         for (var comision in comisiones) {
           final usuariosDeComision = usuarios
               .where((usuario) =>
@@ -534,8 +532,6 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
                       comisionUsuario.comisionId == comision.id) ??
                   false)
               .toList();
-
-          print(usuariosDeComision);
 
           usuariosListados.add(
             UsuariosListados(

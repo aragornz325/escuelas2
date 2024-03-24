@@ -50,7 +50,6 @@ class OrmCalificacionMensual extends ORM {
       ejecutarOperacionOrm(
         session,
         (session) async {
-          print(calificacionesMensuales);
           final calificacionMensual = await CalificacionMensual.db.update(
             session,
             calificacionesMensuales,

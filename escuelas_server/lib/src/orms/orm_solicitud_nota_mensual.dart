@@ -82,7 +82,6 @@ class OrmSolicitudNotaMensual extends ORM {
     Session session, {
     required int idSolicitud,
   }) async {
-    print(idSolicitud);
     final solicitudNotaMensualADb = await ejecutarOperacionOrm(
       session,
       (session) => SolicitudCalificacionMensual.db.find(
@@ -93,7 +92,7 @@ class OrmSolicitudNotaMensual extends ORM {
         ),
       ),
     );
-    print(solicitudNotaMensualADb);
+    
     if (solicitudNotaMensualADb.isEmpty) {
       throw ExcepcionCustom(
         titulo: 'no se pudo obtener',

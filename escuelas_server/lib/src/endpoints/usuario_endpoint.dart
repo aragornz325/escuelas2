@@ -119,7 +119,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
     required UsuarioPendiente usuarioPendiente,
     required List<AsignaturaSolicitada> asignaturasSolicitadas,
   }) async {
-    print('entrando');
     final usuario = ejecutarOperacionControlador(
       session,
       'enviarSolicitudRegistroDocente',
