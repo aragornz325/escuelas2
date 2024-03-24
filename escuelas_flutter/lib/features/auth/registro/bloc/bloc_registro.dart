@@ -32,8 +32,8 @@ class BlocRegistro extends Bloc<BlocRegistroEvento, BlocRegistroEstado> {
     await operacionBloc(
       callback: (client) async {
         final response = await client.userInfo.registrarUserInfo(
-          nombre: event.nombre,
-          apellido: event.apellido,
+          nombre: event.nombre.trim(),
+          apellido: event.apellido.trim(),
           email: event.email,
           password: event.contrasenia,
           dni: event.documento,
