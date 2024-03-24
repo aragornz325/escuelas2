@@ -384,6 +384,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           idUserInfo: usuarioPendiente.idUserInfo,
           nombre: usuarioPendiente.nombre,
           apellido: usuarioPendiente.apellido,
+          dni: usuarioPendiente.dni,
           urlFotoDePerfil: usuarioPendiente.urlFotoDePerfil,
           fechaCreacion: ahora,
           ultimaModificacion: ahora,
