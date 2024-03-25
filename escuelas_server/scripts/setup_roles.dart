@@ -8,7 +8,9 @@ Future<void> main(List<String> args) async {
     [
       PermisoDeAsignatura.verAsignatura,
     ],
-    [PermisoDeAsistencia.verAsistencia],
+    [
+      PermisoDeAsistencia.verAsistencia,
+    ],
     [
       PermisoDeCalificacion.verCalificacion,
     ],
@@ -33,7 +35,10 @@ Future<void> main(List<String> args) async {
     [
       PermisoDeAsignatura.verAsignatura,
     ],
-    [PermisoDeAsistencia.crearAsistencia, PermisoDeAsistencia.verAsistencia],
+    [
+      PermisoDeAsistencia.crearAsistencia,
+      PermisoDeAsistencia.verAsistencia,
+    ],
     [
       PermisoDeCalificacion.crearCalificacion,
       PermisoDeCalificacion.verCalificacion,
