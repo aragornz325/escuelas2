@@ -42,8 +42,9 @@ mixin Controller<T extends Servicio> {
         permisosDeUsuario.add(Permisos.fromSerialization(privilegios));
       }
 
-      if (!permisosDeUsuario
-          .any((permisos) => permisos.hasPermission(permisoRequerido))) {
+      final elUsuarioTienePermiso = userHasPermission(permisoRequerido, permisosDeUsuario.firstOrNull!.permissions);
+
+      if (!elUsuarioTienePermiso) {
         throw ExcepcionCustom(
           titulo: 'No tienes permisos para acceder a este recurso.',
           mensaje: 'No tienes permisos para acceder a este recurso.',
@@ -63,3 +64,10 @@ mixin Controller<T extends Servicio> {
     }
   }
 }
+
+bool userHasPermission(Enum permission, List<List<Enum>> userPermissions) {
+    for (final permissionEnum in userPermissions) {
+      if (permissionEnum.contains(permission)) return true;
+    }
+    return false;
+  }
