@@ -1,0 +1,87 @@
+{
+  "actions": [
+    {
+      "type": "deleteTable",
+      "deleteTable": "version_db"
+    },
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "version_db",
+        "dartName": "VersionDb",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('version_db_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "versionName",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "versionNumber",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "changelog",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "releaseDate",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          }
+        ],
+        "foreignKeys": [],
+        "indexes": [
+          {
+            "indexName": "version_db_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [
+    {
+      "type": "columnDropped",
+      "message": "Column \"version\" of table \"version_db\" will be dropped.",
+      "table": "version_db",
+      "columns": [
+        "version"
+      ],
+      "destrucive": true
+    },
+    {
+      "type": "tableDropped",
+      "message": "One or more columns are added to table \"version_db\" which cannot be added in a table migration. The complete table will be deleted and recreated.",
+      "table": "version_db",
+      "columns": [
+        "versionName"
+      ],
+      "destrucive": true
+    }
+  ],
+  "migrationApiVersion": 1
+}

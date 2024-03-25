@@ -1,0 +1,7 @@
+class: VersionDb
+table: version_db
+fields:
+    versionName: String
+    versionNumber: int
+    changelog: String
+    releaseDate: DateTime

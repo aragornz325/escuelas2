@@ -46,6 +46,7 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
         session,
         fecha: fecha,
       ),
+      permisoRequerido: PermisoDeAsistencia.verAsistencia,
     );
   }
 
@@ -66,6 +67,7 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
         session,
         asistencias: asistencias,
       ),
+      permisoRequerido: PermisoDeAsistencia.editarAsistencia,
     );
   }
 }

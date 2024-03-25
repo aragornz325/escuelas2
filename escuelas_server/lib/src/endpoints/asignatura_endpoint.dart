@@ -22,6 +22,7 @@ class AsignaturaEndpoint extends Endpoint with Controller {
         session,
         id: id,
       ),
+      permisoRequerido: PermisoDeAsignatura.verAsignatura,
     );
   }
 
@@ -33,6 +34,7 @@ class AsignaturaEndpoint extends Endpoint with Controller {
       session,
       'obtenerAsignaturas',
       () => servicio.obtenerAsignaturas(session),
+      permisoRequerido: PermisoDeAsignatura.verAsignatura,
     );
   }
 
@@ -49,6 +51,7 @@ class AsignaturaEndpoint extends Endpoint with Controller {
         session,
         asignatura: asignatura,
       ),
+      permisoRequerido: PermisoDeAsignatura.crearAsignatura,
     );
   }
 
@@ -65,7 +68,7 @@ class AsignaturaEndpoint extends Endpoint with Controller {
         session,
         asignatura: asignatura,
       ),
-      permisoRequerido: PermisoDeAsistencia.editarAsistencia,
+      permisoRequerido: PermisoDeAsignatura.editarAsignatura,
     );
   }
 
@@ -82,39 +85,46 @@ class AsignaturaEndpoint extends Endpoint with Controller {
           session,
           id: id,
         ),
-        permisoRequerido: PermisoDeAsistencia.eliminarAsistencia,
+        permisoRequerido: PermisoDeAsignatura.eliminarAsignatura,
       );
 
-  /// las [Asignatura]s tienen un solo docente asignado (por el momento)    
-  /// {multiples asignaciones}(http://google.com/)     
-  /// ///TODO(chivo): soportar multiples asignaciones 
+  /// las [Asignatura]s tienen un solo docente asignado (por el momento)
+  /// {multiples asignaciones}(http://google.com/)
+  /// ///TODO(chivo): soportar multiples asignaciones
   Future<bool> asignarDocenteAAsignatura(
     Session session, {
     required List<int> idsAsignaturas,
     required int idDocente,
     required int idComision,
-  }) async {
-    return servicio.asignarDocenteAAsignatura(
-      session,
-      idsAsignaturas: idsAsignaturas,
-      idDocente: idDocente,
-      idComision: idComision,
-    );
-  }
+  }) async =>
+      ejecutarOperacionControlador(
+        session,
+        'asignarDocenteAAsignatura',
+        () => servicio.asignarDocenteAAsignatura(
+          session,
+          idsAsignaturas: idsAsignaturas,
+          idDocente: idDocente,
+          idComision: idComision,
+        ),
+        permisoRequerido: PermisoDeAsignatura.asignarDocenteAAsignatura,
+      );
 
-
-/// quita la relacion entre un [docente] y una [asignatura]
-Future<void> desasignarUsuarioAAsignatura(
+  /// quita la relacion entre un [docente] y una [asignatura]
+  Future<void> desasignarUsuarioAAsignatura(
     Session session, {
     required int idDocente,
     required int comisionId,
     required int asignaturaId,
-  }) async {
-    return servicio.desasignarUsuarioAAsignatura(
-      session,
-      idDocente: idDocente,
-      comisionId: comisionId,
-      asignaturaId: asignaturaId,
-    );
-  }
+  }) async =>
+      ejecutarOperacionControlador(
+        session,
+        'desasignarUsuarioAAsignatura',
+        () => servicio.desasignarUsuarioAAsignatura(
+          session,
+          idDocente: idDocente,
+          comisionId: comisionId,
+          asignaturaId: asignaturaId,
+        ),
+        permisoRequerido: PermisoDeAsignatura.asignarDocenteAAsignatura,
+      );
 }
