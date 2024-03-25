@@ -120,7 +120,7 @@ class FormularioAlumno extends StatelessWidget {
                   ),
                   if (state.opcionesFormulario.isNotEmpty)
                     Text(
-                      l10n.pageKycFormAddACommission,
+                      l10n.pageKycFormErrorMaxCommissionsReached,
                       style: TextStyle(
                         color: colores.onBackground,
                         fontSize: 14.pf,

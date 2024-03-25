@@ -103,12 +103,10 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
   @override
   void initState() {
     super.initState();
+    final parts = widget.nombre.splitNombre();
 
-    if (widget.nombre.contains(';')) {
-      final parts = widget.nombre.split(';');
-      nombre = parts[0];
-      apellido = parts[1];
-    }
+    nombre = parts?[0];
+    apellido = parts?[1];
   }
 
   @override

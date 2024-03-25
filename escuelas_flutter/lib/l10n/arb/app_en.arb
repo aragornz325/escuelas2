@@ -94,8 +94,8 @@
   "@pageKycFormDeleteSubject": {
     "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
   },
-  "pageKycFormAddACommission": "You can't add more than one commission!",
-  "@pageKycFormAddACommission": {
+  "pageKycFormErrorMaxCommissionsReached": "You can't add more than one commission!",
+  "@pageKycFormErrorMaxCommissionsReached": {
     "description": "Message informing the user that he can't add more than one commission."
   },
   

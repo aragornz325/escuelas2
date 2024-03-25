@@ -28,15 +28,15 @@ class _VistaCelularSeleccionDeRolState
     extends State<VistaCelularSeleccionDeRol> {
   String? nombre;
   String? apellido;
-  
+
   @override
   void initState() {
     super.initState();
-    if ((sessionManager.signedInUser?.userName ?? '').contains(';')) {
-      final parts = (sessionManager.signedInUser?.userName ?? '').split(';');
-      nombre = parts[0];
-      apellido = parts[1];
-    }
+
+    final parts = (sessionManager.signedInUser?.userName ?? '').splitNombre();
+
+    nombre = parts?[0];
+    apellido = parts?[1];
   }
 
   @override
