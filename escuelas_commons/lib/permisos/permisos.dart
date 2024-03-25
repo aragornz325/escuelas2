@@ -2,27 +2,12 @@
 
 import 'package:rolemissions/rolemissions.dart';
 
-/// Los permisos sirven para controlar el acceso a los recursos
-///  de la aplicación.
-///
-/// Los permisos se pueden asignar a los usuarios a través de
-/// los roles o de los privilegios.
-class Permisos extends RolemissionPermissions {
-  Permisos.fromSerialization(super.serialization) : super.fromSerialization();
-
-  Permisos.fromEnumList(super.permissions) : super.fromEnumList();
-
-  @override
-  List<List<Enum>> get allPermissions => [
-        PermisoDeAsistencia.values,
-        PermisoDeCalificacion.values,
-        PermisoDeCurso.values,
-        PermisoDeRol.values,
-        PermisoDeUsuario.values,
-        PermisoDeComision.values,
-        PermisoDeAsignatura.values,
-        PermisoDeSolicitud.values,
-      ];
+enum PermisoDeAsignatura {
+  verAsignatura,
+  editarAsignatura,
+  eliminarAsignatura,
+  crearAsignatura,
+  asignarDocenteAAsignatura,
 }
 
 enum PermisoDeAsistencia {
@@ -39,6 +24,14 @@ enum PermisoDeCalificacion {
   crearCalificacion,
 }
 
+enum PermisoDeComision {
+  verComision,
+  editarComision,
+  eliminarComision,
+  crearComision,
+  asignarAlumnosAComision,
+}
+
 enum PermisoDeCurso {
   verCurso,
   editarCurso,
@@ -53,6 +46,13 @@ enum PermisoDeRol {
   crearRol,
 }
 
+enum PermisoDeSolicitud {
+  verSolicitud,
+  editarSolicitud,
+  eliminarSolicitud,
+  crearSolicitud,
+}
+
 enum PermisoDeUsuario {
   verUsuario,
   editarUsuario,
@@ -61,25 +61,25 @@ enum PermisoDeUsuario {
   responderSolicitudDeRegistro,
 }
 
-enum PermisoDeComision {
-  verComision,
-  editarComision,
-  eliminarComision,
-  crearComision,
-  asignarAlumnosAComision,
-}
+/// Los permisos sirven para controlar el acceso a los recursos
+///  de la aplicación.
+///
+/// Los permisos se pueden asignar a los usuarios a través de
+/// los roles o de los privilegios.
+class Permisos extends RolemissionPermissions {
+  Permisos.fromEnumList(super.permissions) : super.fromEnumList();
 
-enum PermisoDeAsignatura {
-  verAsignatura,
-  editarAsignatura,
-  eliminarAsignatura,
-  crearAsignatura,
-  asignarDocenteAAsignatura,
-}
+  Permisos.fromSerialization(super.serialization) : super.fromSerialization();
 
-enum PermisoDeSolicitud {
-  verSolicitud,
-  editarSolicitud,
-  eliminarSolicitud,
-  crearSolicitud,
+  @override
+  List<List<Enum>> get allPermissions => [
+        PermisoDeAsignatura.values,
+        PermisoDeAsistencia.values,
+        PermisoDeCalificacion.values,
+        PermisoDeComision.values,
+        PermisoDeCurso.values,
+        PermisoDeRol.values,
+        PermisoDeSolicitud.values,
+        PermisoDeUsuario.values,
+      ];
 }

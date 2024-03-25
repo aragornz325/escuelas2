@@ -56,14 +56,57 @@ Future<void> main(List<String> args) async {
   ];
 
   final permisosDirectivo = [
-    PermisoDeAsignatura.values,
-    PermisoDeAsistencia.values,
-    PermisoDeCalificacion.values,
-    PermisoDeComision.values,
-    PermisoDeCurso.values,
-    PermisoDeRol.values,
-    PermisoDeSolicitud.values,
-    PermisoDeUsuario.values,
+    [
+      PermisoDeAsignatura.asignarDocenteAAsignatura,
+      PermisoDeAsignatura.crearAsignatura,
+      PermisoDeAsignatura.editarAsignatura,
+      PermisoDeAsignatura.eliminarAsignatura,
+      PermisoDeAsignatura.verAsignatura,
+    ],
+    [
+      PermisoDeAsistencia.crearAsistencia,
+      PermisoDeAsistencia.editarAsistencia,
+      PermisoDeAsistencia.eliminarAsistencia,
+      PermisoDeAsistencia.verAsistencia,
+    ],
+    [
+      PermisoDeCalificacion.crearCalificacion,
+      PermisoDeCalificacion.editarCalificacion,
+      PermisoDeCalificacion.eliminarCalificacion,
+      PermisoDeCalificacion.verCalificacion,
+    ],
+    [
+      PermisoDeComision.asignarAlumnosAComision,
+      PermisoDeComision.crearComision,
+      PermisoDeComision.editarComision,
+      PermisoDeComision.eliminarComision,
+      PermisoDeComision.verComision,
+    ],
+    [
+      PermisoDeCurso.crearCurso,
+      PermisoDeCurso.editarCurso,
+      PermisoDeCurso.eliminarCurso,
+      PermisoDeCurso.verCurso,
+    ],
+    [
+      PermisoDeRol.crearRol,
+      PermisoDeRol.editarRol,
+      PermisoDeRol.eliminarRol,
+      PermisoDeRol.verRol,
+    ],
+    [
+      PermisoDeSolicitud.crearSolicitud,
+      PermisoDeSolicitud.editarSolicitud,
+      PermisoDeSolicitud.eliminarSolicitud,
+      PermisoDeSolicitud.verSolicitud,
+    ],
+    [
+      PermisoDeUsuario.crearUsuario,
+      PermisoDeUsuario.editarUsuario,
+      PermisoDeUsuario.eliminarUsuario,
+      PermisoDeUsuario.responderSolicitudDeRegistro,
+      PermisoDeUsuario.verUsuario,
+    ],
   ];
 
   final roles = {
