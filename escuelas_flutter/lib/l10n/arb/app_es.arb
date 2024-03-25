@@ -101,6 +101,10 @@
   "pageKycFormDeleteSubject": "Eliminar asignatura",
   "@pageKycFormDeleteSubject": {
     "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
+  }, 
+  "pageKycFormErrorMaxCommissionsReached": "¡No Puedes agregar mas de una comision!",
+  "@pageKycFormErrorMaxCommissionsReached": {
+    "description": "Message informing the user that he can't add more than one commission."
   },
   "pageKycFormWhatGradeAreYouIn": "¿En qué comisión estás?",
   "@pageKycFormWhatGradeAreYouIn": {
@@ -412,6 +416,17 @@
           }
       }
   },
+  
+  "pageEditProfileDeclinePendingUser": "¿Deseas Rechazar la solicitud de {nombre}?",
+  "@pageEditProfileDeclinePendingUser": {
+    "description": "Message displayed when the user is asked if they want to reject a pending request.",
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
+  
   "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
   "@dialogErrorToSendGrades": {
     "description": "Label indicating an error when sending notes."
