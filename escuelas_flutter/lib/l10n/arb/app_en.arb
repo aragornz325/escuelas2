@@ -94,6 +94,11 @@
   "@pageKycFormDeleteSubject": {
     "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
   },
+  "pageKycFormAddACommission": "You can't add more than one commission!",
+  "@pageKycFormAddACommission": {
+    "description": "Message informing the user that he can't add more than one commission."
+  },
+  
   "pageKycFormWhatGradeAreYouIn": "What grade are you in?",
   "@pageKycFormWhatGradeAreYouIn": {
     "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
@@ -457,6 +462,16 @@
     "@pageCoursesThereAreNoCourses": {
         "description": "There are no commissions with subjects"
     },
+    
+  "pageEditProfileDeclinePendingUser": "Do you want to reject the request of {nombre}?",
+  "@pageEditProfileDeclinePendingUser": {
+    "description": "Message displayed when the user is asked if they want to reject a pending request.",
+    "placeholders": {
+      "nombre": {
+        "type": "String"
+      }
+    }
+  },
   "dialogAbsencesSentCorrectly": "absences sent correctly",
   "@dialogAbsencesSentCorrectly": {
     "description": "Text to be displayed in the title of the dialog when absences to sent correctly"

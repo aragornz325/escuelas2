@@ -4,7 +4,6 @@ import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario_pendiente/bloc/bloc_perfil_usuario_pendiente.dart';
-import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/tarjeta_perfil.dart';
 import 'package:escuelas_flutter/gen/fonts.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -34,6 +33,39 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
         child: _DialogAceptarSolicitudRegistro(
           nombreUsuario: nombreUsuario,
           nombreRol: nombreRol,
+        ),
+      ),
+    );
+  }
+
+  /// dialog al rechazar la solicitud de registro de un nuevo usuario.
+  void _dialogRechazarSolicitudRegitro({
+    required BuildContext context,
+    required String? nombreUsuario,
+  }) {
+    final l10n = context.l10n;
+
+    showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocPerfilUsuarioPendiente>(),
+        child: EscuelasDialog.solicitudDeAccion(
+          context: context,
+          onTapConfirmar: () {
+            context
+                .read<BlocPerfilUsuarioPendiente>()
+                .add(BlocPerfilUsuarioPendienteEventoRechazarSolicitud());
+            Navigator.of(_).pop();
+          },
+          content: Text(
+            l10n.pageEditProfileDeclinePendingUser(nombreUsuario ?? ''),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18.pf,
+              fontWeight: FontWeight.w700,
+              color: context.colores.onBackground,
+            ),
+          ),
         ),
       ),
     );
@@ -71,15 +103,6 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
               apellidoUsuario: state.usuarioPendiente?.apellido ?? '',
               urlImage: state.usuarioPendiente?.urlFotoDePerfil ?? '',
             ),
-            const Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SeccionCursos(),
-                  ],
-                ),
-              ),
-            ),
             if (tienePermiso)
               Padding(
                 padding: EdgeInsets.only(bottom: 20.ph),
@@ -87,12 +110,12 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     EscuelasBoton.texto(
-                      // TODO(anyone): habilitar cuando se pueda rechazar a un
-                      //usuario pendiente
-                      estaHabilitado: false,
-                      // TODO(anyone): funcion para rechazar a un usuario
-                      // pendiente
-                      onTap: () => Navigator.of(context).pop,
+                      estaHabilitado: true,
+                      onTap: () => _dialogRechazarSolicitudRegitro(
+                        context: context,
+                        nombreUsuario: '${state.usuarioPendiente?.nombre}'
+                            ' ${state.usuarioPendiente?.apellido}',
+                      ),
                       color: colores.error,
                       texto: l10n.commonDecline.toUpperCase(),
                       context: context,

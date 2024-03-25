@@ -16,7 +16,7 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@template  EscuelasDrawer}
 /// Drawer donde el usuario puede ver su perfil o desloguearse.
 /// {@endtemplate}
-class EscuelasDrawer extends StatelessWidget {
+class EscuelasDrawer extends StatefulWidget {
   /// {@macro EscuelasDrawer}
   const EscuelasDrawer({
     required this.nombre,
@@ -30,6 +30,14 @@ class EscuelasDrawer extends StatelessWidget {
 
   /// Imagen de appbar[EscuelasDrawer].
   final String? urlImage;
+
+  @override
+  State<EscuelasDrawer> createState() => _EscuelasDrawerState();
+}
+
+class _EscuelasDrawerState extends State<EscuelasDrawer> {
+  String? nombre;
+  String? apellido;
 
   /// Navega a la ruta del perfil del usuario y luego cierra la pantalla actual
   void _redireccionPerfil(BuildContext context) {
@@ -93,6 +101,17 @@ class EscuelasDrawer extends StatelessWidget {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+    if (widget.nombre.contains(';')) {
+      final parts = widget.nombre.split(';');
+      nombre = parts[0];
+      apellido = parts[1];
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
@@ -126,7 +145,7 @@ class EscuelasDrawer extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(100.sw)),
                               child: Image.network(
-                                urlImage!,
+                                widget.urlImage!,
                                 fit: BoxFit.cover,
                                 errorBuilder: (
                                   context,
@@ -145,7 +164,7 @@ class EscuelasDrawer extends StatelessWidget {
                             width: 200.pw,
                             child: Center(
                               child: Text(
-                                nombre.capitalize,
+                                nombre?.capitalize ?? widget.nombre.trim(),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
@@ -160,7 +179,8 @@ class EscuelasDrawer extends StatelessWidget {
                             width: 200.pw,
                             child: Center(
                               child: Text(
-                                apellido.capitalize,
+                                apellido?.capitalize ??
+                                    widget.apellido.capitalize.trim(),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: TextStyle(

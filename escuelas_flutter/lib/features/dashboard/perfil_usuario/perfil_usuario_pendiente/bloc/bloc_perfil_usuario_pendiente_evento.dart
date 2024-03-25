@@ -21,8 +21,15 @@ class BlocPerfilUsuarioPendienteEventoTraerUsuarioPendiente
   /// Id del usuario al que se le va a asignar un rol
   final int? idUsuarioPendiente;
 }
+
 /// {@template BlocPerfilUsuarioPendienteEventoAceptarSolicitud}
 /// Acepta la solicitud de un usuario
 /// {@endtemplate}
 class BlocPerfilUsuarioPendienteEventoAceptarSolicitud
+    extends BlocPerfilUsuarioPendienteEvento {}
+
+/// {@template BlocPerfilUsuarioPendienteEventoAceptarSolicitud}
+/// Rechaza la solicitud de un usuario.
+/// {@endtemplate}
+class BlocPerfilUsuarioPendienteEventoRechazarSolicitud
     extends BlocPerfilUsuarioPendienteEvento {}

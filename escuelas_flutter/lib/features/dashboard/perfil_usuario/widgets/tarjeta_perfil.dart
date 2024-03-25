@@ -144,7 +144,8 @@ class TarjetaPerfil extends StatelessWidget {
                             EscuelasDialog.featNoDisponible(context: context),
                       ),
                       color: colores.rojoTED,
-                      texto: l10n.pageUserProfileButtonDeleteTeacher,
+                      texto:
+                          '${l10n.commonDelete.capitalize} ${roles.capitalize}',
                       fontSize: 12.pf,
                       context: context,
                     ),

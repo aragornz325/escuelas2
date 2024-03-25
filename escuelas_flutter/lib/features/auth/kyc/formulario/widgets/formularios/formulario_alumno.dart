@@ -114,9 +114,19 @@ class FormularioAlumno extends StatelessWidget {
               child: Column(
                 children: [
                   BotonAgregarOpcion(
+                    deshabilitado: state.opcionesFormulario.isNotEmpty,
                     textoBoton: l10n.pageKycFormChooseComission,
                     onPressed: () => _onSeleccionadorComision(context),
                   ),
+                  if (state.opcionesFormulario.isNotEmpty)
+                    Text(
+                      l10n.pageKycFormAddACommission,
+                      style: TextStyle(
+                        color: colores.onBackground,
+                        fontSize: 14.pf,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   SizedBox(height: 20.ph),
                   const BotonSolicitarRol(),
                 ],

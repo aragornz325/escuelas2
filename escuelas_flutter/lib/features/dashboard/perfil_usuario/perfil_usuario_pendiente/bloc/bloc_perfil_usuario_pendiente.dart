@@ -23,6 +23,9 @@ class BlocPerfilUsuarioPendiente extends Bloc<BlocPerfilUsuarioPendienteEvento,
     on<BlocPerfilUsuarioPendienteEventoAceptarSolicitud>(
       _onAceptarSolicitud,
     );
+    on<BlocPerfilUsuarioPendienteEventoRechazarSolicitud>(
+      _onRechazarSolicitud,
+    );
   }
 
   /// Evento que trae un uduario pendiente con lista de roles
@@ -53,7 +56,7 @@ class BlocPerfilUsuarioPendiente extends Bloc<BlocPerfilUsuarioPendienteEvento,
     );
   }
 
-/// Acepta la solicitud de un usuario pendiente 
+  /// Acepta la solicitud de un usuario pendiente
   Future<void> _onAceptarSolicitud(
     BlocPerfilUsuarioPendienteEventoAceptarSolicitud event,
     Emitter<BlocPerfilUsuarioPendienteEstado> emit,
@@ -68,6 +71,32 @@ class BlocPerfilUsuarioPendiente extends Bloc<BlocPerfilUsuarioPendienteEvento,
         } else {
           await client.usuario.responderSolicitudDeRegistro(
             estadoDeSolicitud: EstadoDeSolicitud.aprobado,
+            idUsuarioPendiente: usuarioPendiente.id ?? 0,
+          );
+        }
+        emit(BlocPerfilUsuarioPendienteEstadoUsuarioAceptado.desde(state));
+      },
+      onError: (e, st) {
+        emit(BlocPerfilUsuarioPendienteEstadoError.desde(state));
+      },
+    );
+  }
+
+  /// Acepta la solicitud de un usuario pendiente
+  Future<void> _onRechazarSolicitud(
+    BlocPerfilUsuarioPendienteEventoRechazarSolicitud event,
+    Emitter<BlocPerfilUsuarioPendienteEstado> emit,
+  ) async {
+    emit(BlocPerfilUsuarioPendienteEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        final usuarioPendiente = state.usuarioPendiente;
+
+        if (usuarioPendiente == null) {
+          return emit(BlocPerfilUsuarioPendienteEstadoError.desde(state));
+        } else {
+          await client.usuario.responderSolicitudDeRegistro(
+            estadoDeSolicitud: EstadoDeSolicitud.rechazado,
             idUsuarioPendiente: usuarioPendiente.id ?? 0,
           );
         }

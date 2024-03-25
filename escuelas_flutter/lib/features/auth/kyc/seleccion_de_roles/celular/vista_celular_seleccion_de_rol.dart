@@ -5,7 +5,6 @@ import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
-import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart' hide BoxDecoration, BoxShadow;
 import 'package:flutter/material.dart';
@@ -27,6 +26,19 @@ class VistaCelularSeleccionDeRol extends StatefulWidget {
 
 class _VistaCelularSeleccionDeRolState
     extends State<VistaCelularSeleccionDeRol> {
+  String? nombre;
+  String? apellido;
+  
+  @override
+  void initState() {
+    super.initState();
+    if ((sessionManager.signedInUser?.userName ?? '').contains(';')) {
+      final parts = (sessionManager.signedInUser?.userName ?? '').split(';');
+      nombre = parts[0];
+      apellido = parts[1];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -48,7 +60,9 @@ class _VistaCelularSeleccionDeRolState
                     SizedBox(height: 60.ph),
                     Text(
                       l10n.pageKycRoleSelectionWelcome(
-                        sessionManager.signedInUser?.userName ?? '',
+                        nombre != null && apellido != null
+                            ? '$nombre $apellido'
+                            : sessionManager.signedInUser?.userName ?? '',
                       ),
                       style: TextStyle(
                         color: colores.onBackground,
@@ -57,26 +71,31 @@ class _VistaCelularSeleccionDeRolState
                       ),
                     ),
                     SizedBox(height: 20.ph),
-                    ...state.listaRoles.map(
-                      (rol) => Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 20.ph),
-                          child: ElementoLista.menu(
-                            context: context,
-                            nombreOpcion: rol.name.toUpperCase(),
-                            estaPresionado: rol.id == rolPresionado?.id,
-                            onTap: () => context.read<BlocKyc>().add(
-                                  BlocKycEventoSeleccionarRol(
-                                    rolElegido: rol,
-                                    eliminarRolSeleccionado:
-                                        rolPresionado?.id == rol.id &&
-                                            rolPresionado != null,
+                    if (state is BlocKycEstadoCargando)
+                      const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    else
+                      ...state.listaRoles.map(
+                        (rol) => Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(bottom: 20.ph),
+                            child: ElementoLista.menu(
+                              context: context,
+                              nombreOpcion: rol.name.toUpperCase(),
+                              estaPresionado: rol.id == rolPresionado?.id,
+                              onTap: () => context.read<BlocKyc>().add(
+                                    BlocKycEventoSeleccionarRol(
+                                      rolElegido: rol,
+                                      eliminarRolSeleccionado:
+                                          rolPresionado?.id == rol.id &&
+                                              rolPresionado != null,
+                                    ),
                                   ),
-                                ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
                   ],
                 ),
               ),
