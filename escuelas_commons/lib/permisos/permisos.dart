@@ -8,6 +8,7 @@ enum PermisoDeAsignatura {
   eliminarAsignatura,
   crearAsignatura,
   asignarDocenteAAsignatura,
+  accesoPublico,
 }
 
 enum PermisoDeAsistencia {
@@ -15,6 +16,7 @@ enum PermisoDeAsistencia {
   editarAsistencia,
   eliminarAsistencia,
   crearAsistencia,
+  accesoPublico,
 }
 
 enum PermisoDeCalificacion {
@@ -22,6 +24,7 @@ enum PermisoDeCalificacion {
   editarCalificacion,
   eliminarCalificacion,
   crearCalificacion,
+  accesoPublico,
 }
 
 enum PermisoDeComision {
@@ -30,6 +33,7 @@ enum PermisoDeComision {
   eliminarComision,
   crearComision,
   asignarAlumnosAComision,
+  accesoPublico,
 }
 
 enum PermisoDeCurso {
@@ -37,6 +41,7 @@ enum PermisoDeCurso {
   editarCurso,
   eliminarCurso,
   crearCurso,
+  accesoPublico,
 }
 
 enum PermisoDeRol {
@@ -44,6 +49,7 @@ enum PermisoDeRol {
   editarRol,
   eliminarRol,
   crearRol,
+  accesoPublico,
 }
 
 enum PermisoDeSolicitud {
@@ -51,6 +57,7 @@ enum PermisoDeSolicitud {
   editarSolicitud,
   eliminarSolicitud,
   crearSolicitud,
+  accesoPublico,
 }
 
 enum PermisoDeUsuario {
@@ -59,6 +66,7 @@ enum PermisoDeUsuario {
   eliminarUsuario,
   crearUsuario,
   responderSolicitudDeRegistro,
+  accesoPublico,
 }
 
 /// Los permisos sirven para controlar el acceso a los recursos
