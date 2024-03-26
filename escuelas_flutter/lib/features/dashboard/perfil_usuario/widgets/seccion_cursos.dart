@@ -1,4 +1,8 @@
+import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_commons/permisos/permisos.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -23,7 +27,7 @@ class SeccionCursos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
-
+    final usuarioLogueado = context.read<BlocDashboard>().state.usuario;
     final l10n = context.l10n;
 
     return BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
@@ -40,6 +44,7 @@ class SeccionCursos extends StatelessWidget {
           child: switch (state.tipoUsuario) {
             Tipo.docenteAprobado => state.listaAsignaturasUsuario.isNotEmpty
                 ? _DesplegableCurso(
+                    usuarioLogueado: usuarioLogueado,
                     contenido: Column(
                       children: state.listaAsignaturasUsuario
                           .map(
@@ -76,6 +81,7 @@ class SeccionCursos extends StatelessWidget {
             Tipo.docentePendiente => state
                     .listaAsignaturasSolicitadasUsuarioPendiente.isNotEmpty
                 ? _DesplegableCurso(
+                    usuarioLogueado: usuarioLogueado,
                     contenido: Column(
                       children: state
                           .listaAsignaturasSolicitadasUsuarioPendiente
@@ -189,10 +195,14 @@ class _DesplegableCurso extends StatelessWidget {
   /// {@macro DesplegableCurso}
   const _DesplegableCurso({
     required this.contenido,
+    required this.usuarioLogueado,
   });
 
   /// Contenido
   final Widget contenido;
+
+  /// Usuario logueado, utilizado para ver permisos
+  final Usuario usuarioLogueado;
 
   @override
   Widget build(BuildContext context) {
@@ -201,15 +211,19 @@ class _DesplegableCurso extends StatelessWidget {
     final l10n = context.l10n;
 
     return ExpansionTile(
-      trailing: GestureDetector(
-        onTap: () {},
-        //! TODO(Manu):dar funcion
-        child: Icon(
-          Icons.delete_outline_outlined,
-          color: colores.error,
-          size: 20.sw,
-        ),
-      ),
+      trailing: usuarioLogueado.tienePermisos(
+        PermisoDeAsignatura.asignarDocenteAAsignatura,
+      )
+          ? GestureDetector(
+              onTap: () {},
+              //! TODO(Manu):dar funcion
+              child: Icon(
+                Icons.delete_outline_outlined,
+                color: colores.error,
+                size: 20.sw,
+              ),
+            )
+          : const SizedBox.shrink(),
       title: Row(
         children: [
           Text(
@@ -222,13 +236,16 @@ class _DesplegableCurso extends StatelessWidget {
           ),
           const Spacer(),
           //! TODO(Manu):terminar
-          EscuelasBoton.textoEIcono(
-            color: colores.primary,
-            onTap: () {},
-            texto: l10n.pageUserProfileButtonAddSubject,
-            context: context,
-            icono: Icons.add,
-          ),
+          if (usuarioLogueado.tienePermisos(
+            PermisoDeAsignatura.asignarDocenteAAsignatura,
+          ))
+            EscuelasBoton.textoEIcono(
+              color: colores.primary,
+              onTap: () {},
+              texto: l10n.pageUserProfileButtonAddSubject,
+              context: context,
+              icono: Icons.add,
+            ),
         ],
       ),
       shape: RoundedRectangleBorder(
