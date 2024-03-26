@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:escuelas_commons/permisos/permisos.dart';
+import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/bloc/bloc_supervision_envio_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/widgets/widgets.dart';
@@ -129,7 +131,8 @@ class VistaCelularSupervisionEnvioCalificaciones extends StatelessWidget {
                   asignaturas: state.listaAsignaturas,
                 ),
               ),
-              const BotonesEnviarCalificaciones(),
+              if (context.tienePermiso(PermisoDeCalificacion.crearCalificacion))
+                const BotonesEnviarCalificaciones(),
             ],
           ),
         );
