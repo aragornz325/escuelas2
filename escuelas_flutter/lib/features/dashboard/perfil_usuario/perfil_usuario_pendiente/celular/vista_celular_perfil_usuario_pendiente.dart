@@ -3,6 +3,7 @@ import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario_pendiente/bloc/bloc_perfil_usuario_pendiente.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/tarjeta_perfil.dart';
 import 'package:escuelas_flutter/gen/fonts.gen.dart';
@@ -80,6 +81,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
     final tienePermiso =
         context.tienePermiso(PermisoDeUsuario.responderSolicitudDeRegistro);
 
+    final usuarioLogueado = context.read<BlocDashboard>().state.usuario;
     return BlocConsumer<BlocPerfilUsuarioPendiente,
         BlocPerfilUsuarioPendienteEstado>(
       listener: (BuildContext context, BlocPerfilUsuarioPendienteEstado state) {
@@ -102,6 +104,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
               nombreUsuario: state.usuarioPendiente?.nombre ?? '',
               apellidoUsuario: state.usuarioPendiente?.apellido ?? '',
               urlImage: state.usuarioPendiente?.urlFotoDePerfil ?? '',
+              usuarioLogueado: usuarioLogueado,
             ),
             if (tienePermiso)
               Padding(

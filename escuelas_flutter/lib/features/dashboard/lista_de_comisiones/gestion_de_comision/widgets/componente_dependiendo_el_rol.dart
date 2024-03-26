@@ -15,6 +15,7 @@ class ComponenteDependiendoElRol extends StatelessWidget {
     required this.tituloDeRol,
     required this.tituloBoton,
     required this.onTap,
+    required this.mostrarBoton,
     this.esOutline = false,
     this.icono = Icons.person_add_alt_outlined,
     super.key,
@@ -35,6 +36,9 @@ class ComponenteDependiendoElRol extends StatelessWidget {
   /// Indica si el boton es outlained o no.
   final bool esOutline;
 
+  /// Indica si se va a mostrar el boton o no.
+  final bool mostrarBoton;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -52,15 +56,16 @@ class ComponenteDependiendoElRol extends StatelessWidget {
                 fontWeight: FontWeight.w800,
               ),
             ),
-            EscuelasBoton.textoEIcono(
-              colorDeTexto: esOutline ? colores.primary : null,
-              esOutline: esOutline,
-              color: colores.primary,
-              onTap: onTap,
-              texto: tituloBoton,
-              context: context,
-              icono: icono,
-            ),
+            if (mostrarBoton)
+              EscuelasBoton.textoEIcono(
+                colorDeTexto: esOutline ? colores.primary : null,
+                esOutline: esOutline,
+                color: colores.primary,
+                onTap: onTap,
+                texto: tituloBoton,
+                context: context,
+                icono: icono,
+              ),
           ],
         ),
         Divider(

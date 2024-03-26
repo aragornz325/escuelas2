@@ -1,7 +1,10 @@
 import 'dart:math';
 
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_commons/permisos/permisos.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/modelos/modelos.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/widgets/widgets.dart';
@@ -57,6 +60,8 @@ class _ItemCursoConListaDeEstudiantesState
 
     final colores = context.colores;
 
+    final usuario = context.read<BlocDashboard>().state.usuario;
+
     return Column(
       children: [
         ItemCurso(
@@ -108,13 +113,17 @@ class _ItemCursoConListaDeEstudiantesState
                         '${estudiante?.apellido ?? ''}',
                     context: context,
                     botonCambioInasistencia: InkWell(
-                      onTap: () {
-                        setState(() {
-                          _cambiarAsistenciaDeUnAlumno(
-                            _inasistencias[index],
-                          );
-                        });
-                      },
+                      onTap: usuario.tienePermisos(
+                        PermisoDeAsistencia.editarAsistencia,
+                      )
+                          ? () {
+                              setState(() {
+                                _cambiarAsistenciaDeUnAlumno(
+                                  _inasistencias[index],
+                                );
+                              });
+                            }
+                          : null,
                       child: Container(
                         width: 80.pw,
                         height: max(25.ph, 25.sh),
@@ -150,11 +159,14 @@ class _ItemCursoConListaDeEstudiantesState
           ),
         BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
           builder: (context, state) {
-            return BotonFinalizarInasistencias(
-              comisionDeCurso: widget.comisionConAsistencias.comisionDeCurso,
-              inasistencias: _inasistencias,
-              fecha: state.fechaActual ?? DateTime.now(),
-            );
+            return usuario.tienePermisos(PermisoDeAsistencia.editarAsistencia)
+                ? BotonFinalizarInasistencias(
+                    comisionDeCurso:
+                        widget.comisionConAsistencias.comisionDeCurso,
+                    inasistencias: _inasistencias,
+                    fecha: state.fechaActual ?? DateTime.now(),
+                  )
+                : const SizedBox.shrink();
           },
         ),
       ],

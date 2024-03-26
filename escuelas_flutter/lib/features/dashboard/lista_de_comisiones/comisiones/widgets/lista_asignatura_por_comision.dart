@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
+import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/mis_cursos/bloc/bloc_mis_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/mis_cursos/widgets/item_materia.dart';
@@ -55,13 +57,19 @@ class ListaDeAsignaturasPorComision extends StatelessWidget {
                                 estaHabilitado:
                                     periodo.isBefore(DateTime.now()),
                                 asignatura: asignatura,
-                                onTap: () => context.pushRoute(
-                                  RutaCargaDeCalificaciones(
-                                    fecha: periodo.toString(),
-                                    idComision: comision.idComision,
-                                    idAsignatura: asignatura.idAsignatura,
-                                  ),
-                                ),
+                                onTap: () {
+                                  if (context.tienePermiso(
+                                    PermisoDeCalificacion.verCalificacion,
+                                  )) {
+                                    context.pushRoute(
+                                      RutaCargaDeCalificaciones(
+                                        fecha: periodo.toString(),
+                                        idComision: comision.idComision,
+                                        idAsignatura: asignatura.idAsignatura,
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
                             ),
                           )

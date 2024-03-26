@@ -1,4 +1,5 @@
 import 'package:escuelas_flutter/extensiones/usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_datos_personales.dart';
@@ -15,6 +16,8 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final usuarioLogueado = context.read<BlocDashboard>().state.usuario;
+
     return BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
       builder: (context, state) {
         if (state is BlocPerfilUsuarioEstadoCargando) {
@@ -32,6 +35,7 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
               apellidoUsuario: state.usuario?.apellido ?? '',
               urlImage: state.usuario?.urlFotoDePerfil ?? '',
               usuario: state.usuario,
+              usuarioLogueado: usuarioLogueado,
             ),
             const Expanded(
               child: SingleChildScrollView(

@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_commons/permisos/permisos.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -20,6 +22,7 @@ class TarjetaPerfil extends StatelessWidget {
     required this.rolesAsignados,
     required this.nombreUsuario,
     required this.apellidoUsuario,
+    required this.usuarioLogueado,
     this.usuario,
     this.urlImage,
     super.key,
@@ -39,6 +42,8 @@ class TarjetaPerfil extends StatelessWidget {
 
   /// Usuario a verificar si corresponde al mio.
   final Usuario? usuario;
+
+  final Usuario usuarioLogueado;
 
   @override
   Widget build(BuildContext context) {
@@ -110,34 +115,40 @@ class TarjetaPerfil extends StatelessWidget {
                       ),
                     ),
                   ),
-                  EscuelasBoton.texto(
-                    width: 185.pw,
-                    estaHabilitado: false,
-                    onTap: () => showDialog<void>(
+                  if (usuarioLogueado
+                      .tienePermisos(PermisoDeUsuario.editarUsuario))
+                    EscuelasBoton.texto(
+                      width: 185.pw,
+                      estaHabilitado: false,
+                      onTap: () => showDialog<void>(
+                        context: context,
+                        builder: (context) =>
+                            EscuelasDialog.featNoDisponible(context: context),
+                      ),
+                      // TODO(anyone): Dar funcion cuando esten los endpoints
+                      // onTap:
+                      // () => context.pushRoute(
+                      //   RutaEditarPerfil(
+                      //     idUsuario: usuario?.id ?? 0,
+                      //     nombreUsuario:
+                      //         '${usuario?.nombre} ${usuario?.apellido}',
+                      //   ),
+                      // ),
+                      color: colores.primaryContainer,
+                      texto: l10n.commonEdit,
+                      fontSize: 12.pf,
                       context: context,
-                      builder: (context) =>
-                          EscuelasDialog.featNoDisponible(context: context),
-                    ),
-                    // TODO(anyone): Dar funcion cuando esten los endpoints
-                    // onTap:
-                    // () => context.pushRoute(
-                    //   RutaEditarPerfil(
-                    //     idUsuario: usuario?.id ?? 0,
-                    //     nombreUsuario:
-                    //         '${usuario?.nombre} ${usuario?.apellido}',
-                    //   ),
-                    // ),
-                    color: colores.primaryContainer,
-                    texto: l10n.commonEdit,
-                    fontSize: 12.pf,
-                    context: context,
-                  ),
+                    )
+                  else
+                    const SizedBox.shrink(),
                   SizedBox(height: max(8.ph, 8.sh)),
-                  if (usuario?.idUserInfo != sessionManager.signedInUser?.id)
+                  if (usuario?.idUserInfo != sessionManager.signedInUser?.id &&
+                      usuarioLogueado
+                          .tienePermisos(PermisoDeUsuario.eliminarUsuario))
                     EscuelasBoton.texto(
                       width: 185.pw,
                       estaHabilitado: true,
-                      //! TODO(Manu): Dar funcion
+                      //! TODO(): Dar funcion
                       onTap: () => showDialog<void>(
                         context: context,
                         builder: (context) =>
@@ -148,7 +159,9 @@ class TarjetaPerfil extends StatelessWidget {
                           '${l10n.commonDelete.capitalize} ${roles.capitalize}',
                       fontSize: 12.pf,
                       context: context,
-                    ),
+                    )
+                  else
+                    const SizedBox.shrink(),
                 ],
               ),
             ),

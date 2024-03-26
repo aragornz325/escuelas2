@@ -1,3 +1,5 @@
+import 'package:escuelas_commons/permisos/permisos.dart';
+import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_de_comisiones/gestion_de_comision/bloc/bloc_gestion_de_comision.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_de_comisiones/gestion_de_comision/widgets/widgets.dart';
@@ -71,6 +73,9 @@ class _VistaCelularGestionDeComisionState
                   : null;
 
               return ComponenteDependiendoElRol(
+                mostrarBoton: context.tienePermiso(
+                  PermisoDeAsignatura.asignarDocenteAAsignatura,
+                ),
                 tituloDeRol: '${l10n.commonTeacher}:',
                 icono: docente != null
                     ? Icons.edit
@@ -92,6 +97,8 @@ class _VistaCelularGestionDeComisionState
           ),
           const DocenteDeLaAsignatura(),
           ComponenteDependiendoElRol(
+            mostrarBoton:
+                context.tienePermiso(PermisoDeComision.asignarAlumnosAComision),
             tituloDeRol: '${l10n.commonStudent}:',
             onTap: () => _bottomSheetAsignarOAgregarUsuario(
               context: context,

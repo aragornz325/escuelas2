@@ -1,3 +1,5 @@
+import 'package:escuelas_commons/escuelas_commons.dart';
+import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/widgets.dart';
@@ -50,7 +52,8 @@ class BotonCargaCalificacion extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        if (esEditable) {
+        if (esEditable &&
+            context.tienePermiso(PermisoDeCalificacion.editarCalificacion)) {
           _dialogElegirCalificacion(context);
         }
       },

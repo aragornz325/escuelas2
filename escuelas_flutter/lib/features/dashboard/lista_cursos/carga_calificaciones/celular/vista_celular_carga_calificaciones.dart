@@ -1,3 +1,5 @@
+import 'package:escuelas_commons/permisos/permisos.dart';
+import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc/bloc_carga_calificaciones.dart';
@@ -90,7 +92,13 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
               listaEstudiantes: state.estudiantes,
             ),
             if (state.calificacionesMensuales?.solicitudNotaMensual != null &&
-                state is! BlocCargaCalificacionesEstadoCargando)
+                state is! BlocCargaCalificacionesEstadoCargando &&
+                (context.tienePermiso(
+                      PermisoDeCalificacion.crearCalificacion,
+                    ) ||
+                    context.tienePermiso(
+                      PermisoDeCalificacion.editarCalificacion,
+                    )))
               Padding(
                 padding: EdgeInsets.only(top: 10.ph),
                 child: const BotonesEnviarNotasYLimpiarNotas(),

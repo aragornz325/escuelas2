@@ -9,12 +9,13 @@ import 'package:flutter/material.dart';
 enum MenuOpcionesDeInicio {
   tomarInasistencia([PermisoDeAsistencia.verAsistencia]),
   listaCursos([PermisoDeCurso.verCurso]),
-  usuariosPendientes([PermisoDeUsuario.verUsuario]),
+  usuariosPendientes([PermisoDeUsuario.responderSolicitudDeRegistro]),
   comunidadAcademica([PermisoDeUsuario.verUsuario]),
-  supervisionComision([PermisoDeUsuario.verUsuario]),
+  supervisionComision([PermisoDeComision.verComision]),
   comunicaciones([PermisoDeUsuario.verUsuario]),
-  calificacionesAlumno([PermisoDeUsuario.verUsuario]),
+  calificacionesAlumno([PermisoDeCalificacion.verCalificacion]),
   gestionDeComision([
+    PermisoDeComision.verComision,
     PermisoDeComision.asignarAlumnosAComision,
     PermisoDeAsignatura.asignarDocenteAAsignatura,
   ]);
