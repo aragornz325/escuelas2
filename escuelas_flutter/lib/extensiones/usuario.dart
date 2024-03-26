@@ -11,7 +11,6 @@ extension UsuarioX on Usuario {
       roles?.values.map(Permisos.fromSerialization).toList() ?? [];
 
   bool tienePermisos(Enum permiso) {
-    // TODO(ANYONE): Descomentar cuando se fixee el bug este.
-    return true; // permisos.any((e) => e.hasPermission(permiso));
+    return permisos.any((e) => e.permissions.any((p) => p.contains(permiso)));
   }
 }
