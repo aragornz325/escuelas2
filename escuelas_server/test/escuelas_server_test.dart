@@ -29,12 +29,5 @@ Future<void> main() async {
 
   final authKey = await session.auth.signInUser(1, 'email');
 
-  final s = ServicioCalificacion();
-
-  final consulta = await s.obtenerInformacionDeVistaGeneralDeComisiones(session,
-      idUsuario: 2, numeroDeMes: 1);
-
-  print(consulta);
-
   exit(0);
 }

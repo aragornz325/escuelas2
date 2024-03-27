@@ -95,6 +95,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
     Session session, {
     required int idUsuario,
     required int numeroDeMes,
+    required int anio,
   }) =>
       ejecutarOperacionControlador(
         session,
@@ -103,6 +104,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
           session,
           idUsuario: idUsuario,
           numeroDeMes: numeroDeMes,
+          anio: anio,
         ),
         permisoRequerido: PermisoDeCalificacion.verCalificacion,
       );

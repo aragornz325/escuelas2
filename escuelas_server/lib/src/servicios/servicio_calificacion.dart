@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:escuelas_server/constants/config.dart';
 import 'package:escuelas_server/src/extensiones/extension_comision.dart';
 import 'package:escuelas_server/src/extensiones/extension_usuario.dart';
@@ -79,81 +81,59 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
     Session session, {
     required int idUsuario,
     required int numeroDeMes,
+    required int anio,
   }) async {
-    List<ComisionOverview> listaDeComisionesRespuesta = [];
-
-    final queryAsignaturas = '''
-(
-SELECT
-  row_to_json(t) AS json_data
-FROM (
-  SELECT
-    a."id" AS idAsignatura,
-    a."nombre" AS nombreDeAsignatura,
-    CASE
-      WHEN EXISTS (
-        SELECT 1
-        FROM solicitudes_calificaciones_mensuales snm
-        INNER JOIN solicitudes s ON s."id" = snm."solicitudId"
-        WHERE
-          snm."idAsignatura" = a."id"
-          AND snm."comisionId" = c."id"
-          AND snm."mes" = $numeroDeMes 
-      ) THEN TRUE
-      ELSE FALSE
-    END AS tieneSolicitudesCalificacionCompletas
-  FROM "asignaturas" a
-  INNER JOIN r_asignatura_curso rac ON rac."idAsignatura" = a."id"
-  INNER JOIN "comisiones" c ON rac."idCurso" = c."cursoId"
-) t
-)
-''';
-
     final query = await session.dbNext.unsafeQueryMappedResults(session, '''
-SELECT DISTINCT ON (c."id")
-  c."id",
-  c."nombre",
-  c."cursoId",
-  CASE
-    WHEN $queryAsignaturas IS NULL THEN '[]'::jsonb
-    ELSE $queryAsignaturas
-  END AS "listaDeAsignaturas"
-FROM "comisiones" c
-INNER JOIN r_asignaturas_usuarios rau ON rau."comisionId" = c."id"
-WHERE rau."usuarioId" = $idUsuario;
+SELECT
+  rau."comisionId" AS "idComision",
+  com."nombre" AS "nombreDeComision",
+  COALESCE(
+    (
+      SELECT jsonb_agg(
+        json_build_object(
+          'idAsignatura', r."asignaturaId",
+          'nombreDeAsignatura', a."nombre",
+          'solicitudesDeCalificacionCompletas', CASE
+            WHEN EXISTS (
+              SELECT 1
+              FROM solicitudes_calificaciones_mensuales snm
+              INNER JOIN solicitudes s ON s."id" = snm."solicitudId"
+              WHERE
+                snm."idAsignatura" = r."asignaturaId"
+                AND snm."comisionId" = r."comisionId"
+                AND snm."mes" = $numeroDeMes
+                AND snm."anio" = $anio
+                AND s."fechaRealizacion" IS NOT NULL
+            ) THEN TRUE
+            ELSE FALSE
+          END
+        ) ORDER BY a."nombre"
+      )::text
+      FROM r_asignaturas_usuarios r
+      INNER JOIN asignaturas a ON a."id" = r."asignaturaId"
+      WHERE r."usuarioId" = $idUsuario AND r."comisionId" = rau."comisionId" AND r."fechaEliminacion" IS NULL AND a."fechaEliminacion" IS NULL
+    ), '[]'::text
+  ) AS "listaDeAsignaturas"
+FROM
+  r_asignaturas_usuarios rau
+  LEFT JOIN comisiones com ON com."id" = rau."comisionId"
+WHERE
+  rau."usuarioId" = $idUsuario AND com."anioLectivo" = $anio AND rau."fechaEliminacion" IS NULL AND com."fechaEliminacion" IS NULL
+GROUP BY rau."comisionId", com.nombre;
 ''');
 
-    for (var curso in query) {
-      final nombreComision = curso['comisiones']?['nombre'];
-      final idComision = curso['comisiones']?['id'];
-
-      List<AsignaturaOverview> listaDeAsignaturas = [];
-
-      for (var asignatura in curso['']!['listaDeAsignaturas']) {
-        final idAsignatura = asignatura['idAsignatura'];
-        final nombreDeAsignatura = asignatura['nombreDeAsignatura'];
-        final solicitudesDeCalificacionCompletas =
-            asignatura['solicitudesDeCalificacionCompletas'];
-
-        listaDeAsignaturas.add(
-          AsignaturaOverview(
-            idAsignatura: idAsignatura,
-            nombreDeAsignatura: nombreDeAsignatura,
-            solicitudesDeCalificacionCompletas:
-                solicitudesDeCalificacionCompletas,
+    return query
+        .map(
+          (e) => ComisionOverview.fromJson(
+            {}
+              ..addEntries(e['r_asignaturas_usuarios']!.entries)
+              ..addEntries(e['comisiones']!.entries)
+              ..addEntries(e['']!.entries)
+              ..['listaDeAsignaturas'] = jsonDecode(e['']!['listaDeAsignaturas']),
+            Protocol(),
           ),
-        );
-      }
-
-      listaDeComisionesRespuesta.add(
-        ComisionOverview(
-          idComision: idComision,
-          nombreDeComision: nombreComision,
-          listaDeAsignaturas: listaDeAsignaturas,
-        ),
-      );
-    }
-    return listaDeComisionesRespuesta;
+        )
+        .toList();
   }
 
   /// La función `obtenerCalificacionesPorAsignaturaPorPeriodo` recupera las calificaciones de una
