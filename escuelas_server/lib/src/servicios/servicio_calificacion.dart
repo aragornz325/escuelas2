@@ -85,46 +85,42 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
     final queryAsignaturas = '''
 (
 SELECT
-JSONB_AGG(
-JSON_BUILD_OBJECT(
-'idAsignatura',
-a."id",
-'nombreDeAsignatura',
-a."nombre",
-'solicitudesDeCalificacionCompletas',
-CASE
-WHEN (
-SELECT
-s."fechaRealizacion"
-FROM
-solicitudes_calificaciones_mensuales snm
-INNER JOIN solicitudes s ON s."id" = snm."solicitudId"
-WHERE
-snm."idAsignatura" = a."id"
-AND snm."comisionId" = c."id"
-AND snm."mes" = $numeroDeMes
-) IS NOT NULL THEN TRUE
-ELSE FALSE
-END
-)
-)
-FROM
-"asignaturas" a
-INNER JOIN r_asignatura_curso rac ON rac."idAsignatura" = a."id"
-WHERE
-rac."idCurso" = c."cursoId"
+  row_to_json(t) AS json_data
+FROM (
+  SELECT
+    a."id" AS idAsignatura,
+    a."nombre" AS nombreDeAsignatura,
+    CASE
+      WHEN EXISTS (
+        SELECT 1
+        FROM solicitudes_calificaciones_mensuales snm
+        INNER JOIN solicitudes s ON s."id" = snm."solicitudId"
+        WHERE
+          snm."idAsignatura" = a."id"
+          AND snm."comisionId" = c."id"
+          AND snm."mes" = $numeroDeMes 
+      ) THEN TRUE
+      ELSE FALSE
+    END AS tieneSolicitudesCalificacionCompletas
+  FROM "asignaturas" a
+  INNER JOIN r_asignatura_curso rac ON rac."idAsignatura" = a."id"
+  INNER JOIN "comisiones" c ON rac."idCurso" = c."cursoId"
+) t
 )
 ''';
 
     final query = await session.dbNext.unsafeQueryMappedResults(session, '''
 SELECT DISTINCT ON (c."id")
-c."id",
-c."nombre",
-c."cursoId",
-COALESCE( $queryAsignaturas, '[]'::jsonb) AS "listaDeAsignaturas"
+  c."id",
+  c."nombre",
+  c."cursoId",
+  CASE
+    WHEN $queryAsignaturas IS NULL THEN '[]'::jsonb
+    ELSE $queryAsignaturas
+  END AS "listaDeAsignaturas"
 FROM "comisiones" c
 INNER JOIN r_asignaturas_usuarios rau ON rau."comisionId" = c."id"
-WHERE rau."usuarioId" = $idUsuario
+WHERE rau."usuarioId" = $idUsuario;
 ''');
 
     for (var curso in query) {

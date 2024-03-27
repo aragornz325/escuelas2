@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/endpoints/calificacion_endpoint.dart';
 import 'package:escuelas_server/src/endpoints/rol_endpoint.dart';
@@ -8,6 +10,7 @@ import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_comision.dart';
 import 'package:escuelas_server/src/orms/orm_direccionesDeEmail.dart';
 import 'package:escuelas_server/src/orms/orm_usuario.dart';
+import 'package:escuelas_server/src/servicios/servicio_calificacion.dart';
 import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud_nota_mensual.dart';
 import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
@@ -24,7 +27,14 @@ Future<void> main() async {
 
   final session = await podTesting.createSession();
 
-  final authKey = await session.auth.signInUser(46, 'email');
+  final authKey = await session.auth.signInUser(1, 'email');
 
-  
+  final s = ServicioCalificacion();
+
+  final consulta = await s.obtenerInformacionDeVistaGeneralDeComisiones(session,
+      idUsuario: 2, numeroDeMes: 1);
+
+  print(consulta);
+
+  exit(0);
 }
