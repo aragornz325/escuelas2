@@ -26,6 +26,7 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
         final comisiones = await client.calificacion
             .obtenerInformacionDeVistaGeneralDeComisiones(
           numeroDeMes: DateTime.now().month,
+          anio: DateTime.now().year,
           idUsuario: event.usuarioId,
         );
 
@@ -53,6 +54,7 @@ class BlocMisCursos extends Bloc<BlocMisCursosEvento, BlocMisCursosEstado> {
         final comisiones = await client.calificacion
             .obtenerInformacionDeVistaGeneralDeComisiones(
           numeroDeMes: event.periodoSeleccionada.month,
+          anio: event.periodoSeleccionada.year,
           idUsuario: event.usuarioId,
         );
 
