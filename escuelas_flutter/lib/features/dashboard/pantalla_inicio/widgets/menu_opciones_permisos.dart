@@ -4,7 +4,6 @@ import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboar
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/utilidades/enum_menu_opciones_de_inicio.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
-import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
@@ -111,9 +110,9 @@ class MenuOpcionesPermisos extends StatelessWidget {
                   menu.name == MenuOpcionesDeInicio.usuariosPendientes.name &&
                       state.hayUsuariosPendientes;
 
-              final tieneMasDeUnaNotificacionPendiente =
-                  menu.name == MenuOpcionesDeInicio.comunicaciones.name &&
-                      state.cantidadNotificacionesPendientes > 0;
+              // final tieneMasDeUnaNotificacionPendiente =
+              //     menu.name == MenuOpcionesDeInicio.comunicaciones.name &&
+              //         state.cantidadNotificacionesPendientes > 0;
 
               return Padding(
                 padding: EdgeInsets.symmetric(horizontal: 15.ph)
@@ -129,31 +128,33 @@ class MenuOpcionesPermisos extends StatelessWidget {
                                 size: 15.sw,
                               ),
                             )
-                          : (tieneMasDeUnaNotificacionPendiente
-                              ? Padding(
-                                  padding: EdgeInsets.only(right: 20.pw),
-                                  child: Container(
-                                    width: 24.pw,
-                                    height: 24.ph,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      color: colores.azulNotificacion,
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        state.cantidadNotificacionesPendientes
-                                            .toString(),
-                                        style: TextStyle(
-                                          color:
-                                              colores.marfilBackgroundDesktop,
-                                          fontSize: 16.pf,
-                                          fontWeight: FontWeight.w700,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                )
-                              : null),
+                          // : (tieneMasDeUnaNotificacionPendiente
+                          // ?
+                          // Padding(
+                          //     padding: EdgeInsets.only(right: 20.pw),
+                          //     child: Container(
+                          //       width: 24.pw,
+                          //       height: 24.ph,
+                          //       decoration: BoxDecoration(
+                          //         shape: BoxShape.circle,
+                          //         color: colores.azulNotificacion,
+                          //       ),
+                          //       child: Center(
+                          //         child: Text(
+                          //           state.cantidadNotificacionesPendientes
+                          //               .toString(),
+                          //           style: TextStyle(
+                          //             color:
+                          //                 colores.marfilBackgroundDesktop,
+                          //             fontSize: 16.pf,
+                          //             fontWeight: FontWeight.w700,
+                          //           ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   )
+                          // : null)
+                          : null,
                   nombreOpcion: menu.getTitulo(context),
                   context: context,
                   onTap: () => menu.redirigirAVista(context),

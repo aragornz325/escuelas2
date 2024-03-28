@@ -28,6 +28,11 @@ class ListaDeAsignaturasPorComision extends StatelessWidget {
 
     return BlocBuilder<BlocMisCursos, BlocMisCursosEstado>(
       builder: (context, state) {
+        if (state is BlocMisCursosEstadoCargando) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: state.comisiones

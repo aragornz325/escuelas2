@@ -211,11 +211,11 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
                       ),
                       //! TODO(anyone): esto va aca para probar hasta qye esten las features previas
 
-                      _EscuelasListTile(
-                        icon: Icons.looks,
-                        title: 'plantillas',
-                        onTap: () => _redireccionPlantillas(context),
-                      ),
+                      // _EscuelasListTile(
+                      //   icon: Icons.looks,
+                      //   title: 'plantillas',
+                      //   onTap: () => _redireccionPlantillas(context),
+                      // ),
                       const Spacer(),
                       // TODO(anyone): Eliminar este widget
                       GestureDetector(

@@ -168,7 +168,7 @@ class EscuelasBoton extends StatelessWidget {
     final colores = context.colores;
 
     return EscuelasBoton(
-      estaHabilitado: true,
+      estaHabilitado: false,
       onTap: onTap,
       width: width,
       height: 40.ph,
@@ -320,10 +320,10 @@ class EscuelasBoton extends StatelessWidget {
               texto,
               style: TextStyle(
                 color: estaHabilitado
-                ? colorTexto ?? colores.onSecondary
-                : colores.secondary,
+                    ? colorTexto ?? colores.onSecondary
+                    : colores.secondary,
                 fontSize: tamanioFuente ?? 12.pf,
-            fontWeight: anchoDeLasLetras,
+                fontWeight: anchoDeLasLetras,
               ),
             ),
           ),
@@ -381,7 +381,6 @@ class EscuelasBoton extends StatelessWidget {
                   : estaHabilitado
                       ? color
                       : colores.secondary,
-              
               border: esOutlined
                   ? Border.all(
                       color: estaHabilitado ? color : colores.secondary,
