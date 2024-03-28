@@ -26,7 +26,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
       ejecutarOperacionControlador(
         session,
         'obtenerComisiones',
-        () => servicio.obtenerComisiones(session),permisoRequerido: PermisoDeComision.verComision,
+        () => servicio.obtenerComisiones(session),
       );
 
   Future<List<ComisionConAsignaturas>> listarComisionesConAsignaturas(
@@ -37,7 +37,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
         'listarComisionesConAsignaturas',
         () => servicio.listarComisionesConAsignaturas(
           session,
-        ),permisoRequerido: PermisoDeComision.verComision,
+        ),
       );
 
   Future<ComisionDeCurso> obtenerComisionesDeCursoPorId(
@@ -50,7 +50,7 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
         () => servicio.obtenerComisionesDeCursoPorId(
           session,
           idComision: idComision,
-        ),permisoRequerido: PermisoDeComision.verComision,
+        ),
       );
 
   /// Obtiene las comisiones que tienen solicitudes de calificación mensual
