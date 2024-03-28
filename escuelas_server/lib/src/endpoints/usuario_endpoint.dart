@@ -40,7 +40,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           session,
           idUsuario: idUsuario,
         ),
-        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   /// La función "obtenerUsuarioPendiente" devuelve un objeto Futuro que recupera usuario pendiente
@@ -55,7 +54,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerDatosDeSolicitudDelUsuario',
         () => servicio.obtenerDatosDeSolicitudDelUsuario(session),
-        permisoRequerido: PermisoDeUsuario.crearUsuario,
       );
 
   /// Obtiene un usuario pendiente a traves de la relacion de [UsuarioPendiente]
@@ -81,7 +79,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           session,
           idUsuarioPendiente: idUsuarioPendiente,
         ),
-        permisoRequerido: PermisoDeUsuario.crearUsuario,
       );
 
   /// La función "obtenerUsuariosPendientes" devuelve un objeto Futuro que recupera los
@@ -96,7 +93,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         'obtenerUsuariosPendientes',
         () => servicio.obtenerUsuariosPendientes(session),
-        permisoRequerido: PermisoDeUsuario.crearUsuario,
       );
 
   /// La función `enviarSolicitudRegistroDocente` envía una solicitud de registro para
@@ -159,7 +155,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           estadoDeSolicitud: estadoDeSolicitud,
           idUsuarioPendiente: idUsuarioPendiente,
         ),
-        permisoRequerido: PermisoDeUsuario.crearUsuario,
       );
 
   Future<List<RelacionComisionUsuario>> obtenerListaDeEstudiantesDeComision(
@@ -173,7 +168,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
           session,
           idComision: idComision,
         ),
-        permisoRequerido: PermisoDeUsuario.verUsuario,
       );
 
   Future<UsuariosOrdenados> obtenerUsuariosPorRolSorteados(
@@ -189,7 +183,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         idRol: idRol,
         ordenarUsuariosPor: ordenarUsuariosPor,
       ),
-      permisoRequerido: PermisoDeUsuario.verUsuario,
     );
   }
 
@@ -218,7 +211,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         usuario: usuario,
       ),
-      permisoRequerido: PermisoDeUsuario.editarUsuario,
     );
   }
 
@@ -236,7 +228,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         session,
         idUsuario: idUsuario,
       ),
-      permisoRequerido: PermisoDeUsuario.eliminarUsuario,
     );
   }
 
@@ -255,7 +246,6 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         apellido: apellido,
         idRol: idRol,
       ),
-      permisoRequerido: PermisoDeUsuario.verUsuario,
     );
   }
 }
