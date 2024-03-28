@@ -2,3 +2,5 @@
 dependency_overrides:
   escuelas_client:
     path: ../escuelas_client
+  escuelas_commons:
+    path: ../escuelas_commons
