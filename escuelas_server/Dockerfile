@@ -18,6 +18,8 @@ RUN apt-get update && apt-get install -y dart
 #RUN dart pub global activate serverpod_cli
 #RUN serverpod generate
 
+ENV DEPLOY_STATUS=ONLINE
+
 ENV runmode=development
 ENV serverid=default
 ENV logging=normal
