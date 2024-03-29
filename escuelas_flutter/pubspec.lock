@@ -371,11 +371,9 @@ packages:
   escuelas_commons:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: c240e3923b8f14361bc793b03163d235dff0fe4a
-      url: "https://github.com/juanjosegarcia98/escuelas_commons"
-    source: git
+      path: "../escuelas_commons"
+      relative: true
+    source: path
     version: "0.1.0+1"
   fake_async:
     dependency: transitive

@@ -1,6 +1,7 @@
 // ignore_for_file: always_specify_types
 
 import 'dart:io';
+import 'package:escuelas_server/utils/init_env.dart';
 import 'package:yaml_writer/yaml_writer.dart';
 
 /// Funcion que re-escribe el archivo de configuracion YAML. Usado para hacer
@@ -27,11 +28,10 @@ void rewriteConfigYaml(String mode) {
       'publicScheme': 'http',
     },
     'database': {
-      'host': 'aws-0-sa-east-1.pooler.supabase.com',
-      'port': 5432,
-      'name': 'postgres',
-      'user': 'postgres.mvdsvzvejhmrnxgdfdwz',
-      'password': 'L86Grm9pso3LyUdA',
+      'host': env.hostDb,
+      'port': env.puertoDb,
+      'name': env.nombreDb,
+      'user': env.usuarioDb,
     },
     'redis': {
       'enabled': false,

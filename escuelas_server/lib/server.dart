@@ -5,7 +5,9 @@ import 'package:escuelas_server/src/servicios/handlers/manejador_one_signal.dart
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/utils/logger.dart';
 import 'package:escuelas_server/utils/constants.dart';
+import 'package:escuelas_server/utils/init_env.dart';
 import 'package:escuelas_server/utils/rewrite_yaml.dart';
+import 'package:logging/logging.dart';
 import 'package:rolemissions/rolemissions.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart' as auth;
@@ -20,12 +22,18 @@ import 'src/generated/endpoints.dart';
 
 late final Serverpod pod;
 
-void run(List<String> args) async {
+Future<void> run(List<String> args) async {
   final ServicioComunicaciones _servicioComunicaciones =
       ServicioComunicaciones();
+
+  initEnv(
+    args.contains('--mode') ? args[args.indexOf('--mode') + 1] : 'development',
+  );
+
   rewriteConfigYaml(
     args.contains('--mode') ? args[args.indexOf('--mode') + 1] : 'development',
   );
+
   // Initialize Serverpod and connect it with your generated code.
   inicializarLogger(); // Initialize Serverpod and connect it with your generated code.
   pod = Serverpod(
@@ -115,4 +123,19 @@ void run(List<String> args) async {
 
   // Start the server.
   await pod.start();
+
+  if (pod.runMode == 'production') {
+    Logger('SERVER').info('''
+
+⚠️⚠️⚠️ PRECAUCIÓN ⚠️⚠️⚠️
+
+Servidor ejecutándose en modo PRODUCCIÓN.
+
+Peligro de pérdida o exposición de datos sensibles.
+Peligro de afectación de la experiencia de los usuarios.
+
+Manejarse con cuidado.
+
+''');
+  }
 }
