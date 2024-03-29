@@ -3,7 +3,7 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
-class OrmAsistencia extends ORM {
+class OrmAsistencia extends ORM<AsistenciaDiaria> {
   /// La función `crearAsistenciasEnLote` crea múltiples registros de asistencia diaria en una base de
   /// datos y devuelve un mensaje de éxito si todos los registros se crearon exitosamente.
   ///

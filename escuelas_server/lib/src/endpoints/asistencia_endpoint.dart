@@ -70,4 +70,19 @@ class AsistenciaEndpoint extends Endpoint with Controller<ServicioAsistencia> {
       permisoRequerido: PermisoDeAsistencia.editarAsistencia,
     );
   }
+
+  Future<double> obtenerCantidadDeInasistenciasDeUsuarioPorMesYAnio(
+    Session session, {
+    required int mes,
+    required int anio,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'obtenerCantidadDeInasistenciasDeUsuarioPorMesYAnio',
+        () => servicio.obtenerCantidadDeInasistenciasDeUsuarioPorMesYAnio(
+          session,
+          mes: mes,
+          anio: anio,
+        ),
+      );
 }

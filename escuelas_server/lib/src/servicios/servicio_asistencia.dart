@@ -1,5 +1,6 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_asistencia.dart';
+import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_one_signal.dart';
 import 'package:serverpod/serverpod.dart';
@@ -83,6 +84,41 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
         asistencias: asistencias,
       ),
     );
+  }
+
+  Future<double> obtenerCantidadDeInasistenciasDeUsuarioPorMesYAnio(
+    Session session, {
+    required int mes,
+    required int anio,
+  }) async {
+    final infoUsuario = await OrmUsuario().obtenerInfoBasicaUsuario(
+      session,
+      idUserInfo: await obtenerIdDeUsuarioLogueado(session),
+    );
+
+    double cantidadDeInasistencias = 0;
+
+    final inasistencias = await orm.listarRegistrosEnDbPorFiltro(
+      session, 
+      filtroCondicional: AsistenciaDiaria.t.estadoDeAsistencia
+              .notEquals(EstadoDeAsistencia.presente) &
+          AsistenciaDiaria.t.estadoDeAsistencia
+              .notEquals(EstadoDeAsistencia.sinEstado) &
+          AsistenciaDiaria.t.estudianteId.equals(infoUsuario.id) &
+          AsistenciaDiaria.t.fecha.between(
+            DateTime(anio, mes, 1),
+            DateTime(anio, mes + 1, 1).subtract(
+              Duration(days: 1),
+            ),
+          ) &
+          AsistenciaDiaria.t.fechaEliminacion.equals(null),
+    );
+
+    cantidadDeInasistencias += inasistencias.where((element) => element.estadoDeAsistencia == EstadoDeAsistencia.ausente).length;
+    cantidadDeInasistencias += ((inasistencias.where((element) => element.estadoDeAsistencia == EstadoDeAsistencia.mediaInasistencia).length) / 2);
+    cantidadDeInasistencias += ((inasistencias.where((element) => element.estadoDeAsistencia == EstadoDeAsistencia.cuartoDeInasistencia).length) / 4);
+
+    return cantidadDeInasistencias;
   }
 }
 
