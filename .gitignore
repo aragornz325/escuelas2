@@ -5,10 +5,13 @@ escuelas_flutter/macos/Flutter
 escuelas_flutter/windows/flutter
 
 .dart_tool/package_config.json
-escuelas_server/config/passwords.yaml
-escuelas_server/config/google_client_secret.json
-
-escuelas_server/lib/env/env.g.dart
-escuelas_server/lib/src/generated/
 
 pubspec.lock
+
+escuelas_server/config/passwords.yaml
+escuelas_server/config/google_client_secret.json
+escuelas_server/lib/env/env.g.dart
+escuelas_server/lib/src/generated/
+escuelas_server/config/development.yaml
+escuelas_server/config/staging.yaml
+escuelas_server/config/production.yaml
