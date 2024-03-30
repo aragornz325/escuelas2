@@ -3,7 +3,7 @@ table: instancias_de_evaluacion
 fields:
   nombre: String
   descripcion: String
-  autor: int, relation(parent=conceptos_calificacion)
+  autor: int, relation(parent=usuarios)
   idConcepto: int, relation(parent=conceptos_calificacion)
   fechaProgramada: DateTime
   fechaDeRealizacion: DateTime?
