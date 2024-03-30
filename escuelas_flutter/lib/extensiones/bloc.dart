@@ -35,32 +35,36 @@ Future<void> operacionBloc({
   try {
     return await callback(client);
   } on ExcepcionCustom catch (e, st) {
+    var ningunHandlerLlamado = true;
+    void callHandler(ExcepcionCustomErrorHandlerCallback callback) {
+      if (callback != _noOp) {
+        ningunHandlerLlamado = false;
+        callback.call(e, st);
+      }
+    }
+
     switch (e.tipoDeError) {
       case TipoExcepcion.noEncontrado:
-        onErrorNoEncontrado(e, st);
+        callHandler(onErrorNoEncontrado);
       case TipoExcepcion.noAutorizado:
       case TipoExcepcion.prohibido:
       case TipoExcepcion.solicitudIncorrecta:
-        onErrorCustom(e, st);
       case TipoExcepcion.sinConexion:
-        onSinConexion.call(e, st);
+        callHandler(onSinConexion);
       case TipoExcepcion.parseo:
       case TipoExcepcion.desconocido:
+        callHandler(onDesconocido);
       case TipoExcepcion.registerDuplicatedIdNumber:
       case TipoExcepcion.registerDuplicatedEmail:
-        onDesconocido.call(e, st);
+        callHandler(onErrorCustom);
     }
-  } catch (e, st) {
-    if (kDebugMode) debugger();
-    onError(e, st);
 
-    // En caso de que el back no resuelva, se crea una excepcion
-    // desconocida, handlear caso de error!
-    final ex = ExcepcionCustom(
-      titulo: 'ERROR DESCONOCIDO',
-      mensaje: 'UNKNOWN ERROR',
-      tipoDeError: TipoExcepcion.desconocido,
-      codigoError: 570,
-    );
+    if (ningunHandlerLlamado) onError(e, st);
+  } catch (e, st) {
+    if (kDebugMode) {
+      debugger(
+          message: 'error desconocido, handlear esto (q no debería pasar)');
+    }
+    onError(e, st);
   }
 }
