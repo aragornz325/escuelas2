@@ -49,7 +49,8 @@ class VistaCelularRegistro extends StatelessWidget {
             context: context,
             builder: (context) => EscuelasDialog.fallido(
               onTap: () => Navigator.pop(context),
-              content: Text(l10n.pageLoginDialogAnErrorOccurred),
+              content: Text(l10n.pageRegisterDialogContentText(
+                  state.excepcion.tipoDeError.name)),
             ),
           );
         }

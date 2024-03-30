@@ -53,6 +53,20 @@
       }
     }
   },
+  "pageRegisterDialogContentText": "{exceptionType, select, registerDuplicatedIdNumber{The ID number is already taken} registerDuplicatedEmail{The e-mail provided is in use already.} other{Unknown error}}",
+  "@pageRegisterDialogContentText": {
+    "description": "Text in the dialog to indicate that an error ocurred",
+    "placeholders":{
+      "exceptionType": {
+        "type":"String",
+        "description": "the possible exceptions types that a register page can throw",
+        "values":{
+          "registerDuplicatedIdNumber": "when an Id number is already taken",
+          "registerDuplicatedEmail": "when the email address provided is already in use"
+        }
+      }
+    }
+  },
   "pageRoleAssigmentPersonalInformation": "Personal information",
   "@pageRoleAssigmentPersonalInformation": {
     "description": "Message used to represent the personal information section in role assignment."

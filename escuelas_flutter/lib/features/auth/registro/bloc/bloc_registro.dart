@@ -31,7 +31,7 @@ class BlocRegistro extends Bloc<BlocRegistroEvento, BlocRegistroEstado> {
     emit(BlocRegistroEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final response = await client.userInfo.registrarUserInfo(
+        final userInfo = await client.userInfo.registrarUserInfo(
           nombre: event.nombre.trim(),
           apellido: event.apellido.trim(),
           email: event.email,
@@ -39,20 +39,16 @@ class BlocRegistro extends Bloc<BlocRegistroEvento, BlocRegistroEstado> {
           dni: event.documento,
         );
 
-        if (response) {
-          emit(
-            BlocRegistroEstadoExitosoAlRegistrar.desde(state),
-          );
-        } else {
-          emit(
-            BlocRegistroEstadoErrorGeneral.desde(state),
-          );
-        }
+        emit(
+          BlocRegistroEstadoExitosoAlRegistrar.desde(state, userInfo),
+        );
       },
       onError: (e, st) {
-        emit(
-          BlocRegistroEstadoErrorGeneral.desde(state),
-        );
+        if (e is ExcepcionCustom) {
+          emit(
+            BlocRegistroEstadoErrorGeneral.desde(state, e),
+          );
+        }
       },
     );
   }

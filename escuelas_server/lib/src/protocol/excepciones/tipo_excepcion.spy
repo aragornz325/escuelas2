@@ -7,3 +7,5 @@ values:
   - solicitudIncorrecta
   - parseo
   - desconocido
+  - registerDuplicatedIdNumber
+  - registerDuplicatedEmail

@@ -275,6 +275,20 @@
   "@pageLoginDialogAnErrorOccurred": {
     "description": "Text in the dialog to indicate that an error ocurred"
   },
+  "pageRegisterDialogContentText": "{exceptionType, select, registerDuplicatedIdNumber{El número de DNI ya se ha utilizado} registerDuplicatedEmail{El email provisto se encuentra en uso.} other{Error desconocido}}",
+  "@pageRegisterDialogContentText": {
+    "description": "Text in the dialog to indicate that an error ocurred",
+    "placeholders":{
+      "exceptionType": {
+        "type":"String",
+        "description": "the possible exceptions types that a register page can throw",
+        "values":{
+          "registerDuplicatedIdNumber": "when an Id number is already taken",
+          "registerDuplicatedEmail": "when the email address provided is already in use"
+        }
+      }
+    }
+  },
   "pageHomeNoOptionsMenu": "No hay menús disponibles",
   "@pageHomeNoOptionsMenu": {
     "description": "There are no options available in the menu"
