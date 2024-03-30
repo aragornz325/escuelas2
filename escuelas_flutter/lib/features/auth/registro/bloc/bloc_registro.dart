@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/isar/isar_servicio.dart';
 import 'package:escuelas_flutter/one_signal/one_signal_servicio.dart';
 import 'package:escuelas_flutter/utilidades/funciones/cerrar_sesion_usuario.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:serverpod_auth_client/module.dart';
@@ -43,12 +46,17 @@ class BlocRegistro extends Bloc<BlocRegistroEvento, BlocRegistroEstado> {
           BlocRegistroEstadoExitosoAlRegistrar.desde(state, userInfo),
         );
       },
+      onErrorCustom: (e, st) {
+        emit(
+          BlocRegistroEstadoErrorGeneral.desde(state, e),
+        );
+      },
       onError: (e, st) {
-        if (e is ExcepcionCustom) {
-          emit(
-            BlocRegistroEstadoErrorGeneral.desde(state, e),
-          );
-        }
+        if (kDebugMode) debugger(message: 'handlear este error nuevo');
+        emit(
+          BlocRegistroEstadoErrorGeneral.desde(
+              state, ExcepcionCustom(tipoDeError: TipoExcepcion.desconocido)),
+        );
       },
     );
   }

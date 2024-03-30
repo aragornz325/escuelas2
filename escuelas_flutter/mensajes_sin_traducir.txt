@@ -1,1 +1,7 @@
-{}
+{
+  "en": [
+    "pageKycFormWhatYearIsYourSubject",
+    "pageGradesNotGrades",
+    "commonButtonDecline"
+  ]
+}

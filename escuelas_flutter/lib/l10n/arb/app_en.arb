@@ -44,6 +44,10 @@
   "@pageRegisterInvalidDni": {
     "description": ""
   },
+  "pageRegisterRegisterSuccessful": "Register successful",
+  "@pageRegisterRegisterSuccessful": {
+    "description": "a bottom sheet that displays the successful message"
+  },
   "pageRegisterMinimumCaractersForPassword": "The password must have at least {numberOfCaracters} characters",
   "@pageRegisterMinimumCaractersForPassword": {
     "description": "",
