@@ -114,27 +114,24 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
     return userInfoActualizado;
   }
 
-  Future<bool> reiniciarPasswordDelUsuario(
+  Future<bool> cambiarPasswordDelUsuario(
     Session session, {
-    required String antiguaPassword,
     required String nuevaPassword,
   }) async {
     final idUsuario = await obtenerIdDeUsuarioLogueado(session);
 
-    final reiniciarPassword = await Emails.changePassword(session, idUsuario, antiguaPassword, nuevaPassword);
-
-    if (reiniciarPassword == false) {
-      throw ExcepcionCustom(tipoDeError: TipoExcepcion.passwordAntiguaIncorrecta);
-    }
-
-    final registroUsuario = await _ormUsuario.obtenerInfoBasicaUsuario(session, idUserInfo: idUsuario);
-
-    await _ormUsuario.actualizarUsuario(session, usuario: registroUsuario..necesitaCambiarPassword = false);
-
-    return reiniciarPassword;
+    return await _cambiarPasswordDeUsuario(session, idUsuario: idUsuario, nuevaPassword: nuevaPassword);
   }
 
   Future<bool> cambiarPasswordDeUsuarioDirectivo(
+    Session session, {
+    required int idUsuario,
+    required String nuevaPassword,
+  }) async {
+    return await _cambiarPasswordDeUsuario(session, idUsuario: idUsuario, nuevaPassword: nuevaPassword);
+  }
+
+  Future<bool> _cambiarPasswordDeUsuario(
     Session session, {
     required int idUsuario,
     required String nuevaPassword,
