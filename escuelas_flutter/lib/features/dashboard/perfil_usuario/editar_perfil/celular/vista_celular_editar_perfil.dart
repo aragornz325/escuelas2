@@ -17,11 +17,15 @@ class VistaCelularEditarPerfil extends StatelessWidget {
   /// {@macro VistaCelularEditarPerfil}
   const VistaCelularEditarPerfil({
     required this.dniUsuario,
+    required this.idUsuario,
     super.key,
   });
 
   /// DNI del usuario
   final String dniUsuario;
+
+  /// id del usuario
+  final int idUsuario;
 
   /// dialog de exito al guardar los cambios en la BD
   void _dialogDeExitoAlGuardarCambios(BuildContext context) {
@@ -47,6 +51,7 @@ class VistaCelularEditarPerfil extends StatelessWidget {
         child: ListView(
           children: [
             _DatosPersonalesAEditar(
+              idUsuario: idUsuario,
               dniUsuario: dniUsuario,
             ),
             SizedBox(height: max(20.ph, 20.sh)),
@@ -65,9 +70,11 @@ class _DatosPersonalesAEditar extends StatelessWidget {
   /// {@macro _DatosPersonalesAEditar}
   const _DatosPersonalesAEditar({
     required this.dniUsuario,
+    required this.idUsuario,
   });
 
   final String dniUsuario;
+  final int idUsuario;
 
   @override
   Widget build(BuildContext context) {
@@ -105,6 +112,7 @@ class _DatosPersonalesAEditar extends StatelessWidget {
               ),
               FormularioDePerfilUsuario(
                 dniUsuario: dniUsuario,
+                idUsuario: idUsuario,
               ),
             ],
           ),

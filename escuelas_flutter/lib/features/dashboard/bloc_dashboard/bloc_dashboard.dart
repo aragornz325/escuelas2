@@ -27,6 +27,7 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
     on<BlocDashboardEventoObtenerAsignaturaYComision>(
       _onObtenerAsignaturaYComision,
     );
+    on<BlocDashboardEventoCambiarContrasenia>(_onCambiarContrasenia);
   }
 
   /// Evento inicial donde trae todos los cursos del usuario.
@@ -86,6 +87,31 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
           BlocDashboardEstadoFallido.desde(state),
         );
       },
+    );
+  }
+
+  /// Cambia la contrasenia del usuario
+  Future<void> _onCambiarContrasenia(
+    BlocDashboardEventoCambiarContrasenia event,
+    Emitter<BlocDashboardEstado> emit,
+  ) async {
+    emit(BlocDashboardEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        await client.userInfo.cambiarPasswordPropia(
+          nuevaPassword: event.nuevaContrasenia,
+        );
+
+        final usuario = state.usuario..necesitaCambiarPassword = false;
+
+        emit(
+          BlocDashboardEstadoExitosoAlCambiarLaContrasenia.desde(
+            state,
+            usuario: usuario,
+          ),
+        );
+      },
+      onError: (e, st) => emit(BlocDashboardEstadoFallido.desde(state)),
     );
   }
 }

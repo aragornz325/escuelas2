@@ -32,13 +32,18 @@ const UsuarioIsarSchema = CollectionSchema(
       name: r'idUsuario',
       type: IsarType.long,
     ),
-    r'nombre': PropertySchema(
+    r'necesitaCambiarPassword': PropertySchema(
       id: 3,
+      name: r'necesitaCambiarPassword',
+      type: IsarType.bool,
+    ),
+    r'nombre': PropertySchema(
+      id: 4,
       name: r'nombre',
       type: IsarType.string,
     ),
     r'urlFotoDePerfil': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'urlFotoDePerfil',
       type: IsarType.string,
     )
@@ -78,8 +83,9 @@ void _usuarioIsarSerialize(
   writer.writeString(offsets[0], object.apellido);
   writer.writeLong(offsets[1], object.idUserInfo);
   writer.writeLong(offsets[2], object.idUsuario);
-  writer.writeString(offsets[3], object.nombre);
-  writer.writeString(offsets[4], object.urlFotoDePerfil);
+  writer.writeBool(offsets[3], object.necesitaCambiarPassword);
+  writer.writeString(offsets[4], object.nombre);
+  writer.writeString(offsets[5], object.urlFotoDePerfil);
 }
 
 UsuarioIsar _usuarioIsarDeserialize(
@@ -93,8 +99,9 @@ UsuarioIsar _usuarioIsarDeserialize(
   object.idIsar = id;
   object.idUserInfo = reader.readLong(offsets[1]);
   object.idUsuario = reader.readLongOrNull(offsets[2]);
-  object.nombre = reader.readString(offsets[3]);
-  object.urlFotoDePerfil = reader.readString(offsets[4]);
+  object.necesitaCambiarPassword = reader.readBool(offsets[3]);
+  object.nombre = reader.readString(offsets[4]);
+  object.urlFotoDePerfil = reader.readString(offsets[5]);
   return object;
 }
 
@@ -112,8 +119,10 @@ P _usuarioIsarDeserializeProp<P>(
     case 2:
       return (reader.readLongOrNull(offset)) as P;
     case 3:
-      return (reader.readString(offset)) as P;
+      return (reader.readBool(offset)) as P;
     case 4:
+      return (reader.readString(offset)) as P;
+    case 5:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -535,6 +544,16 @@ extension UsuarioIsarQueryFilter
     });
   }
 
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition>
+      necesitaCambiarPasswordEqualTo(bool value) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'necesitaCambiarPassword',
+        value: value,
+      ));
+    });
+  }
+
   QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> nombreEqualTo(
     String value, {
     bool caseSensitive = true,
@@ -850,6 +869,20 @@ extension UsuarioIsarQuerySortBy
     });
   }
 
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy>
+      sortByNecesitaCambiarPassword() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'necesitaCambiarPassword', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy>
+      sortByNecesitaCambiarPasswordDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'necesitaCambiarPassword', Sort.desc);
+    });
+  }
+
   QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy> sortByNombre() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nombre', Sort.asc);
@@ -926,6 +959,20 @@ extension UsuarioIsarQuerySortThenBy
     });
   }
 
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy>
+      thenByNecesitaCambiarPassword() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'necesitaCambiarPassword', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy>
+      thenByNecesitaCambiarPasswordDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'necesitaCambiarPassword', Sort.desc);
+    });
+  }
+
   QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy> thenByNombre() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'nombre', Sort.asc);
@@ -973,6 +1020,13 @@ extension UsuarioIsarQueryWhereDistinct
     });
   }
 
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QDistinct>
+      distinctByNecesitaCambiarPassword() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'necesitaCambiarPassword');
+    });
+  }
+
   QueryBuilder<UsuarioIsar, UsuarioIsar, QDistinct> distinctByNombre(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
@@ -1012,6 +1066,13 @@ extension UsuarioIsarQueryProperty
   QueryBuilder<UsuarioIsar, int?, QQueryOperations> idUsuarioProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'idUsuario');
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, bool, QQueryOperations>
+      necesitaCambiarPasswordProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'necesitaCambiarPassword');
     });
   }
 

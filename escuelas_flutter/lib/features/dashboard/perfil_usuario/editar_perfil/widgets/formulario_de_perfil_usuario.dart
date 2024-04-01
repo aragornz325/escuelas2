@@ -16,11 +16,14 @@ class FormularioDePerfilUsuario extends StatefulWidget {
   /// {@macro _FormularioDePerfilUsuario}
   const FormularioDePerfilUsuario({
     required this.dniUsuario,
+    required this.idUsuario,
     super.key,
   });
 
   /// dni del usuario
   final String dniUsuario;
+
+  final int idUsuario;
 
   @override
   State<FormularioDePerfilUsuario> createState() =>
@@ -79,12 +82,14 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
   Future<void> _onEditarPassword(
     BuildContext context, {
     required String dniUsuario,
+    required int idUsuario,
   }) {
     return showDialog<void>(
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocEditarPerfil>(),
         child: DialogEditarPassword(
+          idUsuario: idUsuario,
           dniUsuario: dniUsuario,
         ),
       ),
@@ -435,8 +440,11 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
             Center(
               child: EscuelasBoton.texto(
                 estaHabilitado: true,
-                onTap: () =>
-                    _onEditarPassword(context, dniUsuario: widget.dniUsuario),
+                onTap: () => _onEditarPassword(
+                  context,
+                  dniUsuario: widget.dniUsuario,
+                  idUsuario: widget.idUsuario,
+                ),
                 color: colores.amarilloCuartoFalta,
                 texto: 'Cambiar contraseña',
                 context: context,
@@ -453,17 +461,20 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
 class DialogEditarPassword extends StatefulWidget {
   const DialogEditarPassword({
     required this.dniUsuario,
+    required this.idUsuario,
     super.key,
   });
 
   final String dniUsuario;
+  final int idUsuario;
   @override
   State<DialogEditarPassword> createState() => _DialogEditarPasswordState();
 }
 
 class _DialogEditarPasswordState extends State<DialogEditarPassword> {
   late TextEditingController _controllerNuevaPassword = TextEditingController();
-  // final _controllerRepetirNuevaPassword = TextEditingController();
+  bool requerirCambioPassword = true;
+
   @override
   void initState() {
     _controllerNuevaPassword = TextEditingController(text: widget.dniUsuario);
@@ -488,7 +499,9 @@ class _DialogEditarPasswordState extends State<DialogEditarPassword> {
         Navigator.of(context).pop();
         context.read<BlocEditarPerfil>().add(
               BlocEditarPerfilEventoEditarPassword(
+                conRequerimientoDeCambioDePassword: requerirCambioPassword,
                 nuevaPassword: _controllerNuevaPassword.text,
+                idUsuario: widget.idUsuario,
               ),
             );
       },
@@ -500,6 +513,19 @@ class _DialogEditarPasswordState extends State<DialogEditarPassword> {
             onChanged: (v) => setState(() {}),
           ),
           SizedBox(height: max(5.ph, 5.sh)),
+          Row(
+            children: [
+              Text('Requerir cambio de password'),
+              Checkbox(
+                value: requerirCambioPassword,
+                onChanged: (v) {
+                  setState(() {
+                    requerirCambioPassword = v!;
+                  });
+                },
+              ),
+            ],
+          )
           // EscuelasTextFieldPassword(
           //   controller: _controllerRepetirNuevaPassword,
           //   onValidate: (v) {},

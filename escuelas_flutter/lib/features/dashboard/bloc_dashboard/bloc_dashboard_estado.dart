@@ -92,3 +92,15 @@ class BlocDashboardEstadoLogueoFallido extends BlocDashboardEstado {
   /// {@macro BlocDashboardEstadoLogueoFallido}
   BlocDashboardEstadoLogueoFallido.desde(super.otro) : super.desde();
 }
+
+/// {@template BlocDashboardEstadoExitosoAlCambiarLaContrasenia}
+/// Estado de éxito de [BlocDashboardEstado] cuando se cambia la contraseña.
+/// {@endtemplate}
+class BlocDashboardEstadoExitosoAlCambiarLaContrasenia
+    extends BlocDashboardEstado {
+  /// {@macro BlocDashboardEstadoExitosoAlCambiarLaContrasenia}
+  BlocDashboardEstadoExitosoAlCambiarLaContrasenia.desde(
+    super.otro, {
+    super.usuario,
+  }) : super.desde();
+}

@@ -41,6 +41,7 @@ class PaginaEditarPerfil extends StatelessWidget {
       child: FullResponsiveScreen(
         celular: VistaCelularEditarPerfil(
           dniUsuario: dniUsuario,
+          idUsuario: idUsuario,
         ),
         escritorio: const VistaEscritorioEditarPerfil(),
       ),

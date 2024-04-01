@@ -21,6 +21,7 @@ sealed class BlocEditarPerfilEstado {
     this.telefonoTutor,
     this.observaciones,
     this.nuevaPassword,
+    this.conRequerimientoDeCambioDePassword,
   });
 
   BlocEditarPerfilEstado.desde(
@@ -38,6 +39,7 @@ sealed class BlocEditarPerfilEstado {
     String? nombreUsuario,
     String? factorSanguineo,
     String? nuevaPassword,
+    bool? conRequerimientoDeCambioDePassword,
   }) : this._(
           edad: edad ?? otro.edad,
           email: email ?? otro.email,
@@ -52,6 +54,9 @@ sealed class BlocEditarPerfilEstado {
           nombreUsuario: nombreUsuario ?? otro.nombreUsuario,
           factorSanguineo: factorSanguineo ?? otro.factorSanguineo,
           nuevaPassword: nuevaPassword ?? otro.nuevaPassword,
+          conRequerimientoDeCambioDePassword:
+              conRequerimientoDeCambioDePassword ??
+                  otro.conRequerimientoDeCambioDePassword,
         );
 
   /// Nombre del usuario.
@@ -72,6 +77,7 @@ sealed class BlocEditarPerfilEstado {
   final String? telefonoTutor;
   final String? observaciones;
   final String? nuevaPassword;
+  final bool? conRequerimientoDeCambioDePassword;
 }
 
 /// {@template BlocEditarPerfilEstadoInitial}
@@ -131,6 +137,7 @@ class BlocEditarPerfilEstadoExitosoEditarPassword
   BlocEditarPerfilEstadoExitosoEditarPassword.desde(
     super.otro, {
     super.nuevaPassword,
+    super.conRequerimientoDeCambioDePassword,
   }) : super.desde();
 }
 

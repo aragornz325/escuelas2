@@ -152,11 +152,13 @@ class EscuelasDialog extends StatelessWidget {
   factory EscuelasDialog.confirmar({
     required VoidCallback onTapConfirmar,
     required Widget content,
+    bool conIconoCerrar = true,
     String? titulo,
     double? altura,
     double? ancho,
   }) {
     return EscuelasDialog(
+      conIconoCerrar: conIconoCerrar,
       ancho: ancho,
       altura: altura,
       onTapConfirmar: onTapConfirmar,

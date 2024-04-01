@@ -87,7 +87,11 @@ class BlocEditarPerfilEventoConfirmarCambios extends BlocEditarPerfilEvento {
 class BlocEditarPerfilEventoEditarPassword extends BlocEditarPerfilEvento {
   const BlocEditarPerfilEventoEditarPassword({
     required this.nuevaPassword,
+    required this.idUsuario,
+    required this.conRequerimientoDeCambioDePassword,
   });
 
   final String nuevaPassword;
+  final int idUsuario;
+  final bool conRequerimientoDeCambioDePassword;
 }
