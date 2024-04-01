@@ -98,10 +98,8 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
     emit(BlocDashboardEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        /// TODO: Implementar el cambio de contrasenia
-        await client.userInfo.reiniciarPasswordDelUsuario(
-          antiguaPassword: antiguaPassword,
-          nuevaPassword: nuevaPassword,
+        await client.userInfo.cambiarPasswordDelUsuario(
+          nuevaPassword: event.nuevaContrasenia,
         );
 
         final usuario = state.usuario..necesitaCambiarPassword = false;
