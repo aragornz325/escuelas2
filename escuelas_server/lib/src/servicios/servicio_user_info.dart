@@ -114,23 +114,40 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
     return userInfoActualizado;
   }
 
-  Future<bool> reiniciarPasswordDelUsuario(
+  Future<bool> cambiarPasswordDelUsuario(
     Session session, {
-    required String antiguaPassword,
     required String nuevaPassword,
   }) async {
     final idUsuario = await obtenerIdDeUsuarioLogueado(session);
 
-    final reiniciarPassword = await Emails.changePassword(session, idUsuario, antiguaPassword, nuevaPassword);
+    return await _cambiarPasswordDeUsuario(session, idUsuario: idUsuario, nuevaPassword: nuevaPassword);
+  }
 
-    if (reiniciarPassword == false) {
-      throw ExcepcionCustom(tipoDeError: TipoExcepcion.passwordAntiguaIncorrecta);
+  Future<bool> cambiarPasswordDeUsuarioDirectivo(
+    Session session, {
+    required int idUsuario,
+    required String nuevaPassword,
+  }) async {
+    return await _cambiarPasswordDeUsuario(session, idUsuario: idUsuario, nuevaPassword: nuevaPassword);
+  }
+
+  Future<bool> _cambiarPasswordDeUsuario(
+    Session session, {
+    required int idUsuario,
+    required String nuevaPassword,
+  }) async {
+    var auth = await EmailAuth.db.findFirstRow(
+      session,
+      where: (t) => t.userId.equals(idUsuario),
+    );
+    if (auth == null) {
+      return false;
     }
 
-    final registroUsuario = await _ormUsuario.obtenerInfoBasicaUsuario(session, idUserInfo: idUsuario);
+    // Update password
+    auth.hash = Emails.generatePasswordHash(nuevaPassword, auth.email);
+    await EmailAuth.db.updateRow(session, auth);
 
-    await _ormUsuario.actualizarUsuario(session, usuario: registroUsuario..necesitaCambiarPassword = false);
-
-    return reiniciarPassword;
+    return true;
   }
 }

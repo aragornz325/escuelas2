@@ -1,3 +1,4 @@
+import 'package:escuelas_commons/permisos/permisos.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/servicios/servicio_user_info.dart';
 import 'package:serverpod/serverpod.dart';
@@ -28,18 +29,32 @@ class UserInfoEndpoint extends Endpoint with Controller<ServicioUserInfo> {
         ),
       );
 
-  Future<bool> reiniciarPasswordDelUsuario(
+  Future<bool> cambiarPasswordDelUsuario(
     Session session, {
-    required String antiguaPassword,
     required String nuevaPassword,
   }) =>
       ejecutarOperacionControlador(
         session,
         'reiniciarPasswordDelUsuario',
-        () => servicio.reiniciarPasswordDelUsuario(
+        () => servicio.cambiarPasswordDelUsuario(
           session,
-          antiguaPassword: antiguaPassword,
           nuevaPassword: nuevaPassword,
         ),
+      );
+
+  Future<bool> cambiarPasswordDeUsuarioDirectivo(
+    Session session, {
+    required int idUsuario,
+    required String nuevaPassword,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'cambiarPasswordDeUsuarioDirectivo',
+        () => servicio.cambiarPasswordDeUsuarioDirectivo(
+          session,
+          idUsuario: idUsuario,
+          nuevaPassword: nuevaPassword,
+        ),
+        permisoRequerido: PermisoDeUsuario.cambiarPasswordDeUsuarioDirectivo,
       );
 }
