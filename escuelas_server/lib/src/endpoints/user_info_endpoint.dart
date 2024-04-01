@@ -29,31 +29,35 @@ class UserInfoEndpoint extends Endpoint with Controller<ServicioUserInfo> {
         ),
       );
 
-  Future<bool> cambiarPasswordDelUsuario(
+  Future<bool> cambiarPasswordPropia(
     Session session, {
     required String nuevaPassword,
   }) =>
       ejecutarOperacionControlador(
         session,
-        'reiniciarPasswordDelUsuario',
-        () => servicio.cambiarPasswordDelUsuario(
+        'cambiarPasswordPropia',
+        () => servicio.cambiarPasswordPropia(
           session,
           nuevaPassword: nuevaPassword,
         ),
       );
 
-  Future<bool> cambiarPasswordDeUsuarioDirectivo(
+  /// `conRequerimientoDeCambioDePassword` indica si se le debe requerir al usuario
+  /// un cambio de contraseña la próxima vez que inicie sesión.
+  Future<bool> cambiarPasswordDeOtroUsuario(
     Session session, {
     required int idUsuario,
     required String nuevaPassword,
+    required bool conRequerimientoDeCambioDePassword,
   }) =>
       ejecutarOperacionControlador(
         session,
-        'cambiarPasswordDeUsuarioDirectivo',
-        () => servicio.cambiarPasswordDeUsuarioDirectivo(
+        'cambiarPasswordDeOtroUsuario',
+        () => servicio.cambiarPasswordDeOtroUsuario(
           session,
           idUsuario: idUsuario,
           nuevaPassword: nuevaPassword,
+          conRequerimientoDeCambioDePassword: conRequerimientoDeCambioDePassword,
         ),
         permisoRequerido: PermisoDeUsuario.cambiarPasswordDeUsuarioDirectivo,
       );
