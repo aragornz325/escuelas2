@@ -1,9 +1,11 @@
+import 'dart:io';
+
 import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/endpoints/rol_endpoint.dart';
 import 'package:escuelas_server/server.dart';
 
 Future<void> main(List<String> args) async {
-  final runMode = 'production';
+  final runMode = 'development';
 
   final permisosEstudiante = [
     <Enum>[
@@ -132,4 +134,6 @@ Future<void> main(List<String> args) async {
       permisos: Permisos.fromEnumList(roles[rol]!).toSerialization(),
     );
   }
+
+  exit(0);
 }

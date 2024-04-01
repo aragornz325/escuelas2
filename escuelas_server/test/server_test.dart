@@ -3,6 +3,7 @@
 import 'package:escuelas_server/src/generated/endpoints.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/utils/logger.dart';
+import 'package:escuelas_server/utils/init_env.dart';
 import 'package:escuelas_server/utils/rewrite_yaml.dart';
 import 'package:rolemissions/rolemissions.dart';
 import 'package:serverpod/serverpod.dart';
@@ -18,8 +19,10 @@ Future<void> runServerTesting(List<String> args) async {
   final indexArgumentoDeModo = args.contains(flagArgumentoDeModo) ? args.indexOf(flagArgumentoDeModo) + 1 : null;
   final argumentoDeModo = indexArgumentoDeModo != null ? args[indexArgumentoDeModo] : null;
       
+  initEnv(modoDevelopment);
+
   rewriteConfigYaml(
-    argumentoDeModo ?? modoDevelopment,
+    modoDevelopment,
   );
 
   inicializarLogger();
