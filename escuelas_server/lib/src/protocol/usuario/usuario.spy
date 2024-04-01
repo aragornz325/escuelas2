@@ -24,6 +24,7 @@ fields:
   comisiones: List<RelacionComisionUsuario>?, relation(name=usuario_comisiones)
   asignaturas: List<RelacionAsignaturaUsuario>?, relation(name=usuario_asignaturas)
   privileges: String?
+  necesitaCambiarPassword: bool?
 indexes:
   userinfo_unique_idx:
     fields: idUserInfo

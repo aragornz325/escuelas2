@@ -388,6 +388,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           urlFotoDePerfil: usuarioPendiente.urlFotoDePerfil,
           fechaCreacion: ahora,
           ultimaModificacion: ahora,
+          necesitaCambiarPassword: true,
         ),
       ),
     );

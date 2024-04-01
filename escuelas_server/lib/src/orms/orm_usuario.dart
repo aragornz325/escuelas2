@@ -36,16 +36,7 @@ class OrmUsuario extends ORM {
     );
 
     if (usuario == null) {
-      return Usuario(
-        apellido: '',
-        nombre: '',
-        id: 0,
-        idUserInfo: 0,
-        roles: {},
-        fechaCreacion: DateTime.now(),
-        ultimaModificacion: DateTime.now(),
-        urlFotoDePerfil: '',
-      );
+      throw ExcepcionCustom(tipoDeError: TipoExcepcion.desconocido);
     }
 
     final roles = await _obtenerRolesDeUsuario(session, usuario);
