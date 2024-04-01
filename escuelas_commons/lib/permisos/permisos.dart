@@ -66,6 +66,7 @@ enum PermisoDeUsuario {
   eliminarUsuario,
   crearUsuario,
   responderSolicitudDeRegistro,
+  cambiarPasswordDeUsuarioDirectivo,
   accesoPublico,
 }
 

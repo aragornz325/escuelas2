@@ -133,4 +133,24 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
 
     return reiniciarPassword;
   }
+
+  Future<bool> cambiarPasswordDeUsuarioDirectivo(
+    Session session, {
+    required int idUsuario,
+    required String nuevaPassword,
+  }) async {
+    var auth = await EmailAuth.db.findFirstRow(
+      session,
+      where: (t) => t.userId.equals(idUsuario),
+    );
+    if (auth == null) {
+      return false;
+    }
+
+    // Update password
+    auth.hash = Emails.generatePasswordHash(nuevaPassword, auth.email);
+    await EmailAuth.db.updateRow(session, auth);
+
+    return true;
+  }
 }
