@@ -141,6 +141,8 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                               width: 70.sw,
                               decoration:
                                   BoxDecoration(color: colores.secondary),
+                              child: Image.network(
+                                  'https://res.cloudinary.com/dovck0lft/image/upload/v1710430707/contentHeadingImages/img_content_63_1710430707199.jpg'),
                             ),
                             Padding(
                               padding: EdgeInsets.only(bottom: 20.ph),

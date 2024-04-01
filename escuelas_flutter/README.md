@@ -180,3 +180,5 @@ Alternatively, run `flutter run` and code generation will take place automatical
 directivo: juanjgar998@gmail.com - Password123!
 docente: benitezfedericonicolas.dev@gmail.com
 alumno: juanjose.garcia98@yahoo.com.ar
+
+shorebird release android -t lib/main_staging.dart --flavor staging --artifact apk
