@@ -17,16 +17,15 @@ class BlocInicioEstado {
   }) : this._(
           hayUsuariosPendientes:
               hayUsuariosPendientes ?? otro.hayUsuariosPendientes,
-          cantidadNotificacionesPendientes:
-              cantidadNotificacionesPendientes ??
-                  otro.cantidadNotificacionesPendientes,
+          cantidadNotificacionesPendientes: cantidadNotificacionesPendientes ??
+              otro.cantidadNotificacionesPendientes,
         );
 
   /// Indica si hay usuarios pendientes para señalizar al usuario con un circulo
   /// rojo.
   final bool hayUsuariosPendientes;
 
-  /// Cantidad de solicitudes de notificaciones pendientes para poder 
+  /// Cantidad de solicitudes de notificaciones pendientes para poder
   /// señalizarle al usuario la cantidad de las mismas en el menu inicio.
   final int cantidadNotificacionesPendientes;
 }
@@ -57,6 +56,16 @@ class BlocInicioEstadoExitoso extends BlocInicioEstado {
     super.hayUsuariosPendientes,
     super.cantidadNotificacionesPendientes,
   }) : super.desde();
+}
+
+/// {@template BlocInicioEstadoExitosoAlCambiarLaContrasenia}
+/// Estado de éxito de [BlocInicioEstado] cuando se cambia la contraseña.
+/// {@endtemplate}
+class BlocInicioEstadoExitosoAlCambiarLaContrasenia extends BlocInicioEstado {
+  /// {@macro BlocInicioEstadoExitosoAlCambiarLaContrasenia}
+  BlocInicioEstadoExitosoAlCambiarLaContrasenia.desde(
+    super.otro,
+  ) : super.desde();
 }
 
 /// {@template BlocInicioEstadoFallido}

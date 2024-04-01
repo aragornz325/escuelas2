@@ -297,6 +297,14 @@
   "@pageHomeNoOptionsMenu": {
     "description": "There are no options available in the menu"
   },
+  "pageHomeYouChangePassword": "Tenes que cambiar tu contraseña.",
+  "@pageHomeYouChangePassword": {
+    "description": "Message displayed to prompt the user to change their password on the home page."
+  },
+  "pageHomeChangePasswordSuccess": "Contraseña cambiada exitosamente",
+  "@pageHomeChangePasswordSuccess": {
+    "description": "Message displayed to inform the user that their password has been successfully changed."
+  },
   "pageGradesNotGrades": "No hay calificaciones",
   "@pageGradesNotGrades": {
     "description": "Text to be displayed if there are no grades"

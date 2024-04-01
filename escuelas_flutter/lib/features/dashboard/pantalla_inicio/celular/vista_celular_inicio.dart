@@ -7,9 +7,20 @@ import 'package:flutter/material.dart';
 /// de acuerdo a los permisos del usuario.
 /// {@endtemplate}
 
-class VistaCelularInicio extends StatelessWidget {
+class VistaCelularInicio extends StatefulWidget {
   /// {@macro VistaCelularInicio}
   const VistaCelularInicio({super.key});
+
+  @override
+  State<VistaCelularInicio> createState() => _VistaCelularInicioState();
+}
+
+class _VistaCelularInicioState extends State<VistaCelularInicio> {
+  @override
+  void initState() {
+    super.initState();
+    // TODO: implementar si el usuario necesita cambiar la contraseña
+  }
 
   @override
   Widget build(BuildContext context) {

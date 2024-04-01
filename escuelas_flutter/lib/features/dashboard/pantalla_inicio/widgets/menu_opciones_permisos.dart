@@ -41,6 +41,36 @@ class MenuOpcionesPermisos extends StatelessWidget {
     );
   }
 
+  /// Muestra dialog de exito al cambiar la contraseña.
+  Future<void> _showDialogExitoAlCambiarContrasenia(BuildContext context) {
+    final l10n = context.l10n;
+    final colores = context.colores;
+
+    return showDialog<void>(
+      context: context,
+      builder: (context) => EscuelasDialog.exitoso(
+        context: context,
+        onTap: () => Navigator.of(context).pop(),
+        content: Column(
+          children: [
+            SizedBox(height: 20.ph),
+            Center(
+              child: Text(
+                l10n.pageHomeChangePasswordSuccess,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 16.pf,
+                  color: colores.onBackground,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   /// Devuelve de acuerdo al usuario su lista de vistas permitidas.
   List<MenuOpcionesDeInicio> _menusPermitidos(BuildContext context) {
     final usuario = context.read<BlocDashboard>().state.usuario;
@@ -66,6 +96,9 @@ class MenuOpcionesPermisos extends StatelessWidget {
       listener: (context, state) {
         if (state is BlocInicioEstadoFallido) {
           _showDialogError(context);
+        }
+        if (state is BlocInicioEstadoExitosoAlCambiarLaContrasenia) {
+          _showDialogExitoAlCambiarContrasenia(context);
         }
       },
       builder: (context, state) {
