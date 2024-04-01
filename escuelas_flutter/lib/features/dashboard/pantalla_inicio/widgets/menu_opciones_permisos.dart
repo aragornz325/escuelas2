@@ -3,6 +3,7 @@ import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/utilidades/enum_menu_opciones_de_inicio.dart';
+import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/widgets/dialogs/dialog_cambiar_contrasenia.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
@@ -14,9 +15,26 @@ import 'package:full_responsive/full_responsive.dart';
 /// Muestra una lista de opciones de navegacion que el usuario ve segun
 /// sus permisos
 /// {@endtemplate}
-class MenuOpcionesPermisos extends StatelessWidget {
+class MenuOpcionesPermisos extends StatefulWidget {
   /// {@macro MenuOpcionesPermisos}
   const MenuOpcionesPermisos({super.key});
+
+  @override
+  State<MenuOpcionesPermisos> createState() => _MenuOpcionesPermisosState();
+}
+
+class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
+  /// Dialog para cambiar la contraseña en caso de que el usuario lo requiera.
+  void _dialogCambiarContrasenia(BuildContext context) {
+    setState(() => _dialogAbierto = true);
+    showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocDashboard>(),
+        child: const DialogCambiarContrasenia(),
+      ),
+    );
+  }
 
   /// Muestra dialog de error
   Future<void> _showDialogError(BuildContext context) {
@@ -41,36 +59,6 @@ class MenuOpcionesPermisos extends StatelessWidget {
     );
   }
 
-  /// Muestra dialog de exito al cambiar la contraseña.
-  Future<void> _showDialogExitoAlCambiarContrasenia(BuildContext context) {
-    final l10n = context.l10n;
-    final colores = context.colores;
-
-    return showDialog<void>(
-      context: context,
-      builder: (context) => EscuelasDialog.exitoso(
-        context: context,
-        onTap: () => Navigator.of(context).pop(),
-        content: Column(
-          children: [
-            SizedBox(height: 20.ph),
-            Center(
-              child: Text(
-                l10n.pageHomeChangePasswordSuccess,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 16.pf,
-                  color: colores.onBackground,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   /// Devuelve de acuerdo al usuario su lista de vistas permitidas.
   List<MenuOpcionesDeInicio> _menusPermitidos(BuildContext context) {
     final usuario = context.read<BlocDashboard>().state.usuario;
@@ -84,8 +72,13 @@ class MenuOpcionesPermisos extends StatelessWidget {
         .toList();
   }
 
+  /// Es para saber si ya se habrio el popup
+  bool _dialogAbierto = false;
+
   @override
   Widget build(BuildContext context) {
+    final usuario = context.read<BlocDashboard>().state.usuario;
+
     final colores = context.colores;
 
     final l10n = context.l10n;
@@ -94,11 +87,11 @@ class MenuOpcionesPermisos extends StatelessWidget {
 
     return BlocConsumer<BlocInicio, BlocInicioEstado>(
       listener: (context, state) {
+        if (usuario.necesitaCambiarPassword && !_dialogAbierto) {
+          _dialogCambiarContrasenia(context);
+        }
         if (state is BlocInicioEstadoFallido) {
           _showDialogError(context);
-        }
-        if (state is BlocInicioEstadoExitosoAlCambiarLaContrasenia) {
-          _showDialogExitoAlCambiarContrasenia(context);
         }
       },
       builder: (context, state) {

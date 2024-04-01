@@ -15,14 +15,3 @@ class BlocInicioEventoInicializar extends BlocInicioEvento {
   /// {@macro BlocInicioEventoTraerInfoInicial}
   BlocInicioEventoInicializar();
 }
-
-/// {@template BlocInicioEventoCambiarContrasenia}
-/// Evento para cambiar la contraseña del usuario.
-/// {@endtemplate}
-class BlocInicioEventoCambiarContrasenia extends BlocInicioEvento {
-  /// {@macro BlocInicioEventoCambiarContrasenia}
-  BlocInicioEventoCambiarContrasenia(this.nuevaContrasenia);
-
-  /// Nueva contraseña
-  final String nuevaContrasenia;
-}

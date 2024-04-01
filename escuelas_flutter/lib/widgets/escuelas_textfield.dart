@@ -565,7 +565,7 @@ class _EscuelasTextFieldPasswordState extends State<EscuelasTextFieldPassword> {
           return l10n.pageRegisterInvalidPassword;
         }
 
-        if ((value?.length ?? 0) < 12) {
+        if ((value?.length ?? 0) <= 7) {
           widget.onValidate(false);
           return l10n.pageRegisterMinimumCaractersForPassword(
             const RedemptorisMissioConfigs().minimoDeCaracteresPassword,

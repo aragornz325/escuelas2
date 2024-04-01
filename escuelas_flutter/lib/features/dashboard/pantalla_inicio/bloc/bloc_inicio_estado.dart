@@ -58,15 +58,6 @@ class BlocInicioEstadoExitoso extends BlocInicioEstado {
   }) : super.desde();
 }
 
-/// {@template BlocInicioEstadoExitosoAlCambiarLaContrasenia}
-/// Estado de éxito de [BlocInicioEstado] cuando se cambia la contraseña.
-/// {@endtemplate}
-class BlocInicioEstadoExitosoAlCambiarLaContrasenia extends BlocInicioEstado {
-  /// {@macro BlocInicioEstadoExitosoAlCambiarLaContrasenia}
-  BlocInicioEstadoExitosoAlCambiarLaContrasenia.desde(
-    super.otro,
-  ) : super.desde();
-}
 
 /// {@template BlocInicioEstadoFallido}
 /// Estado de fallo de [BlocInicioEstado].

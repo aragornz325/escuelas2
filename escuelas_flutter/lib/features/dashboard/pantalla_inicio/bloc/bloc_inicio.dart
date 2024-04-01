@@ -11,7 +11,6 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
   /// {@macro BlocInicio}
   BlocInicio() : super(const BlocInicioEstadoInicial()) {
     on<BlocInicioEventoInicializar>(_onInicializar);
-    on<BlocInicioEventoCambiarContrasenia>(_onCambiarContrasenia);
   }
 
   /// Trae los roles de la institucion que luego se filtraran para mostrar
@@ -55,18 +54,4 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
     );
   }
 
-  /// Cambia la contrasenia del usuario
-  Future<void> _onCambiarContrasenia(
-    BlocInicioEventoCambiarContrasenia event,
-    Emitter<BlocInicioEstado> emit,
-  ) async {
-    emit(BlocInicioEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (client) async {
-        /// TODO: Implementar el cambio de contrasenia
-        emit(BlocInicioEstadoExitosoAlCambiarLaContrasenia.desde(state));
-      },
-      onError: (e, st) => emit(BlocInicioEstadoFallido.desde(state)),
-    );
-  }
 }

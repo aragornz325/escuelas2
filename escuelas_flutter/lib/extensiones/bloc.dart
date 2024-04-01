@@ -57,6 +57,8 @@ Future<void> operacionBloc({
       case TipoExcepcion.registerDuplicatedIdNumber:
       case TipoExcepcion.registerDuplicatedEmail:
         callHandler(onErrorCustom);
+      case TipoExcepcion.passwordAntiguaIncorrecta:
+        callHandler(onErrorCustom);
     }
 
     if (ningunHandlerLlamado) onError(e, st);

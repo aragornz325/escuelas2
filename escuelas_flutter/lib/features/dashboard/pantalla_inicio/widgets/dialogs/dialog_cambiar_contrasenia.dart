@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:escuelas_commons/config/config.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/bloc/bloc_inicio.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
@@ -60,8 +60,10 @@ class _DialogCambiarContraseniaState extends State<DialogCambiarContrasenia> {
         conIconoCerrar: false,
         onTapConfirmar: () {
           if (_formKey.currentState!.validate()) {
-            context.read<BlocInicio>().add(
-                  BlocInicioEventoCambiarContrasenia(_controllerPassword.text),
+            context.read<BlocDashboard>().add(
+                  BlocDashboardEventoCambiarContrasenia(
+                    _controllerPassword.text,
+                  ),
                 );
             Navigator.pop(context);
           }

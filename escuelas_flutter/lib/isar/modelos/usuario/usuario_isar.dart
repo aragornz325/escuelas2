@@ -18,5 +18,5 @@ class UsuarioIsar {
 
   late String urlFotoDePerfil;
 
- 
+  late bool necesitaCambiarPassword;
 }
