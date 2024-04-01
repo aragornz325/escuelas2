@@ -48,7 +48,6 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
 
   @override
   Widget build(BuildContext context) {
-    print(contraseniaValido);
     final colores = context.colores;
 
     final l10n = context.l10n;
@@ -232,7 +231,6 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                               ),
                             ),
                             EscuelasBoton.loginGoogle(
-                              
                               texto: l10n.pageLoginLoginWithGoogle,
                               onTap: () => context.read<BlocLogin>().add(
                                     const BlocLoginEventoIniciarSesionConGoogle(),

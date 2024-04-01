@@ -168,7 +168,7 @@ class EscuelasBoton extends StatelessWidget {
     final colores = context.colores;
 
     return EscuelasBoton(
-      estaHabilitado: true,
+      estaHabilitado: false,
       onTap: onTap,
       width: width,
       height: 40.ph,
