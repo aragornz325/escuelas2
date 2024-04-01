@@ -28,6 +28,7 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
   void _dialogCambiarContrasenia(BuildContext context) {
     setState(() => _dialogAbierto = true);
     showDialog<void>(
+      barrierDismissible: false,
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocDashboard>(),
