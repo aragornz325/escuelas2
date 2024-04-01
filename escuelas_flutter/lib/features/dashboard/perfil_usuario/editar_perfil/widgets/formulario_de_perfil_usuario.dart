@@ -14,7 +14,13 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@endtemplate}
 class FormularioDePerfilUsuario extends StatefulWidget {
   /// {@macro _FormularioDePerfilUsuario}
-  const FormularioDePerfilUsuario({super.key});
+  const FormularioDePerfilUsuario({
+    required this.dniUsuario,
+    super.key,
+  });
+
+  /// dni del usuario
+  final String dniUsuario;
 
   @override
   State<FormularioDePerfilUsuario> createState() =>
@@ -70,12 +76,17 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
     super.dispose();
   }
 
-  Future<void> _onEditarPassword(BuildContext context) {
+  Future<void> _onEditarPassword(
+    BuildContext context, {
+    required String dniUsuario,
+  }) {
     return showDialog<void>(
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocEditarPerfil>(),
-        child: const DialogEditarPassword(),
+        child: DialogEditarPassword(
+          dniUsuario: dniUsuario,
+        ),
       ),
     );
   }
@@ -421,13 +432,17 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               },
             ),
             SizedBox(height: max(5.ph, 5.sh)),
-            EscuelasBoton.texto(
-              estaHabilitado: true,
-              onTap: () => _onEditarPassword(context),
-              color: colores.amarilloCuartoFalta,
-              texto: 'Cambiar contraseña',
-              context: context,
+            Center(
+              child: EscuelasBoton.texto(
+                estaHabilitado: true,
+                onTap: () =>
+                    _onEditarPassword(context, dniUsuario: widget.dniUsuario),
+                color: colores.amarilloCuartoFalta,
+                texto: 'Cambiar contraseña',
+                context: context,
+              ),
             ),
+            SizedBox(height: max(5.ph, 5.sh)),
           ],
         ),
       ),
@@ -436,25 +451,43 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
 }
 
 class DialogEditarPassword extends StatefulWidget {
-  const DialogEditarPassword({super.key});
+  const DialogEditarPassword({
+    required this.dniUsuario,
+    super.key,
+  });
 
+  final String dniUsuario;
   @override
   State<DialogEditarPassword> createState() => _DialogEditarPasswordState();
 }
 
 class _DialogEditarPasswordState extends State<DialogEditarPassword> {
-  final _controllerAntiguaPassword = TextEditingController();
-  final _controllerNuevaPassword = TextEditingController();
+  late TextEditingController _controllerNuevaPassword = TextEditingController();
+  // final _controllerRepetirNuevaPassword = TextEditingController();
+  @override
+  void initState() {
+    _controllerNuevaPassword = TextEditingController(text: widget.dniUsuario);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controllerNuevaPassword.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return EscuelasDialog.solicitudDeAccion(
-      titulo: 'Editar contraseña',
+      titulo: 'Cambiar contraseña',
       context: context,
+      estaHabilitado: _controllerNuevaPassword.text.length > 8,
+      // &&
+      //     _controllerNuevaPassword.text == _controllerRepetirNuevaPassword.text,
       onTapConfirmar: () {
         Navigator.of(context).pop();
         context.read<BlocEditarPerfil>().add(
               BlocEditarPerfilEventoEditarPassword(
-                antiguaPassword: _controllerAntiguaPassword.text,
                 nuevaPassword: _controllerNuevaPassword.text,
               ),
             );
@@ -462,15 +495,16 @@ class _DialogEditarPasswordState extends State<DialogEditarPassword> {
       content: Column(
         children: [
           EscuelasTextFieldPassword(
-            controller: _controllerAntiguaPassword,
-            onValidate: (v) {},
-            onChanged: (v) => setState(() {}),
-          ),
-          EscuelasTextFieldPassword(
             controller: _controllerNuevaPassword,
             onValidate: (v) {},
             onChanged: (v) => setState(() {}),
           ),
+          SizedBox(height: max(5.ph, 5.sh)),
+          // EscuelasTextFieldPassword(
+          //   controller: _controllerRepetirNuevaPassword,
+          //   onValidate: (v) {},
+          //   onChanged: (v) => setState(() {}),
+          // ),
         ],
       ),
     );

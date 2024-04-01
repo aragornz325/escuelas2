@@ -15,6 +15,7 @@ class PaginaEditarPerfil extends StatelessWidget {
   const PaginaEditarPerfil({
     @PathParam('nombreUsuario') required this.nombreUsuario,
     @PathParam('idUsuario') required this.idUsuario,
+    @PathParam('dniUsuario') required this.dniUsuario,
     super.key,
   });
 
@@ -23,6 +24,9 @@ class PaginaEditarPerfil extends StatelessWidget {
 
   /// Nombre del usuario.
   final String nombreUsuario;
+
+  /// DNI del usuario
+  final String dniUsuario;
 
   @override
   Widget build(BuildContext context) {
@@ -34,9 +38,11 @@ class PaginaEditarPerfil extends StatelessWidget {
             nombreUsuario: nombreUsuario,
           ),
         ),
-      child: const FullResponsiveScreen(
-        celular: VistaCelularEditarPerfil(),
-        escritorio: VistaEscritorioEditarPerfil(),
+      child: FullResponsiveScreen(
+        celular: VistaCelularEditarPerfil(
+          dniUsuario: dniUsuario,
+        ),
+        escritorio: const VistaEscritorioEditarPerfil(),
       ),
     );
   }

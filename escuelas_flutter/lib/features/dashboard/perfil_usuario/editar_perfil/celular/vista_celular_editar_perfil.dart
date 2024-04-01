@@ -15,7 +15,13 @@ import 'package:full_responsive/full_responsive.dart';
 
 class VistaCelularEditarPerfil extends StatelessWidget {
   /// {@macro VistaCelularEditarPerfil}
-  const VistaCelularEditarPerfil({super.key});
+  const VistaCelularEditarPerfil({
+    required this.dniUsuario,
+    super.key,
+  });
+
+  /// DNI del usuario
+  final String dniUsuario;
 
   /// dialog de exito al guardar los cambios en la BD
   void _dialogDeExitoAlGuardarCambios(BuildContext context) {
@@ -34,10 +40,15 @@ class VistaCelularEditarPerfil extends StatelessWidget {
           if (state is BlocEditarPerfilEstadoExitosoAlActualizar) {
             _dialogDeExitoAlGuardarCambios(context);
           }
+          if (state is BlocEditarPerfilEstadoExitosoEditarPassword) {
+            _dialogDeExitoAlGuardarCambios(context);
+          }
         },
         child: ListView(
           children: [
-            const _DatosPersonalesAEditar(),
+            _DatosPersonalesAEditar(
+              dniUsuario: dniUsuario,
+            ),
             SizedBox(height: max(20.ph, 20.sh)),
             const BotonesGuardarYVolver(),
           ],
@@ -52,7 +63,11 @@ class VistaCelularEditarPerfil extends StatelessWidget {
 /// {@endtemplate}
 class _DatosPersonalesAEditar extends StatelessWidget {
   /// {@macro _DatosPersonalesAEditar}
-  const _DatosPersonalesAEditar();
+  const _DatosPersonalesAEditar({
+    required this.dniUsuario,
+  });
+
+  final String dniUsuario;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +103,9 @@ class _DatosPersonalesAEditar extends StatelessWidget {
                 height: 0,
                 color: colores.secondary,
               ),
-              const FormularioDePerfilUsuario(),
+              FormularioDePerfilUsuario(
+                dniUsuario: dniUsuario,
+              ),
             ],
           ),
         ),

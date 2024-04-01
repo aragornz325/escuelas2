@@ -128,9 +128,10 @@ class BlocEditarPerfilEstadoExitosoAlActualizar extends BlocEditarPerfilEstado {
 class BlocEditarPerfilEstadoExitosoEditarPassword
     extends BlocEditarPerfilEstado {
   /// {@macro BlocEditarPerfilEstadoExitosoEditarPassword}
-  BlocEditarPerfilEstadoExitosoEditarPassword.desde(super.otro,
-      {super.nuevaPassword})
-      : super.desde();
+  BlocEditarPerfilEstadoExitosoEditarPassword.desde(
+    super.otro, {
+    super.nuevaPassword,
+  }) : super.desde();
 }
 
 /// {@template BlocEditarPerfilEstadoFallido}

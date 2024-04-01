@@ -96,14 +96,14 @@ class BlocEditarPerfil
 
     await operacionBloc(
       callback: (client) async {
-        final nuevaPassword = await client.userInfo.reiniciarPasswordDelUsuario(
-          antiguaPassword: event.antiguaPassword,
+        await client.userInfo.cambiarPasswordDelUsuario(
           nuevaPassword: event.nuevaPassword,
         );
 
         emit(
-          BlocEditarPerfilEstadoExitoso.desde(
+          BlocEditarPerfilEstadoExitosoEditarPassword.desde(
             state,
+            nuevaPassword: event.nuevaPassword,
           ),
         );
       },

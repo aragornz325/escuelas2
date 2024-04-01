@@ -124,6 +124,7 @@ class TarjetaPerfil extends StatelessWidget {
                       estaHabilitado: true,
                       onTap: () => context.pushRoute(
                         RutaEditarPerfil(
+                          dniUsuario: usuario?.dni ?? '',
                           idUsuario: usuario?.id ?? 0,
                           nombreUsuario:
                               '${usuario?.nombre} ${usuario?.apellido}',
