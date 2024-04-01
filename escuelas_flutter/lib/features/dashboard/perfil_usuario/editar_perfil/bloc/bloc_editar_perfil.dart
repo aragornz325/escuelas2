@@ -16,6 +16,7 @@ class BlocEditarPerfil
     on<BlocEditarPerfilEventoTraerUsuario>(_ontraerUsuario);
     on<BlocEditarPerfilEventoGuardarCambios>(_onGuardarCambios);
     on<BlocEditarPerfilEventoConfirmarCambios>(_onConfirmarCambios);
+    on<BlocEditarPerfilEventoEditarPassword>(_onEditarPassword);
   }
 
   /// Funciona para traer la info de un usuario
@@ -81,6 +82,30 @@ class BlocEditarPerfil
       callback: (client) async {
         // TODO (anyone) : implementar endpoint para confirmar los cambios
         emit(BlocEditarPerfilEstadoExitosoAlActualizar.desde(state));
+      },
+      onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
+    );
+  }
+
+  /// Funciona para traer la info de un usuario
+  Future<void> _onEditarPassword(
+    BlocEditarPerfilEventoEditarPassword event,
+    Emitter<BlocEditarPerfilEstado> emit,
+  ) async {
+    emit(BlocEditarPerfilEstadoCargando.desde(state));
+
+    await operacionBloc(
+      callback: (client) async {
+        final nuevaPassword = await client.userInfo.reiniciarPasswordDelUsuario(
+          antiguaPassword: event.antiguaPassword,
+          nuevaPassword: event.nuevaPassword,
+        );
+
+        emit(
+          BlocEditarPerfilEstadoExitoso.desde(
+            state,
+          ),
+        );
       },
       onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
     );

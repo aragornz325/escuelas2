@@ -56,6 +56,9 @@ Future<void> operacionBloc({
         callHandler(onDesconocido);
       case TipoExcepcion.registerDuplicatedIdNumber:
       case TipoExcepcion.registerDuplicatedEmail:
+      //! TODO(Anyone): ver esto
+
+      case TipoExcepcion.passwordAntiguaIncorrecta:
         callHandler(onErrorCustom);
     }
 

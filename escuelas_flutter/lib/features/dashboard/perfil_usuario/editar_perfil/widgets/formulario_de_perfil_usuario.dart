@@ -70,6 +70,16 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
     super.dispose();
   }
 
+  Future<void> _onEditarPassword(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocEditarPerfil>(),
+        child: const DialogEditarPassword(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -411,8 +421,57 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               },
             ),
             SizedBox(height: max(5.ph, 5.sh)),
+            EscuelasBoton.texto(
+              estaHabilitado: true,
+              onTap: () => _onEditarPassword(context),
+              color: colores.amarilloCuartoFalta,
+              texto: 'Cambiar contraseña',
+              context: context,
+            ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class DialogEditarPassword extends StatefulWidget {
+  const DialogEditarPassword({super.key});
+
+  @override
+  State<DialogEditarPassword> createState() => _DialogEditarPasswordState();
+}
+
+class _DialogEditarPasswordState extends State<DialogEditarPassword> {
+  final _controllerAntiguaPassword = TextEditingController();
+  final _controllerNuevaPassword = TextEditingController();
+  @override
+  Widget build(BuildContext context) {
+    return EscuelasDialog.solicitudDeAccion(
+      titulo: 'Editar contraseña',
+      context: context,
+      onTapConfirmar: () {
+        Navigator.of(context).pop();
+        context.read<BlocEditarPerfil>().add(
+              BlocEditarPerfilEventoEditarPassword(
+                antiguaPassword: _controllerAntiguaPassword.text,
+                nuevaPassword: _controllerNuevaPassword.text,
+              ),
+            );
+      },
+      content: Column(
+        children: [
+          EscuelasTextFieldPassword(
+            controller: _controllerAntiguaPassword,
+            onValidate: (v) {},
+            onChanged: (v) => setState(() {}),
+          ),
+          EscuelasTextFieldPassword(
+            controller: _controllerNuevaPassword,
+            onValidate: (v) {},
+            onChanged: (v) => setState(() {}),
+          ),
+        ],
       ),
     );
   }

@@ -71,8 +71,10 @@ abstract class IsarServicio {
     if (usuarioObtenido == null) {
       return null;
     }
+    //! TODO(Anyone): ver esto
 
     final usuario = Usuario(
+      necesitaCambiarPassword: false,
       idUserInfo: usuarioObtenido.idUserInfo,
       nombre: usuarioObtenido.nombre,
       apellido: usuarioObtenido.apellido,

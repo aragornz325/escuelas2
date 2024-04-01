@@ -126,7 +126,9 @@ class BlocGestionDeComision
               comisionId: state.idComision,
               ultimaModificacion: DateTime.now(),
               fechaCreacion: DateTime.now(),
+              //! TODO(Anyone): ver esto
               usuario: Usuario(
+                necesitaCambiarPassword: false,
                 idUserInfo: event.docente?.idUserInfo ?? 0,
                 nombre: event.docente?.nombre ?? '',
                 apellido: event.docente?.apellido ?? '',
