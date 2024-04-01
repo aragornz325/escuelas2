@@ -182,3 +182,4 @@ docente: benitezfedericonicolas.dev@gmail.com
 alumno: juanjose.garcia98@yahoo.com.ar
 
 shorebird release android -t lib/main_staging.dart --flavor staging --artifact apk
+shorebird patch android -t lib/main_staging.dart --flavor staging

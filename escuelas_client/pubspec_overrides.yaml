@@ -1,0 +1,4 @@
+# melos_managed_dependency_overrides: escuelas_commons
+dependency_overrides:
+  escuelas_commons:
+    path: ../escuelas_commons

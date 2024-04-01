@@ -290,22 +290,18 @@ packages:
     source: hosted
     version: "0.5.3"
   escuelas_client:
-    dependency: transitive
+    dependency: "direct overridden"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: eb8f76c8011e922451027824264d358f3bd641a4
-      url: "https://github.com/juanjosegarcia98/escuelas_client"
-    source: git
+      path: "../escuelas_client"
+      relative: true
+    source: path
     version: "0.0.0"
   escuelas_commons:
     dependency: "direct main"
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "6eded68af6924db1b7638ab3e56810578e8d4981"
-      url: "https://github.com/juanjosegarcia98/escuelas_commons"
-    source: git
+      path: "../escuelas_commons"
+      relative: true
+    source: path
     version: "0.1.0+1"
   executor:
     dependency: transitive
