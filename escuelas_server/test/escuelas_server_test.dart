@@ -4,12 +4,14 @@ import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/endpoints/calificacion_endpoint.dart';
 import 'package:escuelas_server/src/endpoints/rol_endpoint.dart';
 import 'package:escuelas_server/src/endpoints/solicitud_endpoint.dart';
+import 'package:escuelas_server/src/endpoints/user_info_endpoint.dart';
 import 'package:escuelas_server/src/endpoints/usuario_endpoint.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_comision.dart';
 import 'package:escuelas_server/src/orms/orm_direccionesDeEmail.dart';
 import 'package:escuelas_server/src/orms/orm_usuario.dart';
+import 'package:escuelas_server/src/orms/orm_usuario_pendiente.dart';
 import 'package:escuelas_server/src/servicios/servicio_calificacion.dart';
 import 'package:escuelas_server/src/servicios/servicio_rol.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud_nota_mensual.dart';
@@ -27,7 +29,7 @@ Future<void> main() async {
 
   final session = await podTesting.createSession();
 
-  final authKey = await session.auth.signInUser(1, 'email');
+  final authKey = await session.auth.signInUser(3, 'email');
 
   exit(0);
 }
