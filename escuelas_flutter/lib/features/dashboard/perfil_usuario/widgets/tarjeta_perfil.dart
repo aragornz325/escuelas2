@@ -1,6 +1,8 @@
 import 'dart:math';
+import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/permisos/permisos.dart';
+import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
@@ -119,21 +121,14 @@ class TarjetaPerfil extends StatelessWidget {
                       .tienePermisos(PermisoDeUsuario.editarUsuario))
                     EscuelasBoton.texto(
                       width: 185.pw,
-                      estaHabilitado: false,
-                      onTap: () => showDialog<void>(
-                        context: context,
-                        builder: (context) =>
-                            EscuelasDialog.featNoDisponible(context: context),
+                      estaHabilitado: true,
+                      onTap: () => context.pushRoute(
+                        RutaEditarPerfil(
+                          idUsuario: usuario?.id ?? 0,
+                          nombreUsuario:
+                              '${usuario?.nombre} ${usuario?.apellido}',
+                        ),
                       ),
-                      // TODO(anyone): Dar funcion cuando esten los endpoints
-                      // onTap:
-                      // () => context.pushRoute(
-                      //   RutaEditarPerfil(
-                      //     idUsuario: usuario?.id ?? 0,
-                      //     nombreUsuario:
-                      //         '${usuario?.nombre} ${usuario?.apellido}',
-                      //   ),
-                      // ),
                       color: colores.primaryContainer,
                       texto: l10n.commonEdit,
                       fontSize: 12.pf,
