@@ -167,7 +167,7 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
     }
 
     // Update password
-    auth.hash = Emails.generatePasswordHash(nuevaPassword, auth.email);
+    auth.hash = await Emails.generatePasswordHash(nuevaPassword);
     await EmailAuth.db.updateRow(session, auth);
 
     return true;
