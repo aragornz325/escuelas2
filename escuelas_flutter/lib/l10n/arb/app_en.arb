@@ -359,6 +359,14 @@
   "@pageHomeNoOptionsMenu": {
     "description": "There are no options available in the menu"
   },
+  "pageHomeYouChangePassword": "You have to change your password.",
+  "@pageHomeYouChangePassword": {
+    "description": "Message displayed to prompt the user to change their password on the home page."
+  },
+  "pageHomeChangePasswordSuccess": "Password changed successfully",
+  "@pageHomeChangePasswordSuccess": {
+    "description": "Message displayed to inform the user that their password has been successfully changed."
+  },
   "pageCommunicationProfileAddNewNotification": "Add new",
   "@pageCommunicationProfileAddNewNotification": {
   "description": "Add new"

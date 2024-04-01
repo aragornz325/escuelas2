@@ -35,7 +35,7 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
               _controllerDniOEmail.text,
             );
 
-  bool get passwordValida => _controllerPassword.text.length >= 12;
+  bool get passwordValida => _controllerPassword.text.length >= 8;
 
   @override
   void dispose() {

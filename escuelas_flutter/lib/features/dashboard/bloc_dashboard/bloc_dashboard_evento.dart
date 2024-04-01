@@ -34,3 +34,14 @@ class BlocDashboardEventoObtenerAsignaturaYComision
   /// id de la comision.
   final int idComision;
 }
+
+/// {@template BlocDashboardEventoCambiarContrasenia}
+/// Evento para cambiar la contraseña del usuario.
+/// {@endtemplate}
+class BlocDashboardEventoCambiarContrasenia extends BlocDashboardEvento {
+  /// {@macro BlocDashboardEventoCambiarContrasenia}
+  BlocDashboardEventoCambiarContrasenia(this.nuevaContrasenia);
+
+  /// Nueva contraseña
+  final String nuevaContrasenia;
+}

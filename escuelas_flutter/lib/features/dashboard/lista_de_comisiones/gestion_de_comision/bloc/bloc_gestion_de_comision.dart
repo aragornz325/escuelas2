@@ -127,6 +127,8 @@ class BlocGestionDeComision
               ultimaModificacion: DateTime.now(),
               fechaCreacion: DateTime.now(),
               usuario: Usuario(
+                necesitaCambiarPassword:
+                    event.docente?.necesitaCambiarPassword ?? false,
                 idUserInfo: event.docente?.idUserInfo ?? 0,
                 nombre: event.docente?.nombre ?? '',
                 apellido: event.docente?.apellido ?? '',
