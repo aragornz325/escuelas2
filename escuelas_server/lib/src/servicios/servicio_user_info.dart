@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:escuelas_server/src/generated/excepciones/excepcion_de_endpoint.dart';
+import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_userInfo.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
@@ -6,7 +10,7 @@ import 'package:serverpod_auth_server/module.dart';
 class ServicioUserInfo extends Servicio<OrmUserInfo> {
   @override
   OrmUserInfo get orm => OrmUserInfo();
-  Future<bool> registrarUserInfo(
+  Future<UserInfo> registrarUserInfo(
     Session session, {
     required String nombre,
     required String apellido,
@@ -19,12 +23,18 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
           var userInfoConElMismoMail =
               await Users.findUserByEmail(session, email);
 
-          if (userInfoConElMismoMail != null) return false;
+          if (userInfoConElMismoMail != null) {
+            throw ExcepcionCustom(
+                tipoDeError: TipoExcepcion.registerDuplicatedEmail);
+          }
 
           var userInfoConElMismoDNI =
               await Users.findUserByIdentifier(session, dni);
 
-          if (userInfoConElMismoDNI != null) return false;
+          if (userInfoConElMismoDNI != null) {
+            throw ExcepcionCustom(
+                tipoDeError: TipoExcepcion.registerDuplicatedIdNumber);
+          }
 
           final userInfo = await crearUserInfo(
             session,
@@ -35,13 +45,12 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
           );
 
           if (userInfo == null) {
-            return false;
+            throw ExcepcionCustom(tipoDeError: TipoExcepcion.desconocido);
           }
 
           final user = userInfo..userIdentifier = dni;
 
-          await actualizarUserInfo(session, userInfo: user);
-          return true;
+          return await actualizarUserInfo(session, userInfo: user);
         },
       );
 

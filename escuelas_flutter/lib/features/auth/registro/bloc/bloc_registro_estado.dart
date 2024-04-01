@@ -51,7 +51,11 @@ class BlocRegistroEstadoExitosoGeneral extends BlocRegistroEstado {
 /// {@endtemplate}
 class BlocRegistroEstadoExitosoAlRegistrar extends BlocRegistroEstado {
   /// {@macro BlocRegistroEstadoExitosoAlRegistrar}
-  BlocRegistroEstadoExitosoAlRegistrar.desde(super.otro) : super.desde();
+  BlocRegistroEstadoExitosoAlRegistrar.desde(
+      BlocRegistroEstado otro, this.userInfo)
+      : super.desde(otro);
+
+  final UserInfo userInfo;
 }
 
 /// {@template BlocRegistroEstadoErrorGeneral}
@@ -59,7 +63,10 @@ class BlocRegistroEstadoExitosoAlRegistrar extends BlocRegistroEstado {
 /// {@endtemplate}
 class BlocRegistroEstadoErrorGeneral extends BlocRegistroEstado {
   /// {@macro BlocRegistroEstadoErrorGeneral}
-  BlocRegistroEstadoErrorGeneral.desde(super.otro) : super.desde();
+  BlocRegistroEstadoErrorGeneral.desde(BlocRegistroEstado otro, this.excepcion)
+      : super.desde(otro);
+
+  final ExcepcionCustom excepcion;
 }
 
 /// {@template BlocRegistroEstadoErrorAlRegistrarseConGoogle}
