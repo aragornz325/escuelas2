@@ -17,6 +17,7 @@ extension ComisionDeCursoX on ComisionDeCurso {
                   nombre: '',
                   apellido: '',
                   urlFotoDePerfil: '',
+                  necesitaCambiarPassword: false,
                 ),
           )
           .where((element) => element.id != null)

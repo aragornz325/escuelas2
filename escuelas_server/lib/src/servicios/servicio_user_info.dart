@@ -1,8 +1,6 @@
-import 'dart:developer';
-
-import 'package:escuelas_server/src/generated/excepciones/excepcion_de_endpoint.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_userInfo.dart';
+import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 import 'package:serverpod_auth_server/module.dart';
@@ -10,6 +8,9 @@ import 'package:serverpod_auth_server/module.dart';
 class ServicioUserInfo extends Servicio<OrmUserInfo> {
   @override
   OrmUserInfo get orm => OrmUserInfo();
+
+  final _ormUsuario = OrmUsuario();
+
   Future<UserInfo> registrarUserInfo(
     Session session, {
     required String nombre,
@@ -111,5 +112,25 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
       ),
     );
     return userInfoActualizado;
+  }
+
+  Future<bool> reiniciarPasswordDelUsuario(
+    Session session, {
+    required String antiguaPassword,
+    required String nuevaPassword,
+  }) async {
+    final idUsuario = await obtenerIdDeUsuarioLogueado(session);
+
+    final reiniciarPassword = await Emails.changePassword(session, idUsuario, antiguaPassword, nuevaPassword);
+
+    if (reiniciarPassword == false) {
+      throw ExcepcionCustom(tipoDeError: TipoExcepcion.passwordAntiguaIncorrecta);
+    }
+
+    final registroUsuario = await _ormUsuario.obtenerInfoBasicaUsuario(session, idUserInfo: idUsuario);
+
+    await _ormUsuario.actualizarUsuario(session, usuario: registroUsuario..necesitaCambiarPassword = false);
+
+    return reiniciarPassword;
   }
 }

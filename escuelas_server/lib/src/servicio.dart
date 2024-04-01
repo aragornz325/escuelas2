@@ -119,8 +119,8 @@ StackTrace: $st
   ) async {
     final idUsuario = await session.auth.authenticatedUserId;
     if (idUsuario == null) {
-      throw Exception(
-        'No hay usuario logueado en la sesión.',
+      throw ExcepcionCustom(
+        tipoDeError: TipoExcepcion.noAutorizado,
       );
     } else {
       return idUsuario;
