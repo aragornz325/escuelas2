@@ -29,17 +29,15 @@ class UserInfoEndpoint extends Endpoint with Controller<ServicioUserInfo> {
         ),
       );
 
-  Future<bool> reiniciarPasswordDelUsuario(
+  Future<bool> cambiarPasswordDelUsuario(
     Session session, {
-    required String antiguaPassword,
     required String nuevaPassword,
   }) =>
       ejecutarOperacionControlador(
         session,
         'reiniciarPasswordDelUsuario',
-        () => servicio.reiniciarPasswordDelUsuario(
+        () => servicio.cambiarPasswordDelUsuario(
           session,
-          antiguaPassword: antiguaPassword,
           nuevaPassword: nuevaPassword,
         ),
       );
