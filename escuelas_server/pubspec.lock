@@ -724,10 +724,10 @@ packages:
     dependency: transitive
     description:
       name: serverpod_auth_client
-      sha256: "5d413353ded9b5875c97af0925efb5bdecd2c5f59d62c51cb569906fb0e16400"
+      sha256: e8a650415c0fc5d521691c7da920b51dbf46cadaeb56aec0f30bbcc60031b644
       url: "https://pub.dev"
     source: hosted
-    version: "1.2.3"
+    version: "1.2.6"
   serverpod_auth_server:
     dependency: "direct main"
     description:
