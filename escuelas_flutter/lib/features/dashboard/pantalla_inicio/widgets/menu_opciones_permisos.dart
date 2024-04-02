@@ -37,19 +37,18 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
     );
   }
 
-  // TODO(anyone): descomentar cuando este. falta el campo
   /// Dialog para cambiar el DNI en caso de que el usuario lo requiera.
-  // void _dialogCambiarDNI(BuildContext context) {
-  //   setState(() => _dialogAbiertoCambiarDNI = true);
-  //   showDialog<void>(
-  //     barrierDismissible: false,
-  //     context: context,
-  //     builder: (_) => BlocProvider.value(
-  //       value: context.read<BlocDashboard>(),
-  //       child: const DialogCambiarDNI(),
-  //     ),
-  //   );
-  // }
+  void _dialogCambiarDNI(BuildContext context) {
+    setState(() => _dialogAbiertoCambiarDNI = true);
+    showDialog<void>(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocDashboard>(),
+        child: const DialogCambiarDNI(),
+      ),
+    );
+  }
 
   /// Muestra dialog de error
   Future<void> _showDialogError(BuildContext context) {
@@ -90,9 +89,8 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
   /// Es para saber si ya se abrio el popup_cambiarContraseña
   bool _dialogAbiertoCambiarContrasenia = false;
 
-  // TODO(anyone): descomentar cuando este. falta el campo
   /// Es para saber si ya se abrio el popup_cambiarDNI
-  // bool _dialogAbiertoCambiarDNI = false;
+  bool _dialogAbiertoCambiarDNI = false;
 
   @override
   Widget build(BuildContext context) {
@@ -110,10 +108,10 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
             !_dialogAbiertoCambiarContrasenia) {
           _dialogCambiarContrasenia(context);
         }
-        // TODO(anyone): agregar si el usuario necesita cambiar el DNI. falta el campo
-        // if (usuario.necesitaCambiarPassword && !_dialogAbiertoCambiarDNI) {
-        //   _dialogCambiarDNI(context);
-        // }
+        if (usuario.dni == null ||
+            usuario.dni!.isEmpty && !_dialogAbiertoCambiarDNI) {
+          _dialogCambiarDNI(context);
+        }
         if (state is BlocInicioEstadoFallido) {
           _showDialogError(context);
         }
