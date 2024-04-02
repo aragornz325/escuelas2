@@ -37,12 +37,7 @@ class BlocEditarPerfilEventoGuardarCambios extends BlocEditarPerfilEvento {
     this.email,
     this.factorSanguineo,
     this.edad,
-    this.nombreTutor,
-    this.apellidoTutor,
-    this.vinculo,
-    this.emailTutor,
-    this.telefonoTutor,
-    this.observaciones,
+    this.dni,
   });
 
   /// Telefono a guardar del usuario.
@@ -57,23 +52,8 @@ class BlocEditarPerfilEventoGuardarCambios extends BlocEditarPerfilEvento {
   /// Edad a guardar del usuario.
   final String? edad;
 
-  /// Nombre del tutor a guardar del usuario.
-  final String? nombreTutor;
-
-  /// Apellido del tutor a guardar del usuario.
-  final String? apellidoTutor;
-
-  /// Vinculo del tutor al alumno a guardar del usuario.
-  final String? vinculo;
-
-  /// email del tutor a guardar del usuario.
-  final String? emailTutor;
-
-  /// Telefono del tutor a guardar del usuario.
-  final String? telefonoTutor;
-
-  /// Observaciones a guardar del usuario.
-  final String? observaciones;
+  /// DNI a guardar del usuario.
+  final String? dni;
 }
 
 /// {@template BlocEditarPerfilEventoGuardarCambios}

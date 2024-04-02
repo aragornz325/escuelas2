@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialog_editar_password.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -43,26 +44,36 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
   /// Controller del Edad
   final _controllerEdad = TextEditingController();
 
-  /// Controller del Nombre
-  final _controllerNombreTutor = TextEditingController();
+  /// Controller del DNI
+  final _controllerDNI = TextEditingController();
 
-  /// Controller del Apellido
-  final _controllerApellidoTutor = TextEditingController();
+  // /// Controller del Nombre
+  // final _controllerNombreTutor = TextEditingController();
 
-  /// Controller del vinculo entre alumno y tutor.
-  final _controllerVinculo = TextEditingController();
+  // /// Controller del Apellido
+  // final _controllerApellidoTutor = TextEditingController();
 
-  /// Controller del Email del tutor.
-  final _controllerEmailTutor = TextEditingController();
+  // /// Controller del vinculo entre alumno y tutor.
+  // final _controllerVinculo = TextEditingController();
 
-  /// Controller del Telefono del tutor.
-  final _controllerTelefonoTutor = TextEditingController();
+  // /// Controller del Email del tutor.
+  // final _controllerEmailTutor = TextEditingController();
 
-  /// Controller de las observaciones.
-  final _controllerObservaciones = TextEditingController();
+  // /// Controller del Telefono del tutor.
+  // final _controllerTelefonoTutor = TextEditingController();
+
+  // /// Controller de las observaciones.
+  // final _controllerObservaciones = TextEditingController();
 
   /// key del form para las validaciones
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+// _controllerEmail.text = usua
+
+    super.initState();
+  }
 
   @override
   void dispose() {
@@ -70,12 +81,13 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
     _controllerEmail.dispose();
     _controllerFactorSanguineo.dispose();
     _controllerEdad.dispose();
-    _controllerNombreTutor.dispose();
-    _controllerApellidoTutor.dispose();
-    _controllerVinculo.dispose();
-    _controllerEmailTutor.dispose();
-    _controllerTelefonoTutor.dispose();
-    _controllerObservaciones.dispose();
+    _controllerDNI.dispose();
+    // _controllerNombreTutor.dispose();
+    // _controllerApellidoTutor.dispose();
+    // _controllerVinculo.dispose();
+    // _controllerEmailTutor.dispose();
+    // _controllerTelefonoTutor.dispose();
+    // _controllerObservaciones.dispose();
     super.dispose();
   }
 
@@ -249,106 +261,7 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
             ),
             SizedBox(height: max(10.ph, 10.sh)),
             Text(
-              l10n.commonEmergencyContact,
-              style: TextStyle(
-                fontSize: 14.pf,
-                fontWeight: FontWeight.w700,
-                color: colores.onBackground,
-              ),
-            ),
-            SizedBox(height: max(5.ph, 5.sh)),
-            Text(
-              l10n.commonName,
-              style: TextStyle(
-                fontSize: 13.pf,
-                fontWeight: FontWeight.w700,
-                color: colores.onBackground,
-              ),
-            ),
-            EscuelasTextfield.soloLetrasConIcono(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.sw),
-              ),
-              borderSide: BorderSide(
-                color: colores.grisDeshabilitado,
-              ),
-              hintText: l10n.commonName,
-              suffixIcon: const SizedBox.shrink(),
-              controller: _controllerNombreTutor,
-              context: context,
-              onChanged: (v) {
-                if (v.isNotEmpty) {
-                  context.read<BlocEditarPerfil>().add(
-                        BlocEditarPerfilEventoGuardarCambios(
-                          nombreTutor: v,
-                        ),
-                      );
-                }
-              },
-            ),
-            SizedBox(height: max(5.ph, 5.sh)),
-            Text(
-              l10n.commonLastname,
-              style: TextStyle(
-                fontSize: 13.pf,
-                fontWeight: FontWeight.w700,
-                color: colores.onBackground,
-              ),
-            ),
-            EscuelasTextfield.soloLetrasConIcono(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.sw),
-              ),
-              borderSide: BorderSide(
-                color: colores.grisDeshabilitado,
-              ),
-              hintText: l10n.commonLastname,
-              suffixIcon: const SizedBox.shrink(),
-              controller: _controllerApellidoTutor,
-              context: context,
-              onChanged: (v) {
-                if (v.isNotEmpty) {
-                  context.read<BlocEditarPerfil>().add(
-                        BlocEditarPerfilEventoGuardarCambios(
-                          apellidoTutor: v,
-                        ),
-                      );
-                }
-              },
-            ),
-            SizedBox(height: max(5.ph, 5.sh)),
-            Text(
-              l10n.commonBond,
-              style: TextStyle(
-                fontSize: 13.pf,
-                fontWeight: FontWeight.w700,
-                color: colores.onBackground,
-              ),
-            ),
-            EscuelasTextfield.soloLetrasConIcono(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.sw),
-              ),
-              borderSide: BorderSide(
-                color: colores.grisDeshabilitado,
-              ),
-              hintText: l10n.commonBond,
-              suffixIcon: const SizedBox.shrink(),
-              controller: _controllerVinculo,
-              context: context,
-              onChanged: (v) {
-                if (v.isNotEmpty) {
-                  context.read<BlocEditarPerfil>().add(
-                        BlocEditarPerfilEventoGuardarCambios(
-                          vinculo: v,
-                        ),
-                      );
-                }
-              },
-            ),
-            SizedBox(height: max(5.ph, 5.sh)),
-            Text(
-              l10n.commonPhone,
+              l10n.commonDNI,
               style: TextStyle(
                 fontSize: 13.pf,
                 fontWeight: FontWeight.w700,
@@ -360,82 +273,210 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
                 Radius.circular(10.sw),
               ),
               borderSide: BorderSide(
-                color: colores.grisDeshabilitado,
+                color: colores.secondary,
               ),
               maxLines: 1,
-              controller: _controllerTelefonoTutor,
-              hintText: l10n.commonPhone,
+              controller: _controllerDNI,
+              hintText: l10n.commonDNI,
               context: context,
               onChanged: (v) {
                 if (v.isNotEmpty) {
                   context.read<BlocEditarPerfil>().add(
                         BlocEditarPerfilEventoGuardarCambios(
-                          telefonoTutor: v,
+                          dni: v,
                         ),
                       );
                 }
               },
             ),
-            SizedBox(height: max(5.ph, 5.sh)),
-            Text(
-              l10n.commonEmail,
-              style: TextStyle(
-                fontSize: 13.pf,
-                fontWeight: FontWeight.w700,
-                color: colores.onBackground,
-              ),
-            ),
-            EscuelasTextfield.email(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.sw),
-              ),
-              borderSide: BorderSide(
-                color: colores.grisDeshabilitado,
-              ),
-              maxLines: 1,
-              controller: _controllerEmailTutor,
-              context: context,
-              onChanged: (v) {
-                if (v.isNotEmpty) {
-                  context.read<BlocEditarPerfil>().add(
-                        BlocEditarPerfilEventoGuardarCambios(
-                          emailTutor: v,
-                        ),
-                      );
-                }
-              },
-            ),
-            SizedBox(height: max(5.ph, 5.sh)),
-            Text(
-              l10n.commonObservations,
-              style: TextStyle(
-                fontSize: 13.pf,
-                fontWeight: FontWeight.w700,
-                color: colores.onBackground,
-              ),
-            ),
-            EscuelasTextfield.soloLetrasConIcono(
-              borderRadius: BorderRadius.all(
-                Radius.circular(10.sw),
-              ),
-              borderSide: BorderSide(
-                color: colores.grisDeshabilitado,
-              ),
-              maxLines: 3,
-              hintText: l10n.commonObservations,
-              suffixIcon: const SizedBox.shrink(),
-              controller: _controllerObservaciones,
-              context: context,
-              onChanged: (v) {
-                if (v.isNotEmpty) {
-                  context.read<BlocEditarPerfil>().add(
-                        BlocEditarPerfilEventoGuardarCambios(
-                          observaciones: v,
-                        ),
-                      );
-                }
-              },
-            ),
+            // Text(
+            //   l10n.commonEmergencyContact,
+            //   style: TextStyle(
+            //     fontSize: 14.pf,
+            //     fontWeight: FontWeight.w700,
+            //     color: colores.onBackground,
+            //   ),
+            // ),
+            // SizedBox(height: max(5.ph, 5.sh)),
+            // Text(
+            //   l10n.commonName,
+            //   style: TextStyle(
+            //     fontSize: 13.pf,
+            //     fontWeight: FontWeight.w700,
+            //     color: colores.onBackground,
+            //   ),
+            // ),
+            // EscuelasTextfield.soloLetrasConIcono(
+            //   borderRadius: BorderRadius.all(
+            //     Radius.circular(10.sw),
+            //   ),
+            //   borderSide: BorderSide(
+            //     color: colores.grisDeshabilitado,
+            //   ),
+            //   hintText: l10n.commonName,
+            //   suffixIcon: const SizedBox.shrink(),
+            //   controller: _controllerNombreTutor,
+            //   context: context,
+            //   onChanged: (v) {
+            //     if (v.isNotEmpty) {
+            //       context.read<BlocEditarPerfil>().add(
+            //             BlocEditarPerfilEventoGuardarCambios(
+            //               nombreTutor: v,
+            //             ),
+            //           );
+            //     }
+            //   },
+            // ),
+            // SizedBox(height: max(5.ph, 5.sh)),
+            // Text(
+            //   l10n.commonLastname,
+            //   style: TextStyle(
+            //     fontSize: 13.pf,
+            //     fontWeight: FontWeight.w700,
+            //     color: colores.onBackground,
+            //   ),
+            // ),
+            // EscuelasTextfield.soloLetrasConIcono(
+            //   borderRadius: BorderRadius.all(
+            //     Radius.circular(10.sw),
+            //   ),
+            //   borderSide: BorderSide(
+            //     color: colores.grisDeshabilitado,
+            //   ),
+            //   hintText: l10n.commonLastname,
+            //   suffixIcon: const SizedBox.shrink(),
+            //   controller: _controllerApellidoTutor,
+            //   context: context,
+            //   onChanged: (v) {
+            //     if (v.isNotEmpty) {
+            //       context.read<BlocEditarPerfil>().add(
+            //             BlocEditarPerfilEventoGuardarCambios(
+            //               apellidoTutor: v,
+            //             ),
+            //           );
+            //     }
+            //   },
+            // ),
+            // SizedBox(height: max(5.ph, 5.sh)),
+            // Text(
+            //   l10n.commonBond,
+            //   style: TextStyle(
+            //     fontSize: 13.pf,
+            //     fontWeight: FontWeight.w700,
+            //     color: colores.onBackground,
+            //   ),
+            // ),
+            // EscuelasTextfield.soloLetrasConIcono(
+            //   borderRadius: BorderRadius.all(
+            //     Radius.circular(10.sw),
+            //   ),
+            //   borderSide: BorderSide(
+            //     color: colores.grisDeshabilitado,
+            //   ),
+            //   hintText: l10n.commonBond,
+            //   suffixIcon: const SizedBox.shrink(),
+            //   controller: _controllerVinculo,
+            //   context: context,
+            //   onChanged: (v) {
+            //     if (v.isNotEmpty) {
+            //       context.read<BlocEditarPerfil>().add(
+            //             BlocEditarPerfilEventoGuardarCambios(
+            //               vinculo: v,
+            //             ),
+            //           );
+            //     }
+            //   },
+            // ),
+            // SizedBox(height: max(5.ph, 5.sh)),
+            // Text(
+            //   l10n.commonPhone,
+            //   style: TextStyle(
+            //     fontSize: 13.pf,
+            //     fontWeight: FontWeight.w700,
+            //     color: colores.onBackground,
+            //   ),
+            // ),
+            // EscuelasTextfield.soloNumero(
+            //   borderRadius: BorderRadius.all(
+            //     Radius.circular(10.sw),
+            //   ),
+            //   borderSide: BorderSide(
+            //     color: colores.grisDeshabilitado,
+            //   ),
+            //   maxLines: 1,
+            //   controller: _controllerTelefonoTutor,
+            //   hintText: l10n.commonPhone,
+            //   context: context,
+            //   onChanged: (v) {
+            //     if (v.isNotEmpty) {
+            //       context.read<BlocEditarPerfil>().add(
+            //             BlocEditarPerfilEventoGuardarCambios(
+            //               telefonoTutor: v,
+            //             ),
+            //           );
+            //     }
+            //   },
+            // ),
+            // SizedBox(height: max(5.ph, 5.sh)),
+            // Text(
+            //   l10n.commonEmail,
+            //   style: TextStyle(
+            //     fontSize: 13.pf,
+            //     fontWeight: FontWeight.w700,
+            //     color: colores.onBackground,
+            //   ),
+            // ),
+            // EscuelasTextfield.email(
+            //   borderRadius: BorderRadius.all(
+            //     Radius.circular(10.sw),
+            //   ),
+            //   borderSide: BorderSide(
+            //     color: colores.grisDeshabilitado,
+            //   ),
+            //   maxLines: 1,
+            //   controller: _controllerEmailTutor,
+            //   context: context,
+            //   onChanged: (v) {
+            //     if (v.isNotEmpty) {
+            //       context.read<BlocEditarPerfil>().add(
+            //             BlocEditarPerfilEventoGuardarCambios(
+            //               emailTutor: v,
+            //             ),
+            //           );
+            //     }
+            //   },
+            // ),
+            // SizedBox(height: max(5.ph, 5.sh)),
+            // Text(
+            //   l10n.commonObservations,
+            //   style: TextStyle(
+            //     fontSize: 13.pf,
+            //     fontWeight: FontWeight.w700,
+            //     color: colores.onBackground,
+            //   ),
+            // ),
+            // EscuelasTextfield.soloLetrasConIcono(
+            //   borderRadius: BorderRadius.all(
+            //     Radius.circular(10.sw),
+            //   ),
+            //   borderSide: BorderSide(
+            //     color: colores.grisDeshabilitado,
+            //   ),
+            //   maxLines: 3,
+            //   hintText: l10n.commonObservations,
+            //   suffixIcon: const SizedBox.shrink(),
+            //   controller: _controllerObservaciones,
+            //   context: context,
+            //   onChanged: (v) {
+            //     if (v.isNotEmpty) {
+            //       context.read<BlocEditarPerfil>().add(
+            //             BlocEditarPerfilEventoGuardarCambios(
+            //               observaciones: v,
+            //             ),
+            //           );
+            //     }
+            //   },
+            // ),
             SizedBox(height: max(5.ph, 5.sh)),
             Center(
               child: EscuelasBoton.texto(
@@ -453,85 +494,6 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
             SizedBox(height: max(5.ph, 5.sh)),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class DialogEditarPassword extends StatefulWidget {
-  const DialogEditarPassword({
-    required this.dniUsuario,
-    required this.idUsuario,
-    super.key,
-  });
-
-  final String dniUsuario;
-  final int idUsuario;
-  @override
-  State<DialogEditarPassword> createState() => _DialogEditarPasswordState();
-}
-
-class _DialogEditarPasswordState extends State<DialogEditarPassword> {
-  late TextEditingController _controllerNuevaPassword = TextEditingController();
-  bool requerirCambioPassword = true;
-
-  @override
-  void initState() {
-    _controllerNuevaPassword = TextEditingController(text: widget.dniUsuario);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _controllerNuevaPassword.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return EscuelasDialog.solicitudDeAccion(
-      titulo: 'Cambiar contraseña',
-      context: context,
-      estaHabilitado: _controllerNuevaPassword.text.length > 8,
-      // &&
-      //     _controllerNuevaPassword.text == _controllerRepetirNuevaPassword.text,
-      onTapConfirmar: () {
-        Navigator.of(context).pop();
-        context.read<BlocEditarPerfil>().add(
-              BlocEditarPerfilEventoEditarPassword(
-                conRequerimientoDeCambioDePassword: requerirCambioPassword,
-                nuevaPassword: _controllerNuevaPassword.text,
-                idUsuario: widget.idUsuario,
-              ),
-            );
-      },
-      content: Column(
-        children: [
-          EscuelasTextFieldPassword(
-            controller: _controllerNuevaPassword,
-            onValidate: (v) {},
-            onChanged: (v) => setState(() {}),
-          ),
-          SizedBox(height: max(5.ph, 5.sh)),
-          Row(
-            children: [
-              Text('Requerir cambio de password'),
-              Checkbox(
-                value: requerirCambioPassword,
-                onChanged: (v) {
-                  setState(() {
-                    requerirCambioPassword = v!;
-                  });
-                },
-              ),
-            ],
-          )
-          // EscuelasTextFieldPassword(
-          //   controller: _controllerRepetirNuevaPassword,
-          //   onValidate: (v) {},
-          //   onChanged: (v) => setState(() {}),
-          // ),
-        ],
       ),
     );
   }

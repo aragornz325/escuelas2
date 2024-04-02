@@ -503,6 +503,7 @@ class EscuelasTextFieldPassword extends StatefulWidget {
     this.onChanged,
     this.backgroundColor,
     super.key,
+    this.obscureText,
   });
 
   /// Controller del TextFormField eMail
@@ -518,6 +519,8 @@ class EscuelasTextFieldPassword extends StatefulWidget {
 
   /// Color del fondo del campo de texto
   final Color? backgroundColor;
+
+  final bool? obscureText;
 
   /// Funcion onChanged del textfield
   final void Function(String)? onChanged;
@@ -539,7 +542,7 @@ class _EscuelasTextFieldPasswordState extends State<EscuelasTextFieldPassword> {
       hintText: widget.hintText ?? l10n.commonPassword,
       controller: widget.controller,
       esPassword: true,
-      obscureText: _obscureText,
+      obscureText: widget.obscureText ?? _obscureText,
       maxLines: 1,
       onChanged: (value) {
         setState(() {});

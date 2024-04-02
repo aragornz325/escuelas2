@@ -52,16 +52,12 @@ class BlocEditarPerfil
     emit(BlocEditarPerfilEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
+        await client.usuario.actualizarUsuario(usuario: state.usuario!);
         emit(
           BlocEditarPerfilEstadoExitoso.desde(
             state,
             edad: event.edad,
-            vinculo: event.vinculo,
-            nombreTutor: event.nombreTutor,
-            apellidoTutor: event.apellidoTutor,
-            emailTutor: event.emailTutor,
-            telefonoTutor: event.telefonoTutor,
-            observaciones: event.observaciones,
+            dni: event.dni,
             factorSanguineo: event.factorSanguineo,
             email: event.email,
             telefono: event.telefono,
