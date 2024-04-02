@@ -114,21 +114,43 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
     return userInfoActualizado;
   }
 
-  Future<bool> cambiarPasswordDelUsuario(
+  Future<bool> cambiarPasswordPropia(
     Session session, {
     required String nuevaPassword,
   }) async {
     final idUsuario = await obtenerIdDeUsuarioLogueado(session);
 
-    return await _cambiarPasswordDeUsuario(session, idUsuario: idUsuario, nuevaPassword: nuevaPassword);
+    final cambioPasswordExitoso = _cambiarPasswordDeUsuario(session,
+        idUsuario: idUsuario, nuevaPassword: nuevaPassword);
+
+    final registroDelUsuario = await _ormUsuario
+        .obtenerInfoBasicaUsuario(session, idUserInfo: idUsuario);
+
+    if (registroDelUsuario.necesitaCambiarPassword) {
+      await _ormUsuario.actualizarUsuario(session,
+          usuario: registroDelUsuario..necesitaCambiarPassword = false);
+    }
+
+    return cambioPasswordExitoso;
   }
 
-  Future<bool> cambiarPasswordDeUsuarioDirectivo(
+  Future<bool> cambiarPasswordDeOtroUsuario(
     Session session, {
     required int idUsuario,
     required String nuevaPassword,
+    required bool conRequerimientoDeCambioDePassword,
   }) async {
-    return await _cambiarPasswordDeUsuario(session, idUsuario: idUsuario, nuevaPassword: nuevaPassword);
+    final cambioPasswordExitoso = await _cambiarPasswordDeUsuario(session,
+        idUsuario: idUsuario, nuevaPassword: nuevaPassword);
+
+    final registroDelUsuario = await _ormUsuario
+        .obtenerInfoBasicaUsuario(session, idUserInfo: idUsuario);
+
+    await _ormUsuario.actualizarUsuario(session,
+        usuario: registroDelUsuario
+          ..necesitaCambiarPassword = conRequerimientoDeCambioDePassword);
+
+    return cambioPasswordExitoso;
   }
 
   Future<bool> _cambiarPasswordDeUsuario(
@@ -145,7 +167,7 @@ class ServicioUserInfo extends Servicio<OrmUserInfo> {
     }
 
     // Update password
-    auth.hash = Emails.generatePasswordHash(nuevaPassword, auth.email);
+    auth.hash = await Emails.generatePasswordHash(nuevaPassword);
     await EmailAuth.db.updateRow(session, auth);
 
     return true;
