@@ -45,14 +45,14 @@ class EscuelasScaffold extends StatelessWidget {
     final colores = context.colores;
 
     final userInfo = sessionManager.signedInUser;
-    
-    
+
     return Scaffold(
       drawer: EscuelasDrawer(
         urlImage: userInfo?.imageUrl ?? '',
         nombre: userInfo?.userName ?? '',
         apellido: userInfo?.apellido ?? '',
       ),
+      // resizeToAvoidBottomInset: true,
       appBar: tieneAppBar
           ? EscuelasAppBar(
               tieneDrawer: tieneDrawer,
