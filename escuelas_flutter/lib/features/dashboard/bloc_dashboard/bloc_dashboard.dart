@@ -98,7 +98,7 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
     emit(BlocDashboardEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        await client.userInfo.cambiarPasswordDelUsuario(
+        await client.userInfo.cambiarPasswordPropia(
           nuevaPassword: event.nuevaContrasenia,
         );
 
