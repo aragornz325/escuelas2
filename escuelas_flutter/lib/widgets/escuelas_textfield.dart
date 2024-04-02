@@ -232,11 +232,12 @@ class EscuelasTextfield extends StatefulWidget {
       controller: controller,
       backgroundColor: backgroundColor,
       esPassword: false,
-      inputFormatters: [
-        FilteringTextInputFormatter.deny(
-          RegExp(r'[^a-zA-Z0-9\sñóäáéíóúüÜÁÉÍÓÚÑäÄöÖß@.]'),
-        ),
-      ],
+      //TODO(anyone): anda mal esto, no deja poner el _
+      // inputFormatters: [
+      //   FilteringTextInputFormatter.deny(
+      //     RegExp(r'[^a-zA-Z0-9\sñóäáéíóúüÜÁÉÍÓÚÑäÄöÖß@.]'),
+      //   ),
+      // ],
       onChanged: onChanged,
       keyboardType: TextInputType.text,
       suffixIcon: suffixIcon,

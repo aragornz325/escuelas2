@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:escuelas_commons/config/config.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -39,6 +38,10 @@ class _DialogCambiarContraseniaState extends State<DialogCambiarContrasenia> {
       _controllerRepeatPassword.text.isNotEmpty &&
       _controllerPassword.text.length >= 12 &&
       _controllerRepeatPassword.text.length >= 12;
+
+  /// Getter para saber si las contraseñas son iguales
+  bool get lasContraseniasCoinciden =>
+      _controllerPassword.text == _controllerRepeatPassword.text;
 
   @override
   void dispose() {
@@ -102,16 +105,22 @@ class _DialogCambiarContraseniaState extends State<DialogCambiarContrasenia> {
                       color: colores.verdeConfirmar,
                       size: 14.pf,
                     ),
-                    Text(
-                      l10n.pageRegisterMinimumCaractersForPassword(
-                        const RedemptorisMissioConfigs()
-                            .minimoDeCaracteresPassword,
+                    if (lasContraseniasCoinciden)
+                      Text(
+                        l10n.pageRegisterPasswordMatch,
+                        style: TextStyle(
+                          color: colores.verdeConfirmar,
+                          fontSize: 14.pf,
+                        ),
                       ),
-                      style: TextStyle(
-                        color: colores.verdeConfirmar,
-                        fontSize: 14.pf,
+                    if (false == lasContraseniasCoinciden)
+                      Text(
+                        l10n.pageRegisterPasswordDoNotMatch,
+                        style: TextStyle(
+                          color: colores.error,
+                          fontSize: 14.pf,
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),

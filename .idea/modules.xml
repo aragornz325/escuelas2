@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/escuelas_client/melos_escuelas_client.iml" filepath="$PROJECT_DIR$/escuelas_client/melos_escuelas_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/escuelas_commons/melos_escuelas_commons.iml" filepath="$PROJECT_DIR$/escuelas_commons/melos_escuelas_commons.iml" />
       <module fileurl="file://$PROJECT_DIR$/escuelas_flutter/melos_escuelas_flutter.iml" filepath="$PROJECT_DIR$/escuelas_flutter/melos_escuelas_flutter.iml" />
       <module fileurl="file://$PROJECT_DIR$/escuelas_server/melos_escuelas_server.iml" filepath="$PROJECT_DIR$/escuelas_server/melos_escuelas_server.iml" />
       <module fileurl="file://$PROJECT_DIR$/melos_escuelas.iml" filepath="$PROJECT_DIR$/melos_escuelas.iml" />
