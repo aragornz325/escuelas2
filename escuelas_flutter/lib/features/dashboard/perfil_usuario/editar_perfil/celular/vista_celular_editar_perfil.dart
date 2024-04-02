@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialogs.dart';
@@ -16,16 +17,8 @@ import 'package:full_responsive/full_responsive.dart';
 class VistaCelularEditarPerfil extends StatelessWidget {
   /// {@macro VistaCelularEditarPerfil}
   const VistaCelularEditarPerfil({
-    required this.dniUsuario,
-    required this.idUsuario,
     super.key,
   });
-
-  /// DNI del usuario
-  final String dniUsuario;
-
-  /// id del usuario
-  final int idUsuario;
 
   /// dialog de exito al guardar los cambios en la BD
   void _dialogDeExitoAlGuardarCambios(BuildContext context) {
@@ -37,6 +30,7 @@ class VistaCelularEditarPerfil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final usuario = context.read<BlocEditarPerfil>().state.usuario;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: BlocListener<BlocEditarPerfil, BlocEditarPerfilEstado>(
@@ -51,11 +45,8 @@ class VistaCelularEditarPerfil extends StatelessWidget {
         child: ListView(
           children: [
             _DatosPersonalesAEditar(
-              idUsuario: idUsuario,
-              dniUsuario: dniUsuario,
+              usuario: usuario!,
             ),
-            SizedBox(height: max(20.ph, 20.sh)),
-            const BotonesGuardarYVolver(),
           ],
         ),
       ),
@@ -69,12 +60,10 @@ class VistaCelularEditarPerfil extends StatelessWidget {
 class _DatosPersonalesAEditar extends StatelessWidget {
   /// {@macro _DatosPersonalesAEditar}
   const _DatosPersonalesAEditar({
-    required this.dniUsuario,
-    required this.idUsuario,
+    required this.usuario,
   });
 
-  final String dniUsuario;
-  final int idUsuario;
+  final Usuario usuario;
 
   @override
   Widget build(BuildContext context) {
@@ -111,8 +100,7 @@ class _DatosPersonalesAEditar extends StatelessWidget {
                 color: colores.secondary,
               ),
               FormularioDePerfilUsuario(
-                dniUsuario: dniUsuario,
-                idUsuario: idUsuario,
+                usuario: usuario,
               ),
             ],
           ),

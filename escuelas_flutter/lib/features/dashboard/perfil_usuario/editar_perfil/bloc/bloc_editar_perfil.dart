@@ -15,11 +15,10 @@ class BlocEditarPerfil
   BlocEditarPerfil() : super(const BlocEditarPerfilEstadoInitial()) {
     on<BlocEditarPerfilEventoTraerUsuario>(_ontraerUsuario);
     on<BlocEditarPerfilEventoGuardarCambios>(_onGuardarCambios);
-    on<BlocEditarPerfilEventoConfirmarCambios>(_onConfirmarCambios);
     on<BlocEditarPerfilEventoEditarPassword>(_onEditarPassword);
   }
 
-  /// Funciona para traer la info de un usuario
+  // / Funciona para traer la info de un usuario
   Future<void> _ontraerUsuario(
     BlocEditarPerfilEventoTraerUsuario event,
     Emitter<BlocEditarPerfilEstado> emit,
@@ -28,7 +27,6 @@ class BlocEditarPerfil
 
     await operacionBloc(
       callback: (client) async {
-        // TODO (anyone) : implementar endpoint para traer la info del usuario
         final usuario =
             await client.usuario.obtenerUsuario(idUsuario: event.idUsuario);
 
@@ -36,7 +34,6 @@ class BlocEditarPerfil
           BlocEditarPerfilEstadoExitoso.desde(
             state,
             usuario: usuario,
-            nombreUsuario: event.nombreUsuario,
           ),
         );
       },
@@ -52,32 +49,17 @@ class BlocEditarPerfil
     emit(BlocEditarPerfilEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        await client.usuario.actualizarUsuario(usuario: state.usuario!);
+        final usuarioModificado =
+            await client.usuario.actualizarUsuario(usuario: state.usuario!);
         emit(
-          BlocEditarPerfilEstadoExitoso.desde(
+          BlocEditarPerfilEstadoExitosoAlActualizar.desde(
             state,
-            edad: event.edad,
-            dni: event.dni,
-            factorSanguineo: event.factorSanguineo,
-            email: event.email,
             telefono: event.telefono,
+            email: event.email,
+            dni: event.dni,
+            usuario: usuarioModificado,
           ),
         );
-      },
-      onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
-    );
-  }
-
-  /// Funcion para confirmar los cambios en la base de datos de un usuario
-  Future<void> _onConfirmarCambios(
-    BlocEditarPerfilEventoConfirmarCambios event,
-    Emitter<BlocEditarPerfilEstado> emit,
-  ) async {
-    emit(BlocEditarPerfilEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (client) async {
-        // TODO (anyone) : implementar endpoint para confirmar los cambios
-        emit(BlocEditarPerfilEstadoExitosoAlActualizar.desde(state));
       },
       onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
     );

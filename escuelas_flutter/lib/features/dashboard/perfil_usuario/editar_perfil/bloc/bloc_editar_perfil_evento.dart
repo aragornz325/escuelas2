@@ -17,14 +17,10 @@ class BlocEditarPerfilEventoTraerUsuario extends BlocEditarPerfilEvento {
   /// {@macro BlocEditarPerfilEventoTraerUsuario}
   const BlocEditarPerfilEventoTraerUsuario({
     required this.idUsuario,
-    this.nombreUsuario,
   });
 
   /// Id del usuario a traer y luego modificar.
   final int idUsuario;
-
-  /// Nombre del usuario.
-  final String? nombreUsuario;
 }
 
 /// {@template BlocEditarPerfilEventoGuardarCambios}
@@ -33,12 +29,15 @@ class BlocEditarPerfilEventoTraerUsuario extends BlocEditarPerfilEvento {
 class BlocEditarPerfilEventoGuardarCambios extends BlocEditarPerfilEvento {
   /// {@macro BlocEditarPerfilEventoGuardarCambios}
   const BlocEditarPerfilEventoGuardarCambios({
+    this.usuario,
     this.telefono,
     this.email,
     this.factorSanguineo,
     this.edad,
     this.dni,
   });
+
+  final Usuario? usuario;
 
   /// Telefono a guardar del usuario.
   final String? telefono;

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/celular/vista_celular_editar_perfil.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/escritorio/vista_escritorio_editar_perfil.dart';
@@ -13,20 +14,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PaginaEditarPerfil extends StatelessWidget {
   /// {@macro PaginaEditarPerfil}
   const PaginaEditarPerfil({
-    @PathParam('nombreUsuario') required this.nombreUsuario,
-    @PathParam('idUsuario') required this.idUsuario,
-    @PathParam('dniUsuario') required this.dniUsuario,
+    required this.usuario,
     super.key,
   });
 
   /// Id del usuario a editar el perfil.
-  final int idUsuario;
-
-  /// Nombre del usuario.
-  final String nombreUsuario;
-
-  /// DNI del usuario
-  final String dniUsuario;
+  final Usuario usuario;
 
   @override
   Widget build(BuildContext context) {
@@ -34,15 +27,11 @@ class PaginaEditarPerfil extends StatelessWidget {
       value: context.read<BlocEditarPerfil>()
         ..add(
           BlocEditarPerfilEventoTraerUsuario(
-            idUsuario: idUsuario,
-            nombreUsuario: nombreUsuario,
+            idUsuario: usuario.id ?? 0,
           ),
         ),
       child: FullResponsiveScreen(
-        celular: VistaCelularEditarPerfil(
-          dniUsuario: dniUsuario,
-          idUsuario: idUsuario,
-        ),
+        celular: VistaCelularEditarPerfil(),
         escritorio: const VistaEscritorioEditarPerfil(),
       ),
     );

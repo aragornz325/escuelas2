@@ -100,7 +100,13 @@ class BlocEditarPerfilEstadoExitoso extends BlocEditarPerfilEstado {
 /// {@endtemplate}
 class BlocEditarPerfilEstadoExitosoAlActualizar extends BlocEditarPerfilEstado {
   /// {@macro BlocEditarPerfilEstadoExitoso}
-  BlocEditarPerfilEstadoExitosoAlActualizar.desde(super.otro) : super.desde();
+  BlocEditarPerfilEstadoExitosoAlActualizar.desde(
+    super.otro, {
+    super.usuario,
+    super.telefono,
+    super.email,
+    super.dni,
+  }) : super.desde();
 }
 
 /// {@template BlocEditarPerfilEstadoExitosoEditarPassword}

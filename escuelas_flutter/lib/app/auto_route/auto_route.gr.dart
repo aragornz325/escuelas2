@@ -181,19 +181,11 @@ abstract class $AppRouter extends _i35.RootStackRouter {
       );
     },
     RutaEditarPerfil.name: (routeData) {
-      final pathParams = routeData.inheritedPathParams;
-      final args = routeData.argsAs<RutaEditarPerfilArgs>(
-          orElse: () => RutaEditarPerfilArgs(
-                nombreUsuario: pathParams.getString('nombreUsuario'),
-                idUsuario: pathParams.getInt('idUsuario'),
-                dniUsuario: pathParams.getString('dniUsuario'),
-              ));
+      final args = routeData.argsAs<RutaEditarPerfilArgs>();
       return _i35.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i13.PaginaEditarPerfil(
-          nombreUsuario: args.nombreUsuario,
-          idUsuario: args.idUsuario,
-          dniUsuario: args.dniUsuario,
+          usuario: args.usuario,
           key: args.key,
         ),
       );
@@ -645,24 +637,15 @@ class RutaDashboardArgs {
 /// [_i13.PaginaEditarPerfil]
 class RutaEditarPerfil extends _i35.PageRouteInfo<RutaEditarPerfilArgs> {
   RutaEditarPerfil({
-    required String nombreUsuario,
-    required int idUsuario,
-    required String dniUsuario,
+    required _i37.Usuario usuario,
     _i36.Key? key,
     List<_i35.PageRouteInfo>? children,
   }) : super(
           RutaEditarPerfil.name,
           args: RutaEditarPerfilArgs(
-            nombreUsuario: nombreUsuario,
-            idUsuario: idUsuario,
-            dniUsuario: dniUsuario,
+            usuario: usuario,
             key: key,
           ),
-          rawPathParams: {
-            'nombreUsuario': nombreUsuario,
-            'idUsuario': idUsuario,
-            'dniUsuario': dniUsuario,
-          },
           initialChildren: children,
         );
 
@@ -674,23 +657,17 @@ class RutaEditarPerfil extends _i35.PageRouteInfo<RutaEditarPerfilArgs> {
 
 class RutaEditarPerfilArgs {
   const RutaEditarPerfilArgs({
-    required this.nombreUsuario,
-    required this.idUsuario,
-    required this.dniUsuario,
+    required this.usuario,
     this.key,
   });
 
-  final String nombreUsuario;
-
-  final int idUsuario;
-
-  final String dniUsuario;
+  final _i37.Usuario usuario;
 
   final _i36.Key? key;
 
   @override
   String toString() {
-    return 'RutaEditarPerfilArgs{nombreUsuario: $nombreUsuario, idUsuario: $idUsuario, dniUsuario: $dniUsuario, key: $key}';
+    return 'RutaEditarPerfilArgs{usuario: $usuario, key: $key}';
   }
 }
 
