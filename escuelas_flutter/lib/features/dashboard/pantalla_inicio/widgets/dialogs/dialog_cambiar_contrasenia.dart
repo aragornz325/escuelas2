@@ -36,8 +36,8 @@ class _DialogCambiarContraseniaState extends State<DialogCambiarContrasenia> {
   bool get lasContraseniasContienen12Caracteres =>
       _controllerPassword.text.isNotEmpty &&
       _controllerRepeatPassword.text.isNotEmpty &&
-      _controllerPassword.text.length >= 12 &&
-      _controllerRepeatPassword.text.length >= 12;
+      _controllerPassword.text.length >= 8 &&
+      _controllerRepeatPassword.text.length >= 8;
 
   /// Getter para saber si las contraseñas son iguales
   bool get lasContraseniasCoinciden =>
