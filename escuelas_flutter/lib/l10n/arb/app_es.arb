@@ -446,7 +446,14 @@
           }
       }
   },
-  
+  "pageEditProfileDialogChangePassword":"Cambiar contraseña",
+  "@pageEditProfileDialogChangePassword": {
+      "description": "Label indicating the action to replace a password of the user."
+  },
+  "pageEditProfileDialogRequiresChangePassword":"Requiere cambio de password",
+  "@pageEditProfileDialogRequiresChangePassword": {
+      "description": "Checkbox to indicate if user requires change password."
+  },
   "pageEditProfileDeclinePendingUser": "¿Deseas Rechazar la solicitud de {nombre}?",
   "@pageEditProfileDeclinePendingUser": {
     "description": "Message displayed when the user is asked if they want to reject a pending request.",

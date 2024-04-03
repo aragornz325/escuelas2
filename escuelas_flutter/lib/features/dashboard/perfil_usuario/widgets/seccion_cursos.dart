@@ -215,7 +215,12 @@ class _DesplegableCurso extends StatelessWidget {
         PermisoDeAsignatura.asignarDocenteAAsignatura,
       )
           ? GestureDetector(
-              onTap: () {},
+              onTap: () => showDialog<void>(
+                context: context,
+                builder: (context) =>
+                    EscuelasDialog.featNoDisponible(context: context),
+              ),
+
               //! TODO(Manu):dar funcion
               child: Icon(
                 Icons.delete_outline_outlined,
@@ -241,7 +246,11 @@ class _DesplegableCurso extends StatelessWidget {
           ))
             EscuelasBoton.textoEIcono(
               color: colores.primary,
-              onTap: () {},
+              onTap: () => showDialog<void>(
+                context: context,
+                builder: (context) =>
+                    EscuelasDialog.featNoDisponible(context: context),
+              ),
               texto: l10n.pageUserProfileButtonAddSubject,
               context: context,
               icono: Icons.add,

@@ -12,43 +12,31 @@ sealed class BlocEditarPerfilEstado {
     this.usuario,
     this.telefono,
     this.email,
-    this.factorSanguineo,
     this.edad,
-    this.nombreTutor,
-    this.apellidoTutor,
-    this.vinculo,
-    this.emailTutor,
-    this.telefonoTutor,
-    this.observaciones,
+    this.dni,
+    this.nuevaPassword,
+    this.conRequerimientoDeCambioDePassword,
   });
 
   BlocEditarPerfilEstado.desde(
     BlocEditarPerfilEstado otro, {
+    Usuario? usuario,
     String? edad,
     String? email,
-    String? vinculo,
-    Usuario? usuario,
     String? telefono,
-    String? emailTutor,
-    String? nombreTutor,
-    String? apellidoTutor,
-    String? telefonoTutor,
-    String? observaciones,
-    String? nombreUsuario,
-    String? factorSanguineo,
+    String? dni,
+    String? nuevaPassword,
+    bool? conRequerimientoDeCambioDePassword,
   }) : this._(
           edad: edad ?? otro.edad,
           email: email ?? otro.email,
-          vinculo: vinculo ?? otro.vinculo,
           usuario: usuario ?? otro.usuario,
           telefono: telefono ?? otro.telefono,
-          emailTutor: emailTutor ?? otro.emailTutor,
-          nombreTutor: nombreTutor ?? otro.nombreTutor,
-          apellidoTutor: apellidoTutor ?? otro.apellidoTutor,
-          telefonoTutor: telefonoTutor ?? otro.telefonoTutor,
-          observaciones: observaciones ?? otro.observaciones,
-          nombreUsuario: nombreUsuario ?? otro.nombreUsuario,
-          factorSanguineo: factorSanguineo ?? otro.factorSanguineo,
+          dni: dni ?? otro.dni,
+          nuevaPassword: nuevaPassword ?? otro.nuevaPassword,
+          conRequerimientoDeCambioDePassword:
+              conRequerimientoDeCambioDePassword ??
+                  otro.conRequerimientoDeCambioDePassword,
         );
 
   /// Nombre del usuario.
@@ -60,14 +48,10 @@ sealed class BlocEditarPerfilEstado {
   /// Son los datos a guardar
   final String? telefono;
   final String? email;
-  final String? factorSanguineo;
   final String? edad;
-  final String? nombreTutor;
-  final String? apellidoTutor;
-  final String? vinculo;
-  final String? emailTutor;
-  final String? telefonoTutor;
-  final String? observaciones;
+  final String? dni;
+  final String? nuevaPassword;
+  final bool? conRequerimientoDeCambioDePassword;
 }
 
 /// {@template BlocEditarPerfilEstadoInitial}
@@ -98,15 +82,8 @@ class BlocEditarPerfilEstadoExitoso extends BlocEditarPerfilEstado {
     super.usuario,
     super.telefono,
     super.email,
-    super.factorSanguineo,
     super.edad,
-    super.nombreTutor,
-    super.apellidoTutor,
-    super.vinculo,
-    super.emailTutor,
-    super.telefonoTutor,
-    super.observaciones,
-    super.nombreUsuario,
+    super.dni,
   }) : super.desde();
 }
 
@@ -115,7 +92,26 @@ class BlocEditarPerfilEstadoExitoso extends BlocEditarPerfilEstado {
 /// {@endtemplate}
 class BlocEditarPerfilEstadoExitosoAlActualizar extends BlocEditarPerfilEstado {
   /// {@macro BlocEditarPerfilEstadoExitoso}
-  BlocEditarPerfilEstadoExitosoAlActualizar.desde(super.otro) : super.desde();
+  BlocEditarPerfilEstadoExitosoAlActualizar.desde(
+    super.otro, {
+    super.usuario,
+    super.telefono,
+    super.email,
+    super.dni,
+  }) : super.desde();
+}
+
+/// {@template BlocEditarPerfilEstadoExitosoEditarPassword}
+/// Estado exitoso cuando guarda la contraseña nueva en la base de datos.
+/// {@endtemplate}
+class BlocEditarPerfilEstadoExitosoEditarPassword
+    extends BlocEditarPerfilEstado {
+  /// {@macro BlocEditarPerfilEstadoExitosoEditarPassword}
+  BlocEditarPerfilEstadoExitosoEditarPassword.desde(
+    super.otro, {
+    super.nuevaPassword,
+    super.conRequerimientoDeCambioDePassword,
+  }) : super.desde();
 }
 
 /// {@template BlocEditarPerfilEstadoFallido}

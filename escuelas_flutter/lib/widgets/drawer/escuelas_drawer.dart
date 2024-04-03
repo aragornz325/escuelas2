@@ -1,6 +1,8 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -115,6 +117,8 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
 
     final colores = context.colores;
 
+    final usuarioLogueado = context.read<BlocDashboard>().state.usuario;
+
     return Drawer(
       backgroundColor: colores.transparente,
       shadowColor: colores.onSecondaryOpacidadTreinta,
@@ -209,44 +213,42 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
                         title: l10n.drawerMyProfile,
                         onTap: () => _redireccionPerfil(context),
                       ),
-                      //! TODO(anyone): esto va aca para probar hasta qye esten las features previas
 
-                      // _EscuelasListTile(
-                      //   icon: Icons.looks,
-                      //   title: 'plantillas',
-                      //   onTap: () => _redireccionPlantillas(context),
-                      // ),
                       const Spacer(),
                       // TODO(anyone): Eliminar este widget
-                      GestureDetector(
-                        onTap: () async => {
-                          await client.solicitudNotaMensual
-                              .enviarSolicitudADocentes(),
-                        },
-                        child: Container(
-                          height: 70.ph,
-                          width: 200.pw,
-                          decoration: BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                              width: 2,
+                      if (usuarioLogueado
+                          .tienePermisos(PermisoDeSolicitud.crearSolicitud))
+                        GestureDetector(
+                          onTap: () async => {
+                            await client.solicitudNotaMensual
+                                .enviarSolicitudADocentes(),
+                          },
+                          child: Container(
+                            height: 70.ph,
+                            width: 200.pw,
+                            decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                width: 2,
+                              ),
                             ),
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8),
-                              child: Text(
-                                'Press (solo para enviar solicitud notas)',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w800,
-                                  fontSize: 16.pf,
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Text(
+                                  'Press (solo para enviar solicitud notas)',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 16.pf,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
+                        )
+                      else
+                        const SizedBox.shrink(),
                       _EscuelasListTile(
                         icon: Icons.logout,
                         title: l10n.drawerLogOut,
