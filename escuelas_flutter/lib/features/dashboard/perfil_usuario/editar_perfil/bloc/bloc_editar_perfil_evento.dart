@@ -17,14 +17,10 @@ class BlocEditarPerfilEventoTraerUsuario extends BlocEditarPerfilEvento {
   /// {@macro BlocEditarPerfilEventoTraerUsuario}
   const BlocEditarPerfilEventoTraerUsuario({
     required this.idUsuario,
-    this.nombreUsuario,
   });
 
   /// Id del usuario a traer y luego modificar.
   final int idUsuario;
-
-  /// Nombre del usuario.
-  final String? nombreUsuario;
 }
 
 /// {@template BlocEditarPerfilEventoGuardarCambios}
@@ -33,17 +29,15 @@ class BlocEditarPerfilEventoTraerUsuario extends BlocEditarPerfilEvento {
 class BlocEditarPerfilEventoGuardarCambios extends BlocEditarPerfilEvento {
   /// {@macro BlocEditarPerfilEventoGuardarCambios}
   const BlocEditarPerfilEventoGuardarCambios({
+    this.usuario,
     this.telefono,
     this.email,
     this.factorSanguineo,
     this.edad,
-    this.nombreTutor,
-    this.apellidoTutor,
-    this.vinculo,
-    this.emailTutor,
-    this.telefonoTutor,
-    this.observaciones,
+    this.dni,
   });
+
+  final Usuario? usuario;
 
   /// Telefono a guardar del usuario.
   final String? telefono;
@@ -57,23 +51,8 @@ class BlocEditarPerfilEventoGuardarCambios extends BlocEditarPerfilEvento {
   /// Edad a guardar del usuario.
   final String? edad;
 
-  /// Nombre del tutor a guardar del usuario.
-  final String? nombreTutor;
-
-  /// Apellido del tutor a guardar del usuario.
-  final String? apellidoTutor;
-
-  /// Vinculo del tutor al alumno a guardar del usuario.
-  final String? vinculo;
-
-  /// email del tutor a guardar del usuario.
-  final String? emailTutor;
-
-  /// Telefono del tutor a guardar del usuario.
-  final String? telefonoTutor;
-
-  /// Observaciones a guardar del usuario.
-  final String? observaciones;
+  /// DNI a guardar del usuario.
+  final String? dni;
 }
 
 /// {@template BlocEditarPerfilEventoGuardarCambios}
@@ -82,4 +61,26 @@ class BlocEditarPerfilEventoGuardarCambios extends BlocEditarPerfilEvento {
 class BlocEditarPerfilEventoConfirmarCambios extends BlocEditarPerfilEvento {
   /// {@macro BlocEditarPerfilEventoGuardarCambios}
   const BlocEditarPerfilEventoConfirmarCambios();
+}
+
+/// {@template BlocEditarPerfilEventoEditarPassword}
+/// Evento para editar la contraseña de un tercero
+/// {@endtemplate}
+class BlocEditarPerfilEventoEditarPassword extends BlocEditarPerfilEvento {
+  /// {@macro BlocEditarPerfilEventoEditarPassword}
+  const BlocEditarPerfilEventoEditarPassword({
+    required this.nuevaPassword,
+    required this.idUsuario,
+    required this.conRequerimientoDeCambioDePassword,
+  });
+
+  /// Nueva password a guardar del usuario.
+  final String nuevaPassword;
+
+  /// Id del usuario
+  final int idUsuario;
+
+  /// Indica si se le debe requerir al usuario
+  /// un cambio de contraseña la proxima vez que inicie sesión.
+  final bool conRequerimientoDeCambioDePassword;
 }

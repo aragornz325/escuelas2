@@ -183,14 +183,11 @@ abstract class $AppRouter extends _i35.RootStackRouter {
     RutaEditarPerfil.name: (routeData) {
       final pathParams = routeData.inheritedPathParams;
       final args = routeData.argsAs<RutaEditarPerfilArgs>(
-          orElse: () => RutaEditarPerfilArgs(
-                nombreUsuario: pathParams.getString('nombreUsuario'),
-                idUsuario: pathParams.getInt('idUsuario'),
-              ));
+          orElse: () =>
+              RutaEditarPerfilArgs(idUsuario: pathParams.getInt('userId')));
       return _i35.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i13.PaginaEditarPerfil(
-          nombreUsuario: args.nombreUsuario,
           idUsuario: args.idUsuario,
           key: args.key,
         ),
@@ -643,21 +640,16 @@ class RutaDashboardArgs {
 /// [_i13.PaginaEditarPerfil]
 class RutaEditarPerfil extends _i35.PageRouteInfo<RutaEditarPerfilArgs> {
   RutaEditarPerfil({
-    required String nombreUsuario,
     required int idUsuario,
     _i36.Key? key,
     List<_i35.PageRouteInfo>? children,
   }) : super(
           RutaEditarPerfil.name,
           args: RutaEditarPerfilArgs(
-            nombreUsuario: nombreUsuario,
             idUsuario: idUsuario,
             key: key,
           ),
-          rawPathParams: {
-            'nombreUsuario': nombreUsuario,
-            'idUsuario': idUsuario,
-          },
+          rawPathParams: {'userId': idUsuario},
           initialChildren: children,
         );
 
@@ -669,12 +661,9 @@ class RutaEditarPerfil extends _i35.PageRouteInfo<RutaEditarPerfilArgs> {
 
 class RutaEditarPerfilArgs {
   const RutaEditarPerfilArgs({
-    required this.nombreUsuario,
     required this.idUsuario,
     this.key,
   });
-
-  final String nombreUsuario;
 
   final int idUsuario;
 
@@ -682,7 +671,7 @@ class RutaEditarPerfilArgs {
 
   @override
   String toString() {
-    return 'RutaEditarPerfilArgs{nombreUsuario: $nombreUsuario, idUsuario: $idUsuario, key: $key}';
+    return 'RutaEditarPerfilArgs{idUsuario: $idUsuario, key: $key}';
   }
 }
 

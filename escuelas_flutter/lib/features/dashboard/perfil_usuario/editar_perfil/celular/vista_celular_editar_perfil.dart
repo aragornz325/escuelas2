@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialogs.dart';
@@ -15,7 +16,9 @@ import 'package:full_responsive/full_responsive.dart';
 
 class VistaCelularEditarPerfil extends StatelessWidget {
   /// {@macro VistaCelularEditarPerfil}
-  const VistaCelularEditarPerfil({super.key});
+  const VistaCelularEditarPerfil({
+    super.key,
+  });
 
   /// dialog de exito al guardar los cambios en la BD
   void _dialogDeExitoAlGuardarCambios(BuildContext context) {
@@ -29,19 +32,28 @@ class VistaCelularEditarPerfil extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: BlocListener<BlocEditarPerfil, BlocEditarPerfilEstado>(
+      child: BlocConsumer<BlocEditarPerfil, BlocEditarPerfilEstado>(
         listener: (context, state) {
           if (state is BlocEditarPerfilEstadoExitosoAlActualizar) {
             _dialogDeExitoAlGuardarCambios(context);
           }
+          if (state is BlocEditarPerfilEstadoExitosoEditarPassword) {
+            _dialogDeExitoAlGuardarCambios(context);
+          }
         },
-        child: ListView(
-          children: [
-            const _DatosPersonalesAEditar(),
-            SizedBox(height: max(20.ph, 20.sh)),
-            const BotonesGuardarYVolver(),
-          ],
-        ),
+        builder: (context, state) {
+          if (state is BlocEditarPerfilEstadoCargando ||
+              state.usuario == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          return ListView(
+            children: [
+              _DatosPersonalesAEditar(
+                usuario: state.usuario,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -52,7 +64,11 @@ class VistaCelularEditarPerfil extends StatelessWidget {
 /// {@endtemplate}
 class _DatosPersonalesAEditar extends StatelessWidget {
   /// {@macro _DatosPersonalesAEditar}
-  const _DatosPersonalesAEditar();
+  const _DatosPersonalesAEditar({
+    this.usuario,
+  });
+
+  final Usuario? usuario;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +104,9 @@ class _DatosPersonalesAEditar extends StatelessWidget {
                 height: 0,
                 color: colores.secondary,
               ),
-              const FormularioDePerfilUsuario(),
+              FormularioDePerfilUsuario(
+                usuario: usuario,
+              ),
             ],
           ),
         ),

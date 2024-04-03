@@ -738,6 +738,14 @@
           }
       }
   },
+  "pageEditProfileDialogChangePassword":"Change password",
+  "@pageEditProfileDialogChangePassword": {
+      "description": "Label indicating the action to replace a password of the user."
+  },
+  "pageEditProfileDialogRequiresChangePassword":"Requires password change",
+  "@pageEditProfileDialogRequiresChangePassword": {
+      "description": "Checkbox to indicate if user requires change password."
+  },
   "commonWelcome": "Welcome!",
   "@commonWelcome": {
     "description": "Welcoming text"
