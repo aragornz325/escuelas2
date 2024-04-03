@@ -54,7 +54,6 @@ class TarjetaPerfil extends StatelessWidget {
     final l10n = context.l10n;
 
     final roles = rolesAsignados.capitalize;
-
     return IntrinsicHeight(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20.sw),
@@ -117,21 +116,21 @@ class TarjetaPerfil extends StatelessWidget {
                       ),
                     ),
                   ),
-                  if (usuarioLogueado
-                      .tienePermisos(PermisoDeUsuario.editarUsuario))
-                    EscuelasBoton.texto(
-                      width: 185.pw,
-                      estaHabilitado: true,
-                      onTap: () => context.pushRoute(
-                        RutaEditarPerfil(usuario: usuario!),
-                      ),
-                      color: colores.primaryContainer,
-                      texto: l10n.commonEdit,
-                      fontSize: 12.pf,
-                      context: context,
-                    )
-                  else
-                    const SizedBox.shrink(),
+                  // if (usuarioLogueado
+                  //     .tienePermisos(PermisoDeUsuario.editarUsuario))
+                  EscuelasBoton.texto(
+                    width: 185.pw,
+                    estaHabilitado: true,
+                    onTap: () => context.pushRoute(
+                      RutaEditarPerfil(idUsuario: usuario?.id ?? 0),
+                    ),
+                    color: colores.primaryContainer,
+                    texto: l10n.commonEdit,
+                    fontSize: 12.pf,
+                    context: context,
+                  ),
+                  // else
+                  //   const SizedBox.shrink(),
                   SizedBox(height: max(8.ph, 8.sh)),
                   if (usuario?.idUserInfo != sessionManager.signedInUser?.id &&
                       usuarioLogueado

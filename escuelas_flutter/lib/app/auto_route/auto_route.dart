@@ -85,7 +85,7 @@ class AppRouter extends $AppRouter {
             ),
             CustomRoute(
               page: RutaEditarPerfil.page,
-              path: 'edit-user-profile',
+              path: 'edit-user-profile/:userId',
               transitionsBuilder: TransitionsBuilders.noTransition,
             ),
             AutoRoute(

@@ -181,11 +181,14 @@ abstract class $AppRouter extends _i35.RootStackRouter {
       );
     },
     RutaEditarPerfil.name: (routeData) {
-      final args = routeData.argsAs<RutaEditarPerfilArgs>();
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<RutaEditarPerfilArgs>(
+          orElse: () =>
+              RutaEditarPerfilArgs(idUsuario: pathParams.getInt('userId')));
       return _i35.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i13.PaginaEditarPerfil(
-          usuario: args.usuario,
+          idUsuario: args.idUsuario,
           key: args.key,
         ),
       );
@@ -637,15 +640,16 @@ class RutaDashboardArgs {
 /// [_i13.PaginaEditarPerfil]
 class RutaEditarPerfil extends _i35.PageRouteInfo<RutaEditarPerfilArgs> {
   RutaEditarPerfil({
-    required _i37.Usuario usuario,
+    required int idUsuario,
     _i36.Key? key,
     List<_i35.PageRouteInfo>? children,
   }) : super(
           RutaEditarPerfil.name,
           args: RutaEditarPerfilArgs(
-            usuario: usuario,
+            idUsuario: idUsuario,
             key: key,
           ),
+          rawPathParams: {'userId': idUsuario},
           initialChildren: children,
         );
 
@@ -657,17 +661,17 @@ class RutaEditarPerfil extends _i35.PageRouteInfo<RutaEditarPerfilArgs> {
 
 class RutaEditarPerfilArgs {
   const RutaEditarPerfilArgs({
-    required this.usuario,
+    required this.idUsuario,
     this.key,
   });
 
-  final _i37.Usuario usuario;
+  final int idUsuario;
 
   final _i36.Key? key;
 
   @override
   String toString() {
-    return 'RutaEditarPerfilArgs{usuario: $usuario, key: $key}';
+    return 'RutaEditarPerfilArgs{idUsuario: $idUsuario, key: $key}';
   }
 }
 

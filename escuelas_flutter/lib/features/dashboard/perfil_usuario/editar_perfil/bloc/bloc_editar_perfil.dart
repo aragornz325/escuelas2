@@ -49,14 +49,40 @@ class BlocEditarPerfil
     emit(BlocEditarPerfilEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
+        final telefonoeditado = state.usuario?.numerosDeTelefono?.firstOrNull
+          ?..numeroDeTelefono = event.telefono ?? '';
+        final emaileditado = state.usuario?.direccionesDeEmail?.firstOrNull
+          ?..direccionDeEmail = event.email ?? '';
+
+        final usuarioEditado = Usuario(
+          idUserInfo: event.usuario?.idUserInfo ?? 0,
+          nombre: state.usuario?.nombre ?? '',
+          apellido: state.usuario?.apellido ?? '',
+          urlFotoDePerfil: state.usuario?.urlFotoDePerfil ?? '',
+          necesitaCambiarPassword:
+              state.usuario?.necesitaCambiarPassword ?? false,
+          numerosDeTelefono: [
+            telefonoeditado ??
+                NumeroDeTelefono(
+                  numeroDeTelefono: 'pepe',
+                  tipoDeTelefono: TipoDeTelefono.celular,
+                ),
+          ],
+          direccionesDeEmail: [
+            emaileditado ??
+                DireccionDeEmail(
+                  usuarioId: state.usuario?.id ?? 0,
+                  direccionDeEmail: 'direccionDeEmail',
+                ),
+          ],
+          dni: event.usuario?.dni ?? '',
+        );
+
         final usuarioModificado =
-            await client.usuario.actualizarUsuario(usuario: state.usuario!);
+            await client.usuario.actualizarUsuario(usuario: usuarioEditado);
         emit(
           BlocEditarPerfilEstadoExitosoAlActualizar.desde(
             state,
-            telefono: event.telefono,
-            email: event.email,
-            dni: event.dni,
             usuario: usuarioModificado,
           ),
         );
@@ -80,7 +106,6 @@ class BlocEditarPerfil
           conRequerimientoDeCambioDePassword:
               event.conRequerimientoDeCambioDePassword,
         );
-
         emit(
           BlocEditarPerfilEstadoExitosoEditarPassword.desde(
             state,

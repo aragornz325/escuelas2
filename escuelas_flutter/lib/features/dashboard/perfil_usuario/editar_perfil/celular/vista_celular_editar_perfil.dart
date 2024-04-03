@@ -30,10 +30,9 @@ class VistaCelularEditarPerfil extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final usuario = context.read<BlocEditarPerfil>().state.usuario;
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
-      child: BlocListener<BlocEditarPerfil, BlocEditarPerfilEstado>(
+      child: BlocConsumer<BlocEditarPerfil, BlocEditarPerfilEstado>(
         listener: (context, state) {
           if (state is BlocEditarPerfilEstadoExitosoAlActualizar) {
             _dialogDeExitoAlGuardarCambios(context);
@@ -42,13 +41,15 @@ class VistaCelularEditarPerfil extends StatelessWidget {
             _dialogDeExitoAlGuardarCambios(context);
           }
         },
-        child: ListView(
-          children: [
-            _DatosPersonalesAEditar(
-              usuario: usuario!,
-            ),
-          ],
-        ),
+        builder: (context, state) {
+          return ListView(
+            children: [
+              _DatosPersonalesAEditar(
+                usuario: state.usuario,
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -60,10 +61,10 @@ class VistaCelularEditarPerfil extends StatelessWidget {
 class _DatosPersonalesAEditar extends StatelessWidget {
   /// {@macro _DatosPersonalesAEditar}
   const _DatosPersonalesAEditar({
-    required this.usuario,
+    this.usuario,
   });
 
-  final Usuario usuario;
+  final Usuario? usuario;
 
   @override
   Widget build(BuildContext context) {

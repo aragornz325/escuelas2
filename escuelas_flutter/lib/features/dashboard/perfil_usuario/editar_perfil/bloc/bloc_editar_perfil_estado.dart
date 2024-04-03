@@ -12,7 +12,6 @@ sealed class BlocEditarPerfilEstado {
     this.usuario,
     this.telefono,
     this.email,
-    this.factorSanguineo,
     this.edad,
     this.dni,
     this.nuevaPassword,
@@ -25,8 +24,6 @@ sealed class BlocEditarPerfilEstado {
     String? edad,
     String? email,
     String? telefono,
-    String? nombreUsuario,
-    String? factorSanguineo,
     String? dni,
     String? nuevaPassword,
     bool? conRequerimientoDeCambioDePassword,
@@ -36,8 +33,6 @@ sealed class BlocEditarPerfilEstado {
           usuario: usuario ?? otro.usuario,
           telefono: telefono ?? otro.telefono,
           dni: dni ?? otro.dni,
-          nombreUsuario: nombreUsuario ?? otro.nombreUsuario,
-          factorSanguineo: factorSanguineo ?? otro.factorSanguineo,
           nuevaPassword: nuevaPassword ?? otro.nuevaPassword,
           conRequerimientoDeCambioDePassword:
               conRequerimientoDeCambioDePassword ??
@@ -53,7 +48,6 @@ sealed class BlocEditarPerfilEstado {
   /// Son los datos a guardar
   final String? telefono;
   final String? email;
-  final String? factorSanguineo;
   final String? edad;
   final String? dni;
   final String? nuevaPassword;
@@ -88,10 +82,8 @@ class BlocEditarPerfilEstadoExitoso extends BlocEditarPerfilEstado {
     super.usuario,
     super.telefono,
     super.email,
-    super.factorSanguineo,
     super.edad,
     super.dni,
-    super.nombreUsuario,
   }) : super.desde();
 }
 
