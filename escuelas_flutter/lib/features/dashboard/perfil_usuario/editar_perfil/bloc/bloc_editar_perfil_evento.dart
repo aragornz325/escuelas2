@@ -63,14 +63,24 @@ class BlocEditarPerfilEventoConfirmarCambios extends BlocEditarPerfilEvento {
   const BlocEditarPerfilEventoConfirmarCambios();
 }
 
+/// {@template BlocEditarPerfilEventoEditarPassword}
+/// Evento para editar la contraseña de un tercero
+/// {@endtemplate}
 class BlocEditarPerfilEventoEditarPassword extends BlocEditarPerfilEvento {
+  /// {@macro BlocEditarPerfilEventoEditarPassword}
   const BlocEditarPerfilEventoEditarPassword({
     required this.nuevaPassword,
     required this.idUsuario,
     required this.conRequerimientoDeCambioDePassword,
   });
 
+  /// Nueva password a guardar del usuario.
   final String nuevaPassword;
+
+  /// Id del usuario
   final int idUsuario;
+
+  /// Indica si se le debe requerir al usuario
+  /// un cambio de contraseña la proxima vez que inicie sesión.
   final bool conRequerimientoDeCambioDePassword;
 }
