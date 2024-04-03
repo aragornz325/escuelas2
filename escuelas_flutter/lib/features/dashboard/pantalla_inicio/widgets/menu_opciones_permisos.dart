@@ -3,7 +3,7 @@ import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/utilidades/enum_menu_opciones_de_inicio.dart';
-import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/widgets/dialogs/dialog_cambiar_contrasenia.dart';
+import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/widgets/dialogs/dialogs.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
@@ -26,13 +26,26 @@ class MenuOpcionesPermisos extends StatefulWidget {
 class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
   /// Dialog para cambiar la contraseña en caso de que el usuario lo requiera.
   void _dialogCambiarContrasenia(BuildContext context) {
-    setState(() => _dialogAbierto = true);
+    setState(() => _dialogAbiertoCambiarContrasenia = true);
     showDialog<void>(
       barrierDismissible: false,
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocDashboard>(),
         child: const DialogCambiarContrasenia(),
+      ),
+    );
+  }
+
+  /// Dialog para cambiar el DNI en caso de que el usuario lo requiera.
+  void _dialogCambiarDNI(BuildContext context) {
+    setState(() => _dialogAbiertoCambiarDNI = true);
+    showDialog<void>(
+      barrierDismissible: false,
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocDashboard>(),
+        child: const DialogCambiarDNI(),
       ),
     );
   }
@@ -73,8 +86,11 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
         .toList();
   }
 
-  /// Es para saber si ya se habrio el popup
-  bool _dialogAbierto = false;
+  /// Es para saber si ya se abrio el popup_cambiarContraseña
+  bool _dialogAbiertoCambiarContrasenia = false;
+
+  /// Es para saber si ya se abrio el popup_cambiarDNI
+  bool _dialogAbiertoCambiarDNI = false;
 
   @override
   Widget build(BuildContext context) {
@@ -88,8 +104,13 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
 
     return BlocConsumer<BlocInicio, BlocInicioEstado>(
       listener: (context, state) {
-        if (usuario.necesitaCambiarPassword && !_dialogAbierto) {
+        if (usuario.necesitaCambiarPassword &&
+            !_dialogAbiertoCambiarContrasenia) {
           _dialogCambiarContrasenia(context);
+        }
+        if (usuario.dni == null ||
+            usuario.dni!.isEmpty && !_dialogAbiertoCambiarDNI) {
+          _dialogCambiarDNI(context);
         }
         if (state is BlocInicioEstadoFallido) {
           _showDialogError(context);

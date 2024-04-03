@@ -305,6 +305,10 @@
   "@pageHomeChangePasswordSuccess": {
     "description": "Message displayed to inform the user that their password has been successfully changed."
   },
+  "pageHomeChangeDNI": "Cambia tu DNI",
+  "@pageHomeChangeDNI": {
+    "description": "Text in the dialog to change the dni"
+  },
   "pageGradesNotGrades": "No hay calificaciones",
   "@pageGradesNotGrades": {
     "description": "Text to be displayed if there are no grades"

@@ -104,3 +104,14 @@ class BlocDashboardEstadoExitosoAlCambiarLaContrasenia
     super.usuario,
   }) : super.desde();
 }
+
+/// {@template BlocDashboardEstadoExitosoAlCambiarElDNI}
+/// Estado de éxito de [BlocDashboardEstado] cuando se cambia el DNI.
+/// {@endtemplate}
+class BlocDashboardEstadoExitosoAlCambiarElDNI extends BlocDashboardEstado {
+  /// {@macro BlocDashboardEstadoExitosoAlCambiarElDNI}
+  BlocDashboardEstadoExitosoAlCambiarElDNI.desde(
+    super.otro, {
+    super.usuario,
+  }) : super.desde();
+}
