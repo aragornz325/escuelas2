@@ -6,6 +6,7 @@ import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -245,6 +246,10 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                           ),
                         ),
                       ],
+                    ),
+                    ConstrainedBox(
+                      constraints:
+                          BoxConstraints(minHeight: 100.ph, maxHeight: 400.ph),
                     ),
                     Padding(
                       padding: EdgeInsets.only(bottom: 10.ph),
