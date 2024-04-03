@@ -108,7 +108,7 @@ Es así: "dart run reset_password.dart --email <email-del-user> --pass(opcional)
 
   print('Realizando consulta de actualización...\n');
 
-  final hashDeNuevaPassword = Emails.generatePasswordHash(nuevaPassword);
+  final hashDeNuevaPassword = await Emails.generatePasswordHash(nuevaPassword);
 
   final registrosCambiados = await session.dbNext.unsafeExecute('''
 UPDATE "${EmailAuth.t.tableName}"
@@ -127,4 +127,6 @@ WHERE "${EmailAuth.t.userId.columnName}" = (
   } else {
     print('No hubo cambios.\n');
   }
+
+  exit(0);
 }
