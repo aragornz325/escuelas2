@@ -53,5 +53,4 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
       },
     );
   }
-
 }

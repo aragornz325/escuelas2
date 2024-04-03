@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialogs.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -14,7 +13,12 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@endtemplate}
 class BotonesGuardarYVolver extends StatelessWidget {
   /// {@macro BotonesGuardarYVolver}
-  const BotonesGuardarYVolver({super.key});
+  const BotonesGuardarYVolver({
+    required this.onTapConfirmar,
+    super.key,
+  });
+
+  final VoidCallback onTapConfirmar;
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +33,9 @@ class BotonesGuardarYVolver extends StatelessWidget {
         children: [
           EscuelasBoton(
             height: max(40.ph, 40.sh),
-            width: 160.pw,
+            width: 130.pw,
             estaHabilitado: true,
-            onTap: () => showDialog<void>(
-              context: context,
-              builder: (context) => const DialogExitoAlGuardarCambios(),
-            ),
+            onTap: onTapConfirmar,
             color: colores.verdeConfirmar,
             child: Text(
               l10n.commonSaveChange.toUpperCase(),
@@ -47,7 +48,7 @@ class BotonesGuardarYVolver extends StatelessWidget {
           ),
           EscuelasBoton.outlined(
             height: max(40.ph, 40.sh),
-            width: 160.pw,
+            width: 130.pw,
             texto: '',
             colorOutline: colores.verdeConfirmar,
             context: context,

@@ -108,8 +108,8 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
             !_dialogAbiertoCambiarContrasenia) {
           _dialogCambiarContrasenia(context);
         }
-        if (usuario.dni == null ||
-            usuario.dni!.isEmpty && !_dialogAbiertoCambiarDNI) {
+        if ((usuario.dni == null || (usuario.dni ?? '').isEmpty) &&
+            !_dialogAbiertoCambiarDNI) {
           _dialogCambiarDNI(context);
         }
         if (state is BlocInicioEstadoFallido) {

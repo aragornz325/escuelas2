@@ -5,6 +5,8 @@ import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario_pendiente/bloc/bloc_perfil_usuario_pendiente.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_datos_personales.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/tarjeta_perfil.dart';
 import 'package:escuelas_flutter/gen/fonts.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -105,6 +107,16 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
               apellidoUsuario: state.usuarioPendiente?.apellido ?? '',
               urlImage: state.usuarioPendiente?.urlFotoDePerfil ?? '',
               usuarioLogueado: usuarioLogueado,
+            ),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    DatosPersonales(usuarioPendiente: state.usuarioPendiente),
+                    SeccionCursos(usuarioPendiente: state.usuarioPendiente),
+                  ],
+                ),
+              ),
             ),
             if (tienePermiso)
               Padding(

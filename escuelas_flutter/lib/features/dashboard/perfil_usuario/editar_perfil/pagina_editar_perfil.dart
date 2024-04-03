@@ -13,25 +13,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class PaginaEditarPerfil extends StatelessWidget {
   /// {@macro PaginaEditarPerfil}
   const PaginaEditarPerfil({
-    @PathParam('nombreUsuario') required this.nombreUsuario,
-    @PathParam('idUsuario') required this.idUsuario,
+    @PathParam('userId') required this.idUsuario,
     super.key,
   });
 
   /// Id del usuario a editar el perfil.
   final int idUsuario;
 
-  /// Nombre del usuario.
-  final String nombreUsuario;
-
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: context.read<BlocEditarPerfil>()
+    return BlocProvider<BlocEditarPerfil>(
+      create: (context) => BlocEditarPerfil()
         ..add(
           BlocEditarPerfilEventoTraerUsuario(
             idUsuario: idUsuario,
-            nombreUsuario: nombreUsuario,
           ),
         ),
       child: const FullResponsiveScreen(

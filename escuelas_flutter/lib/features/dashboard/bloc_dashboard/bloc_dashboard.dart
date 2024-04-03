@@ -138,6 +138,11 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
           ),
         );
       },
+      onErrorCustom: (e, st) {
+        emit(
+          BlocDashboardEstadoFallido.desde(state, excepcion: e),
+        );
+      },
       onError: (e, st) => emit(BlocDashboardEstadoFallido.desde(state)),
     );
   }
