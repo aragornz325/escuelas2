@@ -55,6 +55,7 @@ class _VistaCelularInicioState extends State<VistaCelularInicio> {
   /// Muestra dialog de exito al cambiar el DNI.
   Future<void> _showDialogExitoAlCambiarDNI(BuildContext context) {
     final colores = context.colores;
+    final l10n = context.l10n;
 
     setState(() => _dialogAbierto = true);
 
