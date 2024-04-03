@@ -45,3 +45,14 @@ class BlocDashboardEventoCambiarContrasenia extends BlocDashboardEvento {
   /// Nueva contraseña
   final String nuevaContrasenia;
 }
+
+/// {@template BlocDashboardEventoCambiarDNI}
+/// Evento para cambiar el DNI del usuario.
+/// {@endtemplate}
+class BlocDashboardEventoCambiarDNI extends BlocDashboardEvento {
+  /// {@macro BlocDashboardEventoCambiarDNI}
+  BlocDashboardEventoCambiarDNI(this.dni);
+
+  /// Nuevo dni.
+  final String dni;
+}
