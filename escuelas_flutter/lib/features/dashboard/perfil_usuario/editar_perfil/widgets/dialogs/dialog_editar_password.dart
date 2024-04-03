@@ -8,14 +8,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
+/// {@template DialogEditarPassword}
+/// Dialog para editar la contraseña.
+/// {@endtemplate}
 class DialogEditarPassword extends StatefulWidget {
+  /// {@macro DialogEditarPassword}
   const DialogEditarPassword({
     required this.dniUsuario,
     required this.idUsuario,
     super.key,
   });
 
+  /// dni del usuario
   final String dniUsuario;
+
+  /// id del usuario
   final int idUsuario;
   @override
   State<DialogEditarPassword> createState() => _DialogEditarPasswordState();

@@ -49,7 +49,6 @@ class VistaCelularInicio extends StatelessWidget {
 
   /// Muestra dialog de exito al cambiar el DNI.
   Future<void> _showDialogExitoAlCambiarDNI(BuildContext context) {
-    final l10n = context.l10n;
     final colores = context.colores;
 
     return showDialog<void>(

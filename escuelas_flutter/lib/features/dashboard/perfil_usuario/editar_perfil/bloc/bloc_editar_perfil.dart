@@ -49,41 +49,60 @@ class BlocEditarPerfil
     emit(BlocEditarPerfilEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final telefonoeditado = state.usuario?.numerosDeTelefono?.firstOrNull
-          ?..numeroDeTelefono = event.telefono ?? '';
-        final emaileditado = state.usuario?.direccionesDeEmail?.firstOrNull
-          ?..direccionDeEmail = event.email ?? '';
+        final usuario = state.usuario;
+        final yaTieneTelefono = usuario?.numerosDeTelefono?.firstOrNull;
+
+        if (yaTieneTelefono?.numeroDeTelefono == event.telefono &&
+            yaTieneTelefono != null) {
+          //ya tiene el numero en la lista
+        } else {
+          if (yaTieneTelefono != null) {
+            usuario?.numerosDeTelefono!
+                .removeWhere((numero) => numero == yaTieneTelefono);
+          }
+          usuario?.numerosDeTelefono!.add(
+            NumeroDeTelefono(
+              numeroDeTelefono: event.telefono ?? '',
+              tipoDeTelefono: TipoDeTelefono.celular,
+            ),
+          );
+        }
+        final yaTieneMail = usuario?.direccionesDeEmail?.firstOrNull;
+
+        if (yaTieneMail?.direccionDeEmail == event.email &&
+            yaTieneMail != null) {
+          //ya tiene el email en la lista
+        } else {
+          if (yaTieneMail != null) {
+            usuario?.direccionesDeEmail!
+                .removeWhere((email) => email == yaTieneMail);
+          }
+          usuario?.direccionesDeEmail!.add(
+            DireccionDeEmail(
+              usuarioId: state.usuario?.id ?? 0,
+              direccionDeEmail: event.email ?? '',
+            ),
+          );
+        }
 
         final usuarioEditado = Usuario(
+          id: usuario?.id,
           idUserInfo: event.usuario?.idUserInfo ?? 0,
           nombre: state.usuario?.nombre ?? '',
           apellido: state.usuario?.apellido ?? '',
           urlFotoDePerfil: state.usuario?.urlFotoDePerfil ?? '',
           necesitaCambiarPassword:
               state.usuario?.necesitaCambiarPassword ?? false,
-          numerosDeTelefono: [
-            telefonoeditado ??
-                NumeroDeTelefono(
-                  numeroDeTelefono: 'pepe',
-                  tipoDeTelefono: TipoDeTelefono.celular,
-                ),
-          ],
-          direccionesDeEmail: [
-            emaileditado ??
-                DireccionDeEmail(
-                  usuarioId: state.usuario?.id ?? 0,
-                  direccionDeEmail: 'direccionDeEmail',
-                ),
-          ],
-          dni: event.usuario?.dni ?? '',
+          numerosDeTelefono: usuario?.numerosDeTelefono ?? [],
+          direccionesDeEmail: usuario?.direccionesDeEmail ?? [],
+          dni: event.dni ?? '',
         );
 
-        final usuarioModificado =
-            await client.usuario.actualizarUsuario(usuario: usuarioEditado);
+        await client.usuario.actualizarUsuario(usuario: usuarioEditado);
         emit(
           BlocEditarPerfilEstadoExitosoAlActualizar.desde(
             state,
-            usuario: usuarioModificado,
+            usuario: usuarioEditado,
           ),
         );
       },
@@ -91,7 +110,7 @@ class BlocEditarPerfil
     );
   }
 
-  /// Funciona para traer la info de un usuario
+  /// Funcion para cambiar la contraseña de un tercero
   Future<void> _onEditarPassword(
     BlocEditarPerfilEventoEditarPassword event,
     Emitter<BlocEditarPerfilEstado> emit,
@@ -101,7 +120,7 @@ class BlocEditarPerfil
     await operacionBloc(
       callback: (client) async {
         await client.userInfo.cambiarPasswordDeOtroUsuario(
-          idUsuario: event.idUsuario,
+          idUsuario: state.usuario?.idUserInfo ?? 0,
           nuevaPassword: event.nuevaPassword,
           conRequerimientoDeCambioDePassword:
               event.conRequerimientoDeCambioDePassword,

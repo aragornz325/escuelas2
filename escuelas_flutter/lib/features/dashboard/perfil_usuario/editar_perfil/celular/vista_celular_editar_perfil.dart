@@ -42,6 +42,10 @@ class VistaCelularEditarPerfil extends StatelessWidget {
           }
         },
         builder: (context, state) {
+          if (state is BlocEditarPerfilEstadoCargando ||
+              state.usuario == null) {
+            return const Center(child: CircularProgressIndicator());
+          }
           return ListView(
             children: [
               _DatosPersonalesAEditar(

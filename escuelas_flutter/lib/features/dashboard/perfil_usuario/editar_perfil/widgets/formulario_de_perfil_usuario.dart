@@ -165,7 +165,7 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
                   idUsuario: widget.usuario?.idUserInfo ?? 0,
                 ),
                 color: colores.amarilloCuartoFalta,
-                texto: 'Cambiar contraseña',
+                texto: l10n.pageEditProfileDialogChangePassword,
                 context: context,
               ),
             ),

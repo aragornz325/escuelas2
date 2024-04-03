@@ -45,6 +45,8 @@ class TarjetaPerfil extends StatelessWidget {
   /// Usuario a verificar si corresponde al mio.
   final Usuario? usuario;
 
+  /// Usuario logueado, utilizado para verificar si tiene
+  /// los permisos pertinentes
   final Usuario usuarioLogueado;
 
   @override
@@ -116,21 +118,21 @@ class TarjetaPerfil extends StatelessWidget {
                       ),
                     ),
                   ),
-                  // if (usuarioLogueado
-                  //     .tienePermisos(PermisoDeUsuario.editarUsuario))
-                  EscuelasBoton.texto(
-                    width: 185.pw,
-                    estaHabilitado: true,
-                    onTap: () => context.pushRoute(
-                      RutaEditarPerfil(idUsuario: usuario?.id ?? 0),
-                    ),
-                    color: colores.primaryContainer,
-                    texto: l10n.commonEdit,
-                    fontSize: 12.pf,
-                    context: context,
-                  ),
-                  // else
-                  //   const SizedBox.shrink(),
+                  if (usuarioLogueado
+                      .tienePermisos(PermisoDeUsuario.editarUsuario))
+                    EscuelasBoton.texto(
+                      width: 185.pw,
+                      estaHabilitado: true,
+                      onTap: () => context.pushRoute(
+                        RutaEditarPerfil(idUsuario: usuario?.id ?? 0),
+                      ),
+                      color: colores.primaryContainer,
+                      texto: l10n.commonEdit,
+                      fontSize: 12.pf,
+                      context: context,
+                    )
+                  else
+                    const SizedBox.shrink(),
                   SizedBox(height: max(8.ph, 8.sh)),
                   if (usuario?.idUserInfo != sessionManager.signedInUser?.id &&
                       usuarioLogueado
