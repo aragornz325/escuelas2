@@ -309,6 +309,10 @@
   "@pageHomeChangeDNI": {
     "description": "Text in the dialog to change the dni"
   },
+  "pageHomeChangeDNISuccess": "Exito al cambiar el dni",
+  "@pageHomeChangeDNISuccess": {
+    "description": "Message displayed to inform the user that their DNI has been successfully changed."
+  },
   "pageGradesNotGrades": "No hay calificaciones",
   "@pageGradesNotGrades": {
     "description": "Text to be displayed if there are no grades"

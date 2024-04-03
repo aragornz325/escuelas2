@@ -91,14 +91,20 @@ class VistaCelularCargaDeCalificaciones extends StatelessWidget {
                   state.listaCalificacionesMesesRestantes,
               listaEstudiantes: state.estudiantes,
             ),
-            if (state.calificacionesMensuales?.solicitudNotaMensual != null &&
-                state is! BlocCargaCalificacionesEstadoCargando &&
-                (context.tienePermiso(
-                      PermisoDeCalificacion.crearCalificacion,
-                    ) ||
-                    context.tienePermiso(
-                      PermisoDeCalificacion.editarCalificacion,
-                    )))
+            if (
+                // TODO(anyone): no me gusta mucho esta logica pero funciona
+                // es para saber si ya hay notas cargadas que no se puedan reenviar
+                state.listaCalificacionesMesActual
+                        .every((calificacion) => calificacion.id == null) &&
+                    state.calificacionesMensuales?.solicitudNotaMensual !=
+                        null &&
+                    state is! BlocCargaCalificacionesEstadoCargando &&
+                    (context.tienePermiso(
+                          PermisoDeCalificacion.crearCalificacion,
+                        ) ||
+                        context.tienePermiso(
+                          PermisoDeCalificacion.editarCalificacion,
+                        )))
               Padding(
                 padding: EdgeInsets.only(top: 10.ph),
                 child: const BotonesEnviarNotasYLimpiarNotas(),

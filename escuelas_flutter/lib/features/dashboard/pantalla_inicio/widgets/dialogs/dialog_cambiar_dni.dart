@@ -41,45 +41,49 @@ class _DialogCambiarDNIState extends State<DialogCambiarDNI> {
 
     final l10n = context.l10n;
 
-    return PopScope(
-      canPop: false,
-      onPopInvoked: (v) async => false,
-      child: Form(
-        key: _formKey,
-        child: EscuelasDialog.confirmar(
-          conIconoCerrar: false,
-          onTapConfirmar: () {
-            if (_formKey.currentState!.validate()) {
-              context.read<BlocDashboard>().add(
-                    BlocDashboardEventoCambiarDNI(
-                      _controllerDNI.text,
+    return BlocBuilder<BlocDashboard, BlocDashboardEstado>(
+      builder: (context, state) {
+        return PopScope(
+          canPop: false,
+          onPopInvoked: (v) async => false,
+          child: Form(
+            key: _formKey,
+            child: EscuelasDialog.confirmar(
+              estaHabilitado: state is! BlocDashboardEstadoCargando,
+              conIconoCerrar: false,
+              onTapConfirmar: () {
+                if (_formKey.currentState!.validate()) {
+                  context.read<BlocDashboard>().add(
+                        BlocDashboardEventoCambiarDNI(
+                          _controllerDNI.text,
+                        ),
+                      );
+                }
+              },
+              content: Column(
+                children: [
+                  Text(
+                    l10n.pageHomeChangeDNI,
+                    style: TextStyle(
+                      fontSize: 16.pf,
+                      fontWeight: FontWeight.w600,
+                      color: colores.onBackground,
                     ),
-                  );
-              Navigator.pop(context);
-            }
-          },
-          content: Column(
-            children: [
-              Text(
-                l10n.pageHomeChangeDNI,
-                style: TextStyle(
-                  fontSize: 16.pf,
-                  fontWeight: FontWeight.w600,
-                  color: colores.onBackground,
-                ),
+                  ),
+                  SizedBox(height: max(10.ph, 10.sh)),
+                  EscuelasTextfield.soloNumero(
+                    controller: _controllerDNI,
+                    hintText: l10n.commonDNI,
+                    context: context,
+                    onChanged: (v) {},
+                    maxLines: 1,
+                  ),
+                ],
               ),
-              SizedBox(height: max(10.ph, 10.sh)),
-              EscuelasTextfield.soloNumero(
-                controller: _controllerDNI,
-                hintText: l10n.commonDNI,
-                context: context,
-                onChanged: (v) {},
-                maxLines: 1,
-              ),
-            ],
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 }
