@@ -22,28 +22,33 @@ const UsuarioIsarSchema = CollectionSchema(
       name: r'apellido',
       type: IsarType.string,
     ),
-    r'idUserInfo': PropertySchema(
+    r'dni': PropertySchema(
       id: 1,
+      name: r'dni',
+      type: IsarType.string,
+    ),
+    r'idUserInfo': PropertySchema(
+      id: 2,
       name: r'idUserInfo',
       type: IsarType.long,
     ),
     r'idUsuario': PropertySchema(
-      id: 2,
+      id: 3,
       name: r'idUsuario',
       type: IsarType.long,
     ),
     r'necesitaCambiarPassword': PropertySchema(
-      id: 3,
+      id: 4,
       name: r'necesitaCambiarPassword',
       type: IsarType.bool,
     ),
     r'nombre': PropertySchema(
-      id: 4,
+      id: 5,
       name: r'nombre',
       type: IsarType.string,
     ),
     r'urlFotoDePerfil': PropertySchema(
-      id: 5,
+      id: 6,
       name: r'urlFotoDePerfil',
       type: IsarType.string,
     )
@@ -69,6 +74,7 @@ int _usuarioIsarEstimateSize(
 ) {
   var bytesCount = offsets.last;
   bytesCount += 3 + object.apellido.length * 3;
+  bytesCount += 3 + object.dni.length * 3;
   bytesCount += 3 + object.nombre.length * 3;
   bytesCount += 3 + object.urlFotoDePerfil.length * 3;
   return bytesCount;
@@ -81,11 +87,12 @@ void _usuarioIsarSerialize(
   Map<Type, List<int>> allOffsets,
 ) {
   writer.writeString(offsets[0], object.apellido);
-  writer.writeLong(offsets[1], object.idUserInfo);
-  writer.writeLong(offsets[2], object.idUsuario);
-  writer.writeBool(offsets[3], object.necesitaCambiarPassword);
-  writer.writeString(offsets[4], object.nombre);
-  writer.writeString(offsets[5], object.urlFotoDePerfil);
+  writer.writeString(offsets[1], object.dni);
+  writer.writeLong(offsets[2], object.idUserInfo);
+  writer.writeLong(offsets[3], object.idUsuario);
+  writer.writeBool(offsets[4], object.necesitaCambiarPassword);
+  writer.writeString(offsets[5], object.nombre);
+  writer.writeString(offsets[6], object.urlFotoDePerfil);
 }
 
 UsuarioIsar _usuarioIsarDeserialize(
@@ -96,12 +103,13 @@ UsuarioIsar _usuarioIsarDeserialize(
 ) {
   final object = UsuarioIsar();
   object.apellido = reader.readString(offsets[0]);
+  object.dni = reader.readString(offsets[1]);
   object.idIsar = id;
-  object.idUserInfo = reader.readLong(offsets[1]);
-  object.idUsuario = reader.readLongOrNull(offsets[2]);
-  object.necesitaCambiarPassword = reader.readBool(offsets[3]);
-  object.nombre = reader.readString(offsets[4]);
-  object.urlFotoDePerfil = reader.readString(offsets[5]);
+  object.idUserInfo = reader.readLong(offsets[2]);
+  object.idUsuario = reader.readLongOrNull(offsets[3]);
+  object.necesitaCambiarPassword = reader.readBool(offsets[4]);
+  object.nombre = reader.readString(offsets[5]);
+  object.urlFotoDePerfil = reader.readString(offsets[6]);
   return object;
 }
 
@@ -115,14 +123,16 @@ P _usuarioIsarDeserializeProp<P>(
     case 0:
       return (reader.readString(offset)) as P;
     case 1:
-      return (reader.readLong(offset)) as P;
-    case 2:
-      return (reader.readLongOrNull(offset)) as P;
-    case 3:
-      return (reader.readBool(offset)) as P;
-    case 4:
       return (reader.readString(offset)) as P;
+    case 2:
+      return (reader.readLong(offset)) as P;
+    case 3:
+      return (reader.readLongOrNull(offset)) as P;
+    case 4:
+      return (reader.readBool(offset)) as P;
     case 5:
+      return (reader.readString(offset)) as P;
+    case 6:
       return (reader.readString(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -355,6 +365,137 @@ extension UsuarioIsarQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(FilterCondition.greaterThan(
         property: r'apellido',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> dniEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dni',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> dniGreaterThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dni',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> dniLessThan(
+    String value, {
+    bool include = false,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dni',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> dniBetween(
+    String lower,
+    String upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dni',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> dniStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.startsWith(
+        property: r'dni',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> dniEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.endsWith(
+        property: r'dni',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> dniContains(
+      String value,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.contains(
+        property: r'dni',
+        value: value,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> dniMatches(
+      String pattern,
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.matches(
+        property: r'dni',
+        wildcard: pattern,
+        caseSensitive: caseSensitive,
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition> dniIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dni',
+        value: '',
+      ));
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterFilterCondition>
+      dniIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        property: r'dni',
         value: '',
       ));
     });
@@ -845,6 +986,18 @@ extension UsuarioIsarQuerySortBy
     });
   }
 
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy> sortByDni() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dni', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy> sortByDniDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dni', Sort.desc);
+    });
+  }
+
   QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy> sortByIdUserInfo() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'idUserInfo', Sort.asc);
@@ -920,6 +1073,18 @@ extension UsuarioIsarQuerySortThenBy
   QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy> thenByApellidoDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'apellido', Sort.desc);
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy> thenByDni() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dni', Sort.asc);
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QAfterSortBy> thenByDniDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dni', Sort.desc);
     });
   }
 
@@ -1008,6 +1173,13 @@ extension UsuarioIsarQueryWhereDistinct
     });
   }
 
+  QueryBuilder<UsuarioIsar, UsuarioIsar, QDistinct> distinctByDni(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dni', caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<UsuarioIsar, UsuarioIsar, QDistinct> distinctByIdUserInfo() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'idUserInfo');
@@ -1054,6 +1226,12 @@ extension UsuarioIsarQueryProperty
   QueryBuilder<UsuarioIsar, String, QQueryOperations> apellidoProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'apellido');
+    });
+  }
+
+  QueryBuilder<UsuarioIsar, String, QQueryOperations> dniProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dni');
     });
   }
 

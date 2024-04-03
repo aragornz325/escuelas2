@@ -1,3 +1,4 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -11,7 +12,13 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@endtemplate}
 class DatosPersonales extends StatelessWidget {
   /// {@macro SeccionDatPersonales}
-  const DatosPersonales({super.key});
+  const DatosPersonales({
+    this.usuarioPendiente,
+    super.key,
+  });
+
+  /// Usuario pendiente a mostrar informacion.
+  final UsuarioPendiente? usuarioPendiente;
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +36,7 @@ class DatosPersonales extends StatelessWidget {
         color: colores.tertiary,
       ),
       child: ExpansionTile(
+        initiallyExpanded: true,
         title: Text(
           l10n.pageRoleAssigmentPersonalInformation.toUpperCase(),
           style: TextStyle(
@@ -50,54 +58,89 @@ class DatosPersonales extends StatelessWidget {
             thickness: .5,
             color: colores.grisSC,
           ),
-          ListTile(
-            title: BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
-              builder: (context, state) {
-                return Column(
-                  children: [
-                    SizedBox(height: 10.ph),
-                    ...state.numerosDeTelefono.map(
-                      (numero) => _DatoPersonal(
-                        tipoDato: '${l10n.commonPhone} -'
-                            ' ${numero.tipoDeTelefono.name}: ',
-                        dato: numero.numeroDeTelefono,
+          if (usuarioPendiente != null)
+            ListTile(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20.sw),
+                  bottomRight: Radius.circular(20.sw),
+                ),
+              ),
+              title: Column(
+                children: [
+                  SizedBox(height: 10.ph),
+                  _DatoPersonal(
+                    tipoDato: '${l10n.commonDNI}: ',
+                    dato: usuarioPendiente?.dni ?? '',
+                  ),
+                  SizedBox(height: 10.ph),
+                  _DatoPersonal(
+                    tipoDato: '${l10n.commonEmergencyContact}: ',
+                  ),
+                  SizedBox(height: 10.ph),
+                  _DatoPersonal(
+                    tipoDato: '${l10n.commonBond}: ',
+                  ),
+                  SizedBox(height: 10.ph),
+                  _DatoPersonal(
+                    tipoDato: '${l10n.commonObservations}: ',
+                  ),
+                  SizedBox(height: 10.ph),
+                  _DatoPersonal(
+                    tipoDato: '${l10n.commonMail}: ',
+                  ),
+                ],
+              ),
+            )
+          else
+            ListTile(
+              title: BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
+                builder: (context, state) {
+                  return Column(
+                    children: [
+                      SizedBox(height: 10.ph),
+                      ...state.numerosDeTelefono.map(
+                        (numero) => _DatoPersonal(
+                          tipoDato: '${l10n.commonPhone} -'
+                              ' ${numero.tipoDeTelefono.name}: ',
+                          dato: numero.numeroDeTelefono,
+                        ),
                       ),
-                    ),
-                    _DatoPersonal(
-                      tipoDato: '${l10n.commonMail}: ',
-                      dato: state.direccionesDeEmail
-                          .map((e) => e.direccionDeEmail)
-                          .toList()
-                          .join(', '),
-                    ),
-                    SizedBox(height: 10.ph),
-                    _DatoPersonal(
-                      tipoDato: '${l10n.commonDNI}: ',
-                      dato: state.dniUsuario,
-                    ),
-                    SizedBox(height: 10.ph),
-                    _DatoPersonal(
-                      tipoDato: '${l10n.commonEmergencyContact}: ',
-                    ),
-                    SizedBox(height: 10.ph),
-                    _DatoPersonal(
-                      tipoDato: '${l10n.commonBond}: ',
-                    ),
-                    SizedBox(height: 10.ph),
-                    _DatoPersonal(
-                      tipoDato: '${l10n.commonObservations}: ',
-                    ),
-                  ],
-                );
-              },
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(20.sw),
-                bottomRight: Radius.circular(20.sw),
+                      _DatoPersonal(
+                        tipoDato: '${l10n.commonMail}: ',
+                        dato: state.direccionesDeEmail
+                            .map((e) => e.direccionDeEmail)
+                            .toList()
+                            .join(', '),
+                      ),
+                      SizedBox(height: 10.ph),
+                      _DatoPersonal(
+                        tipoDato: '${l10n.commonDNI}: ',
+                        dato: state.dniUsuario,
+                      ),
+                      SizedBox(height: 10.ph),
+                      _DatoPersonal(
+                        tipoDato: '${l10n.commonEmergencyContact}: ',
+                      ),
+                      SizedBox(height: 10.ph),
+                      _DatoPersonal(
+                        tipoDato: '${l10n.commonBond}: ',
+                      ),
+                      SizedBox(height: 10.ph),
+                      _DatoPersonal(
+                        tipoDato: '${l10n.commonObservations}: ',
+                      ),
+                    ],
+                  );
+                },
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.only(
+                  bottomLeft: Radius.circular(20.sw),
+                  bottomRight: Radius.circular(20.sw),
+                ),
               ),
             ),
-          ),
         ],
       ),
     );

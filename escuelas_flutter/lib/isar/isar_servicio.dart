@@ -43,7 +43,8 @@ abstract class IsarServicio {
       ..nombre = nuevoUsuario.nombre
       ..apellido = nuevoUsuario.apellido
       ..urlFotoDePerfil = nuevoUsuario.urlFotoDePerfil
-      ..necesitaCambiarPassword = nuevoUsuario.necesitaCambiarPassword;
+      ..necesitaCambiarPassword = nuevoUsuario.necesitaCambiarPassword
+      ..dni = nuevoUsuario.dni ?? '';
 
     // Guardarlo en la db
     await isar.writeTxn(() => isar.usuarioIsars.put(usuarioIsar));
@@ -80,6 +81,7 @@ abstract class IsarServicio {
       apellido: usuarioObtenido.apellido,
       urlFotoDePerfil: usuarioObtenido.urlFotoDePerfil,
       id: usuarioObtenido.idUsuario,
+      dni: usuarioObtenido.dni,
     );
 
     return usuario;

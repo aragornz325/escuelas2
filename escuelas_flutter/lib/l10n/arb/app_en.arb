@@ -371,6 +371,10 @@
   "@pageHomeChangeDNI": {
     "description": "Text in the dialog to change the dni"
   },
+  "pageHomeChangeDNISuccess": "DNI changed successfully",
+  "@pageHomeChangeDNISuccess": {
+    "description": "Message displayed to inform the user that their DNI has been successfully changed."
+  },
   "pageCommunicationProfileAddNewNotification": "Add new",
   "@pageCommunicationProfileAddNewNotification": {
   "description": "Add new"
