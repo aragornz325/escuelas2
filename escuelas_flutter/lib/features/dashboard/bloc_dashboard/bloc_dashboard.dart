@@ -28,6 +28,7 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
       _onObtenerAsignaturaYComision,
     );
     on<BlocDashboardEventoCambiarContrasenia>(_onCambiarContrasenia);
+    on<BlocDashboardEventoCambiarDNI>(_onCambiarDni);
   }
 
   /// Evento inicial donde trae todos los cursos del usuario.
@@ -108,6 +109,32 @@ class BlocDashboard extends Bloc<BlocDashboardEvento, BlocDashboardEstado> {
           BlocDashboardEstadoExitosoAlCambiarLaContrasenia.desde(
             state,
             usuario: usuario,
+          ),
+        );
+      },
+      onError: (e, st) => emit(BlocDashboardEstadoFallido.desde(state)),
+    );
+  }
+
+  /// Cambia el DNI del usuario.
+  Future<void> _onCambiarDni(
+    BlocDashboardEventoCambiarDNI event,
+    Emitter<BlocDashboardEstado> emit,
+  ) async {
+    emit(BlocDashboardEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        // TODO(anyone): Implementar el cambio de dni
+        final usuario = state.usuario..dni = event.dni;
+
+        final usuarioActualizado = await client.usuario.actualizarUsuario(
+          usuario: usuario,
+        );
+
+        emit(
+          BlocDashboardEstadoExitosoAlCambiarElDNI.desde(
+            state,
+            usuario: usuarioActualizado,
           ),
         );
       },
