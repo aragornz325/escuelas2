@@ -36,8 +36,8 @@ class _DialogCambiarContraseniaState extends State<DialogCambiarContrasenia> {
   bool get lasContraseniasContienen12Caracteres =>
       _controllerPassword.text.isNotEmpty &&
       _controllerRepeatPassword.text.isNotEmpty &&
-      _controllerPassword.text.length >= 12 &&
-      _controllerRepeatPassword.text.length >= 12;
+      _controllerPassword.text.length >= 8 &&
+      _controllerRepeatPassword.text.length >= 8;
 
   /// Getter para saber si las contraseñas son iguales
   bool get lasContraseniasCoinciden =>
@@ -57,74 +57,78 @@ class _DialogCambiarContraseniaState extends State<DialogCambiarContrasenia> {
 
     final l10n = context.l10n;
 
-    return Form(
-      key: _formKey,
-      child: EscuelasDialog.confirmar(
-        conIconoCerrar: false,
-        onTapConfirmar: () {
-          if (_formKey.currentState!.validate()) {
-            context.read<BlocDashboard>().add(
-                  BlocDashboardEventoCambiarContrasenia(
-                    _controllerPassword.text,
-                  ),
-                );
-            Navigator.pop(context);
-          }
-        },
-        content: Column(
-          children: [
-            Text(
-              l10n.pageHomeYouChangePassword,
-              style: TextStyle(
-                fontSize: 16.pf,
-                fontWeight: FontWeight.w600,
-                color: colores.onBackground,
-              ),
-            ),
-            SizedBox(height: max(10.ph, 10.sh)),
-            EscuelasTextFieldPassword(
-              hintText: l10n.commonPassword,
-              controller: _controllerPassword,
-              onValidate: (v) {},
-              onChanged: (v) => setState(() {}),
-            ),
-            SizedBox(height: max(10.ph, 10.sh)),
-            EscuelasTextFieldPassword(
-              hintText: l10n.pageRegisterConfirmPassword,
-              controller: _controllerRepeatPassword,
-              onValidate: (v) {},
-              onChanged: (v) => setState(() {}),
-            ),
-            if (lasContraseniasContienen12Caracteres)
-              Padding(
-                padding: EdgeInsets.only(left: 15.pw),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.check,
-                      color: colores.verdeConfirmar,
-                      size: 14.pf,
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (v) async => false,
+      child: Form(
+        key: _formKey,
+        child: EscuelasDialog.confirmar(
+          conIconoCerrar: false,
+          onTapConfirmar: () {
+            if (_formKey.currentState!.validate()) {
+              context.read<BlocDashboard>().add(
+                    BlocDashboardEventoCambiarContrasenia(
+                      _controllerPassword.text,
                     ),
-                    if (lasContraseniasCoinciden)
-                      Text(
-                        l10n.pageRegisterPasswordMatch,
-                        style: TextStyle(
-                          color: colores.verdeConfirmar,
-                          fontSize: 14.pf,
-                        ),
-                      ),
-                    if (false == lasContraseniasCoinciden)
-                      Text(
-                        l10n.pageRegisterPasswordDoNotMatch,
-                        style: TextStyle(
-                          color: colores.error,
-                          fontSize: 14.pf,
-                        ),
-                      ),
-                  ],
+                  );
+              Navigator.pop(context);
+            }
+          },
+          content: Column(
+            children: [
+              Text(
+                l10n.pageHomeYouChangePassword,
+                style: TextStyle(
+                  fontSize: 16.pf,
+                  fontWeight: FontWeight.w600,
+                  color: colores.onBackground,
                 ),
               ),
-          ],
+              SizedBox(height: max(10.ph, 10.sh)),
+              EscuelasTextFieldPassword(
+                hintText: l10n.commonPassword,
+                controller: _controllerPassword,
+                onValidate: (v) {},
+                onChanged: (v) => setState(() {}),
+              ),
+              SizedBox(height: max(10.ph, 10.sh)),
+              EscuelasTextFieldPassword(
+                hintText: l10n.pageRegisterConfirmPassword,
+                controller: _controllerRepeatPassword,
+                onValidate: (v) {},
+                onChanged: (v) => setState(() {}),
+              ),
+              if (lasContraseniasContienen12Caracteres)
+                Padding(
+                  padding: EdgeInsets.only(left: 15.pw),
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.check,
+                        color: colores.verdeConfirmar,
+                        size: 14.pf,
+                      ),
+                      if (lasContraseniasCoinciden)
+                        Text(
+                          l10n.pageRegisterPasswordMatch,
+                          style: TextStyle(
+                            color: colores.verdeConfirmar,
+                            fontSize: 14.pf,
+                          ),
+                        ),
+                      if (false == lasContraseniasCoinciden)
+                        Text(
+                          l10n.pageRegisterPasswordDoNotMatch,
+                          style: TextStyle(
+                            color: colores.error,
+                            fontSize: 14.pf,
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

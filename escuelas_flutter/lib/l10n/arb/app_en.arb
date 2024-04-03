@@ -367,6 +367,10 @@
   "@pageHomeChangePasswordSuccess": {
     "description": "Message displayed to inform the user that their password has been successfully changed."
   },
+  "pageHomeChangeDNI": "Change your DNI",
+  "@pageHomeChangeDNI": {
+    "description": "Text in the dialog to change the dni"
+  },
   "pageCommunicationProfileAddNewNotification": "Add new",
   "@pageCommunicationProfileAddNewNotification": {
   "description": "Add new"
