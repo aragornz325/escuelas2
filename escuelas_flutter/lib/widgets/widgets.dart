@@ -1,6 +1,7 @@
 export 'elemento_lista.dart';
 export 'escuelas_boton.dart';
 export 'escuelas_bottom_navigation_bar.dart';
+export 'escuelas_cerrar_app.dart';
 export 'escuelas_dialog.dart';
 export 'escuelas_dropdown.dart';
 export 'escuelas_dropdown_popup.dart';

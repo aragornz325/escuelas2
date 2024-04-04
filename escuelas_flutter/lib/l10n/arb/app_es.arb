@@ -1055,13 +1055,16 @@
   "@commonNow": {
       "description": "Text now"
   },
-  
   "commonNoTemplate": "Sin plantilla",
   "@commonNoTemplate": {
       "description": "Text no template"
   },
   "commonWarning": "Atención",
-    "@commonWarning": {
-      "description": "Label indicating  warn the user"
-    }
+  "@commonWarning": {
+    "description": "Label indicating  warn the user"
+  },
+  "commonConfirmCloseApp": "Presiona de nuevo para salir",
+  "@commonConfirmCloseApp": {
+    "description": "Message to confirm app exit"
+  }
 }

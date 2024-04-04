@@ -56,25 +56,27 @@ class _PaginaKycState extends State<PaginaKyc> with WidgetsBindingObserver {
       ],
       child: AutoRouter(
         builder: (context, content) {
-          return EscuelasScaffold(
-            tieneDrawer: false,
-            cuerpo: BlocListener<BlocKyc, BlocKycEstado>(
-              listener: (context, state) {
-                if (state is BlocKycEstadoExitoSolicitudAprobada) {
-                  context.replaceRoute(
-                    RutaDashboard(
-                      usuario: state.usuario,
-                      userInfo: sessionManager.signedInUser!,
-                    ),
-                  );
-                }
-              },
-              child: switch (context.router.current.name) {
-                RutaSeleccionDeRol.name => content,
-                RutaFormulario.name => content,
-                RutaEspera.name => content,
-                _ => const SizedBox.shrink()
-              },
+          return EscuelasConfirmarCerrarApp(
+            child: EscuelasScaffold(
+              tieneDrawer: false,
+              cuerpo: BlocListener<BlocKyc, BlocKycEstado>(
+                listener: (context, state) {
+                  if (state is BlocKycEstadoExitoSolicitudAprobada) {
+                    context.replaceRoute(
+                      RutaDashboard(
+                        usuario: state.usuario,
+                        userInfo: sessionManager.signedInUser!,
+                      ),
+                    );
+                  }
+                },
+                child: switch (context.router.current.name) {
+                  RutaSeleccionDeRol.name => content,
+                  RutaFormulario.name => content,
+                  RutaEspera.name => content,
+                  _ => const SizedBox.shrink()
+                },
+              ),
             ),
           );
         },

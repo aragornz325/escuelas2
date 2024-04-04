@@ -4,7 +4,7 @@ import 'package:escuelas_flutter/features/auth/login/celular/vista_celular_login
 import 'package:escuelas_flutter/features/auth/login/escritorio/vista_escritorio_login.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
-import 'package:escuelas_flutter/widgets/escuelas_scaffold.dart';
+import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:serverpod_auth_email_flutter/serverpod_auth_email_flutter.dart';
@@ -21,10 +21,12 @@ class PaginaLogin extends StatelessWidget {
     return BlocProvider<BlocLogin>(
       create: (context) =>
           BlocLogin(emailAuth: EmailAuthController(client.modules.auth)),
-      child: const EscuelasScaffold(
-        cuerpo: FullResponsiveScreen(
-          celular: VistaCelularLogin(),
-          escritorio: VistaEscritorioLogin(),
+      child: const EscuelasConfirmarCerrarApp(
+        child: EscuelasScaffold(
+          cuerpo: FullResponsiveScreen(
+            celular: VistaCelularLogin(),
+            escritorio: VistaEscritorioLogin(),
+          ),
         ),
       ),
     );
