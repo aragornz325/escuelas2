@@ -67,6 +67,8 @@ class BlocCargaCalificaciones
                 [];
 
         if (listaCalificacionesMesActual.isEmpty) {
+          comision.estudiantes?.sort((a, b) =>
+              a.usuario?.apellido.compareTo(b.usuario?.apellido ?? '') ?? 0);
           listaCalificacionesMesActual =
               comision.estudiantes?.map((relacionComisionUsuario) {
                     return CalificacionMensual(

@@ -62,31 +62,33 @@ class _InformacionAlumnoOAsignaturaState
         child: ExpansionTile(
           tilePadding: EdgeInsets.symmetric(horizontal: 5.pw),
           initiallyExpanded: estaExpandido,
-          title: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (!widget.esInfoAlumno)
-                Icon(
-                  estaExpandido
-                      ? Icons.arrow_drop_up_rounded
-                      : Icons.arrow_drop_down_rounded,
-                  color: colores.grisSC,
-                  size: 25.pw,
-                ),
-              Padding(
-                padding: EdgeInsets.only(right: 1.pw),
-                child: Text(
-                  widget.tituloTarjeta,
-                  maxLines: 1,
-                  style: TextStyle(
-                    color: colores.onBackground,
-                    overflow: TextOverflow.ellipsis,
-                    fontSize: 13.pf,
-                    fontWeight: FontWeight.w700,
+          title: Padding(
+            padding: const EdgeInsets.only(left: 10),
+            child: Wrap(
+              children: [
+                if (!widget.esInfoAlumno)
+                  Icon(
+                    estaExpandido
+                        ? Icons.arrow_drop_up_rounded
+                        : Icons.arrow_drop_down_rounded,
+                    color: colores.grisSC,
+                    size: 25.pw,
+                  ),
+                Padding(
+                  padding: EdgeInsets.only(right: 1.pw),
+                  child: Text(
+                    widget.tituloTarjeta,
+                    maxLines: 2,
+                    style: TextStyle(
+                      color: colores.onBackground,
+                      overflow: TextOverflow.ellipsis,
+                      fontSize: 13.pf,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20.sw),
