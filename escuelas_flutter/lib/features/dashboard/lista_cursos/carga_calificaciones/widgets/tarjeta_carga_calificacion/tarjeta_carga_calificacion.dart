@@ -69,7 +69,7 @@ class TarjetaCargaCalificacion extends StatelessWidget {
       children: [
         InformacionAlumnoOAsignatura(
           promedio: _promedioDeCalificacionesRestantesYActual(),
-          tituloTarjeta: alumno?.nombre ?? '',
+          tituloTarjeta: "${alumno?.apellido} ${alumno?.nombre}",
         ),
         BotonCargaCalificacion(
           calificacion: calificacion ?? 'S/C',

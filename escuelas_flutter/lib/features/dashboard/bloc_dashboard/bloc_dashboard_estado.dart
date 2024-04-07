@@ -82,7 +82,13 @@ class BlocDashboardEstadoExitoso extends BlocDashboardEstado {
 /// {@endtemplate}
 class BlocDashboardEstadoFallido extends BlocDashboardEstado {
   /// {@macro BlocDashboardEstadoFallido}
-  BlocDashboardEstadoFallido.desde(super.otro) : super.desde();
+  BlocDashboardEstadoFallido.desde(
+    super.otro, {
+    this.excepcion,
+  }) : super.desde();
+
+  /// excepcion que arroja el servidor.
+  final ExcepcionCustom? excepcion;
 }
 
 /// {@template BlocDashboardEstadoLogueoFallido}

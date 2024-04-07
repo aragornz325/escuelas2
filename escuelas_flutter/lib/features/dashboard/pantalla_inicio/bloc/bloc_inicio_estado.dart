@@ -58,7 +58,6 @@ class BlocInicioEstadoExitoso extends BlocInicioEstado {
   }) : super.desde();
 }
 
-
 /// {@template BlocInicioEstadoFallido}
 /// Estado de fallo de [BlocInicioEstado].
 /// {@endtemplate}

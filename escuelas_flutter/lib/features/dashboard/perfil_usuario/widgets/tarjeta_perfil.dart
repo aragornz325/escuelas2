@@ -45,6 +45,8 @@ class TarjetaPerfil extends StatelessWidget {
   /// Usuario a verificar si corresponde al mio.
   final Usuario? usuario;
 
+  /// Usuario logueado, utilizado para verificar si tiene
+  /// los permisos pertinentes
   final Usuario usuarioLogueado;
 
   @override
@@ -54,7 +56,6 @@ class TarjetaPerfil extends StatelessWidget {
     final l10n = context.l10n;
 
     final roles = rolesAsignados.capitalize;
-
     return IntrinsicHeight(
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 20.sw),
@@ -123,11 +124,7 @@ class TarjetaPerfil extends StatelessWidget {
                       width: 185.pw,
                       estaHabilitado: true,
                       onTap: () => context.pushRoute(
-                        RutaEditarPerfil(
-                          idUsuario: usuario?.id ?? 0,
-                          nombreUsuario:
-                              '${usuario?.nombre} ${usuario?.apellido}',
-                        ),
+                        RutaEditarPerfil(idUsuario: usuario?.id ?? 0),
                       ),
                       color: colores.primaryContainer,
                       texto: l10n.commonEdit,

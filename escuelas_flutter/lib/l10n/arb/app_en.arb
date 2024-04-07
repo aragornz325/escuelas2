@@ -371,6 +371,10 @@
   "@pageHomeChangeDNI": {
     "description": "Text in the dialog to change the dni"
   },
+  "pageHomeChangeDNISuccess": "DNI changed successfully",
+  "@pageHomeChangeDNISuccess": {
+    "description": "Message displayed to inform the user that their DNI has been successfully changed."
+  },
   "pageCommunicationProfileAddNewNotification": "Add new",
   "@pageCommunicationProfileAddNewNotification": {
   "description": "Add new"
@@ -733,6 +737,14 @@
               "type": "String"
           }
       }
+  },
+  "pageEditProfileDialogChangePassword":"Change password",
+  "@pageEditProfileDialogChangePassword": {
+      "description": "Label indicating the action to replace a password of the user."
+  },
+  "pageEditProfileDialogRequiresChangePassword":"Requires password change",
+  "@pageEditProfileDialogRequiresChangePassword": {
+      "description": "Checkbox to indicate if user requires change password."
   },
   "commonWelcome": "Welcome!",
   "@commonWelcome": {

@@ -15,10 +15,10 @@ class BlocEditarPerfil
   BlocEditarPerfil() : super(const BlocEditarPerfilEstadoInitial()) {
     on<BlocEditarPerfilEventoTraerUsuario>(_ontraerUsuario);
     on<BlocEditarPerfilEventoGuardarCambios>(_onGuardarCambios);
-    on<BlocEditarPerfilEventoConfirmarCambios>(_onConfirmarCambios);
+    on<BlocEditarPerfilEventoEditarPassword>(_onEditarPassword);
   }
 
-  /// Funciona para traer la info de un usuario
+  // / Funciona para traer la info de un usuario
   Future<void> _ontraerUsuario(
     BlocEditarPerfilEventoTraerUsuario event,
     Emitter<BlocEditarPerfilEstado> emit,
@@ -27,7 +27,6 @@ class BlocEditarPerfil
 
     await operacionBloc(
       callback: (client) async {
-        // TODO (anyone) : implementar endpoint para traer la info del usuario
         final usuario =
             await client.usuario.obtenerUsuario(idUsuario: event.idUsuario);
 
@@ -35,7 +34,6 @@ class BlocEditarPerfil
           BlocEditarPerfilEstadoExitoso.desde(
             state,
             usuario: usuario,
-            nombreUsuario: event.nombreUsuario,
           ),
         );
       },
@@ -51,19 +49,60 @@ class BlocEditarPerfil
     emit(BlocEditarPerfilEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
+        final usuario = state.usuario;
+        final yaTieneTelefono = usuario?.numerosDeTelefono?.firstOrNull;
+
+        if (yaTieneTelefono?.numeroDeTelefono == event.telefono &&
+            yaTieneTelefono != null) {
+          //ya tiene el numero en la lista
+        } else {
+          if (yaTieneTelefono != null) {
+            usuario?.numerosDeTelefono!
+                .removeWhere((numero) => numero == yaTieneTelefono);
+          }
+          usuario?.numerosDeTelefono!.add(
+            NumeroDeTelefono(
+              numeroDeTelefono: event.telefono ?? '',
+              tipoDeTelefono: TipoDeTelefono.celular,
+            ),
+          );
+        }
+        final yaTieneMail = usuario?.direccionesDeEmail?.firstOrNull;
+
+        if (yaTieneMail?.direccionDeEmail == event.email &&
+            yaTieneMail != null) {
+          //ya tiene el email en la lista
+        } else {
+          if (yaTieneMail != null) {
+            usuario?.direccionesDeEmail!
+                .removeWhere((email) => email == yaTieneMail);
+          }
+          usuario?.direccionesDeEmail!.add(
+            DireccionDeEmail(
+              usuarioId: state.usuario?.id ?? 0,
+              direccionDeEmail: event.email ?? '',
+            ),
+          );
+        }
+
+        final usuarioEditado = Usuario(
+          id: usuario?.id,
+          idUserInfo: event.usuario?.idUserInfo ?? 0,
+          nombre: state.usuario?.nombre ?? '',
+          apellido: state.usuario?.apellido ?? '',
+          urlFotoDePerfil: state.usuario?.urlFotoDePerfil ?? '',
+          necesitaCambiarPassword:
+              state.usuario?.necesitaCambiarPassword ?? false,
+          numerosDeTelefono: usuario?.numerosDeTelefono ?? [],
+          direccionesDeEmail: usuario?.direccionesDeEmail ?? [],
+          dni: event.dni ?? '',
+        );
+
+        await client.usuario.actualizarUsuario(usuario: usuarioEditado);
         emit(
-          BlocEditarPerfilEstadoExitoso.desde(
+          BlocEditarPerfilEstadoExitosoAlActualizar.desde(
             state,
-            edad: event.edad,
-            vinculo: event.vinculo,
-            nombreTutor: event.nombreTutor,
-            apellidoTutor: event.apellidoTutor,
-            emailTutor: event.emailTutor,
-            telefonoTutor: event.telefonoTutor,
-            observaciones: event.observaciones,
-            factorSanguineo: event.factorSanguineo,
-            email: event.email,
-            telefono: event.telefono,
+            usuario: usuarioEditado,
           ),
         );
       },
@@ -71,16 +110,29 @@ class BlocEditarPerfil
     );
   }
 
-  /// Funcion para confirmar los cambios en la base de datos de un usuario
-  Future<void> _onConfirmarCambios(
-    BlocEditarPerfilEventoConfirmarCambios event,
+  /// Funcion para cambiar la contraseña de un tercero
+  Future<void> _onEditarPassword(
+    BlocEditarPerfilEventoEditarPassword event,
     Emitter<BlocEditarPerfilEstado> emit,
   ) async {
     emit(BlocEditarPerfilEstadoCargando.desde(state));
+
     await operacionBloc(
       callback: (client) async {
-        // TODO (anyone) : implementar endpoint para confirmar los cambios
-        emit(BlocEditarPerfilEstadoExitosoAlActualizar.desde(state));
+        await client.userInfo.cambiarPasswordDeOtroUsuario(
+          idUsuario: state.usuario?.idUserInfo ?? 0,
+          nuevaPassword: event.nuevaPassword,
+          conRequerimientoDeCambioDePassword:
+              event.conRequerimientoDeCambioDePassword,
+        );
+        emit(
+          BlocEditarPerfilEstadoExitosoEditarPassword.desde(
+            state,
+            nuevaPassword: event.nuevaPassword,
+            conRequerimientoDeCambioDePassword:
+                event.conRequerimientoDeCambioDePassword,
+          ),
+        );
       },
       onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
     );

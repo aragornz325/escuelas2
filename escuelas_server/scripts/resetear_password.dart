@@ -3,6 +3,27 @@ import 'dart:io';
 import 'package:escuelas_server/server.dart';
 import 'package:serverpod_auth_server/module.dart';
 
+/*
+ESTE SCRIPT SIRVE PARA REINICIAR LA PASSWORD DE UN USER.
+
+LO HACE CAMBIANDO EL HASH DE LA CONTRASEÑA DEL MISMO EN 
+LA TABLA "serverpod_email_auth", BUSCANDO POR SU EMAIL.
+
+- PARA USARLO HAY QUE PONER COMO ARGUMENTO "--email", 
+SEGUIDO DE SU DIRECCION DE EMAIL. 
+- SE INDICA LA NUEVA PASSWORD CON "--pass". SI NO SE 
+EXPLICITA SE LE APLICA POR DEFECTO "password123" (YO TE 
+SUGIERO QUE EXPLICITES UNA).
+- Y CON "--mode" SEGUIDO DE "development" o "production" 
+ELEGÍS EN QUÉ AMBIENTE DE TRABAJO HACER EL CAMBIO (POR 
+DEFECTO ES "development").
+- LOS ARGUMENTOS VAN SIN COMILLAS (SALVO QUE LLEVEN ESPACIOS, 
+QUE ACÁ NO DEBERÍAN).
+
+AL FINAL, ES ASÍ:
+dart <path>resetear_password.dart --email <email-del-user> --pass(opcional) <nueva-password-del-user> --mode(opcional) <ambiente-de-trabajo>
+*/
+
 const flagArgumentoDeAmbiente = '--mode';
 const flagArgumentoDeEmail = '--email';
 const flagArgumentoDeNuevaPassword = '--pass';
@@ -87,7 +108,7 @@ Es así: "dart run reset_password.dart --email <email-del-user> --pass(opcional)
 
   print('Realizando consulta de actualización...\n');
 
-  final hashDeNuevaPassword = Emails.generatePasswordHash(nuevaPassword);
+  final hashDeNuevaPassword = await Emails.generatePasswordHash(nuevaPassword);
 
   final registrosCambiados = await session.dbNext.unsafeExecute('''
 UPDATE "${EmailAuth.t.tableName}"
@@ -106,4 +127,6 @@ WHERE "${EmailAuth.t.userId.columnName}" = (
   } else {
     print('No hubo cambios.\n');
   }
+
+  exit(0);
 }

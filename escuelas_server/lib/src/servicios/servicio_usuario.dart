@@ -388,7 +388,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           urlFotoDePerfil: usuarioPendiente.urlFotoDePerfil,
           fechaCreacion: ahora,
           ultimaModificacion: ahora,
-          necesitaCambiarPassword: true,
+          necesitaCambiarPassword: false,
         ),
       ),
     );
@@ -623,12 +623,13 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         idUsuario: usuario.id!,
       );
 
-      if (direccionDeEmail.id != 0) {
+      if (direccionDeEmail.id != 0 &&
+          usuario.direccionesDeEmail?.first != null) {
         logger.info(
           'direccion de Email encontrada: se va a actualizar',
-          await servicioDeEmail.actualizarDireccionDeEmail(session,
-              direccionDeEmail: direccionDeEmail),
         );
+        await servicioDeEmail.actualizarDireccionDeEmail(session,
+            direccionDeEmail: usuario.direccionesDeEmail!.first);
       } else {
         logger.info(
           'direccion de Email no encontrada: se va a crear',
@@ -639,6 +640,11 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           ),
         );
       }
+
+      final emailAuth = await auth.EmailAuth.db.findFirstRow(
+        session,
+        where: (p0) => p0.userId.equals(userInfoData.id),
+      );
 
       String email = '';
       if (usuario.direccionesDeEmail != null &&
@@ -653,10 +659,11 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       );
       final userInfoADb = auth.UserInfo(
         id: userInfoData.id,
-        userIdentifier: email,
+        userIdentifier: usuario.dni ?? userInfoData.userIdentifier,
         userName: usuario.nombre,
-        fullName: '${usuario.nombre} ${usuario.apellido}',
-        email: email,
+        fullName: '${usuario.nombre};${usuario.apellido}',
+        email: usuario.direccionesDeEmail?.first.direccionDeEmail ??
+            userInfoData.email,
         created: userInfoData.created,
         scopeNames: userInfoData.scopeNames,
         blocked: userInfoData.blocked,
@@ -681,6 +688,14 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
             [userInfoADb],
             transaction: transaction,
           );
+          if (emailAuth != null) {
+            await auth.EmailAuth.db.updateRow(
+                session,
+                emailAuth
+                  ..email =
+                      usuario.direccionesDeEmail?.first.direccionDeEmail ??
+                          userInfoData.email!);
+          }
           return true;
         },
       );

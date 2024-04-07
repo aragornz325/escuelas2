@@ -155,7 +155,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
           idAsignatura: asignatura.asignaturaId,
           comisionId: asignatura.comisionId,
           anio: ahora.year,
-          mes: ahora.month,
+          mes: ahora.day > 20 ? ahora.month : ahora.month - 1,
           solicitudId: solicitudCreada.id!,
         );
 
