@@ -13,3 +13,5 @@ doc/api/
 
 pubspec.lock
 escuelas_server/awscliv2.zip
+
+*.env

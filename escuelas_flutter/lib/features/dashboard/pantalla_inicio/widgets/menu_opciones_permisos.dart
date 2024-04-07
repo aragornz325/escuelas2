@@ -1,3 +1,4 @@
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
@@ -74,9 +75,7 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
   }
 
   /// Devuelve de acuerdo al usuario su lista de vistas permitidas.
-  List<MenuOpcionesDeInicio> _menusPermitidos(BuildContext context) {
-    final usuario = context.read<BlocDashboard>().state.usuario;
-
+  List<MenuOpcionesDeInicio> _menusPermitidos(Usuario usuario) {
     return MenuOpcionesDeInicio.values
         .where(
           (opcion) => opcion.permisosRequeridos.every(
@@ -100,7 +99,8 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
 
     final l10n = context.l10n;
 
-    final menus = _menusPermitidos(context);
+    final menus =
+        _menusPermitidos(context.watch<BlocDashboard>().state.usuario);
 
     return BlocConsumer<BlocInicio, BlocInicioEstado>(
       listener: (context, state) {
@@ -124,18 +124,6 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
               SizedBox(height: 150.ph),
               const Center(child: CircularProgressIndicator()),
             ],
-          );
-        }
-        if (state is BlocInicioEstadoExitoso && menus.isEmpty) {
-          return Center(
-            child: Text(
-              l10n.pageHomeNoOptionsMenu,
-              style: TextStyle(
-                color: colores.onBackground,
-                fontWeight: FontWeight.w600,
-                fontSize: 14.pf,
-              ),
-            ),
           );
         }
         if (state is BlocInicioEstadoExitoso && menus.isEmpty) {

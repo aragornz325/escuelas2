@@ -123,7 +123,8 @@ WHERE "${EmailAuth.t.userId.columnName}" = (
   final elReinicioDePasswordFueRealizado = registrosCambiados == 1;
 
   if (elReinicioDePasswordFueRealizado) {
-    print('Password del usuario $emailDelUser reiniciada correctamente.\n');
+    print(
+        'Password del usuario $emailDelUser reiniciada correctamente a $nuevaPassword.\n');
   } else {
     print('No hubo cambios.\n');
   }
