@@ -1,0 +1,42 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "resetear password",
+            "type": "process",
+            "command": "dart",
+            "args": [
+                "scripts/resetear_password.dart",
+                "--email ${input:email-del-user}",
+                "--pass ${input:nueva-password-del-user}",
+                "--mode ${input:ambiente-de-trabajo}"
+            ],
+            "problemMatcher": [
+                "$dart-build_runner"
+            ],
+        }
+    ],
+    "inputs": [
+        {
+            "id": "email-del-user",
+            "type": "promptString",
+            "description": "Ingrese el email del usuario al cual resetearle la contraseña",
+        },
+        {
+            "id": "ambiente-de-trabajo",
+            "type": "pickString",
+            "description": "Seleccione el ambiente de trabajo",
+            "options": [
+                "development",
+                "production"
+            ],
+            "default": "development"
+        },
+        {
+            "id": "nueva-password-del-user",
+            "type": "promptString",
+            "description": "Ingrese la nueva contraseña del usuario",
+            "default": "password1234"
+        },
+    ]
+}

@@ -21,3 +21,8 @@ scripts:
     run: melos exec --scope="*flutter*" -- "flutter clean && flutter build web -t lib/main_production.dart"
   l10n:
     run: melos exec --scope="*flutter*" -- "flutter gen-l10n"
+  releaseStg:
+    run: melos exec --scope="*flutter*" -- "flutter gen-l10n"
+  releaseProd:
+    run: melos exec --scope="*flutter*" -- "shorebird release android --target lib/main_production.dart --flavor production --artifact apk"
+
