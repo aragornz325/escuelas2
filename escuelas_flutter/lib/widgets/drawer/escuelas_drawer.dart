@@ -221,7 +221,7 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
                         GestureDetector(
                           onTap: () async => {
                             await client.solicitudNotaMensual
-                                .enviarSolicitudADocentes(),
+                                .enviarSolicitudDeCalificacionMensualADocentes(),
                           },
                           child: Container(
                             height: 70.ph,
