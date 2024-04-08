@@ -54,4 +54,11 @@ scripts:
     run: melos exec --scope="*flutter*" -- "flutter gen-l10n"
   releaseProd:
     run: melos exec --scope="*flutter*" -- "shorebird release android --target lib/main_production.dart --flavor production --artifact apk"
-
+  iconos:
+    run: melos exec --depends-on="flutter_launcher_icons" -- "dart run flutter_launcher_icons"
+  splash:
+    run: melos exec --depends-on="flutter_native_splash" -- "dart run flutter_native_splash:create --flavors main,development,staging,production"
+  visuals:
+    description: "Generates icons and splash screens for all packages"
+    run: melos run iconos && melos run splash
+  
