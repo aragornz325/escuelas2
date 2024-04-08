@@ -105,6 +105,8 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitudNotaMensual> {
     Session session,
   ) async {
     final ahora = DateTime.now();
+    final numeroDeMesDeLaSolicitud = ahora.day > 20 ? ahora.month : ahora.month - 1;
+    final anioDeLaSolicitud = ahora.year;
 
     final listaIdDocentes = await servicioUsuario.obtenerIdsDeUsuariosDocentes(
       session,
