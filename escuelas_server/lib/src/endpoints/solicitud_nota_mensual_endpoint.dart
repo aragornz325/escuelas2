@@ -92,11 +92,11 @@ class SolicitudNotaMensualEndpoint extends Endpoint
         permisoRequerido: PermisoDeSolicitud.eliminarSolicitud,
       );
 
-  Future<bool> enviarSolicitudADocentes(Session session) async {
+  Future<bool> enviarSolicitudDeCalificacionMensualADocentes(Session session) async {
     await ejecutarOperacionControlador(
       session,
-      'enviarSolicitudADocentes',
-      () => servicio.enviarSolicitudADocentes(
+      'enviarSolicitudDeCalificacionMensualADocentes',
+      () => servicio.enviarSolicitudDeCalificacionMensualADocentes(
         session,
       ),
       permisoRequerido: PermisoDeSolicitud.crearSolicitud,

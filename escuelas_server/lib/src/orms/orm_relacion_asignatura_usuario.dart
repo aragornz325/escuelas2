@@ -2,7 +2,8 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
-class OrmRelacionAsignaturaUsuario extends ORM {
+class OrmRelacionAsignaturaUsuario extends ORM<RelacionAsignaturaUsuario> {
+  
   Future<void> crearRelacionUsuarioAAsignaturas(
     Session session, {
     required List<AsignaturaSolicitada> asignaturasSolicitadas,

@@ -1,7 +1,7 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_asignatura.dart';
 import 'package:escuelas_server/src/orms/orm_asignatura_solicitada.dart';
-import 'package:escuelas_server/src/orms/orm_asignatura_usuario.dart';
+import 'package:escuelas_server/src/orms/orm_relacion_asignatura_usuario.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:serverpod/serverpod.dart';
 
