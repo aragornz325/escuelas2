@@ -57,7 +57,7 @@ scripts:
   iconos:
     run: melos exec --depends-on="flutter_launcher_icons" -- "dart run flutter_launcher_icons"
   splash:
-    run: melos exec --depends-on="flutter_native_splash" -- "dart run flutter_native_splash:create --flavors main,development,staging,production"
+    run: melos exec --depends-on="flutter_native_splash" -- "dart run flutter_native_splash:create --flavors main,development,staging,production,dev,stg"
   visuals:
     description: "Generates icons and splash screens for all packages"
     run: melos run iconos && melos run splash
