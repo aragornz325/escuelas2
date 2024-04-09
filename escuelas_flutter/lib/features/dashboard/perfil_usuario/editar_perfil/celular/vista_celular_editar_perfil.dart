@@ -179,7 +179,6 @@ class _DatosPersonalesAEditar extends StatelessWidget {
                     ),
                   ),
                 ),
-              const SizedBox.shrink(),
             ],
           ),
         ),
