@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:serverpod_auth_client/module.dart';
+import 'package:serverpod_auth_email_flutter/serverpod_auth_email_flutter.dart';
 import 'package:serverpod_auth_google_flutter/serverpod_auth_google_flutter.dart';
 
 part 'bloc_registro_estado.dart';
@@ -19,12 +20,17 @@ part 'bloc_registro_evento.dart';
 /// {@endtemplate}
 class BlocRegistro extends Bloc<BlocRegistroEvento, BlocRegistroEstado> {
   /// {@macro BlocRegistro}
-  BlocRegistro() : super(const BlocRegistroEstadoInicial()) {
+  BlocRegistro({
+    required this.emailAuth,
+  }) : super(const BlocRegistroEstadoInicial()) {
     on<BlocRegistroEventoRegistrarUsuario>(
       _registrarseConCredenciales,
     );
     on<BlocRegistroEventoRegistrarseConGoogle>(_registrarseConGoogle);
   }
+
+  /// Repo de los llamados a server pod
+  final EmailAuthController emailAuth;
 
   /// Te permite registrarte con nombre, apellido, email, contraseña y dni
   Future<void> _registrarseConCredenciales(
@@ -34,17 +40,32 @@ class BlocRegistro extends Bloc<BlocRegistroEvento, BlocRegistroEstado> {
     emit(BlocRegistroEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        final userInfo = await client.userInfo.registrarUserInfo(
+        await client.userInfo.registrarUserInfo(
           nombre: event.nombre.trim(),
           apellido: event.apellido.trim(),
           email: event.email,
           password: event.contrasenia,
           dni: event.documento,
         );
+        final userInfo = await emailAuth.signIn(event.email, event.contrasenia);
 
-        emit(
-          BlocRegistroEstadoExitosoAlRegistrar.desde(state, userInfo),
-        );
+        if (userInfo == null) {
+          return emit(
+            BlocRegistroEstadoErrorGeneral.desde(
+              state,
+              ExcepcionCustom(
+                tipoDeError: TipoExcepcion.desconocido,
+              ),
+            ),
+          );
+        }
+        final usuarioPendiente =
+            await client.usuario.obtenerDatosDeSolicitudDelUsuario();
+        if (usuarioPendiente == null) {
+          return emit(
+            BlocRegistroEstadoFaltaCompletarKyc.desde(state),
+          );
+        }
       },
       onErrorCustom: (e, st) {
         emit(
@@ -55,7 +76,9 @@ class BlocRegistro extends Bloc<BlocRegistroEvento, BlocRegistroEstado> {
         if (kDebugMode) debugger(message: 'handlear este error nuevo');
         emit(
           BlocRegistroEstadoErrorGeneral.desde(
-              state, ExcepcionCustom(tipoDeError: TipoExcepcion.desconocido)),
+            state,
+            ExcepcionCustom(tipoDeError: TipoExcepcion.desconocido),
+          ),
         );
       },
     );
