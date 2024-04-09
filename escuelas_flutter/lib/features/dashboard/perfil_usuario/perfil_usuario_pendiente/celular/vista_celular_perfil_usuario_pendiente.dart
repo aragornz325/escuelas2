@@ -88,7 +88,7 @@ class VistaCelularPerfilUsuarioPendiente extends StatelessWidget {
         BlocPerfilUsuarioPendienteEstado>(
       listener: (BuildContext context, BlocPerfilUsuarioPendienteEstado state) {
         if (state is BlocPerfilUsuarioPendienteEstadoUsuarioAceptado) {
-          context.router.push(const RutaUsuariosPendientes());
+          context.router.replace(const RutaUsuariosPendientes());
         }
       },
       builder: (context, state) {

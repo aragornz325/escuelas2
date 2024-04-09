@@ -39,7 +39,7 @@ class ItemUsuarioPendiente extends StatelessWidget {
         ),
         SizedBox(width: 10.pw),
         GestureDetector(
-          onTap: () => context.router.push(
+          onTap: () => context.router.replace(
             RutaPerfilUsuarioPendiente(
               idUsuarioPendiente: usuario.id ?? 0,
             ),
