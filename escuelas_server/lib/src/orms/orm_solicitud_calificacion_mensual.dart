@@ -2,7 +2,7 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/server.dart';
 
-class OrmSolicitudNotaMensual extends ORM<SolicitudCalificacionMensual> {
+class OrmSolicitudCalificacionMensual extends ORM<SolicitudCalificacionMensual> {
   /// La función `crearSolicitudNotaMensual` crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.
   Future<SolicitudCalificacionMensual> crearSolicitudNotaMensual(

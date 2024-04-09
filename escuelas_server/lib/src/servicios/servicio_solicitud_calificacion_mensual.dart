@@ -1,9 +1,7 @@
-import 'dart:web_audio';
-
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_relacion_asignatura_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud.dart';
-import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
+import 'package:escuelas_server/src/orms/orm_solicitud_calificacion_mensual.dart';
 import 'package:escuelas_server/src/orms/orm_userInfo.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
@@ -22,7 +20,7 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitud> {
   final _servicioUsuario = ServicioUsuario();
 
   final _ormRelacionAsignaturaUsuario = OrmRelacionAsignaturaUsuario();
-  final _ormSolicitudDeCalificacionMensual = OrmSolicitudNotaMensual();
+  final _ormSolicitudDeCalificacionMensual = OrmSolicitudCalificacionMensual();
 
   /// La función `crearSolicitudNotaMensual` crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.

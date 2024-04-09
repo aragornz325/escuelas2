@@ -1,7 +1,7 @@
 import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/servicios/servicio_solicitud_nota_mensual.dart';
+import 'package:escuelas_server/src/servicios/servicio_solicitud_calificacion_mensual.dart';
 import 'package:serverpod/serverpod.dart';
 
 //TODO(Juanjo): extraer esto a solicitud_enpoint.dart
