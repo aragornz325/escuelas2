@@ -34,6 +34,8 @@ class ListaContactos extends StatelessWidget {
                   tieneBordeVisible: true,
                   altura: 40.ph,
                   borderRadius: 10.sw,
+                  //! TODO(Anyone): Agregar evento
+
                   onTap: () {},
                   texto: Text(
                     e.nombre.toUpperCase(),
@@ -52,6 +54,7 @@ class ListaContactos extends StatelessWidget {
   }
 }
 
+//! TODO(Anyone): Eliminar cuando este el back
 class Contacto {
   Contacto({required this.email, required this.nombre});
   String nombre;

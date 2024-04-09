@@ -35,6 +35,7 @@ class VistaCelularEditarPerfil extends StatelessWidget {
       builder: (_) => BlocProvider.value(
         value: context.read<BlocEditarPerfil>(),
         child: DialogAgregarContacto(
+          //! TODO(Anyone): Agregar evento
           onTapConfirmar: () {},
         ),
       ),
@@ -85,8 +86,10 @@ class _DatosPersonalesAEditar extends StatelessWidget {
     this.usuario,
   });
 
+  /// Usuario a editar
   final Usuario? usuario;
 
+  /// FUncion para agregar un contacto
   final VoidCallback onTapAgregar;
 
   @override
@@ -95,6 +98,7 @@ class _DatosPersonalesAEditar extends StatelessWidget {
 
     final l10n = context.l10n;
 
+//! TODO(Anyone): Eliminar cuando este el back
     final listaDeContactos = <Contacto>[
       Contacto(
         email: 'luisitoluisito',
@@ -175,7 +179,7 @@ class _DatosPersonalesAEditar extends StatelessWidget {
                     ),
                   ),
                 ),
-              SizedBox(height: max(10.ph, 10.sh)),
+              const SizedBox.shrink(),
             ],
           ),
         ),
