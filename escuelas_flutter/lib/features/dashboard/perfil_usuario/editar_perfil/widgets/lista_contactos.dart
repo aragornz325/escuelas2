@@ -15,6 +15,8 @@ class ListaContactos extends StatelessWidget {
     super.key,
   });
 
+//! TODO(Anyone) reemplazar por el que va
+  /// Lista de contactos del usuario
   final List<Contacto> listaDeContactos;
 
   @override
@@ -29,9 +31,9 @@ class ListaContactos extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 15.ph)
                     .copyWith(bottom: 10.ph),
                 child: ElementoLista(
+                  tieneBordeVisible: true,
                   altura: 40.ph,
                   borderRadius: 10.sw,
-                  colorFondo: Colors.amber,
                   onTap: () {},
                   texto: Text(
                     e.nombre.toUpperCase(),

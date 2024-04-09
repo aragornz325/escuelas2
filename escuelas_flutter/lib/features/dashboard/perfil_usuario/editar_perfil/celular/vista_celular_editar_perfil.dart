@@ -6,11 +6,7 @@ import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialogs.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
-import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -29,6 +25,18 @@ class VistaCelularEditarPerfil extends StatelessWidget {
     showDialog<void>(
       context: context,
       builder: (context) => const DialogExitoAlGuardarCambios(),
+    );
+  }
+
+  Future<void> _onAgregarContacto(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocEditarPerfil>(),
+        child: DialogAgregarContacto(
+          onTapConfirmar: () {},
+        ),
+      ),
     );
   }
 
@@ -55,6 +63,7 @@ class VistaCelularEditarPerfil extends StatelessWidget {
               children: [
                 _DatosPersonalesAEditar(
                   usuario: state.usuario,
+                  onTapAgregar: () => _onAgregarContacto(context),
                 ),
               ],
             ),
@@ -71,10 +80,13 @@ class VistaCelularEditarPerfil extends StatelessWidget {
 class _DatosPersonalesAEditar extends StatelessWidget {
   /// {@macro _DatosPersonalesAEditar}
   const _DatosPersonalesAEditar({
+    required this.onTapAgregar,
     this.usuario,
   });
 
   final Usuario? usuario;
+
+  final VoidCallback onTapAgregar;
 
   @override
   Widget build(BuildContext context) {
@@ -91,10 +103,10 @@ class _DatosPersonalesAEditar extends StatelessWidget {
         email: 'pepito@pepito',
         nombre: 'pepito',
       ),
-      Contacto(
-        email: 'monchito@monchito',
-        nombre: 'monchito',
-      ),
+      // Contacto(
+      //   email: 'monchito@monchito',
+      //   nombre: 'monchito',
+      // ),
     ];
 
     return Padding(
@@ -132,7 +144,7 @@ class _DatosPersonalesAEditar extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.pw),
                 child: Text(
-                  'CONTACTOS',
+                  l10n.pageEditProfileContacts.toUpperCase(),
                   style: TextStyle(
                     fontSize: 13.pf,
                     fontWeight: FontWeight.w700,
@@ -146,22 +158,21 @@ class _DatosPersonalesAEditar extends StatelessWidget {
                 color: colores.secondary,
               ),
               SizedBox(height: max(10.ph, 10.sh)),
-              ListaContactos(listaDeContactos: listaDeContactos),
+              ListaContactos(
+                listaDeContactos: listaDeContactos,
+              ),
               SizedBox(height: max(10.ph, 10.sh)),
-              Align(
-                alignment: Alignment.topRight,
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    height: max(40.ph, 40.sh),
-                    decoration: BoxDecoration(
-                      color: colores.primaryContainer,
-                      shape: BoxShape.circle,
+              if (listaDeContactos.length < 3)
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: FloatingActionButton(
+                      onPressed: onTapAgregar,
+                      child: const Icon(Icons.add),
                     ),
-                    child: Center(child: const Icon(Icons.add)),
                   ),
                 ),
-              ),
               SizedBox(height: max(10.ph, 10.sh)),
             ],
           ),
