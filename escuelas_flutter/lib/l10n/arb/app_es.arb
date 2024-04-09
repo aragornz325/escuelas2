@@ -603,6 +603,15 @@
   "@routeNameGradeSubmissionSupervision": {
     "description": ""
   },
+  "pageEditProfileContacts":"Contacts",
+  "@pageEditProfileContacts": {
+      "description": "Title of the dialog"
+  },
+  "pageEditProfileDialogAddContact":"Agregar contacto",
+  "@pageEditProfileDialogAddContact": {
+      "description": "Title of the dialog"
+  },
+
   "commonWelcome": "¡Bienvenido!",
   "@commonWelcome": {
     "description": "Welcoming text"
