@@ -6,6 +6,7 @@ import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialogs.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -168,6 +169,7 @@ class _DatosPersonalesAEditar extends StatelessWidget {
                   child: Align(
                     alignment: Alignment.centerRight,
                     child: FloatingActionButton(
+                      backgroundColor: colores.amarilloCuartoFalta,
                       onPressed: onTapAgregar,
                       child: const Icon(Icons.add),
                     ),
