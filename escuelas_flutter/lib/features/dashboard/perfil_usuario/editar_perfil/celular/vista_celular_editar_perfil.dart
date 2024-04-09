@@ -6,6 +6,7 @@ import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialogs.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -28,6 +29,19 @@ class VistaCelularEditarPerfil extends StatelessWidget {
     );
   }
 
+  Future<void> _onAgregarContacto(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocEditarPerfil>(),
+        child: DialogAgregarContacto(
+          //! TODO(Anyone): Agregar evento
+          onTapConfirmar: () {},
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -46,12 +60,15 @@ class VistaCelularEditarPerfil extends StatelessWidget {
               state.usuario == null) {
             return const Center(child: CircularProgressIndicator());
           }
-          return ListView(
-            children: [
-              _DatosPersonalesAEditar(
-                usuario: state.usuario,
-              ),
-            ],
+          return IntrinsicHeight(
+            child: ListView(
+              children: [
+                _DatosPersonalesAEditar(
+                  usuario: state.usuario,
+                  onTapAgregar: () => _onAgregarContacto(context),
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -65,16 +82,37 @@ class VistaCelularEditarPerfil extends StatelessWidget {
 class _DatosPersonalesAEditar extends StatelessWidget {
   /// {@macro _DatosPersonalesAEditar}
   const _DatosPersonalesAEditar({
+    required this.onTapAgregar,
     this.usuario,
   });
 
+  /// Usuario a editar
   final Usuario? usuario;
+
+  /// FUncion para agregar un contacto
+  final VoidCallback onTapAgregar;
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
     final l10n = context.l10n;
+
+//! TODO(Anyone): Eliminar cuando este el back
+    final listaDeContactos = <Contacto>[
+      Contacto(
+        email: 'luisitoluisito',
+        nombre: 'luisito',
+      ),
+      Contacto(
+        email: 'pepito@pepito',
+        nombre: 'pepito',
+      ),
+      // Contacto(
+      //   email: 'monchito@monchito',
+      //   nombre: 'monchito',
+      // ),
+    ];
 
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10.pw),
@@ -107,6 +145,40 @@ class _DatosPersonalesAEditar extends StatelessWidget {
               FormularioDePerfilUsuario(
                 usuario: usuario,
               ),
+              SizedBox(height: max(20.ph, 20.sh)),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10.pw),
+                child: Text(
+                  l10n.pageEditProfileContacts.toUpperCase(),
+                  style: TextStyle(
+                    fontSize: 13.pf,
+                    fontWeight: FontWeight.w700,
+                    color: colores.onBackground,
+                  ),
+                ),
+              ),
+              SizedBox(height: max(10.ph, 10.sh)),
+              Divider(
+                height: 0,
+                color: colores.secondary,
+              ),
+              SizedBox(height: max(10.ph, 10.sh)),
+              ListaContactos(
+                listaDeContactos: listaDeContactos,
+              ),
+              SizedBox(height: max(10.ph, 10.sh)),
+              if (listaDeContactos.length < 3)
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Align(
+                    alignment: Alignment.centerRight,
+                    child: FloatingActionButton(
+                      backgroundColor: colores.amarilloCuartoFalta,
+                      onPressed: onTapAgregar,
+                      child: const Icon(Icons.add),
+                    ),
+                  ),
+                ),
             ],
           ),
         ),
