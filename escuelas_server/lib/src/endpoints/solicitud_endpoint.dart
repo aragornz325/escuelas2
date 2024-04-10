@@ -4,20 +4,6 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
 import 'package:serverpod/serverpod.dart';
 
-//TODO(Juanjo): asegurate q exista esta funcionalidad:
-
-// !!! YA! corregir el metodo para q siempre sea upsert, nunca insert
-
-// getSolicitudesPendientes(Usuario usuario) que se usa para ver desde el ppio del flujo las cosas q
-// tiene pendientes el usuairo logueado (para ponerlo en la campanita, x ejemplo)
-// funcionamiento: select * from solicitudes where fechaRealizacion is null and idUsuario = usuario.id
-
-// NUNCA algo genérico tipo:
-// ! ~crearSolicitud(Usuario usuario, Solicitud solicitud)~
-// * crearSolicitudDeNotaMensual(Usuario usuario, SolicitudNotaMensual solicitudNotaMensual)
-
-// despueeeesss... algo q limpie solicitudes viejas, q no se necesiten mas, q no se hayan realizado, etc
-
 class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
   @override
   ServicioSolicitud get servicio => ServicioSolicitud();
@@ -149,4 +135,14 @@ class SolicitudEndpoint extends Endpoint with Controller<ServicioSolicitud> {
             ),
             permisoRequerido: PermisoDeSolicitud.verSolicitud,
           );
+
+  Future<ListaDeSolicitudes> obtenerSolicitudesPendientesDelUsuario(
+          Session session,) =>
+      ejecutarOperacionControlador(
+        session,
+        'obtenerSolicitudesPendientesDelUsuario',
+        () => servicio.obtenerSolicitudesPendientesDelUsuario(
+          session,
+        ),
+      );
 }

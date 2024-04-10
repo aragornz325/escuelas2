@@ -8,7 +8,7 @@ import 'package:escuelas_server/src/orms/orm_calificacion.dart';
 import 'package:escuelas_server/src/orms/orm_calificacion_mensual.dart';
 import 'package:escuelas_server/src/orms/orm_comision.dart';
 import 'package:escuelas_server/src/orms/orm_concepto_calificacion.dart';
-import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
+import 'package:escuelas_server/src/orms/orm_solicitud_calificacion_mensual.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
@@ -20,7 +20,7 @@ class ServicioCalificacion extends Servicio<OrmCalificacion> {
   @override
   OrmCalificacion get orm => OrmCalificacion();
 
-  final _ormSolicitudNotaMensual = OrmSolicitudNotaMensual();
+  final _ormSolicitudNotaMensual = OrmSolicitudCalificacionMensual();
 
   final _ormConceptoCalificacion = OrmConceptoCalificacion();
 
