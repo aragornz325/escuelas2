@@ -14,6 +14,7 @@ class EscuelasTextfield extends StatefulWidget {
   const EscuelasTextfield({
     required this.controller,
     required this.esPassword,
+    this.readOnly,
     this.hintText,
     this.fillColor,
     this.focusNode,
@@ -57,10 +58,14 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Border radius del textfield
     BorderRadius? borderRadius,
+
+    /// Opcion de solo lectura
+    bool? readOnly,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
+      readOnly: readOnly ?? false,
       borderRadius: borderRadius,
       borderSide: borderSide,
       maxLines: maxLines,
@@ -101,10 +106,14 @@ class EscuelasTextfield extends StatefulWidget {
 
     /// Border radius del textfield
     BorderRadius? borderRadius,
+
+    /// Opcion de solo lectura
+    bool? readOnly,
   }) {
     final l10n = context.l10n;
 
     return EscuelasTextfield(
+      readOnly: readOnly ?? false,
       borderRadius: borderRadius,
       borderSide: borderSide,
       maxLines: maxLines,
@@ -427,6 +436,9 @@ class EscuelasTextfield extends StatefulWidget {
   /// border radius Custom.
   final BorderRadius? borderRadius;
 
+  /// opcion de solo lectura
+  final bool? readOnly;
+
   @override
   State<EscuelasTextfield> createState() => _EscuelasTextfieldState();
 }
@@ -440,6 +452,7 @@ class _EscuelasTextfieldState extends State<EscuelasTextfield> {
       width: widget.width,
       height: widget.height,
       child: TextFormField(
+        readOnly: widget.readOnly ?? false,
         onEditingComplete: widget.onEditingComplete,
         onFieldSubmitted: widget.onFieldSubmitted,
         focusNode: widget.focusNode,

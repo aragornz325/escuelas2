@@ -6,6 +6,7 @@ part of 'bloc_inicio.dart';
 class BlocInicioEstado {
   /// {@macro BlocInicioEstado}
   const BlocInicioEstado._({
+    this.usuario,
     this.hayUsuariosPendientes = false,
     this.cantidadNotificacionesPendientes = 0,
   });
@@ -28,6 +29,8 @@ class BlocInicioEstado {
   /// Cantidad de solicitudes de notificaciones pendientes para poder
   /// señalizarle al usuario la cantidad de las mismas en el menu inicio.
   final int cantidadNotificacionesPendientes;
+
+  final Usuario? usuario;
 }
 
 /// {@template BlocInicioEstadoInicial}
@@ -35,7 +38,9 @@ class BlocInicioEstado {
 /// {@endtemplate}
 class BlocInicioEstadoInicial extends BlocInicioEstado {
   /// {@macro BlocInicioEstadoInicial}
-  const BlocInicioEstadoInicial() : super._();
+  const BlocInicioEstadoInicial(this.usuario) : super._();
+
+  final Usuario usuario;
 }
 
 /// {@template BlocInicioEstadoCargando}

@@ -6,7 +6,6 @@ import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialogs.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
-import 'package:escuelas_flutter/theming/base.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -146,39 +145,39 @@ class _DatosPersonalesAEditar extends StatelessWidget {
                 usuario: usuario,
               ),
               SizedBox(height: max(20.ph, 20.sh)),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.pw),
-                child: Text(
-                  l10n.pageEditProfileContacts.toUpperCase(),
-                  style: TextStyle(
-                    fontSize: 13.pf,
-                    fontWeight: FontWeight.w700,
-                    color: colores.onBackground,
-                  ),
-                ),
-              ),
-              SizedBox(height: max(10.ph, 10.sh)),
-              Divider(
-                height: 0,
-                color: colores.secondary,
-              ),
-              SizedBox(height: max(10.ph, 10.sh)),
-              ListaContactos(
-                listaDeContactos: listaDeContactos,
-              ),
-              SizedBox(height: max(10.ph, 10.sh)),
-              if (listaDeContactos.length < 3)
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Align(
-                    alignment: Alignment.centerRight,
-                    child: FloatingActionButton(
-                      backgroundColor: colores.amarilloCuartoFalta,
-                      onPressed: onTapAgregar,
-                      child: const Icon(Icons.add),
-                    ),
-                  ),
-                ),
+              // Padding(
+              //   padding: EdgeInsets.symmetric(horizontal: 10.pw),
+              //   child: Text(
+              //     l10n.pageEditProfileContacts.toUpperCase(),
+              //     style: TextStyle(
+              //       fontSize: 13.pf,
+              //       fontWeight: FontWeight.w700,
+              //       color: colores.onBackground,
+              //     ),
+              //   ),
+              // ),
+              // SizedBox(height: max(10.ph, 10.sh)),
+              // Divider(
+              //   height: 0,
+              //   color: colores.secondary,
+              // ),
+              // SizedBox(height: max(10.ph, 10.sh)),
+              // ListaContactos(
+              //   listaDeContactos: listaDeContactos,
+              // ),
+              // SizedBox(height: max(10.ph, 10.sh)),
+              // if (listaDeContactos.length < 3)
+              //   Padding(
+              //     padding: const EdgeInsets.all(8),
+              //     child: Align(
+              //       alignment: Alignment.centerRight,
+              //       child: FloatingActionButton(
+              //         backgroundColor: colores.amarilloCuartoFalta,
+              //         onPressed: onTapAgregar,
+              //         child: const Icon(Icons.add),
+              //       ),
+              //     ),
+              //   ),
             ],
           ),
         ),
