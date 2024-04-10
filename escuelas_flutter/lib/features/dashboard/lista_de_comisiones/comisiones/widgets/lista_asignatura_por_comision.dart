@@ -66,7 +66,7 @@ class ListaDeAsignaturasPorComision extends StatelessWidget {
                                   if (context.tienePermiso(
                                     PermisoDeCalificacion.verCalificacion,
                                   )) {
-                                    context.pushRoute(
+                                    context.router.push(
                                       RutaCargaDeCalificaciones(
                                         fecha: periodo.toString(),
                                         idComision: comision.idComision,

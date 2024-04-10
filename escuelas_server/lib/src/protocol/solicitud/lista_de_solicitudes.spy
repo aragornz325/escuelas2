@@ -1,0 +1,4 @@
+class: ListaDeSolicitudes
+fields:
+    solicitudesDeEnvioDeNotificacion: List<SolicitudEnvioNotificacion>
+    solicitudesDeCargaDeCalificacionMensual: List<SolicitudCalificacionMensual>

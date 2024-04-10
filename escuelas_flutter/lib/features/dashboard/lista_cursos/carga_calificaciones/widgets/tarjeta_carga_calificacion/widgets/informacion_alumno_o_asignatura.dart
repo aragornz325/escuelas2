@@ -66,14 +66,6 @@ class _InformacionAlumnoOAsignaturaState
             padding: const EdgeInsets.only(left: 10),
             child: Wrap(
               children: [
-                if (!widget.esInfoAlumno)
-                  Icon(
-                    estaExpandido
-                        ? Icons.arrow_drop_up_rounded
-                        : Icons.arrow_drop_down_rounded,
-                    color: colores.grisSC,
-                    size: 25.pw,
-                  ),
                 Padding(
                   padding: EdgeInsets.only(right: 1.pw),
                   child: Text(

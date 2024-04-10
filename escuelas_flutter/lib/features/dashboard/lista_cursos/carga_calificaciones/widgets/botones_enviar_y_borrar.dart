@@ -38,8 +38,9 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
             ),
             EscuelasBoton.texto(
               context: context,
-              estaHabilitado: state.listaCalificacionesMesActual
-                  .every((element) => element.calificacion?.index != 0),
+              estaHabilitado: true,
+              // state.listaCalificacionesMesActual
+              //     .every((element) => element.calificacion?.index != 0),
               onTap: () => context.read<BlocCargaCalificaciones>().add(
                     const BlocCargaCalificacionesEventoEnviarCalificaciones(),
                   ),

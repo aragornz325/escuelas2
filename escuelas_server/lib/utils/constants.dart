@@ -10,3 +10,5 @@ const nombreEnCorreosElectronicos = 'Nidus Escuelas';
 const asuntoDeCorreoVerificacionDeCuenta = 'Código de validación';
 
 const asuntoDeCorreoRecuperacionDePassword = 'Código de validación';
+
+const asuntoDeCorreoSolicitudDeCargaDeCalificacionesMensuales = 'Hay un nuevo pedido de calificaciones.';

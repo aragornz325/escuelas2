@@ -2,7 +2,7 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/server.dart';
 
-class OrmSolicitud extends ORM {
+class OrmSolicitud extends ORM<Solicitud> {
   /// La función `crearSolicitud` crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.
   /// Args:

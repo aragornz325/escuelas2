@@ -1,15 +1,16 @@
 import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
-import 'package:escuelas_server/src/servicios/servicio_solicitud_nota_mensual.dart';
+import 'package:escuelas_server/src/servicios/servicio_solicitud_calificacion_mensual.dart';
 import 'package:serverpod/serverpod.dart';
 
+//TODO(Juanjo): extraer esto a solicitud_enpoint.dart
 class SolicitudNotaMensualEndpoint extends Endpoint
     with Controller<ServicioSolicitudNotaMensual> {
   @override
   ServicioSolicitudNotaMensual get servicio => ServicioSolicitudNotaMensual();
 
-  /// La función `crearSolicitudNotaMensual` crea un registro de solicitud en una base de datos y devuelve el
+  /// Crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.
   Future<SolicitudCalificacionMensual> crearSolicitudNotaMensual(
     Session session,
@@ -33,15 +34,16 @@ class SolicitudNotaMensualEndpoint extends Endpoint
   Future<SolicitudCalificacionMensual> actualizarSolicitudNotaMensual(
     Session session,
     SolicitudCalificacionMensual solicitudNotaMensual,
-  ) async => await ejecutarOperacionControlador(
-      session,
-      'actualizarSolicitudNotaMensual',
-      () => servicio.actualizarSolicitudNotaMensual(
+  ) async =>
+      await ejecutarOperacionControlador(
         session,
-        solicitudNotaMensual: solicitudNotaMensual,
-      ),
-      permisoRequerido: PermisoDeSolicitud.editarSolicitud,
-    );
+        'actualizarSolicitudNotaMensual',
+        () => servicio.actualizarSolicitudNotaMensual(
+          session,
+          solicitudNotaMensual: solicitudNotaMensual,
+        ),
+        permisoRequerido: PermisoDeSolicitud.editarSolicitud,
+      );
 
   /// La función `obtenerSolicitudNotaMensual` obtiene un registro de solicitud en una base de datos y
   /// devuelve el registro.
@@ -64,35 +66,37 @@ class SolicitudNotaMensualEndpoint extends Endpoint
   /// en una base de datos y devuelve la lista.
   Future<List<SolicitudCalificacionMensual>> obtenerSolicitudesNotaMensual(
     Session session,
-  ) async => await ejecutarOperacionControlador(
-      session,
-      'obtenerSolicitudesNotaMensual',
-      () => servicio.obtenerSolicitudesNotaMensual(
+  ) async =>
+      await ejecutarOperacionControlador(
         session,
-      ),
-      permisoRequerido: PermisoDeSolicitud.verSolicitud,
-    );
+        'obtenerSolicitudesNotaMensual',
+        () => servicio.obtenerSolicitudesNotaMensual(
+          session,
+        ),
+        permisoRequerido: PermisoDeSolicitud.verSolicitud,
+      );
 
   /// La función `eliminarSolicitudNotaMensual` elimina un registro de solicitud en una base de datos y
   /// devuelve el id del registro eliminado.
   Future<int> eliminarSolicitudNotaMensual(
     Session session,
     int id,
-  ) async => await ejecutarOperacionControlador(
-      session,
-      'eliminarSolicitudNotaMensual',
-      () => servicio.eliminarSolicitudNotaMensual(
+  ) async =>
+      await ejecutarOperacionControlador(
         session,
-        id: id,
-      ),
-      permisoRequerido: PermisoDeSolicitud.eliminarSolicitud,
-    );
+        'eliminarSolicitudNotaMensual',
+        () => servicio.eliminarSolicitudNotaMensual(
+          session,
+          id: id,
+        ),
+        permisoRequerido: PermisoDeSolicitud.eliminarSolicitud,
+      );
 
-  Future<bool> enviarSolicitudADocentes(Session session) async {
+  Future<bool> enviarSolicitudDeCalificacionMensualADocentes(Session session) async {
     await ejecutarOperacionControlador(
       session,
-      'enviarSolicitudADocentes',
-      () => servicio.enviarSolicitudADocentes(
+      'enviarSolicitudDeCalificacionMensualADocentes',
+      () => servicio.enviarSolicitudDeCalificacionMensualADocentes(
         session,
       ),
       permisoRequerido: PermisoDeSolicitud.crearSolicitud,

@@ -2,7 +2,7 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/server.dart';
 
-class OrmSolicitudNotificacion extends ORM {
+class OrmSolicitudNotificacion extends ORM<SolicitudEnvioNotificacion> {
   /// La función `obtenerSolicitudesNotificacionesPendientes` obtiene todos los registros de solicitud de envio de
   /// notificacion en una base de datos y devuelve los registros.
   Future<List<SolicitudEnvioNotificacion>>

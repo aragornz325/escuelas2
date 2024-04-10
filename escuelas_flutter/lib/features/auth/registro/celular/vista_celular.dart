@@ -21,7 +21,9 @@ class VistaCelularRegistro extends StatelessWidget {
 
     return BlocListener<BlocRegistro, BlocRegistroEstado>(
       listener: (context, state) {
-        if (state is BlocRegistroEstadoFaltaCompletarKyc) {
+        if (state is BlocRegistroEstadoFaltaCompletarKyc ||
+            state is BlocRegistroEstadoSolicitudRechazada ||
+            state is BlocRegistroEstadoExitosoAlRegistrar) {
           context.replaceRoute(const RutaKyc());
         }
 
@@ -38,12 +40,6 @@ class VistaCelularRegistro extends StatelessWidget {
           );
         }
 
-        if (state is BlocRegistroEstadoSolicitudRechazada) {
-          context.replaceRoute(const RutaKyc());
-        }
-        if (state is BlocRegistroEstadoExitosoAlRegistrar) {
-          context.replaceRoute(const RutaLogin());
-        }
         if (state is BlocRegistroEstadoErrorGeneral) {
           showDialog<void>(
             context: context,

@@ -109,6 +109,8 @@ class OrmCalificacionMensual extends ORM {
     required int numeroDeMes,
     required int anio,
   }) async {
+    //TODO(Juanjo): que esto liste por comisión, asi si hay notas
+    // que no se hayan cargado tambien aparecen en la lista (con S/C)
     return ejecutarOperacionOrm(
       session,
       (session) => CalificacionMensual.db.find(

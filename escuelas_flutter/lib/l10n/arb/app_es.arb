@@ -313,10 +313,6 @@
   "@pageHomeChangeDNISuccess": {
     "description": "Message displayed to inform the user that their DNI has been successfully changed."
   },
-  "pageGradesNotGrades": "No hay calificaciones",
-  "@pageGradesNotGrades": {
-    "description": "Text to be displayed if there are no grades"
-  },
   "pageStudentGradesTitle": "Calificaciones",
   "@pageStudentGrades": {
     "description": "Title of the page Grades for a student"
@@ -603,6 +599,15 @@
   "@routeNameGradeSubmissionSupervision": {
     "description": ""
   },
+  "pageEditProfileContacts":"Contacts",
+  "@pageEditProfileContacts": {
+      "description": "Title of the dialog"
+  },
+  "pageEditProfileDialogAddContact":"Agregar contacto",
+  "@pageEditProfileDialogAddContact": {
+      "description": "Title of the dialog"
+  },
+
   "commonWelcome": "¡Bienvenido!",
   "@commonWelcome": {
     "description": "Welcoming text"

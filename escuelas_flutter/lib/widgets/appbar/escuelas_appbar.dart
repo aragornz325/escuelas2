@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
+import 'package:escuelas_flutter/features/dashboard/pagina_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -109,15 +110,23 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
           SliverAppBar(
             leading: Builder(
               builder: (BuildContext context) {
-                return iconoLateralIzquierdo ??
-                    IconButton(
-                      icon: const Icon(Icons.menu),
-                      onPressed: () {
-                        if (widget.tieneDrawer) {
-                          Scaffold.of(context).openDrawer();
-                        }
-                      },
-                    );
+                return context.router.canNavigateBack &&
+                        false == context.router.isTopMost
+                    ? IconButton(
+                        icon: const Icon(Icons.arrow_back),
+                        onPressed: () {
+                          context.router.back();
+                        },
+                      )
+                    : iconoLateralIzquierdo ??
+                        IconButton(
+                          icon: const Icon(Icons.menu),
+                          onPressed: () {
+                            if (widget.tieneDrawer) {
+                              Scaffold.of(context).openDrawer();
+                            }
+                          },
+                        );
               },
             ),
             title: Center(

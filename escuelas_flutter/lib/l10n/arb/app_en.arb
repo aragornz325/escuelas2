@@ -746,6 +746,14 @@
   "@pageEditProfileDialogRequiresChangePassword": {
       "description": "Checkbox to indicate if user requires change password."
   },
+  "pageEditProfileContacts":"Contacts",
+  "@pageEditProfileContacts": {
+      "description": "Title of the dialog"
+  },
+  "pageEditProfileDialogAddContact":"Add contact",
+  "@pageEditProfileDialogAddContact": {
+      "description": "Title of the dialog"
+  },
   "commonWelcome": "Welcome!",
   "@commonWelcome": {
     "description": "Welcoming text"

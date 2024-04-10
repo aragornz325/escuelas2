@@ -1,14 +1,19 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orms/orm_solicitud.dart';
-import 'package:escuelas_server/src/orms/orm_solicitud_nota_mensual.dart';
+import 'package:escuelas_server/src/orms/orm_solicitud_calificacion_mensual.dart';
+import 'package:escuelas_server/src/orms/orm_solicitud_notificacion.dart';
 import 'package:escuelas_server/src/servicio.dart';
+import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:serverpod/server.dart';
 
 class ServicioSolicitud extends Servicio<OrmSolicitud> {
   @override
   OrmSolicitud get orm => OrmSolicitud();
 
-  final _ormSolicitudNotaMensual = OrmSolicitudNotaMensual();
+  final _servicioUsuario = ServicioUsuario();
+
+  final _ormSolicitudCalificacionMensual = OrmSolicitudCalificacionMensual();
+  final _ormSolicitudNotificacion = OrmSolicitudNotificacion();
 
   /// La función `crearSolicitud` crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.
@@ -117,10 +122,50 @@ class ServicioSolicitud extends Servicio<OrmSolicitud> {
     required int numeroDeMes,
   }) async =>
           ejecutarOperacion(
-            () =>
-                _ormSolicitudNotaMensual.obtenerSolicitudesCalificacionMensual(
+            () => _ormSolicitudCalificacionMensual
+                .obtenerSolicitudesCalificacionMensual(
               session,
               numeroDeMes: numeroDeMes,
             ),
           );
+
+  Future<ListaDeSolicitudes> obtenerSolicitudesPendientesDelUsuario(
+    Session session,
+  ) async {
+    final usuario = await _servicioUsuario.obtenerDatosDelUsuario(session);
+    if (usuario.id == null) {
+      throw ExcepcionCustom(tipoDeError: TipoExcepcion.desconocido);
+    }
+
+    final solicitudesDeCalificacionMensualDelUsuario =
+        await _ormSolicitudCalificacionMensual.listarRegistrosEnDbPorFiltro(
+      session,
+      filtroCondicional: SolicitudCalificacionMensual.t.solicitud.idDestinatario
+              .equals(usuario.id) &
+          SolicitudCalificacionMensual.t.solicitud.fechaRealizacion
+              .equals(null) &
+          SolicitudCalificacionMensual.t.solicitud.fechaEliminacion
+              .equals(null),
+      incluirObjetos: SolicitudCalificacionMensual.include(
+        solicitud: Solicitud.include(),
+      ),
+    );
+
+    final solicitudesDeNotificacionDelUsuario =
+        await _ormSolicitudNotificacion.listarRegistrosEnDbPorFiltro(
+      session,
+      filtroCondicional: SolicitudEnvioNotificacion.t.solicitud.idDestinatario
+              .equals(usuario.id) &
+          SolicitudEnvioNotificacion.t.solicitud.fechaRealizacion.equals(null) &
+          SolicitudEnvioNotificacion.t.solicitud.fechaEliminacion.equals(null),
+      incluirObjetos: SolicitudEnvioNotificacion.include(
+        solicitud: Solicitud.include(),
+      ),
+    );
+
+    return ListaDeSolicitudes(
+      solicitudesDeCargaDeCalificacionMensual: solicitudesDeCalificacionMensualDelUsuario,
+      solicitudesDeEnvioDeNotificacion: solicitudesDeNotificacionDelUsuario,
+    );
+  }
 }
