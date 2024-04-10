@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
-import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/botones_guardar_y_volver.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/widgets/dialogs/dialog_editar_password.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
@@ -100,6 +99,7 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               ),
             ),
             EscuelasTextfield.soloNumero(
+              readOnly: true,
               borderRadius: BorderRadius.all(
                 Radius.circular(10.sw),
               ),
@@ -122,6 +122,7 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               ),
             ),
             EscuelasTextfield.email(
+              readOnly: true,
               borderRadius: BorderRadius.all(
                 Radius.circular(10.sw),
               ),
@@ -143,6 +144,7 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               ),
             ),
             EscuelasTextfield.soloNumero(
+              readOnly: true,
               borderRadius: BorderRadius.all(
                 Radius.circular(10.sw),
               ),
@@ -170,28 +172,28 @@ class _FormularioDePerfilUsuarioState extends State<FormularioDePerfilUsuario> {
               ),
             ),
             SizedBox(height: max(20.ph, 20.sh)),
-            BotonesGuardarYVolver(
-              onTapConfirmar: () {
-                context.read<BlocEditarPerfil>().add(
-                      BlocEditarPerfilEventoGuardarCambios(
-                        usuario: widget.usuario,
-                        telefono: _controllerTelefono.text.isNotEmpty
-                            ? _controllerTelefono.text
-                            : widget.usuario?.numerosDeTelefono?.firstOrNull
-                                    ?.numeroDeTelefono ??
-                                '',
-                        email: _controllerEmail.text.isNotEmpty
-                            ? _controllerEmail.text
-                            : widget.usuario?.direccionesDeEmail?.firstOrNull
-                                    ?.direccionDeEmail ??
-                                '',
-                        dni: _controllerDNI.text.isNotEmpty
-                            ? _controllerDNI.text
-                            : widget.usuario?.dni,
-                      ),
-                    );
-              },
-            ),
+            // BotonesGuardarYVolver(
+            //   onTapConfirmar: () {
+            //     context.read<BlocEditarPerfil>().add(
+            //           BlocEditarPerfilEventoGuardarCambios(
+            //             usuario: widget.usuario,
+            //             telefono: _controllerTelefono.text.isNotEmpty
+            //                 ? _controllerTelefono.text
+            //                 : widget.usuario?.numerosDeTelefono?.firstOrNull
+            //                         ?.numeroDeTelefono ??
+            //                     '',
+            //             email: _controllerEmail.text.isNotEmpty
+            //                 ? _controllerEmail.text
+            //                 : widget.usuario?.direccionesDeEmail?.firstOrNull
+            //                         ?.direccionDeEmail ??
+            //                     '',
+            //             dni: _controllerDNI.text.isNotEmpty
+            //                 ? _controllerDNI.text
+            //                 : widget.usuario?.dni,
+            //           ),
+            //         );
+            //   },
+            // ),
           ],
         ),
       ),
