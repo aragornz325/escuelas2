@@ -393,7 +393,7 @@ GROUP BY rau."comisionId", com.nombre;
               ?.allToJson();
         }
 
-        final emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+        List<String> emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
 
         final emailEnviado = emailsEnviados.where(
           (element) => element.idEstudiante == estudiante.id,
@@ -483,7 +483,7 @@ GROUP BY rau."comisionId", com.nombre;
               ?.allToJson();
         }
 
-        final emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+        List<String> emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
 
         final emailEnviado = emailsEnviados.where(
           (element) => element.idEstudiante == estudiante.id,
@@ -572,7 +572,7 @@ GROUP BY rau."comisionId", com.nombre;
               ?.allToJson();
         }
 
-        final emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+        List<String> emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
 
         final emailEnviado = emailsEnviados.where(
           (element) => element.idEstudiante == estudiante.id,
@@ -664,7 +664,7 @@ GROUP BY rau."comisionId", com.nombre;
               ?.allToJson();
         }
 
-        final emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+        List<String> emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
 
         final emailEnviado = emailsEnviados.where(
           (element) => element.idEstudiante == estudiante.id,
