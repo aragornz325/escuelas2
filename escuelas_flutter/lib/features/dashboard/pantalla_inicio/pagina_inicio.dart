@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/bloc/bloc_inicio.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/celular/vista_celular_inicio.dart';
 import 'package:escuelas_flutter/features/dashboard/pantalla_inicio/escritorio/vista_escritorio_inicio.dart';
@@ -24,14 +25,12 @@ class PaginaInicio extends StatefulWidget {
 
 class _PaginaInicioState extends State<PaginaInicio> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    final usuario = context.read<BlocDashboard>().state.usuario;
+
     return BlocProvider<BlocInicio>(
-      create: (context) => BlocInicio()..add(BlocInicioEventoInicializar()),
+      create: (context) =>
+          BlocInicio(usuario: usuario)..add(BlocInicioEventoInicializar()),
       child: const FullResponsiveScreen(
         celular: VistaCelularInicio(),
         escritorio: VistaEscritorioInicio(),

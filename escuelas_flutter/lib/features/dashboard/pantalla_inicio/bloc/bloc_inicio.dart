@@ -1,5 +1,8 @@
 import 'package:bloc/bloc.dart';
+import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_commons/permisos/permisos.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+import 'package:escuelas_flutter/extensiones/usuario.dart';
 part 'bloc_inicio_estado.dart';
 part 'bloc_inicio_evento.dart';
 
@@ -9,7 +12,8 @@ part 'bloc_inicio_evento.dart';
 /// {@endtemplate}
 class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
   /// {@macro BlocInicio}
-  BlocInicio() : super(const BlocInicioEstadoInicial()) {
+  BlocInicio({required Usuario usuario})
+      : super(BlocInicioEstadoInicial(usuario)) {
     on<BlocInicioEventoInicializar>(_onInicializar);
   }
 
@@ -29,11 +33,18 @@ class BlocInicio extends Bloc<BlocInicioEvento, BlocInicioEstado> {
         final usuariosPendientes =
             await client.usuario.obtenerUsuariosPendientes();
 
-        final solicitudesNotificacionesPendientes = await client
-            .solicitudNotificacion
-            .obtenerSolicitudesNotificacionesPendientes(
-          userId: idUsuario,
-        );
+        var solicitudesNotificacionesPendientes =
+            <SolicitudEnvioNotificacion>[];
+
+        // TODO(mati): se puede mejorar
+        if (state.usuario != null &&
+            state.usuario!.tienePermisos(PermisoDeSolicitud.verSolicitud)) {
+          solicitudesNotificacionesPendientes = await client
+              .solicitudNotificacion
+              .obtenerSolicitudesNotificacionesPendientes(
+            userId: idUsuario,
+          );
+        }
 
         emit(
           BlocInicioEstadoExitoso.desde(
