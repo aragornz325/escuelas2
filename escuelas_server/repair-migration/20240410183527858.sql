@@ -3,34 +3,26 @@ BEGIN;
 --
 -- ACTION ALTER TABLE
 --
-ALTER TABLE "asignaturas" ALTER COLUMN "ultimaModificacion" DROP DEFAULT;
-ALTER TABLE "asignaturas" ALTER COLUMN "fechaCreacion" DROP DEFAULT;
+ALTER TABLE "calificaciones" DROP CONSTRAINT "calificaciones_fk_4";
+ALTER TABLE "calificaciones" ALTER COLUMN "idInstanciaDeEvaluacion" DROP NOT NULL;
 --
 -- ACTION ALTER TABLE
 --
-ALTER TABLE "instancias_de_evaluacion" DROP CONSTRAINT "public_instancias_de_evaluacion_autor_fkey";
-ALTER TABLE ONLY "instancias_de_evaluacion"
-    ADD CONSTRAINT "instancias_de_evaluacion_fk_0"
-    FOREIGN KEY("autor")
-    REFERENCES "usuarios"("id")
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION;
+ALTER TABLE "direcciones_de_email" DROP COLUMN "etiqueta";
+CREATE UNIQUE INDEX "direcciones_de_email_de_usuario_unique_idx" ON "direcciones_de_email" USING btree ("direccionDeEmail");
 --
 -- ACTION ALTER TABLE
 --
-ALTER TABLE "r_asignatura_curso" ALTER COLUMN "fechaCreacion" DROP DEFAULT;
---
--- ACTION ALTER TABLE
---
-ALTER TABLE "usuarios" ADD COLUMN "necesitaCambiarPassword" boolean;
+ALTER TABLE "usuarios" DROP COLUMN "privileges";
+ALTER TABLE "usuarios" ADD COLUMN "privileges" text;
 
 --
 -- MIGRATION VERSION FOR escuelas
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('escuelas', '20240401154125303', now())
+    VALUES ('escuelas', '20240410183237470', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240401154125303', "timestamp" = now();
+    DO UPDATE SET "version" = '20240410183237470', "timestamp" = now();
 
 --
 -- MIGRATION VERSION FOR serverpod
@@ -52,9 +44,9 @@ INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
 -- MIGRATION VERSION FOR _repair
 --
 INSERT INTO "serverpod_migrations" ("module", "version", "timestamp")
-    VALUES ('_repair', '20240401154648381', now())
+    VALUES ('_repair', '20240410183527858', now())
     ON CONFLICT ("module")
-    DO UPDATE SET "version" = '20240401154648381', "timestamp" = now();
+    DO UPDATE SET "version" = '20240410183527858', "timestamp" = now();
 
 
 COMMIT;

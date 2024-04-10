@@ -5,7 +5,7 @@ fields:
   estudiante: Usuario?, relation
   idComision: int, relation(parent=comisiones)
   asignatura: Asignatura?, relation 
-  idInstanciaDeEvaluacion: int, relation(parent=instancias_de_evaluacion)
+  idInstanciaDeEvaluacion: int?
   ### Index del Enum que contiene los tipos posibles de calificaciones
   tipoCalificacion: TipoCalificacion 
   ### Index del Enum que contiene los valores posibles para 
