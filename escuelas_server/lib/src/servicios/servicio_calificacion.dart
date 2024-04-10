@@ -14,6 +14,7 @@ import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
 import 'package:escuelas_server/src/servicios/servicio_solicitud.dart';
 import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:escuelas_server/utils/plantilla_mail_escuelas.dart';
+import 'package:intl/intl.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioCalificacion extends Servicio<OrmCalificacion> {
@@ -129,7 +130,8 @@ GROUP BY rau."comisionId", com.nombre;
               ..addEntries(e['r_asignaturas_usuarios']!.entries)
               ..addEntries(e['comisiones']!.entries)
               ..addEntries(e['']!.entries)
-              ..['listaDeAsignaturas'] = jsonDecode(e['']!['listaDeAsignaturas']),
+              ..['listaDeAsignaturas'] =
+                  jsonDecode(e['']!['listaDeAsignaturas']),
             Protocol(),
           ),
         )
@@ -358,6 +360,7 @@ GROUP BY rau."comisionId", com.nombre;
     required int mes,
     required int anio,
   }) async {
+    final mes_ = _mesDeNumeroANombre(anio, mes);
     final comisiones = await OrmComision().obtenerComisiones(session);
     final calificaciones = await _ormCalificacion.obtenerCalificaciones(
       session,
@@ -366,14 +369,43 @@ GROUP BY rau."comisionId", com.nombre;
       idComisiones: comisiones.map((e) => e.id!).toList(),
     );
 
+    final emailsEnviados = await EmailEnviado.db.find(
+      session,
+      where: (p0) =>
+          p0.mes.equals(mes) &
+          p0.anio.equals(anio) &
+          p0.tipoDeCorreo.equals(
+            TipoDeCorreoEnviado.envioDeCalificaciones,
+          ),
+    );
+
     for (var comision in comisiones) {
       for (var estudiante in comision.listaDeEstudiantes) {
         Map<String, dynamic> asignaturasCalificaciones = {};
         for (var asignatura in comision.listaDeAsignaturas) {
-          asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
-            (element) =>
-                element.asignaturaId == asignatura.id &&
-                element.estudianteId == estudiante.id,
+          asignaturasCalificaciones[asignatura.nombre] = calificaciones
+              .where(
+                (element) =>
+                    element.asignaturaId == asignatura.id &&
+                    element.estudianteId == estudiante.id,
+              )
+              .firstOrNull
+              ?.allToJson();
+        }
+
+        final emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+
+        final emailEnviado = emailsEnviados.where(
+          (element) => element.idEstudiante == estudiante.id,
+        );
+
+        final emailEnviado_ = emailEnviado.firstOrNull;
+
+        if (emailEnviado_ != null) {
+          emailsDestinatarios.removeWhere(
+            (element) => emailEnviado_.direccionesEmailDestinatarios
+                .split(';')
+                .contains(element),
           );
         }
 
@@ -382,13 +414,29 @@ GROUP BY rau."comisionId", com.nombre;
           direccionEmailDestinatarios:
               estudiante.listaDireccionesDeEmailStrings,
           asuntoDelCorreo:
-              '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+              _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
           contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+            mes: mes,
             nombre: estudiante.nombre,
             apellido: estudiante.apellido,
-            curso: comision.nombreDelCursoYLaComision,
-            calificaciones: asignaturasCalificaciones.toString(),
+            curso: comision.nombre,
+            calificaciones: jsonEncode(asignaturasCalificaciones),
           ).html(),
+        );
+
+        await EmailEnviado.db.insertRow(
+          session,
+          EmailEnviado(
+            tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
+            direccionesEmailDestinatarios:
+                emailsDestinatarios.join(';'),
+            fecha: DateTime.now(),
+            mes: mes,
+            anio: anio,
+            idComision: comision.id,
+            idCurso: comision.curso?.id,
+            idEstudiante: estudiante.id,
+          ),
         );
       }
     }
@@ -401,6 +449,7 @@ GROUP BY rau."comisionId", com.nombre;
     required int anio,
     required List<int> idCursos,
   }) async {
+    final mes_ = _mesDeNumeroANombre(anio, mes);
     final comisiones = await OrmComision().obtenerComisiones(
       session,
       idCursos: idCursos,
@@ -410,15 +459,43 @@ GROUP BY rau."comisionId", com.nombre;
         anio: anio,
         idComisiones: comisiones.map((e) => e.id!).toList());
 
+    final emailsEnviados = await EmailEnviado.db.find(
+      session,
+      where: (p0) =>
+          p0.mes.equals(mes) &
+          p0.anio.equals(anio) &
+          p0.tipoDeCorreo.equals(
+            TipoDeCorreoEnviado.envioDeCalificaciones,
+          ),
+    );
+
     for (var comision in comisiones) {
       for (var estudiante in comision.listaDeEstudiantes) {
         Map<String, dynamic> asignaturasCalificaciones = {};
         for (var asignatura in comision.listaDeAsignaturas) {
-          asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
-            (element) =>
-                element.asignaturaId == asignatura.id &&
-                element.estudianteId == estudiante.id,
-          );
+          asignaturasCalificaciones[asignatura.nombre] = calificaciones
+              .where(
+                (element) =>
+                    element.asignaturaId == asignatura.id &&
+                    element.estudianteId == estudiante.id,
+              )
+              .firstOrNull
+              ?.allToJson();
+        }
+
+        final emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+
+        final emailEnviado = emailsEnviados.where(
+          (element) => element.idEstudiante == estudiante.id,
+        );
+
+        final emailEnviado_ = emailEnviado.firstOrNull;
+
+        if (emailEnviado_ != null) {
+          emailsDestinatarios.removeWhere((element) => emailEnviado_
+              .direccionesEmailDestinatarios
+              .split(';')
+              .contains(element));
         }
 
         await ServicioComunicaciones().enviarEmail(
@@ -426,13 +503,29 @@ GROUP BY rau."comisionId", com.nombre;
           direccionEmailDestinatarios:
               estudiante.listaDireccionesDeEmailStrings,
           asuntoDelCorreo:
-              '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+              _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
           contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+            mes: mes,
             nombre: estudiante.nombre,
             apellido: estudiante.apellido,
-            curso: comision.nombreDelCursoYLaComision,
-            calificaciones: asignaturasCalificaciones.toString(),
+            curso: comision.nombre,
+            calificaciones: jsonEncode(asignaturasCalificaciones),
           ).html(),
+        );
+
+        await EmailEnviado.db.insertRow(
+          session,
+          EmailEnviado(
+            tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
+            direccionesEmailDestinatarios:
+                emailsDestinatarios.join(';'),
+            fecha: DateTime.now(),
+            mes: mes,
+            anio: anio,
+            idComision: comision.id,
+            idCurso: comision.curso?.id,
+            idEstudiante: estudiante.id,
+          ),
         );
       }
     }
@@ -445,6 +538,7 @@ GROUP BY rau."comisionId", com.nombre;
     required int anio,
     required List<int> idComisiones,
   }) async {
+    final mes_ = _mesDeNumeroANombre(anio, mes);
     final comisiones = await OrmComision().obtenerComisiones(
       session,
       idComisiones: idComisiones,
@@ -454,15 +548,43 @@ GROUP BY rau."comisionId", com.nombre;
         anio: anio,
         idComisiones: comisiones.map((e) => e.id!).toList());
 
+    final emailsEnviados = await EmailEnviado.db.find(
+      session,
+      where: (p0) =>
+          p0.mes.equals(mes) &
+          p0.anio.equals(anio) &
+          p0.tipoDeCorreo.equals(
+            TipoDeCorreoEnviado.envioDeCalificaciones,
+          ),
+    );
+
     for (var comision in comisiones) {
       for (var estudiante in comision.listaDeEstudiantes) {
         Map<String, dynamic> asignaturasCalificaciones = {};
         for (var asignatura in comision.listaDeAsignaturas) {
-          asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
-            (element) =>
-                element.asignaturaId == asignatura.id &&
-                element.estudianteId == estudiante.id,
-          );
+          asignaturasCalificaciones[asignatura.nombre] = calificaciones
+              .where(
+                (element) =>
+                    element.asignaturaId == asignatura.id &&
+                    element.estudianteId == estudiante.id,
+              )
+              .firstOrNull
+              ?.allToJson();
+        }
+
+        final emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+
+        final emailEnviado = emailsEnviados.where(
+          (element) => element.idEstudiante == estudiante.id,
+        );
+
+        final emailEnviado_ = emailEnviado.firstOrNull;
+
+        if (emailEnviado_ != null) {
+          emailsDestinatarios.removeWhere((element) => emailEnviado_
+              .direccionesEmailDestinatarios
+              .split(';')
+              .contains(element));
         }
 
         await ServicioComunicaciones().enviarEmail(
@@ -470,13 +592,29 @@ GROUP BY rau."comisionId", com.nombre;
           direccionEmailDestinatarios:
               estudiante.listaDireccionesDeEmailStrings,
           asuntoDelCorreo:
-              '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+              _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
           contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+            mes: mes,
             nombre: estudiante.nombre,
             apellido: estudiante.apellido,
-            curso: comision.nombreDelCursoYLaComision,
-            calificaciones: asignaturasCalificaciones.toString(),
+            curso: comision.nombre,
+            calificaciones: jsonEncode(asignaturasCalificaciones),
           ).html(),
+        );
+
+        await EmailEnviado.db.insertRow(
+          session,
+          EmailEnviado(
+            tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
+            direccionesEmailDestinatarios:
+                emailsDestinatarios.join(';'),
+            fecha: DateTime.now(),
+            mes: mes,
+            anio: anio,
+            idComision: comision.id,
+            idCurso: comision.curso?.id,
+            idEstudiante: estudiante.id,
+          ),
         );
       }
     }
@@ -489,6 +627,7 @@ GROUP BY rau."comisionId", com.nombre;
     required int anio,
     required List<int> idEstudiantes,
   }) async {
+    final mes_ = _mesDeNumeroANombre(anio, mes);
     final comisiones = await OrmComision().obtenerComisiones(
       session,
       idEstudiantesFiltrados: idEstudiantes,
@@ -500,16 +639,44 @@ GROUP BY rau."comisionId", com.nombre;
       idEstudiantes: idEstudiantes,
     );
 
+    final emailsEnviados = await EmailEnviado.db.find(
+      session,
+      where: (p0) =>
+          p0.mes.equals(mes) &
+          p0.anio.equals(anio) &
+          p0.tipoDeCorreo.equals(
+            TipoDeCorreoEnviado.envioDeCalificaciones,
+          ),
+    );
+
     for (var comision
         in comisiones.where((element) => element.estudiantes!.isNotEmpty)) {
       for (var estudiante in comision.listaDeEstudiantes) {
         Map<String, dynamic> asignaturasCalificaciones = {};
         for (var asignatura in comision.listaDeAsignaturas) {
-          asignaturasCalificaciones[asignatura.nombre] = calificaciones.where(
-            (element) =>
-                element.asignaturaId == asignatura.id &&
-                element.estudianteId == estudiante.id,
-          );
+          asignaturasCalificaciones[asignatura.nombre] = calificaciones
+              .where(
+                (element) =>
+                    element.asignaturaId == asignatura.id &&
+                    element.estudianteId == estudiante.id,
+              )
+              .firstOrNull
+              ?.allToJson();
+        }
+
+        final emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+
+        final emailEnviado = emailsEnviados.where(
+          (element) => element.idEstudiante == estudiante.id,
+        );
+
+        final emailEnviado_ = emailEnviado.firstOrNull;
+
+        if (emailEnviado_ != null) {
+          emailsDestinatarios.removeWhere((element) => emailEnviado_
+              .direccionesEmailDestinatarios
+              .split(';')
+              .contains(element));
         }
 
         await ServicioComunicaciones().enviarEmail(
@@ -517,13 +684,29 @@ GROUP BY rau."comisionId", com.nombre;
           direccionEmailDestinatarios:
               estudiante.listaDireccionesDeEmailStrings,
           asuntoDelCorreo:
-              '${estudiante.nombre}, ¡tus calificaciones llegaron!',
+              _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
           contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+            mes: mes,
             nombre: estudiante.nombre,
             apellido: estudiante.apellido,
-            curso: comision.nombreDelCursoYLaComision,
-            calificaciones: asignaturasCalificaciones.toString(),
+            curso: comision.nombre,
+            calificaciones: jsonEncode(asignaturasCalificaciones),
           ).html(),
+        );
+
+        await EmailEnviado.db.insertRow(
+          session,
+          EmailEnviado(
+            tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
+            direccionesEmailDestinatarios:
+                emailsDestinatarios.join(';'),
+            fecha: DateTime.now(),
+            mes: mes,
+            anio: anio,
+            idComision: comision.id,
+            idCurso: comision.curso?.id,
+            idEstudiante: estudiante.id,
+          ),
         );
       }
     }
@@ -561,4 +744,9 @@ GROUP BY rau."comisionId", com.nombre;
       anio: anio,
     );
   }
+
+  String _asuntoCorreoDeEnvioDeCalificaciones(String nombre, String mes_) =>
+      '$nombre, ¡tus calificaciones de $mes_ llegaron!';
+  String _mesDeNumeroANombre(int anio, int mes) =>
+      DateFormat('LLLL', 'es_AR').format(DateTime(anio, mes));
 }

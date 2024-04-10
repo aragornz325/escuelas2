@@ -21,6 +21,7 @@ dependencies:
   cloudinary: ^1.2.0
   dart_jsonwebtoken: ^2.8.2
   envied: ^0.5.2
+  intl: ^0.18.1
   logging: ^1.2.0
   mailer: ^6.0.1
   serverpod: 1.2.6

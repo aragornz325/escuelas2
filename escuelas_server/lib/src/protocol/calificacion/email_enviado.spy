@@ -1,0 +1,14 @@
+class: EmailEnviado
+table: emails_enviados
+fields:
+    tipoDeCorreo: TipoDeCorreoEnviado
+    direccionesEmailDestinatarios: String
+    fecha: DateTime
+    mes: int
+    anio: int
+    idComision: int?, relation(parent=comisiones, onDelete=SetNull)
+    idCurso: int?, relation(parent=cursos, onDelete=SetNull)
+    idEstudiante: int?, relation(parent=usuarios, onDelete=SetNull)
+    idDocente: int?, relation(parent=usuarios, onDelete=SetNull)
+    idAsignatura: int?, relation(parent=asignaturas, onDelete=SetNull)
+    idSolicitud: int?, relation(parent=solicitudes, onDelete=SetNull)

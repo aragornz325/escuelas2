@@ -1,28 +1,35 @@
 // TODO(Juanjo): Completar con el resto de plantillas.
+import 'dart:convert';
+
+import 'package:escuelas_commons/manejo_de_calificaciones/valor_de_calificacion/valor_de_calificacion.dart';
+import 'package:escuelas_server/src/generated/protocol.dart' as protocol;
+import 'package:intl/intl.dart';
+
 abstract class PlantillaEmailEscuelas {
   String html();
 }
 
 class PlantillaEmailCalificaciones implements PlantillaEmailEscuelas {
-  // TODO(Juanjo): Completar componente de cuerpo con calificaciones (tabla).
   PlantillaEmailCalificaciones({
     required this.nombre,
     required this.apellido,
     required this.curso,
     required this.calificaciones,
+    required this.mes,
   });
 
   final String nombre;  
   final String apellido;
   final String curso;
   final String calificaciones;
+  final int mes;
 
   @override
   String html() {
     final contenido = [
       header(nombre, apellido, curso),
       '<br>',
-      calificaciones,
+      buildTablaDeCalificaciones(calificaciones, mes),
       '<br>',
       footer,
     ].join('\n');
@@ -41,6 +48,20 @@ $contenido
 </html>
 ''';
   }
+
+  String buildTablaDeCalificaciones(calificaciones, int mes) {
+    final Map<String,dynamic> calificaciones_ = jsonDecode(calificaciones);
+    final mes_ = DateFormat('LLLL', 'es_AR').format(DateTime(2024,mes));
+
+    StringBuffer buffer = StringBuffer('<table style="margin: auto;text-align: center;border: 0px;"> <caption><b>${mes_.replaceRange(0, 1, mes_[0].toUpperCase())}</b></caption> <tr> <th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">Asignatura</th> <th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">Nota</th> </tr>');
+
+    for (var nombreAsignatura in calificaciones_.keys) {
+      final calificacion = protocol.Calificacion.fromJson(calificaciones_[nombreAsignatura], protocol.Protocol());
+      buffer.write(' <tr> <td style="border: 1px solid #1e1e1e;border-radius: 3px;font-family: Nunito;font-size: 18px;font-weight: 600;padding: 10px 20px !important;">$nombreAsignatura</td> <td style="font-family: \'Nunito\';font-style: normal;font-weight: 900;font-size: 18px;line-height: 27px;text-align: center;color: #000000;">${ValorDeCalificacionNumericaDecimal.values[calificacion.index].representacion}</td> </tr> ');
+    }
+    buffer.write(' </table>');
+    return buffer.toString();
+  } 
 }
 
 String header(String nombre, apellido, curso) => '''

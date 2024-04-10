@@ -1,0 +1,185 @@
+{
+  "actions": [
+    {
+      "type": "createTable",
+      "createTable": {
+        "name": "emails_enviados",
+        "dartName": "EmailEnviado",
+        "module": "escuelas",
+        "schema": "public",
+        "columns": [
+          {
+            "name": "id",
+            "columnType": 2,
+            "isNullable": false,
+            "columnDefault": "nextval('emails_enviados_id_seq'::regclass)",
+            "dartType": "int?"
+          },
+          {
+            "name": "tipoDeCorreo",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "protocol:TipoDeCorreoEnviado"
+          },
+          {
+            "name": "direccionesEmailDestinatarios",
+            "columnType": 0,
+            "isNullable": false,
+            "dartType": "String"
+          },
+          {
+            "name": "fecha",
+            "columnType": 4,
+            "isNullable": false,
+            "dartType": "DateTime"
+          },
+          {
+            "name": "mes",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "anio",
+            "columnType": 2,
+            "isNullable": false,
+            "dartType": "int"
+          },
+          {
+            "name": "idComision",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          },
+          {
+            "name": "idCurso",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          },
+          {
+            "name": "idEstudiante",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          },
+          {
+            "name": "idDocente",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          },
+          {
+            "name": "idAsignatura",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          },
+          {
+            "name": "idSolicitud",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "int?"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "constraintName": "emails_enviados_fk_0",
+            "columns": [
+              "idComision"
+            ],
+            "referenceTable": "comisiones",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 0
+          },
+          {
+            "constraintName": "emails_enviados_fk_1",
+            "columns": [
+              "idCurso"
+            ],
+            "referenceTable": "cursos",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 0
+          },
+          {
+            "constraintName": "emails_enviados_fk_2",
+            "columns": [
+              "idEstudiante"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 0
+          },
+          {
+            "constraintName": "emails_enviados_fk_3",
+            "columns": [
+              "idDocente"
+            ],
+            "referenceTable": "usuarios",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 0
+          },
+          {
+            "constraintName": "emails_enviados_fk_4",
+            "columns": [
+              "idAsignatura"
+            ],
+            "referenceTable": "asignaturas",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 0
+          },
+          {
+            "constraintName": "emails_enviados_fk_5",
+            "columns": [
+              "idSolicitud"
+            ],
+            "referenceTable": "solicitudes",
+            "referenceTableSchema": "public",
+            "referenceColumns": [
+              "id"
+            ],
+            "onUpdate": 3,
+            "onDelete": 0
+          }
+        ],
+        "indexes": [
+          {
+            "indexName": "emails_enviados_pkey",
+            "elements": [
+              {
+                "type": 0,
+                "definition": "id"
+              }
+            ],
+            "type": "btree",
+            "isUnique": true,
+            "isPrimary": true
+          }
+        ],
+        "managed": true
+      }
+    }
+  ],
+  "warnings": [],
+  "migrationApiVersion": 1
+}

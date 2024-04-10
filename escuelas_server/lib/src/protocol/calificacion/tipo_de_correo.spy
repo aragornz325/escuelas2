@@ -1,0 +1,4 @@
+enum: TipoDeCorreoEnviado
+values:
+    - solicitudDeCargaDeCalificaciones
+    - envioDeCalificaciones

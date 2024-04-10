@@ -7,6 +7,7 @@ import 'package:escuelas_server/src/utils/logger.dart';
 import 'package:escuelas_server/utils/constants.dart';
 import 'package:escuelas_server/utils/init_env.dart';
 import 'package:escuelas_server/utils/rewrite_yaml.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:logging/logging.dart';
 import 'package:rolemissions/rolemissions.dart';
 import 'package:serverpod/serverpod.dart';
@@ -41,7 +42,7 @@ Future<void> run(List<String> args) async {
     Protocol(),
     Endpoints(),
   );
-
+  await initializeDateFormatting('es_AR');
 // Inicializar el Singleton Handler de OneSignal,
 // pasandole las variables apiKey y appId de OneSignal.
   ManejadorOneSignal(
