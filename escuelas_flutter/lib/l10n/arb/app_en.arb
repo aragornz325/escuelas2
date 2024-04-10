@@ -1088,6 +1088,10 @@
     "commonWarning": "Warning",
     "@commonWarning": {
       "description": "Label indicating  warn the user"
+    },  
+    "commonConfirmCloseApp": "Press again to exit",
+    "@commonConfirmCloseApp": {
+      "description": "Message to confirm app exit"
     }
 
 }

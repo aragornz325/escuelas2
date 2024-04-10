@@ -40,6 +40,7 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
   int _indexSegunRuta(BuildContext context) {
     return switch (context.router.current.name) {
       RutaPerfilUsuario.name => 2,
+      RutaEditarPerfil.name => 2,
       _ => 0
     };
   }
@@ -68,12 +69,14 @@ class _PaginaDashboardState extends State<PaginaDashboard> {
       ],
       child: BlocBuilder<BlocDashboard, BlocDashboardEstado>(
         builder: (context, state) {
-          return AutoRouter(
-            builder: (context, content) => EscuelasScaffold(
-              tieneAppBar: true,
-              tieneBottomNavBar: true,
-              index: _indexSegunRuta(context),
-              cuerpo: content,
+          return EscuelasConfirmarCerrarApp(
+            child: AutoRouter(
+              builder: (context, content) => EscuelasScaffold(
+                tieneAppBar: true,
+                tieneBottomNavBar: true,
+                index: _indexSegunRuta(context),
+                cuerpo: content,
+              ),
             ),
           );
         },
