@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
@@ -219,9 +220,59 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
                       if (usuarioLogueado
                           .tienePermisos(PermisoDeSolicitud.crearSolicitud))
                         GestureDetector(
-                          onTap: () async => {
+                          onTap: () async {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Enviando mails...'),
+                              ),
+                            );
+                            await client.calificacion
+                                .enviarCalificacionesPorMesYAnio(
+                                    filtroDeEnvio: EnvioCalificaciones.todos,
+                                    mes: DateTime.now().month - 1,
+                                    anio: DateTime.now().year);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('mails enviadas'),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 70.ph,
+                            width: 200.pw,
+                            decoration: BoxDecoration(
+                              color: Colors.amber,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                width: 2,
+                              ),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Text(
+                                  'enviar mails',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 16.pf,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      // TODO(anyone): Eliminar este widget
+                      if (usuarioLogueado
+                          .tienePermisos(PermisoDeSolicitud.crearSolicitud))
+                        GestureDetector(
+                          onTap: () async {
                             await client.solicitudNotaMensual
-                                .enviarSolicitudDeCalificacionMensualADocentes(),
+                                .enviarSolicitudDeCalificacionMensualADocentes();
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('solicitudes enviadas'),
+                              ),
+                            );
                           },
                           child: Container(
                             height: 70.ph,

@@ -6,7 +6,7 @@
             "type": "process",
             "command": "dart",
             "args": [
-                "scripts/resetear_password.dart",
+                "escuelas_server/scripts/resetear_password.dart",
                 "--email ${input:email-del-user}",
                 "--pass ${input:nueva-password-del-user}",
                 "--mode ${input:ambiente-de-trabajo}"
