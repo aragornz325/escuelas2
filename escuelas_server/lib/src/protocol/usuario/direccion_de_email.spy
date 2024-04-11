@@ -2,11 +2,8 @@ class: DireccionDeEmail
 table: direcciones_de_email
 fields:
   usuario: Usuario?, relation(name=usuario_direccion_de_email)
-  direccionDeEmail: String, 
+  direccionDeEmail: String
+  etiqueta: EtiquetaDireccionEmail?
   ultimaModificacion: DateTime?, scope=serverOnly
   fechaCreacion: DateTime?, scope=serverOnly
   fechaEliminacion: DateTime?, scope=serverOnly
-indexes:
-  direcciones_de_email_de_usuario_unique_idx:
-    fields: direccionDeEmail
-    unique: true

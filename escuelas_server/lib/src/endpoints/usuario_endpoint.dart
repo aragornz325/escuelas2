@@ -247,4 +247,49 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
       ),
     );
   }
+
+  Future<DireccionDeEmail> agregarDireccionDeEmailDeContactoAUsuario(
+    Session session, {
+    required String direccionDeEmail,
+    required EtiquetaDireccionEmail etiqueta,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'agregarDireccionDeEmailDeContactoAUsuario',
+        () async => servicio.agregarDireccionDeEmailDeContactoAUsuario(
+          session,
+          direccionDeEmail: direccionDeEmail,
+          etiqueta: etiqueta,
+        ),
+      );
+
+  Future<int> eliminarDireccionDeEmailDeContactoDeUsuario(
+    Session session, {
+    required int idDireccionDeEmail,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'eliminarDireccionDeEmailDeContactoDeUsuario',
+        () => servicio.eliminarDireccionDeEmailDeContactoDeUsuario(
+          session,
+          idDireccionDeEmail: idDireccionDeEmail,
+        ),
+      );
+
+  Future<DireccionDeEmail> modificarDireccionDeEmailDeContacto(
+   Session session, {
+    required int idDireccionDeEmail,
+    required String nuevaDireccionDeEmail,
+    EtiquetaDireccionEmail? nuevaEtiqueta,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'modificarDireccionDeEmailDeContacto',
+        () => servicio.modificarDireccionDeEmailDeContacto(
+          session,
+          idDireccionDeEmail: idDireccionDeEmail,
+          nuevaDireccionDeEmail: nuevaDireccionDeEmail,
+          nuevaEtiqueta: nuevaEtiqueta,
+        ),
+      );
 }
