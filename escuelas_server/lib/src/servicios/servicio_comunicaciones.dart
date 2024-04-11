@@ -1,7 +1,7 @@
-import 'package:escuelas_server/env/env.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/utils/constants.dart';
+import 'package:escuelas_server/utils/init_env.dart';
 import 'package:mailer/mailer.dart';
 import 'package:serverpod/serverpod.dart';
 
@@ -21,7 +21,7 @@ class ServicioComunicaciones extends Servicio {
     );
 
     final message = Message()
-      ..from = Address(EnvDev.direccionEmailGmail, nombreEnCorreosElectronicos)
+      ..from = Address(env.direccionEmailGmail, nombreEnCorreosElectronicos)
       ..recipients.addAll(direccionEmailDestinatarios)
       ..subject = asuntoDelCorreo
       ..html = contenidoHtmlDelCorreo;

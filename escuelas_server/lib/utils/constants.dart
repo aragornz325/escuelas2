@@ -1,8 +1,8 @@
-import 'package:escuelas_server/env/env.dart';
+import 'package:escuelas_server/utils/init_env.dart';
 import 'package:mailer/smtp_server.dart';
 
 /// Instancia de servidor SMTP para mailer.
-final SmtpServer smtpServer = gmail(EnvDev.direccionEmailGmail, EnvDev.passwordEmailGmail);
+final SmtpServer smtpServer = gmail(env.direccionEmailGmail, env.passwordEmailGmail);
 
 /// Nombre que aparecerá en los correos electrónicos enviados mediante el mailer.
 const nombreEnCorreosElectronicos = 'Nidus Escuelas';
