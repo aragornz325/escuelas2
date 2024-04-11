@@ -361,14 +361,23 @@ GROUP BY rau."comisionId", com.nombre;
     required int anio,
   }) async {
     final mes_ = _mesDeNumeroANombre(anio, mes);
+    logger.info(
+        'Envío de calificaciones del mes $mes ($mes_) de $anio a TODOS LOS ESTUDIANTES DEL COLEGIO.');
+    logger.finer('Buscando comisiones...');
     final comisiones = await OrmComision().obtenerComisiones(session);
+    logger.finest('${comisiones.length} comisiones encontradas.');
+    logger.finer(
+        'Buscando calificaciones del mes $mes ($mes_) de $anio de las comisiones ID ${comisiones.map((e) => e.id!).toList()}...');
     final calificaciones = await _ormCalificacion.obtenerCalificaciones(
       session,
       mes: mes,
       anio: anio,
       idComisiones: comisiones.map((e) => e.id!).toList(),
     );
+    logger.finest('${calificaciones.length} calificaciones encontradas.');
 
+    logger.finer(
+        'Buscando registros de correos de calificaciones del mes $mes ($mes_) de $anio ya enviados...');
     final emailsEnviados = await EmailEnviado.db.find(
       session,
       where: (p0) =>
@@ -378,10 +387,17 @@ GROUP BY rau."comisionId", com.nombre;
             TipoDeCorreoEnviado.envioDeCalificaciones,
           ),
     );
+    logger.finest(
+        '${emailsEnviados.length} registros de correos enviados de calificaciones del mes $mes ($mes_) de $anio encontrados.');
 
+    logger.finer('Comprobando comisiones y enviando calificaciones...');
     for (var comision in comisiones) {
+      logger.finer('Comprobando estudiantes de comisión ID ${comision.id}...');
       for (var estudiante in comision.listaDeEstudiantes) {
+        logger
+            .finer('Enviando calificaciones a estudiante ${estudiante.id}...');
         Map<String, dynamic> asignaturasCalificaciones = {};
+        logger.finer('Extrayendo y ordenando calificaciones del estudiante...');
         for (var asignatura in comision.listaDeAsignaturas) {
           asignaturasCalificaciones[asignatura.nombre] = calificaciones
               .where(
@@ -392,9 +408,13 @@ GROUP BY rau."comisionId", com.nombre;
               .firstOrNull
               ?.allToJson();
         }
+        logger.finest(
+            '${asignaturasCalificaciones.entries.where((element) => element.value != null).length} calificaciones del estudiante encontradas para enviar.');
 
-        List<String> emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+        List<String> emailsDestinatarios =
+            estudiante.listaDireccionesDeEmailStrings;
 
+        logger.finer('Comprobando si existe un correo previamente enviado...');
         final emailEnviado = emailsEnviados.where(
           (element) => element.idEstudiante == estudiante.id,
         );
@@ -402,13 +422,28 @@ GROUP BY rau."comisionId", com.nombre;
         final emailEnviado_ = emailEnviado.firstOrNull;
 
         if (emailEnviado_ != null) {
+          final direccionesALasQueFueEnviadoElCorreo =
+              emailEnviado_.direccionesEmailDestinatarios.split(';');
+          final direccionesTestadas =
+              _testarDireccionesDeEmail(direccionesALasQueFueEnviadoElCorreo);
+          logger.finest(
+              'Existe un correo previamente enviado a las direcciones $direccionesTestadas.');
+          logger.finer('Eliminando direcciones de destinatarios...');
           emailsDestinatarios.removeWhere(
-            (element) => emailEnviado_.direccionesEmailDestinatarios
-                .split(';')
-                .contains(element),
+            (element) => direccionesALasQueFueEnviadoElCorreo.contains(element),
           );
         }
 
+        if (emailsDestinatarios.isEmpty) {
+          logger.finest(
+              'No hay direcciones de correo a las que enviar las calificaciones. Omitiendo envío.');
+          continue;
+        }
+
+        final direccionesTestadas =
+            _testarDireccionesDeEmail(emailsDestinatarios);
+        logger.finer(
+            'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
         await ServicioComunicaciones().enviarEmail(
           session,
           direccionEmailDestinatarios:
@@ -424,12 +459,12 @@ GROUP BY rau."comisionId", com.nombre;
           ).html(),
         );
 
+        logger.finer('Registrando envío de correo...');
         await EmailEnviado.db.insertRow(
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios:
-                emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -438,8 +473,15 @@ GROUP BY rau."comisionId", com.nombre;
             idEstudiante: estudiante.id,
           ),
         );
+
+        logger.finest(
+            'Envío de calificaciones del mes $mes ($mes_) de $anio a Estudiante ID ${estudiante.id} finalizado.');
       }
+      logger.finest(
+          'Envío de calificaciones del mes $mes ($mes_) de $anio a estudiantes de comisión ID ${comision.id} finalizado.');
     }
+    logger.finest(
+        'Envío de calificaciones del mes $mes ($mes_) de $anio finalizado.');
     return true;
   }
 
@@ -483,7 +525,8 @@ GROUP BY rau."comisionId", com.nombre;
               ?.allToJson();
         }
 
-        List<String> emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+        List<String> emailsDestinatarios =
+            estudiante.listaDireccionesDeEmailStrings;
 
         final emailEnviado = emailsEnviados.where(
           (element) => element.idEstudiante == estudiante.id,
@@ -517,8 +560,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios:
-                emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -572,7 +614,8 @@ GROUP BY rau."comisionId", com.nombre;
               ?.allToJson();
         }
 
-        List<String> emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+        List<String> emailsDestinatarios =
+            estudiante.listaDireccionesDeEmailStrings;
 
         final emailEnviado = emailsEnviados.where(
           (element) => element.idEstudiante == estudiante.id,
@@ -606,8 +649,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios:
-                emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -664,7 +706,8 @@ GROUP BY rau."comisionId", com.nombre;
               ?.allToJson();
         }
 
-        List<String> emailsDestinatarios = estudiante.listaDireccionesDeEmailStrings;
+        List<String> emailsDestinatarios =
+            estudiante.listaDireccionesDeEmailStrings;
 
         final emailEnviado = emailsEnviados.where(
           (element) => element.idEstudiante == estudiante.id,
@@ -698,8 +741,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios:
-                emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -749,4 +791,25 @@ GROUP BY rau."comisionId", com.nombre;
       '$nombre, ¡tus calificaciones de $mes_ llegaron!';
   String _mesDeNumeroANombre(int anio, int mes) =>
       DateFormat('LLLL', 'es_AR').format(DateTime(anio, mes));
+
+  Iterable<String> _testarDireccionesDeEmail(
+      Iterable<String> direccionesDeEmail) {
+    try {
+      return direccionesDeEmail.map((e) {
+        final hostDominio = e.split('@');
+        final host = hostDominio.first;
+        final dominio = hostDominio.last.split('.').first;
+        final hostTestado = host.replaceRange(
+            1, host.length - 1, ''.padRight(host.length - 2, '*'));
+        final dominioTestado = dominio.replaceRange(
+            1, dominio.length - 1, ''.padRight(dominio.length - 2, '*'));
+        return [
+          hostTestado,
+          hostDominio.last.replaceAll(dominio, dominioTestado)
+        ].join('@');
+      });
+    } catch (e) {
+      return [];
+    }
+  }
 }
