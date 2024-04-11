@@ -830,7 +830,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     );
   }
 
-  Future<DireccionDeEmail> modificarDireccionDeEmailDeContacto(
+  Future<DireccionDeEmail> modificarDireccionDeEmailDeContactoDeUsuario(
     Session session, {
     required int idDireccionDeEmail,
     required String nuevaDireccionDeEmail,

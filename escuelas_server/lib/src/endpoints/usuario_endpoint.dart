@@ -276,7 +276,7 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
         ),
       );
 
-  Future<DireccionDeEmail> modificarDireccionDeEmailDeContacto(
+  Future<DireccionDeEmail> modificarDireccionDeEmailDeContactoDeUsuario(
    Session session, {
     required int idDireccionDeEmail,
     required String nuevaDireccionDeEmail,
@@ -284,8 +284,8 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
   }) =>
       ejecutarOperacionControlador(
         session,
-        'modificarDireccionDeEmailDeContacto',
-        () => servicio.modificarDireccionDeEmailDeContacto(
+        'modificarDireccionDeEmailDeContactoDeUsuario',
+        () => servicio.modificarDireccionDeEmailDeContactoDeUsuario(
           session,
           idDireccionDeEmail: idDireccionDeEmail,
           nuevaDireccionDeEmail: nuevaDireccionDeEmail,
