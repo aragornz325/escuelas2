@@ -820,7 +820,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         .obtenerDireccionDeEmailPorId(session,
             idDireccionDeEmail: idDireccionDeEmail);
 
-    if (direccionDeEmailABorrar.usuarioId != usuario?.id) {
+    if (direccionDeEmailABorrar.usuarioId != usuario?.id || direccionDeEmailABorrar.etiqueta == EtiquetaDireccionEmail.personalPrimario) {
       throw ExcepcionCustom(tipoDeError: TipoExcepcion.noAutorizado);
     }
 
