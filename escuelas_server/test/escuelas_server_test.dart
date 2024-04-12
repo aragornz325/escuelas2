@@ -20,7 +20,8 @@ Future<void> main() async {
     session,
     mes: 3,
     anio: 2024,
-    filtroDeEnvio: EnvioCalificaciones.todos,
+    filtroDeEnvio: EnvioCalificaciones.porCurso,
+    idCursos: [1],
   );
 
   exit(0);
