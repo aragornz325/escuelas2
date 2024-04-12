@@ -19,7 +19,8 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
           session,
           idComision: idComision,
           idUsuario: idUsuario,
-        ),permisoRequerido: PermisoDeComision.asignarAlumnosAComision,
+        ),
+        permisoRequerido: PermisoDeComision.asignarAlumnosAComision,
       );
 
   Future<List<ComisionDeCurso>> obtenerComisiones(Session session) async =>
@@ -72,7 +73,8 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
               session,
               mes: mes,
               anio: anio,
-            ),permisoRequerido: PermisoDeComision.verComision,
+            ),
+            permisoRequerido: PermisoDeComision.verComision,
           );
 
   Future<bool> cambiarUsuarioDeComision(
@@ -87,7 +89,8 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
           session,
           idComision: idComision,
           idUsuario: idUsuario,
-        ),permisoRequerido: PermisoDeComision.asignarAlumnosAComision,
+        ),
+        permisoRequerido: PermisoDeComision.asignarAlumnosAComision,
       );
 
   /// Obtiene una lista de las asignaturas dentro de una comisión, junto al nombre del docente,
@@ -107,7 +110,8 @@ class ComisionEndpoint extends Endpoint with Controller<ServicioComision> {
         idComision: idComision,
         mes: mes,
         anio: anio,
-      ),permisoRequerido: PermisoDeComision.verComision,
+      ),
+      permisoRequerido: PermisoDeComision.verComision,
     );
   }
 }
