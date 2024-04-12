@@ -763,6 +763,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
 
   Future<DireccionDeEmail> agregarDireccionDeEmailDeContactoAUsuario(
     Session session, {
+    required int idUsuario,
     required String direccionDeEmail,
     required EtiquetaDireccionEmail etiqueta,
   }) async {
@@ -770,28 +771,27 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       throw ExcepcionCustom(tipoDeError: TipoExcepcion.solicitudIncorrecta);
     }
     final ahora = DateTime.now();
-    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
     final usuario = await ejecutarOperacion(
       () {
         return orm.obtenerUnRegistroEnDbPorFiltro(
           session,
-          filtroCondicional: Usuario.t.idUserInfo.equals(
-                idUserInfo,
+          filtroCondicional: Usuario.t.id.equals(
+                idUsuario,
               ) &
               Usuario.t.fechaEliminacion.equals(null),
         );
       },
     );
 
-    if (usuario?.id == null) {
-      throw ExcepcionCustom(tipoDeError: TipoExcepcion.noAutorizado);
+    if (usuario == null) {
+      throw ExcepcionCustom(tipoDeError: TipoExcepcion.solicitudIncorrecta);
     }
 
     final direccionDeEmailAgregada = await ejecutarOperacion(
       () => OrmDireccionesdeEmail().crearDireccionDeEmail(
         session,
         direccionDeMail: DireccionDeEmail(
-          usuarioId: usuario!.id!,
+          usuarioId: idUsuario,
           direccionDeEmail: direccionDeEmail,
           etiqueta: etiqueta,
           ultimaModificacion: ahora,
@@ -807,27 +807,16 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     Session session, {
     required int idDireccionDeEmail,
   }) async {
-    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
-    final usuario = await orm.obtenerUnRegistroEnDbPorFiltro(
+    final direccionBorrada = await OrmDireccionesdeEmail().borrarFisicamenteVariosRegistrosEnDbPorFiltro(
       session,
-      filtroCondicional: Usuario.t.idUserInfo.equals(
-            idUserInfo,
-          ) &
-          Usuario.t.fechaEliminacion.equals(null),
+      filtroCondicional: DireccionDeEmail.t.id.equals(idDireccionDeEmail),
     );
 
-    final direccionDeEmailABorrar = await OrmDireccionesdeEmail()
-        .obtenerDireccionDeEmailPorId(session,
-            idDireccionDeEmail: idDireccionDeEmail);
-
-    if (direccionDeEmailABorrar.usuarioId != usuario?.id || direccionDeEmailABorrar.etiqueta == EtiquetaDireccionEmail.personalPrimario) {
-      throw ExcepcionCustom(tipoDeError: TipoExcepcion.noAutorizado);
+    if (direccionBorrada.isEmpty) {
+      return 0;
     }
 
-    return await OrmDireccionesdeEmail().borrarFisicamenteUnRegistroEnDb(
-      session,
-      registroABorrar: direccionDeEmailABorrar,
-    );
+    return direccionBorrada.first;
   }
 
   Future<DireccionDeEmail> modificarDireccionDeEmailDeContactoDeUsuario(
@@ -855,11 +844,54 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       throw ExcepcionCustom(tipoDeError: TipoExcepcion.noAutorizado);
     }
 
+    if (direccionDeEmailAModificar.etiqueta ==
+        EtiquetaDireccionEmail.personalPrimario) {
+      await _modificarDireccionDeEmailDeCuentaDeUsuario(
+          session, nuevaDireccionDeEmail);
+    }
+
     return await OrmDireccionesdeEmail().actualizarUnRegistroEnDb(
       session,
       registroEnDb: direccionDeEmailAModificar
         ..direccionDeEmail = nuevaDireccionDeEmail
         ..etiqueta = nuevaEtiqueta ?? direccionDeEmailAModificar.etiqueta,
     );
+  }
+
+  Future<bool> _modificarDireccionDeEmailDeCuentaDeUsuario(
+    Session session,
+    String nuevaDireccionDeEmail,
+  ) async {
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+
+    final emailAuth = await ejecutarOperacion(
+      () => auth.EmailAuth.db.findFirstRow(
+        session,
+        where: (p0) => p0.userId.equals(idUserInfo),
+      ),
+    );
+
+    final userInfo = await ejecutarOperacion(
+      () => ormUserInfo.traerInformacionDeUsuario(
+        session,
+        idUserInfo: idUserInfo,
+      ),
+    );
+
+    await ejecutarOperacion(
+      () => auth.EmailAuth.db.updateRow(
+        session,
+        emailAuth!..email = nuevaDireccionDeEmail,
+      ),
+    );
+
+    await ejecutarOperacion(
+      () => auth.UserInfo.db.updateRow(
+        session,
+        userInfo..email = nuevaDireccionDeEmail,
+      ),
+    );
+
+    return true;
   }
 }
