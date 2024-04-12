@@ -29,6 +29,7 @@ class _SeleccionarAsignaturaPorComisionState
   int? idComisionSeleccionada;
 
   bool eligioOpcion = false;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
