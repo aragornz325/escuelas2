@@ -13,6 +13,7 @@ enum PermisoDeAsignatura {
 
 enum PermisoDeAsistencia {
   verAsistencia,
+  editarAsistenciaPasada,
   editarAsistencia,
   eliminarAsistencia,
   crearAsistencia,
