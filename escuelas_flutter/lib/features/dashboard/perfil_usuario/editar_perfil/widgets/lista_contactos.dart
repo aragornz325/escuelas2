@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
@@ -41,8 +39,7 @@ class ListaContactos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
-    return SizedBox(
-      height: max(150.ph, 150.sh),
+    return Expanded(
       child: ListView(
         children: listaDeEmailDeContacto
             .map(
@@ -74,11 +71,4 @@ class ListaContactos extends StatelessWidget {
       ),
     );
   }
-}
-
-//! TODO(Anyone): Eliminar cuando este el back
-class Contacto {
-  Contacto({required this.email, required this.nombre});
-  String nombre;
-  String email;
 }

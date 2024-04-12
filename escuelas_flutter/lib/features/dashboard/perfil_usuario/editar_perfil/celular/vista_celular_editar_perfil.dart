@@ -34,7 +34,7 @@ class VistaCelularEditarPerfil extends StatelessWidget {
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocEditarPerfil>(),
-        child: DialogAgregarContacto(),
+        child: const DialogAgregarContacto(),
       ),
     );
   }
@@ -102,7 +102,8 @@ class _DatosPersonalesAEditar extends StatelessWidget {
           color: colores.tertiary,
           borderRadius: BorderRadius.all(Radius.circular(15.sw)),
         ),
-        child: IntrinsicHeight(
+        child: SizedBox(
+          height: 600.ph,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

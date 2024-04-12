@@ -85,6 +85,7 @@ class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
                   etiqueta: etiqueta!,
                 ),
               );
+          Navigator.pop(context);
         }
       },
     );
