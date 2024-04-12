@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:flutter/material.dart';
@@ -15,9 +16,7 @@ class ListaContactos extends StatelessWidget {
     super.key,
   });
 
-//! TODO(Anyone) reemplazar por el que va
-  /// Lista de contactos del usuario
-  final List<Contacto> listaDeContactos;
+  final List<DireccionDeEmail> listaDeContactos;
 
   @override
   Widget build(BuildContext context) {
@@ -34,11 +33,15 @@ class ListaContactos extends StatelessWidget {
                   tieneBordeVisible: true,
                   altura: 40.ph,
                   borderRadius: 10.sw,
-                  //! TODO(Anyone): Agregar evento
-
-                  onTap: () {},
+                  onTap: () {
+                    if (e.etiqueta == EtiquetaDireccionEmail.otro) {
+                      print('email primario');
+                    } else {
+                      print('no funciona esto');
+                    }
+                  },
                   texto: Text(
-                    e.nombre.toUpperCase(),
+                    e.direccionDeEmail.toUpperCase(),
                     style: TextStyle(
                       fontSize: 13.pf,
                       fontWeight: FontWeight.w700,
