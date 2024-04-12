@@ -820,7 +820,9 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
         .obtenerDireccionDeEmailPorId(session,
             idDireccionDeEmail: idDireccionDeEmail);
 
-    if (direccionDeEmailABorrar.usuarioId != usuario?.id || direccionDeEmailABorrar.etiqueta == EtiquetaDireccionEmail.personalPrimario) {
+    if (direccionDeEmailABorrar.usuarioId != usuario?.id ||
+        direccionDeEmailABorrar.etiqueta ==
+            EtiquetaDireccionEmail.personalPrimario) {
       throw ExcepcionCustom(tipoDeError: TipoExcepcion.noAutorizado);
     }
 
@@ -855,11 +857,53 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       throw ExcepcionCustom(tipoDeError: TipoExcepcion.noAutorizado);
     }
 
+    if (direccionDeEmailAModificar.etiqueta ==
+        EtiquetaDireccionEmail.personalPrimario) {
+      await _modificarDireccionDeEmailDeCuentaDeUsuario(session, nuevaDireccionDeEmail);
+    }
+
     return await OrmDireccionesdeEmail().actualizarUnRegistroEnDb(
       session,
       registroEnDb: direccionDeEmailAModificar
         ..direccionDeEmail = nuevaDireccionDeEmail
         ..etiqueta = nuevaEtiqueta ?? direccionDeEmailAModificar.etiqueta,
     );
+  }
+
+  Future<bool> _modificarDireccionDeEmailDeCuentaDeUsuario(
+    Session session,
+    String nuevaDireccionDeEmail,
+  ) async {
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+
+    final emailAuth = await ejecutarOperacion(
+      () => auth.EmailAuth.db.findFirstRow(
+        session,
+        where: (p0) => p0.userId.equals(idUserInfo),
+      ),
+    );
+
+    final userInfo = await ejecutarOperacion(
+      () => ormUserInfo.traerInformacionDeUsuario(
+        session,
+        idUserInfo: idUserInfo,
+      ),
+    );
+
+    await ejecutarOperacion(
+      () => auth.EmailAuth.db.updateRow(
+        session,
+        emailAuth!..email = nuevaDireccionDeEmail,
+      ),
+    );
+
+    await ejecutarOperacion(
+      () => auth.UserInfo.db.updateRow(
+        session,
+        userInfo..email = nuevaDireccionDeEmail,
+      ),
+    );
+
+    return true;
   }
 }
