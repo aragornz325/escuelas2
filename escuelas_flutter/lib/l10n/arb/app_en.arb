@@ -784,6 +784,10 @@
   "@tagEmailOther": {
     "description": "kinship tag of other"
   },
+  "tagEmailKinship": "Kinship",
+  "@tagEmailKinship": {
+    "description": "tag of Kinship"
+  },
   "commonWelcome": "Welcome!",
   "@commonWelcome": {
     "description": "Welcoming text"

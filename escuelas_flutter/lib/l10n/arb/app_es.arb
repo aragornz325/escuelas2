@@ -635,6 +635,10 @@
   "@tagEmailOther": {
     "description": "kinship tag of other"
   },
+  "tagEmailKinship": "Parentezco",
+  "@tagEmailKinship": {
+    "description": "tag of Kinship"
+  },
   "commonWelcome": "¡Bienvenido!",
   "@commonWelcome": {
     "description": "Welcoming text"

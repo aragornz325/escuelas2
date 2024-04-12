@@ -1,6 +1,10 @@
+import 'dart:math';
+
+import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
+import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:escuelas_flutter/widgets/escuelas_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -23,13 +27,17 @@ class DialogAgregarContacto extends StatefulWidget {
 }
 
 class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
-  final _controllerNombre = TextEditingController();
   final _controllerEmail = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final colores = context.colores;
+    final listaDeValores = EtiquetaDireccionEmail.values.skip(1).toList();
+    final lista = <PopupOption>[
+      ...listaDeValores.map(
+        (e) => PopupOption(id: e.index, name: e.nombreParentezco(context)),
+      ),
+    ];
 
     return EscuelasDialog.solicitudDeAccion(
       titulo: l10n.pageEditProfileDialogAddContact.toUpperCase(),
@@ -41,37 +49,17 @@ class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.sw, vertical: 10.sh),
             child: Text(
-              l10n.commonName,
+              l10n.tagEmailKinship,
               textAlign: TextAlign.start,
             ),
           ),
-          EscuelasTextfield(
-            esPassword: false,
-            decoration: InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 15.sw),
-              filled: true,
-              fillColor: colores.tertiary,
-              hintText: l10n.commonName,
-              hintStyle: TextStyle(
-                fontSize: 16.pf,
-                color: colores.onSecondary,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(40.sw),
-                borderSide: BorderSide.none,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(40.sw),
-                borderSide: BorderSide.none,
-              ),
-              errorStyle: TextStyle(color: colores.error),
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: colores.error),
-                borderRadius: BorderRadius.circular(40.sw),
-              ),
+          SizedBox(
+            height: max(50.ph, 50.sh),
+            width: 300.pw,
+            child: EscuelasDropdownPopup(
+              list: lista,
+              onChanged: (value) {},
             ),
-            controller: _controllerNombre,
-            onChanged: (p0) {},
           ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 15.sw, vertical: 10.sh),

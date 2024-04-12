@@ -23,7 +23,7 @@ class ListaContactos extends StatelessWidget {
   /// Lista de emails de contacto del usuario
   final List<DireccionDeEmail> listaDeEmailDeContacto;
 
-  Future<void> _onAgregarContacto(
+  Future<void> _onEditarContacto(
     BuildContext context, {
     required DireccionDeEmail contacto,
   }) {
@@ -54,10 +54,11 @@ class ListaContactos extends StatelessWidget {
                   altura: 40.ph,
                   borderRadius: 10.sw,
                   onTap: () {
-                    if (e.etiqueta != EtiquetaDireccionEmail.personalPrimario) {
+                    if (e.etiqueta == EtiquetaDireccionEmail.personalPrimario) {
+                      return null;
+                    } else
                       print('${e.etiqueta}');
-                      _onAgregarContacto(context, contacto: e);
-                    }
+                    _onEditarContacto(context, contacto: e);
                   },
                   texto: Text(
                     e.etiqueta?.nombreParentezco(context) ?? '',
