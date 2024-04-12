@@ -185,7 +185,7 @@ class OrmComision extends ORM {
     final listaQuery = await ejecutarOperacionOrm(
       session,
       (session) => session.dbNext.unsafeQueryMappedResults(session, '''
-SELECT 
+SELECT DISTINCT ON (a."${Asignatura.t.id.columnName}", u."${Usuario.t.id.columnName}")
   a."${Asignatura.t.id.columnName}" as "idAsignatura",
   a."${Asignatura.t.nombre.columnName}" AS "nombreAsignatura",
   u."${Usuario.t.id.columnName}" AS "idUsuario",
@@ -200,7 +200,9 @@ INNER JOIN ${Solicitud.t.tableName} sol ON sol."${Solicitud.t.id.columnName}" = 
 WHERE 
   scm.mes = $mes AND
   scm.anio = $anio AND
-  rau."comisionId" = $idComision;
+  rau."comisionId" = $idComision
+ORDER BY a."${Asignatura.t.id.columnName}", u."${Usuario.t.id.columnName}", sol."${Solicitud.t.fechaRealizacion.columnName}" DESC;
+
 '''),
     );
 

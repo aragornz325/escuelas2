@@ -4,7 +4,7 @@ import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
 
-class OrmUsuario extends ORM {
+class OrmUsuario extends ORM<Usuario> {
   Future<Usuario> crearUsuario(
     Session session, {
     required Usuario nuevoUsuario,

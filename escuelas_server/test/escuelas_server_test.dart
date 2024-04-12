@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:escuelas_server/server.dart';
 import 'package:escuelas_server/src/endpoints/calificacion_endpoint.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
+import 'package:escuelas_server/src/servicios/servicio_comision.dart';
 import 'package:test/test.dart';
 
 import 'server_test.dart';
@@ -10,18 +11,21 @@ import 'server_test.dart';
 Future<void> main() async {
   final ahora = DateTime.now();
 
-  await run(['--mode', 'production']);
+  await run(['--mode', 'development']);
 
   final session = await pod.createSession();
 
   final authKey = await session.auth.signInUser(1, 'email');
 
-  await CalificacionEndpoint().enviarCalificacionesPorMesYAnio(
+  final resp = await ServicioComision()
+      .obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
     session,
-    mes: 3,
+    idComision: 1,
     anio: 2024,
-    filtroDeEnvio: EnvioCalificaciones.todos,
+    mes: 3,
   );
+
+  print(resp);
 
   exit(0);
 }

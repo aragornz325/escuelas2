@@ -1,0 +1,9 @@
+enum: EtiquetaDireccionEmail
+values:
+    - personalPrimario
+    - personalSecundario
+    - padre_madre_tutor
+    - abuelo_abuela
+    - tio_tia
+    - primo_prima
+    - otro

@@ -2,20 +2,20 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/orm.dart';
 import 'package:serverpod/serverpod.dart';
 
-class OrmDireccionesdeEmail extends ORM {
+class OrmDireccionesdeEmail extends ORM<DireccionDeEmail> {
   Future<DireccionDeEmail> crearDireccionDeEmail(
     Session session, {
     required DireccionDeEmail direccionDeMail,
   }) async {
     final direccionDeEmail = await ejecutarOperacionOrm(
       session,
-      (session) => DireccionDeEmail.db.insert(
+      (session) => DireccionDeEmail.db.insertRow(
         session,
-        [direccionDeMail],
+        direccionDeMail,
       ),
     );
 
-    if (direccionDeEmail.isEmpty) {
+    if (direccionDeEmail.id == null) {
       throw ExcepcionCustom(
         titulo: 'no se pudo crear',
         mensaje: 'no se creo la direccion de mail debido a un error inesperado',
@@ -24,7 +24,7 @@ class OrmDireccionesdeEmail extends ORM {
       );
     }
 
-    return direccionDeEmail.first;
+    return direccionDeEmail;
   }
 
   /// La función `obtenerDireccionDeEmail` recupera una dirección de correo electrónico asociada con un

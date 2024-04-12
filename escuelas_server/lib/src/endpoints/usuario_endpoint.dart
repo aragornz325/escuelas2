@@ -1,3 +1,4 @@
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_server/src/controller.dart';
 import 'package:escuelas_server/src/generated/protocol.dart';
 import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
@@ -247,4 +248,54 @@ class UsuarioEndpoint extends Endpoint with Controller<ServicioUsuario> {
       ),
     );
   }
+
+  Future<DireccionDeEmail> agregarDireccionDeEmailDeContactoAUsuario(
+    Session session, {
+    required int idUsuario,
+    required String direccionDeEmail,
+    required EtiquetaDireccionEmail etiqueta,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'agregarDireccionDeEmailDeContactoAUsuario',
+        () async => servicio.agregarDireccionDeEmailDeContactoAUsuario(
+          session,
+          idUsuario: idUsuario,
+          direccionDeEmail: direccionDeEmail,
+          etiqueta: etiqueta,
+        ),
+        permisoRequerido: PermisoDeUsuario.editarUsuario,
+      );
+
+  Future<int> eliminarDireccionDeEmailDeContactoDeUsuario(
+    Session session, {
+    required int idDireccionDeEmail,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'eliminarDireccionDeEmailDeContactoDeUsuario',
+        () => servicio.eliminarDireccionDeEmailDeContactoDeUsuario(
+          session,
+          idDireccionDeEmail: idDireccionDeEmail,
+        ),
+        permisoRequerido: PermisoDeUsuario.editarUsuario,
+      );
+
+  Future<DireccionDeEmail> modificarDireccionDeEmailDeContactoDeUsuario(
+    Session session, {
+    required int idDireccionDeEmail,
+    required String nuevaDireccionDeEmail,
+    EtiquetaDireccionEmail? nuevaEtiqueta,
+  }) =>
+      ejecutarOperacionControlador(
+        session,
+        'modificarDireccionDeEmailDeContactoDeUsuario',
+        () => servicio.modificarDireccionDeEmailDeContactoDeUsuario(
+          session,
+          idDireccionDeEmail: idDireccionDeEmail,
+          nuevaDireccionDeEmail: nuevaDireccionDeEmail,
+          nuevaEtiqueta: nuevaEtiqueta,
+        ),
+        permisoRequerido: PermisoDeUsuario.editarUsuario,
+      );
 }

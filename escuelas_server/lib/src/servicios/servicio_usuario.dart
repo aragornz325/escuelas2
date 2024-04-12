@@ -1,4 +1,5 @@
 import 'package:escuelas_server/src/generated/protocol.dart';
+import 'package:escuelas_server/src/orms/orm_direccionesDeEmail.dart';
 import 'package:escuelas_server/src/orms/orm_userInfo.dart';
 import 'package:escuelas_server/src/orms/orm_usuario.dart';
 import 'package:escuelas_server/src/orms/orm_usuario_comision.dart';
@@ -67,11 +68,28 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
           ..ultimaModificacion = ahora,
       ),
     );
+
+    if (usuario.id == null) {
+      throw ExcepcionCustom(tipoDeError: TipoExcepcion.desconocido);
+    }
+
+    final userInfo = await ormUserInfo.traerInformacionDeUsuario(session,
+        idUserInfo: usuario.idUserInfo);
+
+    if (userInfo.email == null) {
+      throw ExcepcionCustom(tipoDeError: TipoExcepcion.desconocido);
+    }
+
     await ejecutarOperacion(
-      () => servicioDeEmail.crearDireccionDeEmail(
+      () => OrmDireccionesdeEmail().insertarUnRegistroEnDb(
         session,
-        idUserInfo: usuario.idUserInfo,
-        idUsuario: usuario.id!,
+        nuevoRegistro: DireccionDeEmail(
+          usuarioId: usuario.id!,
+          direccionDeEmail: userInfo.email!,
+          etiqueta: EtiquetaDireccionEmail.personalPrimario,
+          ultimaModificacion: ahora,
+          fechaCreacion: ahora,
+        ),
       ),
     );
 
@@ -741,5 +759,139 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       logger.info('usuario eliminado con exito');
       return true;
     });
+  }
+
+  Future<DireccionDeEmail> agregarDireccionDeEmailDeContactoAUsuario(
+    Session session, {
+    required int idUsuario,
+    required String direccionDeEmail,
+    required EtiquetaDireccionEmail etiqueta,
+  }) async {
+    if (etiqueta == EtiquetaDireccionEmail.personalPrimario) {
+      throw ExcepcionCustom(tipoDeError: TipoExcepcion.solicitudIncorrecta);
+    }
+    final ahora = DateTime.now();
+    final usuario = await ejecutarOperacion(
+      () {
+        return orm.obtenerUnRegistroEnDbPorFiltro(
+          session,
+          filtroCondicional: Usuario.t.id.equals(
+                idUsuario,
+              ) &
+              Usuario.t.fechaEliminacion.equals(null),
+        );
+      },
+    );
+
+    if (usuario == null) {
+      throw ExcepcionCustom(tipoDeError: TipoExcepcion.solicitudIncorrecta);
+    }
+
+    final direccionDeEmailAgregada = await ejecutarOperacion(
+      () => OrmDireccionesdeEmail().crearDireccionDeEmail(
+        session,
+        direccionDeMail: DireccionDeEmail(
+          usuarioId: idUsuario,
+          direccionDeEmail: direccionDeEmail,
+          etiqueta: etiqueta,
+          ultimaModificacion: ahora,
+          fechaCreacion: ahora,
+        ),
+      ),
+    );
+
+    return direccionDeEmailAgregada;
+  }
+
+  Future<int> eliminarDireccionDeEmailDeContactoDeUsuario(
+    Session session, {
+    required int idDireccionDeEmail,
+  }) async {
+    final direccionBorrada = await OrmDireccionesdeEmail().borrarFisicamenteVariosRegistrosEnDbPorFiltro(
+      session,
+      filtroCondicional: DireccionDeEmail.t.id.equals(idDireccionDeEmail),
+    );
+
+    if (direccionBorrada.isEmpty) {
+      return 0;
+    }
+
+    return direccionBorrada.first;
+  }
+
+  Future<DireccionDeEmail> modificarDireccionDeEmailDeContactoDeUsuario(
+    Session session, {
+    required int idDireccionDeEmail,
+    required String nuevaDireccionDeEmail,
+    EtiquetaDireccionEmail? nuevaEtiqueta,
+  }) async {
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+    final usuario = await orm.obtenerUnRegistroEnDbPorFiltro(
+      session,
+      filtroCondicional: Usuario.t.idUserInfo.equals(
+            idUserInfo,
+          ) &
+          Usuario.t.fechaEliminacion.equals(null),
+    );
+
+    final direccionDeEmailAModificar =
+        await OrmDireccionesdeEmail().obtenerDireccionDeEmailPorId(
+      session,
+      idDireccionDeEmail: idDireccionDeEmail,
+    );
+
+    if (direccionDeEmailAModificar.usuarioId != usuario?.id) {
+      throw ExcepcionCustom(tipoDeError: TipoExcepcion.noAutorizado);
+    }
+
+    if (direccionDeEmailAModificar.etiqueta ==
+        EtiquetaDireccionEmail.personalPrimario) {
+      await _modificarDireccionDeEmailDeCuentaDeUsuario(
+          session, nuevaDireccionDeEmail);
+    }
+
+    return await OrmDireccionesdeEmail().actualizarUnRegistroEnDb(
+      session,
+      registroEnDb: direccionDeEmailAModificar
+        ..direccionDeEmail = nuevaDireccionDeEmail
+        ..etiqueta = nuevaEtiqueta ?? direccionDeEmailAModificar.etiqueta,
+    );
+  }
+
+  Future<bool> _modificarDireccionDeEmailDeCuentaDeUsuario(
+    Session session,
+    String nuevaDireccionDeEmail,
+  ) async {
+    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
+
+    final emailAuth = await ejecutarOperacion(
+      () => auth.EmailAuth.db.findFirstRow(
+        session,
+        where: (p0) => p0.userId.equals(idUserInfo),
+      ),
+    );
+
+    final userInfo = await ejecutarOperacion(
+      () => ormUserInfo.traerInformacionDeUsuario(
+        session,
+        idUserInfo: idUserInfo,
+      ),
+    );
+
+    await ejecutarOperacion(
+      () => auth.EmailAuth.db.updateRow(
+        session,
+        emailAuth!..email = nuevaDireccionDeEmail,
+      ),
+    );
+
+    await ejecutarOperacion(
+      () => auth.UserInfo.db.updateRow(
+        session,
+        userInfo..email = nuevaDireccionDeEmail,
+      ),
+    );
+
+    return true;
   }
 }

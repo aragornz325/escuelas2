@@ -1,0 +1,30 @@
+{
+  "actions": [
+    {
+      "type": "alterTable",
+      "alterTable": {
+        "name": "direcciones_de_email",
+        "schema": "public",
+        "addColumns": [
+          {
+            "name": "etiqueta",
+            "columnType": 2,
+            "isNullable": true,
+            "dartType": "protocol:EtiquetaDireccionEmail?"
+          }
+        ],
+        "deleteColumns": [],
+        "modifyColumns": [],
+        "addIndexes": [],
+        "deleteIndexes": [
+          "direcciones_de_email_de_usuario_unique_idx"
+        ],
+        "addForeignKeys": [],
+        "deleteForeignKeys": [],
+        "warnings": []
+      }
+    }
+  ],
+  "warnings": [],
+  "migrationApiVersion": 1
+}
