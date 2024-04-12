@@ -148,7 +148,7 @@ class _DatosPersonalesAEditar extends StatelessWidget {
               ),
               SizedBox(height: max(10.ph, 10.sh)),
               ListaContactos(
-                listaDeContactos: usuario?.direccionesDeEmail ?? [],
+                listaDeEmailDeContacto: usuario?.direccionesDeEmail ?? [],
               ),
               SizedBox(height: max(10.ph, 10.sh)),
               if (usuario!.direccionesDeEmail!.length < 3 ||

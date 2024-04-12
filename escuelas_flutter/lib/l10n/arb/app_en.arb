@@ -754,6 +754,36 @@
   "@pageEditProfileDialogAddContact": {
       "description": "Title of the dialog"
   },
+
+
+  "tagEmailPersonalPrimary": "Personal primary",
+  "@tagEmailPersonalPrimary": {
+    "description": "tag of personal primary"
+  },
+  "tagEmailPersonalSecondary": "Personal secondary",
+  "@tagEmailPersonalSecondary": {
+    "description": "tag of personal primario"
+  },
+  "tagEmailParents": "Father/Mother/Tutor",
+  "@tagEmailParents": {
+    "description": "kinship tag of parents"
+  },
+  "tagEmailGrandparents": "Grandfather/Grandmother",
+  "@tagEmailGrandparents": {
+    "description": "kinship tag of grandparents"
+  },
+  "tagEmailUncles": "Uncle/Aunt",
+  "@tagEmailUncles": {
+    "description": "kinship tag of uncles"
+  },
+  "tagEmailCousins": "Cousin",
+  "@tagEmailCousins": {
+    "description": "kinship tag of cousin"
+  },
+  "tagEmailOther": "Other",
+  "@tagEmailOther": {
+    "description": "kinship tag of other"
+  },
   "commonWelcome": "Welcome!",
   "@commonWelcome": {
     "description": "Welcoming text"

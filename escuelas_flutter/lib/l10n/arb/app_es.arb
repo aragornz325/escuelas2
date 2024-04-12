@@ -607,7 +607,34 @@
   "@pageEditProfileDialogAddContact": {
       "description": "Title of the dialog"
   },
-
+  "tagEmailPersonalPrimary": "Personal primario",
+  "@tagEmailPersonalPrimary": {
+    "description": "tag of personal primary"
+  },
+  "tagEmailPersonalSecondary": "Personal secundario",
+  "@tagEmailPersonalSecondary": {
+    "description": "tag of personal primario"
+  },
+  "tagEmailParents": "Padre/Madre/Tutor",
+  "@tagEmailParents": {
+    "description": "kinship tag of parents"
+  },
+  "tagEmailGrandparents": "Abuelo/Abuela",
+  "@tagEmailGrandparents": {
+    "description": "kinship tag of grandparents"
+  },
+  "tagEmailUncles": "Tio/Tia",
+  "@tagEmailUncles": {
+    "description": "kinship tag of uncles"
+  },
+  "tagEmailCousins": "Primo/Prima",
+  "@tagEmailCousins": {
+    "description": "kinship tag of cousin"
+  },
+  "tagEmailOther": "Otro",
+  "@tagEmailOther": {
+    "description": "kinship tag of other"
+  },
   "commonWelcome": "¡Bienvenido!",
   "@commonWelcome": {
     "description": "Welcoming text"
