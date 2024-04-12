@@ -355,12 +355,16 @@ class ElementoLista extends StatelessWidget {
 
     /// Fecha de carga de las calificaciones de la asignatura
     required DateTime? fechaDeCarga,
+
+    /// Funcion al clickear el elemento.
+    required void Function()? onTap,
   }) {
     final colores = context.colores;
 
     final l10n = context.l10n;
 
     return ElementoLista(
+      onTap: onTap,
       altura: 40.ph,
       borderRadius: 50.sw,
       texto: Text(

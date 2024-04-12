@@ -189,12 +189,23 @@ class AppRouter extends $AppRouter {
               path: 'anual-grades/:idAsignatura',
             ),
             AutoRoute(
-              page: RutaSupervisionComisiones.page,
-              path: 'course-supervision',
-            ),
-            AutoRoute(
-              page: RutaSupervisionEnvioCalificaciones.page,
-              path: 'grade-submission-supervision/:idComision/:fecha',
+              page: RutaSupervision.page,
+              path: 'supervision',
+              children: [
+                AutoRoute(
+                  page: RutaSupervisionComisiones.page,
+                  path: 'course-supervision',
+                  initial: true,
+                ),
+                AutoRoute(
+                  page: RutaSupervisionEnvioCalificaciones.page,
+                  path: 'grade-submission-supervision/:idComision/:fecha',
+                ),
+                AutoRoute(
+                  page: RutaSupervisionAsignatura.page,
+                  path: 'subject-supervision/:idAsignatura/:idComision/:fecha',
+                ),
+              ],
             ),
             AutoRoute(
               page: RutaAdministrarPlantillas.page,

@@ -1,6 +1,6 @@
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/pagina_supervision_comisiones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_comisiones/pagina_supervision_comisiones.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bloc_supervision_comisiones_estado.dart';

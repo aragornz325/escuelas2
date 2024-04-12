@@ -283,10 +283,22 @@
   "@pageComissionSupervisionSendEmailsSuccess": {
     "description": "Success message displayed when emails are sent successfully to the commissions"
   },
+
   "pageComissionSupervisionButtonSendEmails": "Send email to commissions?",
   "@pageComissionSupervisionButtonSendEmails": {
     "description": "Button text to send emails to the commissions"
   },
+
+  "pageComissionSupervisionDialogNotGradesUploaded": "Not all grades are uploaded",
+  "@pageComissionSupervisionDialogNotGradesUploaded": {
+    "description": "Dialog message when not all grades are uploaded"
+  },
+
+  "pageComissionSupervisionDialogMessageTooltip": "You cannot send emails to committees. Verify that all grades are uploaded by the institution's teachers",
+  "@pageComissionSupervisionDialogMessageTooltip": {
+    "description": "Tooltip message explaining why emails cannot be sent to committees"
+  },
+
   "pageGradesNoGrades": "There are no grades",
   "@pageGradesNoGrades": {
     "description": "Text to be displayed if there are no grades"

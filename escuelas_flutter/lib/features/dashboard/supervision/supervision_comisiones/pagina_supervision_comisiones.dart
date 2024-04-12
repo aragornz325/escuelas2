@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/bloc/bloc_supervision_comisiones.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/celular/vista_celular_supervision_comisiones.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/escritorio/vista_escritorio_supervision_comisiones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_comisiones/bloc/bloc_supervision_comisiones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_comisiones/celular/vista_celular_supervision_comisiones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_comisiones/escritorio/vista_escritorio_supervision_comisiones.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

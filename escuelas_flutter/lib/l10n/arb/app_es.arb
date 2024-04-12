@@ -274,6 +274,15 @@
     "description": "Button text to send emails to the commissions"
   },
 
+  "pageComissionSupervisionDialogNotGradesUploaded": "No estan todas las calificaciones cargadas",
+  "@pageComissionSupervisionDialogNotGradesUploaded": {
+    "description": "Dialog message when not all grades are uploaded"
+  },
+  
+  "pageComissionSupervisionDialogMessageTooltip": "No se puede enviar emails a las comisiones. Verifique que todas las calificaciones esten cargadas por los docentes de la institucion",
+  "@pageComissionSupervisionDialogMessageTooltip": {
+    "description": "Tooltip message explaining why emails cannot be sent to committees"
+  },
   "pageGradesNoGrades": "No hay calificaciones",
   "@pageGradesNoGrades": {
     "description": "Text to be displayed if there are no grades"

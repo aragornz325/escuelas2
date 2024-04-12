@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/bloc/bloc_supervision_comisiones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_comisiones/bloc/bloc_supervision_comisiones.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/utilidades.dart';
@@ -45,6 +45,7 @@ class BotonEnviarEmails extends StatelessWidget {
   /// cargadas
   void _dialogNoEstanTodasCargadas(BuildContext context) {
     final colores = context.colores;
+
     final l10n = context.l10n;
 
     showDialog<void>(
@@ -62,21 +63,19 @@ class BotonEnviarEmails extends StatelessWidget {
               textAlign: TextAlign.center,
               textStyle: TextStyle(
                 color: colores.background,
-                fontSize: 16.pf,
+                fontSize: 15.pf,
                 fontWeight: FontWeight.w600,
               ),
-              message:
-                  'no se puede enviar emails a las comisiones. Verifique que '
-                  'todas las calificaciones esten cargadas por los docentes de '
-                  'la institucion', // TODO(anyone) : l10n
+              message: l10n.pageComissionSupervisionDialogMessageTooltip,
               child: Icon(
                 Icons.error,
                 size: 50.pw,
-                color: colores.tertiary,
+                color: colores.error,
               ),
             ),
+            SizedBox(height: max(20.ph, 20.sh)),
             Text(
-              'No estan todas las calificaciones cargadas', // TODO(anyone) : l10n
+              l10n.pageComissionSupervisionDialogNotGradesUploaded,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: colores.onSecondary,
@@ -119,12 +118,10 @@ class BotonEnviarEmails extends StatelessWidget {
             width: 340.pw,
             height: max(40.ph, 40.sh),
             estaHabilitado: true,
-            onTap:
-                //  state.listaSupervisionComisiones
-                //         .every((comision) => comision.fechaDeNotificacion != null)
-                //     ? () => _dialogEnviarEmail(context)
-                //     :
-                () => _dialogNoEstanTodasCargadas(context),
+            onTap: state.listaSupervisionComisiones
+                    .every((comision) => comision.fechaDeNotificacion != null)
+                ? () => _dialogEnviarEmail(context)
+                : () => _dialogNoEstanTodasCargadas(context),
             color: colores.azul,
             texto: l10n.pageComissionSupervisionButtonSendEmails,
             context: context,
