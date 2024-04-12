@@ -15,6 +15,7 @@ class BlocSupervisionComisiones extends Bloc<BlocSupervisionComisionesEvento,
   BlocSupervisionComisiones()
       : super(const BlocSupervisionComisionEstadoInicial()) {
     on<BlocSupervisionComisionesEventoInicializar>(_inicializar);
+    on<BlocSupervisionComisionesEventoEnviarEmails>(_onEnviarEmails);
   }
 
   Future<void> _inicializar(
@@ -38,6 +39,28 @@ class BlocSupervisionComisiones extends Bloc<BlocSupervisionComisionesEvento,
             listaSupervisionComisiones: listaComisiones,
           ),
         );
+      },
+      onError: (e, st) => emit(
+        BlocSupervisionComisionEstadoError.desde(state),
+      ),
+    );
+  }
+
+  /// Envia los emails a las comisiones
+  Future<void> _onEnviarEmails(
+    BlocSupervisionComisionesEventoEnviarEmails event,
+    Emitter<BlocSupervisionComisionesEstado> emit,
+  ) async {
+    emit(BlocSupervisionComisionEstadoCargandoAlMandarEmails.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        await client.calificacion.enviarCalificacionesPorMesYAnio(
+          filtroDeEnvio: EnvioCalificaciones.todos,
+          mes: state.fecha?.month ?? DateTime.now().month,
+          anio: state.fecha?.year ?? DateTime.now().year,
+        );
+
+        emit(BlocSupervisionComisionEstadoExitosoAlMandarEmails.desde(state));
       },
       onError: (e, st) => emit(
         BlocSupervisionComisionEstadoError.desde(state),

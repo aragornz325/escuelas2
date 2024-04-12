@@ -255,6 +255,25 @@
       }
     }
   },
+  "pageComissionSupervisionDialogConfimationSendEmails": "¿Enviar mails a las comisiones de la escuela?",
+  "@pageComissionSupervisionDialogConfimationSendEmails": {
+    "description": "Confirmation dialog text when asking the user if they want to send emails to the school commission"
+  },
+  
+  "pageComissionSupervisionSendingEmails": "Enviando email a las comisiones...",
+  "@pageComissionSupervisionSendingEmails": {
+    "description": "Text displayed when emails are being sent to the commissions"
+  },
+  
+  "pageComissionSupervisionSendEmailsSuccess": "Emails enviados con exito",
+  "@pageComissionSupervisionSendEmailsSuccess": {
+    "description": "Success message displayed when emails are sent successfully to the commissions"
+  },
+  "pageComissionSupervisionButtonSendEmails": "¿Enviar email a las comisiones?",
+  "@pageComissionSupervisionButtonSendEmails": {
+    "description": "Button text to send emails to the commissions"
+  },
+
   "pageGradesNoGrades": "No hay calificaciones",
   "@pageGradesNoGrades": {
     "description": "Text to be displayed if there are no grades"
@@ -863,7 +882,8 @@
   "pageManageTemplatesDialogDeletedSuccessfully": "Eliminado exitosamente",
   "@pageManageTemplatesDialogDeletedSuccessfully": {
     "description": "Text to be displayed in the dialog to notify for deleted successfully"
-  },  
+  },
+  
   "dialogCreationNotificationCreateNotification": "Crear notificación",
   "@dialogCreationNotificationCreateNotification": {
       "description": "Create notification"

@@ -268,6 +268,25 @@
       }
     }
   },
+  
+  "pageComissionSupervisionDialogConfimationSendEmails": "Send emails to school comission?",
+  "@pageComissionSupervisionDialogConfimationSendEmails": {
+    "description": "Confirmation dialog text when asking the user if they want to send emails to the school commission"
+  },
+  
+  "pageComissionSupervisionSendingEmails": "Sending email to comissions...",
+  "@pageComissionSupervisionSendingEmails": {
+    "description": "Text displayed when emails are being sent to the commissions"
+  },
+  
+  "pageComissionSupervisionSendEmailsSuccess": "Emails sent successfully",
+  "@pageComissionSupervisionSendEmailsSuccess": {
+    "description": "Success message displayed when emails are sent successfully to the commissions"
+  },
+  "pageComissionSupervisionButtonSendEmails": "Send email to commissions?",
+  "@pageComissionSupervisionButtonSendEmails": {
+    "description": "Button text to send emails to the commissions"
+  },
   "pageGradesNoGrades": "There are no grades",
   "@pageGradesNoGrades": {
     "description": "Text to be displayed if there are no grades"
