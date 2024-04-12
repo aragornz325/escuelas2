@@ -2,11 +2,13 @@ import 'dart:math';
 
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dropdown_popup.dart';
 import 'package:escuelas_flutter/widgets/escuelas_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template DialogAgregarContacto}
@@ -15,12 +17,8 @@ import 'package:full_responsive/full_responsive.dart';
 class DialogAgregarContacto extends StatefulWidget {
   /// {@macro DialogAgregarContacto}
   const DialogAgregarContacto({
-    required this.onTapConfirmar,
     super.key,
   });
-
-  /// Funcion que se ejecuta al confirmar el dialog.
-  final VoidCallback onTapConfirmar;
 
   @override
   State<DialogAgregarContacto> createState() => _DialogAgregarContactoState();
@@ -29,6 +27,7 @@ class DialogAgregarContacto extends StatefulWidget {
 class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
   final _controllerEmail = TextEditingController();
 
+  EtiquetaDireccionEmail? etiqueta;
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -38,11 +37,9 @@ class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
         (e) => PopupOption(id: e.index, name: e.nombreParentezco(context)),
       ),
     ];
-
     return EscuelasDialog.solicitudDeAccion(
       titulo: l10n.pageEditProfileDialogAddContact.toUpperCase(),
       context: context,
-      onTapConfirmar: widget.onTapConfirmar,
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -58,7 +55,11 @@ class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
             width: 300.pw,
             child: EscuelasDropdownPopup(
               list: lista,
-              onChanged: (value) {},
+              onChanged: (value) {
+                etiqueta = EtiquetaDireccionEmail.values
+                    .firstWhere((element) => element.index == value.first.id);
+                setState(() {});
+              },
             ),
           ),
           Padding(
@@ -74,6 +75,18 @@ class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
           ),
         ],
       ),
+      onTapConfirmar: () {
+        if (etiqueta != null) {
+          context.read<BlocEditarPerfil>().add(
+                BlocEditarPerfilEventoAgregarContacto(
+                  idUsuario:
+                      context.read<BlocEditarPerfil>().state.usuario?.id ?? 0,
+                  email: _controllerEmail.text,
+                  etiqueta: etiqueta!,
+                ),
+              );
+        }
+      },
     );
   }
 }

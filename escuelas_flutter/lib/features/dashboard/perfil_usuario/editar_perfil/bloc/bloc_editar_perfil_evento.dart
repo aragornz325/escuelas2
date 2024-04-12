@@ -84,3 +84,19 @@ class BlocEditarPerfilEventoEditarPassword extends BlocEditarPerfilEvento {
   /// un cambio de contraseña la proxima vez que inicie sesión.
   final bool conRequerimientoDeCambioDePassword;
 }
+
+/// {@template BlocEditarPerfilEventoAgregarContacto}
+/// Evento para agregar un contacto
+/// {@endtemplate}
+class BlocEditarPerfilEventoAgregarContacto extends BlocEditarPerfilEvento {
+  /// {@macro BlocEditarPerfilEventoAgregarContacto}
+  const BlocEditarPerfilEventoAgregarContacto({
+    required this.idUsuario,
+    required this.email,
+    required this.etiqueta,
+  });
+
+  final int idUsuario;
+  final String email;
+  final EtiquetaDireccionEmail etiqueta;
+}

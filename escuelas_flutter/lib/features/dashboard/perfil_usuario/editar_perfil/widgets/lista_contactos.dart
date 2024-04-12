@@ -57,8 +57,7 @@ class ListaContactos extends StatelessWidget {
                     if (e.etiqueta == EtiquetaDireccionEmail.personalPrimario) {
                       return null;
                     } else
-                      print('${e.etiqueta}');
-                    _onEditarContacto(context, contacto: e);
+                      _onEditarContacto(context, contacto: e);
                   },
                   texto: Text(
                     e.etiqueta?.nombreParentezco(context) ?? '',

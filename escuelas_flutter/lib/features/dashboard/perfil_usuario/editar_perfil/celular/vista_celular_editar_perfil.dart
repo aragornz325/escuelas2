@@ -34,10 +34,7 @@ class VistaCelularEditarPerfil extends StatelessWidget {
       context: context,
       builder: (_) => BlocProvider.value(
         value: context.read<BlocEditarPerfil>(),
-        child: DialogAgregarContacto(
-          //! TODO(Anyone): Agregar evento
-          onTapConfirmar: () {},
-        ),
+        child: DialogAgregarContacto(),
       ),
     );
   }

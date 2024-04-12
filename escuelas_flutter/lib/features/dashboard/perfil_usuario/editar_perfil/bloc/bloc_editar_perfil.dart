@@ -16,6 +16,7 @@ class BlocEditarPerfil
     on<BlocEditarPerfilEventoTraerUsuario>(_ontraerUsuario);
     on<BlocEditarPerfilEventoGuardarCambios>(_onGuardarCambios);
     on<BlocEditarPerfilEventoEditarPassword>(_onEditarPassword);
+    on<BlocEditarPerfilEventoAgregarContacto>(_onAgregarContacto);
   }
 
   // / Funciona para traer la info de un usuario
@@ -131,6 +132,32 @@ class BlocEditarPerfil
             nuevaPassword: event.nuevaPassword,
             conRequerimientoDeCambioDePassword:
                 event.conRequerimientoDeCambioDePassword,
+          ),
+        );
+      },
+      onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
+    );
+  }
+
+  /// Funcion para agregar un contacto
+  Future<void> _onAgregarContacto(
+    BlocEditarPerfilEventoAgregarContacto event,
+    Emitter<BlocEditarPerfilEstado> emit,
+  ) async {
+    emit(BlocEditarPerfilEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        final direccionNueva =
+            await client.usuario.agregarDireccionDeEmailDeContactoAUsuario(
+          idUsuario: event.idUsuario,
+          direccionDeEmail: event.email,
+          etiqueta: event.etiqueta,
+        );
+        state.usuario!.direccionesDeEmail!.add(direccionNueva);
+        emit(
+          BlocEditarPerfilEstadoExitosoALAgregarContacto.desde(
+            state,
+            usuario: state.usuario,
           ),
         );
       },

@@ -72,6 +72,18 @@ class BlocEditarPerfilEstadoCargando extends BlocEditarPerfilEstado {
   BlocEditarPerfilEstadoCargando.desde(super.otro) : super.desde();
 }
 
+/// {@template BlocEditarPerfilEstadoExitosoAlAgregarContacto}
+/// Estado exitoso cuando se agrega un contacto
+/// {@endtemplate}
+class BlocEditarPerfilEstadoExitosoALAgregarContacto
+    extends BlocEditarPerfilEstado {
+  /// {@macro BlocEditarPerfilEstadoExitosoALAgregarContacto}
+  BlocEditarPerfilEstadoExitosoALAgregarContacto.desde(
+    super.otro, {
+    super.usuario,
+  }) : super.desde();
+}
+
 /// {@template BlocEditarPerfilEstadoExitoso}
 /// Estado exitoso de los componentes de la pantalla 'Editar perfil de usuario'
 /// {@endtemplate}
