@@ -35,7 +35,7 @@ class DialogConfirmarEliminado extends StatelessWidget {
         Navigator.pop(context);
       },
       content: Text(
-        '${l10n.pageEditProfileDialogAreYouSure} \n ${contacto.direccionDeEmail}',
+        '${l10n.pageEditProfileDialogAreYouSure}\n${contacto.direccionDeEmail}',
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 14.pf,

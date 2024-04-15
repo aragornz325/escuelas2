@@ -106,12 +106,33 @@ class BlocEditarPerfilEventoAgregarContacto extends BlocEditarPerfilEvento {
   final EtiquetaDireccionEmail etiqueta;
 }
 
+/// {@template BlocEditarPerfilEventoEditarContacto}
+/// Evento para editar un contacto
+/// {@endtemplate}
+class BlocEditarPerfilEventoEditarContacto extends BlocEditarPerfilEvento {
+  /// {@macro BlocEditarPerfilEventoEditarContacto}
+  const BlocEditarPerfilEventoEditarContacto({
+    required this.idDireccionDeEmail,
+    required this.nuevoEmail,
+    required this.nuevaEtiqueta,
+  });
+
+  /// Id de la direccion de email a modificar
+  final int idDireccionDeEmail;
+
+  /// Nueva direccion de email
+  final String nuevoEmail;
+
+  /// La etiqueta de parentezco del mail con el propietario del perfil
+  final EtiquetaDireccionEmail nuevaEtiqueta;
+}
+
 /// {@template BlocEditarPerfilEventoEliminarEmail}
 /// Evento para eliminar un contacto
 /// {@endtemplate}
-class BlocEditarPerfilEventoEliminarEmail extends BlocEditarPerfilEvento {
+class BlocEditarPerfilEventoEliminarContacto extends BlocEditarPerfilEvento {
   /// {@macro BlocEditarPerfilEventoEliminarEmail}
-  const BlocEditarPerfilEventoEliminarEmail({
+  const BlocEditarPerfilEventoEliminarContacto({
     required this.idDireccionDeEmail,
   });
 

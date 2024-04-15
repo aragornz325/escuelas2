@@ -46,7 +46,7 @@ class ListaContactos extends StatelessWidget {
         child: DialogConfirmarEliminado(
           contacto: contacto,
           onTapConfirmar: () => context.read<BlocEditarPerfil>().add(
-                BlocEditarPerfilEventoEliminarEmail(
+                BlocEditarPerfilEventoEliminarContacto(
                   idDireccionDeEmail: contacto.id ?? 0,
                 ),
               ),

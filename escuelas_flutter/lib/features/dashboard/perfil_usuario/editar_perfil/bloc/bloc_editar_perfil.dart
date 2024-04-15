@@ -17,7 +17,8 @@ class BlocEditarPerfil
     on<BlocEditarPerfilEventoGuardarCambios>(_onGuardarCambios);
     on<BlocEditarPerfilEventoEditarPassword>(_onEditarPassword);
     on<BlocEditarPerfilEventoAgregarContacto>(_onAgregarContacto);
-    on<BlocEditarPerfilEventoEliminarEmail>(_onEliminarEmail);
+    on<BlocEditarPerfilEventoEditarContacto>(_onEditarContacto);
+    on<BlocEditarPerfilEventoEliminarContacto>(_onEliminarEmail);
   }
 
   // / Funciona para traer la info de un usuario
@@ -166,8 +167,37 @@ class BlocEditarPerfil
     );
   }
 
+  Future<void> _onEditarContacto(
+    BlocEditarPerfilEventoEditarContacto event,
+    Emitter<BlocEditarPerfilEstado> emit,
+  ) async {
+    emit(BlocEditarPerfilEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        final direccionDeEmailActualizada =
+            await client.usuario.modificarDireccionDeEmailDeContactoDeUsuario(
+          idDireccionDeEmail: event.idDireccionDeEmail,
+          nuevaDireccionDeEmail: event.nuevoEmail,
+          nuevaEtiqueta: event.nuevaEtiqueta,
+        );
+        state.usuario?.direccionesDeEmail
+            ?.removeWhere((element) => element.id == event.idDireccionDeEmail);
+        state.usuario?.direccionesDeEmail?.add(direccionDeEmailActualizada);
+
+        emit(
+          BlocEditarPerfilEstadoExitosoAlActualizar.desde(
+            state,
+            usuario: state.usuario,
+          ),
+        );
+      },
+      onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
+    );
+  }
+
+  /// Funcion que elimina un contacto
   Future<void> _onEliminarEmail(
-    BlocEditarPerfilEventoEliminarEmail event,
+    BlocEditarPerfilEventoEliminarContacto event,
     Emitter<BlocEditarPerfilEstado> emit,
   ) async {
     emit(BlocEditarPerfilEstadoCargando.desde(state));
