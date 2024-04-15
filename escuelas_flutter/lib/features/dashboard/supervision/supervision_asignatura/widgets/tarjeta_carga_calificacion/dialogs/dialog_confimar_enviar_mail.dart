@@ -26,19 +26,41 @@ class DialogConfirmarEnvioDeEmail extends StatelessWidget {
 
     final l10n = context.l10n;
 
+    final mensaje =
+        l10n.pageGradeSubmissionSupervisionDialogConfimationSendEmails;
+
     return EscuelasDialog.solicitudDeAccion(
       context: context,
-      onTapConfirmar: () => context.read<BlocSupervisionAsignatura>().add(
-            BlocSupervisionAsignaturaEnviarEmails(usuario?.id ?? 0),
+      onTapConfirmar: () {
+        context.read<BlocSupervisionAsignatura>().add(
+              BlocSupervisionAsignaturaEnviarEmails(usuario),
+            );
+        Navigator.of(context).pop();
+      },
+      content: Column(
+        children: [
+          RichText(
+            textAlign: TextAlign.center,
+            text: TextSpan(
+              style: TextStyle(
+                color: colores.onSecondary,
+                fontSize: 16.pf,
+                fontWeight: FontWeight.w600,
+              ),
+              children: [
+                TextSpan(text: mensaje),
+                TextSpan(
+                  text: '${usuario?.nombre.toUpperCase()}'
+                      ' ${usuario?.apellido.toUpperCase()}',
+                  style: TextStyle(
+                    color: colores.onBackground,
+                  ),
+                ),
+                const TextSpan(text: '?'),
+              ],
+            ),
           ),
-      content: Text(
-        '¿Enviar calificaciones al correo para ${usuario?.nombre} ${usuario?.apellido}?', //TODO(anyone): L10N
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: colores.onBackground,
-          fontSize: 16.pf,
-          fontWeight: FontWeight.w600,
-        ),
+        ],
       ),
     );
   }

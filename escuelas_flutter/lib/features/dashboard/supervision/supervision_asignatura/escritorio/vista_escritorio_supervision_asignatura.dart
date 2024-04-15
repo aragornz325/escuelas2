@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// {@template VistaEscritorioSupervisionAsignatura}
-/// Vista para `escritorio` de la pantalla 'Carga de Calificaciones'
+/// Vista para `escritorio` de la pantalla 'Supervision de asignatura'
 /// {@endtemplate}
 class VistaEscritorioSupervisionAsignatura extends StatelessWidget {
   /// {@macro VistaEscritorioSupervisionAsignatura}

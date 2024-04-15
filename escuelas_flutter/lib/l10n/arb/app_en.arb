@@ -171,6 +171,10 @@
       }
     }
   },
+  "pageKycFormWhatYearIsYourSubject": "What year is your subject?",
+  "@pageKycFormWhatYearIsYourSubject": {
+    "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+  },
   "pageKycDropdownTitle": "Select an option",
   "@pageKycDropdownTitle": {
     "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
@@ -297,6 +301,21 @@
   "pageComissionSupervisionDialogMessageTooltip": "You cannot send emails to committees. Verify that all grades are uploaded by the institution's teachers",
   "@pageComissionSupervisionDialogMessageTooltip": {
     "description": "Tooltip message explaining why emails cannot be sent to committees"
+  },
+
+  "pageComissionSupervisionMessageSendingEmail": "Sending email...",
+  "@pageComissionSupervisionMessageSendingEmail": {
+    "description": "Text displayed when an email is being sent"
+  },
+
+  "pageComissionSupervisionDialogSuccessSendEmailStudent": "Email successfully sent to ",
+  "@pageComissionSupervisionDialogSuccessSendEmailStudent": {
+    "description": "Text displayed when an email is sent successfully to a student"
+  },
+
+  "pageGradeSubmissionSupervisionDialogConfimationSendEmails": "Send grades to email for ",
+  "@pageGradeSubmissionSupervisionDialogConfimationSendEmails": {
+        "description": "Confirmation message for sending grades to the email address of {firstnameAndLastName}."
   },
 
   "pageGradesNoGrades": "There are no grades",
@@ -1123,6 +1142,10 @@
     "commonConfirmCloseApp": "Press again to exit",
     "@commonConfirmCloseApp": {
       "description": "Message to confirm app exit"
+    },
+    "commonButtonDecline": "Decline",
+    "@commonButtonDecline": {
+        "description": "It is commonly used in a button to decline"
     }
 
 }

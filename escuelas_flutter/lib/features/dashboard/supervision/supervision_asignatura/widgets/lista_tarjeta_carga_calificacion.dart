@@ -3,12 +3,13 @@ import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/bloc/bloc_supervision_asignatura.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/widgets/widgets.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template ListaTarjetaCargaCalificacion}
-/// Lista de tarjetas de carga de calificaciones
+/// Lista de tarjetas de Supervision de asignatura con calificaciones
 /// {@endtemplate}
 class ListaTarjetaCargaCalificacion extends StatelessWidget {
   /// {@macro ListaTarjetaCargaCalificacion}
@@ -30,6 +31,8 @@ class ListaTarjetaCargaCalificacion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
     return BlocBuilder<BlocSupervisionAsignatura,
         BlocSupervisionAsignaturaEstado>(
       builder: (context, state) {
@@ -63,7 +66,7 @@ class ListaTarjetaCargaCalificacion extends StatelessWidget {
                           listaCalificacionesMesesRestantes,
                       alumno: relacionComisionUsuario.usuario,
                       calificacion: calificacion == null
-                          ? 'S/C' // TODO(anyone): l10n
+                          ? l10n.commonUnrated
                           : ManejadorDeCalificaciones
                               .obtenerValorDeCalificacion(
                               calificacion.tipoCalificacion,

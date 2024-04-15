@@ -61,7 +61,7 @@ class EscuelasDialog extends StatelessWidget {
     required Widget content,
     ShapeBorder? shape,
     String? titulo,
-    double altura = 100,
+    double? altura,
     double? ancho,
     String? tituloBotonPrincipal,
   }) {

@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template NombreAsignaturaYComision}
-/// Muestra en ui la asignatura y la comision de la que se estan cargando las
-/// calificaciones
+/// Muestra en ui la asignatura y la comision
 /// {@endtemplate}
 class NombreAsignaturaYComision extends StatelessWidget {
   /// {@macro NombreAsignaturaYComision}

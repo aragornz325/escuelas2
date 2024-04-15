@@ -108,12 +108,30 @@ class _InformacionAlumnoOAsignaturaState
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              IconButton(
-                onPressed: () => _dialogConfirmarEnvioEmails(context),
-                icon: Icon(
-                  Icons.email_outlined,
-                  color: colores.onBackground,
-                ),
+              Stack(
+                children: [
+                  IconButton(
+                    onPressed: () => _dialogConfirmarEnvioEmails(context),
+                    icon: Icon(
+                      Icons.email_outlined,
+                      color: colores.onBackground,
+                      size: 30.pf,
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 4,
+                    right: 1,
+                    child: CircleAvatar(
+                      backgroundColor: colores.background,
+                      radius: 12.pf,
+                      child: Icon(
+                        Icons.arrow_circle_right_outlined,
+                        color: colores.onBackground,
+                        size: 25.pf,
+                      ),
+                    ),
+                  ),
+                ],
               ),
               if (widget.esInfoAlumno)
                 Icon(

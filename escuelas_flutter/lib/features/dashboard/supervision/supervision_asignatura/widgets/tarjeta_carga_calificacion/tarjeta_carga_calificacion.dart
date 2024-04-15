@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 /// {@template TarjetaCargaCalificacion}
 /// Componente con un sector donde se puede ver el nombre, promedio y texto
-/// valorativo del alumno. Con un boton para agregar/modificar la calificacion
+/// valorativo del alumno.
 /// {@endtemplate}
 class TarjetaCargaCalificacion extends StatelessWidget {
   /// {@macro TarjetaCargaCalificacion}

@@ -42,7 +42,8 @@ class BlocSupervisionAsignaturaEventoInicializar
 class BlocSupervisionAsignaturaEnviarEmails
     extends BlocSupervisionAsignaturaEvento {
   /// {@macro BlocSupervisionAsignaturaEnviarEmails}
-  const BlocSupervisionAsignaturaEnviarEmails(this.idEstudiante);
+  const BlocSupervisionAsignaturaEnviarEmails(this.estudiante);
 
-  final int idEstudiante;
+  /// Estudiante que se envia el mail.
+  final Usuario? estudiante;
 }

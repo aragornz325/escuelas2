@@ -2,6 +2,8 @@ import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/bloc/bloc_supervision_asignatura.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/widgets/widgets.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/utilidades/funciones/escuelas_toast.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
@@ -10,19 +12,44 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template VistaCelularSupervisionAsignatura}
-/// Vista para `celular` de la pagina 'Carga de Calificaciones'
+/// Vista para `celular` de la pagina 'Supervision de asignatura'
 /// {@endtemplate}
 class VistaCelularSupervisionAsignatura extends StatelessWidget {
   /// {@macro VistaCelularSupervisionAsignatura}
   const VistaCelularSupervisionAsignatura({
     super.key,
   });
+  void _dialogEnvioEmailCorrectamente(
+    BuildContext context,
+    String nombreEstudiante,
+  ) {
+    showDialog<void>(
+      context: context,
+      builder: (context) => DialogExitoAlEnviarEmail(
+        nombreEstudiante: nombreEstudiante,
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
 
-    return BlocBuilder<BlocSupervisionAsignatura, BlocSupervisionAsignaturaEstado>(
+    final l10n = context.l10n;
+
+    return BlocConsumer<BlocSupervisionAsignatura,
+        BlocSupervisionAsignaturaEstado>(
+      listener: (context, state) {
+        if (state is BlocSupervisionAsignaturaEstadoEnviandoEmail) {
+          showEcuelasToast(
+            mensaje: l10n.pageComissionSupervisionMessageSendingEmail,
+            context: context,
+          );
+        }
+        if (state is BlocSupervisionAsignaturaEstadoExitosoAlEnviarEmail) {
+          _dialogEnvioEmailCorrectamente(context, state.nombreEstudiante);
+        }
+      },
       builder: (context, state) {
         final idAutor = context.read<BlocDashboard>().state.usuario.id ?? 0;
 
@@ -74,8 +101,7 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
                   state.listaCalificacionesMesesRestantes,
               listaEstudiantes: state.estudiantes,
             ),
-            // TODO: Agregar boton para enviar calificaciones
-            
+            // TODO: Agregar boton para enviar calificaciones por asignatura
           ],
         );
       },

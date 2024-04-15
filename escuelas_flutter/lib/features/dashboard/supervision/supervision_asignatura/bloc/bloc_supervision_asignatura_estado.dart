@@ -1,8 +1,7 @@
 part of 'bloc_supervision_asignatura.dart';
 
 /// {@template BlocSupervisionAsignaturaEstado}
-/// Maneja el estado del bloc de las calificaciones de los alumnos dependiendo
-/// del rol del usuario.
+/// Maneja el estado del bloc de las supervisiones de asignatura
 /// {@endtemplate}
 class BlocSupervisionAsignaturaEstado {
   /// {@macro BlocSupervisionAsignaturaEstado}
@@ -69,7 +68,8 @@ class BlocSupervisionAsignaturaEstado {
 }
 
 /// {@template BlocSupervisionAsignaturaEstadoInicial}
-/// Estado `inicial` de los componentes de la pantalla 'supervision de asignatura'
+/// Estado `inicial` de los componentes de la pantalla
+/// 'supervision de asignatura'
 /// {@endtemplate}
 class BlocSupervisionAsignaturaEstadoInicial
     extends BlocSupervisionAsignaturaEstado {
@@ -85,6 +85,16 @@ class BlocSupervisionAsignaturaEstadoCargando
     extends BlocSupervisionAsignaturaEstado {
   /// {@macro BlocSupervisionAsignaturaEstadoCargando}
   BlocSupervisionAsignaturaEstadoCargando.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocSupervisionAsignaturaEstadoEnviandoEmail}
+/// Estado `enviandoEmail` de los componentes de la pantalla.
+/// {@endtemplate}
+class BlocSupervisionAsignaturaEstadoEnviandoEmail
+    extends BlocSupervisionAsignaturaEstado {
+  /// {@macro BlocSupervisionAsignaturaEstadoEnviandoEmail}
+  BlocSupervisionAsignaturaEstadoEnviandoEmail.desde(super.otro)
+      : super.desde();
 }
 
 /// {@template BlocSupervisionAsignaturaEstadoExitoso}
@@ -103,6 +113,21 @@ class BlocSupervisionAsignaturaEstadoExitoso
     super.listaCalificacionesMesesRestantes,
     super.calificacionesMensuales,
   }) : super.desde();
+}
+
+/// {@template BlocSupervisionAsignaturaEstadoExitosoAlEnviarEmail}
+/// Estado `exitoso` Cuando se envia el email a un alumno
+/// {@endtemplate}
+class BlocSupervisionAsignaturaEstadoExitosoAlEnviarEmail
+    extends BlocSupervisionAsignaturaEstado {
+  /// {@macro BlocSupervisionAsignaturaEstadoExitosoAlEnviarEmail}
+  BlocSupervisionAsignaturaEstadoExitosoAlEnviarEmail.desde(
+    super.otro, {
+    required this.nombreEstudiante,
+  }) : super.desde();
+
+  /// Nombre del estudiante al que se le envio el email.
+  final String nombreEstudiante;
 }
 
 /// {@template BlocSupervisionAsignaturaEstadoFallido}

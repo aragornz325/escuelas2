@@ -8,8 +8,7 @@ part 'bloc_supervision_asignatura_evento.dart';
 /// {@template BlocSupervisionAsignatura}
 /// Maneja la lógica principal de la pantalla 'supervision de asignatura'
 ///
-/// Permite cargar las calificaciones de los alumnos de un curso y
-/// de una materia.
+/// Permite enviar mails a los alumnos
 /// {@endtemplate}
 class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
     BlocSupervisionAsignaturaEstado> {
@@ -114,17 +113,24 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
     BlocSupervisionAsignaturaEnviarEmails event,
     Emitter<BlocSupervisionAsignaturaEstado> emit,
   ) async {
-    emit(BlocSupervisionAsignaturaEstadoCargando.desde(state));
+    emit(BlocSupervisionAsignaturaEstadoEnviandoEmail.desde(state));
     await operacionBloc(
       callback: (client) async {
         await client.calificacion.enviarCalificacionesPorMesYAnio(
           anio: state.fecha?.year ?? 0,
           mes: state.fecha?.month ?? 0,
           filtroDeEnvio: EnvioCalificaciones.porEstudiante,
-          idEstudiantes: [event.idEstudiante],
+          idEstudiantes: [
+            event.estudiante?.id ?? 0,
+          ],
         );
+
         emit(
-          BlocSupervisionAsignaturaEstadoExitoso.desde(state),
+          BlocSupervisionAsignaturaEstadoExitosoAlEnviarEmail.desde(
+            state,
+            nombreEstudiante:
+                '${event.estudiante?.nombre} ${event.estudiante?.apellido}',
+          ),
         );
       },
       onError: (e, st) => BlocSupervisionAsignaturaEstadoFallido.desde(state),

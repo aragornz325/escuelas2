@@ -7,12 +7,11 @@ import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.da
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+//TODO(anyone): se podria refactorizar la Carga de calificaciones y el envio de
+// mails en una unica vista ?.
 /// {@template PaginaSupervisionAsignatura}
-/// Pagina de Carga de Calificaciones.
-///
-/// En esta vista se muestra el calendario de la fecha actual y la lista de los
-/// alumnos de un curso y de una materia.
-/// Se puede modificar la calificación de los alumnos y ver de meses anteriores.
+/// Pagina de Supervision Asignatura donde un docente puede ver las
+/// calificaciones y enviar mails a los estudiantes.
 /// {@endtemplate}
 @RoutePage()
 class PaginaSupervisionAsignatura extends StatelessWidget {

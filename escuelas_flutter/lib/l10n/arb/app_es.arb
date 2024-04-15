@@ -283,6 +283,17 @@
   "@pageComissionSupervisionDialogMessageTooltip": {
     "description": "Tooltip message explaining why emails cannot be sent to committees"
   },
+  
+  "pageComissionSupervisionMessageSendingEmail": "Enviando email...",
+  "@pageComissionSupervisionMessageSendingEmail": {
+    "description": "Text displayed when an email is being sent"
+  },
+
+  "pageComissionSupervisionDialogSuccessSendEmailStudent": "Email enviado con exito a",
+  "@pageComissionSupervisionDialogSuccessSendEmailStudent": {
+    "description": "Text displayed when an email is sent successfully to a student"
+  },
+
   "pageGradesNoGrades": "No hay calificaciones",
   "@pageGradesNoGrades": {
     "description": "Text to be displayed if there are no grades"
@@ -297,14 +308,23 @@
     }
   },
 
-    "pageGradeSubmissionSupervisionButtonSendQualifications": "Enviar calificaciones",
-    "@pageGradeSubmissionSupervisionButtonSendQualifications": {
+  "pageGradeSubmissionSupervisionButtonSendQualifications": "Enviar calificaciones",
+  "@pageGradeSubmissionSupervisionButtonSendQualifications": {
         "description": "Text for a button used to send grades."
-    },
-      "pageLoginTextAllRightsReserved": "Desarrollado por © Nidus Development - Argentina\nTodos los derechos reservados",
+  },
+
+  "pageGradeSubmissionSupervisionDialogConfimationSendEmails": "¿Enviar calificaciones al correo para ",
+  "@pageGradeSubmissionSupervisionDialogConfimationSendEmails": {
+        "description": "Confirmation message for sending grades to the email address of {firstnameAndLastName}."
+      
+        
+  },
+
+  "pageLoginTextAllRightsReserved": "Desarrollado por © Nidus Development - Argentina\nTodos los derechos reservados",
   "@pageLoginTextAllRightsReserved": {
     "description": "text to indicate the origin of development"
   },
+
   "pageLoginTextOr": "O",
   "@pageLoginTextOr": {
     "description": "text to indicate the the options of login"

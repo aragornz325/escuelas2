@@ -17,7 +17,7 @@ void showEcuelasToast({
 
   Fluttertoast.showToast(
     msg: mensaje,
-    backgroundColor: colores.secondary,
+    backgroundColor: colores.onBackground,
     timeInSecForIosWeb: duracion,
     fontSize: 18.pf,
     gravity: posicionDelToast ?? ToastGravity.BOTTOM,
