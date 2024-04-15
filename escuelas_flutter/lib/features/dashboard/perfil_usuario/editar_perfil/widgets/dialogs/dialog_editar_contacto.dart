@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:escuelas_client/escuelas_client.dart';
-import 'package:escuelas_flutter/extensiones/extensiones.dart';
+import 'package:escuelas_flutter/extensiones/etiqueta_email.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
@@ -11,23 +11,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
-/// {@template DialogAgregarContacto}
-/// Dialog para agregar un nuevo contacto.
-/// {@endtemplate}
-class DialogAgregarContacto extends StatefulWidget {
-  /// {@macro DialogAgregarContacto}
-  const DialogAgregarContacto({
+/// {@template DialogEditarContacto}
+/// Dialog para editar un contacto.
+/// {@endtemplate
+class DialogEditarContacto extends StatefulWidget {
+  /// {@macro DialogEditarContacto}
+  const DialogEditarContacto({
+    required this.contacto,
     super.key,
   });
 
+  /// Contacto a editar
+  final DireccionDeEmail contacto;
+
   @override
-  State<DialogAgregarContacto> createState() => _DialogAgregarContactoState();
+  State<DialogEditarContacto> createState() => _DialogEditarContactoState();
 }
 
-class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
-  final _controllerEmail = TextEditingController();
-
+class _DialogEditarContactoState extends State<DialogEditarContacto> {
+  late TextEditingController _controllerEmail;
   EtiquetaDireccionEmail? etiqueta;
+
+  @override
+  void initState() {
+    _controllerEmail =
+        TextEditingController(text: widget.contacto.direccionDeEmail);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
@@ -38,8 +49,20 @@ class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
       ),
     ];
     return EscuelasDialog.solicitudDeAccion(
-      titulo: l10n.pageEditProfileDialogAddContact.toUpperCase(),
+      titulo: l10n.pageEditProfileDialogEditContact,
       context: context,
+      onTapConfirmar: () {
+        if (etiqueta != null && _controllerEmail.text.isNotEmpty) {
+          context.read<BlocEditarPerfil>().add(
+                BlocEditarPerfilEventoEditarContacto(
+                  idDireccionDeEmail: widget.contacto.id ?? 0,
+                  nuevoEmail: _controllerEmail.text,
+                  nuevaEtiqueta: etiqueta!,
+                ),
+              );
+          Navigator.pop(context);
+        }
+      },
       content: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -54,6 +77,13 @@ class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
             height: max(50.ph, 50.sh),
             width: 300.pw,
             child: EscuelasDropdownPopup(
+              initiallySelected: [
+                PopupOption(
+                  id: widget.contacto.etiqueta?.index ?? 0,
+                  name:
+                      widget.contacto.etiqueta?.nombreParentezco(context) ?? '',
+                ),
+              ],
               list: lista,
               onChanged: (value) {
                 etiqueta = EtiquetaDireccionEmail.values
@@ -75,19 +105,6 @@ class _DialogAgregarContactoState extends State<DialogAgregarContacto> {
           ),
         ],
       ),
-      onTapConfirmar: () {
-        if (etiqueta != null) {
-          context.read<BlocEditarPerfil>().add(
-                BlocEditarPerfilEventoAgregarContacto(
-                  idUsuario:
-                      context.read<BlocEditarPerfil>().state.usuario?.id ?? 0,
-                  email: _controllerEmail.text,
-                  etiqueta: etiqueta!,
-                ),
-              );
-          Navigator.pop(context);
-        }
-      },
     );
   }
 }
