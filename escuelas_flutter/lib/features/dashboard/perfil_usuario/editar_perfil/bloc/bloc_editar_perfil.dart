@@ -17,6 +17,7 @@ class BlocEditarPerfil
     on<BlocEditarPerfilEventoGuardarCambios>(_onGuardarCambios);
     on<BlocEditarPerfilEventoEditarPassword>(_onEditarPassword);
     on<BlocEditarPerfilEventoAgregarContacto>(_onAgregarContacto);
+    on<BlocEditarPerfilEventoEliminarEmail>(_onEliminarEmail);
   }
 
   // / Funciona para traer la info de un usuario
@@ -155,7 +156,30 @@ class BlocEditarPerfil
         );
         state.usuario!.direccionesDeEmail!.add(direccionNueva);
         emit(
-          BlocEditarPerfilEstadoExitosoALAgregarContacto.desde(
+          BlocEditarPerfilEstadoExitosoAlAgregarContacto.desde(
+            state,
+            usuario: state.usuario,
+          ),
+        );
+      },
+      onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
+    );
+  }
+
+  Future<void> _onEliminarEmail(
+    BlocEditarPerfilEventoEliminarEmail event,
+    Emitter<BlocEditarPerfilEstado> emit,
+  ) async {
+    emit(BlocEditarPerfilEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        await client.usuario.eliminarDireccionDeEmailDeContactoDeUsuario(
+          idDireccionDeEmail: event.idDireccionDeEmail,
+        );
+        state.usuario!.direccionesDeEmail!
+            .removeWhere((element) => element.id == event.idDireccionDeEmail);
+        emit(
+          BlocEditarPerfilEstadoExitosoAlEliminarEmail.desde(
             state,
             usuario: state.usuario,
           ),

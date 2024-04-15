@@ -754,6 +754,15 @@
   "@pageEditProfileDialogAddContact": {
       "description": "Title of the dialog"
   },
+  "pageEditProfileDialogContactDeletedSuccessfully":"Contact deleted successfully",
+  "@pageEditProfileDialogContactDeletedSuccessfully": {
+    "description": "Text in the alert dialog to notificate that the contact was deleted successfully."
+  },
+  "pageEditProfileDialogAreYouSure":"Are you sure you want to delete this contact?",
+  "@pageEditProfileDialogAreYouSure": {
+      "description": "Question in the dialog to ask if the user is sure to delete the contact."
+  },
+
 
 
   "tagEmailPersonalPrimary": "Personal primary",

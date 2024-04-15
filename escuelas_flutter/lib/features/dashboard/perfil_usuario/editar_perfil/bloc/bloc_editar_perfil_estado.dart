@@ -75,10 +75,10 @@ class BlocEditarPerfilEstadoCargando extends BlocEditarPerfilEstado {
 /// {@template BlocEditarPerfilEstadoExitosoAlAgregarContacto}
 /// Estado exitoso cuando se agrega un contacto
 /// {@endtemplate}
-class BlocEditarPerfilEstadoExitosoALAgregarContacto
+class BlocEditarPerfilEstadoExitosoAlAgregarContacto
     extends BlocEditarPerfilEstado {
   /// {@macro BlocEditarPerfilEstadoExitosoALAgregarContacto}
-  BlocEditarPerfilEstadoExitosoALAgregarContacto.desde(
+  BlocEditarPerfilEstadoExitosoAlAgregarContacto.desde(
     super.otro, {
     super.usuario,
   }) : super.desde();
@@ -123,6 +123,18 @@ class BlocEditarPerfilEstadoExitosoEditarPassword
     super.otro, {
     super.nuevaPassword,
     super.conRequerimientoDeCambioDePassword,
+  }) : super.desde();
+}
+
+/// {@template BlocEditarPerfilEstadoExitosoAlEliminarEmail}
+/// Estado exitoso cuando elimina un email del usuario.
+/// {@endtemplate}
+class BlocEditarPerfilEstadoExitosoAlEliminarEmail
+    extends BlocEditarPerfilEstado {
+  /// {@macro BlocEditarPerfilEstadoExitosoAlEliminarEmail}
+  BlocEditarPerfilEstadoExitosoAlEliminarEmail.desde(
+    super.otro, {
+    super.usuario,
   }) : super.desde();
 }
 

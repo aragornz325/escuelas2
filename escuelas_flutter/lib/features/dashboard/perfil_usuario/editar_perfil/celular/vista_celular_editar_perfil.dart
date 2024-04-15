@@ -39,6 +39,16 @@ class VistaCelularEditarPerfil extends StatelessWidget {
     );
   }
 
+  Future<void> _onExitoAlEliminarContacto(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocEditarPerfil>(),
+        child: const DialogExitoEliminarContacto(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -50,6 +60,12 @@ class VistaCelularEditarPerfil extends StatelessWidget {
           }
           if (state is BlocEditarPerfilEstadoExitosoEditarPassword) {
             _dialogDeExitoAlGuardarCambios(context);
+          }
+          if (state is BlocEditarPerfilEstadoExitosoAlAgregarContacto) {
+            _dialogDeExitoAlGuardarCambios(context);
+          }
+          if (state is BlocEditarPerfilEstadoExitosoAlEliminarEmail) {
+            _onExitoAlEliminarContacto(context);
           }
         },
         builder: (context, state) {

@@ -96,7 +96,25 @@ class BlocEditarPerfilEventoAgregarContacto extends BlocEditarPerfilEvento {
     required this.etiqueta,
   });
 
+  /// Id del usuario
   final int idUsuario;
+
+  /// Email a guardar del usuario.
   final String email;
+
+  /// La etiqueta de parentezco del mail con el propietario del perfil
   final EtiquetaDireccionEmail etiqueta;
+}
+
+/// {@template BlocEditarPerfilEventoEliminarEmail}
+/// Evento para eliminar un contacto
+/// {@endtemplate}
+class BlocEditarPerfilEventoEliminarEmail extends BlocEditarPerfilEvento {
+  /// {@macro BlocEditarPerfilEventoEliminarEmail}
+  const BlocEditarPerfilEventoEliminarEmail({
+    required this.idDireccionDeEmail,
+  });
+
+  /// ID de la direccion de email a eliminar
+  final int idDireccionDeEmail;
 }
