@@ -807,7 +807,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     Session session, {
     required int idDireccionDeEmail,
   }) async {
-    final direccionBorrada = await OrmDireccionesdeEmail().borrarFisicamenteVariosRegistrosEnDbPorFiltro(
+    final direccionBorrada = await OrmDireccionesdeEmail()
+        .borrarFisicamenteVariosRegistrosEnDbPorFiltro(
       session,
       filtroCondicional: DireccionDeEmail.t.id.equals(idDireccionDeEmail),
     );
@@ -825,29 +826,21 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
     required String nuevaDireccionDeEmail,
     EtiquetaDireccionEmail? nuevaEtiqueta,
   }) async {
-    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
-    final usuario = await orm.obtenerUnRegistroEnDbPorFiltro(
-      session,
-      filtroCondicional: Usuario.t.idUserInfo.equals(
-            idUserInfo,
-          ) &
-          Usuario.t.fechaEliminacion.equals(null),
-    );
-
     final direccionDeEmailAModificar =
         await OrmDireccionesdeEmail().obtenerDireccionDeEmailPorId(
       session,
       idDireccionDeEmail: idDireccionDeEmail,
     );
-
-    if (direccionDeEmailAModificar.usuarioId != usuario?.id) {
-      throw ExcepcionCustom(tipoDeError: TipoExcepcion.noAutorizado);
-    }
+    
+    final usuario = await orm.obtenerUnRegistroEnDbPorId(session, idDelRegistro: direccionDeEmailAModificar.usuarioId);
 
     if (direccionDeEmailAModificar.etiqueta ==
         EtiquetaDireccionEmail.personalPrimario) {
       await _modificarDireccionDeEmailDeCuentaDeUsuario(
-          session, nuevaDireccionDeEmail);
+        session,
+        usuario!.idUserInfo,
+        nuevaDireccionDeEmail,
+      );
     }
 
     return await OrmDireccionesdeEmail().actualizarUnRegistroEnDb(
@@ -860,10 +853,9 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
 
   Future<bool> _modificarDireccionDeEmailDeCuentaDeUsuario(
     Session session,
+    int idUserInfo,
     String nuevaDireccionDeEmail,
   ) async {
-    final idUserInfo = await obtenerIdDeUsuarioLogueado(session);
-
     final emailAuth = await ejecutarOperacion(
       () => auth.EmailAuth.db.findFirstRow(
         session,

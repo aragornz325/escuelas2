@@ -2,9 +2,8 @@ import 'dart:math';
 
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/permisos/permisos.dart';
+import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/extensiones/usuario.dart';
-import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/bloc_inasistencias/bloc_inasistencias.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/modelos/modelos.dart';
 import 'package:escuelas_flutter/features/dashboard/inasistencias/widgets/widgets.dart';
@@ -54,122 +53,153 @@ class _ItemCursoConListaDeEstudiantesState
     }).toList();
   }
 
+  /// Verifica si tiene permisos de docente.
+  bool get tienePermisosDocente =>
+      context.tienePermiso(PermisoDeAsistencia.editarAsistencia) ||
+      context.tienePermiso(PermisoDeAsistencia.crearAsistencia);
+
+  /// Verifica si tiene permisos de directivo.
+  bool get tienePermisoDirectivo =>
+      tienePermisosDocente &&
+      context.tienePermiso(
+        PermisoDeAsistencia.editarAsistenciaPasada,
+      );
+
+  /// Modifica la asistencia de un estudiante dependiendo de los permisos que
+  /// tengas.
+  void _modificarAsistencia(DateTime? fechaActual, int index) {
+    if (fechaActual?.mismaFecha(DateTime.now()) ?? false) {
+      if (tienePermisosDocente) {
+        setState(
+          () => _cambiarAsistenciaDeUnAlumno(
+            _inasistencias[index],
+          ),
+        );
+      }
+    } else {
+      if (tienePermisoDirectivo) {
+        setState(
+          () => _cambiarAsistenciaDeUnAlumno(
+            _inasistencias[index],
+          ),
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
 
     final colores = context.colores;
 
-    final usuario = context.read<BlocDashboard>().state.usuario;
-
-    return Column(
-      children: [
-        ItemCurso(
-          ancho: 400.pw,
-          onTap: widget.onTap,
-          comisionConAsistencias: widget.comisionConAsistencias,
-        ),
-        if (_inasistencias.isEmpty)
-          SizedBox(
-            height: max(150.ph, 150.sh),
-            child: Center(
-              child: Text(l10n.pageAttendanceNotAbsentStudents),
+    return BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
+      builder: (context, state) {
+        return Column(
+          children: [
+            ItemCurso(
+              ancho: 400.pw,
+              onTap: widget.onTap,
+              comisionConAsistencias: widget.comisionConAsistencias,
             ),
-          )
-        else
-          Expanded(
-            child: ListView.builder(
-              itemCount: _inasistencias.length,
-              itemBuilder: (context, index) {
-                final estudiante = _inasistencias[index].estudiante;
+            if (_inasistencias.isEmpty)
+              SizedBox(
+                height: max(150.ph, 150.sh),
+                child: Center(
+                  child: Text(l10n.pageAttendanceNotAbsentStudents),
+                ),
+              )
+            else
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _inasistencias.length,
+                  itemBuilder: (context, index) {
+                    final estudiante = _inasistencias[index].estudiante;
 
-                return Padding(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 20.pw,
-                    vertical: max(10.ph, 10.sh),
-                  ),
-                  child: ElementoLista.inasistencia(
-                    fotoPerfil: SizedBox(
-                      width: 25.sw,
-                      height: 25.sh,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.all(Radius.circular(100.sw)),
-                        child: Image.network(
-                          estudiante?.urlFotoDePerfil ?? '',
-                          fit: BoxFit.cover,
-                          errorBuilder: (
-                            context,
-                            error,
-                            stackTrace,
-                          ) =>
-                              Image.asset(
-                            Assets.images.usuario.path,
-                            color: colores.onBackground,
-                          ),
-                        ),
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 20.pw,
+                        vertical: max(10.ph, 10.sh),
                       ),
-                    ),
-                    nombre: '${estudiante?.nombre ?? ''} '
-                        '${estudiante?.apellido ?? ''}',
-                    context: context,
-                    botonCambioInasistencia: InkWell(
-                      onTap: usuario.tienePermisos(
-                        PermisoDeAsistencia.editarAsistencia,
-                      )
-                          ? () {
-                              setState(() {
-                                _cambiarAsistenciaDeUnAlumno(
-                                  _inasistencias[index],
-                                );
-                              });
-                            }
-                          : null,
-                      child: Container(
-                        width: 80.pw,
-                        height: max(25.ph, 25.sh),
-                        decoration: BoxDecoration(
-                          color: _inasistencias[index]
-                              .estadoDeAsistencia
-                              .colorEstado(context),
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(35.sw),
+                      child: ElementoLista.inasistencia(
+                        fotoPerfil: SizedBox(
+                          width: 25.sw,
+                          height: 25.sh,
+                          child: ClipRRect(
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(100.sw)),
+                            child: Image.network(
+                              estudiante?.urlFotoDePerfil ?? '',
+                              fit: BoxFit.cover,
+                              errorBuilder: (
+                                context,
+                                error,
+                                stackTrace,
+                              ) =>
+                                  Image.asset(
+                                Assets.images.usuario.path,
+                                color: colores.onBackground,
+                              ),
+                            ),
                           ),
                         ),
-                        child: Center(
-                          child: Text(
-                            _inasistencias[index]
-                                .estadoDeAsistencia
-                                .nombreEstado(context),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              color: colores.background,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 13.pf,
+                        nombre: '${estudiante?.nombre ?? ''} '
+                            '${estudiante?.apellido ?? ''}',
+                        context: context,
+                        botonCambioInasistencia: InkWell(
+                          onTap: () =>
+                              _modificarAsistencia(state.fechaActual, index),
+                          child: Container(
+                            width: 80.pw,
+                            height: max(25.ph, 25.sh),
+                            decoration: BoxDecoration(
+                              color: _inasistencias[index]
+                                  .estadoDeAsistencia
+                                  .colorEstado(context),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(35.sw),
+                              ),
+                            ),
+                            child: Center(
+                              child: Text(
+                                _inasistencias[index]
+                                    .estadoDeAsistencia
+                                    .nombreEstado(context),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: colores.background,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 13.pf,
+                                ),
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        BlocBuilder<BlocInasistencias, BlocInasistenciasEstado>(
-          builder: (context, state) {
-            return usuario.tienePermisos(PermisoDeAsistencia.editarAsistencia)
-                ? BotonFinalizarInasistencias(
-                    comisionDeCurso:
-                        widget.comisionConAsistencias.comisionDeCurso,
-                    inasistencias: _inasistencias,
-                    fecha: state.fechaActual ?? DateTime.now(),
-                  )
-                : const SizedBox.shrink();
-          },
-        ),
-      ],
+                    );
+                  },
+                ),
+              ),
+            if (state.fechaActual?.mismaFecha(DateTime.now()) ?? false)
+              if (tienePermisosDocente)
+                BotonFinalizarInasistencias(
+                  comisionDeCurso:
+                      widget.comisionConAsistencias.comisionDeCurso,
+                  inasistencias: _inasistencias,
+                  fecha: state.fechaActual ?? DateTime.now(),
+                )
+              else if (tienePermisoDirectivo)
+                BotonFinalizarInasistencias(
+                  comisionDeCurso:
+                      widget.comisionConAsistencias.comisionDeCurso,
+                  inasistencias: _inasistencias,
+                  fecha: state.fechaActual ?? DateTime.now(),
+                ),
+          ],
+        );
+      },
     );
   }
 }
