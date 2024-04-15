@@ -166,7 +166,7 @@ class BlocEditarPerfil
       onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
     );
   }
-
+/// Funcion para editar un contacto.
   Future<void> _onEditarContacto(
     BlocEditarPerfilEventoEditarContacto event,
     Emitter<BlocEditarPerfilEstado> emit,

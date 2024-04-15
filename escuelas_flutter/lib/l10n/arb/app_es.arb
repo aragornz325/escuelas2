@@ -615,7 +615,10 @@
   "@pageEditProfileDialogAreYouSure": {
       "description": "Question in the dialog to ask if the user is sure to delete the contact."
   },
-
+  "pageEditProfileDialogEditContact":"Editar contacto",
+  "@pageEditProfileDialogEditContact": {
+      "description": "Title of the dialog"
+  },
   "tagEmailPersonalPrimary": "Personal primario",
   "@tagEmailPersonalPrimary": {
     "description": "tag of personal primary"

@@ -763,7 +763,10 @@
       "description": "Question in the dialog to ask if the user is sure to delete the contact."
   },
 
-
+  "pageEditProfileDialogEditContact":"Edit contact",
+  "@pageEditProfileDialogEditContact": {
+      "description": "Title of the dialog"
+  },
 
   "tagEmailPersonalPrimary": "Personal primary",
   "@tagEmailPersonalPrimary": {

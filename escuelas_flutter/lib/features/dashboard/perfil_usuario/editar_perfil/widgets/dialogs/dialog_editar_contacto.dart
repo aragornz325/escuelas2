@@ -49,7 +49,7 @@ class _DialogEditarContactoState extends State<DialogEditarContacto> {
       ),
     ];
     return EscuelasDialog.solicitudDeAccion(
-      titulo: 'Editar contacto',
+      titulo: l10n.pageEditProfileDialogEditContact,
       context: context,
       onTapConfirmar: () {
         if (etiqueta != null && _controllerEmail.text.isNotEmpty) {
