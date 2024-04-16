@@ -158,7 +158,7 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
         //   idAsignaturas: [state.asignatura?.id],
         // );
 
-        // emit(BlocSupervisionAsignaturaEstadoExitoso.desde(state));
+        emit(BlocSupervisionAsignaturaEstadoExitoso.desde(state));
       },
       onError: (e, st) => BlocSupervisionAsignaturaEstadoFallido.desde(state),
     );

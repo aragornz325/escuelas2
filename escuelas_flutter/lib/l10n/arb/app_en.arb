@@ -313,6 +313,16 @@
     "description": "Text displayed when an email is sent successfully to a student"
   },
 
+  "pageComissionSupervisionDialogWantToSendEmailSubject": "Do you want to send an email to all the students of this subject?",
+  "@pageComissionSupervisionDialogWantToSendEmailSubject": {
+    "description": "Text displayed when the user wants to send an email to all students of this subject"
+  },
+
+  "pageComissionSupervisionSendEmail": "Send email of",
+  "@pageComissionSupervisionSendEmail": {
+    "description": "Text to be displayed when the user wants to send an email to all students of this subject"
+  },
+
   "pageGradeSubmissionSupervisionDialogConfimationSendEmails": "Send grades to email for ",
   "@pageGradeSubmissionSupervisionDialogConfimationSendEmails": {
         "description": "Confirmation message for sending grades to the email address of {firstnameAndLastName}."

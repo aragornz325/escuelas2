@@ -123,6 +123,13 @@ class OrmAsignatura extends ORM {
       session,
       (session) => Asignatura.db.find(
         session,
+        include: Asignatura.include(
+          usuarios: RelacionAsignaturaUsuario.includeList(
+            include: RelacionAsignaturaUsuario.include(
+              usuario: Usuario.include(),
+            ),
+          ),
+        ),
       ),
     );
 

@@ -294,6 +294,16 @@
     "description": "Text displayed when an email is sent successfully to a student"
   },
 
+  "pageComissionSupervisionDialogWantToSendEmailSubject": "¿Quieres enviar un email a todos los alumnos de esta asignatura?",
+  "@pageComissionSupervisionDialogWantToSendEmailSubject": {
+    "description": "Text displayed when the user wants to send an email to all students of this subject"
+  },
+
+  "pageComissionSupervisionSendEmail": "Enviar email de",
+  "@pageComissionSupervisionSendEmail": {
+    "description": "Text to be displayed when the user wants to send an email to all students of this subject"
+  },
+
   "pageGradesNoGrades": "No hay calificaciones",
   "@pageGradesNoGrades": {
     "description": "Text to be displayed if there are no grades"

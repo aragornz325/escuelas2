@@ -1,5 +1,6 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/bloc/bloc_supervision_asignatura.dart';
+import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,8 +16,10 @@ class DialogEnviarEmailAsignatura extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
+    final l10n = context.l10n;
 
-    return EscuelasDialog.confirmar(
+    return EscuelasDialog.solicitudDeAccion(
+      context: context,
       onTapConfirmar: () {
         context
             .read<BlocSupervisionAsignatura>()
@@ -24,8 +27,7 @@ class DialogEnviarEmailAsignatura extends StatelessWidget {
         Navigator.of(context).pop();
       },
       content: Text(
-        // TODO: L10N
-        'Quieres enviar un email a todos los alumnos de esta asignatura?',
+        l10n.pageComissionSupervisionDialogWantToSendEmailSubject,
         textAlign: TextAlign.center,
         style: TextStyle(
           color: colores.onSecondary,

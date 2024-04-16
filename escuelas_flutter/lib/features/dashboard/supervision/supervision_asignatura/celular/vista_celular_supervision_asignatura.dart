@@ -35,6 +35,17 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
     );
   }
 
+  /// Dialog para confirmar el envio de correos a la asignatura.
+  void _dialogConfirmarEnvioEmails(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocSupervisionAsignatura>(),
+        child: const DialogEnviarEmailAsignatura(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -110,10 +121,11 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
               child: EscuelasBoton.texto(
                 width: 340.pw,
                 height: max(40.ph, 40.sh),
-                estaHabilitado: false,
-                onTap: () {},
+                estaHabilitado: true,
+                onTap: () => _dialogConfirmarEnvioEmails(context),
                 color: colores.azul,
-                texto: 'Enviar mail de ${state.asignatura?.nombre}',
+                texto: '${l10n.pageComissionSupervisionSendEmail}'
+                    ' ${state.asignatura?.nombre}',
                 context: context,
               ),
             ),
