@@ -1,12 +1,16 @@
+import 'dart:math';
+
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/bloc/bloc_supervision_asignatura.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/escuelas_toast.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/selector_de_periodo.dart';
+import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
@@ -101,7 +105,18 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
                   state.listaCalificacionesMesesRestantes,
               listaEstudiantes: state.estudiantes,
             ),
-            // TODO: Agregar boton para enviar calificaciones por asignatura
+            Padding(
+              padding: EdgeInsets.only(top: 15.ph),
+              child: EscuelasBoton.texto(
+                width: 340.pw,
+                height: max(40.ph, 40.sh),
+                estaHabilitado: false,
+                onTap: () {},
+                color: colores.azul,
+                texto: 'Enviar mail de ${state.asignatura?.nombre}',
+                context: context,
+              ),
+            ),
           ],
         );
       },

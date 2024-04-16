@@ -78,7 +78,13 @@ class BlocKyc extends HydratedBloc<BlocKycEvento, BlocKycEstado> {
         emit(
           BlocKycEstadoExitoso.desde(
             state,
-            listaAsignaturas: asignaturas,
+            listaAsignaturas: asignaturas
+                .where(
+                  (asignatura) =>
+                      asignatura.usuarios == null ||
+                      asignatura.usuarios!.isEmpty,
+                )
+                .toList(),
             listaComisiones: comisiones,
             listaRoles: rolesAMostrar,
           ),

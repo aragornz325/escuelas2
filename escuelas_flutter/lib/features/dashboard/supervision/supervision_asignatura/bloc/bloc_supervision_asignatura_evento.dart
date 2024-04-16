@@ -36,14 +36,23 @@ class BlocSupervisionAsignaturaEventoInicializar
   final int idAutor;
 }
 
-/// {@template BlocSupervisionAsignaturaEnviarEmails}
-/// Evento para enviar los mails de calificaciones.
+/// {@template BlocSupervisionAsignaturaEnviarEmailAEstudiante}
+/// Evento para enviar los mails de calificaciones al estudiante.
 /// {@endtemplate}
-class BlocSupervisionAsignaturaEnviarEmails
+class BlocSupervisionAsignaturaEnviarEmailAEstudiante
     extends BlocSupervisionAsignaturaEvento {
-  /// {@macro BlocSupervisionAsignaturaEnviarEmails}
-  const BlocSupervisionAsignaturaEnviarEmails(this.estudiante);
+  /// {@macro BlocSupervisionAsignaturaEnviarEmailAEstudiante}
+  const BlocSupervisionAsignaturaEnviarEmailAEstudiante(this.estudiante);
 
   /// Estudiante que se envia el mail.
   final Usuario? estudiante;
+}
+
+/// {@template BlocSupervisionAsignaturaEnviarEmailsAsingatura}
+/// Evento para enviar los mails de calificaciones a la asignatura.
+/// {@endtemplate}
+class BlocSupervisionAsignaturaEnviarEmailsAsingatura
+    extends BlocSupervisionAsignaturaEvento {
+  /// {@macro BlocSupervisionAsignaturaEnviarEmailsAsingatura}
+  const BlocSupervisionAsignaturaEnviarEmailsAsingatura();
 }

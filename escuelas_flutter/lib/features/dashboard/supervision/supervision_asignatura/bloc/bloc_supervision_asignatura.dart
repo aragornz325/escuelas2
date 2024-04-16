@@ -16,7 +16,12 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
   BlocSupervisionAsignatura({required this.fecha})
       : super(BlocSupervisionAsignaturaEstadoInicial(fecha: fecha)) {
     on<BlocSupervisionAsignaturaEventoInicializar>(_onInicializar);
-    on<BlocSupervisionAsignaturaEnviarEmails>(_onEnviarEmails);
+    on<BlocSupervisionAsignaturaEnviarEmailAEstudiante>(
+      _onEnviarEmailAEstudiante,
+    );
+    on<BlocSupervisionAsignaturaEnviarEmailsAsingatura>(
+      _onEnviarEmailAsignatura,
+    );
   }
 
   /// Fecha de la pantalla anterior
@@ -109,8 +114,9 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
     );
   }
 
-  Future<void> _onEnviarEmails(
-    BlocSupervisionAsignaturaEnviarEmails event,
+  /// Envia un mail al estudiante
+  Future<void> _onEnviarEmailAEstudiante(
+    BlocSupervisionAsignaturaEnviarEmailAEstudiante event,
     Emitter<BlocSupervisionAsignaturaEstado> emit,
   ) async {
     emit(BlocSupervisionAsignaturaEstadoEnviandoEmail.desde(state));
@@ -132,6 +138,27 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
                 '${event.estudiante?.nombre} ${event.estudiante?.apellido}',
           ),
         );
+      },
+      onError: (e, st) => BlocSupervisionAsignaturaEstadoFallido.desde(state),
+    );
+  }
+
+  /// Envia un mail a la asignatura
+  Future<void> _onEnviarEmailAsignatura(
+    BlocSupervisionAsignaturaEnviarEmailsAsingatura event,
+    Emitter<BlocSupervisionAsignaturaEstado> emit,
+  ) async {
+    emit(BlocSupervisionAsignaturaEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        // await client.calificacion.enviarCalificacionesPorMesYAnio(
+        //   anio: state.fecha?.year ?? 0,
+        //   mes: state.fecha?.month ?? 0,
+        //   filtroDeEnvio: EnvioCalificaciones.porAsignatura,
+        //   idAsignaturas: [state.asignatura?.id],
+        // );
+
+        // emit(BlocSupervisionAsignaturaEstadoExitoso.desde(state));
       },
       onError: (e, st) => BlocSupervisionAsignaturaEstadoFallido.desde(state),
     );

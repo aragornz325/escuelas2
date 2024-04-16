@@ -33,7 +33,7 @@ class DialogConfirmarEnvioDeEmail extends StatelessWidget {
       context: context,
       onTapConfirmar: () {
         context.read<BlocSupervisionAsignatura>().add(
-              BlocSupervisionAsignaturaEnviarEmails(usuario),
+              BlocSupervisionAsignaturaEnviarEmailAEstudiante(usuario),
             );
         Navigator.of(context).pop();
       },

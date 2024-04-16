@@ -5,6 +5,7 @@ import 'package:escuelas_server/src/orms/orm_solicitud_calificacion_mensual.dart
 import 'package:escuelas_server/src/orms/orm_userInfo.dart';
 import 'package:escuelas_server/src/servicio.dart';
 import 'package:escuelas_server/src/servicios/servicio_comunicaciones.dart';
+import 'package:escuelas_server/src/servicios/servicio_one_signal.dart';
 import 'package:escuelas_server/src/servicios/servicio_usuario.dart';
 import 'package:escuelas_server/utils/constants.dart';
 import 'package:serverpod/server.dart';
@@ -21,6 +22,8 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitud> {
 
   final _ormRelacionAsignaturaUsuario = OrmRelacionAsignaturaUsuario();
   final _ormSolicitudDeCalificacionMensual = OrmSolicitudCalificacionMensual();
+
+  final _servicioOneSignal = ServicioOneSignal();
 
   /// La función `crearSolicitudNotaMensual` crea un registro de solicitud en una base de datos y devuelve el
   /// registro creado.
@@ -191,7 +194,8 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitud> {
       final asignatura = relacion.asignatura!;
       final comision = relacion.comision!;
 
-      logger.finer('Comprobando relacion docente ID ${docente.id}, asignatura ID ${asignatura.id}, comision ID ${comision.id}');
+      logger.finer(
+          'Comprobando relacion docente ID ${docente.id}, asignatura ID ${asignatura.id}, comision ID ${comision.id}');
 
       final solicitudDeCalificacionMensualEnviada =
           solicitudesDeCalificacionMensualExistentes
@@ -252,11 +256,14 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitud> {
           direccionesDeEmailDeContactoDelDocente = [];
         } else {
           direccionesDeEmailDeContactoDelDocente = [userInfoDocente.email!];
-          logger.finer('Enviando solicitudes a ${direccionesDeEmailDeContactoDelDocente.firstOrNull}...');
+          logger.finer(
+              'Enviando solicitudes a ${direccionesDeEmailDeContactoDelDocente.firstOrNull}...');
         }
       } else {
-        direccionesDeEmailDeContactoDelDocente = docente.direccionesDeEmail!.map((e) => e.direccionDeEmail).toList();
-        logger.finer('Enviando solicitudes a ${direccionesDeEmailDeContactoDelDocente.join(', ')}...');
+        direccionesDeEmailDeContactoDelDocente =
+            docente.direccionesDeEmail!.map((e) => e.direccionDeEmail).toList();
+        logger.finer(
+            'Enviando solicitudes a ${direccionesDeEmailDeContactoDelDocente.join(', ')}...');
       }
 
       final resultadoEnvioDeEmails = await _servicioComunicaciones.enviarEmail(
@@ -272,12 +279,20 @@ class ServicioSolicitudNotaMensual extends Servicio<OrmSolicitud> {
         ),
       );
 
+      _servicioOneSignal.enviarNotificacionesDeCargaDeCalificaciones(
+        docente,
+        asignatura.nombre,
+        comision.nombre,
+      );
+
       if (resultadoEnvioDeEmails.huboUnError == false) {
-        logger.finer('Solicitudes enviadas correctamente al docente ID ${docente.id}.');
+        logger.finer(
+            'Solicitudes enviadas correctamente al docente ID ${docente.id}.');
       }
     }
-    
-    logger.finer('Correos enviados. Insertando registros de solicitudes de calificación mensual...');
+
+    logger.finer(
+        'Correos enviados. Insertando registros de solicitudes de calificación mensual...');
 
     await _ormSolicitudDeCalificacionMensual.insertarVariosRegistrosEnDb(
       session,
