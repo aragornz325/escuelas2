@@ -121,11 +121,11 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
               child: EscuelasBoton.texto(
                 width: 340.pw,
                 height: max(40.ph, 40.sh),
-                estaHabilitado: true,
+                estaHabilitado: false,
                 onTap: () => _dialogConfirmarEnvioEmails(context),
                 color: colores.azul,
                 texto: '${l10n.pageComissionSupervisionSendEmail}'
-                    ' ${state.asignatura?.nombre}',
+                    ' ${state.asignatura?.nombre ?? '....'}',
                 context: context,
               ),
             ),

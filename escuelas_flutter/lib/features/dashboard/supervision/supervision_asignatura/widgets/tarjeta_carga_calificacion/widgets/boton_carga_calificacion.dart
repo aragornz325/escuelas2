@@ -16,10 +16,11 @@ class BotonCargaCalificacion extends StatelessWidget {
     super.key,
   });
 
+  /// Id del alumno para modificarlo
   final int idAlumno;
-
+  /// Calificacion del alumno
   final String calificacion;
-
+  /// Indica si se puede modificar o no.
   final bool esEditable;
 
   @override
@@ -46,7 +47,7 @@ class BotonCargaCalificacion extends StatelessWidget {
                   ? colores.onBackground
                   : Colors.white,
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: 20.pf,
             ),
           ),
         ),
