@@ -655,7 +655,50 @@
   "@pageEditProfileDialogAddContact": {
       "description": "Title of the dialog"
   },
-
+  "pageEditProfileDialogContactDeletedSuccessfully":"Contacto eliminado con éxito",
+  "@pageEditProfileDialogContactDeletedSuccessfully": {
+      "description": "Text in the alert dialog to notificate that the contact was deleted successfully."
+  },
+  "pageEditProfileDialogAreYouSure":"¿Seguro que quieres eliminar este contacto?",
+  "@pageEditProfileDialogAreYouSure": {
+      "description": "Question in the dialog to ask if the user is sure to delete the contact."
+  },
+  "pageEditProfileDialogEditContact":"Editar contacto",
+  "@pageEditProfileDialogEditContact": {
+      "description": "Title of the dialog"
+  },
+  "tagEmailPersonalPrimary": "Personal primario",
+  "@tagEmailPersonalPrimary": {
+    "description": "tag of personal primary"
+  },
+  "tagEmailPersonalSecondary": "Personal secundario",
+  "@tagEmailPersonalSecondary": {
+    "description": "tag of personal primario"
+  },
+  "tagEmailParents": "Padre/Madre/Tutor",
+  "@tagEmailParents": {
+    "description": "kinship tag of parents"
+  },
+  "tagEmailGrandparents": "Abuelo/Abuela",
+  "@tagEmailGrandparents": {
+    "description": "kinship tag of grandparents"
+  },
+  "tagEmailUncles": "Tio/Tia",
+  "@tagEmailUncles": {
+    "description": "kinship tag of uncles"
+  },
+  "tagEmailCousins": "Primo/Prima",
+  "@tagEmailCousins": {
+    "description": "kinship tag of cousin"
+  },
+  "tagEmailOther": "Otro",
+  "@tagEmailOther": {
+    "description": "kinship tag of other"
+  },
+  "tagEmailKinship": "Parentezco",
+  "@tagEmailKinship": {
+    "description": "tag of Kinship"
+  },
   "commonWelcome": "¡Bienvenido!",
   "@commonWelcome": {
     "description": "Welcoming text"

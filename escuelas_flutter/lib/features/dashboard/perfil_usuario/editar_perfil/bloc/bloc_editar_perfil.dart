@@ -16,6 +16,9 @@ class BlocEditarPerfil
     on<BlocEditarPerfilEventoTraerUsuario>(_ontraerUsuario);
     on<BlocEditarPerfilEventoGuardarCambios>(_onGuardarCambios);
     on<BlocEditarPerfilEventoEditarPassword>(_onEditarPassword);
+    on<BlocEditarPerfilEventoAgregarContacto>(_onAgregarContacto);
+    on<BlocEditarPerfilEventoEditarContacto>(_onEditarContacto);
+    on<BlocEditarPerfilEventoEliminarContacto>(_onEliminarEmail);
   }
 
   // / Funciona para traer la info de un usuario
@@ -131,6 +134,84 @@ class BlocEditarPerfil
             nuevaPassword: event.nuevaPassword,
             conRequerimientoDeCambioDePassword:
                 event.conRequerimientoDeCambioDePassword,
+          ),
+        );
+      },
+      onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
+    );
+  }
+
+  /// Funcion para agregar un contacto
+  Future<void> _onAgregarContacto(
+    BlocEditarPerfilEventoAgregarContacto event,
+    Emitter<BlocEditarPerfilEstado> emit,
+  ) async {
+    emit(BlocEditarPerfilEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        final direccionNueva =
+            await client.usuario.agregarDireccionDeEmailDeContactoAUsuario(
+          idUsuario: event.idUsuario,
+          direccionDeEmail: event.email,
+          etiqueta: event.etiqueta,
+        );
+        state.usuario!.direccionesDeEmail!.add(direccionNueva);
+        emit(
+          BlocEditarPerfilEstadoExitosoAlAgregarContacto.desde(
+            state,
+            usuario: state.usuario,
+          ),
+        );
+      },
+      onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
+    );
+  }
+/// Funcion para editar un contacto.
+  Future<void> _onEditarContacto(
+    BlocEditarPerfilEventoEditarContacto event,
+    Emitter<BlocEditarPerfilEstado> emit,
+  ) async {
+    emit(BlocEditarPerfilEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        final direccionDeEmailActualizada =
+            await client.usuario.modificarDireccionDeEmailDeContactoDeUsuario(
+          idDireccionDeEmail: event.idDireccionDeEmail,
+          nuevaDireccionDeEmail: event.nuevoEmail,
+          nuevaEtiqueta: event.nuevaEtiqueta,
+        );
+        state.usuario?.direccionesDeEmail
+            ?.removeWhere((element) => element.id == event.idDireccionDeEmail);
+        state.usuario?.direccionesDeEmail?.add(direccionDeEmailActualizada);
+
+        emit(
+          BlocEditarPerfilEstadoExitosoAlActualizar.desde(
+            state,
+            usuario: state.usuario,
+          ),
+        );
+      },
+      onError: (e, st) => emit(BlocEditarPerfilEstadoError.desde(state)),
+    );
+  }
+
+  /// Funcion que elimina un contacto
+  Future<void> _onEliminarEmail(
+    BlocEditarPerfilEventoEliminarContacto event,
+    Emitter<BlocEditarPerfilEstado> emit,
+  ) async {
+    emit(BlocEditarPerfilEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        await client.usuario.eliminarDireccionDeEmailDeContactoDeUsuario(
+          idDireccionDeEmail: event.idDireccionDeEmail,
+        );
+        state.usuario!.direccionesDeEmail!
+            .removeWhere((element) => element.id == event.idDireccionDeEmail);
+        emit(
+          BlocEditarPerfilEstadoExitosoAlEliminarEmail.desde(
+            state,
+            usuario: state.usuario,
           ),
         );
       },

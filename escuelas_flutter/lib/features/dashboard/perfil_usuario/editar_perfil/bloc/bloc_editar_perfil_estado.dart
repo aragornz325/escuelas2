@@ -72,6 +72,18 @@ class BlocEditarPerfilEstadoCargando extends BlocEditarPerfilEstado {
   BlocEditarPerfilEstadoCargando.desde(super.otro) : super.desde();
 }
 
+/// {@template BlocEditarPerfilEstadoExitosoAlAgregarContacto}
+/// Estado exitoso cuando se agrega un contacto
+/// {@endtemplate}
+class BlocEditarPerfilEstadoExitosoAlAgregarContacto
+    extends BlocEditarPerfilEstado {
+  /// {@macro BlocEditarPerfilEstadoExitosoALAgregarContacto}
+  BlocEditarPerfilEstadoExitosoAlAgregarContacto.desde(
+    super.otro, {
+    super.usuario,
+  }) : super.desde();
+}
+
 /// {@template BlocEditarPerfilEstadoExitoso}
 /// Estado exitoso de los componentes de la pantalla 'Editar perfil de usuario'
 /// {@endtemplate}
@@ -111,6 +123,18 @@ class BlocEditarPerfilEstadoExitosoEditarPassword
     super.otro, {
     super.nuevaPassword,
     super.conRequerimientoDeCambioDePassword,
+  }) : super.desde();
+}
+
+/// {@template BlocEditarPerfilEstadoExitosoAlEliminarEmail}
+/// Estado exitoso cuando elimina un email del usuario.
+/// {@endtemplate}
+class BlocEditarPerfilEstadoExitosoAlEliminarEmail
+    extends BlocEditarPerfilEstado {
+  /// {@macro BlocEditarPerfilEstadoExitosoAlEliminarEmail}
+  BlocEditarPerfilEstadoExitosoAlEliminarEmail.desde(
+    super.otro, {
+    super.usuario,
   }) : super.desde();
 }
 

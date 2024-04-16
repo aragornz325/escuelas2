@@ -84,3 +84,58 @@ class BlocEditarPerfilEventoEditarPassword extends BlocEditarPerfilEvento {
   /// un cambio de contraseña la proxima vez que inicie sesión.
   final bool conRequerimientoDeCambioDePassword;
 }
+
+/// {@template BlocEditarPerfilEventoAgregarContacto}
+/// Evento para agregar un contacto
+/// {@endtemplate}
+class BlocEditarPerfilEventoAgregarContacto extends BlocEditarPerfilEvento {
+  /// {@macro BlocEditarPerfilEventoAgregarContacto}
+  const BlocEditarPerfilEventoAgregarContacto({
+    required this.idUsuario,
+    required this.email,
+    required this.etiqueta,
+  });
+
+  /// Id del usuario
+  final int idUsuario;
+
+  /// Email a guardar del usuario.
+  final String email;
+
+  /// La etiqueta de parentezco del mail con el propietario del perfil
+  final EtiquetaDireccionEmail etiqueta;
+}
+
+/// {@template BlocEditarPerfilEventoEditarContacto}
+/// Evento para editar un contacto
+/// {@endtemplate}
+class BlocEditarPerfilEventoEditarContacto extends BlocEditarPerfilEvento {
+  /// {@macro BlocEditarPerfilEventoEditarContacto}
+  const BlocEditarPerfilEventoEditarContacto({
+    required this.idDireccionDeEmail,
+    required this.nuevoEmail,
+    required this.nuevaEtiqueta,
+  });
+
+  /// Id de la direccion de email a modificar
+  final int idDireccionDeEmail;
+
+  /// Nueva direccion de email
+  final String nuevoEmail;
+
+  /// La etiqueta de parentezco del mail con el propietario del perfil
+  final EtiquetaDireccionEmail nuevaEtiqueta;
+}
+
+/// {@template BlocEditarPerfilEventoEliminarEmail}
+/// Evento para eliminar un contacto
+/// {@endtemplate}
+class BlocEditarPerfilEventoEliminarContacto extends BlocEditarPerfilEvento {
+  /// {@macro BlocEditarPerfilEventoEliminarEmail}
+  const BlocEditarPerfilEventoEliminarContacto({
+    required this.idDireccionDeEmail,
+  });
+
+  /// ID de la direccion de email a eliminar
+  final int idDireccionDeEmail;
+}
