@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/bloc/bloc_supervision_envio_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/celular/vista_celular_supervision_envio_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_envio_calificaciones/escritorio/vista_escritorio_supervision_envio_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_envio_calificaciones/bloc/bloc_supervision_envio_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_envio_calificaciones/celular/vista_celular_supervision_envio_calificaciones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_envio_calificaciones/escritorio/vista_escritorio_supervision_envio_calificaciones.dart';
 import 'package:escuelas_flutter/src/full_responsive/full_responsive_screen.g.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

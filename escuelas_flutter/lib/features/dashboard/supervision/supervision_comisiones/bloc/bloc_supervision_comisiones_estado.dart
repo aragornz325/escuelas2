@@ -79,6 +79,16 @@ class BlocSupervisionComisionEstadoCargando
   BlocSupervisionComisionEstadoCargando.desde(super.otro) : super.desde();
 }
 
+/// {@template BlocSupervisionComisionEstadoCargandoAlMandarEmails}
+/// Estado de cargando al enviar los emails de las calificaciones.
+/// {@endtemplate}
+class BlocSupervisionComisionEstadoCargandoAlMandarEmails
+    extends BlocSupervisionComisionesEstado {
+  /// {@macro BlocSupervisionComisionEstadoCargandoAlMandarEmails}
+  BlocSupervisionComisionEstadoCargandoAlMandarEmails.desde(super.otro)
+      : super.desde();
+}
+
 /// {@template BlocSupervisionComisionEstadoExitoso}
 /// Estado exitoso general de los componentes de la pantalla
 /// 'Supervision Comisiones'
@@ -91,6 +101,16 @@ class BlocSupervisionComisionEstadoExitoso
     super.listaSupervisionComisiones,
     super.fecha,
   }) : super.desde();
+}
+
+/// {@template BlocSupervisionComisionEstadoExitosoAlMandarEmails}
+/// Estado exitoso para saber si se mandaron las calificaciones/emails
+/// {@endtemplate}
+class BlocSupervisionComisionEstadoExitosoAlMandarEmails
+    extends BlocSupervisionComisionesEstado {
+  /// {@macro BlocSupervisionComisionEstadoExitosoAlMandarEmails}
+  BlocSupervisionComisionEstadoExitosoAlMandarEmails.desde(super.otro)
+      : super.desde();
 }
 
 /// {@template BlocSupervisionComisionEstadoError}

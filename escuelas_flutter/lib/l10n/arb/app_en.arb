@@ -171,6 +171,10 @@
       }
     }
   },
+  "pageKycFormWhatYearIsYourSubject": "What year is your subject?",
+  "@pageKycFormWhatYearIsYourSubject": {
+    "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+  },
   "pageKycDropdownTitle": "Select an option",
   "@pageKycDropdownTitle": {
     "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
@@ -268,6 +272,62 @@
       }
     }
   },
+  
+  "pageComissionSupervisionDialogConfimationSendEmails": "Send emails to school comission?",
+  "@pageComissionSupervisionDialogConfimationSendEmails": {
+    "description": "Confirmation dialog text when asking the user if they want to send emails to the school commission"
+  },
+  
+  "pageComissionSupervisionSendingEmails": "Sending email to comissions...",
+  "@pageComissionSupervisionSendingEmails": {
+    "description": "Text displayed when emails are being sent to the commissions"
+  },
+  
+  "pageComissionSupervisionSendEmailsSuccess": "Emails sent successfully",
+  "@pageComissionSupervisionSendEmailsSuccess": {
+    "description": "Success message displayed when emails are sent successfully to the commissions"
+  },
+
+  "pageComissionSupervisionButtonSendEmails": "Send email to commissions?",
+  "@pageComissionSupervisionButtonSendEmails": {
+    "description": "Button text to send emails to the commissions"
+  },
+
+  "pageComissionSupervisionDialogNotGradesUploaded": "Not all grades are uploaded",
+  "@pageComissionSupervisionDialogNotGradesUploaded": {
+    "description": "Dialog message when not all grades are uploaded"
+  },
+
+  "pageComissionSupervisionDialogMessageTooltip": "You cannot send emails to committees. Verify that all grades are uploaded by the institution's teachers",
+  "@pageComissionSupervisionDialogMessageTooltip": {
+    "description": "Tooltip message explaining why emails cannot be sent to committees"
+  },
+
+  "pageComissionSupervisionMessageSendingEmail": "Sending email...",
+  "@pageComissionSupervisionMessageSendingEmail": {
+    "description": "Text displayed when an email is being sent"
+  },
+
+  "pageComissionSupervisionDialogSuccessSendEmailStudent": "Email successfully sent to ",
+  "@pageComissionSupervisionDialogSuccessSendEmailStudent": {
+    "description": "Text displayed when an email is sent successfully to a student"
+  },
+
+  "pageComissionSupervisionDialogWantToSendEmailSubject": "Do you want to send an email to all the students of this subject?",
+  "@pageComissionSupervisionDialogWantToSendEmailSubject": {
+    "description": "Text displayed when the user wants to send an email to all students of this subject"
+  },
+
+  "pageComissionSupervisionSendEmail": "Send email of",
+  "@pageComissionSupervisionSendEmail": {
+    "description": "Text to be displayed when the user wants to send an email to all students of this subject"
+  },
+
+  "pageGradeSubmissionSupervisionDialogConfimationSendEmails": "Send grades to email for ",
+  "@pageGradeSubmissionSupervisionDialogConfimationSendEmails": {
+        "description": "Confirmation message for sending grades to the email address of {firstnameAndLastName}."
+  },
+
   "pageGradesNoGrades": "There are no grades",
   "@pageGradesNoGrades": {
     "description": "Text to be displayed if there are no grades"
@@ -1138,6 +1198,10 @@
     "commonConfirmCloseApp": "Press again to exit",
     "@commonConfirmCloseApp": {
       "description": "Message to confirm app exit"
+    },
+    "commonButtonDecline": "Decline",
+    "@commonButtonDecline": {
+        "description": "It is commonly used in a button to decline"
     }
 
 }

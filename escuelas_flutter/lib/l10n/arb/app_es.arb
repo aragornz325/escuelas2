@@ -255,6 +255,55 @@
       }
     }
   },
+  "pageComissionSupervisionDialogConfimationSendEmails": "¿Enviar mails a las comisiones de la escuela?",
+  "@pageComissionSupervisionDialogConfimationSendEmails": {
+    "description": "Confirmation dialog text when asking the user if they want to send emails to the school commission"
+  },
+  
+  "pageComissionSupervisionSendingEmails": "Enviando email a las comisiones...",
+  "@pageComissionSupervisionSendingEmails": {
+    "description": "Text displayed when emails are being sent to the commissions"
+  },
+  
+  "pageComissionSupervisionSendEmailsSuccess": "Emails enviados con exito",
+  "@pageComissionSupervisionSendEmailsSuccess": {
+    "description": "Success message displayed when emails are sent successfully to the commissions"
+  },
+  "pageComissionSupervisionButtonSendEmails": "¿Enviar email a las comisiones?",
+  "@pageComissionSupervisionButtonSendEmails": {
+    "description": "Button text to send emails to the commissions"
+  },
+
+  "pageComissionSupervisionDialogNotGradesUploaded": "No estan todas las calificaciones cargadas",
+  "@pageComissionSupervisionDialogNotGradesUploaded": {
+    "description": "Dialog message when not all grades are uploaded"
+  },
+  
+  "pageComissionSupervisionDialogMessageTooltip": "No se puede enviar emails a las comisiones. Verifique que todas las calificaciones esten cargadas por los docentes de la institucion",
+  "@pageComissionSupervisionDialogMessageTooltip": {
+    "description": "Tooltip message explaining why emails cannot be sent to committees"
+  },
+  
+  "pageComissionSupervisionMessageSendingEmail": "Enviando email...",
+  "@pageComissionSupervisionMessageSendingEmail": {
+    "description": "Text displayed when an email is being sent"
+  },
+
+  "pageComissionSupervisionDialogSuccessSendEmailStudent": "Email enviado con exito a",
+  "@pageComissionSupervisionDialogSuccessSendEmailStudent": {
+    "description": "Text displayed when an email is sent successfully to a student"
+  },
+
+  "pageComissionSupervisionDialogWantToSendEmailSubject": "¿Quieres enviar un email a todos los alumnos de esta asignatura?",
+  "@pageComissionSupervisionDialogWantToSendEmailSubject": {
+    "description": "Text displayed when the user wants to send an email to all students of this subject"
+  },
+
+  "pageComissionSupervisionSendEmail": "Enviar email de",
+  "@pageComissionSupervisionSendEmail": {
+    "description": "Text to be displayed when the user wants to send an email to all students of this subject"
+  },
+
   "pageGradesNoGrades": "No hay calificaciones",
   "@pageGradesNoGrades": {
     "description": "Text to be displayed if there are no grades"
@@ -269,14 +318,23 @@
     }
   },
 
-    "pageGradeSubmissionSupervisionButtonSendQualifications": "Enviar calificaciones",
-    "@pageGradeSubmissionSupervisionButtonSendQualifications": {
+  "pageGradeSubmissionSupervisionButtonSendQualifications": "Enviar calificaciones",
+  "@pageGradeSubmissionSupervisionButtonSendQualifications": {
         "description": "Text for a button used to send grades."
-    },
-      "pageLoginTextAllRightsReserved": "Desarrollado por © Nidus Development - Argentina\nTodos los derechos reservados",
+  },
+
+  "pageGradeSubmissionSupervisionDialogConfimationSendEmails": "¿Enviar calificaciones al correo para ",
+  "@pageGradeSubmissionSupervisionDialogConfimationSendEmails": {
+        "description": "Confirmation message for sending grades to the email address of {firstnameAndLastName}."
+      
+        
+  },
+
+  "pageLoginTextAllRightsReserved": "Desarrollado por © Nidus Development - Argentina\nTodos los derechos reservados",
   "@pageLoginTextAllRightsReserved": {
     "description": "text to indicate the origin of development"
   },
+
   "pageLoginTextOr": "O",
   "@pageLoginTextOr": {
     "description": "text to indicate the the options of login"
@@ -906,7 +964,8 @@
   "pageManageTemplatesDialogDeletedSuccessfully": "Eliminado exitosamente",
   "@pageManageTemplatesDialogDeletedSuccessfully": {
     "description": "Text to be displayed in the dialog to notify for deleted successfully"
-  },  
+  },
+  
   "dialogCreationNotificationCreateNotification": "Crear notificación",
   "@dialogCreationNotificationCreateNotification": {
       "description": "Create notification"

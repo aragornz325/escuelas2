@@ -53,7 +53,7 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
   void _cambiarNombreRuta() {
     if (!mounted) return;
 
-    final rutas = context.router.current.name;
+    final rutas = context.router.topMatch.name;
 
     final l10n = context.l10n;
 
@@ -82,13 +82,13 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
         RutaSupervisionComisiones.name => l10n.routeNameCommissionSupervision,
         RutaMenuComunicaciones.name => l10n.routeNameMenuCommunications,
         RutaComunicaciones.name => l10n.routeNameMenuCommunications,
-        // TODO(SAM): Ver de cambiar nombre de ruta en el appbar
         RutaComunicacionesPendientes.name =>
           l10n.routeNamePendingCommunications,
         RutaComunicacionesGeneral.name => l10n.routeNameGeneralCommunications,
         RutaComunicacionesCursos.name => l10n.routeNameCourseCommunications,
         RutaSupervisionEnvioCalificaciones.name =>
           l10n.routeNameGradeSubmissionSupervision,
+        RutaSupervision.name => l10n.routeNameCommissionSupervision,
         _ => '',
       },
     );

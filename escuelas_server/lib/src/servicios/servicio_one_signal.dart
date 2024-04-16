@@ -47,6 +47,35 @@ class ServicioOneSignal {
     await Future.wait(futures);
   }
 
+  /// Envia notificaciones de Carga de Calificaciones a los docentes.
+  Future<void> enviarNotificacionesDeCargaDeCalificaciones(
+    Usuario docente,
+    String nombreAsignatura,
+    String comision,
+  ) async {
+    final userId = docente.id.toString();
+
+    final nombreUsuario = docente.nombre.toString();
+
+    final apellidoUsuario = docente.apellido.toString();
+
+    // TODO(ANYONE): Las notificaciones deberian estar guardadas en base de datos, carry over en esa HU.
+    // https://tree.taiga.io/project/rodsevich-escuelas/us/208?kanban-status=7686844&kanban-swimlane=15087
+    final notificationData = NotificacionData(
+      titulo: 'Inasistencia de $nombreUsuario $apellidoUsuario.',
+      contenido:
+          'En el día de la fecha se registró ${nombreAsignatura} ${comision} para $nombreUsuario $apellidoUsuario. Por favor revise su estado de Carga de Calificación/es.',
+      pathRuta: 'my-courses',
+      // TODO(ANYONE): Agregar ID notificacion una vez implementado el CRUD.
+      idNotificacion: '1',
+    );
+
+    await ManejadorOneSignal.instance.enviarPushNotification(
+      notificationData: notificationData,
+      includeExternalUserIds: [userId],
+    );
+  }
+
   /// Envia notificaciones de solicitudes de comunicaciones/ notificaciones pendientes a resolver
   /// por el directivo.
   Future<void> enviarNotificacionesDeSolicitudesNotificacionesPendientes({

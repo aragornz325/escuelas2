@@ -21,3 +21,12 @@ class BlocSupervisionComisionesEventoInicializar
   /// Fecha utilizada para traer los datos de las comisiones
   final DateTime fecha;
 }
+
+/// {@template BlocSupervisionComisionesEventoEnviarEmails}
+/// Evento para enviar los correos a las comisiones.
+/// {@endtemplate}
+class BlocSupervisionComisionesEventoEnviarEmails
+    extends BlocSupervisionComisionesEvento {
+  /// {@macro BlocSupervisionComisionesEventoEnviarEmails}
+  const BlocSupervisionComisionesEventoEnviarEmails();
+}

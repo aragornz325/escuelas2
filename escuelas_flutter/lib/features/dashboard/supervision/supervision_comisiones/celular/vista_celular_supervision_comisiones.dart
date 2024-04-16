@@ -1,6 +1,8 @@
+import 'package:escuelas_commons/permisos/permisos.dart';
+import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/bloc/bloc_supervision_comisiones.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision_comisiones/widgets/lista_comisiones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_comisiones/bloc/bloc_supervision_comisiones.dart';
+import 'package:escuelas_flutter/features/dashboard/supervision/supervision_comisiones/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/selector_de_periodo/delegates/periodo_mensual_delegate.dart';
@@ -47,6 +49,8 @@ class _VistaCelularSupervisionComisionState
           margin: EdgeInsets.symmetric(horizontal: 20.pw, vertical: 10.ph),
         ),
         const ListaComisiones(),
+        if (context.tienePermiso(PermisoDeSolicitud.crearSolicitud))
+          const BotonEnviarEmails(),
         BlocBuilder<BlocSupervisionComisiones, BlocSupervisionComisionesEstado>(
           builder: (context, state) {
             if (state.todasAsignaturasCargadasDeTodasLasComisiones &&
