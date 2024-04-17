@@ -54,6 +54,12 @@ class _EscuelasConfirmarCerrarAppState
   }
 
   @override
+  void initState() {
+    _toastDelTiempo = Timer(Duration.zero, () {});
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _toastDelTiempo.cancel();
     super.dispose();
