@@ -164,7 +164,8 @@ class CalificacionEndpoint extends Endpoint with Controller {
           numeroDeMes: numeroDeMes,
           idAsignatura: idAsignatura,
           idComision: idComision,
-        ),permisoRequerido: PermisoDeCalificacion.verCalificacion,
+        ),
+        permisoRequerido: PermisoDeCalificacion.verCalificacion,
       );
 
   Future<void> actualizarCalificacionesMensualesEnLote(
@@ -177,7 +178,8 @@ class CalificacionEndpoint extends Endpoint with Controller {
         () async => await servicio.actualizarCalificacionesMensualesEnLote(
           session,
           calificacionesMensuales: calificacionesMensuales,
-        ),permisoRequerido: PermisoDeCalificacion.editarCalificacion,
+        ),
+        permisoRequerido: PermisoDeCalificacion.editarCalificacion,
       );
 
   Future<bool> enviarCalificacionesPorMesYAnio(
@@ -188,6 +190,7 @@ class CalificacionEndpoint extends Endpoint with Controller {
     List<int>? idCursos,
     List<int>? idComisiones,
     List<int>? idEstudiantes,
+    List<int>? idAsignaturas,
   }) async {
     return await ejecutarOperacionControlador(
       session,
@@ -200,7 +203,9 @@ class CalificacionEndpoint extends Endpoint with Controller {
         idCursos: idCursos,
         idComisiones: idComisiones,
         idEstudiantes: idEstudiantes,
-      ),permisoRequerido: PermisoDeCalificacion.crearCalificacion,
+        idAsignaturas: idAsignaturas,
+      ),
+      permisoRequerido: PermisoDeCalificacion.crearCalificacion,
     );
   }
 }

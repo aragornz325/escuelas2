@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:escuelas_server/constants/config.dart';
@@ -312,6 +313,7 @@ GROUP BY rau."comisionId", com.nombre;
     List<int>? idCursos,
     List<int>? idComisiones,
     List<int>? idEstudiantes,
+    List<int>? idAsignaturas,
   }) async {
     switch (filtroDeEnvio) {
       case EnvioCalificaciones.todos:
@@ -348,6 +350,20 @@ GROUP BY rau."comisionId", com.nombre;
           () => _enviarCalificacionesAEstudiantes(
             session,
             idEstudiantes: idEstudiantes,
+            mes: mes,
+            anio: anio,
+          ),
+        );
+      case EnvioCalificaciones.porAsignatura:
+        if (idAsignaturas == null ||
+            idAsignaturas.isEmpty ||
+            idComisiones == null ||
+            idComisiones.isEmpty) return false;
+        return await ejecutarOperacion(
+          () => _enviarCalificacionesAComisiones(
+            session,
+            idAsignaturas: idAsignaturas,
+            idComisiones: idComisiones,
             mes: mes,
             anio: anio,
           ),
@@ -616,6 +632,7 @@ GROUP BY rau."comisionId", com.nombre;
 
   Future<bool> _enviarCalificacionesAComisiones(
     Session session, {
+    List<int>? idAsignaturas,
     required int mes,
     required int anio,
     required List<int> idComisiones,
@@ -660,14 +677,27 @@ GROUP BY rau."comisionId", com.nombre;
         Map<String, dynamic> asignaturasCalificaciones = {};
         logger.finer('Extrayendo y ordenando calificaciones del estudiante...');
         for (var asignatura in comision.listaDeAsignaturas) {
-          asignaturasCalificaciones[asignatura.nombre] = calificaciones
-              .where(
-                (element) =>
-                    element.asignaturaId == asignatura.id &&
-                    element.estudianteId == estudiante.id,
-              )
-              .firstOrNull
-              ?.allToJson();
+          if (idAsignaturas != null) {
+            if (idAsignaturas.contains(asignatura.id)) {
+              asignaturasCalificaciones[asignatura.nombre] = calificaciones
+                  .where(
+                    (element) =>
+                        element.asignaturaId == asignatura.id &&
+                        element.estudianteId == estudiante.id,
+                  )
+                  .firstOrNull
+                  ?.allToJson();
+            }
+          } else {
+            asignaturasCalificaciones[asignatura.nombre] = calificaciones
+                .where(
+                  (element) =>
+                      element.asignaturaId == asignatura.id &&
+                      element.estudianteId == estudiante.id,
+                )
+                .firstOrNull
+                ?.allToJson();
+          }
         }
 
         logger.finest(
