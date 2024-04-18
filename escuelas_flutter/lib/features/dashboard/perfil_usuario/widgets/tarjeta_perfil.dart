@@ -1,17 +1,20 @@
 import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/permisos/permisos.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/extensiones/usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/widget.dart';
 import 'package:escuelas_flutter/gen/assets.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
-import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 /// {@template TarjetaPerfil}
@@ -48,6 +51,19 @@ class TarjetaPerfil extends StatelessWidget {
   /// Usuario logueado, utilizado para verificar si tiene
   /// los permisos pertinentes
   final Usuario usuarioLogueado;
+
+  /// Dialog de confirmacion para eliminar el usuario
+  Future<void> _confirmarEliminado(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: DialogEliminarDocente(idUsuario: usuario?.id ?? 0),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -140,12 +156,7 @@ class TarjetaPerfil extends StatelessWidget {
                     EscuelasBoton.texto(
                       width: 185.pw,
                       estaHabilitado: true,
-                      //! TODO(): Dar funcion
-                      onTap: () => showDialog<void>(
-                        context: context,
-                        builder: (context) =>
-                            EscuelasDialog.featNoDisponible(context: context),
-                      ),
+                      onTap: () => _confirmarEliminado(context),
                       color: colores.rojoTED,
                       texto:
                           '${l10n.commonDelete.capitalize} ${roles.capitalize}',

@@ -53,1125 +53,1130 @@
       }
     }
   },
-  "pageRegisterDialogContentText": "{exceptionType, select, registerDuplicatedIdNumber{El número de DNI ya se ha utilizado} registerDuplicatedEmail{El email provisto se encuentra en uso.} other{Error desconocido}}",
-  "@pageRegisterDialogContentText": {
-    "description": "Text in the dialog to indicate that an error ocurred",
-    "placeholders":{
-      "exceptionType": {
-        "type":"String",
-        "description": "the possible exceptions types that a register page can throw",
-        "values":{
-          "registerDuplicatedIdNumber": "when an Id number is already taken",
-          "registerDuplicatedEmail": "when the email address provided is already in use"
+      "pageRoleAssigmentPersonalInformationText":"Datos personales",
+      "@pageRoleAssigmentPersonalInformationText":{
+        "description": "Message used to represent the personal information section in role assignment."
+      },
+
+      "pageRoleAssigmentDialogFirstText": "¿Estás seguro que deseas\n confirmar a ",
+      "@pageRoleAssigmentDialogFirstText": {
+        "description": "Initial text of a dialog box to confirm role assignment"
+      },
+      "pageRoleAssigmentDialogSecondText": "\n como ",
+      "@pageRoleAssigmentDialogSecondText": {
+        "description": "Secondary text of a dialog box to confirm role assignment."
+      },
+      "pageRoleAssigmentPendingUsers": "Datos personales",
+      "@pageRoleAssigmentPendingUsers": {
+        "description": "This message is used for the title of a page or section that deals with pending user role assignments."
+      },
+      "pageRoleAssigmentNoPendingUsers": "No hay usuarios pendientes",
+      "@pageRoleAssigmentNoPendingUsers": {
+        "description": "This message is used when the institution doesnt have pending users."
+      },
+      "pageKycFormConfirmationDialogText": "¿Estás seguro que deseas solicitar el rol {roleName}?",
+      "@pageKycConfirmationDialogText": {
+        "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",
+        "placeholders": {
+          "roleName": {
+            "type": "String"
+          }
+        }
+      },
+      "pageKycAwaitApprovalDescription": "Tu cuenta y rol están pendientes a aprobar por los directivos.\n Te informaremos mediante un mail.",
+      "@pageKycAwaitApprovalDescription": {
+        "description": "Text of the page Await Approval where it informs the user that his role and account are pending for approval and will contact him with a mail."
+      },
+      "pageKycAwaitApprovalAcceptUser": "Aceptar usuario",
+      "@pageKycAwaitApprovalAcceptUser": {
+        "description": "Text of the button of the page Await Approval to accept the user."
+      },
+      "pageKycFormAddSubject": "Agregar asignatura",
+      "@pageKycFormAddSubject": {
+        "description": "Button label to add a subject in the KYC (Know Your Customer) process."
+      },
+      "pageKycFormDeleteSubject": "Eliminar asignatura",
+      "@pageKycFormDeleteSubject": {
+        "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
+      },
+      "pageKycFormWhatGradeAreYouIn": "¿En qué comisión estás?",
+      "@pageKycFormWhatGradeAreYouIn": {
+        "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
+      },
+      "pageKycFormWhichSubjectIsIt": "¿Qué asignatura es?",
+      "@pageKycFormWhichSubjectIs": {
+        "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
+      },
+      "pageKycFormWhatYearIsYourSubject": "¿De qué año es tu asignatura?",
+      "@pageKycFormWhatYearIsYourSubject": {
+        "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+      },
+      "pageKycFormTitle": "Formulario de {roleName}",
+      "@pageKycFormTitle": {
+        "description": "Title for the KYC form page with a placeholder for the role name.",
+        "placeholders": {
+          "roleName": {
+            "type": "String"
+          }
+        }
+      },
+      "pageKycFormDescription": "Contesta estas preguntas sobre vos. Necesitamos esta información a modo de identificarte en tu solicitud.",
+      "@pageKycFormDescription": {
+        "description": "Description guiding the user to answer questions for identity verification in the KYC process."
+      },
+      "pageKycFormChooseSubject": "Elegí tu asignatura",
+      "@pageKycFormChooseSubject": {
+        "description": "Question asking the user to choose the subject in the formfield."
+      },
+      "pageKycFormChooseComission": "Elegí tu comisión",
+      "@pageKycFormChooseComission": {
+        "description": "Question asking the user to choose the comission in the formfield."
+      },
+      "pageKycRoleSelectionTitle": "Selección de roles",
+      "@pageKycRoleSelectionTitle": {
+        "description": "Title for the page where users select their roles."
+      },
+      "pageKycFormNoSelectedComission": "Agregá tu comisión asignada\npara continuar",
+      "@pageKycFormNoSelectedComission": {
+        "description": "Message displayed when a user needs to add their assigned commission to proceed in the KYC form."
+      },
+      "pageKycFormNoSelectedSubject": "Agrega las asignaturas que\ntengas asignadas para\ncontinuar",
+      "@pageKycFormNoSelectedSubject": {
+        "description": "Message displayed when a user needs to add the subjects that have been assigned to them to proceed in the KYC form."
+      },
+      "pageKycRoleSelectionWelcome": "¡Hola, {firstnameAndLastName}, decinos cual es tu rol!",
+      "@pageKycRoleSelectionWelcome": {
+        "description": "Welcome message prompting the user to specify their role.",
+        "placeholders": {
+          "firstnameAndLastName": {
+            "type": "String"
+          }
+        }
+      },
+      "pageKycSuccessDialogDescription": "Registro Exitoso",
+      "@pageKycSuccessDialogDescription": {
+        "description": "Description of the alert dialog of success after the KYC"
+      },
+      "pageKycDropdownTitle": "Selecciona una opción",
+      "@pageKycDropdownTitle": {
+        "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
+      },
+      "pageKycErrorOptionAlreadySelected": "Esta opción ya ha sido seleccionada",
+      "@pageKycErrorOptionAlreadySelected": {
+        "description": "Error message displayed when a user attempts to select an option that has already been chosen in the KYC form."
+      },
+      "pageKycNoSubjectsRelated": "There are no subjects from this commission",
+      "@pageKycNoSubjectsRelated": {
+        "description": ""
+      },
+      "pageRoleConfirmationText": "Te registrarás con el rol {roleName}. Todo rol tiene que ser aprobado por el administrador. Una vez aprobado podrás usar la app.",
+      "@pageRoleConfirmationText": {
+        "description": "Text displayed to confirm the selected role during the registration process.",
+        "placeholders": {
+          "roleName": {
+            "type": "String"
+          }
+        }
+      },
+      "pageLoginCredentialsIndicativeText": "Ingrese sus credenciales de ingreso brindadas\npreviamente por el colegio o directivo",
+      "@pageLoginCredentialsIndicativeText": {
+        "description": "Text to indicate that you must enter your credentials"
+      },
+      "pageLoginLoginWithGoogle": "Ingresar con Google",
+      "@pageLoginLoginWithGoogle": {
+        "description": "Text to indicate the log in with google system"
+      },
+      "pageComissionSupervisionNoComissions": "No hay comisiones para mostrar",
+      "@pageComissionSupervisionNoComissions": {
+        "description": ""
+      },
+      "pageComissionSupervisionNotAvailable": "No disponible",
+      "@pageComissionSupervisionNotAvailable": {
+        "description": ""
+      },
+      "pageComissionSupervisionSendingDate": "Fecha de envío: {date}",
+      "@pageComissionSupervisionSendingDate": {
+        "description": "",
+        "placeholders": {
+          "date": {
+            "type": "String"
+          }
+        }
+      },
+      "pageComissionSupervisionProportionOfLoadedsubjects": "{numbreOfLoadedGrades} de {numberOfGrades}",
+      "@pageComissionSupervisionProportionOfLoadedsubjects": {
+        "description": "",
+        "placeholders": {
+          "numbreOfLoadedGrades": {
+            "type": "int"
+          },
+          "numberOfGrades": {
+            "type": "int"
+          }
+        }
+      },
+      "pageGradeSubmissionSupervisionButton": "Request missing grades({numberOfGrades})",
+      "@pageGradeSubmissionSupervisionButton": {
+        "description": "Represents the text for a button that is used to request missing grades. The {numberOfGrades} placeholder is used to dynamically indicate the number of missing grades.",
+        "placeholders": {
+          "numberOfGrades": {
+            "type": "int"
+          }
+        }
+      },
+      "pageLoginTextAllRightsReserved": "Desarrollado por © Nidus Development - Argentina\nTodos los derechos reservados",
+      "@pageLoginTextAllRightsReserved": {
+        "description": "text to indicate the origin of development"
+      },
+      "pageLoginTextOr": "O",
+      "@pageLoginTextOr": {
+        "description": "text to indicate the the options of login"
+      },
+      "pageLoginDialogAnErrorOccurred": "Ocurrió un error al registrarse.",
+      "@pageLoginDialogAnErrorOccurred": {
+        "description": "Text in the dialog to indicate that an error ocurred"
+      },
+      "pageHomeNoOptionsMenu": "No hay menús disponibles",
+      "@pageHomeNoOptionsMenu": {
+        "description": "There are no options available in the menu"
+      },
+      "pageGradesNotGrades": "No hay calificaciones",
+      "@pageGradesNotGrades": {
+        "description": "Text to be displayed if there are no grades"
+      },
+      "pageGradesStudentCardAverage": "Promedio: ",
+      "@pageGradesStudentCardAverage": {
+        "description": "Text to be displayed next to the average of the student grades."
+      },
+      "pageAcademicCommunityNoUsersToShow": "No hay usuarios para mostrar",
+      "@pageAcademicCommunityNoUsersToShow": {
+        "description": "There are no users to show text"
+      },
+      "pageUserProfileButtonDeleteTeacher": "Eliminar docente",
+      "@pageUserProfileButtonDeleteTeacher": {
+        "description": "Text in button to delete the current teacher"
+      },
+      "pageUserProfileButtonAddSubject": "Añadir asignatura",
+      "@pageUserProfileButtonAddSubject": {
+        "description": "Text in button to Add a new subject for the current teacher"
+      },
+      "pageUserProfileKyCPersonalInformation": "Datos personales",
+      "@pageUserProfileKyCPersonalInformation": {
+        "description": "Title of the page KyC to edit personal information"
+      },
+      "pageUserProfileKyCBloodFactor": "Factor sanguíneo",
+      "@pageUserProfileKyCBloodFactor": {
+        "description": "Title of the page KyC to edit the blood factor"
+      },
+      "pageUserProfileKyCEmergencyContact": "Contacto de emergencia",
+      "@pageUserProfileKyCEmergencyContact": {
+        "description": "Title in the page KyC of emergency contact"
+      },
+      "pageUserProfileKyCConfirmationSaveChanges": "¿Estas seguro que deseas editar los datos personales de ",
+      "@pageUserProfileKyCConfirmationSaveChanges": {
+        "description": "Text in te alert dialog to confirm the save changes of personal data"
+      },
+      "pageUserProfileKyCSuccessfulEdition": "¿El perfil fue editado con éxito!",
+      "@pageUserProfileKyCSuccessfulEdition": {
+        "description": "Text in te alert dialog to confirm the edited successfully save changes of personal data"
+      },
+      "pageUserProfileConfirmDeleteQuestion": "Al continuar eliminaras PERMANENTEMENTE a ",
+      "@pageUserProfileConfirmDeleteQuestion": {
+        "description": "Text in te alert dialog to confirm delete the teacher"
+      },
+      "pageUserProfileTeacherList": " de tu lista de docentes",
+      "@pageUserProfileTeacherList": {
+        "description": "Text in te alert dialog to confirm delete the teacher"
+      },
+      "pageUserProfileTeacherSuccessfullyEliminated": " fue eliminado con éxito",
+      "@pageUserProfileTeacherSuccessfullyEliminated": {
+        "description": "Text in the alert dialog to confirm delete the teacher"
+      },
+      "pageUserProfileSelectTheSubjectToDelete": "Select the subject you want to delete",
+      "@pageUserProfileSelectTheSubjectToDelete": {
+        "description": "Text in the alert dialog to select the subject to delete"
+      },
+      "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
+      "@dialogErrorToSendGrades": {
+        "description": "Label indicating an error when sending notes."
+      },
+      "dialogSuccessToSendGrades": "¡Las calificaciones fueron enviadas\n correctamente!",
+      "@dialogSuccessToSendGrades": {
+        "description": "Label indicating successful sending of grades."
+      },
+      "dropdownErrorMustCompleteField": "You must complete this field!",
+      "@dropdownErrorMustCompleteField": {
+        "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
+      },
+      "commonWelcome": "¡Bienvenido!",
+      "@commonWelcome": {
+        "description": "Welcoming text"
+      },
+      "drawerMyProfile": "Mi perfil",
+      "@drawerMyProfile": {
+        "description": "Text of the button that indicates  that you will be redirected to profile page"
+      },
+      "dialogAbsencesSentCorrectly": "Inasistencias enviadas correctamente",
+      "@dialogAbsencesSentCorrectly": {
+        "description": "Text to be displayed in the title of the dialog when absences to sent correctly"
+      },
+      "dialogLogoutQuestion": "Está seguro que \ndesea cerrar sesión?",
+      "@dialogLogoutQuestion": {
+        "description": "Text of the dialog that asks the user if he is sure he wants to logout"
+      },
+      "drawerSettings": "Configuración",
+      "@drawerSettings": {
+        "description": "Text of the button to indicate that you will be redirected to settings page"
+      },
+      "drawerLogOut": "Cerrar sesión",
+      "@drawerLogOut": {
+        "description": "Text of the button in the logout item"
+      },
+      "routeNameHome": "Inicio",
+      "@routeNameHome": {
+        "description": ""
+      },
+      "routeNameLogin": "Ingresar",
+      "@routeNameLogin": {
+        "description": ""
+      },
+      "routeNameAbsences": "Inasistencias",
+      "@routeNameAbsences": {
+        "description": ""
+      },
+      "routeNameAcademicCommunity": "Comunidad academica",
+      "@routeNameAcademicCommunity": {
+        "description": ""
+      },
+      "routeNameKyc": "Formulario de registro",
+      "@routeNameKyc": {
+        "description": ""
+      },
+      "routeRoleSelection": "Selección de rol",
+      "@routeRoleSelection": {
+        "description": ""
+      },
+      "routeNameForm": "Formulario",
+      "@routeNameForm": {
+        "description": ""
+      },
+      "routeNameAwaitApproval": "En espera de aprobación",
+      "@routeNameAwaitApproval": {
+        "description": ""
+      },
+      "routeNameDashboard": "Dashboard",
+      "@routeNameDashboard": {
+        "description": ""
+      },
+      "routeNameUserProfile": "Perfil de usuario",
+      "@routeNameUserProfile": {
+        "description": ""
+      },
+      "routeNamePendingUserProfile": "Perfil de usuario pendiente",
+      "@routeNamePendingUserProfile": {
+        "description": ""
+      },
+      "routeNameCourses": "Cursos",
+      "@routeNameCourses": {
+        "description": ""
+      },
+      "routeUploadGrades": "Carga de calificaciones",
+      "@routeUploadGrades": {
+        "description": ""
+      },
+      "routeNamePendingUsers": "Usuarios pendientes",
+      "@routeNamePendingUsers": {
+        "description": ""
+      },
+      "routeAcademicCommunityMenu": "Menú",
+      "@routeAcademicCommunityMenu": {
+        "description": ""
+      },
+      "routeAcademicCommunityList": "Lista",
+      "@routeAcademicCommunityList": {
+        "description": ""
+      },
+      "routeNameCommissionSupervision": "Supervisión de comisiones",
+      "@routeNameCommissionSupervision": {
+        "description": ""
+      },
+      "routeNameGradeSubmissionSupervision": "Supervisión de envío de calificaciones",
+      "@routeNameGradeSubmissionSupervision": {
+        "description": ""
+      },
+      "commonSaveChanges": "Guardar cambios",
+      "@commonSaveChanges": {
+        "description": "Text in button to save changes"
+      },
+      "commonAttention": "Attention",
+      "@commonAttention": {
+        "description": "text to notify attention"
+      },
+      "commonWantToContinue": "¿Do you want to continue?",
+      "@commonWantToContinue": {
+        "description": "continue question"
+      },
+    
+    "pageRegisterDialogContentText": "{exceptionType, select, registerDuplicatedIdNumber{El número de DNI ya se ha utilizado} registerDuplicatedEmail{El email provisto se encuentra en uso.} other{Error desconocido}}",
+    "@pageRegisterDialogContentText": {
+      "description": "Text in the dialog to indicate that an error ocurred",
+      "placeholders": {
+        "exceptionType": {
+          "type": "String",
+          "description": "the possible exceptions types that a register page can throw",
+          "values": {
+            "registerDuplicatedIdNumber": "when an Id number is already taken",
+            "registerDuplicatedEmail": "when the email address provided is already in use"
+          }
         }
       }
-    }
-  },
-  "pageRegisterRegisterSuccessful": "Registro exitoso",
-  "@pageRegisterRegisterSuccessful": {
-    "description": "a bottom sheet that displays the successful message"
-  },
-  "pageRoleAssigmentPersonalInformation": "Datos personales",
-  "@pageRoleAssigmentPersonalInformation": {
-    "description": "Message used to represent the personal information section in role assignment."
-  },
-  "pageRoleAssigmentDialogFirstText": "¿Estás seguro que deseas\n confirmar a ",
-  "@pageRoleAssigmentDialogFirstText": {
-    "description": "Initial text of a dialog box to confirm role assignment"
-  },
-  "pageRoleAssigmentDialogSecondText": "\n como ",
-  "@pageRoleAssigmentDialogSecondText": {
-    "description": "Secondary text of a dialog box to confirm role assignment."
-  },
-  "pageRoleAssigmentPendingUsers": "Datos personales",
-  "@pageRoleAssigmentPendingUsers": {
-    "description": "This message is used for the title of a page or section that deals with pending user role assignments."
-  },
-  "pageRoleAssigmentNoPendingUsers": "No hay usuarios pendientes",
-  "@pageRoleAssigmentNoPendingUsers": {
-    "description": "This message is used when the institution doesnt have pending users."
-  },
-  "pageKycFormConfirmationDialogText": "¿Estás seguro que deseas solicitar el rol {roleName}?",
-  "@pageKycConfirmationDialogText": {
-    "description": "Confirmation dialog text asking the user to confirm applying for a specific role.",
-    "placeholders": {
-      "roleName": {
-        "type": "String"
-      }
-    }
-  },
-  "pageKycFormWhichGradeIsYourSubject": "¿De qué año es tu materia?",
-  "@pageKycFormWhichGradeIsYourSubject": {
-    "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
-  },
-  "pageKycAwaitApprovalDescription": "Tu cuenta y rol están pendientes a aprobar por los directivos.\n Te informaremos mediante un mail.",
-  "@pageKycAwaitApprovalDescription": {
-    "description": "Text of the page Await Approval where it informs the user that his role and account are pending for approval and will contact him with a mail."
-  },
-  "pageKycAwaitApprovalAcceptUser": "Aceptar usuario",
-  "@pageKycAwaitApprovalAcceptUser": {
-    "description": "Text of the button of the page Await Approval to accept the user."
-  },
-  "pageKycFormAddSubject": "Agregar asignatura",
-  "@pageKycFormAddSubject": {
-    "description": "Button label to add a subject in the KYC (Know Your Customer) process."
-  },
-  "pageKycFormDeleteSubject": "Eliminar asignatura",
-  "@pageKycFormDeleteSubject": {
-    "description": "Button label to delete a subject in the KYC (Know Your Customer) process."
-  }, 
-  "pageKycFormErrorMaxCommissionsReached": "¡No Puedes agregar mas de una comision!",
-  "@pageKycFormErrorMaxCommissionsReached": {
-    "description": "Message informing the user that he can't add more than one commission."
-  },
-  "pageKycFormWhatGradeAreYouIn": "¿En qué comisión estás?",
-  "@pageKycFormWhatGradeAreYouIn": {
-    "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
-  },
-  "pageKycFormWhichSubjectIsIt": "¿Qué asignatura es?",
-  "@pageKycFormWhichSubjectIs": {
-    "description": "Prompt/question asking the user to specify which subject they are adding in the KYC process."
-  },
-  "pageKycFormWhatYearIsYourSubject": "¿De qué año es tu asignatura?",
-  "@pageKycFormWhatYearIsYourSubject": {
-    "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
-  },
-  "pageKycFormTitle": "Formulario de {roleName}",
-  "@pageKycFormTitle": {
-    "description": "Title for the KYC form page with a placeholder for the role name.",
-    "placeholders": {
-      "roleName": {
-        "type": "String"
-      }
-    }
-  },
-  "pageKycFormDescription": "Contesta estas preguntas sobre vos. Necesitamos esta información a modo de identificarte en tu solicitud.",
-  "@pageKycFormDescription": {
-    "description": "Description guiding the user to answer questions for identity verification in the KYC process."
-  },
-  "pageKycFormChooseSubject": "Elegí tu asignatura",
-  "@pageKycFormChooseSubject": {
-    "description": "Question asking the user to choose the subject in the formfield."
-  },
-  "pageKycFormChooseComission": "Elegí tu comisión",
-  "@pageKycFormChooseComission": {
-    "description": "Question asking the user to choose the comission in the formfield."
-  },
-  "pageKycRoleSelectionTitle": "Selección de roles",
-  "@pageKycRoleSelectionTitle": {
-    "description": "Title for the page where users select their roles."
-  },
-  "pageKycFormNoSelectedComission": "Agregá tu comisión asignada\npara continuar",
-  "@pageKycFormNoSelectedComission": {
-    "description": "Message displayed when a user needs to add their assigned commission to proceed in the KYC form."
-  },
-  "pageKycFormNoSelectedSubject": "Agrega las asignaturas que\ntengas asignadas para\ncontinuar",
-  "@pageKycFormNoSelectedSubject": {
-    "description": "Message displayed when a user needs to add the subjects that have been assigned to them to proceed in the KYC form."
-  },
-  "pageKycRoleSelectionWelcome": "¡Hola, {firstnameAndLastName}, decinos cual es tu rol!",
-  "@pageKycRoleSelectionWelcome": {
-    "description": "Welcome message prompting the user to specify their role.",
-    "placeholders": {
-      "firstnameAndLastName": {
-        "type": "String"
-      }
-    }
-  },
-  "pageKycSuccessDialogDescription": "Registro Exitoso",
-  "@pageKycSuccessDialogDescription": {
-    "description": "Description of the alert dialog of success after the KYC"
-  },
-  "pageKycDropdownTitle": "Selecciona una opción",
-  "@pageKycDropdownTitle": {
-    "description": "Dropdown title for selecting an option in the KYC (Know Your Customer) page."
-  },
-  "pageKycErrorOptionAlreadySelected": "Esta opción ya ha sido seleccionada",
-  "@pageKycErrorOptionAlreadySelected": {
-    "description": "Error message displayed when a user attempts to select an option that has already been chosen in the KYC form."
-  },
-  "pageKycNoSubjectsRelated": "No hay materias de este curso",
-  "@pageKycNoSubjectsRelated": {
-    "description": ""
-  },
-  "pageRoleConfirmationText": "Te registrarás con el rol {roleName}. Todo rol tiene que ser aprobado por el administrador. Una vez aprobado podrás usar la app.",
-  "@pageRoleConfirmationText": {
-    "description": "Text displayed to confirm the selected role during the registration process.",
-    "placeholders": {
-      "roleName": {
-        "type": "String"
-      }
-    }
-  },
-  "pageLoginCredentialsIndicativeText": "Ingrese sus credenciales de ingreso brindadas\npreviamente por el colegio o directivo",
-  "@pageLoginCredentialsIndicativeText": {
-    "description": "Text to indicate that you must enter your credentials"
-  },
-  "pageLoginLoginWithGoogle": "Ingresar con Google",
-  "@pageLoginLoginWithGoogle": {
-    "description": "Text to indicate the log in with google system"
-  },
-  "pageComissionSupervisionNoComissions": "No hay comisiones para mostrar",
-  "@pageComissionSupervisionNoComissions": {
-    "description": "Indicates that there are no commissions."
     },
-    
+    "pageRegisterRegisterSuccessful": "Registro exitoso",
+    "@pageRegisterRegisterSuccessful": {
+      "description": "a bottom sheet that displays the successful message"
+    },
+
+    "pageKycFormWhichGradeIsYourSubject": "¿De qué año es tu materia?",
+    "@pageKycFormWhichGradeIsYourSubject": {
+      "description": "Prompt/question asking the user to specify the year of the subject in the KYC process."
+    },
+
+
+    "pageKycFormErrorMaxCommissionsReached": "¡No Puedes agregar mas de una comision!",
+    "@pageKycFormErrorMaxCommissionsReached": {
+      "description": "Message informing the user that he can't add more than one commission."
+    },
     "pageComissionSupervisionUnsent": "Sin Enviar",
     "@pageComissionSupervisionUnsent": {
-        "description": "Indicates that the item has not been sent."
+      "description": "Indicates that the item has not been sent."
     },
-    
     "pageComissionSupervisionGradesUpLoadSuccessfullyRequested": "Carga de Calificaciones enviadas correctamente.",
     "@pageComissionSupervisionGradesUpLoadSuccessfullyRequested": {
-        "description": "Indicates that the requested grades have been successfully uploaded."
+      "description": "Indicates that the requested grades have been successfully uploaded."
     },
-
     "pageComissionSupervisionGradesSentSuccessfully": "Calificaciones enviadas correctamente.",
     "@pageComissionSupervisionGradesSentSuccessfully": {
-        "description": "Indicates that the grades have been sent successfully."
-  },
-  "pageComissionSupervisionNotAvailable": "No disponible",
-  "@pageComissionSupervisionNotAvailable": {
-    "description": "Indicates that the information is not available."
-  },
-  "pageComissionSupervisionSendingDate": "Fecha de envío: {date}",
-  "@pageComissionSupervisionSendingDate": {
-    "description": "Indicates the sending date.",
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
-  "pageComissionSupervisionProportionOfLoadedsubjects": "{numbreOfLoadedGrades} de {numberOfGrades}",
-  "@pageComissionSupervisionProportionOfLoadedsubjects": {
-    "description": "Indicates the proportion of loaded grades.",
-    "placeholders": {
-      "numbreOfLoadedGrades": {
-        "type": "int"
-      },
-      "numberOfGrades": {
-        "type": "int"
-      }
-    }
-  },
-  "pageComissionSupervisionDialogConfimationSendEmails": "¿Enviar mails a las comisiones de la escuela?",
-  "@pageComissionSupervisionDialogConfimationSendEmails": {
-    "description": "Confirmation dialog text when asking the user if they want to send emails to the school commission"
-  },
-  
-  "pageComissionSupervisionSendingEmails": "Enviando email a las comisiones...",
-  "@pageComissionSupervisionSendingEmails": {
-    "description": "Text displayed when emails are being sent to the commissions"
-  },
-  
-  "pageComissionSupervisionSendEmailsSuccess": "Emails enviados con exito",
-  "@pageComissionSupervisionSendEmailsSuccess": {
-    "description": "Success message displayed when emails are sent successfully to the commissions"
-  },
-  "pageComissionSupervisionButtonSendEmails": "¿Enviar email a las comisiones?",
-  "@pageComissionSupervisionButtonSendEmails": {
-    "description": "Button text to send emails to the commissions"
-  },
-
-  "pageComissionSupervisionDialogNotGradesUploaded": "No estan todas las calificaciones cargadas",
-  "@pageComissionSupervisionDialogNotGradesUploaded": {
-    "description": "Dialog message when not all grades are uploaded"
-  },
-  
-  "pageComissionSupervisionDialogMessageTooltip": "No se puede enviar emails a las comisiones. Verifique que todas las calificaciones esten cargadas por los docentes de la institucion",
-  "@pageComissionSupervisionDialogMessageTooltip": {
-    "description": "Tooltip message explaining why emails cannot be sent to committees"
-  },
-  
-  "pageComissionSupervisionMessageSendingEmail": "Enviando email...",
-  "@pageComissionSupervisionMessageSendingEmail": {
-    "description": "Text displayed when an email is being sent"
-  },
-
-  "pageComissionSupervisionDialogSuccessSendEmailStudent": "Email enviado con exito a",
-  "@pageComissionSupervisionDialogSuccessSendEmailStudent": {
-    "description": "Text displayed when an email is sent successfully to a student"
-  },
-
-  "pageComissionSupervisionDialogWantToSendEmailSubject": "¿Quieres enviar un email a todos los alumnos de esta asignatura?",
-  "@pageComissionSupervisionDialogWantToSendEmailSubject": {
-    "description": "Text displayed when the user wants to send an email to all students of this subject"
-  },
-
-  "pageComissionSupervisionSendEmail": "Enviar email de",
-  "@pageComissionSupervisionSendEmail": {
-    "description": "Text to be displayed when the user wants to send an email to all students of this subject"
-  },
-
-  "pageGradesNoGrades": "No hay calificaciones",
-  "@pageGradesNoGrades": {
-    "description": "Text to be displayed if there are no grades"
-  },
-  "pageGradeSubmissionSupervisionButton": "Solicitar calificaciones faltantes({numberOfGrades})",
-  "@pageGradeSubmissionSupervisionButton": {
-    "description": "Represents the text for a button that is used to request missing grades. The {numberOfGrades} placeholder is used to dynamically indicate the number of missing grades.",
-    "placeholders": {
-      "numberOfGrades": {
-        "type": "int"
-      }
-    }
-  },
-
-  "pageGradeSubmissionSupervisionButtonSendQualifications": "Enviar calificaciones",
-  "@pageGradeSubmissionSupervisionButtonSendQualifications": {
-        "description": "Text for a button used to send grades."
-  },
-
-  "pageGradeSubmissionSupervisionDialogConfimationSendEmails": "¿Enviar calificaciones al correo para ",
-  "@pageGradeSubmissionSupervisionDialogConfimationSendEmails": {
-        "description": "Confirmation message for sending grades to the email address of {firstnameAndLastName}."
-      
-        
-  },
-
-  "pageLoginTextAllRightsReserved": "Desarrollado por © Nidus Development - Argentina\nTodos los derechos reservados",
-  "@pageLoginTextAllRightsReserved": {
-    "description": "text to indicate the origin of development"
-  },
-
-  "pageLoginTextOr": "O",
-  "@pageLoginTextOr": {
-    "description": "text to indicate the the options of login"
-  },
-  "pageLoginRecoverPassword": "Recover password",
-  "@pageLoginRecoverPassword": {
-    "description": "Text to indicate the action to recover the password"
-  },
-  "pageLoginIncorrectCredentials": "Incorrect credentials",
-  "@pageLoginIncorrectCredentials": {
-    "description": "Text to indicate the action to recover the password"
-  },
-  "pageLoginDialogAnErrorOccurred": "Ocurrió un error al registrarse.",
-  "@pageLoginDialogAnErrorOccurred": {
-    "description": "Text in the dialog to indicate that an error ocurred"
-  },
-  "pageHomeNoOptionsMenu": "No hay menús disponibles",
-  "@pageHomeNoOptionsMenu": {
-    "description": "There are no options available in the menu"
-  },
-  "pageHomeYouChangePassword": "Tenes que cambiar tu contraseña.",
-  "@pageHomeYouChangePassword": {
-    "description": "Message displayed to prompt the user to change their password on the home page."
-  },
-  "pageHomeChangePasswordSuccess": "Contraseña cambiada exitosamente",
-  "@pageHomeChangePasswordSuccess": {
-    "description": "Message displayed to inform the user that their password has been successfully changed."
-  },
-  "pageHomeChangeDNI": "Cambia tu DNI",
-  "@pageHomeChangeDNI": {
-    "description": "Text in the dialog to change the dni"
-  },
-  "pageHomeChangeDNISuccess": "Exito al cambiar el dni",
-  "@pageHomeChangeDNISuccess": {
-    "description": "Message displayed to inform the user that their DNI has been successfully changed."
-  },
-  "pageStudentGradesTitle": "Calificaciones",
-  "@pageStudentGrades": {
-    "description": "Title of the page Grades for a student"
-  },
-  "pagePendingCommunicationsDialogDescription": "¿Estás seguro que deseas aprobar esta notificación?",
-    "@pagePendingCommunicationsDialogDescription": {
-        "description": "Description text of the alert dialog when the user taps button to approve the communication"
-  },
-  "pagePendingCommunicationsEmptyList": "No hay solicitudes de notificaciones",
-    "@pagePendingCommunicationsEmptyList": {
-        "description": "Description text that appears instead of the notification requests when the list is empty."
-  },
-  "pagePendingCommunicationsDialogSuccess": "Notificación aprobada con éxito",
-    "@pagePendingCommunicationsDialogSuccess": {
-        "description": "Description text of the alert dialog to let the user know that the notification was successfully approved"
-  },
-
-
-  "pageGradesStudentCardAverage": "Promedio: ",
-  "@pageGradesStudentCardAverage": {
-    "description": "Text to be displayed next to the average of the student grades."
-  },
-  "pageAcademicCommunityNoUsersToShow": "No hay usuarios para mostrar",
-  "@pageAcademicCommunityNoUsersToShow": {
-    "description": "There are no users to show text"
-  },
-  "pageUserProfileButtonDeleteTeacher": "Eliminar docente",
-  "@pageUserProfileButtonDeleteTeacher": {
-    "description": "Text in button to delete the current teacher"
-  },
-  "pageUserProfileButtonAddSubject": "Añadir asignatura",
-  "@pageUserProfileButtonAddSubject": {
-    "description": "Text in button to Add a new subject for the current teacher"
-  },
-  "pageCommunicationsTitle": "Comunicaciones",
-  "@pageCommunicationsTitle": {
-      "description": "Title of the page Communications"
-  },
-  "pageCommunicationProfileAddNewNotification": "Agregar nueva",
-  "@pageCommunicationProfileAddNewNotification": {
-      "description": "Add new"
-  },
-  "pageCommunicationProfileMarkAllRead": "Marcar todo como leído",
-  "@pageCommunicationProfileMarkAllRead": {
-      "description": "Mark all as read"
-  },
-
-  "pageCourseManagementReplaceTeacher": "Reemplazar docente",
-  "@pageCourseManagementReplaceTeacher": {
-      "description": "Label indicating the action to replace a teacher to a course."
-  },
-
-  "pageCourseManagementAssignTeacher": "Asignar docente",
-  "@pageCourseManagementAssignTeacher": {
-      "description": "Label indicating the action to assign a teacher to a course."
-  },
-
-  "pageCourseManagementAddStudent": "Añadir Alumno",
-  "@pageCourseManagementAddStudent": {
-      "description": "Label indicating the action to add a student to a course."
-  },
-
-  "pageCourseManagementThereAreNoTeachersAssigned": "No hay ningún docente asignado a esta asignatura",
-  "@pageCourseManagementThereAreNoTeachersAssigned": {
-      "description": "Message indicating that there are no teachers assigned to a specific subject or course."
-  },
-
-  "pageCourseManagementStudentAddSuccessfully": "¡Alumno agregado con éxito!",
-  "@pageCourseManagementStudentAddSuccessfully": {
-      "description": "Message displayed when a student is successfully added to a course."
-  },
-  "pageCourseManagementTeacherAsignedSuccessfully": "¡Docente asignado con éxito!",
-  "@pageCourseManagementTeacherAsignedSuccessfully": {
-      "description": "Message displayed when a teacher is successfully assigned to a course."
-  },
-
-  "pageCourseManagementAddStudentConfirmation": "¿Estás seguro que deseas agregar a {nameStudent} a {nameComision}?",
-  "@pageCourseManagementAddStudentConfirmation": {
-      "description": "Confirmation message displayed when the user attempts to add a student to a course.",
-      "placeholders" :{
-          "nameComision" : {
-              "type": "String"
-          },"nameStudent" : {
-              "type": "String"
-          }
-      }
-  },
-
-  "pageCourseManagementAddStudentConfirmationThisRemove": "Esto lo quitará permanentemente de {nameComision}",
-  "@pageCourseManagementAddStudentConfirmationThisRemove": {
-      "description": "Confirmation message displayed when the user attempts to add a student to a course and explains that it will remove the student from another course if they were previously enrolled.",
-      "placeholders" :{
-          "nameComision" : {
-              "type": "String"
-          }
-      }
-  },
-
-  "pageCourseManagementAssignTeacherConfirmation": "¿Estás seguro que deseas asignar a {nameTeacher} como docente de {nameSubject} {nameComision}?",
-  "@pageCourseManagementAssignTeacherConfirmation": {
-      "description": "Confirmation message displayed when the user attempts to assign a teacher to a course.",
-      "placeholders" :{   
-          "nameTeacher" : {
-              "type": "String"
-          },
-          "nameSubject" : {
-              "type": "String"
-          }, 
-          "nameComision" : {
-              "type": "String"
-          }
-      }
-  },
-
-  
-  "pageCoursesThereAreNoCourses": "No hay comisiones con asignaturas",
-  "@pageCoursesThereAreNoCourses": {
-      "description": "There are no commissions with subjects"
-  },
-  
-  "pageEditProfileButtonSuccessEditUser": "¡El perfil fue editado correctamente!",
-  "@pageEditProfileButtonSuccessEditUser": {
-    "description": "Label indicating successful editing of user profile."
-  },
-  "pageEditProfileButtonConfirmEditUser": "Estás seguro que deseas\n editar los datos personales de\n {nameUser}?",
-  "@pageEditProfileButtonConfirmEditUser": {
-      "description": "Label indicating the action to replace a teacher to a course.",
-      "placeholders" :{
-          "nameUser" : {
-              "type": "String"
-          }
-      }
-  },
-  "pageEditProfileDialogChangePassword":"Cambiar contraseña",
-  "@pageEditProfileDialogChangePassword": {
-      "description": "Label indicating the action to replace a password of the user."
-  },
-  "pageEditProfileDialogRequiresChangePassword":"Requiere cambio de password",
-  "@pageEditProfileDialogRequiresChangePassword": {
-      "description": "Checkbox to indicate if user requires change password."
-  },
-  "pageEditProfileDeclinePendingUser": "¿Deseas Rechazar la solicitud de {nombre}?",
-  "@pageEditProfileDeclinePendingUser": {
-    "description": "Message displayed when the user is asked if they want to reject a pending request.",
-    "placeholders": {
-      "nombre": {
-        "type": "String"
-      }
-    }
-  },
-  
-  "dialogErrorToSendGrades": "Ha habido un error en el envío de\ncalificaciones. Intente nuevamente.",
-  "@dialogErrorToSendGrades": {
-    "description": "Label indicating an error when sending notes."
-  },
-  "dialogSuccessToSendGrades": "¡Las calificaciones fueron enviadas\n correctamente!",
-  "@dialogSuccessToSendGrades": {
-    "description": "Label indicating successful sending of grades."
-  },
-  "dropdownErrorMustCompleteField": "You must complete this field!",
-  "@dropdownErrorMustCompleteField": {
-    "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
-  },
-  "drawerMyProfile": "Mi perfil",
-  "@drawerMyProfile": {
-    "description": "Text of the button that indicates  that you will be redirected to profile page"
-  },
-  "dialogAbsencesSentCorrectly": "Inasistencias enviadas correctamente",
-  "@dialogAbsencesSentCorrectly": {
-    "description": "Text to be displayed in the title of the dialog when absences to sent correctly"
-  },
-  "dialogLogoutQuestion": "Está seguro que \ndesea cerrar sesión?",
-  "@dialogLogoutQuestion": {
-    "description": "Text of the dialog that asks the user if he is sure he wants to logout"
-  },
-  "drawerSettings": "Configuración",
-  "@drawerSettings": {
-    "description": "Text of the button to indicate that you will be redirected to settings page"
-  },
-  "drawerLogOut": "Cerrar sesión",
-  "@drawerLogOut": {
-    "description": "Text of the button in the logout item"
-  },
-  "routeNameHome": "Inicio",
-  "@routeNameHome": {
-    "description": ""
-  },
-  "routeNameLogin": "Ingresar",
-  "@routeNameLogin": {
-    "description": ""
-  },
-  "routeNameAbsences": "Inasistencias",
-  "@routeNameAbsences": {
-    "description": ""
-  },
-  "routeNameAcademicCommunity": "Comunidad academica",
-  "@routeNameAcademicCommunity": {
-    "description": ""
-  },
-  "routeNameKyc": "Formulario de registro",
-  "@routeNameKyc": {
-    "description": ""
-  },
-  "routeRoleSelection": "Selección de rol",
-  "@routeRoleSelection": {
-    "description": ""
-  },
-  "routeNameForm": "Formulario",
-  "@routeNameForm": {
-    "description": ""
-  },
-  "routeNameAwaitApproval": "En espera de aprobación",
-  "@routeNameAwaitApproval": {
-    "description": ""
-  },
-  "routeNameDashboard": "Dashboard",
-  "@routeNameDashboard": {
-    "description": ""
-  },
-  "routeNameUserProfile": "Perfil de usuario",
-  "@routeNameUserProfile": {
-    "description": ""
-  },
-  "routeNamePendingUserProfile": "Perfil de usuario pendiente",
-  "@routeNamePendingUserProfile": {
-    "description": ""
-  },
-  "routeNameCourses": "Cursos",
-  "@routeNameCourses": {
-    "description": ""
-  },
-  "routeUploadGrades": "Carga de calificaciones",
-  "@routeUploadGrades": {
-    "description": ""
-  },
-  "routeNamePendingUsers": "Usuarios pendientes",
-  "@routeNamePendingUsers": {
-    "description": ""
-  },    
-
-
-    "routeNameMenuCommunications": "Comunicaciones",
-    "@routeNameMenuCommunications": {
-        "description": "Name of the route"
+      "description": "Indicates that the grades have been sent successfully."
+    },
+    "pageComissionSupervisionDialogConfimationSendEmails": "¿Enviar mails a las comisiones de la escuela?",
+    "@pageComissionSupervisionDialogConfimationSendEmails": {
+      "description": "Confirmation dialog text when asking the user if they want to send emails to the school commission"
+    },
+    "pageComissionSupervisionSendingEmails": "Enviando email a las comisiones...",
+    "@pageComissionSupervisionSendingEmails": {
+      "description": "Text displayed when emails are being sent to the commissions"
+    },
+    "pageComissionSupervisionSendEmailsSuccess": "Emails enviados con exito",
+    "@pageComissionSupervisionSendEmailsSuccess": {
+      "description": "Success message displayed when emails are sent successfully to the commissions"
+    },
+    "pageComissionSupervisionButtonSendEmails": "¿Enviar email a las comisiones?",
+    "@pageComissionSupervisionButtonSendEmails": {
+      "description": "Button text to send emails to the commissions"
+    },
+    "pageComissionSupervisionDialogNotGradesUploaded": "No estan todas las calificaciones cargadas",
+    "@pageComissionSupervisionDialogNotGradesUploaded": {
+      "description": "Dialog message when not all grades are uploaded"
+    },
+    "pageComissionSupervisionDialogMessageTooltip": "No se puede enviar emails a las comisiones. Verifique que todas las calificaciones esten cargadas por los docentes de la institucion",
+    "@pageComissionSupervisionDialogMessageTooltip": {
+      "description": "Tooltip message explaining why emails cannot be sent to committees"
+    },
+    "pageComissionSupervisionMessageSendingEmail": "Enviando email...",
+    "@pageComissionSupervisionMessageSendingEmail": {
+      "description": "Text displayed when an email is being sent"
+    },
+    "pageComissionSupervisionDialogSuccessSendEmailStudent": "Email enviado con exito a",
+    "@pageComissionSupervisionDialogSuccessSendEmailStudent": {
+      "description": "Text displayed when an email is sent successfully to a student"
+    },
+    "pageComissionSupervisionDialogWantToSendEmailSubject": "¿Quieres enviar un email a todos los alumnos de esta asignatura?",
+    "@pageComissionSupervisionDialogWantToSendEmailSubject": {
+      "description": "Text displayed when the user wants to send an email to all students of this subject"
+    },
+    "pageComissionSupervisionSendEmail": "Enviar email de",
+    "@pageComissionSupervisionSendEmail": {
+      "description": "Text to be displayed when the user wants to send an email to all students of this subject"
+    },
+    "pageGradesNoGrades": "No hay calificaciones",
+    "@pageGradesNoGrades": {
+      "description": "Text to be displayed if there are no grades"
     },
 
-    
+    "pageGradeSubmissionSupervisionButtonSendQualifications": "Enviar calificaciones",
+    "@pageGradeSubmissionSupervisionButtonSendQualifications": {
+      "description": "Text for a button used to send grades."
+    },
+    "pageGradeSubmissionSupervisionDialogConfimationSendEmails": "¿Enviar calificaciones al correo para ",
+    "@pageGradeSubmissionSupervisionDialogConfimationSendEmails": {
+      "description": "Confirmation message for sending grades to the email address of {firstnameAndLastName}."
+    },
+
+    "pageLoginRecoverPassword": "Recover password",
+    "@pageLoginRecoverPassword": {
+      "description": "Text to indicate the action to recover the password"
+    },
+    "pageLoginIncorrectCredentials": "Incorrect credentials",
+    "@pageLoginIncorrectCredentials": {
+      "description": "Text to indicate the action to recover the password"
+    },
+
+    "pageHomeYouChangePassword": "Tenes que cambiar tu contraseña.",
+    "@pageHomeYouChangePassword": {
+      "description": "Message displayed to prompt the user to change their password on the home page."
+    },
+    "pageHomeChangePasswordSuccess": "Contraseña cambiada exitosamente",
+    "@pageHomeChangePasswordSuccess": {
+      "description": "Message displayed to inform the user that their password has been successfully changed."
+    },
+    "pageHomeChangeDNI": "Cambia tu DNI",
+    "@pageHomeChangeDNI": {
+      "description": "Text in the dialog to change the dni"
+    },
+    "pageHomeChangeDNISuccess": "Exito al cambiar el dni",
+    "@pageHomeChangeDNISuccess": {
+      "description": "Message displayed to inform the user that their DNI has been successfully changed."
+    },
+    "pageStudentGradesTitle": "Calificaciones",
+    "@pageStudentGrades": {
+      "description": "Title of the page Grades for a student"
+    },
+    "pagePendingCommunicationsDialogDescription": "¿Estás seguro que deseas aprobar esta notificación?",
+    "@pagePendingCommunicationsDialogDescription": {
+      "description": "Description text of the alert dialog when the user taps button to approve the communication"
+    },
+    "pagePendingCommunicationsEmptyList": "No hay solicitudes de notificaciones",
+    "@pagePendingCommunicationsEmptyList": {
+      "description": "Description text that appears instead of the notification requests when the list is empty."
+    },
+    "pagePendingCommunicationsDialogSuccess": "Notificación aprobada con éxito",
+    "@pagePendingCommunicationsDialogSuccess": {
+      "description": "Description text of the alert dialog to let the user know that the notification was successfully approved"
+    },
+    "pageCommunicationsTitle": "Comunicaciones",
+    "@pageCommunicationsTitle": {
+      "description": "Title of the page Communications"
+    },
+    "pageCommunicationProfileAddNewNotification": "Agregar nueva",
+    "@pageCommunicationProfileAddNewNotification": {
+      "description": "Add new"
+    },
+    "pageCommunicationProfileMarkAllRead": "Marcar todo como leído",
+    "@pageCommunicationProfileMarkAllRead": {
+      "description": "Mark all as read"
+    },
+    "pageCourseManagementReplaceTeacher": "Reemplazar docente",
+    "@pageCourseManagementReplaceTeacher": {
+      "description": "Label indicating the action to replace a teacher to a course."
+    },
+    "pageCourseManagementAssignTeacher": "Asignar docente",
+    "@pageCourseManagementAssignTeacher": {
+      "description": "Label indicating the action to assign a teacher to a course."
+    },
+    "pageCourseManagementAddStudent": "Añadir Alumno",
+    "@pageCourseManagementAddStudent": {
+      "description": "Label indicating the action to add a student to a course."
+    },
+    "pageCourseManagementThereAreNoTeachersAssigned": "No hay ningún docente asignado a esta asignatura",
+    "@pageCourseManagementThereAreNoTeachersAssigned": {
+      "description": "Message indicating that there are no teachers assigned to a specific subject or course."
+    },
+    "pageCourseManagementStudentAddSuccessfully": "¡Alumno agregado con éxito!",
+    "@pageCourseManagementStudentAddSuccessfully": {
+      "description": "Message displayed when a student is successfully added to a course."
+    },
+    "pageCourseManagementTeacherAsignedSuccessfully": "¡Docente asignado con éxito!",
+    "@pageCourseManagementTeacherAsignedSuccessfully": {
+      "description": "Message displayed when a teacher is successfully assigned to a course."
+    },
+    "pageCourseManagementAddStudentConfirmation": "¿Estás seguro que deseas agregar a {nameStudent} a {nameComision}?",
+    "@pageCourseManagementAddStudentConfirmation": {
+      "description": "Confirmation message displayed when the user attempts to add a student to a course.",
+      "placeholders": {
+        "nameComision": {
+          "type": "String"
+        },
+        "nameStudent": {
+          "type": "String"
+        }
+      }
+    },
+    "pageCourseManagementAddStudentConfirmationThisRemove": "Esto lo quitará permanentemente de {nameComision}",
+    "@pageCourseManagementAddStudentConfirmationThisRemove": {
+      "description": "Confirmation message displayed when the user attempts to add a student to a course and explains that it will remove the student from another course if they were previously enrolled.",
+      "placeholders": {
+        "nameComision": {
+          "type": "String"
+        }
+      }
+    },
+    "pageCourseManagementAssignTeacherConfirmation": "¿Estás seguro que deseas asignar a {nameTeacher} como docente de {nameSubject} {nameComision}?",
+    "@pageCourseManagementAssignTeacherConfirmation": {
+      "description": "Confirmation message displayed when the user attempts to assign a teacher to a course.",
+      "placeholders": {
+        "nameTeacher": {
+          "type": "String"
+        },
+        "nameSubject": {
+          "type": "String"
+        },
+        "nameComision": {
+          "type": "String"
+        }
+      }
+    },
+    "pageCoursesThereAreNoCourses": "No hay comisiones con asignaturas",
+    "@pageCoursesThereAreNoCourses": {
+      "description": "There are no commissions with subjects"
+    },
+    "pageEditProfileButtonSuccessEditUser": "¡El perfil fue editado correctamente!",
+    "@pageEditProfileButtonSuccessEditUser": {
+      "description": "Label indicating successful editing of user profile."
+    },
+    "pageEditProfileButtonConfirmEditUser": "Estás seguro que deseas\n editar los datos personales de\n {nameUser}?",
+    "@pageEditProfileButtonConfirmEditUser": {
+      "description": "Label indicating the action to replace a teacher to a course.",
+      "placeholders": {
+        "nameUser": {
+          "type": "String"
+        }
+      }
+    },
+    "pageEditProfileDialogChangePassword": "Cambiar contraseña",
+    "@pageEditProfileDialogChangePassword": {
+      "description": "Label indicating the action to replace a password of the user."
+    },
+    "pageEditProfileDialogRequiresChangePassword": "Requiere cambio de password",
+    "@pageEditProfileDialogRequiresChangePassword": {
+      "description": "Checkbox to indicate if user requires change password."
+    },
+    "pageEditProfileDeclinePendingUser": "¿Deseas Rechazar la solicitud de {nombre}?",
+    "@pageEditProfileDeclinePendingUser": {
+      "description": "Message displayed when the user is asked if they want to reject a pending request.",
+      "placeholders": {
+        "nombre": {
+          "type": "String"
+        }
+      }
+    },
+    "routeNameMenuCommunications": "Comunicaciones",
+    "@routeNameMenuCommunications": {
+      "description": "Name of the route"
+    },
     "routeNamePendingCommunications": "Pendientes",
     "@routeNamePendingCommunications": {
-        "description": "Name of the route"
+      "description": "Name of the route"
     },
     "routeNameManageTemplates": "Administrar plantillas",
     "@routeNameManageTemplates": {
-        "description": ""
+      "description": ""
     },
-    
     "routeNameGeneralCommunications": "General",
     "@routeNameGeneralCommunications": {
-        "description": "Name of the route"
+      "description": "Name of the route"
     },
-
     "routeNameCourseCommunications": "Cursos",
     "@routeNameCourseCommunications": {
-        "description": "Name of the route"
+      "description": "Name of the route"
     },
-
-  "routeAcademicCommunityMenu": "Menú",
-  "@routeAcademicCommunityMenu": {
-    "description": ""
-  },
-  "routeAcademicCommunityList": "Lista",
-  "@routeAcademicCommunityList": {
-    "description": ""
-  },
-  "routeNameCommissionSupervision": "Supervisión de comisiones",
-  "@routeNameCommissionSupervision": {
-    "description": ""
-  },
-  "routeNameCommission": "Comisiones",
-  "@routeNameCommission": {
+    "routeNameCommission": "Comisiones",
+    "@routeNameCommission": {
       "description": ""
-  },
-  "routeNameGradeSubmissionSupervision": "Supervisión de envío de calificaciones",
-  "@routeNameGradeSubmissionSupervision": {
-    "description": ""
-  },
-  "pageEditProfileContacts":"Contacts",
-  "@pageEditProfileContacts": {
+    },
+    "pageEditProfileContacts": "Contacts",
+    "@pageEditProfileContacts": {
       "description": "Title of the dialog"
-  },
-  "pageEditProfileDialogAddContact":"Agregar contacto",
-  "@pageEditProfileDialogAddContact": {
+    },
+    "pageEditProfileDialogAddContact": "Agregar contacto",
+    "@pageEditProfileDialogAddContact": {
       "description": "Title of the dialog"
-  },
-  "pageEditProfileDialogContactDeletedSuccessfully":"Contacto eliminado con éxito",
-  "@pageEditProfileDialogContactDeletedSuccessfully": {
+    },
+    "pageEditProfileDialogContactDeletedSuccessfully": "Contacto eliminado con éxito",
+    "@pageEditProfileDialogContactDeletedSuccessfully": {
       "description": "Text in the alert dialog to notificate that the contact was deleted successfully."
-  },
-  "pageEditProfileDialogAreYouSure":"¿Seguro que quieres eliminar este contacto?",
-  "@pageEditProfileDialogAreYouSure": {
+    },
+    "pageEditProfileDialogAreYouSure": "¿Seguro que quieres eliminar este contacto?",
+    "@pageEditProfileDialogAreYouSure": {
       "description": "Question in the dialog to ask if the user is sure to delete the contact."
-  },
-  "pageEditProfileDialogEditContact":"Editar contacto",
-  "@pageEditProfileDialogEditContact": {
+    },
+    "pageEditProfileDialogEditContact": "Editar contacto",
+    "@pageEditProfileDialogEditContact": {
       "description": "Title of the dialog"
-  },
-  "tagEmailPersonalPrimary": "Personal primario",
-  "@tagEmailPersonalPrimary": {
-    "description": "tag of personal primary"
-  },
-  "tagEmailPersonalSecondary": "Personal secundario",
-  "@tagEmailPersonalSecondary": {
-    "description": "tag of personal primario"
-  },
-  "tagEmailParents": "Padre/Madre/Tutor",
-  "@tagEmailParents": {
-    "description": "kinship tag of parents"
-  },
-  "tagEmailGrandparents": "Abuelo/Abuela",
-  "@tagEmailGrandparents": {
-    "description": "kinship tag of grandparents"
-  },
-  "tagEmailUncles": "Tio/Tia",
-  "@tagEmailUncles": {
-    "description": "kinship tag of uncles"
-  },
-  "tagEmailCousins": "Primo/Prima",
-  "@tagEmailCousins": {
-    "description": "kinship tag of cousin"
-  },
-  "tagEmailOther": "Otro",
-  "@tagEmailOther": {
-    "description": "kinship tag of other"
-  },
-  "tagEmailKinship": "Parentezco",
-  "@tagEmailKinship": {
-    "description": "tag of Kinship"
-  },
-  "commonWelcome": "¡Bienvenido!",
-  "@commonWelcome": {
-    "description": "Welcoming text"
-  },
-  "commonJanuary": "Enero",
-  "@commonJanuary": {
-    "description": "Text displaying the first month January"
-  },
-  "commonFebruary": "Febrero",
-  "@commonFebruary": {
-    "description": "Text displaying the second month February"
-  },
-  "commonMarch": "Marzo",
-  "@commonMarch": {
-    "description": "Text displaying the third month March"
-  },
-  "commonApril": "Abril",
-  "@commonApril": {
-    "description": "Text displaying the fourth month April"
-  },
-  "commonMay": "Mayo",
-  "@commonMay": {
-    "description": "Text displaying the fifth month May"
-  },
-  "commonJune": "Junio",
-  "@commonJune": {
-    "description": "Text displaying the sixth month June"
-  },
-  "commonJuly": "Julio",
-  "@commonJuly": {
-    "description": "Text displaying the seventh month July"
-  },
-  "commonAugust": "Agosto",
-  "@commonAugust": {
-    "description": "Text displaying the eighth month August"
-  },
-  "commonSeptember": "Septiembre",
-  "@commonSeptember": {
-    "description": "Text displaying the ninth month September"
-  },
-  "commonOctober": "Octubre",
-  "@commonOctober": {
-    "description": "Text displaying the tenth month October"
-  },
-  "commonNovember": "Noviembre",
-  "@commonNovember": {
-    "description": "Text displaying the eleventh month November"
-  },
-  "commonDecember": "Diciembre",
-  "@commonDecember": {
-    "description": "Text displaying the twelfth month December"
-  },
-  "commonUnrated": "S/C",
-  "@commonUnrated": {
-    "description": "Text showing the grade is unrated."
-  },
-  "commonMail": "Mail",
-  "@commonMail": {
-    "description": "Text to be displayed in common places"
-  },
-  "commonFeatureNotAvailable": "Esta característica no está\n disponible en esta versión.",
-  "@commonFeatureNotAvailable": {
-    "descripcion": "Text in pop up to indicate that a feature in progress"
-  },
-  "commonLogIn": "Ingresar",
-  "@commonLogIn": {
-    "description": "Text on the button that indicates that its action is login"
-  },
-  "commonCompleteTheField": "Complete el campo",
-  "@commonCompleteTheField": {
-    "description": "Text to be displayed in common places to indicate that the field must be completed"
-  },
-  "commonEnterAValidEmail": "Ingrese un mail valido",
-  "@commonEnterAValidEmail": {
-    "description": "Text to indicate that the email is invalid"
-  },
-  "commonPassword": "Contraseña",
-  "@commonPassword": {
-    "description": "Text to be displayed in common places to indicate password text"
-  },
-  "commonOnlyNumbers": "Solo números",
-  "@commonOnlyNumbers": {
-    "description": "Text to indicate that only numbers are allowed"
-  },
-  "commonApply": "Solicitar",
-  "@commonRequest": {
-    "description": "Label for a button or action indicating to submit a request."
-  },
-  "commonContinue": "Continuar",
-  "@commonContinue": {
-    "description": "Label for a button or action indicating to proceed."
-  },
-  "commonApprove": "Aprobar",
-  "@commonApprove": {
-    "description": "Label for a button or action indicating to approve."
-  },
-  "commonDialogError": "Ha ocurrido un error",
-  "@commonDialogError": {
-    "description": "Description of the alert dialog error, informing the user of an error."
-  },
-  "commonError": "Error!",
-  "@commonError": {
-    "description": "text in alertdialog title, Error"
-  },
-  "commonPhone": "Teléfono",
-  "@commonPhone": {
-    "description": "Label used to represent the phone field in personal data."
-  },
-  "commonPhoneNumber": "Numero de teléfono",
-  "@commonPhoneNumber": {
-    "description": "Label used to represent the phone field in personal data."
-  },
-  "commonBloodFactor": "Factor sanguÍneo",
-  "@commonBloodFactor": {
-    "description": "Label used to represent the blood factor field in personal data."
-  },
-  "commonAge": "Edad",
-  "@commonAge": {
-    "description": "Label used to represent the age field in personal data."
-  },
-  "commonSave": "Guardar",
-  "@commonSave": {
-    "description": "Label for a button or action indicating to save."
-  },  
-  "commonSaveChange": "Save Change",
-  "@commonSaveChange": {
-    "description": "Label for a button or action indicating to save a change."
-  },
-  "commonEmergencyContact": "Contacto de emergencia",
-  "@commonEmergencyContact": {
-    "description": "Label used to represent the emergency contact field in personal data."
-  },
-  "commonBond": "Vínculo",
-  "@commonBond": {
-    "description": "Label used to represent the bond field in personal data."
-  },
-  "commonObservations": "Observaciones",
-  "@commonObservations": {
-    "description": "Label used to represent the observations field in personal data."
-  },
-  "commonNoData": "Sin datos",
-  "@commonNoData": {
-    "description": "Message used to represent the absence of data in a field."
-  },
-  "commonContact": "Contactar",
-  "@commonContact": {
-    "description": "Button or link used to initiate contact with the user."
-  },
-  "commonConfirm": "Confirmar",
-  "@commonConfirm": {
-    "description": "Button or link used to confirm an action or decision."
-  },
-  "commonDecline": "Rechazar",
-  "@commonDecline": {
-    "description": "Button or link used to decline or reject an action or decision."
-  },
-  "pageAttendanceWithoutCourses": "No hay cursos",
-  "@pageAttendanceWithoutCourses": {
-    "description": "Text to be displayed if there are no courses"
-  },
-  "pageAttendanceTitleFinishButtonToEndAttendance": "Finalizar",
-  "@pageAttendanceTitleFinishButtonToEndAttendance": {
-    "description": "Text to be displayed in the button to end the Attendance"
-  },
-  "pageAttendanceTitleDefinedMissingAmountComplete": "Definidos {missing}/{all}",
-  "@pageAttendanceTitleDefinedMissingAmountComplete": {
-    "description": "Text to be displayed in the button to end the Attendance",
-    "placeholders": {
-      "missing": {
-        "type": "int"
-      },
-      "all": {
-        "type": "int"
+    },
+    "tagEmailPersonalPrimary": "Personal primario",
+    "@tagEmailPersonalPrimary": {
+      "description": "tag of personal primary"
+    },
+    "tagEmailPersonalSecondary": "Personal secundario",
+    "@tagEmailPersonalSecondary": {
+      "description": "tag of personal primario"
+    },
+    "tagEmailParents": "Padre/Madre/Tutor",
+    "@tagEmailParents": {
+      "description": "kinship tag of parents"
+    },
+    "tagEmailGrandparents": "Abuelo/Abuela",
+    "@tagEmailGrandparents": {
+      "description": "kinship tag of grandparents"
+    },
+    "tagEmailUncles": "Tio/Tia",
+    "@tagEmailUncles": {
+      "description": "kinship tag of uncles"
+    },
+    "tagEmailCousins": "Primo/Prima",
+    "@tagEmailCousins": {
+      "description": "kinship tag of cousin"
+    },
+    "tagEmailOther": "Otro",
+    "@tagEmailOther": {
+      "description": "kinship tag of other"
+    },
+    "tagEmailKinship": "Parentezco",
+    "@tagEmailKinship": {
+      "description": "tag of Kinship"
+    },
+    "commonJanuary": "Enero",
+    "@commonJanuary": {
+      "description": "Text displaying the first month January"
+    },
+    "commonFebruary": "Febrero",
+    "@commonFebruary": {
+      "description": "Text displaying the second month February"
+    },
+    "commonMarch": "Marzo",
+    "@commonMarch": {
+      "description": "Text displaying the third month March"
+    },
+    "commonApril": "Abril",
+    "@commonApril": {
+      "description": "Text displaying the fourth month April"
+    },
+    "commonMay": "Mayo",
+    "@commonMay": {
+      "description": "Text displaying the fifth month May"
+    },
+    "commonJune": "Junio",
+    "@commonJune": {
+      "description": "Text displaying the sixth month June"
+    },
+    "commonJuly": "Julio",
+    "@commonJuly": {
+      "description": "Text displaying the seventh month July"
+    },
+    "commonAugust": "Agosto",
+    "@commonAugust": {
+      "description": "Text displaying the eighth month August"
+    },
+    "commonSeptember": "Septiembre",
+    "@commonSeptember": {
+      "description": "Text displaying the ninth month September"
+    },
+    "commonOctober": "Octubre",
+    "@commonOctober": {
+      "description": "Text displaying the tenth month October"
+    },
+    "commonNovember": "Noviembre",
+    "@commonNovember": {
+      "description": "Text displaying the eleventh month November"
+    },
+    "commonDecember": "Diciembre",
+    "@commonDecember": {
+      "description": "Text displaying the twelfth month December"
+    },
+    "commonUnrated": "S/C",
+    "@commonUnrated": {
+      "description": "Text showing the grade is unrated."
+    },
+    "commonMail": "Mail",
+    "@commonMail": {
+      "description": "Text to be displayed in common places"
+    },
+    "commonFeatureNotAvailable": "Esta característica no está\n disponible en esta versión.",
+    "@commonFeatureNotAvailable": {
+      "descripcion": "Text in pop up to indicate that a feature in progress"
+    },
+    "commonLogIn": "Ingresar",
+    "@commonLogIn": {
+      "description": "Text on the button that indicates that its action is login"
+    },
+    "commonCompleteTheField": "Complete el campo",
+    "@commonCompleteTheField": {
+      "description": "Text to be displayed in common places to indicate that the field must be completed"
+    },
+    "commonEnterAValidEmail": "Ingrese un mail valido",
+    "@commonEnterAValidEmail": {
+      "description": "Text to indicate that the email is invalid"
+    },
+    "commonPassword": "Contraseña",
+    "@commonPassword": {
+      "description": "Text to be displayed in common places to indicate password text"
+    },
+    "commonOnlyNumbers": "Solo números",
+    "@commonOnlyNumbers": {
+      "description": "Text to indicate that only numbers are allowed"
+    },
+    "commonApply": "Solicitar",
+    "@commonRequest": {
+      "description": "Label for a button or action indicating to submit a request."
+    },
+    "commonContinue": "Continuar",
+    "@commonContinue": {
+      "description": "Label for a button or action indicating to proceed."
+    },
+    "commonApprove": "Aprobar",
+    "@commonApprove": {
+      "description": "Label for a button or action indicating to approve."
+    },
+    "commonDialogError": "Ha ocurrido un error",
+    "@commonDialogError": {
+      "description": "Description of the alert dialog error, informing the user of an error."
+    },
+    "commonError": "Error!",
+    "@commonError": {
+      "description": "text in alertdialog title, Error"
+    },
+    "commonPhone": "Teléfono",
+    "@commonPhone": {
+      "description": "Label used to represent the phone field in personal data."
+    },
+    "commonPhoneNumber": "Numero de teléfono",
+    "@commonPhoneNumber": {
+      "description": "Label used to represent the phone field in personal data."
+    },
+    "commonBloodFactor": "Factor sanguÍneo",
+    "@commonBloodFactor": {
+      "description": "Label used to represent the blood factor field in personal data."
+    },
+    "commonAge": "Edad",
+    "@commonAge": {
+      "description": "Label used to represent the age field in personal data."
+    },
+    "commonSave": "Guardar",
+    "@commonSave": {
+      "description": "Label for a button or action indicating to save."
+    },
+    "commonSaveChange": "Save Change",
+    "@commonSaveChange": {
+      "description": "Label for a button or action indicating to save a change."
+    },
+    "commonEmergencyContact": "Contacto de emergencia",
+    "@commonEmergencyContact": {
+      "description": "Label used to represent the emergency contact field in personal data."
+    },
+    "commonBond": "Vínculo",
+    "@commonBond": {
+      "description": "Label used to represent the bond field in personal data."
+    },
+    "commonObservations": "Observaciones",
+    "@commonObservations": {
+      "description": "Label used to represent the observations field in personal data."
+    },
+    "commonNoData": "Sin datos",
+    "@commonNoData": {
+      "description": "Message used to represent the absence of data in a field."
+    },
+    "commonContact": "Contactar",
+    "@commonContact": {
+      "description": "Button or link used to initiate contact with the user."
+    },
+    "commonConfirm": "Confirmar",
+    "@commonConfirm": {
+      "description": "Button or link used to confirm an action or decision."
+    },
+    "commonDecline": "Rechazar",
+    "@commonDecline": {
+      "description": "Button or link used to decline or reject an action or decision."
+    },
+    "pageAttendanceWithoutCourses": "No hay cursos",
+    "@pageAttendanceWithoutCourses": {
+      "description": "Text to be displayed if there are no courses"
+    },
+    "pageAttendanceTitleFinishButtonToEndAttendance": "Finalizar",
+    "@pageAttendanceTitleFinishButtonToEndAttendance": {
+      "description": "Text to be displayed in the button to end the Attendance"
+    },
+    "pageAttendanceTitleDefinedMissingAmountComplete": "Definidos {missing}/{all}",
+    "@pageAttendanceTitleDefinedMissingAmountComplete": {
+      "description": "Text to be displayed in the button to end the Attendance",
+      "placeholders": {
+        "missing": {
+          "type": "int"
+        },
+        "all": {
+          "type": "int"
+        }
       }
-    }
-  },
-  "pageAttendanceNotAbsentStudents": "No hay estudiantes",
-  "@pageAttendanceNotAbsentStudents": {
-    "description": "Text to be displayed when there are no absent students"
-  },
-  "dialogAttendanceOfDay": "Asistencias del día",
-  "@dialogAttendanceOfDay": {
-    "description": "Text to be displayed in the title of the dialog"
-  },
-  "dialogAttendanceStateOfStudents": "con",
-  "@dialogAttendanceStateOfStudents": {
-    "description": "text in the dialog in the status of absent students"
-  },
-  "pageManageTemplatesTitle": "Plantillas",
-  "@pageManageTemplatesTitle": {
-    "description": "Text to be displayed in the title of the page"
-  },
-  "pageManageTemplatesAddNew": "Agregar nueva",
-  "@pageManageTemplatesAddNew": {
-    "description": "Text to be displayed in the button to add new template"
-  },
-  "pageManageTemplatesNew": "Nueva plantilla",
-  "@pageManageTemplatesNew": {
-    "description": "Text to be displayed in the dialog to add new template"
-  },
-  "pageManageTemplatesDialogTitle": "Título",
-  "@pageManageTemplatesDialogTitle": {
-    "description": "Text to be displayed in the textfield of the dialog to add new template"
-  },
-  "pageManageTemplatesDialogWriteHere": "Escríbe aquí...",
-  "@pageManageTemplatesDialogWriteHere": {
-    "description": "Text to be displayed in the textfield of the dialog to add new template"
-  },
-  "pageManageTemplatesNeedSupervision": "Necesita supervisión",
-  "@pageManageTemplatesNeedSupervision": {
-    "description": "Text to be displayed in the bottom of the template"
-  },
-  "pageManageTemplatesCreatedAt": "Creado el",
-  "@pageManageTemplatesCreatedAt": {
-    "description": "Text to be displayed in the template for the creation date"
-  },
-  "pageManageTemplatesUpdateAt": "Editado el",
-  "@pageManageTemplatesUpdateAt": {
-    "description": "Text to be displayed in the template for the date of the last update"
-  },
-  "pageManageTemplatesWantContinue": "¿Deseas continuar?",
-  "@pageManageTemplatesWantContinue": {
-    "description": "Text to be displayed in the dialog to question if the user wants to continue"
-  },
-  "pageManageTemplatesWillCreate": "Crearás una plantilla\n predeterminada llamada",
-  "@pageManageTemplatesWillCreate": {
-    "description": "Text to be displayed in the dialog to notify that you will create a new template"
-  },
-  "pageManageTemplatesDialogSuccessPartOne": "Plantilla",
-  "@pageManageTemplatesDialogSuccessPartOne": {
-    "description": "Text to be displayed in the first part of the dialog of notify that the template has been created"
-  },
-  "pageManageTemplatesDialogSuccessPartTwo": " creada con éxito",
-  "@pageManageTemplatesDialogSuccessPartTwo": {
-    "description": "Text to be displayed in the last part of the dialog of notify that the template has been created"
-  },
-  "pageManageTemplatesDialogEditTemplate": "Editar plantilla",
-  "@pageManageTemplatesDialogEditTemplate": {
-    "description": "Text to be displayed in the dialog to edit template"
-  },
-  "pageManageTemplatesDialogEditedSuccessfully": "Platilla editada con exito",
-  "@pageManageTemplatesDialogEditedSuccessfully": {
-    "description": "Text to be displayed in the dialog to notify the edited was successfully"
-  },
-  "pageManageTemplatesDialogYouWillEliminate": "Eliminaras",
-  "@pageManageTemplatesDialogYouWillEliminate": {
-    "description": "Text to be displayed in the dialog to question for delete template"
-  },
-  "pageManageTemplatesDialogFromYourTemplatesList": "de tu lista de plantillas",
-  "@pageManageTemplatesDialogFromYourTemplatesList": {
-    "description": "Text to be displayed in the dialog to question for delete template"
-  },
-  "pageManageTemplatesDialogDeletedSuccessfully": "Eliminado exitosamente",
-  "@pageManageTemplatesDialogDeletedSuccessfully": {
-    "description": "Text to be displayed in the dialog to notify for deleted successfully"
-  },
-  
-  "dialogCreationNotificationCreateNotification": "Crear notificación",
-  "@dialogCreationNotificationCreateNotification": {
+    },
+    "pageAttendanceNotAbsentStudents": "No hay estudiantes",
+    "@pageAttendanceNotAbsentStudents": {
+      "description": "Text to be displayed when there are no absent students"
+    },
+    "dialogAttendanceOfDay": "Asistencias del día",
+    "@dialogAttendanceOfDay": {
+      "description": "Text to be displayed in the title of the dialog"
+    },
+    "dialogAttendanceStateOfStudents": "con",
+    "@dialogAttendanceStateOfStudents": {
+      "description": "text in the dialog in the status of absent students"
+    },
+    "pageManageTemplatesTitle": "Plantillas",
+    "@pageManageTemplatesTitle": {
+      "description": "Text to be displayed in the title of the page"
+    },
+    "pageManageTemplatesAddNew": "Agregar nueva",
+    "@pageManageTemplatesAddNew": {
+      "description": "Text to be displayed in the button to add new template"
+    },
+    "pageManageTemplatesNew": "Nueva plantilla",
+    "@pageManageTemplatesNew": {
+      "description": "Text to be displayed in the dialog to add new template"
+    },
+    "pageManageTemplatesDialogTitle": "Título",
+    "@pageManageTemplatesDialogTitle": {
+      "description": "Text to be displayed in the textfield of the dialog to add new template"
+    },
+    "pageManageTemplatesDialogWriteHere": "Escríbe aquí...",
+    "@pageManageTemplatesDialogWriteHere": {
+      "description": "Text to be displayed in the textfield of the dialog to add new template"
+    },
+    "pageManageTemplatesNeedSupervision": "Necesita supervisión",
+    "@pageManageTemplatesNeedSupervision": {
+      "description": "Text to be displayed in the bottom of the template"
+    },
+    "pageManageTemplatesCreatedAt": "Creado el",
+    "@pageManageTemplatesCreatedAt": {
+      "description": "Text to be displayed in the template for the creation date"
+    },
+    "pageManageTemplatesUpdateAt": "Editado el",
+    "@pageManageTemplatesUpdateAt": {
+      "description": "Text to be displayed in the template for the date of the last update"
+    },
+    "pageManageTemplatesWantContinue": "¿Deseas continuar?",
+    "@pageManageTemplatesWantContinue": {
+      "description": "Text to be displayed in the dialog to question if the user wants to continue"
+    },
+    "pageManageTemplatesWillCreate": "Crearás una plantilla\n predeterminada llamada",
+    "@pageManageTemplatesWillCreate": {
+      "description": "Text to be displayed in the dialog to notify that you will create a new template"
+    },
+    "pageManageTemplatesDialogSuccessPartOne": "Plantilla",
+    "@pageManageTemplatesDialogSuccessPartOne": {
+      "description": "Text to be displayed in the first part of the dialog of notify that the template has been created"
+    },
+    "pageManageTemplatesDialogSuccessPartTwo": " creada con éxito",
+    "@pageManageTemplatesDialogSuccessPartTwo": {
+      "description": "Text to be displayed in the last part of the dialog of notify that the template has been created"
+    },
+    "pageManageTemplatesDialogEditTemplate": "Editar plantilla",
+    "@pageManageTemplatesDialogEditTemplate": {
+      "description": "Text to be displayed in the dialog to edit template"
+    },
+    "pageManageTemplatesDialogEditedSuccessfully": "Platilla editada con exito",
+    "@pageManageTemplatesDialogEditedSuccessfully": {
+      "description": "Text to be displayed in the dialog to notify the edited was successfully"
+    },
+    "pageManageTemplatesDialogYouWillEliminate": "Eliminaras",
+    "@pageManageTemplatesDialogYouWillEliminate": {
+      "description": "Text to be displayed in the dialog to question for delete template"
+    },
+    "pageManageTemplatesDialogFromYourTemplatesList": "de tu lista de plantillas",
+    "@pageManageTemplatesDialogFromYourTemplatesList": {
+      "description": "Text to be displayed in the dialog to question for delete template"
+    },
+    "pageManageTemplatesDialogDeletedSuccessfully": "Eliminado exitosamente",
+    "@pageManageTemplatesDialogDeletedSuccessfully": {
+      "description": "Text to be displayed in the dialog to notify for deleted successfully"
+    },
+    "dialogCreationNotificationCreateNotification": "Crear notificación",
+    "@dialogCreationNotificationCreateNotification": {
       "description": "Create notification"
-  },
-
-  "dialogCreationNotificationCreatedSuccess": "Notificación creada con exito",
-  "@dialogCreationNotificationCreatedSuccess": {
+    },
+    "dialogCreationNotificationCreatedSuccess": "Notificación creada con exito",
+    "@dialogCreationNotificationCreatedSuccess": {
       "description": "Notification created successfully"
-  },
-  "dialogCreationNotificationTitleTextfield": "Título",
-  "@dialogCreationNotificationTitleTextfield": {
+    },
+    "dialogCreationNotificationTitleTextfield": "Título",
+    "@dialogCreationNotificationTitleTextfield": {
       "description": "Title"
-  },
-  
-  "dialogCreationNotificationWasTemplate": "fue\n creado como plantilla.",
-  "@dialogCreationNotificationWasTemplate": {
+    },
+    "dialogCreationNotificationWasTemplate": "fue\n creado como plantilla.",
+    "@dialogCreationNotificationWasTemplate": {
       "description": "was created as a template."
-  },
-
-  "dialogCreationNotificationConfimationSend": "Al confirmar la enviarás como notificación.",
-  "@dialogCreationNotificationConfimationSend": {
+    },
+    "dialogCreationNotificationConfimationSend": "Al confirmar la enviarás como notificación.",
+    "@dialogCreationNotificationConfimationSend": {
       "description": "Upon confirmation, it will be sent as a notification."
-  },
-
-  "dialogCreationNotificationWillCreateNotification": "crearás una notificación",
-  "@dialogCreationNotificationWillCreateNotification": {
+    },
+    "dialogCreationNotificationWillCreateNotification": "crearás una notificación",
+    "@dialogCreationNotificationWillCreateNotification": {
       "description": "You will create a notification"
-  },
-
-  "dialogCreationNotificationWantToContinue": "¿Deseas continuar?",
-  "@dialogCreationNotificationWantToContinue": {
+    },
+    "dialogCreationNotificationWantToContinue": "¿Deseas continuar?",
+    "@dialogCreationNotificationWantToContinue": {
       "description": "Do you want to continue?"
-  },
-  
-  "dialogCreationNotificationTooltip": "Si requiere supervisión, cualquier usuario que intente enviar una comunicación será previamente aceptada (o editada y descartada) por un supervisor.",
-  "@dialogCreationNotificationTooltip": {
+    },
+    "dialogCreationNotificationTooltip": "Si requiere supervisión, cualquier usuario que intente enviar una comunicación será previamente aceptada (o editada y descartada) por un supervisor.",
+    "@dialogCreationNotificationTooltip": {
       "description": "If supervision is required, any user attempting to send a communication will be reviewed (or edited and discarded) by a supervisor."
-  },
-
-  "dialogCreationNotificationNeedsupervision": "Necesita supervisión",
-  "@dialogCreationNotificationNeedsupervision": {
+    },
+    "dialogCreationNotificationNeedsupervision": "Necesita supervisión",
+    "@dialogCreationNotificationNeedsupervision": {
       "description": "Needs supervision"
-  },
-
-  "dialogCreationNotificationWithTemplateDefault": "Crear como plantilla predeterminada",
-  "@dialogCreationNotificationWithTemplateDefault": {
+    },
+    "dialogCreationNotificationWithTemplateDefault": "Crear como plantilla predeterminada",
+    "@dialogCreationNotificationWithTemplateDefault": {
       "description": "Create as default template"
-  },
-  "dialogSeeMore": "Ver más",
-  "@dialogSeeMore": {
-    "description": "text on a button to see less"
-  },
-  "dialogSeeLess": "Ver menos",
-  "@dialogSeeLess": {
-    "description": "text on a button to see more"
-  },
-  "commonDNI": "Número de documento",
-  "@commonDNI": {
-    "description": "Hint text in textformfield to indicate that ID must be entered"
-  },
-  "commonState": "Estado",
-  "@commonState": {
-    "description": "Label for the 'State' field or column in the interface"
-  },
-  "commonPresent": "Presente",
-  "@commonPresent": {
-    "description": "Label indicating that the student is present"
-  },
-  "commonAbsent": "Ausente",
-  "@commonAbsent": {
-    "description": "Label indicating that the student is absent"
-  },
-  "commonHalfAbsence": "1/2 falta",
-  "@commonHalfAbsence": {
-    "description": "Label indicating that the student has half of the required attendance"
-  },
-  "commonFourthMissing": "1/4 falta",
-  "@commonFourthMissing": {
-    "description": "Label indicating that the student has a quarter of the required attendance"
-  },
-  "commonUndefined": "Sin def.",
-  "@commonUndefined": {
-    "description": "Label indicating that the attendance status of the student is undefined or not specified"
-  },
-  "commonBack": "Volver",
-  "@commonBack": {
-    "description": "Text in button to indicate the action back"
-  },
-  "commonCancel": "Cancelar",
-  "@commonCancel": {
-    "description": "Use to cancel an action"
-  },
-  "commonEdit": "Editar",
-  "@commonEdit": {
-    "description": "Use to edit something"
-  },
-  "commonSubject": "Asignatura",
-  "@commonSubject": {
-    "description": "It is commonly used to refer to a specific academic subject"
-  },
-
+    },
+    "dialogSeeMore": "Ver más",
+    "@dialogSeeMore": {
+      "description": "text on a button to see less"
+    },
+    "dialogSeeLess": "Ver menos",
+    "@dialogSeeLess": {
+      "description": "text on a button to see more"
+    },
+    "commonDNI": "Número de documento",
+    "@commonDNI": {
+      "description": "Hint text in textformfield to indicate that ID must be entered"
+    },
+    "commonState": "Estado",
+    "@commonState": {
+      "description": "Label for the 'State' field or column in the interface"
+    },
+    "commonPresent": "Presente",
+    "@commonPresent": {
+      "description": "Label indicating that the student is present"
+    },
+    "commonAbsent": "Ausente",
+    "@commonAbsent": {
+      "description": "Label indicating that the student is absent"
+    },
+    "commonHalfAbsence": "1/2 falta",
+    "@commonHalfAbsence": {
+      "description": "Label indicating that the student has half of the required attendance"
+    },
+    "commonFourthMissing": "1/4 falta",
+    "@commonFourthMissing": {
+      "description": "Label indicating that the student has a quarter of the required attendance"
+    },
+    "commonUndefined": "Sin def.",
+    "@commonUndefined": {
+      "description": "Label indicating that the attendance status of the student is undefined or not specified"
+    },
+    "commonBack": "Volver",
+    "@commonBack": {
+      "description": "Text in button to indicate the action back"
+    },
+    "commonCancel": "Cancelar",
+    "@commonCancel": {
+      "description": "Use to cancel an action"
+    },
+    "commonEdit": "Editar",
+    "@commonEdit": {
+      "description": "Use to edit something"
+    },
+    "commonSubject": "Asignatura",
+    "@commonSubject": {
+      "description": "It is commonly used to refer to a specific academic subject"
+    },
     "commonButtonAccept": "Aceptar",
     "@commonButtonAccept": {
-        "description": "It is commonly used in a button to accept"
+      "description": "It is commonly used in a button to accept"
     },
-
     "commonButtonDecline": "Rechazar",
     "@commonButtonDecline": {
-        "description": "It is commonly used in a button to decline"
+      "description": "It is commonly used in a button to decline"
     },
-  "commonCourse": "Curso",
-  "@commonCourse": {
-    "description": "It is commonly used to refer to a specific academic course."
-  },
-  "commonCourses": "Cursos",
-  "@commonCourses": {
-    "description": "It is commonly used to refer to various academic courses."
-  },
-  "commonName": "Nombre",
-  "@commonName": {
-    "description": "Label indicating the name of something"
-  },
-  "commonLastname": "Apellido",
-  "@commonLastname": {
-    "description": "Label indicating the lastname of something"
-  },
-  "commonEmail": "Email",
-  "@commonEmail": {
-    "description": "Label indicating the email of the user"
-  },
-  "commonSearchWithDots": "Escriba aquí...",
-  "@commonSearchWithDots": {
-    "description": "Label indicating to search"
-  },
-  "commonRole": "Rol",
-  "@commonRole": {
-    "description": "A singular function or position that a user can have in a system or application."
-  },
-  "commonRoles": "Roles",
-  "@commonRoles": {
-    "description": "Multiple functions or positions that a user can have in a system or application."
-  },
-  "commonComission": "Comisión",
-  "@commonComission": {
-    "description": "A singular commission, group, or task assigned to a user in an educational or work context."
-  },
-  "commonComissions": "Comisiones",
-  "@commonComissions": {
-    "description": "Multiple commissions, groups, or tasks assigned to a user in an educational or work context."
-  },
-  "commonDeleteAll": "Borrar todos",
-  "@commonDeleteAll": {
-    "description": "Label indicating to delete all items"
-  },
-
-  "commonTemplate": "Plantilla",
-  "@commonTemplate": {
+    "commonCourse": "Curso",
+    "@commonCourse": {
+      "description": "It is commonly used to refer to a specific academic course."
+    },
+    "commonCourses": "Cursos",
+    "@commonCourses": {
+      "description": "It is commonly used to refer to various academic courses."
+    },
+    "commonName": "Nombre",
+    "@commonName": {
+      "description": "Label indicating the name of something"
+    },
+    "commonLastname": "Apellido",
+    "@commonLastname": {
+      "description": "Label indicating the lastname of something"
+    },
+    "commonEmail": "Email",
+    "@commonEmail": {
+      "description": "Label indicating the email of the user"
+    },
+    "commonSearchWithDots": "Escriba aquí...",
+    "@commonSearchWithDots": {
+      "description": "Label indicating to search"
+    },
+    "commonRole": "Rol",
+    "@commonRole": {
+      "description": "A singular function or position that a user can have in a system or application."
+    },
+    "commonRoles": "Roles",
+    "@commonRoles": {
+      "description": "Multiple functions or positions that a user can have in a system or application."
+    },
+    "commonComission": "Comisión",
+    "@commonComission": {
+      "description": "A singular commission, group, or task assigned to a user in an educational or work context."
+    },
+    "commonComissions": "Comisiones",
+    "@commonComissions": {
+      "description": "Multiple commissions, groups, or tasks assigned to a user in an educational or work context."
+    },
+    "commonDeleteAll": "Borrar todos",
+    "@commonDeleteAll": {
+      "description": "Label indicating to delete all items"
+    },
+    "commonTemplate": "Plantilla",
+    "@commonTemplate": {
       "description": "Template"
-  },
-  "commonTemplates": "Plantillas",
-  "@commonTemplates": {
+    },
+    "commonTemplates": "Plantillas",
+    "@commonTemplates": {
       "description": "Templates"
-  },
-  "commonTeacher": "Docente",
-  "@commonTeacher": {
+    },
+    "commonTeacher": "Docente",
+    "@commonTeacher": {
       "description": "Teacher or instructor in an educational context."
-  },
-
-  "commonStudent": "Alumno",
-  "@commonStudent": {
+    },
+    "commonStudent": "Alumno",
+    "@commonStudent": {
       "description": "Student or learner in an educational context."
-  },
-
-  "commonAccept": "Aceptar",
-  "@commonAccept": {
+    },
+    "commonAccept": "Aceptar",
+    "@commonAccept": {
       "description": "Button label used to confirm or accept an action."
-  },
-
-  "commonSearchName": "Escribe un nombre",
-  "@commonSearchName": {
+    },
+    "commonSearchName": "Escribe un nombre",
+    "@commonSearchName": {
       "description": "Prompt or placeholder text displayed in a search field indicating that the user should input a name."
-},
-  "commonDelete": "Eliminar",
-  "@commonDelete": {
+    },
+    "commonDelete": "Eliminar",
+    "@commonDelete": {
       "description": "Label indicating to delete"
-  },
-
-  "commonToday": "Hoy",
-  "@commonToday": {
+    },
+    "commonToday": "Hoy",
+    "@commonToday": {
       "description": "Text today"
-  },
-
-  "commonNow": "Ahora",
-  "@commonNow": {
+    },
+    "commonNow": "Ahora",
+    "@commonNow": {
       "description": "Text now"
-  },
-  "commonNoTemplate": "Sin plantilla",
-  "@commonNoTemplate": {
+    },
+    "commonNoTemplate": "Sin plantilla",
+    "@commonNoTemplate": {
       "description": "Text no template"
-  },
-  "commonWarning": "Atención",
-  "@commonWarning": {
-    "description": "Label indicating  warn the user"
-  },
-  "commonConfirmCloseApp": "Presiona de nuevo para salir",
-  "@commonConfirmCloseApp": {
-    "description": "Message to confirm app exit"
+    },
+    "commonWarning": "Atención",
+    "@commonWarning": {
+      "description": "Label indicating  warn the user"
+    },
+    "commonConfirmCloseApp": "Presiona de nuevo para salir",
+    "@commonConfirmCloseApp": {
+      "description": "Message to confirm app exit"
+    }
   }
-}

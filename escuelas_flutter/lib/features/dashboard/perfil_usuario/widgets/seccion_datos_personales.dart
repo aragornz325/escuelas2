@@ -38,7 +38,7 @@ class DatosPersonales extends StatelessWidget {
       child: ExpansionTile(
         initiallyExpanded: true,
         title: Text(
-          l10n.pageRoleAssigmentPersonalInformation.toUpperCase(),
+          l10n.pageRoleAssigmentPersonalInformationText.toUpperCase(),
           style: TextStyle(
             color: colores.onBackground,
             fontSize: 13.pf,

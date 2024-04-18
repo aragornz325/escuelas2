@@ -71,14 +71,16 @@
       }
     }
   },
-  "pageRoleAssigmentPersonalInformation": "Personal information",
-  "@pageRoleAssigmentPersonalInformation": {
-    "description": "Message used to represent the personal information section in role assignment."
-  },
   "pageRoleAssigmentDialogFirstText": "Are you sure you want\n to confirm ",
   "@pageRoleAssigmentDialogFirstText": {
     "description": "Initial text of a dialog box to confirm role assignment"
   },
+
+  "pageRoleAssigmentPersonalInformationText":"Personal information",
+  "@pageRoleAssigmentPersonalInformationText":{
+    "description": "Message used to represent the personal information section in role assignment."
+  },
+
   "pageRoleAssigmentDialogSecondText": "\n as a ",
   "@pageRoleAssigmentDialogSecondText": {
     "description": "Secondary text of a dialog box to confirm role assignment."
@@ -547,10 +549,52 @@
                 "type": "String"
             },
             "nameSubject" : {
-                "type": "String"
+              "type": "String"
+            },
+            "all" : {
+                "type": "int"
             }
-        }
+        }  
     },
+    "pageUserProfileKyCPersonalInformation": "Personal information",
+    "@pageUserProfileKyCPersonalInformation": {
+        "description": "Title of the page KyC to edit personal information"
+    },
+
+    "pageUserProfileKyCBloodFactor": "Blood factor",
+    "@pageUserProfileKyCBloodFactor": {
+        "description": "Title of the page KyC to edit the blood factor"
+    },
+    "pageUserProfileKyCEmergencyContact": "Emergency contact",
+    "@pageUserProfileKyCEmergencyContact": {
+        "description": "Title in the page KyC of emergency contact"
+    },
+    "pageUserProfileKyCConfirmationSaveChanges": "Are you sure you want to edit the personal data of ",
+    "@pageUserProfileKyCConfirmationSaveChanges": {
+        "description": "Text in te alert dialog to confirm the save changes of personal data"
+    },
+    "pageUserProfileKyCSuccessfulEdition": "The profile was edited successfully!",
+    "@pageUserProfileKyCSuccessfulEdition": {
+        "description": "Text in te alert dialog to confirm the edited successfully save changes of personal data"
+    },
+    "pageUserProfileConfirmDeleteQuestion": "By confirming you will PERMANENTLY delete ",
+    "@pageUserProfileConfirmDeleteQuestion": {
+        "description": "Text in te alert dialog to confirm delete the teacher"
+    },
+    "pageUserProfileTeacherList": " from your teacher list",
+    "@pageUserProfileTeacherList": {
+        "description": "Text in the alert dialog to confirm delete the teacher"
+    },
+    "pageUserProfileTeacherSuccessfullyEliminated": " was successfully eliminated",
+    "@pageUserProfileTeacherSuccessfullyEliminated": {
+        "description": "Text in the alert dialog to confirm delete the teacher"
+    },
+    "pageUserProfileSelectTheSubjectToDelete": "Select the subject you want to delete",
+    "@pageUserProfileSelectTheSubjectToDelete": {
+        "description": "Text in the alert dialog to select the subject to delete"
+    },
+    
+
     
     "pageCoursesThereAreNoCourses": "There are no commissions with subjects",
     "@pageCoursesThereAreNoCourses": {
@@ -1202,6 +1246,19 @@
     "commonButtonDecline": "Decline",
     "@commonButtonDecline": {
         "description": "It is commonly used in a button to decline"
+    },
+    
+    "commonSaveChanges": "Save changes",
+    "@commonSaveChanges": {
+        "description": "Text in button to save changes"
+    },
+    "commonAttention": "Attention",
+    "@commonAttention": {
+        "description": "text to notify attention"
+    },
+    "commonWantToContinue": "¿Do you want to continue?",
+    "@commonWantToContinue": {
+        "description": "continue question"
     }
 
 }

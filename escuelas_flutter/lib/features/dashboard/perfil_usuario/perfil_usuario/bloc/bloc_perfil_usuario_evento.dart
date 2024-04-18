@@ -21,12 +21,13 @@ class BlocPerfilUsuarioEventoTraerUsuario extends BlocPerfilUsuarioEvento {
   final int? idUsuario;
 }
 
-/// {@template BlocPerfilUsuarioEventoEditarDocente}
-/// Evento que realiza la accion de editar los datos de un docente
+/// {@template BlocPerfilUsuarioEventoTraerAsignaturasComisiones}
+/// Trae las asignaturas de la institucion con sus comisiones
 /// {@endtemplate}
-class BlocPerfilUsuarioEventoEditarDocente extends BlocPerfilUsuarioEvento {
-    /// {@macro BlocPerfilUsuarioEventoEditarDocente}
-const BlocPerfilUsuarioEventoEditarDocente();
+class BlocPerfilUsuarioEventoTraerAsignaturasComisiones
+    extends BlocPerfilUsuarioEvento {
+  /// {@macro BlocPerfilUsuarioEventoTraerAsignaturasComisiones}
+  const BlocPerfilUsuarioEventoTraerAsignaturasComisiones();
 }
 
 /// {@template BlocPerfilUsuarioEventoAgregarAsignatura}
@@ -34,7 +35,25 @@ const BlocPerfilUsuarioEventoEditarDocente();
 /// {@endtemplate}
 class BlocPerfilUsuarioEventoAgregarAsignatura extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoAgregarAsignatura}
-const BlocPerfilUsuarioEventoAgregarAsignatura();
+  const BlocPerfilUsuarioEventoAgregarAsignatura({
+    required this.idUsuario,
+    required this.idAsignaturaSeleccionada,
+    required this.idComisionSeleccionada,
+    this.asignatura,
+    this.comision,
+  });
+
+  /// Id de la asignatura seleccionada
+  final int idAsignaturaSeleccionada;
+
+  /// Id de la comision seleccionada
+  final int idComisionSeleccionada;
+
+  final int idUsuario;
+
+  final Asignatura? asignatura;
+
+  final ComisionDeCurso? comision;
 }
 
 /// {@template BlocPerfilUsuarioEventoQuitarAsignatura}
@@ -42,7 +61,26 @@ const BlocPerfilUsuarioEventoAgregarAsignatura();
 /// {@endtemplate}
 class BlocPerfilUsuarioEventoQuitarAsignatura extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoQuitarAsignatura}
-   const BlocPerfilUsuarioEventoQuitarAsignatura();
+  const BlocPerfilUsuarioEventoQuitarAsignatura({
+    required this.idUsuario,
+    required this.idAsignatura,
+    required this.idComision,
+    this.asignatura,
+    this.comision,
+  });
+
+  /// Id del docente al que se le quita la asignatura
+  final int idUsuario;
+
+  /// Id de la asignatura a quitar
+  final int idAsignatura;
+
+  /// Id de la comision de la asignatura a quitar
+  final int idComision;
+
+  final Asignatura? asignatura;
+
+  final ComisionDeCurso? comision;
 }
 
 /// {@template BlocPerfilUsuarioEventoEliminarDocente}
@@ -50,5 +88,64 @@ class BlocPerfilUsuarioEventoQuitarAsignatura extends BlocPerfilUsuarioEvento {
 /// {@endtemplate}
 class BlocPerfilUsuarioEventoEliminarDocente extends BlocPerfilUsuarioEvento {
   /// {@macro BlocPerfilUsuarioEventoEliminarDocente}
-  const BlocPerfilUsuarioEventoEliminarDocente();
+  const BlocPerfilUsuarioEventoEliminarDocente({required this.idUsuario});
+
+  /// id del usuario a eliminar
+  final int idUsuario;
+}
+
+/// {@template BlocPerfilUsuarioEventoRecolectarDatosKyC}
+/// Evento que recolecta los datos KYC del usuario
+/// {@endtemplate}
+class BlocPerfilUsuarioEventoRecolectarDatosKyC
+    extends BlocPerfilUsuarioEvento {
+  BlocPerfilUsuarioEventoRecolectarDatosKyC({
+    this.telefono,
+    this.mail,
+    this.factorSanguineo,
+    this.edad,
+    this.contactoEmergenciaNombre,
+    this.contactoEmergenciaVinculo,
+    this.contactoEmergenciaTelefono,
+    this.contactoEmergenciaMail,
+    this.observaciones,
+  });
+
+  /// telefono del usuario
+  final String? telefono;
+
+  /// mail del usuario
+  final String? mail;
+
+  /// grupo sanguineo del usuario
+  final String? factorSanguineo;
+
+  /// edad del usuario
+  final String? edad;
+
+  /// nombre del contacto de emergencia
+  final String? contactoEmergenciaNombre;
+
+  /// vinculo del contacto de emergencia
+  final String? contactoEmergenciaVinculo;
+
+  /// telefono del contacto de emergencia
+  final String? contactoEmergenciaTelefono;
+
+  /// mail del contacto de emergencia
+  final String? contactoEmergenciaMail;
+
+  /// observaciones
+  final String? observaciones;
+}
+
+/// {@template BlocPerfilUsuarioEventoInsertarInformacionDeKyc}
+/// Inserta los valores que se completaron en el formulario,
+/// guardados dentro del estado dentro de la informacion
+/// del usuario en la base de datos.
+/// {@endtemplate}
+class BlocPerfilUsuarioEventoInsertarInformacionDeKyc
+    extends BlocPerfilUsuarioEvento {
+  /// {@macro BlocPerfilUsuarioEventoInsertarInformacionDeKyc}
+  BlocPerfilUsuarioEventoInsertarInformacionDeKyc();
 }

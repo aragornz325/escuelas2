@@ -1,14 +1,19 @@
 part of 'bloc_perfil_usuario.dart';
 
+//! TODO(Anyone): Quitar UsuarioPendiente y arreglar lo que se rompe
+
 /// {@template BlocPerfilUsuarioEstado}
 /// Maneja los distintos estados y variables guardadas en los mismos
 /// {@endtemplate}
 class BlocPerfilUsuarioEstado {
   /// {@macro BlocPerfilUsuarioEstado}
   const BlocPerfilUsuarioEstado._({
+    this.listaComisiones = const [],
+    this.listaAsignaturas = const [],
     this.usuario,
     this.usuarioPendiente,
     this.listaRoles = const [],
+    this.opcionesFormulario = const [],
   });
 
   BlocPerfilUsuarioEstado.desde(
@@ -16,7 +21,13 @@ class BlocPerfilUsuarioEstado {
     Usuario? usuario,
     UsuarioPendiente? usuarioPendiente,
     List<Role>? listaRoles,
+    List<OpcionFormulario>? opcionesFormulario,
+    List<ComisionDeCurso>? listaComisiones,
+    List<Asignatura>? listaAsignaturas,
   }) : this._(
+          opcionesFormulario: opcionesFormulario ?? otro.opcionesFormulario,
+          listaAsignaturas: listaAsignaturas ?? otro.listaAsignaturas,
+          listaComisiones: listaComisiones ?? otro.listaComisiones,
           usuario: usuario ?? otro.usuario,
           usuarioPendiente: usuarioPendiente ?? otro.usuarioPendiente,
           listaRoles: listaRoles ?? otro.listaRoles,
@@ -31,6 +42,24 @@ class BlocPerfilUsuarioEstado {
   /// Lista de roles de la institucion
   final List<Role> listaRoles;
 
+  /// Lista de cursos de la escuela a la que pertenece el usuario
+  final List<ComisionDeCurso> listaComisiones;
+
+  /// Lista de materias de la escuela a la que pertenece el usuario
+  final List<Asignatura> listaAsignaturas;
+
+  /// Lista de opciones de kyc (inicialmente hay una)
+  final List<OpcionFormulario> opcionesFormulario;
+
+  List<EscuelasDropdownOption<int>> get opcionesComisiones => listaComisiones
+      .map(
+        (comision) => EscuelasDropdownOption(
+          value: comision.id ?? 0,
+          title: comision.nombre,
+        ),
+      )
+      .toList();
+
   /// Lista de [AsignaturaSolicitada] del usuario pendiente o una lista vacia
   /// si no tiene asignaturas solicitadas
   List<AsignaturaSolicitada> get listaAsignaturasSolicitadasUsuarioPendiente =>
@@ -43,12 +72,12 @@ class BlocPerfilUsuarioEstado {
 
   /// Devuelve una lista de [RelacionComisionUsuario] del usuario o una lista
   /// vacia si no
-  List<RelacionComisionUsuario> get listaComisiones =>
+  List<RelacionComisionUsuario> get listaComisionesDelUsuario =>
       usuario?.comisiones ?? [];
 
   /// Devuelve un [String] de los nombres de las comisiones del usuario
   String get nombreComisiones =>
-      listaComisiones.map((e) => e.comision?.nombre).join(', ');
+      listaComisionesDelUsuario.map((e) => e.comision?.nombre).join(', ');
 
   /// Devuelve un [String] del nombre de la comision del [UsuarioPendiente]
   String get nombreComisionSolicitada =>
@@ -113,7 +142,10 @@ class BlocPerfilUsuarioEstadoCargando extends BlocPerfilUsuarioEstado {
 /// {@endtemplate}
 class BlocPerfilUsuarioEstadoExitoso extends BlocPerfilUsuarioEstado {
   /// {@macro BlocPerfilUsuarioEstadoExitoso}
-  BlocPerfilUsuarioEstadoExitoso.desde(super.otro) : super.desde();
+  BlocPerfilUsuarioEstadoExitoso.desde(
+    super.otro, {
+    super.opcionesFormulario,
+  }) : super.desde();
 }
 
 /// {@template BlocPerfilUsuarioEstadoExitosoAltraerUsuario}
@@ -148,4 +180,27 @@ class BlocPerfilUsuarioEstadoExitosoAltraerUsuarioPendiente
 class BlocPerfilUsuarioEstadoError extends BlocPerfilUsuarioEstado {
   /// {@macro BlocPerfilUsuarioEstadoError}
   BlocPerfilUsuarioEstadoError.desde(super.otro) : super.desde();
+}
+
+/// {@template BlocPerfilUsuarioEstadoExitosoAlEliminarUsuario}
+/// Estado exitoso al eliminar usuario
+/// {@endtemplate}
+class BlocPerfilUsuarioEstadoExitosoAlEliminarUsuario
+    extends BlocPerfilUsuarioEstado {
+  /// {@macro BlocPerfilUsuarioEstadoExitosoAlEliminarUsuario}
+  BlocPerfilUsuarioEstadoExitosoAlEliminarUsuario.desde(super.otro)
+      : super.desde();
+}
+
+/// {@template BlocPerfilUsuarioEstadoExitosoALTraerAsignaturas}
+/// Estado exitoso al traer las asignaturas
+/// {@endtemplate}
+class BlocPerfilUsuarioEstadoExitosoALTraerAsignaturas
+    extends BlocPerfilUsuarioEstado {
+  /// {@macro BlocPerfilUsuarioEstadoExitosoALTraerAsignaturas}
+  BlocPerfilUsuarioEstadoExitosoALTraerAsignaturas.desde(
+    super.otro, {
+    super.listaAsignaturas,
+    super.listaComisiones,
+  }) : super.desde();
 }

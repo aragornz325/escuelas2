@@ -127,7 +127,7 @@ class _DatosPersonalesAEditar extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 10.pw),
                 child: Text(
-                  l10n.pageRoleAssigmentPersonalInformation.toUpperCase(),
+                  l10n.pageRoleAssigmentPersonalInformationText.toUpperCase(),
                   style: TextStyle(
                     fontSize: 13.pf,
                     fontWeight: FontWeight.w700,

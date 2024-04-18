@@ -5,6 +5,8 @@ import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario_pendiente/bloc/bloc_perfil_usuario_pendiente.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/dialog_seleccionar_asignatura_docente.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/dialog_quitar_asignatura.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
 // TODO(anyone): HACER FACTORY
+//! TODO(anyone): Extraer widget
 
 /// {@template SeccionCursos}
 /// Seccion de cursos del perfil de usuario donde se puede ver a que cursos esta
@@ -37,8 +40,7 @@ class SeccionCursos extends StatelessWidget {
     return usuarioPendiente != null
         ? Column(
             children: [
-              BlocBuilder<BlocPerfilUsuarioPendiente,
-                  BlocPerfilUsuarioPendienteEstado>(
+              BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
                 builder: (context, state) {
                   return Container(
                     margin: EdgeInsets.symmetric(
@@ -54,6 +56,8 @@ class SeccionCursos extends StatelessWidget {
                               .listaAsignaturasSolicitadasUsuarioPendiente
                               .isNotEmpty
                           ? _DesplegableCurso(
+                              idUsuario: state.usuario?.id ?? 0,
+                              asignaturas: state.listaAsignaturasUsuario,
                               usuarioLogueado: usuarioLogueado,
                               contenido: Column(
                                 children: state
@@ -94,6 +98,8 @@ class SeccionCursos extends StatelessWidget {
                               .listaAsignaturasSolicitadasUsuarioPendiente
                               .isNotEmpty
                           ? _DesplegableCurso(
+                              idUsuario: state.usuario?.id ?? 0,
+                              asignaturas: state.listaAsignaturasUsuario,
                               usuarioLogueado: usuarioLogueado,
                               contenido: Column(
                                 children: state
@@ -218,6 +224,8 @@ class SeccionCursos extends StatelessWidget {
                   Tipo.docenteAprobado =>
                     state.listaAsignaturasUsuario.isNotEmpty
                         ? _DesplegableCurso(
+                            idUsuario: state.usuario?.id ?? 0,
+                            asignaturas: state.listaAsignaturasUsuario,
                             usuarioLogueado: usuarioLogueado,
                             contenido: Column(
                               children: state.listaAsignaturasUsuario
@@ -256,6 +264,8 @@ class SeccionCursos extends StatelessWidget {
                   Tipo.docentePendiente =>
                     state.listaAsignaturasSolicitadasUsuarioPendiente.isNotEmpty
                         ? _DesplegableCurso(
+                            idUsuario: state.usuario?.id ?? 0,
+                            asignaturas: state.listaAsignaturasUsuario,
                             usuarioLogueado: usuarioLogueado,
                             contenido: Column(
                               children: state
@@ -367,11 +377,13 @@ class SeccionCursos extends StatelessWidget {
 /// {@template DesplegableCurso}
 /// Desplegable de informacion de cursos
 /// {@endtemplate}
-class _DesplegableCurso extends StatelessWidget {
+class _DesplegableCurso extends StatefulWidget {
   /// {@macro DesplegableCurso}
   const _DesplegableCurso({
     required this.contenido,
     required this.usuarioLogueado,
+    required this.asignaturas,
+    required this.idUsuario,
   });
 
   /// Contenido
@@ -379,6 +391,48 @@ class _DesplegableCurso extends StatelessWidget {
 
   /// Usuario logueado, utilizado para ver permisos
   final Usuario usuarioLogueado;
+
+  /// Lista de asignaturas que tiene el usuario
+  final List<RelacionAsignaturaUsuario> asignaturas;
+
+  /// Id del usuario
+  final int idUsuario;
+
+  @override
+  State<_DesplegableCurso> createState() => _DesplegableCursoState();
+}
+
+class _DesplegableCursoState extends State<_DesplegableCurso> {
+  /// Muestra el popup para seleccionar una asignatura y su respectiva comision
+  Future<void> _onSeleccionadorAsignaturaPorComision(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: SeleccionarAsignaturaParaDocente(
+            idUsuario: widget.idUsuario,
+          ),
+        );
+      },
+    );
+  }
+
+  /// Muestra un Dialog para selecciona una asignatura a desasignar de la lista
+  /// del docente
+  Future<void> _quitarAsignatura(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: DialogQuitarAsignatura(
+            asignaturas: widget.asignaturas,
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -388,17 +442,13 @@ class _DesplegableCurso extends StatelessWidget {
 
     return ExpansionTile(
       initiallyExpanded: true,
-      trailing: usuarioLogueado.tienePermisos(
+      trailing: widget.usuarioLogueado.tienePermisos(
         PermisoDeAsignatura.asignarDocenteAAsignatura,
       )
           ? GestureDetector(
-              onTap: () => showDialog<void>(
-                context: context,
-                builder: (context) =>
-                    EscuelasDialog.featNoDisponible(context: context),
-              ),
-
-              //! TODO(Manu):dar funcion
+              onTap: () {
+                _quitarAsignatura(context);
+              },
               child: Icon(
                 Icons.delete_outline_outlined,
                 color: colores.error,
@@ -417,17 +467,14 @@ class _DesplegableCurso extends StatelessWidget {
             ),
           ),
           const Spacer(),
-          //! TODO(Manu):terminar
-          if (usuarioLogueado.tienePermisos(
+          if (widget.usuarioLogueado.tienePermisos(
             PermisoDeAsignatura.asignarDocenteAAsignatura,
           ))
             EscuelasBoton.textoEIcono(
               color: colores.primary,
-              onTap: () => showDialog<void>(
-                context: context,
-                builder: (context) =>
-                    EscuelasDialog.featNoDisponible(context: context),
-              ),
+              onTap: () {
+                _onSeleccionadorAsignaturaPorComision(context);
+              },
               texto: l10n.pageUserProfileButtonAddSubject,
               context: context,
               icono: Icons.add,
@@ -474,7 +521,7 @@ class _DesplegableCurso extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.only(top: 14.ph),
-                child: contenido,
+                child: widget.contenido,
               ),
             ],
           ),
