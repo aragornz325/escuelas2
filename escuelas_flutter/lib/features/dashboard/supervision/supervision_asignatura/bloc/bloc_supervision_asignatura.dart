@@ -151,12 +151,13 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
     emit(BlocSupervisionAsignaturaEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        // await client.calificacion.enviarCalificacionesPorMesYAnio(
-        //   anio: state.fecha?.year ?? 0,
-        //   mes: state.fecha?.month ?? 0,
-        //   filtroDeEnvio: EnvioCalificaciones.porAsignatura,
-        //   idAsignaturas: [state.asignatura?.id],
-        // );
+        await client.calificacion.enviarCalificacionesPorMesYAnio(
+          anio: state.fecha?.year ?? 0,
+          mes: state.fecha?.month ?? 0,
+          filtroDeEnvio: EnvioCalificaciones.porAsignatura,
+          idAsignaturas: [state.asignatura?.id ?? 0],
+          idComisiones: [state.comision?.id ?? 0],
+        );
 
         emit(BlocSupervisionAsignaturaEstadoExitoso.desde(state));
       },
