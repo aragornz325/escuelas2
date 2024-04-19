@@ -19,7 +19,7 @@ class EscuelasVersion extends StatelessWidget {
             Text('Nueva actualización disponible ($patchNuevo)'),
         checkingForUpdatesWidget: const CircularProgressIndicator(),
         upToDateWidget: Text(
-            'Versión: ${updateController.shorebirdCurrentPatchNumber ?? 0}'),
+            'Versión: ${updateController.shorebirdCurrentPatchNumber ?? '-'}'),
       ),
     );
   }
