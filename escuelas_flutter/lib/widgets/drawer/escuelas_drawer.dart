@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
+import 'package:escuelas_flutter/bootstrap.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
@@ -12,9 +13,11 @@ import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 
 import 'package:escuelas_flutter/widgets/drawer/bloc/bloc_drawer.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
+import 'package:escuelas_flutter/widgets/escuelas_version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
+import 'package:shorebird_update_checker/shorebird_update_checker.dart';
 
 /// {@template  EscuelasDrawer}
 /// Drawer donde el usuario puede ver su perfil o desloguearse.
@@ -305,7 +308,9 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
                         title: l10n.drawerLogOut,
                         onTap: () => _showDialogCerrarSesion(context),
                       ),
-                      SizedBox(height: 50.ph),
+                      SizedBox(height: 10.ph),
+                      const EscuelasVersion(),
+                      SizedBox(height: 30.ph),
                     ],
                   ),
                 ),

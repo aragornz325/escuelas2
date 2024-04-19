@@ -1374,10 +1374,11 @@ packages:
   shorebird_update_checker:
     dependency: "direct main"
     description:
-      name: shorebird_update_checker
-      sha256: "9200241faa428dfe5bc22a048911b90469f8f18478cb8a9f72e927ac64855d8a"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "85d5e4d18ca2bc091d48bac31fa07cc61c8796fa"
+      url: "https://github.com/Rodsevich/shorebird_update_checker.git"
+    source: git
     version: "0.0.7"
   sky_engine:
     dependency: transitive
