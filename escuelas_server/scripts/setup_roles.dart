@@ -17,21 +17,11 @@ Future<void> main(List<String> args) async {
     <Enum>[
       PermisoDeCalificacion.verCalificacion,
     ],
-    <Enum>[
-      PermisoDeComision.verComision,
-    ],
-    <Enum>[
-      PermisoDeCurso.verCurso,
-    ],
-    <Enum>[
-      PermisoDeRol.verRol,
-    ],
-    <Enum>[
-      PermisoDeSolicitud.verSolicitud,
-    ],
-    <Enum>[
-      PermisoDeUsuario.verUsuario,
-    ],
+    <Enum>[],
+    <Enum>[],
+    <Enum>[],
+    <Enum>[],
+    <Enum>[],
   ];
 
   final permisosDocente = [
@@ -46,9 +36,7 @@ Future<void> main(List<String> args) async {
       PermisoDeCalificacion.crearCalificacion,
       PermisoDeCalificacion.verCalificacion,
     ],
-    <Enum>[
-      PermisoDeComision.verComision,
-    ],
+    <Enum>[],
     <Enum>[
       PermisoDeCurso.verCurso,
     ],
@@ -123,17 +111,17 @@ Future<void> main(List<String> args) async {
     'directivo': permisosDirectivo,
   };
 
-  await run(['--mode', runMode]);
+  // await run(['--mode', runMode]);
 
-  final session = await pod.createSession();
+  // final session = await pod.createSession();
 
-  for (var rol in roles.keys) {
-    await RolEndpoint().crearRol(
-      session,
-      name: rol,
-      permisos: Permisos.fromEnumList(roles[rol]!).toSerialization(),
-    );
-  }
-
+  // for (var rol in roles.keys) {
+  //   await RolEndpoint().crearRol(
+  //     session,
+  //     name: rol,
+  //     permisos: Permisos.fromEnumList(roles[rol]!).toSerialization(),
+  //   );
+  // }
+  print(Permisos.fromEnumList(roles['docente']!).toSerialization());
   exit(0);
 }
