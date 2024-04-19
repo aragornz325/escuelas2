@@ -5,6 +5,7 @@ import 'package:escuelas_flutter/widgets/appbar/escuelas_appbar.dart';
 import 'package:escuelas_flutter/widgets/drawer/escuelas_drawer.dart';
 import 'package:escuelas_flutter/widgets/escuelas_bottom_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:shorebird_update_checker/shorebird_update_checker.dart';
 
 /// {@template EscuelasScaffold}
 /// Scaffold General que se va a utilizar en el proyecto escuelas para los
@@ -46,23 +47,29 @@ class EscuelasScaffold extends StatelessWidget {
 
     final userInfo = sessionManager.signedInUser;
 
-    return Scaffold(
-      drawer: EscuelasDrawer(
-        urlImage: userInfo?.imageUrl ?? '',
-        nombre: userInfo?.userName ?? '',
-        apellido: userInfo?.apellido ?? '',
-      ),
-      // resizeToAvoidBottomInset: true,
-      appBar: tieneAppBar
-          ? EscuelasAppBar(
-              tieneDrawer: tieneDrawer,
-            )
-          : null,
-      backgroundColor: colorDeFondo ?? colores.background,
-      body: cuerpo,
-      bottomNavigationBar: tieneBottomNavBar
-          ? EscuelasBottomNavigationBar(index: index ?? 0)
-          : null,
-    );
+    return CheckForUpdatesWidget(
+        config: const UpdateCheckerConfig(
+            iOSAppId: 'com.sorpi.pruebas-flutter-sorpi21',
+            androidAppId: 'com.example.verygoodcore.escuelas_flutter',
+            enableAppStoreUpdateChecker: false,
+            forceShorebirdUpdate: true),
+        child: Scaffold(
+          drawer: EscuelasDrawer(
+            urlImage: userInfo?.imageUrl ?? '',
+            nombre: userInfo?.userName ?? '',
+            apellido: userInfo?.apellido ?? '',
+          ),
+          // resizeToAvoidBottomInset: true,
+          appBar: tieneAppBar
+              ? EscuelasAppBar(
+                  tieneDrawer: tieneDrawer,
+                )
+              : null,
+          backgroundColor: colorDeFondo ?? colores.background,
+          body: cuerpo,
+          bottomNavigationBar: tieneBottomNavBar
+              ? EscuelasBottomNavigationBar(index: index ?? 0)
+              : null,
+        ));
   }
 }

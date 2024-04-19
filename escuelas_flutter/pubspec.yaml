@@ -57,6 +57,7 @@ dependencies:
   collection: ^1.17.2
   serverpod_auth_client: ^1.2.6
   google_sign_in: ^6.2.1
+  shorebird_update_checker: ^0.0.7
 
 dev_dependencies:
   # Navegaciones
