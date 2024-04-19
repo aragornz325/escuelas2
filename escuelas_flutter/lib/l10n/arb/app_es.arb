@@ -703,6 +703,19 @@
     "@pageEditProfileDialogEditContact": {
       "description": "Title of the dialog"
     },
+    "pageEditProfileDialogSuccessInAssigningSubject":"Asignatura asignada con éxito",
+    "@pageEditProfileDialogSuccessInAssigningSubject": {
+        "description": "Text in the alert dialog to notify that user was assigned a subject successfully."
+    },
+    "pageEditProfileDialogSubjectUnassignedSuccessfully":"Asignatura desasignada con éxito",
+    "@pageEditProfileDialogSubjectUnassignedSuccessfully": {
+        "description": "Text in the alert dialog to notify that user was Unassing a subject successfully."
+    },
+    "pageEditProfileDialogAlreadyHasThisSubject":"El usuario ya tiene esta materia asignada",
+    "@pageEditProfileDialogAlreadyHasThisSubject": {
+        "description": "Text in the alert dialog to notify that user already has this subject assigned."
+    },
+  
     "tagEmailPersonalPrimary": "Personal primario",
     "@tagEmailPersonalPrimary": {
       "description": "tag of personal primary"

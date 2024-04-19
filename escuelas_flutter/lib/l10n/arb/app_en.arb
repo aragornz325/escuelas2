@@ -871,6 +871,19 @@
   "@pageEditProfileDialogEditContact": {
       "description": "Title of the dialog"
   },
+  "pageEditProfileDialogSuccessInAssigningSubject":"Subject assigned successfully",
+  "@pageEditProfileDialogSuccessInAssigningSubject": {
+      "description": "Text in the alert dialog to notify that user was assigned a subject successfully."
+  },
+  "pageEditProfileDialogSubjectUnassignedSuccessfully":"Subject unassigned successfully.",
+  "@pageEditProfileDialogSubjectUnassignedSuccessfully": {
+      "description": "Text in the alert dialog to notify that user was Unassing a subject successfully."
+  },
+  "pageEditProfileDialogAlreadyHasThisSubject":"The user already has this subject assigned",
+  "@pageEditProfileDialogAlreadyHasThisSubject": {
+      "description": "Text in the alert dialog to notify that user already has this subject assigned."
+  },
+
 
   "tagEmailPersonalPrimary": "Personal primary",
   "@tagEmailPersonalPrimary": {

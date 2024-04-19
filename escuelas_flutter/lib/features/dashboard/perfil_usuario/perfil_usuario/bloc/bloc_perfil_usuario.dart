@@ -20,7 +20,6 @@ class BlocPerfilUsuario
   /// {@macro BlocPerfilUsuario}
   BlocPerfilUsuario() : super(const BlocPerfilUsuarioEstadoInicial()) {
     on<BlocPerfilUsuarioEventoTraerUsuario>(_traerUsuario);
-    on<BlocPerfilUsuarioEventoInsertarInformacionDeKyc>(_onInsertarDataKyC);
     on<BlocPerfilUsuarioEventoEliminarDocente>(_onEliminarDocente);
     on<BlocPerfilUsuarioEventoTraerAsignaturasComisiones>(_onTraerAsignaturas);
     on<BlocPerfilUsuarioEventoAgregarAsignatura>(_onAgregarAsignatura);
@@ -53,24 +52,6 @@ class BlocPerfilUsuario
         emit(
           BlocPerfilUsuarioEstadoError.desde(state),
         );
-      },
-    );
-  }
-
-  /// Edita los datos personales del docente
-  Future<void> _onInsertarDataKyC(
-    BlocPerfilUsuarioEventoInsertarInformacionDeKyc event,
-    Emitter<BlocPerfilUsuarioEstado> emit,
-  ) async {
-    emit(BlocPerfilUsuarioEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (client) async {
-        await client.usuario.actualizarUsuario(usuario: state.usuario!);
-
-        emit(BlocPerfilUsuarioEstadoExitoso.desde(state));
-      },
-      onError: (e, st) {
-        emit(BlocPerfilUsuarioEstadoError.desde(state));
       },
     );
   }
@@ -142,7 +123,7 @@ class BlocPerfilUsuario
             ) ??
             false) {
           return emit(
-            BlocPerfilUsuarioEstadoError.desde(state),
+            BlocPerfilUsuarioEstadoYaTieneEstaAsignatura.desde(state),
           );
         }
         await client.asignatura.asignarDocenteAAsignatura(
@@ -163,7 +144,7 @@ class BlocPerfilUsuario
           ),
         );
         emit(
-          BlocPerfilUsuarioEstadoExitosoAltraerUsuario.desde(
+          BlocPerfilUsuarioEstadoExitoAlAsignarMateria.desde(
             state,
             usuario: usuario,
           ),
@@ -195,12 +176,11 @@ class BlocPerfilUsuario
               element.comisionId == event.idComision,
         );
         emit(
-          BlocPerfilUsuarioEstadoExitosoAltraerUsuario.desde(
+          BlocPerfilUsuarioEstadoExitoAlDesasignarMateria.desde(
             state,
             usuario: usuario,
           ),
         );
-        emit(BlocPerfilUsuarioEstadoExitoso.desde(state));
       },
       onError: (e, st) {
         emit(BlocPerfilUsuarioEstadoError.desde(state));

@@ -40,7 +40,8 @@ class SeccionCursos extends StatelessWidget {
     return usuarioPendiente != null
         ? Column(
             children: [
-              BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
+              BlocBuilder<BlocPerfilUsuarioPendiente,
+                  BlocPerfilUsuarioPendienteEstado>(
                 builder: (context, state) {
                   return Container(
                     margin: EdgeInsets.symmetric(
@@ -56,8 +57,7 @@ class SeccionCursos extends StatelessWidget {
                               .listaAsignaturasSolicitadasUsuarioPendiente
                               .isNotEmpty
                           ? _DesplegableCurso(
-                              idUsuario: state.usuario?.id ?? 0,
-                              asignaturas: state.listaAsignaturasUsuario,
+                              idUsuario: state.usuarioPendiente?.id ?? 0,
                               usuarioLogueado: usuarioLogueado,
                               contenido: Column(
                                 children: state
@@ -98,8 +98,7 @@ class SeccionCursos extends StatelessWidget {
                               .listaAsignaturasSolicitadasUsuarioPendiente
                               .isNotEmpty
                           ? _DesplegableCurso(
-                              idUsuario: state.usuario?.id ?? 0,
-                              asignaturas: state.listaAsignaturasUsuario,
+                              idUsuario: state.usuarioPendiente?.id ?? 0,
                               usuarioLogueado: usuarioLogueado,
                               contenido: Column(
                                 children: state
@@ -382,8 +381,8 @@ class _DesplegableCurso extends StatefulWidget {
   const _DesplegableCurso({
     required this.contenido,
     required this.usuarioLogueado,
-    required this.asignaturas,
-    required this.idUsuario,
+    this.asignaturas,
+    this.idUsuario,
   });
 
   /// Contenido
@@ -393,10 +392,10 @@ class _DesplegableCurso extends StatefulWidget {
   final Usuario usuarioLogueado;
 
   /// Lista de asignaturas que tiene el usuario
-  final List<RelacionAsignaturaUsuario> asignaturas;
+  final List<RelacionAsignaturaUsuario>? asignaturas;
 
   /// Id del usuario
-  final int idUsuario;
+  final int? idUsuario;
 
   @override
   State<_DesplegableCurso> createState() => _DesplegableCursoState();
@@ -411,7 +410,7 @@ class _DesplegableCursoState extends State<_DesplegableCurso> {
         return BlocProvider.value(
           value: context.read<BlocPerfilUsuario>(),
           child: SeleccionarAsignaturaParaDocente(
-            idUsuario: widget.idUsuario,
+            idUsuario: widget.idUsuario ?? 0,
           ),
         );
       },
@@ -427,7 +426,7 @@ class _DesplegableCursoState extends State<_DesplegableCurso> {
         return BlocProvider.value(
           value: context.read<BlocPerfilUsuario>(),
           child: DialogQuitarAsignatura(
-            asignaturas: widget.asignaturas,
+            asignaturas: widget.asignaturas ?? [],
           ),
         );
       },

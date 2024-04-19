@@ -1,7 +1,7 @@
 import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/bloc/bloc_perfil_usuario.dart';
-import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/dialog_elimado_con_exito.dart';
+import 'package:escuelas_flutter/features/dashboard/perfil_usuario/perfil_usuario/widget/widget.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_datos_personales.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/tarjeta_perfil.dart';
@@ -28,6 +28,42 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
     );
   }
 
+  Future<void> _yaTieneEstaAsignatura(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: const DialogYaTieneEstaAsignatura(),
+        );
+      },
+    );
+  }
+
+  Future<void> _materiaAsignadaConExito(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: const DialogExitoAlAsignarMateria(),
+        );
+      },
+    );
+  }
+
+  Future<void> _materiadesAsignadaConExito(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) {
+        return BlocProvider.value(
+          value: context.read<BlocPerfilUsuario>(),
+          child: const DialogExitoAlDesasignarMateria(),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final usuarioLogueado = context.read<BlocDashboard>().state.usuario;
@@ -35,6 +71,15 @@ class VistaCelularPerfilUsuario extends StatelessWidget {
       listener: (context, state) {
         if (state is BlocPerfilUsuarioEstadoExitosoAlEliminarUsuario) {
           _eliminadoConExito(context);
+        }
+        if (state is BlocPerfilUsuarioEstadoYaTieneEstaAsignatura) {
+          _yaTieneEstaAsignatura(context);
+        }
+        if (state is BlocPerfilUsuarioEstadoExitoAlAsignarMateria) {
+          _materiaAsignadaConExito(context);
+        }
+        if (state is BlocPerfilUsuarioEstadoExitoAlDesasignarMateria) {
+          _materiadesAsignadaConExito(context);
         }
       },
       builder: (context, state) {

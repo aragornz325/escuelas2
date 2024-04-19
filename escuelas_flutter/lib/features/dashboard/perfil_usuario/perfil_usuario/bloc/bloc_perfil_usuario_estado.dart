@@ -174,6 +174,41 @@ class BlocPerfilUsuarioEstadoExitosoAltraerUsuarioPendiente
   }) : super.desde();
 }
 
+/// {@template BlocPerfilUsuarioEstadoYaTieneEstaAsignatura}
+/// Estado que emite la accion de querer asignar dos veces la misma materia a
+/// un docente
+/// {@endtemplate}
+class BlocPerfilUsuarioEstadoYaTieneEstaAsignatura
+    extends BlocPerfilUsuarioEstado {
+  /// {@macro BlocPerfilUsuarioEstadoYaTieneEstaAsignatura}
+  BlocPerfilUsuarioEstadoYaTieneEstaAsignatura.desde(super.otro)
+      : super.desde();
+}
+
+/// {@template BlocPerfilUsuarioEstadoExitoAlAsignarMateria}
+/// Estado exitoso al asignar materia
+/// {@endtemplate}
+class BlocPerfilUsuarioEstadoExitoAlAsignarMateria
+    extends BlocPerfilUsuarioEstado {
+  /// {@macro BlocPerfilUsuarioEstadoExitoAlAsignarMateria}
+  BlocPerfilUsuarioEstadoExitoAlAsignarMateria.desde(
+    super.otro, {
+    super.usuario,
+  }) : super.desde();
+}
+
+/// {@template BlocPerfilUsuarioEstadoExitoAlDesasignarMateria}
+/// Estado de exito al desasignar una materia al profesor
+/// {@endtemplate}
+class BlocPerfilUsuarioEstadoExitoAlDesasignarMateria
+    extends BlocPerfilUsuarioEstado {
+  /// {@macro BlocPerfilUsuarioEstadoExitoAlDesasignarMateria}
+  BlocPerfilUsuarioEstadoExitoAlDesasignarMateria.desde(
+    super.otro, {
+    super.usuario,
+  }) : super.desde();
+}
+
 /// {@template BlocPerfilUsuarioEstadoFallido}
 /// Estado de error de los componentes de la pantalla 'Perfil de usuario'
 /// {@endtemplate}
