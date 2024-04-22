@@ -9,6 +9,7 @@ import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 import 'package:path_provider/path_provider.dart';
+import 'package:shorebird_update_checker/shorebird_update_checker.dart';
 
 class AppBlocObserver extends BlocObserver {
   const AppBlocObserver();
@@ -25,6 +26,9 @@ class AppBlocObserver extends BlocObserver {
     super.onError(bloc, error, stackTrace);
   }
 }
+
+/// Controlador de actualizaciones
+late final UpdateController updateController;
 
 Future<void> bootstrap(
   FutureOr<Widget> Function() builder, {
@@ -58,6 +62,16 @@ Future<void> bootstrap(
     entorno: entorno,
   );
 
+  const updateCheckerConfig = UpdateCheckerConfig(
+    iOSAppId: 'com.sorpi.pruebas-flutter-sorpi21',
+    androidAppId: 'com.example.verygoodcore.escuelas_flutter',
+    enableAppStoreUpdateChecker: false,
+    forceShorebirdUpdate: true,
+  );
+  updateController =
+      UpdateController(currentVersion: '', config: updateCheckerConfig);
+  updateController.init().then((value) => print('initialized update'));
+
   runApp(await builder());
 }
 
@@ -68,6 +82,3 @@ enum EntornosDeDesarrollo {
   development,
   production,
 }
-
-
- 
