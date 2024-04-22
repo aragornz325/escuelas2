@@ -28,30 +28,32 @@ class DialogQuitarAsignatura extends StatefulWidget {
 class _DialogQuitarAsignaturaState extends State<DialogQuitarAsignatura> {
   RelacionAsignaturaUsuario? selectedAsignatura;
 
+  void _onQuitarAsignatura(BuildContext context) {
+    final state = context.read<BlocPerfilUsuario>().state;
+    context.read<BlocPerfilUsuario>().add(
+          BlocPerfilUsuarioEventoQuitarAsignatura(
+            asignatura: state.listaAsignaturas.firstWhere(
+              (element) => element.id == selectedAsignatura?.asignaturaId,
+            ),
+            comision: state.listaComisiones.firstWhere(
+              (element) => element.id == selectedAsignatura?.comisionId,
+            ),
+            idUsuario: state.usuario?.id ?? 0,
+            idAsignatura: selectedAsignatura?.asignaturaId ?? 0,
+            idComision: selectedAsignatura?.comisionId ?? 0,
+          ),
+        );
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final colores = context.colores;
-    final state = context.read<BlocPerfilUsuario>().state;
 
     return EscuelasDialog.solicitudDeAccion(
       context: context,
-      onTapConfirmar: () {
-        context.read<BlocPerfilUsuario>().add(
-              BlocPerfilUsuarioEventoQuitarAsignatura(
-                asignatura: state.listaAsignaturas.firstWhere(
-                  (element) => element.id == selectedAsignatura?.asignaturaId,
-                ),
-                comision: state.listaComisiones.firstWhere(
-                  (element) => element.id == selectedAsignatura?.comisionId,
-                ),
-                idUsuario: state.usuario?.id ?? 0,
-                idAsignatura: selectedAsignatura?.asignaturaId ?? 0,
-                idComision: selectedAsignatura?.comisionId ?? 0,
-              ),
-            );
-        Navigator.of(context).pop();
-      },
+      onTapConfirmar: () => _onQuitarAsignatura(context),
       content: Column(
         children: [
           Text(
@@ -79,11 +81,9 @@ class _DialogQuitarAsignaturaState extends State<DialogQuitarAsignatura> {
           const Divider(),
           RadioListTileAsignaturaComision(
             asignaturas: widget.asignaturas,
-            onChanged: (p0) {
-              setState(() {
-                selectedAsignatura = p0;
-              });
-            },
+            onChanged: (p0) => setState(() {
+              selectedAsignatura = p0;
+            }),
           ),
         ],
       ),

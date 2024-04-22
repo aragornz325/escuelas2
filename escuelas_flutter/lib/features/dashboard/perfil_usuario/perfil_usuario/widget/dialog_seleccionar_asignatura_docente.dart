@@ -29,14 +29,24 @@ class SeleccionarAsignaturaParaDocente extends StatefulWidget {
 
 class _SeleccionarAsignaturaParaDocenteState
     extends State<SeleccionarAsignaturaParaDocente> {
-  /// Id de la asignatura seleccionada
   int? idAsignaturaSeleccionada;
-
-  /// Id de la comision seleccionada
   int? idComisionSeleccionada;
   Asignatura? asignatura;
   bool eligioOpcion = false;
   ComisionDeCurso? comision;
+
+  void _onAgregarAsignatura(BuildContext context) {
+    context.read<BlocPerfilUsuario>().add(
+          BlocPerfilUsuarioEventoAgregarAsignatura(
+            asignatura: asignatura,
+            comision: comision,
+            idUsuario: widget.idUsuario,
+            idAsignaturaSeleccionada: idAsignaturaSeleccionada!,
+            idComisionSeleccionada: idComisionSeleccionada!,
+          ),
+        );
+    Navigator.of(context).pop();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,18 +56,7 @@ class _SeleccionarAsignaturaParaDocenteState
     return EscuelasDialog(
       estaHabilitado:
           idAsignaturaSeleccionada != null && idComisionSeleccionada != null,
-      onTapConfirmar: () {
-        context.read<BlocPerfilUsuario>().add(
-              BlocPerfilUsuarioEventoAgregarAsignatura(
-                asignatura: asignatura,
-                comision: comision,
-                idUsuario: widget.idUsuario,
-                idAsignaturaSeleccionada: idAsignaturaSeleccionada!,
-                idComisionSeleccionada: idComisionSeleccionada!,
-              ),
-            );
-        Navigator.of(context).pop();
-      },
+      onTapConfirmar: () => _onAgregarAsignatura(context),
       conIconoCerrar: false,
       conBotonCancelar: true,
       tituloDelBotonSecundario: l10n.commonCancel.toUpperCase(),

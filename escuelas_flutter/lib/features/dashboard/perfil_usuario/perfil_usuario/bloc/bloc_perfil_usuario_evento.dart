@@ -49,10 +49,13 @@ class BlocPerfilUsuarioEventoAgregarAsignatura extends BlocPerfilUsuarioEvento {
   /// Id de la comision seleccionada
   final int idComisionSeleccionada;
 
+  /// Id del docente al que se le agrega la asignatura
   final int idUsuario;
 
+  /// Asignatura a agregar
   final Asignatura? asignatura;
 
+  /// Comision de la asignatura a agregar
   final ComisionDeCurso? comision;
 }
 
@@ -78,8 +81,10 @@ class BlocPerfilUsuarioEventoQuitarAsignatura extends BlocPerfilUsuarioEvento {
   /// Id de la comision de la asignatura a quitar
   final int idComision;
 
+  /// Asignatura a quitar
   final Asignatura? asignatura;
 
+  /// Comision de la asignatura a quitar
   final ComisionDeCurso? comision;
 }
 
