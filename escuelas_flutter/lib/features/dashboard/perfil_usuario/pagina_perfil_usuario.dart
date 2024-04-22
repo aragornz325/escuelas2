@@ -24,7 +24,8 @@ class PaginaPerfilUsuario extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<BlocPerfilUsuario>(
       create: (context) => BlocPerfilUsuario()
-        ..add(BlocPerfilUsuarioEventoTraerUsuario(idUsuario: idUsuario)),
+        ..add(BlocPerfilUsuarioEventoTraerUsuario(idUsuario: idUsuario))
+        ..add(const BlocPerfilUsuarioEventoTraerAsignaturasComisiones()),
       child: const FullResponsiveScreen(
         celular: VistaCelularPerfilUsuario(),
         escritorio: VistaEscritorioPerfilUsuario(),
