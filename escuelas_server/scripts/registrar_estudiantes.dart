@@ -23,7 +23,6 @@ Future<void> main() async {
   const runMode = 'development';
   const rutaDelArchivoJsonConLosDatosDeLosUsuarios =
       'archivo_con_usuarios.json';
-  const tipoDeUser = TipoDeUser.estudiante;
   const urlFotoDePerfilUsuarioDefault = 'https://res.cloudinary.com/dovck0lft/image/upload/v1710430707/contentHeadingImages/img_content_63_1710430707199.jpg';
   const labelCampoNombre = 'nombre';
   const labelCampoApellido = 'apellido';
@@ -48,7 +47,6 @@ Future<void> main() async {
       final emailAlumno = alumno[labelCampoEmail].toString();
       final dniAlumno = alumno[labelCampoDni].toString();
       final comisionAlumno = int.tryParse(alumno[labelCampoComision].toString());
-      final asignaturasSolicitadas;
 
       final user = await UserInfoEndpoint().registrarUserInfo(
         session,
@@ -78,7 +76,7 @@ Future<void> main() async {
           urlFotoDePerfil:
               urlFotoDePerfilUsuarioDefault,
           dni: dniAlumno,
-          idRolSolicitado: tipoDeUser.index + 1,
+          idRolSolicitado: 1,
           estadoDeSolicitud: EstadoDeSolicitud.pendiente,
           ultimaModificacion: ahora,
           fechaCreacion: ahora,
@@ -106,10 +104,4 @@ Future<void> main() async {
   }
 
   exit(0);
-}
-
-enum TipoDeUser {
-  estudiante,
-  docente,
-  directivo,
 }
