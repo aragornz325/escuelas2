@@ -79,9 +79,13 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
     // TODO: Sacar hardcodeo de estudiante por ahora funciona pero tiene que ser con permisos.
 
     if (usuario.nombreRoles == 'estudiante') {
-      return [
-        MenuOpcionesDeInicio.calificacionesAlumno,
-      ];
+      return MenuOpcionesDeInicio.values
+          .where(
+            (opcion) => opcion.permisosRequeridos.every(
+              usuario.tienePermisos,
+            ),
+          )
+          .toList();
     }
     return MenuOpcionesDeInicio.values
         .where(

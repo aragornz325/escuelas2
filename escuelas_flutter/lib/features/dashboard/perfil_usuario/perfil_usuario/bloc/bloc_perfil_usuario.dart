@@ -1,14 +1,17 @@
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
+import 'package:escuelas_flutter/features/auth/kyc/bloc/bloc_kyc.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/pagina_perfil_usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/widgets/seccion_cursos.dart';
+import 'package:escuelas_flutter/widgets/escuelas_dropdown.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rolemissions/rolemissions.dart';
 
 part 'bloc_perfil_usuario_estado.dart';
 part 'bloc_perfil_usuario_evento.dart';
 
+//! TODO(Anyone): Quitar UsuarioPendiente y arreglar lo que se rompe
 /// {@template BlocPerfilUsuario}
 /// Bloc que maneja los estados y lógica de la pagina de [PaginaPerfilUsuario]
 /// {@endtemplate}
@@ -17,10 +20,11 @@ class BlocPerfilUsuario
   /// {@macro BlocPerfilUsuario}
   BlocPerfilUsuario() : super(const BlocPerfilUsuarioEstadoInicial()) {
     on<BlocPerfilUsuarioEventoTraerUsuario>(_traerUsuario);
-    on<BlocPerfilUsuarioEventoEditarDocente>(_onEditarDocente);
     on<BlocPerfilUsuarioEventoEliminarDocente>(_onEliminarDocente);
+    on<BlocPerfilUsuarioEventoTraerAsignaturasComisiones>(_onTraerAsignaturas);
     on<BlocPerfilUsuarioEventoAgregarAsignatura>(_onAgregarAsignatura);
     on<BlocPerfilUsuarioEventoQuitarAsignatura>(_onQuitarAsignatura);
+    add(const BlocPerfilUsuarioEventoTraerAsignaturasComisiones());
   }
 
   /// Trae un usuario y la lista de roles
@@ -52,20 +56,6 @@ class BlocPerfilUsuario
     );
   }
 
-  /// Edita los datos personales del docente
-  Future<void> _onEditarDocente(
-    BlocPerfilUsuarioEventoEditarDocente event,
-    Emitter<BlocPerfilUsuarioEstado> emit,
-  ) async {
-    emit(BlocPerfilUsuarioEstadoCargando.desde(state));
-    await operacionBloc(
-      callback: (client) async {},
-      onError: (e, st) {
-        emit(BlocPerfilUsuarioEstadoError.desde(state));
-      },
-    );
-  }
-
   /// Elimina al docente seleccionado
   Future<void> _onEliminarDocente(
     BlocPerfilUsuarioEventoEliminarDocente event,
@@ -73,7 +63,45 @@ class BlocPerfilUsuario
   ) async {
     emit(BlocPerfilUsuarioEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) async {},
+      callback: (client) async {
+        await client.usuario.softDeleteUsuario(idUsuario: event.idUsuario);
+        emit(BlocPerfilUsuarioEstadoExitosoAlEliminarUsuario.desde(state));
+      },
+      onError: (e, st) {
+        emit(BlocPerfilUsuarioEstadoError.desde(state));
+      },
+    );
+  }
+
+  /// Trae asignaturas y comisiones para asignarselas a un docente
+  Future<void> _onTraerAsignaturas(
+    BlocPerfilUsuarioEventoTraerAsignaturasComisiones event,
+    Emitter<BlocPerfilUsuarioEstado> emit,
+  ) async {
+    emit(BlocPerfilUsuarioEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        /// Crea una lista de objetos y espera a que todas las llamadas
+        /// que se hacen el mismo tiempo y cuando se terminan todas continua.
+        final listaObjetos = await Future.wait([
+          client.asignatura.obtenerAsignaturas(),
+          client.comision.obtenerComisiones(),
+        ]);
+
+        /// Luego para acceder a cada item de la lista como ya se que me va a
+        /// devolver el endpoint lo casteo.
+        final asignaturas = List<Asignatura>.from(listaObjetos[0]);
+
+        final comisiones = List<ComisionDeCurso>.from(listaObjetos[1]);
+
+        emit(
+          BlocPerfilUsuarioEstadoExitosoALTraerAsignaturas.desde(
+            state,
+            listaAsignaturas: asignaturas,
+            listaComisiones: comisiones,
+          ),
+        );
+      },
       onError: (e, st) {
         emit(BlocPerfilUsuarioEstadoError.desde(state));
       },
@@ -87,7 +115,41 @@ class BlocPerfilUsuario
   ) async {
     emit(BlocPerfilUsuarioEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) async {},
+      callback: (client) async {
+        final usuario = state.usuario;
+        if (usuario?.asignaturas?.any(
+              (element) =>
+                  element.asignaturaId == event.idAsignaturaSeleccionada,
+            ) ??
+            false) {
+          return emit(
+            BlocPerfilUsuarioEstadoYaTieneEstaAsignatura.desde(state),
+          );
+        }
+        await client.asignatura.asignarDocenteAAsignatura(
+          idsAsignaturas: [event.idAsignaturaSeleccionada],
+          idDocente: event.idUsuario,
+          idComision: event.idComisionSeleccionada,
+        );
+        usuario?.asignaturas?.add(
+          RelacionAsignaturaUsuario(
+            asignatura: event.asignatura,
+            comision: event.comision,
+            asignaturaId: event.idAsignaturaSeleccionada,
+            usuarioId: state.usuario?.id ?? 0,
+            id: event.idAsignaturaSeleccionada,
+            comisionId: event.idComisionSeleccionada,
+            ultimaModificacion: DateTime.now(),
+            fechaCreacion: DateTime.now(),
+          ),
+        );
+        emit(
+          BlocPerfilUsuarioEstadoExitoAlAsignarMateria.desde(
+            state,
+            usuario: usuario,
+          ),
+        );
+      },
       onError: (e, st) {
         emit(BlocPerfilUsuarioEstadoError.desde(state));
       },
@@ -101,7 +163,25 @@ class BlocPerfilUsuario
   ) async {
     emit(BlocPerfilUsuarioEstadoCargando.desde(state));
     await operacionBloc(
-      callback: (client) async {},
+      callback: (client) async {
+        await client.asignatura.desasignarUsuarioAAsignatura(
+          idDocente: event.idUsuario,
+          comisionId: event.idComision,
+          asignaturaId: event.idAsignatura,
+        );
+        final usuario = state.usuario;
+        usuario?.asignaturas?.removeWhere(
+          (element) =>
+              element.asignaturaId == event.idAsignatura &&
+              element.comisionId == event.idComision,
+        );
+        emit(
+          BlocPerfilUsuarioEstadoExitoAlDesasignarMateria.desde(
+            state,
+            usuario: usuario,
+          ),
+        );
+      },
       onError: (e, st) {
         emit(BlocPerfilUsuarioEstadoError.desde(state));
       },
