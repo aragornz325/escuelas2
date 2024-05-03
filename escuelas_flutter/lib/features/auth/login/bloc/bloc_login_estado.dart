@@ -16,7 +16,6 @@ class BlocLoginEstado {
   /// Getter que verifica si el estado de inicio de sesion es erroneo.
   bool get esErrorAlIniciarSesion =>
       this is BlocLoginEstadoErrorAlIniciarSesion;
-
   List<Object> get props => [];
 }
 

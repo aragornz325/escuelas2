@@ -91,6 +91,7 @@ class _ItemBottomNavigationBar extends StatelessWidget {
 
   /// Funcion al presionar el icono
   final void Function() onTap;
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;

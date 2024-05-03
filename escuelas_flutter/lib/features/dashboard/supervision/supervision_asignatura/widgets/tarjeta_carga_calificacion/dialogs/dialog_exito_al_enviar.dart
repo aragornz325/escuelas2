@@ -23,7 +23,6 @@ class DialogExitoAlEnviarEmail extends StatelessWidget {
     final l10n = context.l10n;
 
     return EscuelasDialog.exitoso(
-      
       context: context,
       onTap: () => Navigator.of(context).pop(),
       content: DefaultTextStyle(

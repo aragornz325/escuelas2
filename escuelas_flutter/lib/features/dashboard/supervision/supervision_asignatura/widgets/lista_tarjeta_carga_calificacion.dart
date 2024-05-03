@@ -62,6 +62,7 @@ class ListaTarjetaCargaCalificacion extends StatelessWidget {
                       horizontal: 15.pw,
                     ),
                     child: TarjetaCargaCalificacion(
+                      esEditable: state.estaRealizada,
                       listaCalificacionesMesesRestantes:
                           listaCalificacionesMesesRestantes,
                       alumno: relacionComisionUsuario.usuario,

@@ -74,7 +74,8 @@ class BlocSupervisionEnvioCalificaciones extends Bloc<
     emit(BlocSupervisionEnvioCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
-        await client.solicitudNotaMensual.enviarSolicitudDeCalificacionMensualADocentes();
+        await client.solicitudNotaMensual
+            .enviarSolicitudDeCalificacionMensualADocentes();
 
         emit(
           // ignore: lines_longer_than_80_chars

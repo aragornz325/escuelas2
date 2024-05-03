@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
-import 'package:escuelas_flutter/bootstrap.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/auth/login/bloc/bloc_login.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -8,12 +7,9 @@ import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/utilidades/funciones/expresion_regular.dart';
 import 'package:escuelas_flutter/widgets/escuelas_version.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
-import 'package:shorebird_update_checker/shorebird_update_checker.dart';
 
 /// {@template VistaCelularLogin}
 /// Vista de celular de la pantalla de login
