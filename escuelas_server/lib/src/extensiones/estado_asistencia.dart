@@ -5,7 +5,6 @@ import 'package:escuelas_server/src/generated/protocol.dart';
 /// Retornar un `String` nombre dependiendo del estado de la asistencia.
 /// Función para `Cambiar el estado` dependiendo del estado anterior.
 extension EstadoDeAsistenciaX on EstadoDeAsistencia {
-
   /// Devuelve el nombre del estado.
   String nombreEstado() {
     // TODO(ANYONE): Supportear i18n

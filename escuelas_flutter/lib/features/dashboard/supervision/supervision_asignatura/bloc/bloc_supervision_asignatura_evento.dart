@@ -56,3 +56,27 @@ class BlocSupervisionAsignaturaEnviarEmailsAsingatura
   /// {@macro BlocSupervisionAsignaturaEnviarEmailsAsingatura}
   const BlocSupervisionAsignaturaEnviarEmailsAsingatura();
 }
+
+/// {@template BlocSupervisionAsignaturaActualizarCalificaciones}
+/// Evento para actualizar las calificaciones de los estudiantes.
+/// {@endtemplate}
+class BlocSupervisionAsignaturaActualizarCalificaciones
+    extends BlocSupervisionAsignaturaEvento {
+  /// {@macro BlocSupervisionAsignaturaActualizarCalificaciones}
+  const BlocSupervisionAsignaturaActualizarCalificaciones();
+}
+
+/// {@template BlocCargaCalificacionesEventoAgregarCalificacion}
+/// Evento para agregar una calificación a un alumno
+/// {@endtemplate}
+class BlocCargaCalificacionesEventoAgregarCalificacion
+    extends BlocSupervisionAsignaturaEvento {
+  /// {@macro BlocCargaCalificacionesEventoAgregarCalificacion}
+  const BlocCargaCalificacionesEventoAgregarCalificacion({
+    required this.calificacion,
+    required this.idAlumno,
+  });
+
+  final String calificacion;
+  final int idAlumno;
+}

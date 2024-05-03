@@ -23,6 +23,8 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
   const VistaCelularSupervisionAsignatura({
     super.key,
   });
+
+  /// Dialog de exito al enviar correos.
   void _dialogEnvioEmailCorrectamente(
     BuildContext context,
     String nombreEstudiante,
@@ -46,6 +48,25 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
     );
   }
 
+  /// Dialog para confirmar actualizar calificaciones a la asignatura.
+  void _dialogConfirmarActualizarCalificaciones(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (_) => BlocProvider.value(
+        value: context.read<BlocSupervisionAsignatura>(),
+        child: const DialogConfirmarActualizarCalificaciones(),
+      ),
+    );
+  }
+
+  /// Dialog de exito de actualizar las calificaciones a la asignatura.
+  void _dialogExitoActualizarCalificaciones(BuildContext context) {
+    showDialog<void>(
+      context: context,
+      builder: (_) => const DialogExitoAlEnviarCalificaciones(),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final colores = context.colores;
@@ -63,6 +84,10 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
         }
         if (state is BlocSupervisionAsignaturaEstadoExitosoAlEnviarEmail) {
           _dialogEnvioEmailCorrectamente(context, state.nombreEstudiante);
+        }
+        if (state
+            is BlocSupervisionAsignaturaEstadoCalificacionesActualizadas) {
+          _dialogExitoActualizarCalificaciones(context);
         }
       },
       builder: (context, state) {
@@ -116,18 +141,26 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
                   state.listaCalificacionesMesesRestantes,
               listaEstudiantes: state.estudiantes,
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 15.ph),
-              child: EscuelasBoton.texto(
+            if (state.estaRealizada)
+              EscuelasBoton.texto(
                 width: 340.pw,
                 height: max(40.ph, 40.sh),
-                estaHabilitado: true,
-                onTap: () => _dialogConfirmarEnvioEmails(context),
-                color: colores.azul,
-                texto: '${l10n.pageComissionSupervisionSendEmail}'
-                    ' ${state.asignatura?.nombre ?? '....'}',
                 context: context,
+                estaHabilitado: state.estaRealizada,
+                onTap: () => _dialogConfirmarActualizarCalificaciones(context),
+                color: colores.azul,
+                texto: 'Actualizar calificaciones',
               ),
+            SizedBox(height: max(5.ph, 5.sh)),
+            EscuelasBoton.texto(
+              width: 340.pw,
+              height: max(40.ph, 40.sh),
+              estaHabilitado: true,
+              onTap: () => _dialogConfirmarEnvioEmails(context),
+              color: colores.azul,
+              texto: '${l10n.pageComissionSupervisionSendEmail}'
+                  ' ${state.asignatura?.nombre ?? '....'}',
+              context: context,
             ),
           ],
         );

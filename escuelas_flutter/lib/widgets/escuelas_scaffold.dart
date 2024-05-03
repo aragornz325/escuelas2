@@ -4,10 +4,9 @@ import 'package:escuelas_flutter/extensiones/user_info.dart';
 import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/appbar/escuelas_appbar.dart';
 import 'package:escuelas_flutter/widgets/drawer/escuelas_drawer.dart';
-import 'package:escuelas_flutter/widgets/escuelas_bottom_navigation_bar.dart';
-import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
+// ignore: implementation_imports
 import 'package:shorebird_update_checker/src/widgets/update_dialog_dipatcher.dart';
 
 /// {@template EscuelasScaffold}
@@ -52,7 +51,7 @@ class EscuelasScaffold extends StatelessWidget {
     return UpdateDialogDispatcher(
       controller: updateController,
       updateDialogTrigger: (int currentPatchNumber, int newPatchNumber) async {
-        await showDialog(
+        await showDialog<void>(
           context: context,
           builder: (BuildContext context) {
             return EscuelasDialog.confirmar(
@@ -60,7 +59,9 @@ class EscuelasScaffold extends StatelessWidget {
                 await updateController.updateShorebird();
               },
               content: Text(
-                  'Nueva actualización disponible ($currentPatchNumber -> $newPatchNumber)'),
+                'Nueva actualización disponible ($currentPatchNumber'
+                ' -> $newPatchNumber)',
+              ),
             );
           },
         );
@@ -81,17 +82,25 @@ class EscuelasScaffold extends StatelessWidget {
         backgroundColor: colorDeFondo ?? colores.background,
         body: updateController.shorebirdIsNewPatchAvailableForDownload
             ? Center(
-                child: Column(mainAxisSize: MainAxisSize.min, children: [
-                  const Text('Nueva actualización disponible',
-                      style: TextStyle(fontSize: 20)),
-                  const SizedBox(height: 50),
-                  EscuelasBoton.textoEIcono(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Text(
+                      'Nueva actualización disponible',
+                      style: TextStyle(
+                        fontSize: 20,
+                      ),
+                    ),
+                    const SizedBox(height: 50),
+                    EscuelasBoton.textoEIcono(
                       color: Colors.green,
                       onTap: () => updateController.updateShorebird(),
                       texto: 'Cerrar app (para instalar actualización)',
                       context: context,
-                      icono: Icons.refresh)
-                ]),
+                      icono: Icons.refresh,
+                    ),
+                  ],
+                ),
               )
             : cuerpo,
         bottomNavigationBar: tieneBottomNavBar

@@ -57,6 +57,11 @@ class BlocSupervisionAsignaturaEstado {
   /// lista de estudiantes de una comision
   List<RelacionComisionUsuario> get estudiantes => comision?.estudiantes ?? [];
 
+  bool get estaRealizada =>
+      calificacionesMensuales
+          ?.solicitudNotaMensual?.solicitud?.fechaRealizacion !=
+      null;
+
   List<Object?> get props => [
         comision,
         fecha,
@@ -94,6 +99,16 @@ class BlocSupervisionAsignaturaEstadoEnviandoEmail
     extends BlocSupervisionAsignaturaEstado {
   /// {@macro BlocSupervisionAsignaturaEstadoEnviandoEmail}
   BlocSupervisionAsignaturaEstadoEnviandoEmail.desde(super.otro)
+      : super.desde();
+}
+
+/// {@template BlocSupervisionAsignaturaEstadoCalificacionesActualizadas}
+/// Estado `calificacionesActualizadas` de los componentes de la pantalla.
+/// {@endtemplate}
+class BlocSupervisionAsignaturaEstadoCalificacionesActualizadas
+    extends BlocSupervisionAsignaturaEstado {
+  /// {@macro BlocSupervisionAsignaturaEstadoCalificacionesActualizadas}
+  BlocSupervisionAsignaturaEstadoCalificacionesActualizadas.desde(super.otro)
       : super.desde();
 }
 

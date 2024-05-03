@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
-import 'package:escuelas_flutter/bootstrap.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/extensiones/usuario.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
@@ -17,7 +16,6 @@ import 'package:escuelas_flutter/widgets/escuelas_version.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
-import 'package:shorebird_update_checker/shorebird_update_checker.dart';
 
 /// {@template  EscuelasDrawer}
 /// Drawer donde el usuario puede ver su perfil o desloguearse.
@@ -57,7 +55,7 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
     Navigator.pop(context);
   }
 
-//! TODO(anyone): esto va aca para probar hasta qye esten las features previas
+  // !TODO(anyone): esto va aca para probar hasta qye esten las features previas
   void _redireccionPlantillas(BuildContext context) {
     context.replaceRoute(const RutaAdministrarPlantillas());
     Navigator.pop(context);
@@ -225,17 +223,18 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
                         GestureDetector(
                           onTap: () async {
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text('Enviando mails...'),
                               ),
                             );
                             await client.calificacion
                                 .enviarCalificacionesPorMesYAnio(
-                                    filtroDeEnvio: EnvioCalificaciones.todos,
-                                    mes: DateTime.now().month - 1,
-                                    anio: DateTime.now().year);
+                              filtroDeEnvio: EnvioCalificaciones.todos,
+                              mes: DateTime.now().month - 1,
+                              anio: DateTime.now().year,
+                            );
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text('mails enviadas'),
                               ),
                             );
@@ -272,7 +271,7 @@ class _EscuelasDrawerState extends State<EscuelasDrawer> {
                             await client.solicitudNotaMensual
                                 .enviarSolicitudDeCalificacionMensualADocentes();
                             ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
+                              const SnackBar(
                                 content: Text('solicitudes enviadas'),
                               ),
                             );

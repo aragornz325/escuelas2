@@ -19,8 +19,14 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
     on<BlocSupervisionAsignaturaEnviarEmailAEstudiante>(
       _onEnviarEmailAEstudiante,
     );
+    on<BlocCargaCalificacionesEventoAgregarCalificacion>(
+      _onAgregarCalificacion,
+    );
     on<BlocSupervisionAsignaturaEnviarEmailsAsingatura>(
       _onEnviarEmailAsignatura,
+    );
+    on<BlocSupervisionAsignaturaActualizarCalificaciones>(
+      _onActualizarCalificaciones,
     );
   }
 
@@ -162,6 +168,71 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
         emit(BlocSupervisionAsignaturaEstadoExitoso.desde(state));
       },
       onError: (e, st) => BlocSupervisionAsignaturaEstadoFallido.desde(state),
+    );
+  }
+
+  /// Envía todas las calificaciones de los alumnos
+  Future<void> _onActualizarCalificaciones(
+    BlocSupervisionAsignaturaActualizarCalificaciones event,
+    Emitter<BlocSupervisionAsignaturaEstado> emit,
+  ) async {
+    emit(BlocSupervisionAsignaturaEstadoCargando.desde(state));
+    await operacionBloc(
+      callback: (client) async {
+        final haySolicitud =
+            state.calificacionesMensuales?.solicitudNotaMensual != null;
+
+        final estaRealizada = state.calificacionesMensuales
+                ?.solicitudNotaMensual?.solicitud?.fechaRealizacion !=
+            null;
+
+        if (haySolicitud) {
+          if (estaRealizada) {
+            await client.calificacion.actualizarCalificacionesMensualesEnLote(
+              calificacionesMensuales: state.listaCalificacionesMesActual,
+            );
+            emit(
+              BlocSupervisionAsignaturaEstadoCalificacionesActualizadas.desde(
+                state,
+              ),
+            );
+          }
+        }
+      },
+      onError: (e, st) =>
+          emit(BlocSupervisionAsignaturaEstadoFallido.desde(state)),
+    );
+  }
+
+  /// Guarda el periodo seleccionado del calendario
+  void _onAgregarCalificacion(
+    BlocCargaCalificacionesEventoAgregarCalificacion event,
+    Emitter<BlocSupervisionAsignaturaEstado> emit,
+  ) {
+    final lista = List<CalificacionMensual>.from(
+      state.listaCalificacionesMesActual,
+    );
+
+    final calificacionModificada = lista.firstWhere(
+      (calificacionMensual) =>
+          calificacionMensual.calificacion?.estudianteId == event.idAlumno,
+    );
+
+    lista
+      ..removeWhere(
+        (calificacionMensual) =>
+            calificacionMensual.calificacion?.estudianteId == event.idAlumno,
+      )
+      ..add(
+        calificacionModificada
+          ..calificacion?.index = int.parse(event.calificacion),
+      );
+
+    emit(
+      BlocSupervisionAsignaturaEstadoExitoso.desde(
+        state,
+        listaCalificacionesMesActual: lista,
+      ),
     );
   }
 }
