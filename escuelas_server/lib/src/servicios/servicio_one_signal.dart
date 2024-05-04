@@ -28,7 +28,7 @@ class ServicioOneSignal {
       final notificationData = NotificacionData(
         titulo: 'Inasistencia de $nombreUsuario $apellidoUsuario.',
         contenido:
-            'En el día de la fecha se registró ${inasistencia.estadoDeAsistencia.nombreEstado()} para $nombreUsuario $apellidoUsuario.',
+            'En el día de la fecha se registró un(a) "${inasistencia.estadoDeAsistencia.nombreEstado()}" para $nombreUsuario $apellidoUsuario.',
         pathRuta: 'absences',
         // TODO(ANYONE): Agregar ID notificacion una vez implementado el CRUD.
         idNotificacion: '1',
@@ -62,7 +62,8 @@ class ServicioOneSignal {
     // TODO(ANYONE): Las notificaciones deberian estar guardadas en base de datos, carry over en esa HU.
     // https://tree.taiga.io/project/rodsevich-escuelas/us/208?kanban-status=7686844&kanban-swimlane=15087
     final notificationData = NotificacionData(
-      titulo: 'Solicitud de carga de calificaciones mensuales de $nombreAsignatura de $comision.',
+      titulo:
+          'Solicitud de carga de calificaciones mensuales de $nombreAsignatura de $comision.',
       contenido:
           'En el día de la fecha se registró una solicitud de carga de calificaciones mensuales de $nombreAsignatura de $comision para $nombreUsuario $apellidoUsuario. Por favor revise su estado de Carga de Calificaciones.',
       pathRuta: 'my-courses',

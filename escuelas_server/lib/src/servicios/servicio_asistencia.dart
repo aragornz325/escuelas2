@@ -11,9 +11,12 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
 
   final _servicioOneSignal = ServicioOneSignal();
 
+  /// Guardar la fecha actual como parámetro para mejor performance
+  DateTime ahora = DateTime.now();
+
   /// La función `crearAsistenciasEnLote` crea múltiples registros de asistencia diaria en un lote.
-  /// Y tambien envia las notificaciones al servicio de notificaciones de las inasistencias
-  /// para poder mostrarle a los alumnos la notificacion push de su inasistencia.
+  /// Y también envía las notificaciones al servicio de notificaciones de las inasistencias
+  /// para poder mostrarle a los alumnos la notificación push de su inasistencia.
   ///
   /// Args:
   ///   session (Session):
@@ -22,7 +25,7 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
     Session session, {
     required List<AsistenciaDiaria> asistencias,
   }) async {
-    final ahora = DateTime.now();
+    ahora = DateTime.now();
 
     for (var asistencia in asistencias) {
       asistencia.ultimaModificacion = ahora;
@@ -36,7 +39,8 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
       ),
     );
 
-    final inasistenciasFiltradas = _filtrarInasistencias(asistenciasCreadas);
+    final inasistenciasFiltradas =
+        asistenciasCreadas.where(_esInasistencia).where(_esDeHoy).toList();
 
     _servicioOneSignal.enviarNotificacionesDeInasistencia(
       inasistenciasFiltradas,
@@ -74,7 +78,7 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
     Session session, {
     required List<AsistenciaDiaria> asistencias,
   }) async {
-    final ahora = DateTime.now();
+    ahora = DateTime.now();
     for (var asistencia in asistencias) {
       asistencia.ultimaModificacion = ahora;
     }
@@ -99,7 +103,7 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
     double cantidadDeInasistencias = 0;
 
     final inasistencias = await orm.listarRegistrosEnDbPorFiltro(
-      session, 
+      session,
       filtroCondicional: AsistenciaDiaria.t.estadoDeAsistencia
               .notEquals(EstadoDeAsistencia.presente) &
           AsistenciaDiaria.t.estadoDeAsistencia
@@ -114,31 +118,41 @@ class ServicioAsistencia extends Servicio<OrmAsistencia> {
           AsistenciaDiaria.t.fechaEliminacion.equals(null),
     );
 
-    cantidadDeInasistencias += inasistencias.where((element) => element.estadoDeAsistencia == EstadoDeAsistencia.ausente).length;
-    cantidadDeInasistencias += ((inasistencias.where((element) => element.estadoDeAsistencia == EstadoDeAsistencia.mediaInasistencia).length) / 2);
-    cantidadDeInasistencias += ((inasistencias.where((element) => element.estadoDeAsistencia == EstadoDeAsistencia.cuartoDeInasistencia).length) / 4);
+    cantidadDeInasistencias += inasistencias
+        .where((element) =>
+            element.estadoDeAsistencia == EstadoDeAsistencia.ausente)
+        .length;
+    cantidadDeInasistencias += ((inasistencias
+            .where((element) =>
+                element.estadoDeAsistencia ==
+                EstadoDeAsistencia.mediaInasistencia)
+            .length) /
+        2);
+    cantidadDeInasistencias += ((inasistencias
+            .where((element) =>
+                element.estadoDeAsistencia ==
+                EstadoDeAsistencia.cuartoDeInasistencia)
+            .length) /
+        4);
 
     return cantidadDeInasistencias;
   }
-}
 
-/// Filtra y devuelve una lista de AsistenciaDiaria que solo tiene inasistencias
-List<AsistenciaDiaria> _filtrarInasistencias(
-  List<AsistenciaDiaria> inasistencias,
-) {
-  /// Estados que solo contienen inasistencia.
-  const estadosInasistenciaFiltrados = [
-    EstadoDeAsistencia.ausente,
-    EstadoDeAsistencia.cuartoDeInasistencia,
-    EstadoDeAsistencia.mediaInasistencia,
-  ];
+  bool _esDeHoy(AsistenciaDiaria asistencia) {
+    return asistencia.fecha.difference(ahora) == const Duration(days: 0);
+  }
 
-  final listaInasistencias = inasistencias
-      .where(
-        (asistencia) => estadosInasistenciaFiltrados
-            .contains(asistencia.estadoDeAsistencia),
-      )
-      .toList();
+  /// Filtra y devuelve una lista de AsistenciaDiaria que solo tiene inasistencias
+  bool _esInasistencia(
+    AsistenciaDiaria asistencia,
+  ) {
+    /// Estados que solo contienen inasistencia.
+    const estadosInasistenciaFiltrados = [
+      EstadoDeAsistencia.ausente,
+      EstadoDeAsistencia.cuartoDeInasistencia,
+      EstadoDeAsistencia.mediaInasistencia,
+    ];
 
-  return listaInasistencias;
+    return estadosInasistenciaFiltrados.contains(asistencia.estadoDeAsistencia);
+  }
 }
