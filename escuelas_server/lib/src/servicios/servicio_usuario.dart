@@ -526,12 +526,7 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
 
     switch (ordenarUsuariosPor) {
       case OrdenarPor.apellido:
-        for (var letra in listaAlfabetica) {
-          final usuariosLetra = usuarios
-              .where((usuario) => usuario.apellido
-                  .toUpperCase()
-                  .startsWith(letra.toUpperCase()))
-              .toList();
+      usuariosListados = usuarios.sort((u1, u2) => u1.apellido.compareTo(u2.apellido)).forEach((u){
 
           usuariosListados.add(
             UsuariosListados(
@@ -539,7 +534,8 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
               usuarios: usuariosLetra,
             ),
           );
-        }
+      });
+        
       case OrdenarPor.curso:
         final comisiones = await ejecutarOperacion(
           () => _servicioComision.obtenerComisiones(session),
