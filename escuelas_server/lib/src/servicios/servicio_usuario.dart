@@ -526,16 +526,22 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
 
     switch (ordenarUsuariosPor) {
       case OrdenarPor.apellido:
-      usuariosListados = usuarios.sort((u1, u2) => u1.apellido.compareTo(u2.apellido)).forEach((u){
-
+        Map<String, List<Usuario>> usuariosPorLetra = {};
+        usuarios
+          ..sort((u1, u2) => u1.apellido.compareTo(u2.apellido))
+          ..forEach((u) {
+            var letra = u.apellido[0].toUpperCase();
+            usuariosPorLetra[letra] = [u, ...usuariosPorLetra[letra] ?? []];
+          });
+        usuariosPorLetra.forEach((key, value) {
           usuariosListados.add(
             UsuariosListados(
-              etiquetaDelIndexListado: letra,
-              usuarios: usuariosLetra,
+              etiquetaDelIndexListado: key,
+              usuarios: value,
             ),
           );
-      });
-        
+        });
+
       case OrdenarPor.curso:
         final comisiones = await ejecutarOperacion(
           () => _servicioComision.obtenerComisiones(session),
@@ -827,8 +833,9 @@ class ServicioUsuario extends Servicio<OrmUsuario> {
       session,
       idDireccionDeEmail: idDireccionDeEmail,
     );
-    
-    final usuario = await orm.obtenerUnRegistroEnDbPorId(session, idDelRegistro: direccionDeEmailAModificar.usuarioId);
+
+    final usuario = await orm.obtenerUnRegistroEnDbPorId(session,
+        idDelRegistro: direccionDeEmailAModificar.usuarioId);
 
     if (direccionDeEmailAModificar.etiqueta ==
         EtiquetaDireccionEmail.personalPrimario) {
