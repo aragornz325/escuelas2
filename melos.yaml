@@ -9,8 +9,20 @@ packages:
 scripts:
   # runs "flutter pub <arg(s)>" in all packages
   pub: melos exec -c 1 -- flutter pub "$@"
-  servergen:
-    run: melos exec --scope="*server*" -- "serverpod generate"
+  serverpodgen:
+    run: serverpod generate
+    exec:
+      failFast: true
+      concurrency: 1
+    packageFilters:
+      dependsOn: serverpod
+
+  serverpodwatch:
+    name: watch
+    run: melos exec --depends-on="serverpod" -- "serverpod generate --watch"
+
+  podman:compose: melos exec -c 1 --depends-on="serverpod" -- "podman compose up --build --detach"
+
   # format all packages' files except for generated files
   format:exclude: >
     melos exec -c 1 -- \
@@ -22,12 +34,13 @@ scripts:
           ! -name '*.pb*.dart' \
           ! -path '*/.*/*' \
           | xargs dart format --set-exit-if-changed"
-
   # run build_runner to generate code in all packages
-  generate: >
+  build_runner:build: >
     melos exec -c 1 --fail-fast --depends-on="build_runner" -- \
       dart run build_runner build --delete-conflicting-outputs
-
+  build_runner:watch: >
+    melos exec -c 10 --fail-fast --depends-on="build_runner" -- \
+      dart run build_runner watch --delete-conflicting-outputs
   # run gen-l10n to generate localizations in all packages
   gen-l10n: >
     melos exec -c 1 --fail-fast --file-exists="lib/l10n.dart" -- \
