@@ -1,8 +1,8 @@
-class Ordenamientos {
-    T ordernarPorApellido(Iterable<T> elementos, OrdernarPor criterio){
-        switch
-    }
-}
+// class Ordenamientos {
+//     T ordernarPorApellido(Iterable<T> elementos, OrdernarPor criterio){
+//         switch
+//     }
+// }
 
 //TODO(): Refactorizar ordenarPor a algo asi:
 

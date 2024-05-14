@@ -1,6 +1,8 @@
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_commons/manejo_de_calificaciones/manejo_de_calificaciones.dart';
+import 'package:escuelas_commons/permisos/permisos.dart';
+import 'package:escuelas_flutter/extensiones/build_context.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/bloc/bloc_supervision_asignatura.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/widgets/widgets.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
@@ -62,7 +64,12 @@ class ListaTarjetaCargaCalificacion extends StatelessWidget {
                       horizontal: 15.pw,
                     ),
                     child: TarjetaCargaCalificacion(
-                      esEditable: state.estaRealizada,
+                      esEditable: context.tienePermiso(
+                            PermisoDeCalificacion.editarCalificacion,
+                          ) ||
+                          context.tienePermiso(
+                            PermisoDeCalificacion.crearCalificacion,
+                          ),
                       listaCalificacionesMesesRestantes:
                           listaCalificacionesMesesRestantes,
                       alumno: relacionComisionUsuario.usuario,

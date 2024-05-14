@@ -6,8 +6,14 @@
   "configurations": [
     {
       "name": "Escuelas development",
+      "presentation": {
+        "hidden": false,
+        "group": "front",
+        "order": 1
+      },
       "request": "launch",
       "type": "dart",
+      // "preLaunchTask": "melos: build_runner:watch",
       "cwd": "${workspaceFolder}/escuelas_flutter",
       "program": "lib/main_development.dart",
       "args": [
@@ -19,9 +25,15 @@
     },
     {
       "name": "Escuelas staging",
+      "presentation": {
+        "hidden": false,
+        "group": "front",
+        "order": 2
+      },
       "request": "launch",
       "type": "dart",
       "cwd": "${workspaceFolder}/escuelas_flutter",
+      // "preLaunchTask": "melos: build_runner:watch",
       "program": "lib/main_staging.dart",
       "args": [
         "--flavor",
@@ -32,9 +44,15 @@
     },
     {
       "name": "Escuelas production",
+      "presentation": {
+        "hidden": false,
+        "group": "front",
+        "order": 3
+      },
       "request": "launch",
       "type": "dart",
       "cwd": "${workspaceFolder}/escuelas_flutter",
+      // "preLaunchTask": "melos: build_runner:watch",
       "program": "lib/main_production.dart",
       "args": [
         "--flavor",
@@ -44,49 +62,7 @@
       ]
     },
     {
-      "name": "flutter development",
-      "request": "launch",
-      "type": "dart",
-      "cwd": "${workspaceFolder}/escuelas_flutter",
-      "program": "lib/main_development.dart",
-      "preLaunchTask": "melos: build_runner:watch",
-      "args": [
-        "--flavor",
-        "development",
-        "--target",
-        "lib/main_development.dart"
-      ]
-    },
-    {
-      "name": "flutter staging",
-      "request": "launch",
-      "type": "dart",
-      "cwd": "${workspaceFolder}/escuelas_flutter",
-      "program": "lib/main_staging.dart",
-      "preLaunchTask": "melos: build_runner:watch",
-      "args": [
-        "--flavor",
-        "staging",
-        "--target",
-        "lib/main_staging.dart"
-      ]
-    },
-    {
-      "name": "flutter production",
-      "request": "launch",
-      "type": "dart",
-      "cwd": "${workspaceFolder}/escuelas_flutter",
-      "program": "lib/main_production.dart",
-      "preLaunchTask": "melos: build_runner:watch",
-      "args": [
-        "--flavor",
-        "production",
-        "--target",
-        "lib/main_production.dart"
-      ]
-    },
-    {
-      "name": "serverpod development",
+      "name": "Serverpod development",
       "request": "launch",
       "type": "dart",
       "cwd": "${workspaceFolder}/escuelas_server",
@@ -102,8 +78,8 @@
       "name": "Server/Client development",
       "preLaunchTask": "serverpod",
       "configurations": [
-        "flutter development",
-        "serverpod development"
+        "Escuelas development",
+        "Serverpod development"
       ],
       "stopAll": true,
       "presentation": {

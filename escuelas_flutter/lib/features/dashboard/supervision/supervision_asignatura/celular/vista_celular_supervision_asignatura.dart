@@ -141,16 +141,17 @@ class VistaCelularSupervisionAsignatura extends StatelessWidget {
                   state.listaCalificacionesMesesRestantes,
               listaEstudiantes: state.estudiantes,
             ),
-            if (state.estaRealizada)
-              EscuelasBoton.texto(
-                width: 340.pw,
-                height: max(40.ph, 40.sh),
-                context: context,
-                estaHabilitado: state.estaRealizada,
-                onTap: () => _dialogConfirmarActualizarCalificaciones(context),
-                color: colores.azul,
-                texto: 'Actualizar calificaciones',
-              ),
+            EscuelasBoton.texto(
+              width: 340.pw,
+              height: max(40.ph, 40.sh),
+              context: context,
+              estaHabilitado: true,
+              onTap: () => _dialogConfirmarActualizarCalificaciones(context),
+              color: colores.azul,
+              texto: state.estaRealizada
+                  ? 'Actualizar calificaciones'
+                  : 'Cargar calificaciones',
+            ),
             SizedBox(height: max(5.ph, 5.sh)),
             EscuelasBoton.texto(
               width: 340.pw,
