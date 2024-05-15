@@ -303,7 +303,7 @@ packages:
     description:
       path: "."
       ref: HEAD
-      resolved-ref: "65b0c79fa220a01b85b09507768e97980e18f754"
+      resolved-ref: e82248191c9e5befab59f0b77b25da0d1958a90e
       url: "https://github.com/juanjosegarcia98/escuelas_commons"
     source: git
     version: "0.1.0+1"
