@@ -1,4 +1,4 @@
 # melos_managed_dependency_overrides: escuelas_client,escuelas_commons,serverpod,serverpod_client
 dependency_overrides:
-  serverpod: 1.2.6
-  serverpod_client: 1.2.6
+  serverpod: 1.2.7
+  serverpod_client: 1.2.7
