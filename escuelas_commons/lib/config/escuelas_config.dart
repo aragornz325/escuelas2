@@ -6,7 +6,7 @@ import 'package:escuelas_client/escuelas_client.dart';
 /// Configuraciones de escuelas
 ///
 /// Esta clase es la encargada de proveer las configuraciones de las instancias.
-sealed class ConfigsDeInstancia {
+abstract class ConfigsDeInstancia {
   const ConfigsDeInstancia._();
 
   int get diasDeAnticipacion => throw UnimplementedError();
@@ -39,16 +39,29 @@ sealed class ConfigsDeInstancia {
 
     return meses.where((mes) => mes <= fecha.month).toList();
   }
+
+  EstrategiaSinCalificar get estrategiaSinCalificar;
+}
+
+enum EstrategiaSinCalificar {
+  /// No se puede calificar si hay alumnos con S/C (sin calificar)
+  noPermitirEnvio,
+
+  /// Se puede calificar si hay alumnos con S/C (sin calificar)
+  permitirEnvio,
+
+  /// Se crean solicitudes a un supervisor si hay alumnos con S/C (sin calificar)
+  solicitud;
 }
 
 /// Configuraciones para la escuela Redemptoris Missio
-final class RedemptorisMissioConfigs extends ConfigsDeInstancia {
+final class ConfigsRedemptorisMissio extends ConfigsDeInstancia {
   ///
-  const RedemptorisMissioConfigs() : super._();
+  const ConfigsRedemptorisMissio() : super._();
 
   @override
   int get diasDeAnticipacion => 5;
-  int get minimoDeCaracteresPassword => 12;
+  int get minimoDeCaracteresPassword => 8;
   @override
   DateTime fechaDeEnvio(DateTime primeroDeMes) =>
       primeroDeMes.subtract(Duration(days: diasDeAnticipacion));
@@ -75,4 +88,8 @@ final class RedemptorisMissioConfigs extends ConfigsDeInstancia {
       ),
     ];
   }
+
+  @override
+  EstrategiaSinCalificar get estrategiaSinCalificar =>
+      EstrategiaSinCalificar.noPermitirEnvio;
 }

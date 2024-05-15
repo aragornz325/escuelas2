@@ -60,11 +60,11 @@
   "pageRegisterDialogContentText": "{exceptionType, select, registerDuplicatedIdNumber{The ID number is already taken} registerDuplicatedEmail{The e-mail provided is in use already.} other{Unknown error}}",
   "@pageRegisterDialogContentText": {
     "description": "Text in the dialog to indicate that an error ocurred",
-    "placeholders":{
+    "placeholders": {
       "exceptionType": {
-        "type":"String",
+        "type": "String",
         "description": "the possible exceptions types that a register page can throw",
-        "values":{
+        "values": {
           "registerDuplicatedIdNumber": "when an Id number is already taken",
           "registerDuplicatedEmail": "when the email address provided is already in use"
         }
@@ -75,12 +75,10 @@
   "@pageRoleAssigmentDialogFirstText": {
     "description": "Initial text of a dialog box to confirm role assignment"
   },
-
-  "pageRoleAssigmentPersonalInformationText":"Personal information",
-  "@pageRoleAssigmentPersonalInformationText":{
+  "pageRoleAssigmentPersonalInformationText": "Personal information",
+  "@pageRoleAssigmentPersonalInformationText": {
     "description": "Message used to represent the personal information section in role assignment."
   },
-
   "pageRoleAssigmentDialogSecondText": "\n as a ",
   "@pageRoleAssigmentDialogSecondText": {
     "description": "Secondary text of a dialog box to confirm role assignment."
@@ -118,7 +116,6 @@
   "@pageKycFormErrorMaxCommissionsReached": {
     "description": "Message informing the user that he can't add more than one commission."
   },
-  
   "pageKycFormWhatGradeAreYouIn": "What grade are you in?",
   "@pageKycFormWhatGradeAreYouIn": {
     "description": "Prompt/question asking the user to specify the grade they are currently in, typically part of a KYC (Know Your Customer) or user profile setup process."
@@ -229,25 +226,22 @@
   "pageComissionSupervisionNoComissions": "There are no comissions",
   "@pageComissionSupervisionNoComissions": {
     "description": "Indicates that there are no commissions."
-    },
-  
-    "pageComissionSupervisionUnsent": "Unsent",
-    "@pageComissionSupervisionUnsent": {
-        "description": "Indicates that the item has not been sent."
-    },
-
-    "pageComissionSupervisionGradesUpLoadSuccessfullyRequested": "Requested Grades have been successfully uploaded.",
-    "@pageComissionSupervisionGradesUpLoadSuccessfullyRequested": {     
-        "description": "Indicates that the requested grades have been successfully uploaded."
-    },
-
-    "pageComissionSupervisionGradesSentSuccessfully": "Grades sent successfully.",
-    "@pageComissionSupervisionGradesSentSuccessfully": {
-        "description": "Indicates that the grades have been sent successfully."
+  },
+  "pageComissionSupervisionUnsent": "Unsent",
+  "@pageComissionSupervisionUnsent": {
+    "description": "Indicates that the item has not been sent."
+  },
+  "pageComissionSupervisionGradesUpLoadSuccessfullyRequested": "Requested Grades have been successfully uploaded.",
+  "@pageComissionSupervisionGradesUpLoadSuccessfullyRequested": {
+    "description": "Indicates that the requested grades have been successfully uploaded."
+  },
+  "pageComissionSupervisionGradesSentSuccessfully": "Grades sent successfully.",
+  "@pageComissionSupervisionGradesSentSuccessfully": {
+    "description": "Indicates that the grades have been sent successfully."
   },
   "pageCommunicationsTitle": "Communications",
   "@pageCommunicationsTitle": {
-      "description": "Title of the page Communications"
+    "description": "Title of the page Communications"
   },
   "pageComissionSupervisionNotAvailable": "Not available",
   "@pageComissionSupervisionNotAvailable": {
@@ -274,62 +268,50 @@
       }
     }
   },
-  
   "pageComissionSupervisionDialogConfimationSendEmails": "Send emails to school comission?",
   "@pageComissionSupervisionDialogConfimationSendEmails": {
     "description": "Confirmation dialog text when asking the user if they want to send emails to the school commission"
   },
-  
   "pageComissionSupervisionSendingEmails": "Sending email to comissions...",
   "@pageComissionSupervisionSendingEmails": {
     "description": "Text displayed when emails are being sent to the commissions"
   },
-  
   "pageComissionSupervisionSendEmailsSuccess": "Emails sent successfully",
   "@pageComissionSupervisionSendEmailsSuccess": {
     "description": "Success message displayed when emails are sent successfully to the commissions"
   },
-
   "pageComissionSupervisionButtonSendEmails": "Send email to commissions?",
   "@pageComissionSupervisionButtonSendEmails": {
     "description": "Button text to send emails to the commissions"
   },
-
   "pageComissionSupervisionDialogNotGradesUploaded": "Not all grades are uploaded",
   "@pageComissionSupervisionDialogNotGradesUploaded": {
     "description": "Dialog message when not all grades are uploaded"
   },
-
   "pageComissionSupervisionDialogMessageTooltip": "You cannot send emails to committees. Verify that all grades are uploaded by the institution's teachers",
   "@pageComissionSupervisionDialogMessageTooltip": {
     "description": "Tooltip message explaining why emails cannot be sent to committees"
   },
-
   "pageComissionSupervisionMessageSendingEmail": "Sending email...",
   "@pageComissionSupervisionMessageSendingEmail": {
     "description": "Text displayed when an email is being sent"
   },
-
   "pageComissionSupervisionDialogSuccessSendEmailStudent": "Email successfully sent to ",
   "@pageComissionSupervisionDialogSuccessSendEmailStudent": {
     "description": "Text displayed when an email is sent successfully to a student"
   },
-
   "pageComissionSupervisionDialogWantToSendEmailSubject": "Do you want to send an email to all the students of this subject?",
   "@pageComissionSupervisionDialogWantToSendEmailSubject": {
     "description": "Text displayed when the user wants to send an email to all students of this subject"
   },
-
   "pageComissionSupervisionSendEmail": "Send email of",
   "@pageComissionSupervisionSendEmail": {
     "description": "Text to be displayed when the user wants to send an email to all students of this subject"
   },
-
   "pageGradeSubmissionSupervisionDialogConfimationSendEmails": "Send grades to email for ",
   "@pageGradeSubmissionSupervisionDialogConfimationSendEmails": {
-        "description": "Confirmation message for sending grades to the email address of {firstnameAndLastName}."
+    "description": "Confirmation message for sending grades to the email address of {firstnameAndLastName}."
   },
-
   "pageGradesNoGrades": "There are no grades",
   "@pageGradesNoGrades": {
     "description": "Text to be displayed if there are no grades"
@@ -339,16 +321,16 @@
     "description": "Title of the page Grades for a student"
   },
   "pagePendingCommunicationsDialogDescription": "Are you sure you want to approve this notification?",
-    "@pagePendingCommunicationsDialogDescription": {
-        "description": "Description text of the alert dialog when the user taps button to approve the communication"
+  "@pagePendingCommunicationsDialogDescription": {
+    "description": "Description text of the alert dialog when the user taps button to approve the communication"
   },
   "pagePendingCommunicationsEmptyList": "There are no notification requests",
-    "@pagePendingCommunicationsEmptyList": {
-        "description": "Description text that appears instead of the notification requests when the list is empty."
+  "@pagePendingCommunicationsEmptyList": {
+    "description": "Description text that appears instead of the notification requests when the list is empty."
   },
-   "pagePendingCommunicationsDialogSuccess": "Notification successfully approved",
-    "@pagePendingCommunicationsDialogSuccess": {
-        "description": "Description text of the alert dialog to let the user know that the notification was successfully approved"
+  "pagePendingCommunicationsDialogSuccess": "Notification successfully approved",
+  "@pagePendingCommunicationsDialogSuccess": {
+    "description": "Description text of the alert dialog to let the user know that the notification was successfully approved"
   },
   "pageGradesStudentCardAverage": "Average: ",
   "@pageGradesStudentCardAverage": {
@@ -407,13 +389,11 @@
       }
     }
   },
-
-     
-    "pageGradeSubmissionSupervisionButtonSendQualifications": "Send grades",
-    "@pageGradeSubmissionSupervisionButtonSendQualifications": {
-        "description": "Text for a button used to send grades."
-    },
-      "pageAcademicCommunityNoUsersToShow": "There are no users to show",
+  "pageGradeSubmissionSupervisionButtonSendQualifications": "Send grades",
+  "@pageGradeSubmissionSupervisionButtonSendQualifications": {
+    "description": "Text for a button used to send grades."
+  },
+  "pageAcademicCommunityNoUsersToShow": "There are no users to show",
   "@pageAcademicCommunityNoUsersToShow": {
     "description": "There are no users to show text"
   },
@@ -439,168 +419,151 @@
   },
   "pageCommunicationProfileAddNewNotification": "Add new",
   "@pageCommunicationProfileAddNewNotification": {
-  "description": "Add new"
+    "description": "Add new"
   },
   "pageCommunicationProfileMarkAllRead": "Mark all as read",
   "@pageCommunicationProfileMarkAllRead": {
-  "description": "Mark all as read"
+    "description": "Mark all as read"
   },
   "dialogCreationNotificationCreatedSuccess": "Notification created successfully",
   "@dialogCreationNotificationCreatedSuccess": {
-      "description": "Notification created successfully"
+    "description": "Notification created successfully"
   },
   "dialogCreationNotificationCreateNotification": "Create notification",
   "@dialogCreationNotificationCreateNotification": {
-      "description": "Create notification"
+    "description": "Create notification"
   },
   "dialogCreationNotificationTitleTextfield": "Title",
   "@dialogCreationNotificationTitleTextfield": {
-      "description": "Title"
+    "description": "Title"
   },
   "dialogCreationNotificationWithTemplateDefault": "Create as default template",
   "@dialogCreationNotificationWithTemplateDefault": {
-      "description": "Create as default template"
+    "description": "Create as default template"
   },
-      "dialogCreationNotificationWasTemplate": "was\n created as a template.",
-    "@dialogCreationNotificationWasTemplate": {
-        "description": "was created as a template."
-    },
-
-    "dialogCreationNotificationConfimationSend": "By confirming you will send it as a notification.",
-    "@dialogCreationNotificationConfimationSend": {
-        "description": "Upon confirmation, it will be sent as a notification."
-    },
-
-    "dialogCreationNotificationWillCreateNotification": "You will create a notification",
-    "@dialogCreationNotificationWillCreateNotification": {
-        "description": "You will create a notification"
-    },
-
-    "dialogCreationNotificationWantToContinue": "Do you want to continue?",
-    "@dialogCreationNotificationWantToContinue": {
-        "description": "Do you want to continue?"
-    },
-    
-    "dialogCreationNotificationTooltip": "If supervision is required, any user attempting to send a communication will be previously accepted (or edited and discarded) by a supervisor.",
-    "@dialogCreationNotificationTooltip": {
-        "description": "If supervision is required, any user attempting to send a communication will be reviewed (or edited and discarded) by a supervisor."
-    },
-
-    "dialogCreationNotificationNeedsupervision": "Need supervision",
+  "dialogCreationNotificationWasTemplate": "was\n created as a template.",
+  "@dialogCreationNotificationWasTemplate": {
+    "description": "was created as a template."
+  },
+  "dialogCreationNotificationConfimationSend": "By confirming you will send it as a notification.",
+  "@dialogCreationNotificationConfimationSend": {
+    "description": "Upon confirmation, it will be sent as a notification."
+  },
+  "dialogCreationNotificationWillCreateNotification": "You will create a notification",
+  "@dialogCreationNotificationWillCreateNotification": {
+    "description": "You will create a notification"
+  },
+  "dialogCreationNotificationWantToContinue": "Do you want to continue?",
+  "@dialogCreationNotificationWantToContinue": {
+    "description": "Do you want to continue?"
+  },
+  "dialogCreationNotificationTooltip": "If supervision is required, any user attempting to send a communication will be previously accepted (or edited and discarded) by a supervisor.",
+  "@dialogCreationNotificationTooltip": {
+    "description": "If supervision is required, any user attempting to send a communication will be reviewed (or edited and discarded) by a supervisor."
+  },
+  "dialogCreationNotificationNeedsupervision": "Need supervision",
   "@dialogCreationNotificationNeedsupervision": {
-      "description": "Needs supervision"
+    "description": "Needs supervision"
   },
-
-    
-    "pageCourseManagementAssignTeacher": "Assign teacher",
-    "@pageCourseManagementAssignTeacher": {
-        "description": "Label indicating the action to assign a teacher to a course."
-    },
-
-    "pageCourseManagementAddStudent": "Add Student",
-    "@pageCourseManagementAddStudent": {
-        "description": "Label indicating the action to add a student to a course."
-    },
-
-    "pageCourseManagementThereAreNoTeachersAssigned": "There are no teachers assigned to this subject",
-    "@pageCourseManagementThereAreNoTeachersAssigned": {
-        "description": "Message indicating that there are no teachers assigned to a specific subject or course."
-    },
-
-    "pageCourseManagementStudentAddSuccessfully": "Student added successfully!",
-    "@pageCourseManagementStudentAddSuccessfully": {
-        "description": "Message displayed when a teacher is successfully assigned to a course."
-    },
-    "pageCourseManagementTeacherAsignedSuccessfully": "Teacher assigned successfully!",
-    "@pageCourseManagementTeacherAsignedSuccessfully": {
-        "description": "Message displayed when a student is successfully added to a course."
-    },
-
-    "pageCourseManagementAddStudentConfirmation": "Are you sure you want to add to {nameStudent} {nameComision}?",
-    "@pageCourseManagementAddStudentConfirmation": {
-        "description": "Confirmation message displayed when the user attempts to add a student to a course.",
-        "placeholders" :{
-            "nameComision" : {
-                "type": "String"
-            },"nameStudent" : {
-                "type": "String"
-            }
-        }
-    },
-
-    "pageCourseManagementAddStudentConfirmationThisRemove": "This will permanently remove it from {nameComision}",
-    "@pageCourseManagementAddStudentConfirmationThisRemove": {
-        "description": "Confirmation message displayed when the user attempts to add a student to a course and explains that it will remove the student from another course if they were previously enrolled.",
-        "placeholders" :{
-            "nameComision" : {
-                "type": "String"
-            }
-        }
-    },
-
-    "pageCourseManagementAssignTeacherConfirmation": "Are you sure you want to assign to {nameTeacher} as a {nameComision} {nameSubject} techer?",
-    "@pageCourseManagementAssignTeacherConfirmation": {
-        "description": "Confirmation message displayed when the user attempts to assign a teacher to a course.",
-        "placeholders" :{
-            "nameTeacher" : {
-                "type": "String"
-            },
-            "nameComision" : {
-                "type": "String"
-            },
-            "nameSubject" : {
-              "type": "String"
-            },
-            "all" : {
-                "type": "int"
-            }
-        }  
-    },
-    "pageUserProfileKyCPersonalInformation": "Personal information",
-    "@pageUserProfileKyCPersonalInformation": {
-        "description": "Title of the page KyC to edit personal information"
-    },
-
-    "pageUserProfileKyCBloodFactor": "Blood factor",
-    "@pageUserProfileKyCBloodFactor": {
-        "description": "Title of the page KyC to edit the blood factor"
-    },
-    "pageUserProfileKyCEmergencyContact": "Emergency contact",
-    "@pageUserProfileKyCEmergencyContact": {
-        "description": "Title in the page KyC of emergency contact"
-    },
-    "pageUserProfileKyCConfirmationSaveChanges": "Are you sure you want to edit the personal data of ",
-    "@pageUserProfileKyCConfirmationSaveChanges": {
-        "description": "Text in te alert dialog to confirm the save changes of personal data"
-    },
-    "pageUserProfileKyCSuccessfulEdition": "The profile was edited successfully!",
-    "@pageUserProfileKyCSuccessfulEdition": {
-        "description": "Text in te alert dialog to confirm the edited successfully save changes of personal data"
-    },
-    "pageUserProfileConfirmDeleteQuestion": "By confirming you will PERMANENTLY delete ",
-    "@pageUserProfileConfirmDeleteQuestion": {
-        "description": "Text in te alert dialog to confirm delete the teacher"
-    },
-    "pageUserProfileTeacherList": " from your teacher list",
-    "@pageUserProfileTeacherList": {
-        "description": "Text in the alert dialog to confirm delete the teacher"
-    },
-    "pageUserProfileTeacherSuccessfullyEliminated": " was successfully eliminated",
-    "@pageUserProfileTeacherSuccessfullyEliminated": {
-        "description": "Text in the alert dialog to confirm delete the teacher"
-    },
-    "pageUserProfileSelectTheSubjectToDelete": "Select the subject you want to delete",
-    "@pageUserProfileSelectTheSubjectToDelete": {
-        "description": "Text in the alert dialog to select the subject to delete"
-    },
-    
-
-    
-    "pageCoursesThereAreNoCourses": "There are no commissions with subjects",
-    "@pageCoursesThereAreNoCourses": {
-        "description": "There are no commissions with subjects"
-    },
-    
+  "pageCourseManagementAssignTeacher": "Assign teacher",
+  "@pageCourseManagementAssignTeacher": {
+    "description": "Label indicating the action to assign a teacher to a course."
+  },
+  "pageCourseManagementAddStudent": "Add Student",
+  "@pageCourseManagementAddStudent": {
+    "description": "Label indicating the action to add a student to a course."
+  },
+  "pageCourseManagementThereAreNoTeachersAssigned": "There are no teachers assigned to this subject",
+  "@pageCourseManagementThereAreNoTeachersAssigned": {
+    "description": "Message indicating that there are no teachers assigned to a specific subject or course."
+  },
+  "pageCourseManagementStudentAddSuccessfully": "Student added successfully!",
+  "@pageCourseManagementStudentAddSuccessfully": {
+    "description": "Message displayed when a teacher is successfully assigned to a course."
+  },
+  "pageCourseManagementTeacherAsignedSuccessfully": "Teacher assigned successfully!",
+  "@pageCourseManagementTeacherAsignedSuccessfully": {
+    "description": "Message displayed when a student is successfully added to a course."
+  },
+  "pageCourseManagementAddStudentConfirmation": "Are you sure you want to add to {nameStudent} {nameComision}?",
+  "@pageCourseManagementAddStudentConfirmation": {
+    "description": "Confirmation message displayed when the user attempts to add a student to a course.",
+    "placeholders": {
+      "nameComision": {
+        "type": "String"
+      },
+      "nameStudent": {
+        "type": "String"
+      }
+    }
+  },
+  "pageCourseManagementAddStudentConfirmationThisRemove": "This will permanently remove it from {nameComision}",
+  "@pageCourseManagementAddStudentConfirmationThisRemove": {
+    "description": "Confirmation message displayed when the user attempts to add a student to a course and explains that it will remove the student from another course if they were previously enrolled.",
+    "placeholders": {
+      "nameComision": {
+        "type": "String"
+      }
+    }
+  },
+  "pageCourseManagementAssignTeacherConfirmation": "Are you sure you want to assign to {nameTeacher} as a {nameComision} {nameSubject} techer?",
+  "@pageCourseManagementAssignTeacherConfirmation": {
+    "description": "Confirmation message displayed when the user attempts to assign a teacher to a course.",
+    "placeholders": {
+      "nameTeacher": {
+        "type": "String"
+      },
+      "nameComision": {
+        "type": "String"
+      },
+      "nameSubject": {
+        "type": "String"
+      },
+      "all": {
+        "type": "int"
+      }
+    }
+  },
+  "pageUserProfileKyCPersonalInformation": "Personal information",
+  "@pageUserProfileKyCPersonalInformation": {
+    "description": "Title of the page KyC to edit personal information"
+  },
+  "pageUserProfileKyCBloodFactor": "Blood factor",
+  "@pageUserProfileKyCBloodFactor": {
+    "description": "Title of the page KyC to edit the blood factor"
+  },
+  "pageUserProfileKyCEmergencyContact": "Emergency contact",
+  "@pageUserProfileKyCEmergencyContact": {
+    "description": "Title in the page KyC of emergency contact"
+  },
+  "pageUserProfileKyCConfirmationSaveChanges": "Are you sure you want to edit the personal data of ",
+  "@pageUserProfileKyCConfirmationSaveChanges": {
+    "description": "Text in te alert dialog to confirm the save changes of personal data"
+  },
+  "pageUserProfileKyCSuccessfulEdition": "The profile was edited successfully!",
+  "@pageUserProfileKyCSuccessfulEdition": {
+    "description": "Text in te alert dialog to confirm the edited successfully save changes of personal data"
+  },
+  "pageUserProfileConfirmDeleteQuestion": "By confirming you will PERMANENTLY delete ",
+  "@pageUserProfileConfirmDeleteQuestion": {
+    "description": "Text in te alert dialog to confirm delete the teacher"
+  },
+  "pageUserProfileTeacherList": " from your teacher list",
+  "@pageUserProfileTeacherList": {
+    "description": "Text in the alert dialog to confirm delete the teacher"
+  },
+  "pageUserProfileTeacherSuccessfullyEliminated": " was successfully eliminated",
+  "@pageUserProfileTeacherSuccessfullyEliminated": {
+    "description": "Text in the alert dialog to confirm delete the teacher"
+  },
+  "pageUserProfileSelectTheSubjectToDelete": "Select the subject you want to delete",
+  "@pageUserProfileSelectTheSubjectToDelete": {
+    "description": "Text in the alert dialog to select the subject to delete"
+  },
+  "pageCoursesThereAreNoCourses": "There are no commissions with subjects",
+  "@pageCoursesThereAreNoCourses": {
+    "description": "There are no commissions with subjects"
+  },
   "pageEditProfileDeclinePendingUser": "Do you want to reject the request of {nombre}?",
   "@pageEditProfileDeclinePendingUser": {
     "description": "Message displayed when the user is asked if they want to reject a pending request.",
@@ -654,11 +617,35 @@
   "@dialogSuccessToSendGrades": {
     "description": "Label indicating successful sending of grades."
   },
+  "dialogGradesConfirmation": "You are about to send {amountGrades}/{amountStudents} grades. Continue?",
+  "@dialogGradesConfirmation": {
+    "description": "Confirmation statement for grades definition.",
+    "placeholders": {
+      "amountGrades": {
+        "type": "int"
+      },
+      "amountStudents": {
+        "type": "int"
+      }
+    }
+  },
+  "dialogGradesUndefinedConfirmation": "You have {amountUndefinedGrades} undefined grades. Are you sure you want to continue?",
+  "@dialogGradesUndefinedConfirmation": {
+    "description": "Warning indicating the absence of x amount of grades definition.",
+    "placeholders": {
+      "amountUndefinedGrades": {
+        "type": "int"
+      }
+    }
+  },
+  "dialogGradesErrorUndefinedNotAllowed": "The institution doesn't allow undefined grades. Please fulfill all of them",
+  "@dialogGradesErrorUndefinedNotAllowed": {
+    "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
+  },
   "dropdownErrorMustCompleteField": "You must complete this field!",
   "@dropdownErrorMustCompleteField": {
     "description": "Error message displayed when a user is required to complete a dropdown field but hasn't selected any option."
   },
-
   "routeNameHome": "Home",
   "@routeNameHome": {
     "description": ""
@@ -702,7 +689,7 @@
   "routeNamePendingUserProfile": "Pending user profile",
   "@routeNamePendingUserProfile": {
     "description": ""
-  },   
+  },
   "routeNameCourses": "Courses",
   "@routeNameCourses": {
     "description": ""
@@ -716,21 +703,21 @@
     "description": ""
   },
   "routeNameMenuCommunications": "Communications",
-    "@routeNameMenuCommunications": {
-        "description": "Name of the route"
-    },
+  "@routeNameMenuCommunications": {
+    "description": "Name of the route"
+  },
   "routeNamePendingCommunications": "Pendings",
-    "@routeNamePendingCommunications": {
-        "description": "Name of the route"
-    },
+  "@routeNamePendingCommunications": {
+    "description": "Name of the route"
+  },
   "routeNameGeneralCommunications": "General",
   "@routeNameGeneralCommunications": {
-        "description": "Name of the route"
-    },
+    "description": "Name of the route"
+  },
   "routeNameCourseCommunications": "Courses",
   "@routeNameCourseCommunications": {
-        "description": "Name of the route"
-    },
+    "description": "Name of the route"
+  },
   "routeAcademicCommunityMenu": "Menu",
   "@routeAcademicCommunityMenu": {
     "description": ""
@@ -742,17 +729,15 @@
   "routeNameCommissionSupervision": "Commission supervision",
   "@routeNameCommissionSupervision": {
     "description": ""
-  }, 
-    
-    "routeNameCommission": "Commission",
-    "@routeNameCommission": {
-        "description": ""
-    },
-   "routeNameManageTemplates": "Manage templates",
-  "@routeNameManageTemplates": {
-      "description": ""
   },
-
+  "routeNameCommission": "Commission",
+  "@routeNameCommission": {
+    "description": ""
+  },
+  "routeNameManageTemplates": "Manage templates",
+  "@routeNameManageTemplates": {
+    "description": ""
+  },
   "routeNameGradeSubmissionSupervision": "Grade submission supervision",
   "@routeNameGradeSubmissionSupervision": {
     "description": ""
@@ -827,7 +812,7 @@
   },
   "pageCourseManagementReplaceTeacher": "Replace teacher",
   "@pageCourseManagementReplaceTeacher": {
-      "description": "Label indicating the action to replace a teacher to a course."
+    "description": "Label indicating the action to replace a teacher to a course."
   },
   "pageEditProfileButtonSuccessEditUser": "Profile was edited successfully!",
   "@pageEditProfileButtonSuccessEditUser": {
@@ -835,56 +820,53 @@
   },
   "pageEditProfileButtonConfirmEditUser": "Are you sure you want\n to edit the personal data of\n {nameUser}?",
   "@pageEditProfileButtonConfirmEditUser": {
-      "description": "Label indicating the action to replace a teacher to a course.",
-      "placeholders" :{
-          "nameUser" : {
-              "type": "String"
-          }
+    "description": "Label indicating the action to replace a teacher to a course.",
+    "placeholders": {
+      "nameUser": {
+        "type": "String"
       }
+    }
   },
-  "pageEditProfileDialogChangePassword":"Change password",
+  "pageEditProfileDialogChangePassword": "Change password",
   "@pageEditProfileDialogChangePassword": {
-      "description": "Label indicating the action to replace a password of the user."
+    "description": "Label indicating the action to replace a password of the user."
   },
-  "pageEditProfileDialogRequiresChangePassword":"Requires password change",
+  "pageEditProfileDialogRequiresChangePassword": "Requires password change",
   "@pageEditProfileDialogRequiresChangePassword": {
-      "description": "Checkbox to indicate if user requires change password."
+    "description": "Checkbox to indicate if user requires change password."
   },
-  "pageEditProfileContacts":"Contacts",
+  "pageEditProfileContacts": "Contacts",
   "@pageEditProfileContacts": {
-      "description": "Title of the dialog"
+    "description": "Title of the dialog"
   },
-  "pageEditProfileDialogAddContact":"Add contact",
+  "pageEditProfileDialogAddContact": "Add contact",
   "@pageEditProfileDialogAddContact": {
-      "description": "Title of the dialog"
+    "description": "Title of the dialog"
   },
-  "pageEditProfileDialogContactDeletedSuccessfully":"Contact deleted successfully",
+  "pageEditProfileDialogContactDeletedSuccessfully": "Contact deleted successfully",
   "@pageEditProfileDialogContactDeletedSuccessfully": {
     "description": "Text in the alert dialog to notificate that the contact was deleted successfully."
   },
-  "pageEditProfileDialogAreYouSure":"Are you sure you want to delete this contact?",
+  "pageEditProfileDialogAreYouSure": "Are you sure you want to delete this contact?",
   "@pageEditProfileDialogAreYouSure": {
-      "description": "Question in the dialog to ask if the user is sure to delete the contact."
+    "description": "Question in the dialog to ask if the user is sure to delete the contact."
   },
-
-  "pageEditProfileDialogEditContact":"Edit contact",
+  "pageEditProfileDialogEditContact": "Edit contact",
   "@pageEditProfileDialogEditContact": {
-      "description": "Title of the dialog"
+    "description": "Title of the dialog"
   },
-  "pageEditProfileDialogSuccessInAssigningSubject":"Subject assigned successfully",
+  "pageEditProfileDialogSuccessInAssigningSubject": "Subject assigned successfully",
   "@pageEditProfileDialogSuccessInAssigningSubject": {
-      "description": "Text in the alert dialog to notify that user was assigned a subject successfully."
+    "description": "Text in the alert dialog to notify that user was assigned a subject successfully."
   },
-  "pageEditProfileDialogSubjectUnassignedSuccessfully":"Subject unassigned successfully.",
+  "pageEditProfileDialogSubjectUnassignedSuccessfully": "Subject unassigned successfully.",
   "@pageEditProfileDialogSubjectUnassignedSuccessfully": {
-      "description": "Text in the alert dialog to notify that user was Unassing a subject successfully."
+    "description": "Text in the alert dialog to notify that user was Unassing a subject successfully."
   },
-  "pageEditProfileDialogAlreadyHasThisSubject":"The user already has this subject assigned",
+  "pageEditProfileDialogAlreadyHasThisSubject": "The user already has this subject assigned",
   "@pageEditProfileDialogAlreadyHasThisSubject": {
-      "description": "Text in the alert dialog to notify that user already has this subject assigned."
+    "description": "Text in the alert dialog to notify that user already has this subject assigned."
   },
-
-
   "tagEmailPersonalPrimary": "Personal primary",
   "@tagEmailPersonalPrimary": {
     "description": "tag of personal primary"
@@ -975,303 +957,254 @@
   },
   "commonTemplate": "Template",
   "@commonTemplate": {
-      "description": "Template"
+    "description": "Template"
   },
   "commonTemplates": "Templates",
   "@commonTemplates": {
-      "description": "Templates"
+    "description": "Templates"
   },
-
   "commonToday": "Today",
   "@commonToday": {
-      "description": "Text today"
+    "description": "Text today"
   },
-
   "commonNow": "Now",
   "@commonNow": {
-      "description": "Text now"
+    "description": "Text now"
   },
-  
   "commonNoTemplate": "No template",
   "@commonNoTemplate": {
-      "description": "Text no template"
+    "description": "Text no template"
   },
-
-    "commonMail": "Mail",
-    "@commonMail": {
-        "description": "Text to be displayed in common places"
-    },
-    
-    "commonLogIn": "Log in",
-    "@commonLogIn": {
-        "description": "Text on the button that indicates that its action is login"
-    },
-
-    "commonCompleteTheField": "Complete the field",
-    "@commonCompleteTheField": {
-        "description": "Text to be displayed in common places to indicate that the field must be completed"
-    },
-
-    "commonEnterAValidEmail": "Enter a valid email",
-    "@commonEnterAValidEmail": {
-        "description": "Text to indicate that the email is invalid"
-    },
-
-    "commonUnrated": "N/A",
-    "@commonUnrated": {
-        "description": "Text showing the grade is unrated."
-    },
-
-    "commonPassword": "Password",
-    "@commonPassword": {
-        "description": "Text to be displayed in common places to indicate password text"
-    },
-
-    "commonOnlyNumbers": "Only numbers",
-    "@commonOnlyNumbers": {
-        "description": "Text to indicate that only numbers are allowed"
-    },
-
-    "commonState": "State",
-    "@commonState": {
-        "description": "Label for the 'State' field or column in the interface"
-    },
-
-    "commonPresent": "Present",
-    "@commonPresent": {
-        "description": "Label indicating that the student is present"
-    },
-
-    "commonAbsent": "absent",
-    "@commonAbsent": {
-        "description": "Label indicating that the student is absent"
-    },
-
-    "commonHalfAbsence": "1/2 absence",
-    "@commonHalfAbsence": {
-        "description": "Label indicating that the student has half of the required attendance"
-    }, 
-    
-    "commonFourthMissing": "1/4 absence",
-    "@commonFourthMissing": {
-        "description": "Label indicating that the student has a quarter of the required attendance"
-    }, 
-    
-    "commonUndefined": "Undef.",
-    "@commonUndefined": {
-        "description": "Label indicating that the attendance status of the student is undefined or not specified"
-    },
-
-    "commonContinue": "Continue",
-    "@commonContinue": {
-        "description": "Label for a button or action indicating to proceed."
-    },
-
-    "commonApprove": "Approve",
+  "commonMail": "Mail",
+  "@commonMail": {
+    "description": "Text to be displayed in common places"
+  },
+  "commonLogIn": "Log in",
+  "@commonLogIn": {
+    "description": "Text on the button that indicates that its action is login"
+  },
+  "commonCompleteTheField": "Complete the field",
+  "@commonCompleteTheField": {
+    "description": "Text to be displayed in common places to indicate that the field must be completed"
+  },
+  "commonEnterAValidEmail": "Enter a valid email",
+  "@commonEnterAValidEmail": {
+    "description": "Text to indicate that the email is invalid"
+  },
+  "commonUnrated": "N/A",
+  "@commonUnrated": {
+    "description": "Text showing the grade is unrated."
+  },
+  "commonPassword": "Password",
+  "@commonPassword": {
+    "description": "Text to be displayed in common places to indicate password text"
+  },
+  "commonOnlyNumbers": "Only numbers",
+  "@commonOnlyNumbers": {
+    "description": "Text to indicate that only numbers are allowed"
+  },
+  "commonState": "State",
+  "@commonState": {
+    "description": "Label for the 'State' field or column in the interface"
+  },
+  "commonPresent": "Present",
+  "@commonPresent": {
+    "description": "Label indicating that the student is present"
+  },
+  "commonAbsent": "absent",
+  "@commonAbsent": {
+    "description": "Label indicating that the student is absent"
+  },
+  "commonHalfAbsence": "1/2 absence",
+  "@commonHalfAbsence": {
+    "description": "Label indicating that the student has half of the required attendance"
+  },
+  "commonFourthMissing": "1/4 absence",
+  "@commonFourthMissing": {
+    "description": "Label indicating that the student has a quarter of the required attendance"
+  },
+  "commonUndefined": "Undef.",
+  "@commonUndefined": {
+    "description": "Label indicating that the attendance status of the student is undefined or not specified"
+  },
+  "commonContinue": "Continue",
+  "@commonContinue": {
+    "description": "Label for a button or action indicating to proceed."
+  },
+  "commonApprove": "Approve",
   "@commonApprove": {
     "description": "Label for a button or action indicating to approve."
   },
   "commonApply": "Request",
-    "@commonRequest": {
-        "description": "Label for a button or action indicating to submit a request."
-    }
-,
-    "commonDialogError": "An error ocurred",
-    "@commonDialogError": {
-        "description": "Description of the alert dialog error, informing the user of an error."
-    },
-
-    "commonPhone": "Phone",
-    "@commonPhone": {
-        "description": "Label used to represent the phone field in personal data."
-    },
-
-    "commonBloodFactor": "Blood Factor",
-    "@commonBloodFactor": {
-        "description": "Label used to represent the blood factor field in personal data."
-    },
-
-    "commonAge": "Age",
-    "@commonAge": {
-        "description": "Label used to represent the age field in personal data."
-    },
-
-    "commonEmergencyContact": "Emergency contact",
-    "@commonEmergencyContact": {
-        "description": "Label used to represent the emergency contact field in personal data."
-    },
-
-    "commonBond": "Bond",
-    "@commonBond": {
-        "description": "Label used to represent the bond field in personal data."
-    },
-
-    "commonObservations": "Observations",
-    "@commonObservations": {
-        "description": "Label used to represent the observations field in personal data."
-    },
-
-    "commonNoData": "No data",
-    "@commonNoData": {
-        "description": "Message used to represent the absence of data in a field."
-    },
-
-    "commonContact": "Contact",
-    "@commonContact": {
-        "description": "Button or link used to initiate contact with the user."
-    },
-
-    "commonConfirm": "Confirm",
-    "@commonConfirm": {
-        "description": "Button or link used to confirm an action or decision."
-    },
-    
-    "commonFeatureNotAvailable":"This feature is\n not available in this version.",
-    "@commonFeatureNotAvailable":{
-        "descripcion": "Text in pop up to indicate that a feature in progress"
-    },
-
-    "commonDecline": "Decline",
-    "@commonDecline": {
-        "description": "Button or link used to decline or reject an action or decision."
-    },
-
-    "commonBack": "Back",
-    "@commonBack": {
-        "description": "Text in button to indicate the action back"
-    },
-
-    "commonCancel": "Cancel",
-    "@commonCancel": {
-        "description": "Use to cancel an action"
-    },
-    "commonEdit": "Edit",
-    "@commonEdit": {
-        "description": "Use to edit something"
-    },
-
-
-    "commonSubject": "Subject",
-    "@commonSubject": {
-        "description": "It is commonly used to refer to a specific academic subject or course."
-    },
-
-    "commonCourse": "Course",
-    "@commonCourse": {
-        "description": "It is commonly used to refer to a specific academic course."
-    },
-
-    "commonButtonAccept": "Accept",
-    "@commonButtonAccept": {
-        "description": "It is commonly used in a button to accept"
-    },
+  "@commonRequest": {
+    "description": "Label for a button or action indicating to submit a request."
+  },
+  "commonDialogError": "An error ocurred",
+  "@commonDialogError": {
+    "description": "Description of the alert dialog error, informing the user of an error."
+  },
+  "commonPhone": "Phone",
+  "@commonPhone": {
+    "description": "Label used to represent the phone field in personal data."
+  },
+  "commonBloodFactor": "Blood Factor",
+  "@commonBloodFactor": {
+    "description": "Label used to represent the blood factor field in personal data."
+  },
+  "commonAge": "Age",
+  "@commonAge": {
+    "description": "Label used to represent the age field in personal data."
+  },
+  "commonEmergencyContact": "Emergency contact",
+  "@commonEmergencyContact": {
+    "description": "Label used to represent the emergency contact field in personal data."
+  },
+  "commonBond": "Bond",
+  "@commonBond": {
+    "description": "Label used to represent the bond field in personal data."
+  },
+  "commonObservations": "Observations",
+  "@commonObservations": {
+    "description": "Label used to represent the observations field in personal data."
+  },
+  "commonNoData": "No data",
+  "@commonNoData": {
+    "description": "Message used to represent the absence of data in a field."
+  },
+  "commonContact": "Contact",
+  "@commonContact": {
+    "description": "Button or link used to initiate contact with the user."
+  },
+  "commonConfirm": "Confirm",
+  "@commonConfirm": {
+    "description": "Button or link used to confirm an action or decision."
+  },
+  "commonFeatureNotAvailable": "This feature is\n not available in this version.",
+  "@commonFeatureNotAvailable": {
+    "descripcion": "Text in pop up to indicate that a feature in progress"
+  },
+  "commonDecline": "Decline",
+  "@commonDecline": {
+    "description": "Button or link used to decline or reject an action or decision."
+  },
+  "commonBack": "Back",
+  "@commonBack": {
+    "description": "Text in button to indicate the action back"
+  },
+  "commonCancel": "Cancel",
+  "@commonCancel": {
+    "description": "Use to cancel an action"
+  },
+  "commonEdit": "Edit",
+  "@commonEdit": {
+    "description": "Use to edit something"
+  },
+  "commonSubject": "Subject",
+  "@commonSubject": {
+    "description": "It is commonly used to refer to a specific academic subject or course."
+  },
+  "commonCourse": "Course",
+  "@commonCourse": {
+    "description": "It is commonly used to refer to a specific academic course."
+  },
+  "commonButtonAccept": "Accept",
+  "@commonButtonAccept": {
+    "description": "It is commonly used in a button to accept"
+  },
   "commonSave": "Save",
   "@commonSave": {
     "description": "Label for a button or action indicating to save."
-  },  
+  },
   "commonSaveChange": "Save Change",
   "@commonSaveChange": {
     "description": "Label for a button or action indicating to save a change."
   },
   "commonCourses": "Courses",
-    "@commonCourses": {
-        "description": "It is commonly used to refer to various academic courses."
-    },
-    
-    "commonName": "Name",
-    "@commonName": {
-        "description": "Label indicating the name of something"
-    },
-    
-    "commonSearchWithDots": "Search...",
-    "@commonSearchWithDots": {
-        "description": "Label indicating to search"
-    },
-    
-    "commonRole": "Role",
-    "@commonRole": {
-        "description": "A singular function or position that a user can have in a system or application."
-    },
-    
-    "commonRoles": "Roles",
-    "@commonRoles": {
-        "description": "Multiple functions or positions that a user can have in a system or application."
-    },
-
-    "commonComission": "Comission",
-    "@commonComission": {
-        "description": "A singular commission, group, or task assigned to a user in an educational or work context."
-    },
-
-    "commonComissions": "Comissions",
-    "@commonComissions": {
-        "description": "Multiple commissions, groups, or tasks assigned to a user in an educational or work context."
-    },
-
-    "commonDeleteAll": "Delete All",
-    "@commonDeleteAll": {
-        "description": "Label indicating to delete all items"
-    },
-    
-    "commonTeacher": "Teacher",
-    "@commonTeacher": {
-        "description": "Teacher or instructor in an educational context."
-    },
-
-    "commonStudent": "Student",
-    "@commonStudent": {
-        "description": "Student or learner in an educational context."
-    },
-
-    "commonAccept": "Accept",
-    "@commonAccept": {
-        "description": "Button label used to confirm or accept an action."
-    },
-
-    "commonSearchName": "Write a name",
-    "@commonSearchName": {
-        "description": "Prompt or placeholder text displayed in a search field indicating that the user should input a name."
-    },
-    "commonDelete": "Delete",
-    "@commonDelete": {
-      "description": "Label indicating to delete"
-    },
-    "commonLastname": "Lastname",
-    "@commonLastname": {
-      "description": "Label indicating the lastname of something"
-    },
-    "commonEmail": "Email",
-    "@commonEmail": {
-      "description": "Label indicating the email of the user"
-    },
-    "commonPhoneNumber": "Phone number",
-    "@commonPhoneNumber": {
-      "description": "Label used to represent the phone field in personal data."
-    },
-    "commonWarning": "Warning",
-    "@commonWarning": {
-      "description": "Label indicating  warn the user"
-    },  
-    "commonConfirmCloseApp": "Press again to exit",
-    "@commonConfirmCloseApp": {
-      "description": "Message to confirm app exit"
-    },
-    "commonButtonDecline": "Decline",
-    "@commonButtonDecline": {
-        "description": "It is commonly used in a button to decline"
-    },
-    
-    "commonSaveChanges": "Save changes",
-    "@commonSaveChanges": {
-        "description": "Text in button to save changes"
-    },
-    "commonAttention": "Attention",
-    "@commonAttention": {
-        "description": "text to notify attention"
-    },
-    "commonWantToContinue": "¿Do you want to continue?",
-    "@commonWantToContinue": {
-        "description": "continue question"
-    }
-
+  "@commonCourses": {
+    "description": "It is commonly used to refer to various academic courses."
+  },
+  "commonName": "Name",
+  "@commonName": {
+    "description": "Label indicating the name of something"
+  },
+  "commonSearchWithDots": "Search...",
+  "@commonSearchWithDots": {
+    "description": "Label indicating to search"
+  },
+  "commonRole": "Role",
+  "@commonRole": {
+    "description": "A singular function or position that a user can have in a system or application."
+  },
+  "commonRoles": "Roles",
+  "@commonRoles": {
+    "description": "Multiple functions or positions that a user can have in a system or application."
+  },
+  "commonComission": "Comission",
+  "@commonComission": {
+    "description": "A singular commission, group, or task assigned to a user in an educational or work context."
+  },
+  "commonComissions": "Comissions",
+  "@commonComissions": {
+    "description": "Multiple commissions, groups, or tasks assigned to a user in an educational or work context."
+  },
+  "commonDeleteAll": "Delete All",
+  "@commonDeleteAll": {
+    "description": "Label indicating to delete all items"
+  },
+  "commonTeacher": "Teacher",
+  "@commonTeacher": {
+    "description": "Teacher or instructor in an educational context."
+  },
+  "commonStudent": "Student",
+  "@commonStudent": {
+    "description": "Student or learner in an educational context."
+  },
+  "commonAccept": "Accept",
+  "@commonAccept": {
+    "description": "Button label used to confirm or accept an action."
+  },
+  "commonSearchName": "Write a name",
+  "@commonSearchName": {
+    "description": "Prompt or placeholder text displayed in a search field indicating that the user should input a name."
+  },
+  "commonDelete": "Delete",
+  "@commonDelete": {
+    "description": "Label indicating to delete"
+  },
+  "commonLastname": "Lastname",
+  "@commonLastname": {
+    "description": "Label indicating the lastname of something"
+  },
+  "commonEmail": "Email",
+  "@commonEmail": {
+    "description": "Label indicating the email of the user"
+  },
+  "commonPhoneNumber": "Phone number",
+  "@commonPhoneNumber": {
+    "description": "Label used to represent the phone field in personal data."
+  },
+  "commonWarning": "Warning",
+  "@commonWarning": {
+    "description": "Label indicating  warn the user"
+  },
+  "commonConfirmCloseApp": "Press again to exit",
+  "@commonConfirmCloseApp": {
+    "description": "Message to confirm app exit"
+  },
+  "commonButtonDecline": "Decline",
+  "@commonButtonDecline": {
+    "description": "It is commonly used in a button to decline"
+  },
+  "commonSaveChanges": "Save changes",
+  "@commonSaveChanges": {
+    "description": "Text in button to save changes"
+  },
+  "commonAttention": "Attention",
+  "@commonAttention": {
+    "description": "text to notify attention"
+  },
+  "commonWantToContinue": "¿Do you want to continue?",
+  "@commonWantToContinue": {
+    "description": "continue question"
+  }
 }

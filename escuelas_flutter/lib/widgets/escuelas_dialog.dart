@@ -169,10 +169,7 @@ class EscuelasDialog extends StatelessWidget {
     );
   }
 
-  /// `Dialog confirmar`:
-  ///
-  /// Se usa para el procedimiento de una operación y pedirle al usuario una
-  /// confirmacion.
+  /// Para pedir confirmación de una acción, puede ser cancelada.
   ///
   /// El Dialog requiere obligatoriamente la propiedad `[onTapConfirmar]`,
   /// `[titulo]` y `[context]`.

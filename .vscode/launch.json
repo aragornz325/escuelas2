@@ -71,12 +71,24 @@
       "args": [
         "--apply-migrations",
       ]
+    },
+    {
+      "name": "Serverpod production",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/escuelas_server",
+      "program": "bin/main.dart",
+      "args": [
+        "--apply-migrations",
+        "--mode",
+        "production"
+      ]
     }
   ],
   "compounds": [
     {
       "name": "Server/Client development",
-      "preLaunchTask": "serverpod",
+      // "preLaunchTask": "serverpod",
       "configurations": [
         "Escuelas development",
         "Serverpod development"
@@ -87,6 +99,20 @@
         "group": "serverpod",
         "order": 1
       }
-    }
+    },
+    {
+      "name": "Server/Client production",
+      // "preLaunchTask": "serverpod",
+      "configurations": [
+        "Escuelas development",
+        "Serverpod production"
+      ],
+      "stopAll": true,
+      "presentation": {
+        "hidden": false,
+        "group": "serverpod",
+        "order": 1
+      }
+    },
   ]
 }

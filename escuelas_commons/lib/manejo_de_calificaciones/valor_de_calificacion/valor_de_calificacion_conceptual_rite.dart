@@ -1,12 +1,13 @@
 // ignore_for_file: public_member_api_docs
 
 enum ValorDeCalificacionConceptualRite {
-  tea('TEA'),
-  tep('TEP'),
-  ted('TED');
+  tea(8, 'TEA'),
+  tep(5, 'TEP'),
+  ted(3, 'TED');
 
-  const ValorDeCalificacionConceptualRite(this.valor);
+  const ValorDeCalificacionConceptualRite(this.valor, this.representacion);
 
   /// Representación textual del valor de la calificación.
-  final String valor;
+  final int valor;
+  final String representacion;
 }

@@ -1,7 +1,8 @@
 // ignore_for_file: public_member_api_docs
 
 enum ValorDeCalificacionConceptualAlfabetica {
-  sinCalificar(0, 'S/C'),
+  sinCalificar(null, 'S/C'),
+  fMenos(0, 'F-'),
   f(1, 'F'),
   dMenos(2, 'D-'),
   d(3, 'D'),
@@ -22,7 +23,7 @@ enum ValorDeCalificacionConceptualAlfabetica {
   );
 
   /// Reprersentacion numero del valor de la calificacion.
-  final int valor;
+  final int? valor;
 
   /// Representación textual del valor de la calificación.
   final String representacion;

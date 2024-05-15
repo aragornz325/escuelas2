@@ -52,7 +52,7 @@ class BlocCargaCalificacionesEstado {
   /// Contiene una lista de calificaciones mensuales del mes actual
   final List<CalificacionMensual> listaCalificacionesMesActual;
 
-  /// Contiene las calificaciones mensuales de los meses restantes
+  /// Contiene las calificaciones mensuales de todos los meses
   final List<List<CalificacionMensual>> listaCalificacionesMesesRestantes;
 
   /// Indica si el estado es
@@ -67,6 +67,14 @@ class BlocCargaCalificacionesEstado {
 
   /// lista de estudiantes de una comision
   List<RelacionComisionUsuario> get estudiantes => comision?.estudiantes ?? [];
+
+  /// Total de alumnos a evaluar
+  int get totalAlumnosAEvaluar => listaCalificacionesMesActual.length;
+
+  /// Total de alumnos que tienen calificaciones definidas
+  int get totalEvaluacionesDefinidas => listaCalificacionesMesActual
+      .where((element) => element.calificacion?.index != 0)
+      .length;
 
   List<Object?> get props => [
         comision,
@@ -158,6 +166,37 @@ class BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas
     extends BlocCargaCalificacionesEstado {
   /// {@macro BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas}
   BlocCargaCalificacionesEstadoExitoAlBorrarCalificacionesCargadas.desde(
+    super.otro, {
+    super.listaCalificacionesMesActual,
+  }) : super.desde();
+}
+
+/// {@template BlocCargaCalificacionesEstadoConfirmandoEnvioNotas}
+/// Sirve para que muestre un popup indicando que las calificaciones fueron
+/// borradas.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoConfirmandoEnvioNotas
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoConfirmandoEnvioNotas}
+  BlocCargaCalificacionesEstadoConfirmandoEnvioNotas.desde(
+    super.otro, {
+    required this.confirmadoRevision,
+    this.confirmadoAdvertenciaAlumnosSinCalificacion = false,
+    super.listaCalificacionesMesActual,
+  }) : super.desde();
+
+  final bool confirmadoRevision;
+  final bool confirmadoAdvertenciaAlumnosSinCalificacion;
+}
+
+/// {@template BlocCargaCalificacionesEstadoSinCalificarNoPermitido}
+/// Sirve para que muestre un popup indicando que las calificaciones no pueden ser
+/// enviadas con Sin Calificar.
+/// {@endtemplate}
+class BlocCargaCalificacionesEstadoFallandoSinCalificarNoPermitido
+    extends BlocCargaCalificacionesEstado {
+  /// {@macro BlocCargaCalificacionesEstadoSinCalificarNoPermitido}
+  BlocCargaCalificacionesEstadoFallandoSinCalificarNoPermitido.desde(
     super.otro, {
     super.listaCalificacionesMesActual,
   }) : super.desde();

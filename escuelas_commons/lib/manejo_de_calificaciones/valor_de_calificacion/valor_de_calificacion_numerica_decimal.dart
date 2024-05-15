@@ -3,7 +3,7 @@
 // TODO(SAM): Crear  1 clase sealed padre y estos enums extienden d ella
 // https://dart.dev/language/class-modifiers
 enum ValorDeCalificacionNumericaDecimal {
-  sinCalificar(0, 'S/C'),
+  sinCalificar(null, 'S/C'),
   uno(1, '1'),
   dos(2, '2'),
   tres(3, '3'),
@@ -18,6 +18,6 @@ enum ValorDeCalificacionNumericaDecimal {
   const ValorDeCalificacionNumericaDecimal(this.valor, this.representacion);
 
   /// Representación textual del valor de la calificación.
-  final int valor;
+  final int? valor;
   final String representacion;
 }

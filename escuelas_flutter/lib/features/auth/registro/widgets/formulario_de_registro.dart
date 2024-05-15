@@ -125,7 +125,7 @@ class _FormularioRegistroState extends State<FormularioRegistro> {
                   ),
                   Text(
                     l10n.pageRegisterMinimumCaractersForPassword(
-                      const RedemptorisMissioConfigs()
+                      const ConfigsRedemptorisMissio()
                           .minimoDeCaracteresPassword,
                     ),
                     style: TextStyle(

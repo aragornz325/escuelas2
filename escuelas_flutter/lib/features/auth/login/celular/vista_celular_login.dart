@@ -184,28 +184,28 @@ class _VistaCelularLoginState extends State<VistaCelularLogin> {
                                     fontSize: 14.pf,
                                   ),
                                 ),
-                              if (emailODNIValido)
-                                Row(
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () => showDialog<void>(
-                                        context: context,
-                                        builder: (context) =>
-                                            EscuelasDialog.featNoDisponible(
-                                          context: context,
-                                        ),
-                                      ),
-                                      child: Text(
-                                        l10n.pageLoginRecoverPassword,
-                                        textAlign: TextAlign.left,
-                                        style: TextStyle(
-                                          color: colores.grisDato,
-                                          fontSize: 14.pf,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                              // if (emailODNIValido)
+                              //   Row(
+                              //     children: [
+                              //       GestureDetector(
+                              //         onTap: () => showDialog<void>(
+                              //           context: context,
+                              //           builder: (context) =>
+                              //               EscuelasDialog.featNoDisponible(
+                              //             context: context,
+                              //           ),
+                              //         ),
+                              //         child: Text(
+                              //           l10n.pageLoginRecoverPassword,
+                              //           textAlign: TextAlign.left,
+                              //           style: TextStyle(
+                              //             color: colores.grisDato,
+                              //             fontSize: 14.pf,
+                              //           ),
+                              //         ),
+                              //       ),
+                              //     ],
+                              //   ),
                               Padding(
                                 padding: EdgeInsets.symmetric(vertical: 30.ph),
                                 child: EscuelasBoton.texto(

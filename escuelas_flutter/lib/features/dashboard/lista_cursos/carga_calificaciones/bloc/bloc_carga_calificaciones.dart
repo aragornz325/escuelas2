@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:escuelas_client/escuelas_client.dart';
+import 'package:escuelas_commons/escuelas_commons.dart';
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 part 'bloc_carga_calificaciones_estado.dart';
 part 'bloc_carga_calificaciones_evento.dart';
@@ -30,6 +31,10 @@ class BlocCargaCalificaciones
 
   /// Fecha de la pantalla anterior
   final DateTime fecha;
+
+  /// Estrategia para manejar el comportamiento de la app ante alumnos con S/C (sin calificar)
+  final estrategiaSinCalificar =
+      const ConfigsRedemptorisMissio().estrategiaSinCalificar;
 
   /// Al iniciar la pantalla trae todos los alumnos de una fecha.
   Future<void> _onInicializar(
@@ -118,7 +123,7 @@ class BlocCargaCalificaciones
     );
   }
 
-  /// Guarda el periodo seleccionado del calendario
+  /// Guarda la calificación actualizada de un alumno
   void _onAgregarCalificacion(
     BlocCargaCalificacionesEventoAgregarCalificacion event,
     Emitter<BlocCargaCalificacionesEstado> emit,
@@ -177,15 +182,37 @@ class BlocCargaCalificaciones
     emit(BlocCargaCalificacionesEstadoCargando.desde(state));
     await operacionBloc(
       callback: (client) async {
+        if (false == event.confirmadoRevision) {
+          // Si el usuarios no ha aceptado la confirmación del envío de notas, pedirla
+          emit(BlocCargaCalificacionesEstadoConfirmandoEnvioNotas.desde(state,
+              confirmadoRevision: false));
+          return;
+        } else {
+          final hayAlumnosSinCalificar =
+              state.totalAlumnosAEvaluar != state.totalEvaluacionesDefinidas;
+
+          if (hayAlumnosSinCalificar) {
+            switch (estrategiaSinCalificar) {
+              case EstrategiaSinCalificar.noPermitirEnvio:
+                emit(
+                    BlocCargaCalificacionesEstadoFallandoSinCalificarNoPermitido
+                        .desde(state));
+              case EstrategiaSinCalificar.permitirEnvio:
+              case EstrategiaSinCalificar.solicitud:
+              //TODO(anyone): Crear una solicitud de actualización de las notas existentes
+              // para ser aprobada por el directivo
+            }
+          }
+        }
         final haySolicitud =
             state.calificacionesMensuales?.solicitudNotaMensual != null;
 
-        final estaRealizada = state.calificacionesMensuales
+        final solicitudEstaRealizada = state.calificacionesMensuales
                 ?.solicitudNotaMensual?.solicitud?.fechaRealizacion !=
             null;
 
         if (haySolicitud) {
-          if (estaRealizada) {
+          if (solicitudEstaRealizada) {
             await client.calificacion.actualizarCalificacionesMensualesEnLote(
               calificacionesMensuales: state.listaCalificacionesMesActual,
             );
@@ -206,7 +233,8 @@ class BlocCargaCalificaciones
             );
           }
         } else {
-          // TODO(anyone): handlear el caso en que no hay solicitud
+          // TODO(anyone): Crear una solicitud de actualización de las notas existentes
+          // para q la apruebe el directivo
         }
       },
       onError: (e, st) => emit(

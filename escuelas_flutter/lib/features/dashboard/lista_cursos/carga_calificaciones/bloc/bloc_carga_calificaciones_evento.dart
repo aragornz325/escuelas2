@@ -88,7 +88,15 @@ class BlocCargaCalificacionesEventoVaciarCalificaciones
 class BlocCargaCalificacionesEventoEnviarCalificaciones
     extends BlocCargaCalificacionesEvento {
   /// {@macro BlocCargaCalificacionesEventoEnviarCalificaciones}
-  const BlocCargaCalificacionesEventoEnviarCalificaciones();
+  const BlocCargaCalificacionesEventoEnviarCalificaciones(
+      {this.confirmadoRevision = false, this.confirmadoAdvertencia = false});
+
+  /// Si el usuario tapeó el botón de confirmar envío de calificaciones la primera vez que se muestra
+  final bool confirmadoRevision;
+
+  /// Si el usuario tapeó el botón de confirmar envío de calificaciones la segunda vez que se muestra
+  /// si es que hubo notas que no cargó
+  final bool confirmadoAdvertencia;
 }
 
 /// {@template BlocCargaCalificacionesEventoAgregarCalificacion}

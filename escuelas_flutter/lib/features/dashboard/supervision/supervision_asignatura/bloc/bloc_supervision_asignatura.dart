@@ -182,21 +182,15 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
         final haySolicitud =
             state.calificacionesMensuales?.solicitudNotaMensual != null;
 
-        final estaRealizada = state.calificacionesMensuales
-                ?.solicitudNotaMensual?.solicitud?.fechaRealizacion !=
-            null;
-
         if (haySolicitud) {
-          if (estaRealizada) {
-            await client.calificacion.actualizarCalificacionesMensualesEnLote(
-              calificacionesMensuales: state.listaCalificacionesMesActual,
-            );
-            emit(
-              BlocSupervisionAsignaturaEstadoCalificacionesActualizadas.desde(
-                state,
-              ),
-            );
-          }
+          await client.calificacion.actualizarCalificacionesMensualesEnLote(
+            calificacionesMensuales: state.listaCalificacionesMesActual,
+          );
+          emit(
+            BlocSupervisionAsignaturaEstadoCalificacionesActualizadas.desde(
+              state,
+            ),
+          );
         }
       },
       onError: (e, st) =>
