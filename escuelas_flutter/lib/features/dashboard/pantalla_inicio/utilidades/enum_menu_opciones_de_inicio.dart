@@ -7,13 +7,15 @@ import 'package:flutter/material.dart';
 /// Menu donde se encuentran las vistas a redirigir que cada una requiere
 /// permisos especificos del usuario para que las pueda ver.
 enum MenuOpcionesDeInicio {
-  tomarInasistencia([PermisoDeAsistencia.verAsistencia]),
-  listaCursos([PermisoDeCurso.verCurso]),
-  usuariosPendientes([PermisoDeUsuario.responderSolicitudDeRegistro]),
-  comunidadAcademica([PermisoDeUsuario.verUsuario]),
-  supervisionComision([PermisoDeComision.verComision]),
+  tomarInasistencia(
+      [PermisoDeAsistencia.verAsistencia], ['docente', 'directivo']),
+  listaCursos([PermisoDeCurso.verCurso], ['docente', 'directivo']),
+  usuariosPendientes(
+      [PermisoDeUsuario.responderSolicitudDeRegistro], ['directivo']),
+  comunidadAcademica([PermisoDeUsuario.verUsuario], ['directivo']),
+  supervisionComision([PermisoDeComision.verComision], ['directivo']),
   // comunicaciones([PermisoDeUsuario.verUsuario]),
-  calificacionesAlumno([PermisoDeCalificacion.verCalificacion]),
+  calificacionesAlumno([PermisoDeCalificacion.verCalificacion], ['estudiante']),
   // gestionDeComision([
   //   PermisoDeComision.verComision,
   //   PermisoDeComision.asignarAlumnosAComision,
@@ -21,9 +23,13 @@ enum MenuOpcionesDeInicio {
   // ])
   ;
 
-  const MenuOpcionesDeInicio(this.permisosRequeridos);
+  const MenuOpcionesDeInicio(this.permisosPosibles, this.rolesPermitidos);
 
-  final List<Enum> permisosRequeridos;
+  /// Que se muestre si el usuario tiene alguno de estos permisos
+  final List<Enum> permisosPosibles;
+
+  /// Que se muestre si el rol del usuario esta en esta lista
+  final List<String> rolesPermitidos;
 
   /// Redirige al usuario a esa vista
   void redirigirAVista(BuildContext context) {

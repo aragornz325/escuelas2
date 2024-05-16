@@ -76,28 +76,23 @@ class _MenuOpcionesPermisosState extends State<MenuOpcionesPermisos> {
 
   /// Devuelve de acuerdo al usuario su lista de vistas permitidas.
   List<MenuOpcionesDeInicio> _menusPermitidos(Usuario usuario) {
-    // TODO: Sacar hardcodeo de estudiante por ahora funciona pero tiene que ser con permisos.
+    // TODO: Sacar hardcodeo de roles, tiene q funcionar bien con permisos.
 
-    if (usuario.nombreRoles == 'estudiante') {
-      return MenuOpcionesDeInicio.values
-          .where(
-            (opcion) => opcion.permisosRequeridos.every(
-              usuario.tienePermisos,
-            ),
-          )
-          .toList();
-    }
     return MenuOpcionesDeInicio.values
         .where(
-          (opcion) => opcion.permisosRequeridos.every(
-            usuario.tienePermisos,
+          (opcion) => opcion.rolesPermitidos.any(
+            (rolPermitido) =>
+                usuario.roles?.keys.contains(rolPermitido) ?? false,
           ),
         )
-        .toList()
-      // TODO: Sacar hardcodeo de directivo por ahora funciona pero tiene que ser con permisos.
-      ..remove(
-        MenuOpcionesDeInicio.calificacionesAlumno,
-      );
+        .toList();
+    // return MenuOpcionesDeInicio.values
+    //     .where(
+    //       (opcion) => opcion.permisosPosibles.any(
+    //         usuario.tienePermisos,
+    //       ),
+    //     )
+    //     .toList();
   }
 
   /// Es para saber si ya se abrio el popup_cambiarContraseña

@@ -197,6 +197,7 @@ class BlocCargaCalificaciones
                 emit(
                     BlocCargaCalificacionesEstadoFallandoSinCalificarNoPermitido
                         .desde(state));
+                return;
               case EstrategiaSinCalificar.permitirEnvio:
               case EstrategiaSinCalificar.solicitud:
               //TODO(anyone): Crear una solicitud de actualización de las notas existentes
@@ -210,7 +211,6 @@ class BlocCargaCalificaciones
         final solicitudEstaRealizada = state.calificacionesMensuales
                 ?.solicitudNotaMensual?.solicitud?.fechaRealizacion !=
             null;
-
         if (haySolicitud) {
           if (solicitudEstaRealizada) {
             await client.calificacion.actualizarCalificacionesMensualesEnLote(
