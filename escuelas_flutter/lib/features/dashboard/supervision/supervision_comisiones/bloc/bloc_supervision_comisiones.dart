@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:escuelas_client/escuelas_client.dart';
 import 'package:escuelas_flutter/extensiones/bloc.dart';
 import 'package:escuelas_flutter/features/dashboard/supervision/supervision_comisiones/pagina_supervision_comisiones.dart';
@@ -54,11 +56,11 @@ class BlocSupervisionComisiones extends Bloc<BlocSupervisionComisionesEvento,
     emit(BlocSupervisionComisionEstadoCargandoAlMandarEmails.desde(state));
     await operacionBloc(
       callback: (client) async {
-        await client.calificacion.enviarCalificacionesPorMesYAnio(
+        unawaited(client.calificacion.enviarCalificacionesPorMesYAnio(
           filtroDeEnvio: EnvioCalificaciones.todos,
           mes: state.fecha?.month ?? DateTime.now().month,
           anio: state.fecha?.year ?? DateTime.now().year,
-        );
+        ));
 
         emit(BlocSupervisionComisionEstadoExitosoAlMandarEmails.desde(state));
       },

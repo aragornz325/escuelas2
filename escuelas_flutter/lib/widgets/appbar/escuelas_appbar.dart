@@ -113,8 +113,7 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
           SliverAppBar(
             leading: Builder(
               builder: (BuildContext context) {
-                return context.router.canNavigateBack &&
-                        false == context.router.isTopMost
+                return context.router.canNavigateBack
                     ? IconButton(
                         icon: const Icon(Icons.arrow_back),
                         onPressed: () {

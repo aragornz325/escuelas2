@@ -1,6 +1,5 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc/bloc_carga_calificaciones.dart';
-import 'package:escuelas_flutter/features/dashboard/supervision/supervision_asignatura/bloc/bloc_supervision_asignatura.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +11,11 @@ import 'package:full_responsive/full_responsive.dart';
 /// {@endtemplate}
 class DialogConfirmarEnvioDeCalificaciones extends StatelessWidget {
   /// {@macro DialogConfirmarActualizarCalificaciones}
-  const DialogConfirmarEnvioDeCalificaciones(
-      {super.key,
-      required this.totalEvaluacionesDefinidas,
-      required this.totalAlumnosAEvaluar});
+  const DialogConfirmarEnvioDeCalificaciones({
+    required this.totalEvaluacionesDefinidas,
+    required this.totalAlumnosAEvaluar,
+    super.key,
+  });
 
   final int totalEvaluacionesDefinidas;
   final int totalAlumnosAEvaluar;
@@ -30,7 +30,8 @@ class DialogConfirmarEnvioDeCalificaciones extends StatelessWidget {
       onTapConfirmar: () {
         context.read<BlocCargaCalificaciones>().add(
               const BlocCargaCalificacionesEventoEnviarCalificaciones(
-                  confirmadoRevision: true),
+                confirmadoRevision: true,
+              ),
             );
         Navigator.of(context).pop();
       },

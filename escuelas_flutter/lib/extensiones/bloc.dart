@@ -59,8 +59,8 @@ Future<void> operacionBloc({
       //! TODO(Anyone): ver esto
 
       case TipoExcepcion.passwordAntiguaIncorrecta:
-        callHandler(onErrorCustom);
       case TipoExcepcion.passwordAntiguaIncorrecta:
+      case TipoExcepcion.errorEnEnvioDeCalificacionesPorEmail:
         callHandler(onErrorCustom);
     }
 
