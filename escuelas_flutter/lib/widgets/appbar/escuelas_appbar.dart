@@ -111,26 +111,7 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
         shrinkWrap: true,
         slivers: <Widget>[
           SliverAppBar(
-            leading: Builder(
-              builder: (BuildContext context) {
-                return context.router.canNavigateBack
-                    ? IconButton(
-                        icon: const Icon(Icons.arrow_back),
-                        onPressed: () {
-                          context.router.back();
-                        },
-                      )
-                    : iconoLateralIzquierdo ??
-                        IconButton(
-                          icon: const Icon(Icons.menu),
-                          onPressed: () {
-                            if (widget.tieneDrawer) {
-                              Scaffold.of(context).openDrawer();
-                            }
-                          },
-                        );
-              },
-            ),
+            leading: const AutoLeadingButton(),
             title: Center(
               child: BlocBuilder<BlocDashboard, BlocDashboardEstado>(
                 builder: (context, state) {
