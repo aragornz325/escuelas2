@@ -461,6 +461,8 @@ GROUP BY rau."comisionId", com.nombre;
         logger.finer(
             'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
 
+        List<String> emailsDestinatariosFinal = emailsDestinatarios;
+
         for (var email in emailsDestinatarios) {
           try {
             final respuestaMailer = await ServicioComunicaciones().enviarEmail(
@@ -490,12 +492,12 @@ GROUP BY rau."comisionId", com.nombre;
               exception: e.toString(),
               level: LogLevel.error,
             );
-            emailsDestinatarios.remove(email);
+            emailsDestinatariosFinal.remove(email);
             continue;
           }
         }
 
-        if (emailsDestinatarios.isEmpty) {
+        if (emailsDestinatariosFinal.isEmpty) {
           logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
           continue;
         }
@@ -505,7 +507,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatariosFinal.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -614,6 +616,8 @@ GROUP BY rau."comisionId", com.nombre;
           continue;
         }
 
+        List<String> emailsDestinatariosFinal = emailsDestinatarios;
+
         final direccionesTestadas =
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
@@ -647,12 +651,12 @@ GROUP BY rau."comisionId", com.nombre;
               exception: e.toString(),
               level: LogLevel.error,
             );
-            emailsDestinatarios.remove(email);
+            emailsDestinatariosFinal.remove(email);
             continue;
           }
         }
 
-        if (emailsDestinatarios.isEmpty) {
+        if (emailsDestinatariosFinal.isEmpty) {
           logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
           continue;
         }
@@ -661,7 +665,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatariosFinal.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -783,6 +787,8 @@ GROUP BY rau."comisionId", com.nombre;
           continue;
         }
 
+        List<String> emailsDestinatariosFinal = emailsDestinatarios;
+
         final direccionesTestadas =
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
@@ -816,12 +822,12 @@ GROUP BY rau."comisionId", com.nombre;
               exception: e.toString(),
               level: LogLevel.error,
             );
-            emailsDestinatarios.remove(email);
+            emailsDestinatariosFinal.remove(email);
             continue;
           }
         }
 
-        if (emailsDestinatarios.isEmpty) {
+        if (emailsDestinatariosFinal.isEmpty) {
           logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
           continue;
         }
@@ -830,7 +836,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatariosFinal.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -941,6 +947,8 @@ GROUP BY rau."comisionId", com.nombre;
           continue;
         }
 
+        List<String> emailsDestinatariosFinal = emailsDestinatarios;
+
         final direccionesTestadas =
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
@@ -974,12 +982,12 @@ GROUP BY rau."comisionId", com.nombre;
               exception: e.toString(),
               level: LogLevel.error,
             );
-            emailsDestinatarios.remove(email);
+            emailsDestinatariosFinal.remove(email);
             continue;
           }
         }
 
-        if (emailsDestinatarios.isEmpty) {
+        if (emailsDestinatariosFinal.isEmpty) {
           logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
           continue;
         }
@@ -988,7 +996,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatariosFinal.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
