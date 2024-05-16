@@ -38,7 +38,7 @@ class OrmComision extends ORM {
                     ? t.usuarioId.inSet(idEstudiantesFiltrados.toSet())
                     : t.id.notEquals(null);
 
-                return expresionEstudiantes;
+                return expresionEstudiantes & t.usuario.fechaEliminacion.equals(null);
               },
               include: RelacionComisionUsuario.include(
                 usuario: Usuario.include(

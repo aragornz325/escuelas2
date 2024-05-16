@@ -68,7 +68,7 @@ class OrmCalificacion extends ORM {
           return expresionPeriodo &
               expresionFecha &
               expresionComisiones &
-              expresionEstudiantes;
+              expresionEstudiantes & t.estudiante.fechaEliminacion.equals(null);
         },
       ),
     );

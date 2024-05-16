@@ -460,19 +460,45 @@ GROUP BY rau."comisionId", com.nombre;
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
             'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
-        await ServicioComunicaciones().enviarEmail(
-          session,
-          direccionEmailDestinatarios: emailsDestinatarios,
-          asuntoDelCorreo:
-              _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
-          contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
-            mes: mes,
-            nombre: estudiante.nombre,
-            apellido: estudiante.apellido,
-            curso: comision.nombre,
-            calificaciones: jsonEncode(asignaturasCalificaciones),
-          ).html(),
-        );
+
+        for (var email in emailsDestinatarios) {
+          try {
+            final respuestaMailer = await ServicioComunicaciones().enviarEmail(
+              session,
+              direccionEmailDestinatarios: [email],
+              asuntoDelCorreo:
+                  _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
+              contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+                mes: mes,
+                nombre: estudiante.nombre,
+                apellido: estudiante.apellido,
+                curso: comision.nombre,
+                calificaciones: jsonEncode(asignaturasCalificaciones),
+              ).html(),
+            );
+            if (respuestaMailer.huboUnError) {
+              throw ExcepcionCustom(
+                titulo: respuestaMailer.error,
+                mensaje: respuestaMailer.problemas,
+                tipoDeError: TipoExcepcion.errorEnEnvioDeCalificacionesPorEmail,
+              );
+            }
+          } on ExcepcionCustom catch (e) {
+            logger.shout(e.toString());
+            session.log(
+              e.toString(),
+              exception: e.toString(),
+              level: LogLevel.error,
+            );
+            emailsDestinatarios.remove(email);
+            continue;
+          }
+        }
+
+        if (emailsDestinatarios.isEmpty) {
+          logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+          continue;
+        }
 
         logger.finer('Registrando envío de correo...');
         await EmailEnviado.db.insertRow(
@@ -592,19 +618,44 @@ GROUP BY rau."comisionId", com.nombre;
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
             'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
-        await ServicioComunicaciones().enviarEmail(
-          session,
-          direccionEmailDestinatarios: emailsDestinatarios,
-          asuntoDelCorreo:
-              _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
-          contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
-            mes: mes,
-            nombre: estudiante.nombre,
-            apellido: estudiante.apellido,
-            curso: comision.nombre,
-            calificaciones: jsonEncode(asignaturasCalificaciones),
-          ).html(),
-        );
+        for (var email in emailsDestinatarios) {
+          try {
+            final respuestaMailer = await ServicioComunicaciones().enviarEmail(
+              session,
+              direccionEmailDestinatarios: [email],
+              asuntoDelCorreo:
+                  _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
+              contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+                mes: mes,
+                nombre: estudiante.nombre,
+                apellido: estudiante.apellido,
+                curso: comision.nombre,
+                calificaciones: jsonEncode(asignaturasCalificaciones),
+              ).html(),
+            );
+            if (respuestaMailer.huboUnError) {
+              throw ExcepcionCustom(
+                titulo: respuestaMailer.error,
+                mensaje: respuestaMailer.problemas,
+                tipoDeError: TipoExcepcion.errorEnEnvioDeCalificacionesPorEmail,
+              );
+            }
+          } on ExcepcionCustom catch (e) {
+            logger.shout(e.toString());
+            session.log(
+              e.toString(),
+              exception: e.toString(),
+              level: LogLevel.error,
+            );
+            emailsDestinatarios.remove(email);
+            continue;
+          }
+        }
+
+        if (emailsDestinatarios.isEmpty) {
+          logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+          continue;
+        }
 
         await EmailEnviado.db.insertRow(
           session,
@@ -736,19 +787,44 @@ GROUP BY rau."comisionId", com.nombre;
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
             'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
-        await ServicioComunicaciones().enviarEmail(
-          session,
-          direccionEmailDestinatarios: emailsDestinatarios,
-          asuntoDelCorreo:
-              _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
-          contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
-            mes: mes,
-            nombre: estudiante.nombre,
-            apellido: estudiante.apellido,
-            curso: comision.nombre,
-            calificaciones: jsonEncode(asignaturasCalificaciones),
-          ).html(),
-        );
+        for (var email in emailsDestinatarios) {
+          try {
+            final respuestaMailer = await ServicioComunicaciones().enviarEmail(
+              session,
+              direccionEmailDestinatarios: [email],
+              asuntoDelCorreo:
+                  _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
+              contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+                mes: mes,
+                nombre: estudiante.nombre,
+                apellido: estudiante.apellido,
+                curso: comision.nombre,
+                calificaciones: jsonEncode(asignaturasCalificaciones),
+              ).html(),
+            );
+            if (respuestaMailer.huboUnError) {
+              throw ExcepcionCustom(
+                titulo: respuestaMailer.error,
+                mensaje: respuestaMailer.problemas,
+                tipoDeError: TipoExcepcion.errorEnEnvioDeCalificacionesPorEmail,
+              );
+            }
+          } on ExcepcionCustom catch (e) {
+            logger.shout(e.toString());
+            session.log(
+              e.toString(),
+              exception: e.toString(),
+              level: LogLevel.error,
+            );
+            emailsDestinatarios.remove(email);
+            continue;
+          }
+        }
+
+        if (emailsDestinatarios.isEmpty) {
+          logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+          continue;
+        }
 
         await EmailEnviado.db.insertRow(
           session,
@@ -869,19 +945,44 @@ GROUP BY rau."comisionId", com.nombre;
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
             'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
-        await ServicioComunicaciones().enviarEmail(
-          session,
-          direccionEmailDestinatarios: emailsDestinatarios,
-          asuntoDelCorreo:
-              _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
-          contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
-            mes: mes,
-            nombre: estudiante.nombre,
-            apellido: estudiante.apellido,
-            curso: comision.nombre,
-            calificaciones: jsonEncode(asignaturasCalificaciones),
-          ).html(),
-        );
+        for (var email in emailsDestinatarios) {
+          try {
+            final respuestaMailer = await ServicioComunicaciones().enviarEmail(
+              session,
+              direccionEmailDestinatarios: [email],
+              asuntoDelCorreo:
+                  _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
+              contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
+                mes: mes,
+                nombre: estudiante.nombre,
+                apellido: estudiante.apellido,
+                curso: comision.nombre,
+                calificaciones: jsonEncode(asignaturasCalificaciones),
+              ).html(),
+            );
+            if (respuestaMailer.huboUnError) {
+              throw ExcepcionCustom(
+                titulo: respuestaMailer.error,
+                mensaje: respuestaMailer.problemas,
+                tipoDeError: TipoExcepcion.errorEnEnvioDeCalificacionesPorEmail,
+              );
+            }
+          } on ExcepcionCustom catch (e) {
+            logger.shout(e.toString());
+            session.log(
+              e.toString(),
+              exception: e.toString(),
+              level: LogLevel.error,
+            );
+            emailsDestinatarios.remove(email);
+            continue;
+          }
+        }
+
+        if (emailsDestinatarios.isEmpty) {
+          logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+          continue;
+        }
 
         await EmailEnviado.db.insertRow(
           session,
