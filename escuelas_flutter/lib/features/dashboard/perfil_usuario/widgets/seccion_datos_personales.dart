@@ -97,6 +97,7 @@ class DatosPersonales extends StatelessWidget {
               title: BlocBuilder<BlocPerfilUsuario, BlocPerfilUsuarioEstado>(
                 builder: (context, state) {
                   return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SizedBox(height: 10.ph),
                       ...state.numerosDeTelefono.map(
@@ -169,7 +170,7 @@ class _DatoPersonal extends StatelessWidget {
 
     final l10n = context.l10n;
 
-    return Row(
+    return Wrap(
       children: [
         Text(
           tipoDato,

@@ -18,16 +18,16 @@ class BotonEnviarEmails extends StatelessWidget {
   const BotonEnviarEmails({super.key});
 
   /// Dialog de enviar email a las comisiones de la escuela
-  void _dialogEnviarEmail(BuildContext context) {
+  void _dialogEnviarEmail(
+      BuildContext context, BlocSupervisionComisiones bloc) {
     final colores = context.colores;
     final l10n = context.l10n;
 
     showDialog<void>(
       context: context,
       builder: (context) => EscuelasDialog.confirmar(
-        onTapConfirmar: () => context
-            .read<BlocSupervisionComisiones>()
-            .add(const BlocSupervisionComisionesEventoEnviarEmails()),
+        onTapConfirmar: () =>
+            bloc.add(const BlocSupervisionComisionesEventoEnviarEmails()),
         content: Text(
           l10n.pageComissionSupervisionDialogConfimationSendEmails,
           textAlign: TextAlign.center,
@@ -118,10 +118,12 @@ class BotonEnviarEmails extends StatelessWidget {
             width: 340.pw,
             height: max(40.ph, 40.sh),
             estaHabilitado: true,
-            onTap: state.listaSupervisionComisiones
-                    .every((comision) => comision.fechaDeNotificacion != null)
-                ? () => _dialogEnviarEmail(context)
-                : () => _dialogNoEstanTodasCargadas(context),
+            onTap: () => _dialogEnviarEmail(
+                context, context.read<BlocSupervisionComisiones>()),
+            // onTap: state.listaSupervisionComisiones
+            //         .every((comision) => comision.fechaDeNotificacion != null)
+            //     ? () => _dialogEnviarEmail(context)
+            //     : () => _dialogNoEstanTodasCargadas(context),
             color: colores.azul,
             texto: l10n.pageComissionSupervisionButtonSendEmails,
             context: context,

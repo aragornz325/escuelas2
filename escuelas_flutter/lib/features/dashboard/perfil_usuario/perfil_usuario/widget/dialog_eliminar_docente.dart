@@ -21,6 +21,10 @@ class DialogEliminarDocente extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final usuario = context.read<BlocPerfilUsuario>().state.usuario;
+    if (usuario == null) {
+      return EscuelasDialog.fallido(
+          onTap: () {}, content: Text(l10n.commonError));
+    }
 
     return EscuelasDialog.solicitudDeAccion(
       context: context,
@@ -36,10 +40,10 @@ class DialogEliminarDocente extends StatelessWidget {
       content: Column(
         children: [
           Text(
-            '${l10n.pageUserProfileConfirmDeleteQuestion}${usuario?.nombre.toUpperCase()} ${usuario?.apellido.toUpperCase()} ${l10n.pageUserProfileTeacherList}',
+            l10n.pageUserProfileConfirmUserDeletion(
+                usuario.nombre.toUpperCase(), usuario.apellido.toUpperCase()),
             textAlign: TextAlign.center,
           ),
-          Text(l10n.commonWantToContinue),
         ],
       ),
     );
