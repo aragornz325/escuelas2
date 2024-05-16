@@ -110,21 +110,21 @@ $contenido
     final meses = calificaciones.map((e) => e.numeroDeMes).toSet().toList()..sort();
     final asignaturas = this.asignaturas;
 
-    StringBuffer buffer = StringBuffer('<table style="margin: auto;text-align: center;border: 0px;"> <tr> <th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">Asignatura</th> ');
+    StringBuffer buffer = StringBuffer('<table style="margin: auto;text-align: center;border: 0px;"> <tr> ${elementoHeader('Asignatura')} ');
 
     for (final mes in meses) { 
       final nombreMes = DateFormat('LLLL', 'es_AR').format(DateTime(2024,mes));
 
-      buffer.write('<th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">${nombreMes.replaceRange(0, 1, nombreMes[0].toUpperCase())}</th> ');
+      buffer.write(elementoHeader(nombreMes.replaceRange(0, 1, nombreMes[0].toUpperCase())));
     }
 
     buffer.write('</tr> ');
 
     for (var asignatura in asignaturas) {
-      buffer.write('<tr> <td style="border: 1px solid #1e1e1e;border-radius: 3px;font-family: Nunito;font-size: 18px;font-weight: 600;padding: 10px 20px !important;">${asignatura.nombre}</td> ');
+      buffer.write(tdNombreAsignatura(asignatura.nombre));
       for (var mes in meses) {
         final calificacionMes = calificaciones.firstWhere((element) => element.calificacion?.asignaturaId == asignatura.id && element.numeroDeMes == mes);
-        buffer.write('<td style="font-family: \'Nunito\';font-style: normal;font-weight: 900;font-size: 18px;line-height: 27px;text-align: center;color: #000000;">${calificacionMes.calificacion != null ? ValorDeCalificacionNumericaDecimal.values[calificacionMes.calificacion!.index].representacion : 'N/D'}</td> ');
+        buffer.write(calificacionMes.calificacion != null ? tdNotaNumerica(ValorDeCalificacionNumericaDecimal.values[calificacionMes.calificacion!.index].representacion) : tdNotaNumerica(null));
       }
       buffer.write('</tr> ');
     }
@@ -371,4 +371,73 @@ String footer = '''<p></p>
 
 
 </div></div></div>
+''';
+
+String tdNombreAsignatura(String nombre) => '''
+<td style="
+    border: 1px
+      solid
+      #1e1e1e;
+    border-radius: 3px;
+    font-family: Nunito;
+    font-size: 18px;
+    font-weight: 600;
+    padding: 10px
+      20px !important;
+  "
+>
+  $nombre
+</td>
+''';
+
+String tdNotaNumerica(nota) {
+  if (nota == null) {
+    return '''
+<td
+  style="
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 900;
+    font-size: 18px;
+    line-height: 27px;
+    text-align: center;
+    color: #000000;
+  "
+>
+  N/D
+</td>''';
+  } else {
+    return '''
+<td
+  style="
+    font-family: 'Nunito';
+    border-radius: 3px;
+    background-color: #2e65af;
+    color: #eeeeee;
+    font-size: 17px;
+    font-weight: 600;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+  "
+>
+  ${nota.toString()}
+</td>''';
+  }
+}
+
+String elementoHeader(texto) => '''
+<th
+  style="
+    font-family: 'Nunito';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    text-align: center;
+    color: #6d6d6d;
+  "
+>
+  $texto
+</th>
 ''';
