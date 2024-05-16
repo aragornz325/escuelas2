@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:auto_route/auto_route.dart';
+import 'package:escuelas_commons/permisos/permisos.dart';
 import 'package:escuelas_flutter/app/auto_route/auto_route.gr.dart';
 import 'package:escuelas_flutter/features/dashboard/bloc_dashboard/bloc_dashboard.dart';
 import 'package:escuelas_flutter/features/dashboard/perfil_usuario/editar_perfil/bloc/bloc_editar_perfil.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
+import 'package:escuelas_flutter/utilidades/cliente_serverpod.dart';
 import 'package:escuelas_flutter/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -173,18 +177,24 @@ class _EscuelasAppBarState extends State<EscuelasAppBar> {
               ),
             ),
             actions: <Widget>[
-              iconoLateralDerecho ??
-                  InkWell(
-                    onTap: () => showDialog<void>(
-                      context: context,
-                      builder: (context) =>
-                          EscuelasDialog.featNoDisponible(context: context),
-                    ),
-                    child: const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Icon(Icons.notifications_none_rounded),
-                    ),
-                  ),
+              InkWell(
+                onTap: () async {
+                  print('sor');
+                  final roles = await client.rol.obtenerRoles();
+                  print(roles);
+                  final permisos = roles.map((r) =>
+                      Permisos.fromSerialization(r.permissions)
+                          .permissions
+                          .expand((element) => element));
+                  // .map((e) => e.toString())
+                  // .join(','));
+                  permisos.forEach(print);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8),
+                  child: Icon(Icons.notifications_none_rounded),
+                ),
+              ),
             ],
             pinned: true,
           ),

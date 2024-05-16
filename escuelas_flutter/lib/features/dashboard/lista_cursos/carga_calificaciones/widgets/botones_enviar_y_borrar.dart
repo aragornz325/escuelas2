@@ -42,9 +42,9 @@ class BotonesEnviarNotasYLimpiarNotas extends StatelessWidget {
             is BlocCargaCalificacionesEstadoFallandoSinCalificarNoPermitido) {
           showDialog<void>(
             context: context,
-            builder: (_) => EscuelasDialog.fallido(
+            builder: (context) => EscuelasDialog.fallido(
               content: Text(l10n.dialogGradesErrorUndefinedNotAllowed),
-              onTap: () {},
+              onTap: () => Navigator.pop(context),
             ),
           );
         }

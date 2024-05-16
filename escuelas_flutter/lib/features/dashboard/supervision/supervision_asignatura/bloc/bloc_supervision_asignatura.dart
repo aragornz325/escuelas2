@@ -182,15 +182,35 @@ class BlocSupervisionAsignatura extends Bloc<BlocSupervisionAsignaturaEvento,
         final haySolicitud =
             state.calificacionesMensuales?.solicitudNotaMensual != null;
 
+        final solicitudEstaRealizada = state.calificacionesMensuales
+                ?.solicitudNotaMensual?.solicitud?.fechaRealizacion !=
+            null;
         if (haySolicitud) {
-          await client.calificacion.actualizarCalificacionesMensualesEnLote(
-            calificacionesMensuales: state.listaCalificacionesMesActual,
-          );
-          emit(
-            BlocSupervisionAsignaturaEstadoCalificacionesActualizadas.desde(
-              state,
-            ),
-          );
+          if (solicitudEstaRealizada) {
+            await client.calificacion.actualizarCalificacionesMensualesEnLote(
+              calificacionesMensuales: state.listaCalificacionesMesActual,
+            );
+            emit(
+              BlocSupervisionAsignaturaEstadoCalificacionesActualizadas.desde(
+                state,
+              ),
+            );
+          } else {
+            await client.calificacion.cargarCalificacionesMensualesPorSolicitud(
+              calificacionesMensuales: state.listaCalificacionesMesActual,
+              idSolicitud: state.calificacionesMensuales?.solicitudNotaMensual
+                      ?.solicitudId ??
+                  0,
+            );
+            emit(
+              BlocSupervisionAsignaturaEstadoCalificacionesActualizadas.desde(
+                state,
+              ),
+            );
+          }
+        } else {
+          // TODO(anyone): Crear una solicitud de actualización de las notas existentes
+          // para q la apruebe el directivo
         }
       },
       onError: (e, st) =>
