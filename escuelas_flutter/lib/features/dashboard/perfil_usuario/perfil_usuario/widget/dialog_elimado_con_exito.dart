@@ -24,8 +24,8 @@ class DialogEliminadoConExito extends StatelessWidget {
         context.router.push(const RutaComunidadAcademica());
         Navigator.of(context).pop();
       },
-      content: Text(
-          '${usuario?.nombre} ${usuario?.apellido}${l10n.pageUserProfileTeacherSuccessfullyEliminated}'),
+      content: Text(l10n.pageUserProfileUserSuccessfullyEliminated(
+          usuario?.nombre ?? '', usuario?.apellido ?? '')),
     );
   }
 }

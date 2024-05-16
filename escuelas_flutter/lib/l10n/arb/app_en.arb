@@ -544,17 +544,29 @@
   "@pageUserProfileKyCSuccessfulEdition": {
     "description": "Text in te alert dialog to confirm the edited successfully save changes of personal data"
   },
-  "pageUserProfileConfirmDeleteQuestion": "By confirming you will PERMANENTLY delete ",
-  "@pageUserProfileConfirmDeleteQuestion": {
-    "description": "Text in te alert dialog to confirm delete the teacher"
+  "pageUserProfileConfirmUserDeletion": "By continuing you will PERMANENTLY delete\n {userName} {userSurname} from the system. Are you sure?",
+  "@pageUserProfileConfirmUserDeletion": {
+    "description": "Text in the alert dialog to confirm deletion of the user recognized with {userName} {userSurname} variable",
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      },
+      "userSurname": {
+        "type": "String"
+      }
+    }
   },
-  "pageUserProfileTeacherList": " from your teacher list",
-  "@pageUserProfileTeacherList": {
-    "description": "Text in the alert dialog to confirm delete the teacher"
-  },
-  "pageUserProfileTeacherSuccessfullyEliminated": " was successfully eliminated",
-  "@pageUserProfileTeacherSuccessfullyEliminated": {
-    "description": "Text in the alert dialog to confirm delete the teacher"
+  "pageUserProfileUserSuccessfullyEliminated": "User {userName} {userSurname} eliminated successfully",
+  "@pageUserProfileUserSuccessfullyEliminated": {
+    "description": "Text in an alert dialog to inform a successful user deletion",
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      },
+      "userSurname": {
+        "type": "String"
+      }
+    }
   },
   "pageUserProfileSelectTheSubjectToDelete": "Select the subject you want to delete",
   "@pageUserProfileSelectTheSubjectToDelete": {

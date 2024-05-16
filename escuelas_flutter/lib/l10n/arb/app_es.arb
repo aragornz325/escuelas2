@@ -279,19 +279,31 @@
   "@pageUserProfileKyCSuccessfulEdition": {
     "description": "Text in te alert dialog to confirm the edited successfully save changes of personal data"
   },
-  "pageUserProfileConfirmDeleteQuestion": "Al continuar eliminaras PERMANENTEMENTE a ",
-  "@pageUserProfileConfirmDeleteQuestion": {
-    "description": "Text in te alert dialog to confirm delete the teacher"
+  "pageUserProfileConfirmUserDeletion": "Al continuar eliminarás PERMANENTEMENTE a\n {userName} {userSurname} del sistema. ¿Estás seguro?",
+  "@pageUserProfileConfirmUserDeletion": {
+    "description": "Text in the alert dialog to confirm deletion of the user recognized with {userName} {userSurname} variable",
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      },
+      "userSurname": {
+        "type": "String"
+      }
+    }
   },
-  "pageUserProfileTeacherList": " de tu lista de docentes",
-  "@pageUserProfileTeacherList": {
-    "description": "Text in te alert dialog to confirm delete the teacher"
+  "pageUserProfileUserSuccessfullyEliminated": "Usuario {userName} {userSurname} eliminado con éxito",
+  "@pageUserProfileUserSuccessfullyEliminated": {
+    "description": "Text in an alert dialog to inform a successful user deletion",
+    "placeholders": {
+      "userName": {
+        "type": "String"
+      },
+      "userSurname": {
+        "type": "String"
+      }
+    }
   },
-  "pageUserProfileTeacherSuccessfullyEliminated": " fue eliminado con éxito",
-  "@pageUserProfileTeacherSuccessfullyEliminated": {
-    "description": "Text in the alert dialog to confirm delete the teacher"
-  },
-  "pageUserProfileSelectTheSubjectToDelete": "Select the subject you want to delete",
+  "pageUserProfileSelectTheSubjectToDelete": "Selecciona la asignatura que deseas eliminar",
   "@pageUserProfileSelectTheSubjectToDelete": {
     "description": "Text in the alert dialog to select the subject to delete"
   },
@@ -432,11 +444,11 @@
   "@commonSaveChanges": {
     "description": "Text in button to save changes"
   },
-  "commonAttention": "Attention",
+  "commonAttention": "Atención",
   "@commonAttention": {
-    "description": "text to notify attention"
+    "description": "text to ask for attention"
   },
-  "commonWantToContinue": "¿Do you want to continue?",
+  "commonWantToContinue": "¿Desea continuar?",
   "@commonWantToContinue": {
     "description": "continue question"
   },
