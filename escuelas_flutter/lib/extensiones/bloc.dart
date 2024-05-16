@@ -62,6 +62,8 @@ Future<void> operacionBloc({
         callHandler(onErrorCustom);
       case TipoExcepcion.passwordAntiguaIncorrecta:
         callHandler(onErrorCustom);
+      case TipoExcepcion.errorEnEnvioDeCalificacionesPorEmail:
+        print('Hola');
     }
 
     if (ningunHandlerLlamado) onError(e, st);
