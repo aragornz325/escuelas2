@@ -165,6 +165,7 @@ class OrmComision extends ORM {
               include: ComisionDeCurso.include(
                 solicitudesCalificacionMensual:
                     SolicitudCalificacionMensual.includeList(
+                      where: (p0) => p0.mes.equals(mes) & p0.anio.equals(anio),
                   include: SolicitudCalificacionMensual.include(
                     solicitud: Solicitud.include(),
                   ),

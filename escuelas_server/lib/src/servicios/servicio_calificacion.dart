@@ -384,9 +384,9 @@ GROUP BY rau."comisionId", com.nombre;
     logger.finest('${comisiones.length} comisiones encontradas.');
     logger.finer(
         'Buscando calificaciones del mes $mes ($mes_) de $anio de las comisiones ID ${comisiones.map((e) => e.id!).toList()}...');
-    final calificaciones = await _ormCalificacion.obtenerCalificaciones(
+    final calificaciones =
+        await _ormCalificacionMensual.obtenerCalificacionesEnvioMensual(
       session,
-      mes: mes,
       anio: anio,
       idComisiones: comisiones.map((e) => e.id!).toList(),
     );
@@ -412,20 +412,12 @@ GROUP BY rau."comisionId", com.nombre;
       for (var estudiante in comision.listaDeEstudiantes) {
         logger
             .finer('Enviando calificaciones a estudiante ${estudiante.id}...');
-        Map<String, dynamic> asignaturasCalificaciones = {};
-        logger.finer('Extrayendo y ordenando calificaciones del estudiante...');
-        for (var asignatura in comision.listaDeAsignaturas) {
-          asignaturasCalificaciones[asignatura.nombre] = calificaciones
-              .where(
-                (element) =>
-                    element.asignaturaId == asignatura.id &&
-                    element.estudianteId == estudiante.id,
-              )
-              .firstOrNull
-              ?.allToJson();
-        }
-        logger.finest(
-            '${asignaturasCalificaciones.entries.where((element) => element.value != null).length} calificaciones del estudiante encontradas para enviar.');
+
+        final calificacionesEstudiante = calificaciones
+            .where(
+              (element) => element.calificacion?.estudianteId == estudiante.id,
+            )
+            .toList();
 
         List<String> emailsDestinatarios =
             estudiante.listaDireccionesDeEmailStrings;
@@ -461,6 +453,8 @@ GROUP BY rau."comisionId", com.nombre;
         logger.finer(
             'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
 
+        List<String> emailsDestinatariosFinal = emailsDestinatarios;
+
         for (var email in emailsDestinatarios) {
           try {
             final respuestaMailer = await ServicioComunicaciones().enviarEmail(
@@ -468,12 +462,12 @@ GROUP BY rau."comisionId", com.nombre;
               direccionEmailDestinatarios: [email],
               asuntoDelCorreo:
                   _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
-              contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
-                mes: mes,
+              contenidoHtmlDelCorreo: PlantillaEmailCalificacionesMensuales(
                 nombre: estudiante.nombre,
                 apellido: estudiante.apellido,
                 curso: comision.nombre,
-                calificaciones: jsonEncode(asignaturasCalificaciones),
+                asignaturas: comision.listaDeAsignaturas,
+                calificaciones: calificacionesEstudiante,
               ).html(),
             );
             if (respuestaMailer.huboUnError) {
@@ -490,13 +484,14 @@ GROUP BY rau."comisionId", com.nombre;
               exception: e.toString(),
               level: LogLevel.error,
             );
-            emailsDestinatarios.remove(email);
+            emailsDestinatariosFinal.remove(email);
             continue;
           }
         }
 
-        if (emailsDestinatarios.isEmpty) {
-          logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+        if (emailsDestinatariosFinal.isEmpty) {
+          logger.info(
+              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
           continue;
         }
 
@@ -505,7 +500,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatariosFinal.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -543,10 +538,12 @@ GROUP BY rau."comisionId", com.nombre;
     logger.finest('${comisiones.length} comisiones encontradas.');
     logger.finer(
         'Buscando calificaciones del mes $mes ($mes_) de $anio de las comisiones ID ${comisiones.map((e) => e.id!).toList()}...');
-    final calificaciones = await _ormCalificacion.obtenerCalificaciones(session,
-        mes: mes,
-        anio: anio,
-        idComisiones: comisiones.map((e) => e.id!).toList());
+    final calificaciones =
+        await _ormCalificacionMensual.obtenerCalificacionesEnvioMensual(
+      session,
+      anio: anio,
+      idComisiones: comisiones.map((e) => e.id!).toList(),
+    );
     logger.finest('${calificaciones.length} calificaciones encontradas.');
 
     logger.finer(
@@ -569,21 +566,11 @@ GROUP BY rau."comisionId", com.nombre;
       for (var estudiante in comision.listaDeEstudiantes) {
         logger
             .finer('Enviando calificaciones a estudiante ${estudiante.id}...');
-        Map<String, dynamic> asignaturasCalificaciones = {};
-        logger.finer('Extrayendo y ordenando calificaciones del estudiante...');
-        for (var asignatura in comision.listaDeAsignaturas) {
-          asignaturasCalificaciones[asignatura.nombre] = calificaciones
-              .where(
-                (element) =>
-                    element.asignaturaId == asignatura.id &&
-                    element.estudianteId == estudiante.id,
-              )
-              .firstOrNull
-              ?.allToJson();
-        }
-
-        logger.finest(
-            '${asignaturasCalificaciones.entries.where((element) => element.value != null).length} calificaciones del estudiante encontradas para enviar.');
+        final calificacionesEstudiante = calificaciones
+            .where(
+              (element) => element.calificacion?.estudianteId == estudiante.id,
+            )
+            .toList();
 
         List<String> emailsDestinatarios =
             estudiante.listaDireccionesDeEmailStrings;
@@ -614,6 +601,8 @@ GROUP BY rau."comisionId", com.nombre;
           continue;
         }
 
+        List<String> emailsDestinatariosFinal = emailsDestinatarios;
+
         final direccionesTestadas =
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
@@ -625,12 +614,12 @@ GROUP BY rau."comisionId", com.nombre;
               direccionEmailDestinatarios: [email],
               asuntoDelCorreo:
                   _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
-              contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
-                mes: mes,
+              contenidoHtmlDelCorreo: PlantillaEmailCalificacionesMensuales(
                 nombre: estudiante.nombre,
                 apellido: estudiante.apellido,
                 curso: comision.nombre,
-                calificaciones: jsonEncode(asignaturasCalificaciones),
+                calificaciones: calificacionesEstudiante,
+                asignaturas: comision.listaDeAsignaturas,
               ).html(),
             );
             if (respuestaMailer.huboUnError) {
@@ -647,13 +636,14 @@ GROUP BY rau."comisionId", com.nombre;
               exception: e.toString(),
               level: LogLevel.error,
             );
-            emailsDestinatarios.remove(email);
+            emailsDestinatariosFinal.remove(email);
             continue;
           }
         }
 
-        if (emailsDestinatarios.isEmpty) {
-          logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+        if (emailsDestinatariosFinal.isEmpty) {
+          logger.info(
+              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
           continue;
         }
 
@@ -661,7 +651,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatariosFinal.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -699,10 +689,13 @@ GROUP BY rau."comisionId", com.nombre;
     logger.finest('${comisiones.length} comisiones encontradas.');
     logger.finer(
         'Buscando calificaciones del mes $mes ($mes_) de $anio de las comisiones ID ${comisiones.map((e) => e.id!).toList()}...');
-    final calificaciones = await _ormCalificacion.obtenerCalificaciones(session,
-        mes: mes,
-        anio: anio,
-        idComisiones: comisiones.map((e) => e.id!).toList());
+    
+    final calificaciones =
+        await _ormCalificacionMensual.obtenerCalificacionesEnvioMensual(
+      session,
+      anio: anio,
+      idComisiones: comisiones.map((e) => e.id!).toList(),
+    );
     logger.finest('${calificaciones.length} calificaciones encontradas.');
 
     logger.finer(
@@ -725,34 +718,11 @@ GROUP BY rau."comisionId", com.nombre;
       for (var estudiante in comision.listaDeEstudiantes) {
         logger
             .finer('Enviando calificaciones a estudiante ${estudiante.id}...');
-        Map<String, dynamic> asignaturasCalificaciones = {};
-        logger.finer('Extrayendo y ordenando calificaciones del estudiante...');
-        for (var asignatura in comision.listaDeAsignaturas) {
-          if (idAsignaturas != null) {
-            if (idAsignaturas.contains(asignatura.id)) {
-              asignaturasCalificaciones[asignatura.nombre] = calificaciones
-                  .where(
-                    (element) =>
-                        element.asignaturaId == asignatura.id &&
-                        element.estudianteId == estudiante.id,
-                  )
-                  .firstOrNull
-                  ?.allToJson();
-            }
-          } else {
-            asignaturasCalificaciones[asignatura.nombre] = calificaciones
-                .where(
-                  (element) =>
-                      element.asignaturaId == asignatura.id &&
-                      element.estudianteId == estudiante.id,
-                )
-                .firstOrNull
-                ?.allToJson();
-          }
-        }
-
-        logger.finest(
-            '${asignaturasCalificaciones.entries.where((element) => element.value != null).length} calificaciones del estudiante encontradas para enviar.');
+        final calificacionesEstudiante = calificaciones
+            .where(
+              (element) => element.calificacion?.estudianteId == estudiante.id,
+            )
+            .toList();
 
         List<String> emailsDestinatarios =
             estudiante.listaDireccionesDeEmailStrings;
@@ -783,6 +753,8 @@ GROUP BY rau."comisionId", com.nombre;
           continue;
         }
 
+        List<String> emailsDestinatariosFinal = emailsDestinatarios;
+
         final direccionesTestadas =
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
@@ -794,12 +766,12 @@ GROUP BY rau."comisionId", com.nombre;
               direccionEmailDestinatarios: [email],
               asuntoDelCorreo:
                   _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
-              contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
-                mes: mes,
+              contenidoHtmlDelCorreo: PlantillaEmailCalificacionesMensuales(
                 nombre: estudiante.nombre,
                 apellido: estudiante.apellido,
                 curso: comision.nombre,
-                calificaciones: jsonEncode(asignaturasCalificaciones),
+                asignaturas: comision.listaDeAsignaturas,
+                calificaciones: calificacionesEstudiante,
               ).html(),
             );
             if (respuestaMailer.huboUnError) {
@@ -816,13 +788,14 @@ GROUP BY rau."comisionId", com.nombre;
               exception: e.toString(),
               level: LogLevel.error,
             );
-            emailsDestinatarios.remove(email);
+            emailsDestinatariosFinal.remove(email);
             continue;
           }
         }
 
-        if (emailsDestinatarios.isEmpty) {
-          logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+        if (emailsDestinatariosFinal.isEmpty) {
+          logger.info(
+              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
           continue;
         }
 
@@ -830,7 +803,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatariosFinal.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,
@@ -867,9 +840,8 @@ GROUP BY rau."comisionId", com.nombre;
     logger.finest('${comisiones.length} comisiones encontradas.');
     logger.finer(
         'Buscando calificaciones del mes $mes ($mes_) de $anio de los estudiantes...');
-    final calificaciones = await _ormCalificacion.obtenerCalificaciones(
+    final calificaciones = await _ormCalificacionMensual.obtenerCalificacionesEnvioMensual(
       session,
-      mes: mes,
       anio: anio,
       idEstudiantes: idEstudiantes,
     );
@@ -896,21 +868,11 @@ GROUP BY rau."comisionId", com.nombre;
       for (var estudiante in comision.listaDeEstudiantes) {
         logger
             .finer('Enviando calificaciones a estudiante ${estudiante.id}...');
-        Map<String, dynamic> asignaturasCalificaciones = {};
-        logger.finer('Extrayendo y ordenando calificaciones del estudiante...');
-        for (var asignatura in comision.listaDeAsignaturas) {
-          asignaturasCalificaciones[asignatura.nombre] = calificaciones
-              .where(
-                (element) =>
-                    element.asignaturaId == asignatura.id &&
-                    element.estudianteId == estudiante.id,
-              )
-              .firstOrNull
-              ?.allToJson();
-        }
-
-        logger.finest(
-            '${asignaturasCalificaciones.entries.where((element) => element.value != null).length} calificaciones del estudiante encontradas para enviar.');
+        final calificacionesEstudiante = calificaciones
+            .where(
+              (element) => element.calificacion?.estudianteId == estudiante.id,
+            )
+            .toList();
 
         List<String> emailsDestinatarios =
             estudiante.listaDireccionesDeEmailStrings;
@@ -941,6 +903,8 @@ GROUP BY rau."comisionId", com.nombre;
           continue;
         }
 
+        List<String> emailsDestinatariosFinal = emailsDestinatarios;
+
         final direccionesTestadas =
             _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
@@ -952,12 +916,12 @@ GROUP BY rau."comisionId", com.nombre;
               direccionEmailDestinatarios: [email],
               asuntoDelCorreo:
                   _asuntoCorreoDeEnvioDeCalificaciones(estudiante.nombre, mes_),
-              contenidoHtmlDelCorreo: PlantillaEmailCalificaciones(
-                mes: mes,
+              contenidoHtmlDelCorreo: PlantillaEmailCalificacionesMensuales(
                 nombre: estudiante.nombre,
                 apellido: estudiante.apellido,
                 curso: comision.nombre,
-                calificaciones: jsonEncode(asignaturasCalificaciones),
+                asignaturas: comision.listaDeAsignaturas,
+                calificaciones: calificacionesEstudiante,
               ).html(),
             );
             if (respuestaMailer.huboUnError) {
@@ -974,13 +938,14 @@ GROUP BY rau."comisionId", com.nombre;
               exception: e.toString(),
               level: LogLevel.error,
             );
-            emailsDestinatarios.remove(email);
+            emailsDestinatariosFinal.remove(email);
             continue;
           }
         }
 
-        if (emailsDestinatarios.isEmpty) {
-          logger.info('No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+        if (emailsDestinatariosFinal.isEmpty) {
+          logger.info(
+              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
           continue;
         }
 
@@ -988,7 +953,7 @@ GROUP BY rau."comisionId", com.nombre;
           session,
           EmailEnviado(
             tipoDeCorreo: TipoDeCorreoEnviado.envioDeCalificaciones,
-            direccionesEmailDestinatarios: emailsDestinatarios.join(';'),
+            direccionesEmailDestinatarios: emailsDestinatariosFinal.join(';'),
             fecha: DateTime.now(),
             mes: mes,
             anio: anio,

@@ -2,6 +2,8 @@
 import 'dart:convert';
 
 import 'package:escuelas_commons/manejo_de_calificaciones/valor_de_calificacion/valor_de_calificacion.dart';
+import 'package:escuelas_server/src/generated/calificacion/calificacion_mensual.dart';
+import 'package:escuelas_server/src/generated/curso/asignatura.dart';
 import 'package:escuelas_server/src/generated/protocol.dart' as protocol;
 import 'package:intl/intl.dart';
 
@@ -59,6 +61,74 @@ $contenido
       final calificacion = protocol.Calificacion.fromJson(calificaciones_[nombreAsignatura], protocol.Protocol());
       buffer.write(' <tr> <td style="border: 1px solid #1e1e1e;border-radius: 3px;font-family: Nunito;font-size: 18px;font-weight: 600;padding: 10px 20px !important;">$nombreAsignatura</td> <td style="font-family: \'Nunito\';font-style: normal;font-weight: 900;font-size: 18px;line-height: 27px;text-align: center;color: #000000;">${ValorDeCalificacionNumericaDecimal.values[calificacion.index].representacion}</td> </tr> ');
     }
+    buffer.write(' </table>');
+    return buffer.toString();
+  } 
+}
+
+class PlantillaEmailCalificacionesMensuales implements PlantillaEmailEscuelas {
+  PlantillaEmailCalificacionesMensuales({
+    required this.nombre,
+    required this.apellido,
+    required this.curso,
+    required this.asignaturas,
+    required this.calificaciones,
+  });
+
+  final String nombre;  
+  final String apellido;
+  final String curso;
+  final List<Asignatura> asignaturas;
+  final List<CalificacionMensual> calificaciones;
+
+  @override
+  String html() {
+    final contenido = [
+      header(nombre, apellido, curso),
+      '<br>',
+      buildTablaDeCalificaciones(calificaciones),
+      '<br>',
+      footer,
+    ].join('\n');
+
+    return '''
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correo Escuelas</title>
+</head>
+<body>
+$contenido
+</body>
+</html>
+''';
+  }
+
+  String buildTablaDeCalificaciones(List<CalificacionMensual> calificaciones) {
+    final meses = calificaciones.map((e) => e.numeroDeMes).toSet().toList()..sort();
+    final asignaturas = this.asignaturas;
+
+    StringBuffer buffer = StringBuffer('<table style="margin: auto;text-align: center;border: 0px;"> <tr> <th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">Asignatura</th> ');
+
+    for (final mes in meses) { 
+      final nombreMes = DateFormat('LLLL', 'es_AR').format(DateTime(2024,mes));
+
+      buffer.write('<th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">${nombreMes.replaceRange(0, 1, nombreMes[0].toUpperCase())}</th> ');
+    }
+
+    buffer.write('</tr> ');
+
+    for (var asignatura in asignaturas) {
+      buffer.write('<tr> <td style="border: 1px solid #1e1e1e;border-radius: 3px;font-family: Nunito;font-size: 18px;font-weight: 600;padding: 10px 20px !important;">${asignatura.nombre}</td> ');
+      for (var mes in meses) {
+        final calificacionMes = calificaciones.firstWhere((element) => element.calificacion?.asignaturaId == asignatura.id && element.numeroDeMes == mes);
+        buffer.write('<td style="font-family: \'Nunito\';font-style: normal;font-weight: 900;font-size: 18px;line-height: 27px;text-align: center;color: #000000;">${calificacionMes.calificacion != null ? ValorDeCalificacionNumericaDecimal.values[calificacionMes.calificacion!.index].representacion : 'N/D'}</td> ');
+      }
+      buffer.write('</tr> ');
+    }
+
     buffer.write(' </table>');
     return buffer.toString();
   } 

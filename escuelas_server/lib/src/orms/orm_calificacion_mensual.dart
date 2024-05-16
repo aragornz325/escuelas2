@@ -127,4 +127,48 @@ class OrmCalificacionMensual extends ORM {
       ),
     );
   }
+
+  Future<List<CalificacionMensual>> obtenerCalificacionesEnvioMensual(
+    Session session, {
+    Periodo? periodo,
+    int? mes,
+    int? anio,
+    List<int>? idComisiones,
+    List<int>? idEstudiantes,
+  }) async {
+    return await ejecutarOperacionOrm(
+      session,
+      (session) => CalificacionMensual.db.find(
+        session,
+        where: (t) {
+          final expresionPeriodo = periodo != null
+              ? t.calificacion.fechaCreacion.between(
+                  periodo.fechaInicio,
+                  periodo.fechaFin,
+                )
+              : t.id.notEquals(null);
+          final expresionMes =
+              mes != null ? t.numeroDeMes.equals(mes) : t.id.notEquals(null);
+          final expresionAnio =
+              anio != null ? t.numeroDeAnio.equals(anio) : t.id.notEquals(null);
+          final expresionComisiones =
+              (idComisiones != null && idComisiones.isNotEmpty)
+                  ? t.calificacion.idComision.inSet(idComisiones.toSet())
+                  : t.id.notEquals(null);
+          final expresionEstudiantes =
+              (idEstudiantes != null && idEstudiantes.isNotEmpty)
+                  ? t.calificacion.estudianteId.inSet(idEstudiantes.toSet())
+                  : t.id.notEquals(null);
+
+          return expresionPeriodo &
+              expresionMes &
+              expresionAnio &
+              expresionComisiones &
+              expresionEstudiantes &
+              t.calificacion.estudiante.fechaEliminacion.equals(null);
+        },
+        include: CalificacionMensual.include(calificacion: Calificacion.include(),)
+      ),
+    );
+  }
 }
