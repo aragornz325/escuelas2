@@ -3,14 +3,12 @@
 import 'package:escuelas_flutter/extensiones/extensiones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/bloc/bloc_carga_calificaciones.dart';
 import 'package:escuelas_flutter/features/dashboard/lista_cursos/carga_calificaciones/widgets/popups/dialog_confirmar_envio_calificaciones.dart';
-import 'package:escuelas_flutter/gen/fonts.gen.dart';
 import 'package:escuelas_flutter/l10n/l10n.dart';
 import 'package:escuelas_flutter/theming/base.dart';
 import 'package:escuelas_flutter/widgets/escuelas_boton.dart';
 import 'package:escuelas_flutter/widgets/escuelas_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:full_responsive/full_responsive.dart';
 
 /// {@template BotonesEnviarNotasYLimpiarNotas}
 /// Botón para enviar las calificaciones y limpiar las notas.

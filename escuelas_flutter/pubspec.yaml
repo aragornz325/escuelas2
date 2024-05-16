@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   # Navegaciones
-  auto_route: ^7.8.4
+  auto_route: ^8.1.3
   bloc: ^8.1.2
   escuelas_client:
     git:
@@ -62,7 +62,7 @@ dependencies:
 
 dev_dependencies:
   # Navegaciones
-  auto_route_generator: ^7.3.2
+  auto_route_generator: ^8.0.0
   # archivos auto generados
   build_runner: ^2.4.7
   freezed: ^2.4.7
