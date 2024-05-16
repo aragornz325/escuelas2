@@ -10,3 +10,4 @@ values:
   - registerDuplicatedIdNumber
   - registerDuplicatedEmail
   - passwordAntiguaIncorrecta
+  - errorEnEnvioDeCalificacionesPorEmail
