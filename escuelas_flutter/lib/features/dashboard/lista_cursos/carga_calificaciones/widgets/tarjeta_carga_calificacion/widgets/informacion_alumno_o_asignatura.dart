@@ -88,57 +88,67 @@ class _InformacionAlumnoOAsignaturaState
           collapsedShape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(50.sw),
           ),
-          onExpansionChanged: (value) => setState(() => estaExpandido = value),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                l10n.pageGradesStudentCardAverage,
-                style: TextStyle(
-                  color: colores.onBackground,
-                  fontSize: 13.pf,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Text(
-                widget.esInfoAlumno
-                    ? widget.promedio.toStringAsFixed(
-                        widget.promedio.truncateToDouble() == widget.promedio
-                            ? 0
-                            : 2,
-                      )
-                    : widget.promedio.toString(),
-                style: TextStyle(
-                  color: colores.onBackground,
-                  fontSize: 13.pf,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 5.pw),
-                child: Text(
-                  rite.siglas,
-                  style: TextStyle(
-                    fontSize: 13.pf,
-                    fontWeight: FontWeight.w600,
-                    color: rite.colorSegunRITE(context),
-                  ),
-                ),
-              ),
-              if (widget.esInfoAlumno)
-                Icon(
-                  estaExpandido
-                      ? Icons.arrow_drop_up_rounded
-                      : Icons.arrow_drop_down_rounded,
-                  color: colores.grisSC,
-                  size: 25.pw,
-                ),
               if (!widget.esInfoAlumno && idAsignatura != null)
                 BotonVerHistorialAsignatura(
                   idAsignatura: idAsignatura,
                 ),
             ],
           ),
+          enabled: false,
+          // onExpansionChanged: (value) => setState(() => estaExpandido = value),
+          // trailing: Row(
+          //   mainAxisSize: MainAxisSize.min,
+          //   children: [
+          //     Text(
+          //       l10n.pageGradesStudentCardAverage,
+          //       style: TextStyle(
+          //         color: colores.onBackground,
+          //         fontSize: 13.pf,
+          //         fontWeight: FontWeight.w700,
+          //       ),
+          //     ),
+          //     Text(
+          //       widget.esInfoAlumno
+          //           ? widget.promedio.toStringAsFixed(
+          //               widget.promedio.truncateToDouble() == widget.promedio
+          //                   ? 0
+          //                   : 2,
+          //             )
+          //           : widget.promedio.toString(),
+          //       style: TextStyle(
+          //         color: colores.onBackground,
+          //         fontSize: 13.pf,
+          //         fontWeight: FontWeight.w700,
+          //       ),
+          //     ),
+          //     Padding(
+          //       padding: EdgeInsets.symmetric(horizontal: 5.pw),
+          //       child: Text(
+          //         rite.siglas,
+          //         style: TextStyle(
+          //           fontSize: 13.pf,
+          //           fontWeight: FontWeight.w600,
+          //           color: rite.colorSegunRITE(context),
+          //         ),
+          //       ),
+          //     ),
+          //     if (widget.esInfoAlumno)
+          //       Icon(
+          //         estaExpandido
+          //             ? Icons.arrow_drop_up_rounded
+          //             : Icons.arrow_drop_down_rounded,
+          //         color: colores.grisSC,
+          //         size: 25.pw,
+          //       ),
+          //     if (!widget.esInfoAlumno && idAsignatura != null)
+          //       BotonVerHistorialAsignatura(
+          //         idAsignatura: idAsignatura,
+          //       ),
+          //   ],
+          // ),
           backgroundColor: colores.tertiary,
           children: <Widget>[
             Divider(

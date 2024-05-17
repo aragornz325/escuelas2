@@ -6,6 +6,7 @@ import 'package:escuelas_flutter/utilidades/enums/textos_valorativos.dart';
 
 import 'package:escuelas_flutter/widgets/elemento_lista.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:full_responsive/full_responsive.dart';
 
@@ -38,11 +39,16 @@ class RowInfoAsignatura extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                state.nombreAsignatura.capitalize,
-                style: TextStyle(
-                  fontSize: 24.pf,
-                  fontWeight: FontWeight.w800,
+              ConstrainedBox(
+                constraints: BoxConstraints.tightFor(
+                  width: 130.pw,
+                ),
+                child: Text(
+                  state.nombreAsignatura.capitalize,
+                  style: TextStyle(
+                    fontSize: 24.pf,
+                    fontWeight: FontWeight.w800,
+                  ),
                 ),
               ),
               const SizedBox(width: 8),
