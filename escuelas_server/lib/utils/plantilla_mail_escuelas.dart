@@ -110,18 +110,19 @@ $contenido
     final meses = calificaciones.map((e) => e.numeroDeMes).toSet().toList()..sort();
     final asignaturas = this.asignaturas;
 
-    StringBuffer buffer = StringBuffer('<table style="margin: auto;text-align: center;border: 0px;"> <tr> ${elementoHeader('Asignatura')} ');
+    StringBuffer buffer = StringBuffer('<table style="margin: auto;text-align: center;border: 0px;"> <thead> <tr> ${elementoHeader('Asignatura')} ');
 
     for (final mes in meses) { 
       final nombreMes = DateFormat('LLLL', 'es_AR').format(DateTime(2024,mes));
 
       buffer.write(elementoHeader(nombreMes.replaceRange(0, 1, nombreMes[0].toUpperCase())));
-      buffer.write(elementoHeader('RITE'));
     }
+      buffer.write(elementoHeader('RITE'));
 
-    buffer.write('</tr> ');
+    buffer.write('</tr> </thead> <tbody> ');
 
     for (var asignatura in asignaturas) {
+      buffer.write(' <tr> ');
       buffer.write(tdNombreAsignatura(asignatura.nombre));
       for (var mes in meses) {
         final calificacionMes = calificaciones.firstWhere((element) => element.calificacion?.asignaturaId == asignatura.id && element.numeroDeMes == mes);
