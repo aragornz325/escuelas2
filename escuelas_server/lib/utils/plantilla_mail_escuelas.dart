@@ -127,8 +127,9 @@ $contenido
       for (var mes in meses) {
         final calificacionMes = calificaciones.firstWhere((element) => element.calificacion?.asignaturaId == asignatura.id && element.numeroDeMes == mes);
         buffer.write(tdNotaNumerica(double.tryParse(ValorDeCalificacionNumericaDecimal.values[calificacionMes.calificacion!.index].representacion)));
-        buffer.write(tdNotaValorativaNumerica(double.tryParse(ValorDeCalificacionNumericaDecimal.values[calificacionMes.calificacion!.index].representacion)));
       }
+      final promedio = calificaciones.where((element) => element.)
+      buffer.write(tdNotaValorativaNumerica());
       buffer.write('</tr> ');
     }
 
