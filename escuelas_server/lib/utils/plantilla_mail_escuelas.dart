@@ -116,6 +116,7 @@ $contenido
       final nombreMes = DateFormat('LLLL', 'es_AR').format(DateTime(2024,mes));
 
       buffer.write(elementoHeader(nombreMes.replaceRange(0, 1, nombreMes[0].toUpperCase())));
+      buffer.write(elementoHeader('RITE'));
     }
 
     buffer.write('</tr> ');
@@ -124,7 +125,8 @@ $contenido
       buffer.write(tdNombreAsignatura(asignatura.nombre));
       for (var mes in meses) {
         final calificacionMes = calificaciones.firstWhere((element) => element.calificacion?.asignaturaId == asignatura.id && element.numeroDeMes == mes);
-        buffer.write(calificacionMes.calificacion != null ? tdNotaNumerica(ValorDeCalificacionNumericaDecimal.values[calificacionMes.calificacion!.index].representacion) : tdNotaNumerica(null));
+        buffer.write(tdNotaNumerica(double.tryParse(ValorDeCalificacionNumericaDecimal.values[calificacionMes.calificacion!.index].representacion)));
+        buffer.write(tdNotaValorativaNumerica(double.tryParse(ValorDeCalificacionNumericaDecimal.values[calificacionMes.calificacion!.index].representacion)));
       }
       buffer.write('</tr> ');
     }
@@ -235,7 +237,7 @@ String header(String nombre, apellido, curso) => '''
                                                                 <div style="font-family:Nunito,Arial,sans-serif">
                                                                     <div style="font-size:12px;font-family:'Nunito',Arial,'Helvetica Neue',Helvetica,sans-serif;color:#ffffff;line-height:2">
                                                                         <p dir="ltr" style="margin:0;font-size:16px;text-align:center">
-                                                                            <span style="font-size:16px;color:#ffffff"><a href="mailto:+colegio.rm.alumnos@gmail.com" style="text-decoration:none;color:#eeeeee" rel="noopener" target="_blank">CONTACTO</a></span>
+                                                                            <span style="font-size:16px;color:#ffffff"><a href="mailto:colegio.rm.alumnos@gmail.com" style="text-decoration:none;color:#eeeeee" rel="noopener" target="_blank">CONTACTO</a></span>
                                                                         </p>
                                                                     </div>
                                                                 </div>
@@ -441,3 +443,16 @@ String elementoHeader(texto) => '''
   $texto
 </th>
 ''';
+
+String tdNotaValorativaNumerica(double? calificacion) {
+  if (calificacion == null) {
+     return '<td style="font-style:normal;font-weight:bold;font-size:14px;line-height:27px;text-align:center;color:#868888"> - </td>';
+  }
+  if (calificacion >= 7) {
+    return '<td style="font-style:normal;font-weight:bold;font-size:14px;line-height:27px;text-align:center;color:#62b446"> TEA </td>';
+  }
+  if (calificacion >= 4) {
+    return '<td style="font-style:normal;font-weight:bold;font-size:14px;line-height:27px;text-align:center;color:#ff7e21"> TEP </td>';
+  }
+  return '<td style="font-style:normal;font-weight:bold;font-size:14px;line-height:27px;text-align:center;color:#e43939"> TED </td>';
+}

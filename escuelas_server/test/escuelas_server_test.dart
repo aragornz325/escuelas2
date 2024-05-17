@@ -11,21 +11,20 @@ import 'server_test.dart';
 Future<void> main() async {
   final ahora = DateTime.now();
 
-  await run(['--mode', 'development']);
+  await run(['--mode', 'production', '--logging', 'verbose']);
 
   final session = await pod.createSession();
 
   final authKey = await session.auth.signInUser(1, 'email');
 
-  final resp = await ServicioComision()
-      .obtenerEstadoDeEnvioDeCalificacionesPorComisionPorMes(
+  await CalificacionEndpoint()
+      .enviarCalificacionesPorMesYAnio(
     session,
-    idComision: 1,
+    filtroDeEnvio: EnvioCalificaciones.porCurso,
+    idCursos: [1],
     anio: 2024,
-    mes: 3,
+    mes: 5,
   );
-
-  print(resp);
 
   exit(0);
 }
