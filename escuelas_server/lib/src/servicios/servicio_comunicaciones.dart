@@ -6,7 +6,6 @@ import 'package:mailer/mailer.dart';
 import 'package:serverpod/serverpod.dart';
 
 class ServicioComunicaciones extends Servicio {
-  
   Future<RespuestaMailer> enviarEmail(
     Session session, {
     required List<String> direccionEmailDestinatarios,
@@ -22,7 +21,7 @@ class ServicioComunicaciones extends Servicio {
 
     final message = Message()
       ..from = Address(env.direccionEmailGmail, nombreEnCorreosElectronicos)
-      ..recipients.addAll(['juanjgar998@gmail.com'])
+      ..recipients.addAll(direccionEmailDestinatarios)
       ..subject = asuntoDelCorreo
       ..html = contenidoHtmlDelCorreo;
 

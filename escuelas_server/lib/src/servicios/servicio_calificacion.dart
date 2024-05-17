@@ -689,7 +689,7 @@ GROUP BY rau."comisionId", com.nombre;
     logger.finest('${comisiones.length} comisiones encontradas.');
     logger.finer(
         'Buscando calificaciones del mes $mes ($mes_) de $anio de las comisiones ID ${comisiones.map((e) => e.id!).toList()}...');
-    
+
     final calificaciones =
         await _ormCalificacionMensual.obtenerCalificacionesEnvioMensual(
       session,
@@ -840,7 +840,8 @@ GROUP BY rau."comisionId", com.nombre;
     logger.finest('${comisiones.length} comisiones encontradas.');
     logger.finer(
         'Buscando calificaciones del mes $mes ($mes_) de $anio de los estudiantes...');
-    final calificaciones = await _ormCalificacionMensual.obtenerCalificacionesEnvioMensual(
+    final calificaciones =
+        await _ormCalificacionMensual.obtenerCalificacionesEnvioMensual(
       session,
       anio: anio,
       idEstudiantes: idEstudiantes,

@@ -20,7 +20,7 @@ class PlantillaEmailCalificaciones implements PlantillaEmailEscuelas {
     required this.mes,
   });
 
-  final String nombre;  
+  final String nombre;
   final String apellido;
   final String curso;
   final String calificaciones;
@@ -52,18 +52,21 @@ $contenido
   }
 
   String buildTablaDeCalificaciones(calificaciones, int mes) {
-    final Map<String,dynamic> calificaciones_ = jsonDecode(calificaciones);
-    final mes_ = DateFormat('LLLL', 'es_AR').format(DateTime(2024,mes));
+    final Map<String, dynamic> calificaciones_ = jsonDecode(calificaciones);
+    final mes_ = DateFormat('LLLL', 'es_AR').format(DateTime(2024, mes));
 
-    StringBuffer buffer = StringBuffer('<table style="margin: auto;text-align: center;border: 0px;"> <caption><b>${mes_.replaceRange(0, 1, mes_[0].toUpperCase())}</b></caption> <tr> <th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">Asignatura</th> <th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">Nota</th> </tr>');
+    StringBuffer buffer = StringBuffer(
+        '<table style="margin: auto;text-align: center;border: 0px;"> <caption><b>${mes_.replaceRange(0, 1, mes_[0].toUpperCase())}</b></caption> <tr> <th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">Asignatura</th> <th style="font-family: \'Nunito\';font-style: normal;font-weight: 600;font-size: 15px;line-height: 20px;text-align: center;color: #6d6d6d;">Nota</th> </tr>');
 
     for (var nombreAsignatura in calificaciones_.keys) {
-      final calificacion = protocol.Calificacion.fromJson(calificaciones_[nombreAsignatura], protocol.Protocol());
-      buffer.write(' <tr> <td style="border: 1px solid #1e1e1e;border-radius: 3px;font-family: Nunito;font-size: 18px;font-weight: 600;padding: 10px 20px !important;">$nombreAsignatura</td> <td style="font-family: \'Nunito\';font-style: normal;font-weight: 900;font-size: 18px;line-height: 27px;text-align: center;color: #000000;">${ValorDeCalificacionNumericaDecimal.values[calificacion.index].representacion}</td> </tr> ');
+      final calificacion = protocol.Calificacion.fromJson(
+          calificaciones_[nombreAsignatura], protocol.Protocol());
+      buffer.write(
+          ' <tr> <td style="border: 1px solid #1e1e1e;border-radius: 3px;font-family: Nunito;font-size: 18px;font-weight: 600;padding: 10px 20px !important;">$nombreAsignatura</td> <td style="font-family: \'Nunito\';font-style: normal;font-weight: 900;font-size: 18px;line-height: 27px;text-align: center;color: #000000;">${ValorDeCalificacionNumericaDecimal.values[calificacion.index].representacion}</td> </tr> ');
     }
     buffer.write(' </table>');
     return buffer.toString();
-  } 
+  }
 }
 
 class PlantillaEmailCalificacionesMensuales implements PlantillaEmailEscuelas {
@@ -75,7 +78,7 @@ class PlantillaEmailCalificacionesMensuales implements PlantillaEmailEscuelas {
     required this.calificaciones,
   });
 
-  final String nombre;  
+  final String nombre;
   final String apellido;
   final String curso;
   final List<Asignatura> asignaturas;
@@ -107,17 +110,20 @@ $contenido
   }
 
   String buildTablaDeCalificaciones(List<CalificacionMensual> calificaciones) {
-    final meses = calificaciones.map((e) => e.numeroDeMes).toSet().toList()..sort();
+    final meses = calificaciones.map((e) => e.numeroDeMes).toSet().toList()
+      ..sort();
     final asignaturas = this.asignaturas;
 
-    StringBuffer buffer = StringBuffer('<table style="margin: auto;text-align: center;border: 0px;"> <thead> <tr> ${elementoHeader('Asignatura')} ');
+    StringBuffer buffer = StringBuffer(
+        '<table style="margin: auto;text-align: center;border: 0px;"> <thead> <tr> ${elementoHeader('Asignatura')} ');
 
-    for (final mes in meses) { 
-      final nombreMes = DateFormat('LLLL', 'es_AR').format(DateTime(2024,mes));
+    for (final mes in meses) {
+      final nombreMes = DateFormat('LLLL', 'es_AR').format(DateTime(2024, mes));
 
-      buffer.write(elementoHeader(nombreMes.replaceRange(0, 1, nombreMes[0].toUpperCase())));
+      buffer.write(elementoHeader(
+          nombreMes.replaceRange(0, 1, nombreMes[0].toUpperCase())));
     }
-      buffer.write(elementoHeader('RITE'));
+    buffer.write(elementoHeader('RITE'));
 
     buffer.write('</tr> </thead> <tbody> ');
 
@@ -125,17 +131,29 @@ $contenido
       buffer.write(' <tr> ');
       buffer.write(tdNombreAsignatura(asignatura.nombre));
       for (var mes in meses) {
-        final calificacionMes = calificaciones.firstWhere((element) => element.calificacion?.asignaturaId == asignatura.id && element.numeroDeMes == mes);
-        buffer.write(tdNotaNumerica(double.tryParse(ValorDeCalificacionNumericaDecimal.values[calificacionMes.calificacion!.index].representacion)));
+        final calificacionMes = calificaciones.firstWhere((element) =>
+            element.calificacion?.asignaturaId == asignatura.id &&
+            element.numeroDeMes == mes);
+        buffer.write(tdNotaNumerica(double.tryParse(
+            ValorDeCalificacionNumericaDecimal
+                .values[calificacionMes.calificacion!.index].representacion)));
       }
-      final promedio = calificaciones.where((element) => element.)
-      buffer.write(tdNotaValorativaNumerica());
+      final notas = calificaciones
+          .where(
+              (element) => element.calificacion?.asignaturaId == asignatura.id)
+          .map((e) => double.tryParse(ValorDeCalificacionNumericaDecimal
+              .values[e.calificacion!.index].representacion));
+      final promedio = notas.isNotEmpty
+          ? (notas.reduce((value, element) => value! + element!)! /
+              notas.length)
+          : null;
+      buffer.write(promedio == null ? '-' : tdNotaValorativaNumerica(promedio));
       buffer.write('</tr> ');
     }
 
-    buffer.write(' </table>');
+    buffer.write(' </tbody> </table>');
     return buffer.toString();
-  } 
+  }
 }
 
 String header(String nombre, apellido, curso) => '''
@@ -448,7 +466,7 @@ String elementoHeader(texto) => '''
 
 String tdNotaValorativaNumerica(double? calificacion) {
   if (calificacion == null) {
-     return '<td style="font-style:normal;font-weight:bold;font-size:14px;line-height:27px;text-align:center;color:#868888"> - </td>';
+    return '<td style="font-style:normal;font-weight:bold;font-size:14px;line-height:27px;text-align:center;color:#868888"> - </td>';
   }
   if (calificacion >= 7) {
     return '<td style="font-style:normal;font-weight:bold;font-size:14px;line-height:27px;text-align:center;color:#62b446"> TEA </td>';
