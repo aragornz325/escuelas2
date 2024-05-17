@@ -21,7 +21,7 @@ class ServicioComunicaciones extends Servicio {
 
     final message = Message()
       ..from = Address(env.direccionEmailGmail, nombreEnCorreosElectronicos)
-      ..recipients.addAll(direccionEmailDestinatarios)
+      ..recipients.addAll(direccionEmailDestinatarios.map((e) => e.trim()))
       ..subject = asuntoDelCorreo
       ..html = contenidoHtmlDelCorreo;
 

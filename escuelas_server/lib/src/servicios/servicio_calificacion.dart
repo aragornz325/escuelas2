@@ -408,10 +408,11 @@ GROUP BY rau."comisionId", com.nombre;
 
     logger.finer('Comprobando comisiones y enviando calificaciones...');
     for (var comision in comisiones) {
-      logger.finer('Comprobando estudiantes de comisión ID ${comision.id}...');
+      logger.finer(
+          'Comprobando estudiantes de la comisión ${comision.nombre}...');
       for (var estudiante in comision.listaDeEstudiantes) {
-        logger
-            .finer('Enviando calificaciones a estudiante ${estudiante.id}...');
+        logger.finer(
+            'Enviando calificaciones a estudiante ${estudiante.nombre} ${estudiante.apellido}...');
 
         final calificacionesEstudiante = calificaciones
             .where(
@@ -432,10 +433,8 @@ GROUP BY rau."comisionId", com.nombre;
         if (emailEnviado_ != null) {
           final direccionesALasQueFueEnviadoElCorreo =
               emailEnviado_.direccionesEmailDestinatarios.split(';');
-          final direccionesTestadas =
-              _testarDireccionesDeEmail(direccionesALasQueFueEnviadoElCorreo);
           logger.finest(
-              'Existe un correo previamente enviado a las direcciones $direccionesTestadas.');
+              'Existe un correo previamente enviado a las direcciones $emailsDestinatarios.');
           logger.finer('Eliminando direcciones de destinatarios...');
           emailsDestinatarios.removeWhere(
             (element) => direccionesALasQueFueEnviadoElCorreo.contains(element),
@@ -448,10 +447,8 @@ GROUP BY rau."comisionId", com.nombre;
           continue;
         }
 
-        final direccionesTestadas =
-            _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
-            'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
+            'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $emailsDestinatarios...');
 
         List<String> emailsDestinatariosFinal = emailsDestinatarios;
 
@@ -486,12 +483,22 @@ GROUP BY rau."comisionId", com.nombre;
             );
             emailsDestinatariosFinal.remove(email);
             continue;
+          } catch (e, st) {
+            logger.shout(e.toString());
+            session.log(
+              e.toString(),
+              exception: e.toString(),
+              level: LogLevel.error,
+              stackTrace: st,
+            );
+            emailsDestinatariosFinal.remove(email);
+            continue;
           }
         }
 
         if (emailsDestinatariosFinal.isEmpty) {
           logger.info(
-              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ${estudiante.nombre} ${estudiante.apellido}.');
           continue;
         }
 
@@ -511,10 +518,10 @@ GROUP BY rau."comisionId", com.nombre;
         );
 
         logger.finest(
-            'Envío de calificaciones del mes $mes ($mes_) de $anio a Estudiante ID ${estudiante.id} finalizado.');
+            'Envío de calificaciones del mes $mes ($mes_) de $anio a Estudiante ${estudiante.nombre} ${estudiante.apellido} finalizado.');
       }
       logger.finest(
-          'Envío de calificaciones del mes $mes ($mes_) de $anio a estudiantes de comisión ID ${comision.id} finalizado.');
+          'Envío de calificaciones del mes $mes ($mes_) de $anio a estudiantes de la comisión ${comision.nombre} finalizado.');
     }
     logger.finest(
         'Envío de calificaciones del mes $mes ($mes_) de $anio finalizado.');
@@ -562,10 +569,11 @@ GROUP BY rau."comisionId", com.nombre;
 
     logger.finer('Comprobando comisiones y enviando calificaciones...');
     for (var comision in comisiones) {
-      logger.finer('Comprobando estudiantes de comisión ID ${comision.id}...');
+      logger.finer(
+          'Comprobando estudiantes de la comisión ${comision.nombre}...');
       for (var estudiante in comision.listaDeEstudiantes) {
-        logger
-            .finer('Enviando calificaciones a estudiante ${estudiante.id}...');
+        logger.finer(
+            'Enviando calificaciones a estudiante ${estudiante.nombre} ${estudiante.apellido}...');
         final calificacionesEstudiante = calificaciones
             .where(
               (element) => element.calificacion?.estudianteId == estudiante.id,
@@ -585,10 +593,8 @@ GROUP BY rau."comisionId", com.nombre;
         if (emailEnviado_ != null) {
           final direccionesALasQueFueEnviadoElCorreo =
               emailEnviado_.direccionesEmailDestinatarios.split(';');
-          final direccionesTestadas =
-              _testarDireccionesDeEmail(direccionesALasQueFueEnviadoElCorreo);
           logger.finest(
-              'Existe un correo previamente enviado a las direcciones $direccionesTestadas.');
+              'Existe un correo previamente enviado a las direcciones $emailsDestinatarios.');
           logger.finer('Eliminando direcciones de destinatarios...');
           emailsDestinatarios.removeWhere(
             (element) => direccionesALasQueFueEnviadoElCorreo.contains(element),
@@ -603,10 +609,8 @@ GROUP BY rau."comisionId", com.nombre;
 
         List<String> emailsDestinatariosFinal = emailsDestinatarios;
 
-        final direccionesTestadas =
-            _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
-            'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
+            'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $emailsDestinatarios...');
         for (var email in emailsDestinatarios) {
           try {
             final respuestaMailer = await ServicioComunicaciones().enviarEmail(
@@ -643,7 +647,7 @@ GROUP BY rau."comisionId", com.nombre;
 
         if (emailsDestinatariosFinal.isEmpty) {
           logger.info(
-              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ${estudiante.nombre} ${estudiante.apellido}.');
           continue;
         }
 
@@ -661,10 +665,10 @@ GROUP BY rau."comisionId", com.nombre;
           ),
         );
         logger.finest(
-            'Envío de calificaciones del mes $mes ($mes_) de $anio a Estudiante ID ${estudiante.id} finalizado.');
+            'Envío de calificaciones del mes $mes ($mes_) de $anio a Estudiante ${estudiante.nombre} ${estudiante.apellido} finalizado.');
       }
       logger.finest(
-          'Envío de calificaciones del mes $mes ($mes_) de $anio a estudiantes de comisión ID ${comision.id} finalizado.');
+          'Envío de calificaciones del mes $mes ($mes_) de $anio a estudiantes de la comisión ${comision.nombre} finalizado.');
     }
     logger.finest(
         'Envío de calificaciones del mes $mes ($mes_) de $anio finalizado.');
@@ -714,10 +718,11 @@ GROUP BY rau."comisionId", com.nombre;
 
     logger.finer('Comprobando comisiones y enviando calificaciones...');
     for (var comision in comisiones) {
-      logger.finer('Comprobando estudiantes de comisión ID ${comision.id}...');
+      logger.finer(
+          'Comprobando estudiantes de la comisión ${comision.nombre}...');
       for (var estudiante in comision.listaDeEstudiantes) {
-        logger
-            .finer('Enviando calificaciones a estudiante ${estudiante.id}...');
+        logger.finer(
+            'Enviando calificaciones a estudiante ${estudiante.nombre} ${estudiante.apellido}...');
         final calificacionesEstudiante = calificaciones
             .where(
               (element) => element.calificacion?.estudianteId == estudiante.id,
@@ -737,10 +742,8 @@ GROUP BY rau."comisionId", com.nombre;
         if (emailEnviado_ != null) {
           final direccionesALasQueFueEnviadoElCorreo =
               emailEnviado_.direccionesEmailDestinatarios.split(';');
-          final direccionesTestadas =
-              _testarDireccionesDeEmail(direccionesALasQueFueEnviadoElCorreo);
           logger.finest(
-              'Existe un correo previamente enviado a las direcciones $direccionesTestadas.');
+              'Existe un correo previamente enviado a las direcciones $emailsDestinatarios.');
           logger.finer('Eliminando direcciones de destinatarios...');
           emailsDestinatarios.removeWhere(
             (element) => direccionesALasQueFueEnviadoElCorreo.contains(element),
@@ -755,10 +758,8 @@ GROUP BY rau."comisionId", com.nombre;
 
         List<String> emailsDestinatariosFinal = emailsDestinatarios;
 
-        final direccionesTestadas =
-            _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
-            'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
+            'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $emailsDestinatarios...');
         for (var email in emailsDestinatarios) {
           try {
             final respuestaMailer = await ServicioComunicaciones().enviarEmail(
@@ -795,7 +796,7 @@ GROUP BY rau."comisionId", com.nombre;
 
         if (emailsDestinatariosFinal.isEmpty) {
           logger.info(
-              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ${estudiante.nombre} ${estudiante.apellido}.');
           continue;
         }
 
@@ -813,10 +814,10 @@ GROUP BY rau."comisionId", com.nombre;
           ),
         );
         logger.finest(
-            'Envío de calificaciones del mes $mes ($mes_) de $anio a Estudiante ID ${estudiante.id} finalizado.');
+            'Envío de calificaciones del mes $mes ($mes_) de $anio a Estudiante ${estudiante.nombre} ${estudiante.apellido} finalizado.');
       }
       logger.finest(
-          'Envío de calificaciones del mes $mes ($mes_) de $anio a estudiantes de comisión ID ${comision.id} finalizado.');
+          'Envío de calificaciones del mes $mes ($mes_) de $anio a estudiantes de la comisión ${comision.nombre} finalizado.');
     }
     logger.finest(
         'Envío de calificaciones del mes $mes ($mes_) de $anio finalizado.');
@@ -865,10 +866,11 @@ GROUP BY rau."comisionId", com.nombre;
     logger.finer('Comprobando comisiones y enviando calificaciones...');
     for (var comision
         in comisiones.where((element) => element.estudiantes!.isNotEmpty)) {
-      logger.finer('Comprobando estudiantes de comisión ID ${comision.id}...');
+      logger.finer(
+          'Comprobando estudiantes de la comisión ${comision.nombre}...');
       for (var estudiante in comision.listaDeEstudiantes) {
-        logger
-            .finer('Enviando calificaciones a estudiante ${estudiante.id}...');
+        logger.finer(
+            'Enviando calificaciones a estudiante ${estudiante.nombre} ${estudiante.apellido}...');
         final calificacionesEstudiante = calificaciones
             .where(
               (element) => element.calificacion?.estudianteId == estudiante.id,
@@ -888,10 +890,8 @@ GROUP BY rau."comisionId", com.nombre;
         if (emailEnviado_ != null) {
           final direccionesALasQueFueEnviadoElCorreo =
               emailEnviado_.direccionesEmailDestinatarios.split(';');
-          final direccionesTestadas =
-              _testarDireccionesDeEmail(direccionesALasQueFueEnviadoElCorreo);
           logger.finest(
-              'Existe un correo previamente enviado a las direcciones $direccionesTestadas.');
+              'Existe un correo previamente enviado a las direcciones $emailsDestinatarios.');
           logger.finer('Eliminando direcciones de destinatarios...');
           emailsDestinatarios.removeWhere(
             (element) => direccionesALasQueFueEnviadoElCorreo.contains(element),
@@ -906,10 +906,8 @@ GROUP BY rau."comisionId", com.nombre;
 
         List<String> emailsDestinatariosFinal = emailsDestinatarios;
 
-        final direccionesTestadas =
-            _testarDireccionesDeEmail(emailsDestinatarios);
         logger.finer(
-            'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $direccionesTestadas...');
+            'Enviando correo con calificaciones del mes $mes ($mes_) de $anio a $emailsDestinatarios...');
         for (var email in emailsDestinatarios) {
           try {
             final respuestaMailer = await ServicioComunicaciones().enviarEmail(
@@ -946,7 +944,7 @@ GROUP BY rau."comisionId", com.nombre;
 
         if (emailsDestinatariosFinal.isEmpty) {
           logger.info(
-              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ID ${estudiante.id}.');
+              'No se pudo enviar calificaciones a ninguna dirección de correo del estudiante ${estudiante.nombre} ${estudiante.apellido}.');
           continue;
         }
 
@@ -964,10 +962,10 @@ GROUP BY rau."comisionId", com.nombre;
           ),
         );
         logger.finest(
-            'Envío de calificaciones del mes $mes ($mes_) de $anio a Estudiante ID ${estudiante.id} finalizado.');
+            'Envío de calificaciones del mes $mes ($mes_) de $anio a Estudiante ${estudiante.nombre} ${estudiante.apellido} finalizado.');
       }
       logger.finest(
-          'Envío de calificaciones del mes $mes ($mes_) de $anio a estudiantes de comisión ID ${comision.id} finalizado.');
+          'Envío de calificaciones del mes $mes ($mes_) de $anio a estudiantes de la comisión ${comision.nombre} finalizado.');
     }
     logger.finest(
         'Envío de calificaciones del mes $mes ($mes_) de $anio finalizado.');
@@ -1011,24 +1009,24 @@ GROUP BY rau."comisionId", com.nombre;
   String _mesDeNumeroANombre(int anio, int mes) =>
       DateFormat('LLLL', 'es_AR').format(DateTime(anio, mes));
 
-  Iterable<String> _testarDireccionesDeEmail(
-      Iterable<String> direccionesDeEmail) {
-    try {
-      return direccionesDeEmail.map((e) {
-        final hostDominio = e.split('@');
-        final host = hostDominio.first;
-        final dominio = hostDominio.last.split('.').first;
-        final hostTestado = host.replaceRange(
-            1, host.length - 1, ''.padRight(host.length - 2, '*'));
-        final dominioTestado = dominio.replaceRange(
-            1, dominio.length - 1, ''.padRight(dominio.length - 2, '*'));
-        return [
-          hostTestado,
-          hostDominio.last.replaceAll(dominio, dominioTestado)
-        ].join('@');
-      });
-    } catch (e) {
-      return [];
-    }
-  }
+  // Iterable<String> _testarDireccionesDeEmail(
+  //     Iterable<String> direccionesDeEmail) {
+  //   try {
+  //     return direccionesDeEmail.map((e) {
+  //       final hostDominio = e.split('@');
+  //       final host = hostDominio.first;
+  //       final dominio = hostDominio.last.split('.').first;
+  //       final hostTestado = host.replaceRange(
+  //           1, host.length - 1, ''.padRight(host.length - 2, '*'));
+  //       final dominioTestado = dominio.replaceRange(
+  //           1, dominio.length - 1, ''.padRight(dominio.length - 2, '*'));
+  //       return [
+  //         hostTestado,
+  //         hostDominio.last.replaceAll(dominio, dominioTestado)
+  //       ].join('@');
+  //     });
+  //   } catch (e) {
+  //     return [];
+  //   }
+  // }
 }

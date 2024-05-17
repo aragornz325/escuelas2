@@ -141,10 +141,14 @@ $contenido
       final notas = calificaciones
           .where(
               (element) => element.calificacion?.asignaturaId == asignatura.id)
+          .where((nota) =>
+              nota.calificacion?.index !=
+                  ValorDeCalificacionNumericaDecimal.sinCalificar.index &&
+              nota.calificacion != null)
           .map((e) => double.tryParse(ValorDeCalificacionNumericaDecimal
               .values[e.calificacion!.index].representacion));
       final promedio = notas.isNotEmpty
-          ? (notas.reduce((value, element) => value! + element!)! /
+          ? (notas.reduce((value, element) => (value ?? 0) + (element ?? 0))! /
               notas.length)
           : null;
       buffer.write(promedio == null ? '-' : tdNotaValorativaNumerica(promedio));
