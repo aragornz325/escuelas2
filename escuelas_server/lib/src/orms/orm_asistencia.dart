@@ -46,28 +46,37 @@ class OrmAsistencia extends ORM<AsistenciaDiaria> {
     Session session, {
     required List<AsistenciaDiaria> asistencias,
   }) async {
-    final asistenciasADb = await AsistenciaDiaria.db.update(
+    final ahora = DateTime.now();
+    List<AsistenciaDiaria> nuevasAsistenciasCreadas = [];
+
+    final asistenciasActualizadas = await AsistenciaDiaria.db.update(
       session,
       asistencias,
     );
 
-    // TODO(anyone):
-    // Mejorar esto, se hizo para no perder las relaciones que
-    // tiene la lista de asistencias que necesita el front
-    final respuesta = await AsistenciaDiaria.db.find(
-      session,
-      where: (t) => t.id.contains(
-        asistenciasADb.map((e) => e.id!).toList(),
-        AsistenciaDiaria.t.tableName,
-      ),
-      include: AsistenciaDiaria.include(estudiante: Usuario.include()),
-    );
+    final asistenciasNoExistentes = asistencias
+        .where((element) => asistenciasActualizadas.contains(element) == false)
+        .toList();
+        
+    if (asistenciasNoExistentes.isNotEmpty) {
+      final nuevasAsistencias = await insertarVariosRegistrosEnDb(
+        session,
+        nuevosRegistros: asistenciasNoExistentes
+            .map(
+              (e) => e
+                ..fechaCreacion = ahora
+                ..ultimaModificacion = ahora,
+            )
+            .toList(),
+      );
 
-    if (asistenciasADb.length != asistencias.length) {
-      throw Exception('No se pudieron actualizar todas las asistencias');
+      nuevasAsistenciasCreadas.addAll(nuevasAsistencias);
     }
 
-    return respuesta;
+    return [
+      ...asistenciasActualizadas,
+      ...nuevasAsistenciasCreadas,
+    ];
   }
 
   /// la funcion "traerAsistenciaPorDia" trae la asistencia de un dia en particular

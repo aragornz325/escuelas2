@@ -6,6 +6,6 @@ fields:
   estadoDeAsistencia: EstadoDeAsistencia
   fecha: DateTime
   idJustificacion: int?, relation(parent=justificaciones_de_asistencia)
-  ultimaModificacion: DateTime?
-  fechaCreacion: DateTime?
-  fechaEliminacion: DateTime?
+  ultimaModificacion: DateTime?, scope=serverOnly
+  fechaCreacion: DateTime?, scope=serverOnly
+  fechaEliminacion: DateTime?, scope=serverOnly
