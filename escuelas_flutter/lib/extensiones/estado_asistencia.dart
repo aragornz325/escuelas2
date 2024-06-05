@@ -95,34 +95,6 @@ extension EstadoDeAsistenciaX on EstadoDeAsistencia {
     }).length;
   }
 
-  /// Verifica si existe una inasistencia de la lista
-  bool existeInasistencia({
-    required List<AsistenciaDiaria> asistenciasDiarias,
-    required int idEstudiante,
-    required DateTime fecha,
-  }) {
-    return asistenciasDiarias.any(
-      (asistencia) =>
-          (asistencia.ultimaModificacion?.mismaFecha(fecha) ?? false) &&
-          asistencia.estudiante?.id == idEstudiante,
-    );
-  }
-
-  /// Verificar si ya existe una inasistencia exactamente igual
-  bool tieneLaMismaInasistencia({
-    required List<AsistenciaDiaria> asistenciasDiarias,
-    required int idEstudiante,
-    required DateTime fecha,
-    required EstadoDeAsistencia estado,
-  }) {
-    return asistenciasDiarias.any(
-      (asistencia) =>
-          (asistencia.ultimaModificacion?.mismaFecha(fecha) ?? false) &&
-          asistencia.estudiante?.id == idEstudiante &&
-          asistencia.estadoDeAsistencia == estado,
-    );
-  }
-
   /// Verifica si existe un estudiante con el id
   bool existeMismoEstudiante(
     List<AsistenciaDiaria> asistenciasDiarias,

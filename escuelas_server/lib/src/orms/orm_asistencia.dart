@@ -48,23 +48,26 @@ class OrmAsistencia extends ORM<AsistenciaDiaria> {
   }) async {
     final ahora = DateTime.now();
     List<AsistenciaDiaria> nuevasAsistenciasCreadas = [];
-    List<AsistenciaDiaria> asistenciasParaActualizar = asistencias..where((element) => element.id != null).toList();
+    List<AsistenciaDiaria> asistenciasParaActualizar =
+        asistencias.where((element) => element.id != null).toList();
 
     final asistenciasActualizadas = await AsistenciaDiaria.db.update(
       session,
       asistenciasParaActualizar,
+      columns: (p0) => [p0.estadoDeAsistencia, p0.ultimaModificacion],
     );
 
     List<AsistenciaDiaria> asistenciasNoExistentes = [];
 
     for (var asistencia in asistencias) {
-      final asistencia_ = asistenciasActualizadas.where((element) => element.id == asistencia.id);
+      final asistencia_ = asistenciasActualizadas
+          .where((element) => element.id == asistencia.id);
 
       if (asistencia_.isEmpty) {
         asistenciasNoExistentes.add(asistencia);
       }
     }
-  
+
     if (asistenciasNoExistentes.isNotEmpty) {
       final nuevasAsistencias = await insertarVariosRegistrosEnDb(
         session,

@@ -100,19 +100,9 @@ class BlocInasistencias
           return emit(BlocInasistenciasEstadoExitoso.desde(state));
         }
 
-        // Elimina las entidades porque serverpod no soporta la
-        // serialización de entidades con relaciones
-        final inasistencias = event.inasistencias
-            .map(
-              (e) => e
-                ..comision = null
-                ..estudiante = null,
-            )
-            .toList();
-
         final asistenciasCreadas =
             await client.asistencia.crearAsistenciasEnLote(
-          asistencias: inasistencias,
+          asistencias: event.inasistencias,
         );
 
         final comisionesConAsistencias = List<ComisionConAsistencias>.from(
@@ -152,19 +142,23 @@ class BlocInasistencias
           return emit(BlocInasistenciasEstadoExitoso.desde(state));
         }
 
-        // Elimina las entidades porque serverpod no soporta la
-        // serialización de entidades con relaciones
-        final inasistenciasActualizadas = event.inasistencias
-            .map(
-              (e) => e
-                ..comision = null
-                ..estudiante = null,
-            )
-            .toList();
-
         final asistencias = await client.asistencia.actualizarAsistenciasEnLote(
-          asistencias: inasistenciasActualizadas,
+          asistencias: event.inasistencias,
         );
+
+        final asistenciasConEstudiante = asistencias.map((asistencia) {
+          final asistenciaOriginal = event.inasistencias.firstWhere(
+            (e) => e.estudianteId == asistencia.estudianteId,
+          );
+          if (asistenciaOriginal.id == null) {
+            asistencia
+              ..estudiante = asistenciaOriginal.estudiante
+              ..id = asistenciaOriginal.id;
+          }
+          asistencia.estudiante = asistenciaOriginal.estudiante;
+
+          return asistencia;
+        }).toList();
 
         final comisionesConAsistencias = List<ComisionConAsistencias>.from(
           state.comisionesConAsistencias.map(
@@ -173,7 +167,7 @@ class BlocInasistencias
                       event.idComision
                   ? ComisionConAsistencias(
                       comisionDeCurso: comisionConAsistencias.comisionDeCurso,
-                      inasistenciasDelCurso: asistencias,
+                      inasistenciasDelCurso: asistenciasConEstudiante,
                     )
                   : comisionConAsistencias;
             },
