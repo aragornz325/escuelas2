@@ -54,9 +54,15 @@ class OrmAsistencia extends ORM<AsistenciaDiaria> {
       asistencias,
     );
 
-    final asistenciasNoExistentes = asistencias
-        .where((element) => asistenciasActualizadas.contains(element) == false)
-        .toList();
+    List<AsistenciaDiaria> asistenciasNoExistentes = [];
+
+    for (var asistencia in asistencias) {
+      final asistencia_ = asistenciasActualizadas.where((element) => element.id == asistencia.id);
+
+      if (asistencia_.isEmpty) {
+        asistenciasNoExistentes.add(asistencia);
+      }
+    }
         
     if (asistenciasNoExistentes.isNotEmpty) {
       final nuevasAsistencias = await insertarVariosRegistrosEnDb(
