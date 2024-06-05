@@ -48,10 +48,11 @@ class OrmAsistencia extends ORM<AsistenciaDiaria> {
   }) async {
     final ahora = DateTime.now();
     List<AsistenciaDiaria> nuevasAsistenciasCreadas = [];
+    List<AsistenciaDiaria> asistenciasParaActualizar = asistencias..where((element) => element.id != null).toList();
 
     final asistenciasActualizadas = await AsistenciaDiaria.db.update(
       session,
-      asistencias,
+      asistenciasParaActualizar,
     );
 
     List<AsistenciaDiaria> asistenciasNoExistentes = [];
@@ -63,7 +64,7 @@ class OrmAsistencia extends ORM<AsistenciaDiaria> {
         asistenciasNoExistentes.add(asistencia);
       }
     }
-        
+  
     if (asistenciasNoExistentes.isNotEmpty) {
       final nuevasAsistencias = await insertarVariosRegistrosEnDb(
         session,
